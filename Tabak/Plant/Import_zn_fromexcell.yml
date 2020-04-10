@@ -1,0 +1,183 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 277799957_1431326289
+  Name: "Import_zn_fromexcell"
+  Caption: "Import_into_zn_fr_excel"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 0F5C3CEEB0C5D2B5352C5F611F7C569D
+Uses: 
+  - "147093152_1892754951 GS.Общепит.back - Хранилище"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 277799715_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "tb_import_fromExcell"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-04-10T16:25:49+03:00
+      DISPLAYSCRIPT: | 
+        TB_IMPORT_FROMEXCELL
+        PROGRESSFORM_XLS_EXCEPT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function tb_import_fromExcell(OwnerForm)
+        
+          Dim Creator, TDialog, Excel, Sheet, Start
+          Set Creator = New TCreator
+        
+          dim gdcObject,  gdcDetailObject
+          set gdcObject = OwnerForm.gdcObject
+          set gdcDetailObject = OwnerForm.gdcDetailObject
+        
+          Set TDialog = Creator.GetObject(Null, "TOpenDialog", "")
+          TDialog.Filter = "*.xls|*.xls"
+          TDialog.DefaultExt = "xls"
+          If Not TDialog.Execute Then Exit Function
+        
+          Set Excel = CreateObject("Excel.Application")
+          Call Excel.Workbooks.Open(TDialog.FileName)
+          Set Sheet = Excel.Application.ActiveSheet
+        
+          'посчитаем число строк
+          dim i, records
+          i = 2
+          records = 0
+          WHILE Excel.ActiveSheet.Cells(i, 1).Value <> ""
+            records = records + 1
+            i = i + 1
+          wend
+          
+          if i<=1 Then
+            call Application.MessageBox("Файл не содержит записей для импорта!" + VbLF  + _
+              "Загрузка прервана.", "Внимание", vbOkOnly + vbSystemMOdal +vbExclamation)
+             Excel.Quit
+             Set Excel = Nothing
+            exit function
+          end if
+          
+          dim DocNumb, DocDate, Dept
+          ' получим данные для шапки документа с 1 записи данных
+          DocNumb = Excel.ActiveSheet.Cells(2, 7).Value
+          DocDate = Excel.ActiveSheet.Cells(2, 8).Value
+          
+          dim ibSQL
+          set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsql.Transaction = gdcBaseManager.ReadTransaction
+              ibsql.SQL.Text = _
+              "SELECT FIRST(1) " & _
+              "G.iD AS GOODKEY, " & _
+              "R.DOCUMENTKEY " & _
+              "FROM GD_GOOD G " & _
+              "LEFT JOIN USR$MN_RECEIPT R ON R.USR$GOODKEY = G.ID " & _
+              "JOIN GD_DOCUMENT D ON D.ID = R.DOCUMENTKEY " & _
+              "WHERE G.BARCODE =:BARCODE " & _
+              "AND R.USR$DEPOTKEY = :DEPT " & _
+              "ORDER BY D.DOCUMENTDATE DESC "
+        
+          dim ErrList
+          set ErrList = Creator.GetObject(nil, "TStringList", "")
+          ErrList.Add("Описание ошибок при импорте из Excell: ")
+        
+          dim Log
+          Set Log = CreateObject("WScript.Shell")
+        
+          Dim fso
+          Set fso = CreateObject("Scripting.FileSystemObject")
+          
+          dim frmPr
+          Set frmPr = new Tvb_ren_frmProgressBar
+          frmPr.Caption = "Идёт списание продуктов."
+          frmPr.Note = "Подождите пожалуйста..."
+          frmPr.Step = 1
+          frmPr.Smooth = True
+          frmPr.Min = 0
+          frmPr.Max = records
+          frmPr.Show
+          Except ProgressForm_xls_Except(frmPr, Excel)
+          
+          dim Cost, BarCode, Quant, errK
+          errK=0
+          i=2
+          WHILE Excel.ActiveSheet.Cells(i, 1).Value <> ""
+           frmPr.Note = "Подождите пожалуйста..." + VbCr + _
+                       " Обработано " + Cstr(frmPr.Position) + " записей " + " из " + Cstr(frmPr.Max)
+           frmPr.Position = i-1
+           Application.ProcessMessages
+           
+           BarCode = Excel.ActiveSheet.Cells(i, 47).Value ' BarCode
+           Quant = Excel.ActiveSheet.Cells(i, 9).Value ' Quant
+           Cost = Excel.ActiveSheet.Cells(i, 13).Value ' Cost
+        
+           if Cost<>0 and BarCode<>"" then
+             IBSQL.CLOSE
+             IBSQL.ParamBYName("BARCODE").asVariant = BarCode
+             IBSQL.ParamBYName("DEPT").asVariant =gdcObject.FieldByName("USR$DEPOTKEY").asInteger
+             IBSQL.EXECQUERY
+        
+             IF IBSQL.eof THEN
+               errK = errK + 1
+               ErrList.Add("Рецепт со ШК: " + BarCode + " не найден на данном подразделении.")
+             END IF
+        
+             IF not IBSQL.eof THEN
+               gdcDetailObject.Append
+               gdcDetailObject.FieldByName("USR$RECEIPTKEY").AsInteger =  ibsql.FieldByName("DOCUMENTKEY").AsInteger
+               gdcDetailObject.FieldByName("USR$GOODKEY").AsInteger = ibsql.FieldByName("GOODKEY").AsInteger
+               gdcDetailObject.FieldByName("USR$QUANTITY").AsCurrency = Quant
+               gdcDetailObject.FieldByName("USR$SELLCOST").AsCurrency = Cost
+               gdcDetailObject.Post
+             END IF
+           end if
+        
+          i=i+1
+          WEND
+          
+          call Application.MessageBox("Импорт завершен!","Внимание!",vbOkOnly+vbInformation+vbSystemMOdal)
+              OwnerForm.ReFresh
+        
+          if ErrList.Count > 1 then
+            ErrList.Add("Всего не найдено: " + CSTR(errK) + " из: " + CSTR(records) + " записей")
+            ErrList.SaveToFile("D:\import.txt")
+            IF Application.MessageBox("Список не найденных рецептов сохранен в файле D:\import.txt. Открыть для просмотра?","Внимание", _
+              vbYesNo + vbExclamation+vbSystemModal)= vbYes then
+                Log.Run("notepad D:\import.txt")
+            END IF
+          end if
+          
+          Excel.Quit
+          Set Excel = Nothing
+        End Function
+        
+        SUB ProgressForm_xls_Except(prForm, Excel)
+          prForm.Close
+          Set prForm = Nothing
+          Excel.Quit
+          Set Excel = Nothing
+        end sub
+        
