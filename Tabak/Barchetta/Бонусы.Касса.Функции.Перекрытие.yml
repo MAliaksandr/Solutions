@@ -1,0 +1,131 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 150269904_1435340994
+  Name: "Бонусы.Касса.Функции.Перекрытие"
+  Caption: "Бонусы.Касса.Функции.Перекрытие"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: CD9E26AE764ED662E3F7453A96D83F6D
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147026265_615104560
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrf_mn_ChooseBonusCard_TouchOnShow"
+      COMMENT: ~
+      EVENT: "ONSHOW"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147023815_590583792 usrf_mn_ChooseBonusCard_Touch"
+      OBJECTNAME: "usrf_mn_ChooseBonusCard_Touch"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-04-10T15:17:54+03:00
+      DISPLAYSCRIPT: | 
+        USRF_MN_CHOOSEBONUSCARD_TOUCHONSHOW
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrf_mn_ChooseBonusCard_TouchOnShow(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnShow", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        ' Если оплата, то выставляем максимальную сумму оплаты бонусом
+        
+          If Assigned(Sender.Owner) Then
+            Dim FrmTblOrderNew : set FrmTblOrderNew = Sender.Owner
+            Dim MaxPerc : MaxPerc = 0
+            Dim MaxSum : MaxSum = 0
+            Dim TotalSum : TotalSum = 0
+        
+            If Not FrmTblOrderNew.VariableExists("BonusPaySum") Then
+              FrmTblOrderNew.AddVariableItem("BonusPaySum")
+              FrmTblOrderNew.Variables("BonusPaySum") = 0
+            End If
+        
+            Dim BPS : BPS = 0
+            If FrmTblOrderNew.FindComponent("usrg_lbBonusPaySum").Text <> "" Then _
+              BPS = Left(FrmTblOrderNew.FindComponent("usrg_lbBonusPaySum").Text, _
+                              InStr(FrmTblOrderNew.FindComponent("usrg_lbBonusPaySum").Text, " ")-1)
+              if BPS <> "0.00" then
+                BPS = CCur(BPS)
+              else
+                BPS = 0
+              end if
+            If IsNumeric(Sender.FindComponent("usrg_lblMaxPerc").Text) Then  _
+              MaxPerc = CCur(Sender.FindComponent("usrg_lblMaxPerc").Text) / 100
+            If IsNumeric(Sender.FindComponent("usrg_lblMaxSum").Text) Then  _
+              MaxSum = CCur(Sender.FindComponent("usrg_lblMaxSum").Text)
+            If IsNumeric(FrmTblOrderNew.FindComponent("usrg_lbtotalSum").Text) Then _
+              TotalSum = CCur(FrmTblOrderNew.FindComponent("usrg_lbtotalSum").Text) + _
+                BPS
+        
+            If (MaxSum < Fix(MaxPerc * TotalSum * 100) / 100) and (MaxSum <> 0) Then
+              Sender.FindComponent("usrg_lblChooseSum").Text = _
+                CStr(FormatCurrency(MaxSum, mn_Options.PrecisionRound))
+            Else
+              Sender.FindComponent("usrg_lblChooseSum").Text = _
+                CStr(FormatCurrency(Fix(MaxPerc * TotalSum * 100) / 100, mn_Options.PrecisionRound))
+            End If
+        
+            Dim lblBonusCard : lblBonusCard = ""
+            Dim lblBonusSum : lblBonusSum = ""
+            Dim lblCardNumber : lblCardNumber = ""
+            Dim lblCustomer : lblCustomer = ""
+        
+            If FrmTblOrderNew.GetComponent("usrg_lbBonusCard").Tag > 0 Then
+              Dim Creator : Set Creator = new TCreator
+              Dim ibsql : set ibsql = Creator.GetObject(nil, "TIBSQL", "")
+              ibsql.Transaction = gdcBaseManager.ReadTransaction
+              ibsql.SQL.Text = _
+                "select first (1) " & _
+                "  B.ID " & _
+                ", B.USR$SAVESUM " & _
+                ", B.USR$CARDNUMBER as NUMBER " & _
+                ", NAME.USR$NAME as BONUSNAME " & _
+                ", DT.USR$PAYMENT_MAXPERC as MAXBONUSPERS " & _
+                ", DT.USR$PAYMENT_MAXSUMM as MAXBONUSSUM " & _
+                ", B.USR$FIRSTNAME || ' ' || b.USR$MIDDLENAME || ' ' || b.USR$SURNAME as CONTACTNAME " & _
+                "from " & _
+                "  USR$MN_BONUSCARD B " & _
+                "  left join USR$MN_BONUSNAME NAME on NAME.ID = B.USR$BONUSCARDKEY " & _
+                "  left join GD_CONTACT CON on CON.ID = B.USR$CONTACTKEY " & _
+                "  left join USR$MN_BONUSTYPE DT on DT.USR$BONUSNAMEKEY = NAME.ID " & _
+                "where " & _
+                "  B.ID = :ID "
+              ibsql.ParamByName("ID").AsInteger = FrmTblOrderNew.GetComponent("usrg_lbBonusCard").Tag
+              ibsql.ExecQuery
+        
+          '    lblBonusCard =
+              lblBonusSum = FormatCurrency(ibsql.FieldByName("USR$SAVESUM").AsCurrency, mn_Options.PrecisionRound)
+              lblCardNumber = ibsql.FieldByName("NUMBER").AsString
+              lblCustomer = ibsql.FieldByName("CONTACTNAME").AsString
+            End If
+        
+            Sender.FindComponent("usrg_lblBonusCard").Text = lblBonusCard
+            Sender.FindComponent("usrg_lblBonusSum").Text = lblBonusSum
+            Sender.FindComponent("usrg_lblCardNumber").Text = lblCardNumber
+            Sender.FindComponent("usrg_lblCustomer").Text = lblCustomer
+        
+          End If
+        
+        End Sub
+        
