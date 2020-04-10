@@ -1,0 +1,65 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147264330_1404200735
+  Name: "Заполнить описание в ТМЦ. Макрос"
+  Caption: "Заполнить описание в ТМЦ. Макрос"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 700EBFB882F194E45E99D0E8145A7A1F
+Uses: 
+  - "147728891_43451302 Общие данные"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147264328_1404200735
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros147264328_1404200735"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147003941_31587988 gdc_frmMainGood"
+      OBJECTNAME: "gdc_frmMainGood"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-02-27T12:44:33+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147264328_1404200735
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAUAAABERVNDUggAAADO7+jx4O3o5QAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAABG
+        TlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros147264328_1404200735(OwnerForm, descr)
+        
+        dim obj
+        set obj = Ownerform.gdcDetailObject
+        if Application.MessageBox("Описание будет заполнено в каждом ТМЦ выбранной группы." + vbCr + _
+           "Если в описании уже есть текст, он будет перезаписан! Продолжить? ", "Зполение", vbYEsNo+vbInformation+vbSystemMOdal)=vbNo then exit sub
+        obj.First
+        while not obj.EOF
+        obj.Edit
+        obj.FieldByName("description").asString = descr
+        obj.post
+        obj.next
+        wend
+        call Application.MessageBox("Завершено.", "Зполение", vbOkOnly+vbInformation+vbSystemMOdal)
+        
+        End Sub
+        

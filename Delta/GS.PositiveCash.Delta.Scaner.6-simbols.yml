@@ -1,0 +1,174 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 148302082_1371525925
+  Name: "GS.PositiveCash.Дельта спорт. Сканер карт 6 символов"
+  Caption: "GS.PositiveCash.Дельта спорт. Сканер карт 6 символов"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 43BAF40A5803E1D98D88C6D9B8BF3F69
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147010625_934456994
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "pf_btnDiscountCard"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2020-03-25T10:59:50+03:00
+      DISPLAYSCRIPT: | 
+        PF_BTNDISCOUNTCARD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include PF_CHANGEOPERATIONTYPES
+        '#include PF_SHOWERRORMESSAGE
+        '#include PF_BTNAVRESULT_CLICK
+        option explicit
+        function pf_btnDiscountCard(Sender)
+          Sender.OwnerForm.GetComponent("usrg_Edit").Color = Color_2 '-2147483643
+          If Sender.OwnerForm.Variables("CheckOpen") > 0 then
+            Dim Creator, frm, C
+            Set Creator = New TCreator
+        
+            Dim UserKey
+            UserKey = IBLogin.UserKey
+           ' If pf_UserRightsForm(Sender.OwnerForm, gdcBaseManager.GetIDByRUIDString(pf_act_discountcard)) then
+              If Sender.OwnerForm.GetComponent("usrg_Edit").Text = "" then
+        '        Call Application.MessageBox("Введите код дисконтной карты!", "Внимание", mb_Ok or vbSystemModal or mb_IconInformation)
+                Call pf_ShowErrorMessage("Введите код ДК!")
+                exit function
+              End If
+              Dim gdcObject, Client, Res, Tr, gdcDetailObject
+              Set Tr = Sender.OwnerForm.GetComponent("usrg_Transa")
+              Set gdcObject = Sender.OwnerForm.gdcObject
+              Set gdcDetailObject = Sender.OwnerForm.GetComponent("usrg_gdcCheckLine")
+        '      Sender.OwnerForm.GetComponent("usrg_lblOperationType1").Caption = ""
+              Call pf_ChangeOperationTypes(Sender, "", "", "")
+              
+              gdcObject.Edit
+              gdcObject.FieldByName("USR$CARDKEY").AsVariant = null
+              gdcObject.FieldByName("USR$DCARDKEY").AsVariant = null
+              gdcObject.Post
+              Dim Code
+              err.Clear
+              on error resume next
+              Code = (Sender.OwnerForm.GetComponent("usrg_Edit").Text)
+              If (Err.Number > 0 or IsEmpty(Code)) or Len(Code) < 1 then
+                gdcObject.Edit
+                gdcObject.FieldByName("USR$CARDKEY").AsVariant = null
+                gdcObject.Post
+                Client = 0
+        
+        
+              Else
+                C = Trim(Sender.OwnerForm.GetComponent("usrg_Edit").Text)
+                if len(C)=7 then
+                  C = Right(Trim(C), 6)
+                elseif len(C) = 13 then
+                  C = Right(C,7)
+                  C = Left(C,6)
+                end if
+        
+                Call gdcBaseManager.ExecSingleQueryResult( _
+                  "SELECT FIRST 1 " & _
+                  "  d.ID " & _
+                  "FROM USR$PF_DISCOUNTCARD d " & _
+                  "WHERE d.USR$CODE = :Code AND COALESCE(d.USR$DISABLED, 0) = 0 ", _
+                  Left(C, Len(C)), Res, Tr)
+                Client = -1
+                If (not IsEmpty(Res)) and (not IsNull(Res)) then
+                  If (not IsNull(Res(0,0))) then
+                    Client = Res(0,0)
+                  End If
+                End If
+              End If
+              on error goto 0
+        
+              If Client > 0 then
+                gdcObject.Edit
+                gdcObject.FieldByName("USR$CARDKEY").AsInteger = Client
+                gdcObject.Post
+                
+                Dim Perc, tinfo
+                Call gdcBaseManager.ExecSingleQueryResult(_
+                  "SELECT dn.USR$PERCENT " & _
+                  "FROM USR$PF_DISCOUNTNAME dn " & _
+                  "JOIN USR$PF_DISCOUNTCARD dc ON dc.USR$TYPEDISCCARDKEY = dn.ID " & _
+                  "WHERE dc.ID = :ID AND COALESCE(dn.USR$PERCENT, 0) > 0", _
+                  Client, Perc, Tr)
+        
+                tinfo = "Дисконтная карта"
+                If (not IsEmpty(Perc)) and (not IsNull(Perc)) then
+                  If (not IsNull(Perc(0,0))) then
+                    tinfo = "Дисконтная карта на " & Perc(0, 0) & "%"
+                  End If
+                End If
+                
+                C = (Sender.OwnerForm.GetComponent("usrg_Edit").Text)
+        '        Sender.OwnerForm.GetComponent("usrg_lblOperationType1").Caption = _
+        '          tinfo
+                Call pf_ChangeOperationTypes(Sender, tinfo, "", "")
+        '          "Код диск. карты: " + C'Left(C, Len(C)-1)
+                Call pf_ActionsList.AddToLog(26, gdcObject.ID, null, null, _
+                   Sender.OwnerForm.GetComponent("usrg_lblOperationType1").Caption , 0)
+              Else
+        
+                'Call Application.MessageBox("Данные о карточке отсутствуют! Введите код еще раз.", "Внимание", mb_Ok or vbSystemModal or mb_IconError)
+                Call pf_ShowErrorMessage("Данные не найдены!")
+                Call pf_ActionsList.AddToLog(26, gdcObject.ID, null, null, _
+                  "Данные о карточке отсутствуют" , 1)
+              End If
+              Sender.OwnerForm.GetComponent("usrg_gdcCheckLine").First
+              If Not gdcDetailObject.FieldByName("USR$QUANTITY").IsNull Then
+                gdcDetailObject.Edit
+                gdcDetailObject.Post
+                Sender.OwnerForm.GetComponent("usrg_lbQ").Caption = gdcDetailObject.FieldByName("USR$QUANTITY").AsString
+                Sender.OwnerForm.GetComponent("usrg_lbSum").Caption = gdcDetailObject.FieldByName("USR$SUMWITHDISCOUNT").AsString
+                If pf_Options.FShowPrice then
+                  Sender.OwnerForm.GetComponent("usrg_lbPrice").Caption = gdcDetailObject.FieldByName("USR$PRICE").AsString
+                Else
+                  Sender.OwnerForm.GetComponent("usrg_lbPrice").Caption = gdcDetailObject.FieldByName("USR$PRICESALE").AsString
+                End If
+                Call pf_btnAvResult_Click(Sender)
+              End If
+              Sender.OwnerForm.GetComponent("usrg_Edit").Text = ""
+         '  End If
+          Else
+        '    Call Application.MessageBox("Чек не открыт! Для открытия чека нажмите клавишу Прод.", "Внимание", mb_Ok or vbSystemModal or mb_IconError)
+            Call pf_ShowErrorMessage("Чек не открыт!")
+            Call pf_ActionsList.AddToLog(25, null, null, null, "Чек не открыт" , 1)
+          End If
+        End function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147053978_279111811 pf_ChangeOperationTypes"
+          - 
+            ADDFUNCTIONKEY: "147258615_2010308141 pf_ShowErrorMessage"
+          - 
+            ADDFUNCTIONKEY: "147011452_818830148 pf_btnAvResult_Click"

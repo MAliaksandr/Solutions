@@ -1,0 +1,447 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 185414224_652088221
+  Name: "Импорт ДК из ДБФ"
+  Caption: "Импорт ДК из ДБФ"
+  Version: "1.0.0.4"
+  Optional: False
+  Internal: True
+  MD5: 2BC64A0DCAB2C2FC7A746DE69D77D28A
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 186043288_1426474267
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$FINEDDIFFERENCE"
+      EDITIONDATE: 2020-04-01T13:47:11+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$FINEDDIFFERENCE (
+            SURNAME VARCHAR(60),
+            FIRSTNAME VARCHAR(60),
+            MIDDLENAME VARCHAR(60),
+            PERCENT NUMERIC(15, 4),
+            CARDCODE VARCHAR(32),
+            CARDID INTEGER)
+        RETURNS ( 
+            DCARD INTEGER,
+            DTYPE INTEGER,
+            DRULE INTEGER)
+         AS
+        DECLARE VARIABLE cSNAME VARCHAR(60);
+        DECLARE VARIABLE cFNAME VARCHAR(60);
+        DECLARE VARIABLE cMNAME VARCHAR(60);
+        DECLARE VARIABLE cDISBL integer;
+        
+        DECLARE VARIABLE cCode VARCHAR(32);
+        DECLARE VARIABLE cTypeKey INTEGER;
+        
+        DECLARE VARIABLE tkey integer;
+        DECLARE VARIABLE tPerc NUMERIC(15, 4);
+        
+        DECLARE VARIABLE rkey integer;
+        DECLARE VARIABLE rPerc NUMERIC(15, 4);
+        DECLARE VARIABLE rDisbl integer;
+        BEGIN
+        
+         cSNAME =''; cFNAME=''; cMNAME='';cCode='';cDISBL=0;
+         cTypeKey=null;
+        
+         Dcard =0;
+         Dtype = 0;
+         Drule = 0;
+        
+         rkey =null;
+         rPerc=null;
+         rDisbl =0;
+         
+          /* проверим на соответствие ИМЕН диск.карт и отключенность */
+          
+          SELECT
+            USR$CODE, USR$SURNAME, USR$FIRSTNAME, USR$MIDDLENAME, USR$TYPEDISCCARDKEY, COALESCE(USR$DISABLED,0)
+          FROM USR$PF_DISCOUNTCARD
+          WHERE ID = :CARDID
+          into :cCode, :cSNAME, :cFNAME, :cMNAME, :cTypeKey, cDISBL;
+        
+          IF  ((cCode<>CARDCODE) or
+                (UPPER(:cSNAME)<>UPPER(SURNAME)) or
+               (UPPER(:cFNAME)<>UPPER(FIRSTNAME)) or
+               (UPPER(:cMNAME)<>UPPER(:MIDDLENAME)) or (cDISBL=1)) Then
+            Dcard = 1;
+        
+          /*проверим ТИП ДИСК. КАРТ НА %*/
+          SELECT
+           id, USR$PERCENT
+          FROM USR$PF_DISCOUNTNAME
+          where ID = :cTypeKey
+          INTO :tkey, :tPerc;
+        
+          /* если не найдено или отключено - 5*/
+          IF (:tkey is null) then
+            Dtype=5;
+        
+          IF (:tPerc <>:PERCENT) Then
+            Dtype=1;
+        
+         /*проверим ПРАВИЛО скидок*/
+          SELECT
+            ID,
+            USR$PERCENT,
+            COALESCE(USR$DISABLED,0)
+          FROM USR$PF_DISCOUNTNEW
+          WHERE USR$CARDTYPEKEY = :tkey
+          INTO :rkey, rPerc, rDisbl;
+        
+          /* если не найдено - 5 - нужно создать */
+          IF  (:rkey is null) Then
+           Drule = 5;
+        
+          /* отключено - 1 - обновим */
+          IF  (rDisbl=1) Then
+           Drule = 1;
+        
+        
+          suspend;
+        
+        END
+      RDB$DESCRIPTION: | 
+        определеят есть ли отличия в БД
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149987184_652088221
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros149987184_652088221"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147021734_279111811 gdc_frmAttrUserDefinedUSR_PF_DISCOUNTCARD"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_PF_DISCOUNTCARD"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-27T14:52:26+03:00
+      DISPLAYSCRIPT: | 
+        MACROS149987184_652088221
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAsAAABQUl9DQVJEVFlQRQ4AAADC++Hu8CDi4PDo4O3y4AAAAAAAAAAAAAAAAA0A
+        AAAAAAAAAGEAAABeViIxLs7k6O3u9+3g/yDq4PDy4D12MSIsIjIuyuDw8vsg7eD36O3g/yDxIPHo
+        7OLu6+A9djIiLCIzLtHu5OXw5ujyIPHo7OLu6z12MyIsIjQuwvHlIOrg8PL7PXY0Il5SRk5TVFBS
+        U1QOAAAAUFJfQkVHTlVNQkNPREUTAAAAzeD34Ov87fvpIOru5CDq4PDy+wAAAAAAAAAAAAAAAAsA
+        AAAAAAAAAAAAAABGTlNUUFJTVA4AAABQUl9FTkROVU1CQ09ERRIAAADK7u3l9+376SDq7uQg6uDw
+        8vsAAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAARk5TVFBSU1QLAAAAUFJfQ0FSRENPREURAAAA0ejs
+        4u7rIOru5OAg6uDw8vsAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros149987184_652088221(OwnerForm, pr_CardType, pr_BegNumbCode,pr_EndNumbCode, pr_cardCode)
+          dim Creator, Counter
+          set Creator = new TCreator
+        
+          dim OpenDialog
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          OpenDialog.FileName = "*.dbf"
+        
+          if not OpenDialog.Execute then exit sub
+        
+          dim FileName
+          FileName = OpenDialog.FileName
+        
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+        
+        
+          dim Path
+          Path = FSO.GetParentFolderName(FileName)
+        
+          dim objConnection
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = Path
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          dim addWhere
+          select case pr_CardType
+            case "v1"
+              addWhere = " WHERE NOM_K = '" & CSTR(pr_cardCode) & "'"
+            case "v2"
+              addWhere = " WHERE NOM_K like '" & CSTR(pr_cardCode) & "%'"
+            case "v3"
+              addWhere = " WHERE NOM_K like '%" & CSTR(pr_cardCode) & "%'"
+            case "v4"
+              addWhere = ""
+          end select
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.RecordSet")
+          objADOQuery.ActiveConnection = objConnection
+          objADOQuery.Open "SELECT * FROM " &  FileName + addWhere , objConnection
+          if not objADOQuery.EOF then objADOQuery.MoveFirst
+          if objADOQuery.EOF then
+            objADOQuery.Close
+            call Application.MessageBox("Импорт прерван." & vbLf & "Файл не содержит записей с указанными критериями ", "Внимание", vbSystemModal + vbInformation )
+            exit sub
+          end if
+          Dim PrCount
+          PrCount = 0
+            While Not objADOQuery.Eof
+              PrCount = PrCount + 1
+              objADOQuery.MoveNext
+            Wend
+          objADOQuery.MoveFirst
+          pf_ProgressBar.Caption = "Загрузка дисконтных карт"
+          pf_ProgressBar.Max = PrCount
+          pf_ProgressBar.Show
+        
+          dim Transaction
+          set Transaction = Creator.GetObject(nil, "TIBTransaction", "")
+          Transaction.DefaultDataBase = gdcBaseManager.Database
+          call Transaction.Params.Add("nowait")
+          call Transaction.Params.Add("read_committed")
+          call Transaction.Params.Add("rec_version")
+          Transaction.StartTransaction
+        
+          dim qCard
+          set qCard = Creator.GetObject(nil, "TIBSQL", "")
+          qCard.Transaction = Transaction
+          qCard.SQl.Text = _
+            "EXECUTE BLOCK( " & _
+            "SURNAME VARCHAR(60) = :surname, " & _
+            "FIRSTNAME VARCHAR(60) = :FirstName, " & _
+            "MIDDLENAME VARCHAR(60) = :MiddleName, " & _
+            "PERCENT NUMERIC(15, 4) = :Percent, " & _
+            "CARDCODE VARCHAR(32) = :CardCode) " & _
+            "AS " & _
+            "DECLARE VARIABLE CARDID INTEGER; " & _
+            "DECLARE VARIABLE DN_ID INTEGER; " & _
+            "DECLARE VARIABLE CARDDISCOUNT INTEGER; " & _
+            "DECLARE VARIABLE MAINGOODGROUP_ID INTEGER; " & _
+            "DECLARE VARIABLE RULE_NUMBER INTEGER; " & _
+            " " & _
+            "DECLARE VARIABLE E_DCARD INTEGER; " & _
+            "DECLARE VARIABLE E_DTYPE INTEGER; " & _
+            "DECLARE VARIABLE E_DRULE INTEGER; " & _
+            "BEGIN " & _
+            " " & _
+            "E_DCARD =NULL; " & _
+            "E_DTYPE =NULL; " & _
+            "E_DRULE =NULL; " & _
+            "  CARDID = NULL; " & _
+            "  EXECUTE PROCEDURE gd_p_getid(147010737, 934456994) RETURNING_VALUES :CARDDISCOUNT; " & _
+            " " & _
+            "  SELECT ID FROM USR$PF_DISCOUNTCARD WHERE UPPER(USR$CODE) = UPPER(:CARDCODE) " & _
+            "  INTO :CARDID; " & _
+            " " & _
+            "  IF (CARDID IS NULL) THEN " & _
+            "  BEGIN " & _
+            "    INSERT INTO USR$PF_DISCOUNTCARD " & _
+            "    (USR$CODE, USR$SURNAME, USR$FIRSTNAME, USR$MIDDLENAME) " & _
+            "    VALUES " & _
+            "    (:CARDCODE, :SURNAME, :FIRSTNAME, :MIDDLENAME); " & _
+            " " & _
+            "    SELECT ID " & _
+            "    FROM USR$PF_DISCOUNTCARD " & _
+            "    WHERE " & _
+            "      USR$CODE = :CARDCODE AND " & _
+            "      (USR$SURNAME = :SURNAME OR " & _
+            "      USR$FIRSTNAME = :FIRSTNAME OR " & _
+            "      USR$MIDDLENAME = :MIDDLENAME) " & _
+            "    INTO :CARDID; " & _
+            " " & _
+            "    SELECT ID " & _
+            "    FROM USR$PF_DISCOUNTNAME " & _
+            "    WHERE " & _
+            "      USR$NAME = :CARDCODE " & _
+            "    INTO :DN_ID; " & _
+            " " & _
+            "    IF (DN_ID IS NULL) THEN " & _
+            "    BEGIN " & _
+            "      INSERT INTO USR$PF_DISCOUNTNAME " & _
+            "      (USR$NAME, USR$PERCENT) " & _
+            "      VALUES " & _
+            "      (:CARDCODE, :PERCENT); " & _
+            " " & _
+            "      SELECT ID " & _
+            "      FROM USR$PF_DISCOUNTNAME " & _
+            "      WHERE " & _
+            "        USR$NAME = :CARDCODE " & _
+            "      INTO :DN_ID; " & _
+            " " & _
+            "      SELECT FIRST 1 ID FROM GD_GOODGROUP " & _
+            "      WHERE PARENT IS NULL " & _
+            "      INTO :MAINGOODGROUP_ID; " & _
+            " " & _
+            "      SELECT FIRST 1 COALESCE(USR$RULE, 0) + 1 " & _
+            "      FROM USR$PF_DISCOUNTNEW " & _
+            "      ORDER BY 1 DESC " & _
+            "      INTO :RULE_NUMBER; " & _
+            " " & _
+            "      INSERT INTO USR$PF_DISCOUNTNEW " & _
+            "      (USR$RULE, USR$GROUPKEY, USR$FROMDATE, USR$TODATE, USR$FROMTIME, " & _
+            "        USR$TOTIME, USR$CARDKEY, USR$CARDTYPEKEY, USR$PERCENT,USR$DAYS) " & _
+            "      VALUES " & _
+            "      (:RULE_NUMBER, :MAINGOODGROUP_ID, CURRENT_DATE, '23.05.2024', '00:00:00', " & _
+            "        '23:59:59', :CARDDISCOUNT, :DN_ID, :PERCENT,'1234567'); " & _
+            "    END " & _
+            " " & _
+            "    SELECT ID " & _
+            "    FROM USR$PF_DISCOUNTNAME " & _
+            "    WHERE " & _
+            "      USR$NAME = :CARDCODE " & _
+            "    INTO :DN_ID; " & _
+            " " & _
+            "    UPDATE USR$PF_DISCOUNTCARD " & _
+            "    SET USR$TYPEDISCCARDKEY = :DN_ID " & _
+            "    WHERE ID = :CARDID; " & _
+            "  END " & _
+            "  ELSE " & _
+            "  /* найдем различия в БАЗЕ и  файле*/ " & _
+            "   EXECUTE PROCEDURE USR$FINEDDIFFERENCE (:SURNAME,:FIRSTNAME,:MIDDLENAME,:PERCENT,:CARDCODE,:CARDID) " & _
+            "   RETURNING_VALUES :E_DCARD, :E_DTYPE, :E_DRULE; " & _
+            "  /* если они есть - обновим*/ " & _
+            "  IF ((E_DCARD <> 0) or (E_DTYPE<>0) or (E_DRULE<>0)) then " & _
+            "      BEGIN " & _
+            "        /*обновим ТИП и %*/ " & _
+            "        IF (:E_DTYPE=1) THEN " & _
+            "           UPDATE USR$PF_DISCOUNTNAME DN " & _
+            "           SET DN.USR$PERCENT = :PERCENT, dn.EDITIONDATE = CURRENT_DATE||' ' ||current_time " & _
+            "           WHERE DN.USR$NAME = :CardCode; " & _
+            "        /*создадим */ " & _
+            "        IF (:E_DTYPE=5) THEN " & _
+            "            BEGIN " & _
+            " " & _
+            "              INSERT INTO USR$PF_DISCOUNTNAME " & _
+            "               (USR$NAME, USR$PERCENT) " & _
+            "              VALUES " & _
+            "               (:CARDCODE, :PERCENT); " & _
+            " " & _
+            "               SELECT ID " & _
+            "               FROM USR$PF_DISCOUNTNAME " & _
+            "               WHERE " & _
+            "               USR$NAME = :CARDCODE " & _
+            "               INTO :DN_ID; " & _
+            " " & _
+            "               UPDATE USR$PF_DISCOUNTCARD " & _
+            "               SET USR$TYPEDISCCARDKEY = :DN_ID " & _
+            "               WHERE ID = :CARDID; " & _
+            "            END " & _
+            " " & _
+            "    /* обновим ДК*/ " & _
+            "     IF (:E_DCARD=1) THEN " & _
+            "        UPDATE USR$PF_DISCOUNTCARD " & _
+            "        SET " & _
+            "          USR$CODE = :CARDCODE, " & _
+            "          USR$SURNAME = :SURNAME, " & _
+            "          USR$MIDDLENAME = :MIDDLENAME, " & _
+            "          USR$FIRSTNAME = :FIRSTNAME, " & _
+            "          EDITIONDATE = CURRENT_DATE||' ' ||current_time, " & _
+            "          USR$DISABLED =0 " & _
+            "        WHERE ID = :CARDID; " & _
+            "     /*если вдруг не нашли правило - создадим*/ " & _
+            "     IF (:E_DRULE=5) THEN " & _
+            "       BEGIN " & _
+            "          SELECT FIRST 1 ID FROM GD_GOODGROUP " & _
+            "          WHERE PARENT IS NULL " & _
+            "          INTO :MAINGOODGROUP_ID; " & _
+            " " & _
+            "          SELECT FIRST 1 COALESCE(USR$RULE, 0) + 1 " & _
+            "          FROM USR$PF_DISCOUNTNEW " & _
+            "          ORDER BY 1 DESC " & _
+            "          INTO :RULE_NUMBER; " & _
+            " " & _
+            "          SELECT ID " & _
+            "          FROM USR$PF_DISCOUNTNAME " & _
+            "          WHERE " & _
+            "          USR$NAME = :CARDCODE " & _
+            "          INTO :DN_ID; " & _
+            " " & _
+            "          INSERT INTO USR$PF_DISCOUNTNEW " & _
+            "          (USR$RULE, USR$GROUPKEY, USR$FROMDATE, USR$TODATE, USR$FROMTIME, " & _
+            "          USR$TOTIME, USR$CARDKEY, USR$CARDTYPEKEY, USR$PERCENT,USR$DAYS, USR$DISABLED) " & _
+            "          VALUES " & _
+            "          (:RULE_NUMBER, :MAINGOODGROUP_ID, CURRENT_DATE, '23.05.2024', '00:00:00', " & _
+            "          '23:59:59', :CARDDISCOUNT, :DN_ID, :PERCENT, '1234567',0); " & _
+            "       END " & _
+            " " & _
+            "     /* и/или ОБНОВИМ ПРАВИЛО*/ " & _
+            "     IF ((:E_DRULE=1) or (:E_DRULE=5)) THEN " & _
+            " " & _
+            "        UPDATE USR$PF_DISCOUNTNEW " & _
+            "        SET " & _
+            "          USR$PERCENT = :PERCENT, USR$DISABLED = 0 " & _
+            "        WHERE USR$CARDTYPEKEY = (SELECT DC.USR$TYPEDISCCARDKEY " & _
+            "                                 FROM USR$PF_DISCOUNTCARD DC " & _
+            "                                 WHERE DC.ID = :CARDID); " & _
+            " " & _
+            "     END " & _
+            "END "
+        
+        
+        
+          dim FamStr
+          while not objADOQuery.Eof
+            qCard.Close
+              qCard.ParamByName("CardCode").AsVariant = objADOQuery.Fields("NOM_K").Value
+              qCard.ParamByName("PERCENT").AsVariant = objADOQuery.Fields("PROCENT").Value
+        '      qCard.ParamByName("SUMMA").AsCurrency = objADOQuery.Fields("SUMMA").Value
+        
+              FamStr = objADOQuery.Fields("NAME").Value
+              if IsNull(FamStr) then FamStr = ""
+              FamStr = Left(FamStr, 20)
+              qCard.ParamByName("FIRSTNAME").AsVariant = FamStr
+        
+              FamStr = objADOQuery.Fields("FAM").Value
+              if IsNull(FamStr) then FamStr = ""
+              FamStr = Left(FamStr, 20)
+              qCard.ParamByName("SURNAME").AsVariant = FamStr
+        
+              FamStr = objADOQuery.Fields("SNAME").Value
+              if IsNull(FamStr) then FamStr = ""
+              FamStr = Left(FamStr, 20)
+              qCard.ParamByName("MIDDLENAME").AsVariant = FamStr
+        
+            qCard.ExecQuery
+             Counter =  Counter + 1
+             
+            if Counter = 2000 then
+              if Transaction.InTransaction then
+                Transaction.Commit
+                Transaction.StartTransaction
+              end if
+              Counter = 0
+            end if
+             
+            pf_ProgressBar.StepIt
+        
+            If pf_ProgressBar.Canceled Then
+              Transaction.RollBack
+              objADOQuery.Close
+              pf_ProgressBar.Close
+              Exit Sub
+            End If
+            objADOQuery.MoveNext
+          wend
+        
+          if Transaction.InTransaction then  Transaction.Commit
+          objADOQuery.Close
+        
+          call Application.MessageBox("Импорт завершен", "Внимание", vbSystemModal + vbInformation )
+        End Sub
+        

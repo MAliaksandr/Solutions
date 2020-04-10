@@ -1,0 +1,84 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147264506_1404200735
+  Name: "Очистить обработанные ошибки с КС"
+  Caption: "Очистить обработанные ошибки с КС"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 71212C1D7992207B8815A71C5C3F2381
+Uses: 
+  - "148992193_924130401 GS.PositiveCash.Склад.Обмен с кассовым сервером.Ошибки при импорте"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147264503_1404200735
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147264501_1404200735
+    Fields: 
+      NAME: "Macros147264503_1404200735"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147546335_209232441 gdc_frmAttrUserDefinedUSR_PFD_ERRORLIST"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_PFD_ERRORLIST"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-31T11:33:23+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147264503_1404200735
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros147264503_1404200735(OwnerForm)
+        
+         if Application.MessageBox("Обработанные записи будут удалены из журнала." + vbCr + _
+           "Продолжить? ", "Очистка журнала", vbYEsNo+vbInformation+vbSystemMOdal)=vbNo then exit sub
+         dim qSQL, Tr, Creator
+         set Creator = new TCreator
+          set qSQL = Creator.GetObject(NULL, "TIBSQL", "")
+          set TR = Creator.GetObject(NULL, "TIBtransaction", "")
+          TR.DefaultDatabase = gdcBaseManager.Database
+          TR.StartTransaction
+          qSQL.Transaction = Tr
+          qSQL.SQL.Text = "DELETE FROM USR$PFD_ERRORLIST WHERE coalesce(USR$PROCESSED,0) = 1"
+          qSQL.ExecQuery
+          TR.Commit
+        
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 147264501_1404200735
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Очистить обработанные ошибки"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "147264503_1404200735 Macros147264503_1404200735"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147621447_209232441 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_PFD_ERRORLIST"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-31T11:33:23+03:00
