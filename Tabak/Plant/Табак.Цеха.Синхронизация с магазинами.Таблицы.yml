@@ -1,0 +1,695 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 277800217_1431326289
+  Name: "Табак.Цеха.Синхронизация с магазинами.Таблицы"
+  Caption: "Табак.Цеха.Синхронизация с магазинами.Таблицы"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 221217A60A402F4E394F63044D58FD99
+Uses: 
+  - "147091847_1892754951 GS.Общепит.back - Метаданные"
+  - "147093152_1892754951 GS.Общепит.back - Хранилище"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 277800169_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: "147052782_1065632896 Исследователь\\Общепит\\Параметры"
+      NAME: "Параметры-связки"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: ~
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$MAGSYNCH"
+      EDITIONDATE: 2020-04-11T00:04:50+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 277800168_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "277800169_1431326289 Исследователь\\Общепит\\Параметры\\Параметры-связки"
+      DESCRIPTION: "Параметры-связки"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Параметры-связки"
+      LSHORTNAME: "Параметры-связки"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$MAGSYNCH"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2020-04-11T00:04:50+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 277800208_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$LOGPATH"
+      FIELDNAME: "USR$LOGPATH"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Путь к лог.файлу"
+      LSHORTNAME: "Путь к лог.файлу"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "277800168_1431326289 Параметры-связки, USR$MAGSYNCH"
+      RELATIONNAME: "USR$MAGSYNCH"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2020-04-12T00:12:34+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 277800181_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$MOVEFILE"
+      FIELDNAME: "USR$MOVEFILE"
+      FIELDSOURCE: "DBOOLEAN_NOTNULL"
+      FIELDSOURCEKEY: "147000138_31587988 Логическое (обязательное), DBOOLEAN_NOTNULL"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Перемещать файл"
+      LSHORTNAME: "Перемещать файл"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "277800168_1431326289 Параметры-связки, USR$MAGSYNCH"
+      RELATIONNAME: "USR$MAGSYNCH"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-04-10T23:59:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 277800174_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DISABLED"
+      FIELDNAME: "USR$DISABLED"
+      FIELDSOURCE: "DBOOLEAN_NOTNULL"
+      FIELDSOURCEKEY: "147000138_31587988 Логическое (обязательное), DBOOLEAN_NOTNULL"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Отключено"
+      LSHORTNAME: "Отключено"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "277800168_1431326289 Параметры-связки, USR$MAGSYNCH"
+      RELATIONNAME: "USR$MAGSYNCH"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-04-10T23:57:07+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 277800173_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$FILECOPYPATH"
+      FIELDNAME: "USR$FILECOPYPATH"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Путь к сохран.файла"
+      LSHORTNAME: "Путь к сохран.файла"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "277800168_1431326289 Параметры-связки, USR$MAGSYNCH"
+      RELATIONNAME: "USR$MAGSYNCH"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2020-04-10T23:56:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 277800172_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$FILEPATH"
+      FIELDNAME: "USR$FILEPATH"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Путь к файлу импорта"
+      LSHORTNAME: "Путь к файлу импорта"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "277800168_1431326289 Параметры-связки, USR$MAGSYNCH"
+      RELATIONNAME: "USR$MAGSYNCH"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2020-04-10T23:55:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 277800171_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$MAGCODE"
+      FIELDNAME: "USR$MAGCODE"
+      FIELDSOURCE: "DTEXT20"
+      FIELDSOURCEKEY: "147000108_486813904 Текст (20), DTEXT20"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Код магазина"
+      LSHORTNAME: "Код магазина"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "277800168_1431326289 Параметры-связки, USR$MAGSYNCH"
+      RELATIONNAME: "USR$MAGSYNCH"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 20
+      VISIBLE: 1
+      EDITIONDATE: 2020-04-10T23:54:22+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 277800170_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$DEPTKEY"
+      FIELDNAME: "USR$DEPTKEY"
+      FIELDSOURCE: "USR$INV_DDEPTM"
+      FIELDSOURCEKEY: "147012358_486813904 Подразделение (m), USR$INV_DDEPTM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Подразделение"
+      LSHORTNAME: "Подразделение"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_CONTACT"
+      RELATIONKEY: "277800168_1431326289 Параметры-связки, USR$MAGSYNCH"
+      RELATIONNAME: "USR$MAGSYNCH"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-04-10T23:53:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 154996723_1440956890
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: "147240137_1234867257 GLOBAL\\DFM"
+      NAME: "Tgdc_dlgAttrUserDefined"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2010-04-19T18:28:59+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 277800179_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$MAGSYNCH"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2020-04-12T00:18:15+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_MAGSYNCH: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 191
+          ClientWidth = 504
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 165
+          end
+          object btnNew: TButton
+            Top = 165
+          end
+          object btnHelp: TButton
+            Top = 165
+          end
+          object btnOK: TButton
+            Left = 341
+            Top = 165
+          end
+          object btnCancel: TButton
+            Left = 415
+            Top = 165
+          end
+          object pnlMain: TPanel
+            Width = 504
+            Height = 160
+            object atAttributes: TatContainer
+              Width = 504
+              Height = 160
+              VertScrollBar.Position = 0
+              object usrat_gsIBLookupComboBox_USR_DEPTKEY_Label: TLabel
+                Top = 9
+              end
+              object usrat_DBEdit_USR_MAGCODE_Label: TLabel
+                Top = 32
+              end
+              object usrat_DBEdit_USR_FILEPATH_Label: TLabel
+                Top = 55
+              end
+              object usrat_DBEdit_USR_FILECOPYPATH_Label: TLabel
+                Top = 78
+              end
+              object usrat_DBEdit_USR_LOGPATH_Label: TLabel
+                Left = 7
+                Top = 98
+              end
+              object usrat_gsIBLookupComboBox_USR_DEPTKEY: TgsIBLookupComboBox
+                Top = 5
+                Width = 324
+              end
+              object usrat_DBEdit_USR_MAGCODE: TDBEdit
+                Top = 28
+              end
+              object usrat_DBEdit_USR_FILEPATH: TDBEdit
+                Top = 51
+                Width = 316
+              end
+              object usrat_DBEdit_USR_FILECOPYPATH: TDBEdit
+                Top = 74
+                Width = 316
+              end
+              object usrat_DBCheckBox_USR_DISABLED: TDBCheckBox
+                Top = 129
+              end
+              object usrat_DBCheckBox_USR_MOVEFILE: TDBCheckBox
+                Left = 90
+                Top = 129
+              end
+              object usrat_DBEdit_USR_LOGPATH: TDBEdit
+                Top = 97
+                Width = 315
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 119
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 119
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 277800185_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_MAGSYNCH(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2020-04-11T00:00:41+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 277800196_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: "277800185_1431326289 USER - Administrator\\gdc_frmAttrUserDefinedUSR_MAGSYNCH(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2020-04-11T00:04:54+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 277800197_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: "277800196_1431326289 USER - Administrator\\gdc_frmAttrUserDefinedUSR_MAGSYNCH(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2020-04-11T00:04:54+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgtVU1IkREVQVEtFWQhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYNz+7k8ODn5OXr5e3o5QVXaWR0aAJcB1Zpc2libGUJAAEIRXhwYW5kZWQI
+        CUZpZWxkTmFtZQYSWl9VU1IkREVQVEtFWV9OQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg3P
+        7uTw4Ofk5evl7ejlBVdpZHRoAyQBB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLVVNS
+        JE1BR0NPREUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDMru5CDs4OPg5+jt4AVXaWR0aAOCAAdW
+        aXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDFVTUiRGSUxFUEFUSAhSZWFkT25seQgNVGl0
+        bGUuQ2FwdGlvbgYUz/Py/CDqIPTg6evzIOjs7+7w8uAFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBhBVU1IkRklMRUNPUFlQQVRICFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9u
+        BhPP8/L8IOog8e718ODtLvTg6evgBVdpZHRoA4IAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxk
+        TmFtZQYMVVNSJERJU0FCTEVECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgnO8urr/vfl7e4FV2lk
+        dGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxVU1IkTU9WRUZJTEUIUmVhZE9u
+        bHkIDVRpdGxlLkNhcHRpb24GD8/l8OXs5fng8vwg9ODp6wVXaWR0aAOCAAdWaXNpYmxlCQABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGAklEDVRpdGxlLkNhcHRpb24GDcjk5e3y6PTo6uDy7vAFV2lkdGgC
+        /wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGC0VESVRJT05EQVRFDVRpdGxlLkNhcHRp
+        b24GEMTg8uAg7O7k6PTo6uD26OgFV2lkdGgC/wdWaXNpYmxlCAAACAi0HgkI
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 277800177_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_MAGSYNCH"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_MAGSYNCH"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2020-04-10T23:58:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 277800193_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_MAGSYNCH)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "277800193_1431326289"
+      EDITIONDATE: 2020-04-11T00:12:33+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 277800192_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MAGSYNCH"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2020-04-11T00:12:33+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 277800175_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 277800168_1431326289
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_MAGSYNCH"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "277800192_1431326289 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MAGSYNCH"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "277800193_1431326289 Отчеты(gdc_frmAttrUserDefinedUSR_MAGSYNCH)"
+      SUBTYPE: ""
+      EDITIONDATE: 2020-04-11T00:12:33+03:00

@@ -1,0 +1,141 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 277800214_1431326289
+  Name: "Табак.Цеха.Синхронизация с магазинами.Класс"
+  Caption: "Табак.Цеха.Синхронизация с магазинами.Класс"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 536E504FCD6071A105C50A725947A852
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 277800195_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "TVBMagSynch"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "VBCLASSES"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-04-12T00:32:42+03:00
+      DISPLAYSCRIPT: ~
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Class Tvb_MagSynch
+        
+          private FDeptKey
+          private FDEPTNAME
+          private MAGCODE
+          private FFILEPATH
+          private FFILECOPYPATH
+          private FMOVEFILE
+          private FLogPath
+        
+          public property get DeptKey
+            LoadInfo
+            DeptKey = FDeptKey
+          end property
+        
+          ' ключ подразделения
+          public function GetDeptKey(MagCode)
+            LoadInfo(MagCode)
+            GetDeptKey = FDeptKey
+          end function
+          
+          ' название подразделения
+          public function GetDeptName(MagCode)
+            LoadInfo(MagCode)
+            GetDeptName = FDEPTNAME
+          end function
+          
+           ' путь к файлу
+          public function GetFilePath(MagCode)
+            LoadInfo(MagCode)
+            GetFilePath = FFilePath
+          end function
+          
+            ' путь для переноса файла
+          public function GetFCopyPath(MagCode)
+            LoadInfo(MagCode)
+            GetFCopyPath = FFILECOPYPATH
+          end function
+          
+              ' путь для переноса файла
+          public function GetLogPath(MagCode)
+            LoadInfo(MagCode)
+            GetLogPath = FLogPath
+          end function
+          
+          ' параметр перомещения файла
+          public function GetMoveFile(MagCode)
+            LoadInfo(MagCode)
+            IF FMOVEFILE = 1 Then
+              GetMoveFile = True
+            else
+              GetMoveFile = False
+            end if
+          end function
+        
+        
+          Private Sub Class_Initialize
+            LoadInfo(MagCode)
+          End Sub
+        
+          Private Sub Class_Terminate
+          'Setup Terminate event.
+          End Sub
+          
+        
+          private sub LoadInfo(MagCode)
+            FDeptKey = null
+            set Creator = new TCreator
+            set SQLObj = Creator.GetObject(null, "TIBSQL", "")
+        
+            SQLObj.Transaction = gdcBaseManager.ReadTransaction
+            SQLObj.SQL.Text = _
+            "SELECT " & _
+            "  Z.ID, " & _
+            "  Z.USR$DEPTKEY, " & _
+            "  D.NAME AS DEPTNAME, " & _
+            "  Z.USR$MAGCODE, " & _
+            "  Z.USR$FILEPATH, " & _
+            "  Z.USR$FILECOPYPATH, " & _
+            "  Z.USR$DISABLED, " & _
+            "  Z.USR$MOVEFILE, Z.USR$LOGPATH " & _
+            " " & _
+            "FROM USR$MAGSYNCH Z " & _
+            "LEFT JOIN GD_CONTACT D ON D.ID  =  Z.USR$DEPTKEY " & _
+            "WHERE Z.USR$MAGCODE = :MagCode and COALESCE(Z.USR$DISABLED,0) <> 1 "
+            SQLObj.ParamByName("MagCode").asString = MagCode
+            SQLObj.ExecQuery
+            
+            if not SQLObj.Eof then
+              FDeptKey = SQLObj.FieldByName("USR$DEPTKEY").AsInteger
+              FFILEPATH = SQLObj.FieldByName("USR$FILEPATH").AsString
+              FFILECOPYPATH = SQLObj.FieldByName("USR$FILECOPYPATH").AsString
+              FMOVEFILE = SQLObj.FieldByName("USR$MOVEFILE").AsInteger
+              FDEPTNAME = SQLObj.FieldByName("USR$FILECOPYPATH").AsString
+              FLogPath = SQLObj.FieldByName("USR$LOGPATH").AsString
+            end if
+            
+          end sub
+          
+        End Class
+        

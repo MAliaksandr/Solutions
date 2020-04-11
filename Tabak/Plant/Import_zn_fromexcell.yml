@@ -5,10 +5,10 @@ Properties:
   RUID: 277799957_1431326289
   Name: "Import_zn_fromexcell"
   Caption: "Import_into_zn_fr_excel"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 0F5C3CEEB0C5D2B5352C5F611F7C569D
+  MD5: 815407B018464B0DEBB1FE79C3A57C67
 Uses: 
   - "147093152_1892754951 GS.Общепит.back - Хранилище"
 Objects: 
@@ -36,10 +36,10 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2020-04-10T16:25:49+03:00
+      EDITIONDATE: 2020-04-12T00:46:46+03:00
       DISPLAYSCRIPT: | 
         TB_IMPORT_FROMEXCELL
-        PROGRESSFORM_XLS_EXCEPT
+        TB_IMPORT_FROMEXCELL_EXCEPT
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
@@ -50,7 +50,15 @@ Objects:
         
           Dim Creator, TDialog, Excel, Sheet, Start
           Set Creator = New TCreator
-        
+          
+          dim MagSynch
+          set MagSynch = new Tvb_MagSynch
+          
+          dim Dep
+          ' Dep = MagSynch.GetDeptkey("ЦХ01065")
+          ' CopyFilePath = MagSynch.GetFCopyPath("ЦХ01065")
+          ' isMove = MagSynch.GetMoveFile("ЦХ01065")
+          
           dim gdcObject,  gdcDetailObject
           set gdcObject = OwnerForm.gdcObject
           set gdcDetailObject = OwnerForm.gdcDetailObject
@@ -59,11 +67,14 @@ Objects:
           TDialog.Filter = "*.xls|*.xls"
           TDialog.DefaultExt = "xls"
           If Not TDialog.Execute Then Exit Function
+          
+          
         
           Set Excel = CreateObject("Excel.Application")
           Call Excel.Workbooks.Open(TDialog.FileName)
           Set Sheet = Excel.Application.ActiveSheet
         
+        '  Except tb_import_fromExcell_except(Excel, )
           'посчитаем число строк
           dim i, records
           i = 2
@@ -81,11 +92,11 @@ Objects:
             exit function
           end if
           
-          dim DocNumb, DocDate, Dept
+          dim DocNumb, DocDate, Dept, MagCode
           ' получим данные для шапки документа с 1 записи данных
           DocNumb = Excel.ActiveSheet.Cells(2, 7).Value
           DocDate = Excel.ActiveSheet.Cells(2, 8).Value
-          
+          MagCode = Excel.ActiveSheet.Cells(2, 6).Value
           dim ibSQL
           set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
               ibsql.Transaction = gdcBaseManager.ReadTransaction
@@ -119,7 +130,7 @@ Objects:
           frmPr.Min = 0
           frmPr.Max = records
           frmPr.Show
-          Except ProgressForm_xls_Except(frmPr, Excel)
+          Except tb_import_fromExcell_Except(frmPr, Excel)
           
           dim Cost, BarCode, Quant, errK
           errK=0
@@ -157,24 +168,33 @@ Objects:
         
           i=i+1
           WEND
-          
+        
+          frmPr.Close
           call Application.MessageBox("Импорт завершен!","Внимание!",vbOkOnly+vbInformation+vbSystemMOdal)
               OwnerForm.ReFresh
         
-          if ErrList.Count > 1 then
-            ErrList.Add("Всего не найдено: " + CSTR(errK) + " из: " + CSTR(records) + " записей")
-            ErrList.SaveToFile("D:\import.txt")
-            IF Application.MessageBox("Список не найденных рецептов сохранен в файле D:\import.txt. Открыть для просмотра?","Внимание", _
-              vbYesNo + vbExclamation+vbSystemModal)= vbYes then
-                Log.Run("notepad D:\import.txt")
-            END IF
-          end if
-          
+          dim logFile
+          LogFile = MagSynch.GetLogPath(MagCode) + "log" + fso.getbasename(TDialog.FileName) + ".txt"
+            if ErrList.Count > 1 then
+              ErrList.Add("Всего не найдено: " + CSTR(errK) + " из: " + CSTR(records) + " записей")
+              ErrList.SaveToFile(LogFile)
+              IF Application.MessageBox("Список не найденных рецептов сохранен в файле D:\import.txt. Открыть для просмотра?","Внимание", _
+                vbYesNo + vbExclamation+vbSystemModal)= vbYes then
+                  Log.Run("notepad " + LogFile)
+              END IF
+            end if
+        
+        
           Excel.Quit
           Set Excel = Nothing
+        
+         ' переместим в обработанные, если нужно
+          if MagSynch.GetMoveFile(MagCode) then
+            FSO.MoveFile TDialog.FileName, MagSynch.GetFCopyPath(MagCode)
+          end if
         End Function
         
-        SUB ProgressForm_xls_Except(prForm, Excel)
+        SUB tb_import_fromExcell_Except(prForm, Excel)
           prForm.Close
           Set prForm = Nothing
           Excel.Quit
