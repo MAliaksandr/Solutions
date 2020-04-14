@@ -1,0 +1,1303 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 277800253_1431326289
+  Name: "Табак.Цеха.Синхронизация с магазинами.Заказ-наряд.Перекрытие"
+  Caption: "Табак.Цеха.Синхронизация с магазинами.Заказ-наряд.Перекрытие"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 4A925037CF7DF561E432E3C2AA2A4035
+Uses: 
+  - "277799957_1431326289 Import_zn_fromexcell"
+  - "147753062_69526485 GS.Общие.Хранилище"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 277800250_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_ImportfrExcellOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147103204_546801707 gdc_dlgUserComplexDocument147103186_546801707"
+      OBJECTNAME: "gdc_dlgUserComplexDocument147103186_546801707"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-04-14T13:24:34+03:00
+      DISPLAYSCRIPT: | 
+        USRG_IMPORTFREXCELLONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include TB_IMPORT_FROMEXCELL
+        Option Explicit
+        Sub usrg_ImportfrExcellOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        
+          call tb_import_fromExcell(Sender.OwnerForm)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "277799715_1431326289 tb_import_fromExcell"
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147920996_1533692330
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147240236_1234867257 GLOBAL\\DFM\\Tgdc_dlgUserComplexDocument"
+      NAME: "147103186_546801707"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2020-04-14T13:24:37+03:00
+      BLOB_DATA: | 
+        object gdc_dlgUserComplexDocument147103186_546801707: Tgdc_dlgUserComplexDocument
+          VertScrollBar.Position = 0
+          ActiveControl = usrg_PageControl1
+          BorderWidth = 0
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 10123
+            TabOrder = 1
+          end
+          object btnNew: TButton
+            Top = 10123
+            TabOrder = 2
+          end
+          object btnHelp: TButton
+            Top = 10123
+            TabOrder = 3
+          end
+          object pnlMain: TPanel
+            Top = 0
+            Width = 1366
+            Height = 664
+            Align = alClient
+            TabOrder = 0
+            object splMain: TSplitter
+              Top = 153
+              Width = 1366
+            end
+            object pnlDetail: TPanel
+              Top = 157
+              Width = 1366
+              Height = 507
+              TabOrder = 1
+              object ibgrDetail: TgsIBGrid
+                Left = 0
+                Width = 1366
+                Height = 481
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <
+                  item
+                    Lookup.LookupListField = 'NUMBER'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_DOCUMENT'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcUserDocument'
+                    Lookup.SubType = '147012105_52143670'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$RECEIPTKEY'
+                    DisplayField = 'U_USR$RECEIPTKEY_USR$4089403095'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_GOOD'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcGood'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$GOODKEY'
+                    DisplayField = 'GOODNAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_MODIFY'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefinedLBRBTree'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$MODIFYGROUPKEY'
+                    DisplayField = 'MNR_USR$MODIFYGROUPKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_PRNGROUP'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$PRNGROUPKEY'
+                    DisplayField = 'MNR_USR$PRNGROUPKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$INV_GROUPPERC'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.SubType = 'USR$INV_GROUPPERC'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$INV_PERCKEY'
+                    DisplayField = 'G_USR$INV_PERCKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_VALUE'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcValue'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$OUTVALUEKEY'
+                    DisplayField = 'G_USR$OUTVALUEKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_CATEGORY'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$CATEGORYKEY'
+                    DisplayField = 'MNR_USR$CATEGORYKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_CONTACT'
+                    Lookup.Condition = 'CONTACTTYPE = 4'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcBaseContact'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$BRI_DEPARTKEY'
+                    DisplayField = 'MNR_USR$BRI_DEPARTKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAMEGOODGROUP'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$INV_REFFORMTORG'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefinedLBRBTree'
+                    Lookup.SubType = 'USR$INV_REFFORMTORG'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$INV_REFFORMTORGKEY'
+                    DisplayField = 'G_USR$INV_REFFORMTORG3788720399'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$LOSSCOEFF'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_WASTECOEFF'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$LOSSFACTOR'
+                    DisplayField = 'G_USR$LOSSFACTOR_USR$LOSSCOEFF'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NUMBER'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_DOCUMENT'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcUserDocument'
+                    Lookup.SubType = '147012105_52143670'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$RECEIPTKEY'
+                    DisplayField = 'U_USR$RECEIPTKEY_USR$OUTPUT'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_GOOD'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcGood'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$MN_MAINGOODKEY'
+                    DisplayField = 'G_USR$MN_MAINGOODKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'gd_contact'
+                    Lookup.Condition = 'contacttype = 4'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcDepartment'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$DEPOTKEY'
+                    DisplayField = 'MNR_USR$DEPOTKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_EXTRACATEGORY'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.SubType = 'USR$MN_EXTRACATEGORY'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$EXTRACATEGORYKEY'
+                    DisplayField = 'MNR_USR$EXTRACATEGORY1315813799'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_GOOD'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcGood'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$GOODKEY'
+                    DisplayField = 'MNR_USR$GOODKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_GOODGROUP'
+                    Lookup.Condition = 'parent in (147100314, 147100315)'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcGoodGroup'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$BRI_GROUPKEY'
+                    DisplayField = 'MNR_USR$BRI_GROUPKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$REF_6TORG'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$REF6TORGKEY'
+                    DisplayField = 'G_USR$REF6TORGKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_ALCGROUP'
+                    Lookup.CheckUserRights = False
+                    Lookup.gdClassName = 'TgdcAttrUserDefinedLBRBTree'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$REFALCGROUPKEY'
+                    DisplayField = 'G_USR$REFALCGROUPKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'e.USR$NAME'
+                    Lookup.LookupKeyField = 'e.ID'
+                    Lookup.LookupTable = 
+                      'USR$MN_EXTRACATEGORY e join USR$MN_EXTRACATEGORYPERC ecp on ecp.' +
+                      'USR$EXTRACATEGORYKEY = e.id'
+                    Lookup.Condition = 'ecp.USR$DATE <= '#39'14.04.2020'#39
+                    Lookup.CheckUserRights = False
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$EXTRACATEGORYKEY'
+                    DisplayField = 'U_USR$EXTRACATEGORYKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'gd_contact'
+                    Lookup.Condition = 'contacttype = 4'
+                    Lookup.gdClassName = 'TgdcDepartment'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$DEPOTKEY'
+                    DisplayField = 'CC_USR$DEPOTKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'gd_contact'
+                    Lookup.Condition = 'contacttype = 4'
+                    Lookup.gdClassName = 'TgdcDepartment'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$FROMDEPOT'
+                    DisplayField = 'CC_USR$FROMDEPOT_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_GOOD'
+                    Lookup.gdClassName = 'TgdcGood'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$GOODKEY1'
+                    DisplayField = 'G_USR$GOODKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_MODIFY'
+                    Lookup.gdClassName = 'TgdcAttrUserDefinedLBRBTree'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$MODIFYGROUPKEY'
+                    DisplayField = 'CC_USR$MODIFYGROUPKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_PRNGROUP'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$PRNGROUPKEY'
+                    DisplayField = 'CC_USR$PRNGROUPKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$MN_EXTRACATEGORY'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.SubType = 'USR$MN_EXTRACATEGORY'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$EXTRACOSTKEY'
+                    DisplayField = 'CC_USR$EXTRACOSTKEY_USR$NAME'
+                    DropDownCount = 8
+                  end>
+                Aliases = <>
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'GROUPNAME'
+                    Title.Caption = 'Группа ТМЦ'
+                    Width = 116
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'GOODNAME'
+                    ReadOnly = True
+                    Title.Caption = 'Блюдо'
+                    Width = 302
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$QUANTITY'
+                    Title.Caption = 'Количество'
+                    Width = 82
+                    Visible = True
+                    DisplayFormat = '#,##0.000'
+                    TotalType = ttSum
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'USR$SELLCOST'
+                    Title.Caption = 'Цена'
+                    Width = 118
+                    Visible = True
+                    DisplayFormat = '#,##0.##'
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$MINEXTRAPERC'
+                    Title.Caption = 'Мин.планир. наценка'
+                    Width = 138
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$RECEIPTKEY_USR$OUTPUT'
+                    Title.Caption = 'Выход'
+                    Width = 124
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$EXTRACATEGORYKEY_USR$NAME'
+                    Title.Caption = 'Наценочная категория'
+                    Width = 150
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'COST'
+                    Title.Caption = 'Цена блюда'
+                    Width = 118
+                    Visible = True
+                    DisplayFormat = '#,##0.##'
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EXTRACATEGORYKEY'
+                    Title.Caption = 'Наценочная категория'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ALIAS'
+                    Title.Caption = 'Кассовый код блюда'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTDATE'
+                    Title.Caption = 'Дата'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCRIPTION'
+                    Title.Caption = 'Описание'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMNCU'
+                    Title.Caption = 'Сумма в НДЕ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$RECEIPTKEY'
+                    Title.Caption = 'Рецепт'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SORTNUMBER'
+                    ReadOnly = False
+                    Title.Caption = 'Номер для сортировки'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID'
+                    Title.Caption = 'Ключ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PARENT'
+                    Title.Caption = 'Родитель'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTTYPEKEY'
+                    Title.Caption = 'Тип документа'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRTYPEKEY'
+                    Title.Caption = 'Тип транзакции'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRANSACTIONKEY'
+                    Title.Caption = 'Транзакция'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'NUMBER'
+                    Title.Caption = 'Номер'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMCURR'
+                    Title.Caption = 'Сумма в валюте'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DELAYED'
+                    Title.Caption = 'Отложенный'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CURRKEY'
+                    Title.Caption = 'Валюта'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'COMPANYKEY'
+                    Title.Caption = 'Компания'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATORKEY'
+                    Title.Caption = 'Кто создал'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATIONDATE'
+                    Title.Caption = 'Дата создания'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITORKEY'
+                    Title.Caption = 'Кто исправил'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITIONDATE'
+                    Title.Caption = 'Дата изменения'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PRINTDATE'
+                    Title.Caption = 'Дата печати'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DISABLED'
+                    Title.Caption = 'Отключено'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED'
+                    Title.Caption = 'Зарезервировано'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTKEY'
+                    ReadOnly = True
+                    Title.Caption = 'Ключ документа'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'MASTERKEY'
+                    ReadOnly = True
+                    Title.Caption = 'Родитель (Проработка(позиция))'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED1'
+                    ReadOnly = True
+                    Title.Caption = 'Зарезервировано (Проработка(позиция))'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EQRATE'
+                    Title.Caption = 'Курс экв.'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMEQ'
+                    Title.Caption = 'Сумма в эквиваленте'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GOODKEY'
+                    Title.Caption = 'ИД'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CALCCARDKEY'
+                    ReadOnly = True
+                    Title.Caption = 'Ключ документа'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AFULL'
+                    Title.Caption = 'Полный доступ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'ACHAG'
+                    Title.Caption = 'Просмотр и редактирование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AVIEW'
+                    Title.Caption = 'Только просмотр'
+                    Width = -1
+                    Visible = False
+                  end>
+              end
+              object tbdTop: TTBDock
+                Width = 1366
+                object tbDetail: TTBToolbar
+                  DockPos = 0
+                  SavedAtRunTime = True
+                  object tbNew: TTBItem
+                    Visible = False
+                  end
+                  object tbEdit: TTBItem
+                    Visible = False
+                  end
+                  object tbDelete: TTBItem
+                  end
+                  object tbDuplicate: TTBItem
+                    Visible = False
+                  end
+                  object tbiDetailProperties: TTBItem
+                  end
+                  object TBSeparatorItem1: TTBSeparatorItem
+                  end
+                  object tbCopy: TTBItem
+                  end
+                  object tbCut: TTBItem
+                  end
+                  object tbPaste: TTBItem
+                  end
+                  object TBSeparatorItem2: TTBSeparatorItem
+                  end
+                  object tbMacro: TTBItem
+                  end
+                  object usrg_TBSeparatorItem1: TTBSeparatorItem
+                    Tag = 0
+                    Blank = False
+                    Hint = ''
+                    Visible = True
+                  end
+                  object usrg_TBItem1: TTBItem
+                    Tag = 0
+                    Action = usrg_AddReceipt
+                    AutoCheck = False
+                    DisplayMode = nbdmImageAndText
+                    GroupIndex = 0
+                    Images = nil
+                    InheritOptions = True
+                    MaskOptions = []
+                    Options = []
+                    RadioItem = False
+                  end
+                  object usrg_tbiOpenReceipt: TTBItem
+                    Tag = 0
+                    Action = usrg_actOpenReceipt
+                    AutoCheck = False
+                    DisplayMode = nbdmImageAndText
+                    GroupIndex = 0
+                    Images = nil
+                    InheritOptions = True
+                    MaskOptions = []
+                    Options = []
+                    RadioItem = False
+                  end
+                  object usrg_TBSeparatorItem2: TTBSeparatorItem
+                    Tag = 0
+                    Blank = False
+                    Hint = ''
+                    Visible = True
+                  end
+                  object usrg_TBItem3: TTBItem
+                    Tag = 0
+                    Action = usrg_actChangeExtra
+                    AutoCheck = False
+                    DisplayMode = nbdmImageAndText
+                    GroupIndex = 0
+                    Images = nil
+                    InheritOptions = True
+                    MaskOptions = []
+                    Options = []
+                    RadioItem = False
+                  end
+                  object usrg_147103186_546801707_TBItem1: TTBItem
+                    Tag = 0
+                    Action = usrg_ImportfrExcell
+                    AutoCheck = False
+                    DisplayMode = nbdmImageAndText
+                    GroupIndex = 0
+                    Images = nil
+                    InheritOptions = True
+                    MaskOptions = []
+                    Options = []
+                    RadioItem = False
+                  end
+                end
+              end
+              object tbdLeft: TTBDock
+                Width = 0
+                Height = 481
+              end
+              object tbdRight: TTBDock
+                Left = 1366
+                Width = 0
+                Height = 481
+              end
+              object tbdBottom: TTBDock
+                Top = 507
+                Width = 1366
+                Height = 0
+              end
+            end
+            object pnlMaster: TPanel
+              Width = 1366
+              Height = 153
+              TabOrder = 0
+              object pnlHolding: TPanel
+                Width = 1366
+                TabOrder = 1
+                object lblCompany: TLabel
+                end
+                object iblkCompany: TgsIBLookupComboBox
+                end
+              end
+              object usrg_PageControl1: TPageControl
+                Tag = 0
+                Left = 0
+                Top = 0
+                Width = 1366
+                Height = 153
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                ActivePage = usrg_TabSheet1
+                Align = alClient
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DockSite = False
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                HotTrack = False
+                Images = nil
+                MultiLine = False
+                OwnerDraw = False
+                ParentBiDiMode = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                RaggedRight = False
+                ScrollOpposite = False
+                Style = tsTabs
+                TabHeight = 0
+                TabOrder = 0
+                TabPosition = tpTop
+                TabStop = True
+                TabWidth = 0
+                Visible = True
+                object usrg_TabSheet1: TTabSheet
+                  Tag = 0
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  BorderWidth = 0
+                  Caption = 'Основные'
+                  DragMode = dmManual
+                  Enabled = True
+                  Highlighted = False
+                  ImageIndex = 0
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabVisible = True
+                  object usrat_gsIBLookupComboBox_USR_DEPOTKEY_Label: TLabel
+                    Top = 33
+                  end
+                  object usrat_xDateDBEdit_DOCUMENTDATE_Label: TLabel
+                    Left = 215
+                    Top = 6
+                  end
+                  object usrat_DBEdit_NUMBER_Label: TLabel
+                    Top = 6
+                  end
+                  object usrat_DBEdit_USR_BRI_DESCRIPTION_Label: TLabel
+                    Top = 57
+                  end
+                  object usrat_gsIBLookupComboBox_USR_TODEPOTKEY_Label: TLabel
+                    Left = 288
+                    Top = 33
+                  end
+                  object usrat_gsIBLookupComboBox_USR_CONTACTKEY_Label: TLabel
+                    Left = 589
+                    Top = 36
+                  end
+                  object usrat_gsIBLookupComboBox_USR_FPRICE_Label: TLabel
+                    Left = 591
+                    Top = 59
+                  end
+                  object usrat_gsIBLookupComboBox_USR_DEPOTKEY: TgsIBLookupComboBox
+                    Left = 121
+                    Top = 29
+                    Width = 161
+                    ListTable = 
+                      'gd_contact c JOIN gd_contact cp ON cp.lb <= c.lb AND cp.rb >= c.' +
+                      'rb'
+                    Condition = 'c.contacttype = 4 AND cp.id = :ck'
+                    ViewType = vtTree
+                    TabOrder = 2
+                  end
+                  object usrat_xDateDBEdit_DOCUMENTDATE: TxDateDBEdit
+                    Left = 250
+                    Top = 2
+                    TabOrder = 1
+                  end
+                  object usrat_DBEdit_NUMBER: TDBEdit
+                    Left = 121
+                    Top = 2
+                    Width = 76
+                    TabOrder = 0
+                  end
+                  object usrat_DBEdit_USR_BRI_DESCRIPTION: TDBEdit
+                    Left = 121
+                    Top = 53
+                    Width = 443
+                    TabOrder = 4
+                  end
+                  object usrat_gsIBLookupComboBox_USR_TODEPOTKEY: TgsIBLookupComboBox
+                    Left = 403
+                    Top = 29
+                    Width = 161
+                    ListTable = 
+                      'gd_contact c JOIN gd_contact cp ON cp.lb <= c.lb AND cp.rb >= c.' +
+                      'rb'
+                    Condition = 'c.contacttype = 4 AND cp.id = :ck'
+                    ViewType = vtTree
+                    TabOrder = 3
+                  end
+                  object usrat_gsIBLookupComboBox_USR_CONTACTKEY: TgsIBLookupComboBox
+                    Left = 719
+                    Top = 32
+                    Width = 244
+                    TabOrder = 5
+                  end
+                  object usrat_gsIBLookupComboBox_USR_FPRICE: TgsIBLookupComboBox
+                    Left = 669
+                    Top = 55
+                    Width = 294
+                    Fields = 'D.DOCUMENTDATE, D.NUMBER'
+                    ListTable = 'INV_PRICE p join gd_document d on d.id=p.documentkey'
+                    TabOrder = 6
+                  end
+                end
+                object usrg_TabSheet2: TTabSheet
+                  Tag = 0
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  BorderWidth = 0
+                  Caption = 'Атрибуты'
+                  DragMode = dmManual
+                  Enabled = True
+                  Highlighted = False
+                  ImageIndex = 0
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabVisible = False
+                  object atContainer: TatContainer
+                    Top = 0
+                    Width = 1358
+                    Height = 125
+                    VertScrollBar.Position = 0
+                    TabOrder = 0
+                    object usrat_DBEdit_USR_SORTNUMBER_Label: TLabel
+                      Top = 181
+                      Visible = False
+                    end
+                    object usrat_DBEdit_USR_EQRATE_Label: TLabel
+                      Top = 97
+                    end
+                    object usrat_DBEdit_USR_SORTNUMBER: TxDBCalculatorEdit
+                      Top = 177
+                      Cursor = crIBeam
+                      TabOrder = 0
+                      Visible = False
+                    end
+                    object usrat_DBEdit_USR_EQRATE: TxDBCalculatorEdit
+                      Top = 93
+                      Cursor = crIBeam
+                      TabOrder = 1
+                    end
+                  end
+                end
+              end
+            end
+          end
+          object usrg_Panel1: TPanel
+            Tag = 0
+            Left = 0
+            Top = 664
+            Width = 1366
+            Height = 41
+            Cursor = crDefault
+            Hint = ''
+            HelpContext = 0
+            Align = alBottom
+            Alignment = taCenter
+            Anchors = [akLeft, akRight, akBottom]
+            AutoSize = False
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelWidth = 1
+            BorderWidth = 0
+            BorderStyle = bsNone
+            Caption = ''
+            Color = clBtnFace
+            Constraints.MaxHeight = 0
+            Constraints.MaxWidth = 0
+            Constraints.MinHeight = 0
+            Constraints.MinWidth = 0
+            UseDockManager = True
+            DockSite = False
+            DragCursor = crDrag
+            DragKind = dkDrag
+            DragMode = dmManual
+            Enabled = True
+            FullRepaint = True
+            Locked = False
+            ParentBiDiMode = True
+            ParentColor = False
+            ParentCtl3D = True
+            ParentFont = True
+            ParentShowHint = True
+            PopupMenu = nil
+            TabOrder = 5
+            TabStop = False
+            Visible = True
+            object btnOK: TButton
+              Left = 821
+              Top = 10
+              Anchors = [akLeft, akTop]
+              TabOrder = 0
+            end
+            object btnCancel: TButton
+              Left = 896
+              Top = 10
+              Anchors = [akLeft, akTop]
+              TabOrder = 1
+            end
+          end
+          object alBase: TActionList
+            Left = 388
+            Top = 8
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+            object actDetailNew: TAction
+            end
+            object actDetailEdit: TAction
+            end
+            object actDetailDelete: TAction
+            end
+            object actDetailDuplicate: TAction
+            end
+            object actDetailPrint: TAction
+            end
+            object actDetailCut: TAction
+            end
+            object actDetailCopy: TAction
+            end
+            object actDetailPaste: TAction
+            end
+            object actDetailMacro: TAction
+            end
+            object actDetailProp: TAction
+            end
+            object usrg_AddReceipt: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Выбрать рецепты'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = 'Добавить рецепты'
+              ImageIndex = 244
+              ShortCut = 0
+              Visible = True
+            end
+            object usrg_actChangeExtra: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Замена наценки'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = 212
+              ShortCut = 0
+              Visible = True
+            end
+            object usrg_actOpenReceipt: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Открыть рецепт'
+              Checked = False
+              Enabled = False
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = 7
+              ShortCut = 0
+              Visible = True
+            end
+            object usrg_ImportfrExcell: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Загрузить из Excell'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = 'Загрузить из Excell'
+              ImageIndex = 31
+              ShortCut = 0
+              Visible = True
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 421
+            Top = 7
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+          object dsDetail: TDataSource
+            Left = 453
+            Top = 14
+          end
+          object gdMacrosMenu: TgdMacrosMenu
+            Left = 217
+            Top = 143
+          end
+        end
+        

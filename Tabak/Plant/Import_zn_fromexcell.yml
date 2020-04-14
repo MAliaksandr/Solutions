@@ -5,10 +5,10 @@ Properties:
   RUID: 277799957_1431326289
   Name: "Import_zn_fromexcell"
   Caption: "Import_into_zn_fr_excel"
-  Version: "1.0.0.3"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 815407B018464B0DEBB1FE79C3A57C67
+  MD5: 61C03D0BF3164144FFED450D52AE829D
 Uses: 
   - "147093152_1892754951 GS.Общепит.back - Хранилище"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2020-04-12T00:46:46+03:00
+      EDITIONDATE: 2020-04-14T13:39:25+03:00
       DISPLAYSCRIPT: | 
         TB_IMPORT_FROMEXCELL
         TB_IMPORT_FROMEXCELL_EXCEPT
@@ -59,22 +59,35 @@ Objects:
           ' CopyFilePath = MagSynch.GetFCopyPath("ЦХ01065")
           ' isMove = MagSynch.GetMoveFile("ЦХ01065")
           
-          dim gdcObject,  gdcDetailObject
+          dim gdcObject,  gdcDetailObject, dt, deptkey
           set gdcObject = OwnerForm.gdcObject
-          set gdcDetailObject = OwnerForm.gdcDetailObject
+          dt = gdcObject.FieldByName("documenttypekey").asInteger
         
+          ' накладная на получение товара или заказ наряд
+          if dt = gdcBaseManager.GetIDByRuidString("147010993_109092844") Then
+            set gdcDetailObject = OwnerForm.FindComponent("FTopDataSource").DataSet
+            deptkey = gdcObject.FieldByName("USR$DEPTKEY").asInteger
+          else
+            set gdcDetailObject = OwnerForm.gdcDetailObject
+            deptkey = gdcObject.FieldByName("USR$DEPOTKEY").asInteger
+          end if
+          
+          
           Set TDialog = Creator.GetObject(Null, "TOpenDialog", "")
+          
+          IF deptkey >0 and not isNull(MagSynch.GetDirByDept(deptkey)) THEN
+            TDialog.InitialDir = MagSynch.GetDirByDept(deptkey)
+          END IF
+        
           TDialog.Filter = "*.xls|*.xls"
           TDialog.DefaultExt = "xls"
           If Not TDialog.Execute Then Exit Function
           
           
-        
           Set Excel = CreateObject("Excel.Application")
           Call Excel.Workbooks.Open(TDialog.FileName)
           Set Sheet = Excel.Application.ActiveSheet
         
-        '  Except tb_import_fromExcell_except(Excel, )
           'посчитаем число строк
           dim i, records
           i = 2
@@ -97,9 +110,39 @@ Objects:
           DocNumb = Excel.ActiveSheet.Cells(2, 7).Value
           DocDate = Excel.ActiveSheet.Cells(2, 8).Value
           MagCode = Excel.ActiveSheet.Cells(2, 6).Value
+          
+          'Обновим данные шапки документа
+          if gdcObject.State = dsInsert or gdcObject.State = dsEdit Then
+             gdcObject.FieldByName("Documentdate").asDateTime = DocDate
+             gdcObject.FieldByName("Number").asString = DocNumb
+          end if
+          
+          dim frmPr
+          Set frmPr = new Tvb_ren_frmProgressBar
+          frmPr.Caption = "Идёт загрузка."
+          frmPr.Note = "Подождите пожалуйста..."
+          frmPr.Step = 1
+          frmPr.Smooth = True
+          frmPr.Min = 0
+          frmPr.Max = records
+        
+          Except tb_import_fromExcell_Except(frmPr, Excel)
+          
+          if deptkey <> MagSynch.GetDeptKey(MagCode) Then
+             call Application.MessageBox("Файл не предназначен для выбранного подразделения." + VbLF  + _
+              "Проверьте <Параметры связи> для данного подразделения. " + VbLF  + _
+              "Загрузка прервана.", "Внимание", vbOkOnly + vbSystemMOdal +vbExclamation)
+             Excel.Quit
+             Set Excel = Nothing
+             frmPr.Close
+             Set frmPr = Nothing
+            exit function
+          end if
+          
           dim ibSQL
           set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
-              ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.Transaction = gdcBaseManager.ReadTransaction
+            if dt <> gdcBaseManager.GetIDByRuidString("147010993_109092844") Then
               ibsql.SQL.Text = _
               "SELECT FIRST(1) " & _
               "G.iD AS GOODKEY, " & _
@@ -110,6 +153,19 @@ Objects:
               "WHERE G.BARCODE =:BARCODE " & _
               "AND R.USR$DEPOTKEY = :DEPT " & _
               "ORDER BY D.DOCUMENTDATE DESC "
+            else
+              ibsql.SQL.Text = _
+              "SELECT FIRST(1) " & _
+              "g.ID as GOODKEY " & _
+              "FROM GD_GOOD G " & _
+              "where g.BARCODE =:barcode " & _
+              "or EXISTS( " & _
+              "  SELECT " & _
+              "    GB.ID " & _
+              "  FROM GD_GOODBARCODE GB " & _
+              "  WHERE GB.GOODKEY = G.ID AND GB.BARCODE = :BarCode) "
+            end if
+        
         
           dim ErrList
           set ErrList = Creator.GetObject(nil, "TStringList", "")
@@ -121,17 +177,8 @@ Objects:
           Dim fso
           Set fso = CreateObject("Scripting.FileSystemObject")
           
-          dim frmPr
-          Set frmPr = new Tvb_ren_frmProgressBar
-          frmPr.Caption = "Идёт списание продуктов."
-          frmPr.Note = "Подождите пожалуйста..."
-          frmPr.Step = 1
-          frmPr.Smooth = True
-          frmPr.Min = 0
-          frmPr.Max = records
+        
           frmPr.Show
-          Except tb_import_fromExcell_Except(frmPr, Excel)
-          
           dim Cost, BarCode, Quant, errK
           errK=0
           i=2
@@ -141,27 +188,35 @@ Objects:
            frmPr.Position = i-1
            Application.ProcessMessages
            
-           BarCode = Excel.ActiveSheet.Cells(i, 47).Value ' BarCode
-           Quant = Excel.ActiveSheet.Cells(i, 9).Value ' Quant
-           Cost = Excel.ActiveSheet.Cells(i, 13).Value ' Cost
+           BarCode = Excel.ActiveSheet.Cells(i, 47).Value
+           Quant = Excel.ActiveSheet.Cells(i, 9).Value
+           Cost = Excel.ActiveSheet.Cells(i, 13).Value
         
            if Cost<>0 and BarCode<>"" then
              IBSQL.CLOSE
              IBSQL.ParamBYName("BARCODE").asVariant = BarCode
-             IBSQL.ParamBYName("DEPT").asVariant =gdcObject.FieldByName("USR$DEPOTKEY").asInteger
+             if dt <> gdcBaseManager.GetIDByRuidString("147010993_109092844") Then
+               IBSQL.ParamBYName("DEPT").asVariant = deptkey
+             end if
              IBSQL.EXECQUERY
         
              IF IBSQL.eof THEN
                errK = errK + 1
-               ErrList.Add("Рецепт со ШК: " + BarCode + " не найден на данном подразделении.")
+               ErrList.Add("Позиция со ШК: " + BarCode + " не найден на данном подразделении.")
              END IF
         
              IF not IBSQL.eof THEN
                gdcDetailObject.Append
-               gdcDetailObject.FieldByName("USR$RECEIPTKEY").AsInteger =  ibsql.FieldByName("DOCUMENTKEY").AsInteger
-               gdcDetailObject.FieldByName("USR$GOODKEY").AsInteger = ibsql.FieldByName("GOODKEY").AsInteger
-               gdcDetailObject.FieldByName("USR$QUANTITY").AsCurrency = Quant
-               gdcDetailObject.FieldByName("USR$SELLCOST").AsCurrency = Cost
+               if dt <> gdcBaseManager.GetIDByRuidString("147010993_109092844") Then
+                 gdcDetailObject.FieldByName("USR$RECEIPTKEY").AsInteger =  ibsql.FieldByName("DOCUMENTKEY").AsInteger
+                 gdcDetailObject.FieldByName("USR$GOODKEY").AsInteger = ibsql.FieldByName("GOODKEY").AsInteger
+                 gdcDetailObject.FieldByName("USR$QUANTITY").AsCurrency = Quant
+                 gdcDetailObject.FieldByName("USR$SELLCOST").AsCurrency = Cost
+               else
+                 gdcDetailObject.FieldByName("GOODKEY").AsInteger = ibsql.FieldByName("GOODKEY").AsInteger
+                 gdcDetailObject.FieldByName("QUANTITY").AsCurrency = Quant
+                 gdcDetailObject.FieldByName("TO_USR$INV_COSTPROVIDER").AsCurrency = Cost
+               end if
                gdcDetailObject.Post
              END IF
            end if
@@ -178,7 +233,7 @@ Objects:
             if ErrList.Count > 1 then
               ErrList.Add("Всего не найдено: " + CSTR(errK) + " из: " + CSTR(records) + " записей")
               ErrList.SaveToFile(LogFile)
-              IF Application.MessageBox("Список не найденных рецептов сохранен в файле D:\import.txt. Открыть для просмотра?","Внимание", _
+              IF Application.MessageBox("Список не найденных позиций сохранен в файле D:\import.txt. Открыть для просмотра?","Внимание", _
                 vbYesNo + vbExclamation+vbSystemModal)= vbYes then
                   Log.Run("notepad " + LogFile)
               END IF
