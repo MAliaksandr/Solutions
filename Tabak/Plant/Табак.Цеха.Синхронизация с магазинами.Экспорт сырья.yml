@@ -1,0 +1,201 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 277800910_1431326289
+  Name: "Табак.Цеха.Синхронизация с магазинами.Экспорт сырья"
+  Caption: "Табак.Цеха.Синхронизация с магазинами.Экспорт сырья"
+  Version: "1.0.0.4"
+  Optional: False
+  Internal: True
+  MD5: F92D416DB89661B366FBF699CFEA17CF
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 277800902_1431326289
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "tb_export_toExcell"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-04-17T10:57:25+03:00
+      DISPLAYSCRIPT: | 
+        TB_EXPORT_TOEXCELL
+        TB_EXPORT_TOEXCELL_EXCEPT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function tb_export_toExcell(OwnerForm)
+        
+          dim gdcObject,  gdcDetailObject, dt, deptkey , FileName
+          set gdcObject = OwnerForm.gdcObject
+          
+          if not Assigned(gdcObject)  Then
+            call Application.MessageBox("Не выбран документ" + vbLf + "Экспорт прерван.", _
+                                        "Внимание", vbOkOnly + vbSystemModal + vbCritical)
+            exit function
+          else
+            FileName = Split(TRIM(gdcObject.FieldByName("NUMBER").asString),"-")(0)
+          end if
+          
+          Dim Creator, TDialog, Excel, Sheet, Start
+          Set Creator = New TCreator
+        
+          dim MagSynch
+          set MagSynch = new Tvb_MagSynch
+          
+          dim FilePath
+          FilePath  = MagSynch.GetDirByDept(gdcObject.FieldByName("USR$MAINDEPOTKEY").asInteger)
+          
+          if FilePath = "" Then
+            call Application.MessageBox("В параметрах-связки не найден путь к файлу на данное подразделение" + vbLF + _
+            "Файл будет сохранен в D:\","Внимание!",vbOkOnly+vbInformation+vbSystemMOdal)
+             FilePath  ="D:\"
+          end if
+        
+        
+          dim q
+          set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.Transaction = gdcBaseManager.ReadTransaction
+          q.SQL.Text = _
+            "SELECT " & _
+            "  D.NUMBER, " & _
+            "  D.DOCUMENTDATE, " & _
+            "  B.USR$MAINDEPOTKEY, " & _
+            "  B.USR$CONTACTKEY, " & _
+            "  L.DOCUMENTKEY, " & _
+            "  C.GOODKEY, " & _
+            "  v.NAME as Vname, " & _
+            "  G.NAME AS GOODNAME,g.Barcode, " & _
+            "  L.QUANTITY, c.USR$INV_SELLNDS,  " & _
+            "  C.USR$INV_SELCOSTNCU as cost " & _
+            "FROM GD_DOCUMENT D " & _
+            "JOIN USR$INV_SELLBILL B ON B.DOCUMENTKEY = D.ID " & _
+            "LEFT JOIN USR$INV_SELLBILLLINE L ON B.DOCUMENTKEY =  L.MASTERKEY " & _
+            "LEFT JOIN INV_CARD C ON C.ID = L.FROMCARDKEY " & _
+            "LEFT JOIN GD_GOOD G ON G.ID  =  C.GOODKEY " & _
+            "LEFT JOIN GD_VALUE V ON V.ID = g.VALUEKEY "& _
+            "WHERE D.ID = :DOCKEY "
+          q.ParamByName("DOCKEY").asInteger =gdcObject.ID
+          q.ExecQuery
+        
+          if q.EoF then exit function
+        
+          dim Sh
+          Set Excel = CreateObject("Excel.Application")
+        
+          if not Assigned(Excel) then Exit function
+          Except tb_export_toExcell_Except(Excel)
+          
+          Set Sh = Excel.Workbooks.Add
+          Excel.ActiveSheet.Name = CSTR(gdcObject.ID) ' название листа??
+        
+          Excel.ActiveSheet.Cells(1, 1).Value = "SH_KOD"    ' ШК
+          Excel.ActiveSheet.Cells(1, 2).Value = "POL_NAIM"  ' наименование тмц
+          Excel.ActiveSheet.Cells(1, 3).Value = "N_MAT"     ' количество тмц
+          Excel.ActiveSheet.Cells(1, 4).Value = "K_IZM"     ' ед.изм
+          Excel.ActiveSheet.Cells(1, 5).Value = "N_CENU"    ' цена
+          Excel.ActiveSheet.Cells(1, 6).Value = "NDSP"      ' ставка НДС
+          
+        '  Excel.ActiveSheet.Cells(1, 3).Value = "POL_NAIM" '  наименование тмц
+            
+         ' Excel.ActiveSheet.Cells(1, 1).Value = "K_MAT"
+        '  Excel.ActiveSheet.Cells(1, 2).Value = "K_GRMAT"
+        '  Excel.ActiveSheet.Cells(1, 3).Value = "POL_NAIM" '  наименование тмц
+        '  Excel.ActiveSheet.Cells(1, 4).Value = "K_SKL"
+        '  Excel.ActiveSheet.Cells(1, 5).Value = "K_OP"
+        '  Excel.ActiveSheet.Cells(1, 6).Value = "K_ANA" ' код магаза
+        '  Excel.ActiveSheet.Cells(1, 7).Value = "DOK"   ' номер докум
+        '  Excel.ActiveSheet.Cells(1, 8).Value = "D_VV"  ' дата док-та
+        '
+        '  Excel.ActiveSheet.Cells(1, 9).Value = "POL_NAIM"
+        '  Excel.ActiveSheet.Cells(1, 10).Value = "N_MAT" ' количество тмц
+        '  Excel.ActiveSheet.Cells(1, 11).Value = "N_SUM" ' сумма
+        '  Excel.ActiveSheet.Cells(1, 12).Value = "N_IZG"
+        '  Excel.ActiveSheet.Cells(1, 13).Value = "N_OPT"
+        '  Excel.ActiveSheet.Cells(1, 14).Value = "D_VV"
+        '
+        '  Excel.ActiveSheet.Cells(1, 15).Value = "NDSP" ' ставка НДС
+        '  Excel.ActiveSheet.Cells(1, 16).Value = "CENUOSEC"
+        '  Excel.ActiveSheet.Cells(1, 17).Value = "NDSSEC"
+        '  Excel.ActiveSheet.Cells(1, 18).Value = "N_TN"
+        '  Excel.ActiveSheet.Cells(1, 19).Value = "NSP"
+        '  Excel.ActiveSheet.Cells(1, 20).Value = "NDSR" ' ставка НДС
+        '
+        '  Excel.ActiveSheet.Cells(1, 21).Value = "N_CENU" ' цена
+        '  Excel.ActiveSheet.Cells(1, 22).Value = "SUMNDSPT"
+        '  Excel.ActiveSheet.Cells(1, 23).Value = "SUMTNDSP"
+        '  Excel.ActiveSheet.Cells(1, 24).Value = "SUMNDSPS"
+        '  Excel.ActiveSheet.Cells(1, 25).Value = "N_SUMU"
+        '  Excel.ActiveSheet.Cells(1, 26).Value = "K_CONT"
+        '
+        '
+        '  Excel.ActiveSheet.Cells(1, 27).Value = "K_VGRTOV"
+        '  Excel.ActiveSheet.Cells(1, 28).Value = "K_GRTOV"
+        '  Excel.ActiveSheet.Cells(1, 29).Value = "N_PRTOV"
+        '  Excel.ActiveSheet.Cells(1, 30).Value = "LFIXEDPRC"
+        '  Excel.ActiveSheet.Cells(1, 31).Value = "LUSETRC"
+        '  Excel.ActiveSheet.Cells(1, 32).Value = "LTRCSUP"
+        '
+        '  Excel.ActiveSheet.Cells(1, 33).Value = "DPRO"
+        '  Excel.ActiveSheet.Cells(1, 34).Value = "MANFR"  ' страна
+        '  Excel.ActiveSheet.Cells(1, 35).Value = "K_GRUP" ' ШК
+        '  Excel.ActiveSheet.Cells(1, 36).Value = "K_IZM"  ' ед.изм
+        '  Excel.ActiveSheet.Cells(1, 37).Value = "LWEIGHT"
+        '  Excel.ActiveSheet.Cells(1, 38).Value = "LSPLIT"
+        '
+        '  Excel.ActiveSheet.Cells(1, 39).Value = "D_GODN" 'срок годности
+        '  Excel.ActiveSheet.Cells(1, 40).Value = "N_PER1"
+        '  Excel.ActiveSheet.Cells(1, 41).Value = "N_PER3"
+        '  Excel.ActiveSheet.Cells(1, 42).Value = "SH_KOD" ' ШК
+          
+          dim i
+          i = 2
+          while not q.EoF
+            Excel.ActiveSheet.Cells(i, 1).Value = "#" & CSTR(q.FieldByName("Barcode").AsString)
+            Excel.ActiveSheet.Cells(i, 2).Value = q.FieldByName("GOODNAME").AsString
+            Excel.ActiveSheet.Cells(i, 3).Value = gs.MulDiv(q.FieldByName("QUantity").AsCurrency,1,1,1,3)
+            Excel.ActiveSheet.Cells(i, 4).Value = q.FieldByName("VNAME").AsString
+            Excel.ActiveSheet.Cells(i, 5).Value = gs.MulDiv(q.FieldByName("cost").AsCurrency,1,1,1,2)
+            Excel.ActiveSheet.Cells(i, 6).Value = CSTR(q.FieldByName("USR$INV_SELLNDS").AsCurrency)
+            i = i + 1
+            q.Next
+          wend
+        
+        
+          Excel.ActiveSheet.Cells(3, 4).Select
+          Excel.ActiveWindow.FreezePanes = True
+        
+          call Sh.SaveAs(FilePath & Filename)
+          call Excel.Workbooks.Close
+        
+          call Application.MessageBox("Экспорт завершен!","Внимание!",vbOkOnly+vbInformation+vbSystemMOdal)
+          
+        End Function
+        
+        SUB tb_export_toExcell_Except(prForm, Excel)
+          prForm.Close
+          Set prForm = Nothing
+          Excel.Quit
+          Set Excel = Nothing
+        end sub
+        

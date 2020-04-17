@@ -5,10 +5,10 @@ Properties:
   RUID: 277800214_1431326289
   Name: "Табак.Цеха.Синхронизация с магазинами.Класс"
   Caption: "Табак.Цеха.Синхронизация с магазинами.Класс"
-  Version: "1.0.0.2"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: 9DA7444A2D8884B6BCB00592F11F5271
+  MD5: BFF8BBB9A164ED75E4C859FC42EA2CBE
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2020-04-13T13:57:08+03:00
+      EDITIONDATE: 2020-04-16T11:00:25+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -95,27 +95,14 @@ Objects:
           
            ' путь к файлу по ключу подразделения
           public function GetDirByDept(DeptKey)
-            GetDirByDept = null
-            set Creator = new TCreator
-            set SQLObj = Creator.GetObject(null, "TIBSQL", "")
+            GetByDept(DeptKey)
+            GetDirByDept = FFILEPATH
+          end function
         
-            SQLObj.Transaction = gdcBaseManager.ReadTransaction
-            SQLObj.SQL.Text = _
-            "SELECT " & _
-            "  Z.ID, " & _
-            "  Z.USR$DEPTKEY, " & _
-            "  D.NAME AS DEPTNAME, " & _
-            "  Z.USR$MAGCODE, " & _
-            "  Z.USR$FILEPATH " & _
-            " " & _
-            "FROM USR$MAGSYNCH Z " & _
-            "LEFT JOIN GD_CONTACT D ON D.ID  =  Z.USR$DEPTKEY " & _
-            "WHERE Z.USR$DEPTKEY = :DEPTKEY and COALESCE(Z.USR$DISABLED,0) <> 1 "
-            SQLObj.ParamByName("DEPTKEY").asString = DeptKey
-            SQLObj.ExecQuery
-            if not SQLObj.EOF Then
-              GetDirByDept = SQLObj.FieldByName("USR$FILEPATH").asString
-            end if
+          ' код магазина по подразделению
+          public function GetMCodeByDept(DeptKey)
+            GetByDept(DeptKey)
+            GetMCodeByDept = MAGCODE
           end function
         
         
@@ -160,6 +147,39 @@ Objects:
               FLogPath = SQLObj.FieldByName("USR$LOGPATH").AsString
             end if
             
+          end sub
+          
+           private sub GetByDept(DeptKey)
+            set Creator = new TCreator
+            set SQLObj = Creator.GetObject(null, "TIBSQL", "")
+        
+            SQLObj.Transaction = gdcBaseManager.ReadTransaction
+            SQLObj.SQL.Text = _
+            "SELECT " & _
+            "  Z.ID, " & _
+            "  Z.USR$DEPTKEY, " & _
+            "  D.NAME AS DEPTNAME, " & _
+            "  Z.USR$MAGCODE, " & _
+            "  Z.USR$FILEPATH, " & _
+            "  Z.USR$FILECOPYPATH, " & _
+            "  Z.USR$DISABLED, " & _
+            "  Z.USR$MOVEFILE, Z.USR$LOGPATH " & _
+            " " & _
+            "FROM USR$MAGSYNCH Z " & _
+            "LEFT JOIN GD_CONTACT D ON D.ID  =  Z.USR$DEPTKEY " & _
+            "WHERE Z.USR$DEPTKEY = :DEPTKEY and COALESCE(Z.USR$DISABLED,0) <> 1 "
+            SQLObj.ParamByName("DEPTKEY").asString = DEPTKEY
+            SQLObj.ExecQuery
+        
+            if not SQLObj.Eof then
+              FFILEPATH = SQLObj.FieldByName("USR$FILEPATH").AsString
+              FFILECOPYPATH = SQLObj.FieldByName("USR$FILECOPYPATH").AsString
+              FMOVEFILE = SQLObj.FieldByName("USR$MOVEFILE").AsInteger
+              FDEPTNAME = SQLObj.FieldByName("USR$FILECOPYPATH").AsString
+              FLogPath = SQLObj.FieldByName("USR$LOGPATH").AsString
+              MAGCODE = SQLObj.FieldByName("USR$MAGCODE").AsString
+            end if
+        
           end sub
           
         End Class
