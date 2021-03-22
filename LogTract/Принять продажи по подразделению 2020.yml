@@ -1,0 +1,209 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 231038008_1631069888
+  Name: "Принять продажи по подразделению 2020"
+  Caption: "Принять продажи по подразделению 2020"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 981016977F312D92A01285BD39914E19
+Uses: 
+  - "215174259_639165248 импорт_скидок_ADO"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147014572_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 231038000_1631069888
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(dlgInvDocument147006557_63934951)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147014572_23783130"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147006997_63934951
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 231038000_1631069888
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "dlgInvDocument147006557_63934951"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2002-12-28T13:45:27+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147006996_63934951
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 231038000_1631069888
+    Fields: 
+      PARENT: ~
+      NAME: "dlgInvDocument147006557_63934951"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147006997_63934951 Локальные макросы"
+      OBJECTNAME: "dlgInvDocument147006557_63934951"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147014572_23783130 Отчеты(dlgInvDocument147006557_63934951)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-09-24T16:43:34+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 231038000_1631069888
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ImportSellsADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147006996_63934951 dlgInvDocument147006557_63934951"
+      OBJECTNAME: "dlgInvDocument147006557_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-11T11:30:42+03:00
+      DISPLAYSCRIPT: | 
+        IMPORTSELLSADO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVBAAAABJU0NVUlJFTlRSRU1BSU5THwAAAM3lIOjx7+7r/Ofu4uDy/CDy5erz+ejl
+        IO7x8uDy6ugAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        ' #include ecr_ZServer_SetParams
+        ' #include ecr_TEServer_MakeSell
+        ' #include ecr_TEServer_DoSaveErrLog
+        ' #include ecr_DeptList
+        ' #include ecr_TEServer_GetBuildPath
+        ' #include ecr_TEServer_DoCreateErrLog
+        sub ImportSellsADO(OwnerForm, IsCurrentRemains)
+        ' Принять продажи по подразделению
+        
+          set actRemainsRef = OwnerForm.FindComponent("actRemainsRef")
+          if not actRemainsRef.Enabled then exit sub
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttFromCass)
+        
+          ErrorCount = 0
+        
+        '  set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+        '  set qryDoc = gsql.Query(gsql.Add("qryDoc", 0))
+        
+          dim ObjCon
+          set ObjCon = CreateObject("ADODB.Connection")
+          ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjCon.Properties("Data Source") = ecr_TEServer_workpath
+          ObjCon.Properties("Jet OLEDB:Engine Type") = 18
+          ObjCon.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.Command")
+          objADOQuery.ActiveConnection = ObjCon
+        
+          FullFileName = "'" + ecr_TEServer_GetBuildPath(ecr_TEServer_workpath, ecr_TEServer_Sell_Filename) + "'"
+        
+          set DateGoodHead = OwnerForm.FindComponent("dsgdcBase").DataSet
+          set DateGoodLine = OwnerForm.FindComponent("FTopDataSource").DataSet
+          DateGoodLine.Movement.IsGetRemains = False
+        
+          set Creator = New TCreator
+        
+          set ErrList = Creator.GetObject(nil, "TStringList", "")
+          ' проверка на существование файла ошибок, создание
+          ecr_TEServer_DoCreateErrLog(ErrList)
+        
+          set gdcRemains = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
+          gdcRemains.gdcDocumentLine = DateGoodLine
+        
+          if DateGoodHead.FieldByName("documentdate").AsVariant <> Date then
+            gdcRemains.CurrentRemains = False
+          end if
+        
+        '@АЧ использование текущих остатков при снятии реализации
+          if IsCurrentRemains = False then
+            gdcRemains.CurrentRemains = True
+          end if
+        
+          if ecr_DeptList.CodeByCost then _
+            gdcRemains.ExtraConditions.Add("C.USR$SDR_ECRCODE = :card_code")
+        
+          set sqlGoods = Creator.GetObject(nil, "TIBSQL", "")
+          sqlGoods.Transaction = DateGoodHead.Transaction
+          sqlGoods.SQL.Add("SELECT NAME, "+ecr_TEServer_CodeField+", ID FROM gd_good " + _
+            " WHERE "+ecr_TEServer_CodeField+" = :BarCode")
+        
+          DeptNp = ecr_DeptList.GetNpByID(DateGoodHead.FieldByName("USR$CONTACTKEY").AsInteger)
+        ' FullFileName = "c:\plu_sell.dbf"
+        
+          SelectSQL = _
+            " SELECT sells.PLU, SUM(Q) as SUMM, SUM(summa) as s_umma,  PRICE, HDATE " + _
+            " FROM plu_sell" +  _
+            " sells " + _
+            " WHERE not (PLU is NULL) and DEPARTMENT = 1  " & _
+            " AND s_umma <> 0 " & _
+            " GROUP BY PLU, PRICE, HDATE "
+          objADOQuery.CommandText = SelectSQL
+          objADOQuery.Execute
+        
+          
+          while not objADOQuery.EOF
+            if not IsNull(qryDoc.FieldByName("SUMM").AsVariant) then _
+              call ecr_TEServer_MakeSell(DateGoodLine, gdcRemains, qryDoc, sqlGoods, ErrList)
+        
+            objADOQuery.Next
+          wend
+          ObjCon.Close
+        
+          if ecr_TEServer_SaveErrLog then
+            ecr_TEServer_DoSaveErrLog(ErrList)
+          else
+            call MsgBox("Данные приняты. Количество ошибок - " + CStr(ErrList.Count-1) + _
+            ".", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          end if
+        
+          DateGoodLine.Movement.IsGetRemains = True
+        
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020218_281066798 ecr_TEServer_MakeSell"
+          - 
+            ADDFUNCTIONKEY: "147023762_281066798 ecr_TEServer_DoSaveErrLog"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147045020_281066798 ecr_TEServer_GetBuildPath"
+          - 
+            ADDFUNCTIONKEY: "147047410_281066798 ecr_TEServer_DoCreateErrLog"
