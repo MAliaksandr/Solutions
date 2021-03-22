@@ -1,0 +1,335 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147100653_1616313806
+  Name: "Накладная внутренняя ММПЗ-групп"
+  Caption: "Накладная внутренняя ММПЗ-групп"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: B623E107CA40401C97AA3B1D9471D07C
+Uses: 
+  - "147094122_1892754951 GS.Общепит.back - Макросы"
+  - "147071527_311980179 GS new. Общепит бэк. Склад. Выдача в производство"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147100551_1616313806
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147100505_1616313806
+    Fields: 
+      NAME: "Накладная внутренняя ММПЗ-групп. Выдача в производство"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2021-02-16T13:57:05+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44242,6059342477" ReportOptions.Description.Text="" ReportOptions.LastChange="44242,6059342477" ScriptLanguage="PascalScript" ScriptText.Text="var sumby_P, sumsell_P, q_P, q,sumby,sumsell:real;&#13;&#10;PosNum:integer;                        &#13;&#10;procedure PageHeader1OnBeforePrint(Sender: TfrxComponent);&#13;&#10;begin&#13;&#10;  q_P:=0;&#13;&#10;  sumby_P:=0;&#13;&#10;  sumsell_P:=0;&#13;&#10;  PosNum :=0;                 &#13;&#10;end;&#13;&#10;&#13;&#10;&#13;&#10;procedure MasterData1OnAfterPrint(Sender: TfrxComponent);&#13;&#10;begin&#13;&#10;  q_P:=q_P+&#60;BILLPOS.&#34;QUANTITY&#34;&#62;;&#13;&#10;  sumby_P:=sumby_P+&#60;BILLPOS.&#34;SUMBUY&#34;&#62;;&#13;&#10;  sumsell_P:=sumby_P + &#60;BILLPOS.&#34;SUMSELNCU&#34;&#62;;&#13;&#10;&#13;&#10;  q:=q+&#60;BILLPOS.&#34;QUANTITY&#34;&#62;;&#13;&#10;  sumby:=sumby+&#60;BILLPOS.&#34;SUMBUY&#34;&#62;;&#13;&#10;  sumsell:=sumby + &#60;BILLPOS.&#34;SUMSELNCU&#34;&#62;;&#13;&#10;&#13;&#10;  PosNum:=PosNum + 1;                              &#13;&#10;&#13;&#10;end;&#13;&#10;&#13;&#10;&#13;&#10;procedure ReportTitle1OnBeforePrint(Sender: TfrxComponent);&#13;&#10;begin&#13;&#10;  q:=0;&#13;&#10;  sumby:=0;&#13;&#10;  sumsell:=0;&#13;&#10;  PosNum :=0;                 &#13;&#10;&#13;&#10;end;&#13;&#10;&#13;&#10;procedure PageFooter1OnBeforePrint(Sender: TfrxComponent);&#13;&#10;begin&#13;&#10;    if (PosNum = 0) then&#13;&#10;  begin&#13;&#10;    PageFooter1.Visible := false;&#13;&#10;    PageFooter1.Height := 0;&#13;&#10;  end;  &#13;&#10;end;&#13;&#10;&#13;&#10;begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2000000020446174615365743D224144442220446174615365744E616D653D224144442200010C2C00000020446174615365743D224144445245535345532220446174615365744E616D653D224144445245535345532200010C2200000020446174615365743D2242494C4C2220446174615365744E616D653D2242494C4C2200010C2A00000020446174615365743D2242494C4C494E464F2220446174615365744E616D653D2242494C4C494E464F2200010C2800000020446174615365743D2242494C4C504F532220446174615365744E616D653D2242494C4C504F532200010C3000000020446174615365743D2242494C4C504F53494E464F2220446174615365744E616D653D2242494C4C504F53494E464F2200010C2200000020446174615365743D22434F4D502220446174615365744E616D653D22434F4D502200010C2A00000020446174615365743D224D41494E4649524D2220446174615365744E616D653D224D41494E4649524D2200010C2000000020446174615365743D224D4F4C2220446174615365744E616D653D224D4F4C2200010C3200000020446174615365743D22514445534352495054494F4E2220446174615365744E616D653D22514445534352495054494F4E2200010C3200000020446174615365743D22524553504F4E5349424C45322220446174615365744E616D653D22524553504F4E5349424C45322200010C2200000020446174615365743D2253454C4C2220446174615365744E616D653D2253454C4C2200010C2000000020446174615365743D225441472220446174615365744E616D653D22544147220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Orientation="poLandscape" PaperWidth="297" PaperHeight="210" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" LargeDesignHeight="True" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Height="350,49629" Left="0" ParentFont="False" Top="18,89765" Width="1046,92981" OnBeforePrint="ReportTitle1OnBeforePrint">
+              <TfrxMemoView Name="Memo1" Left="914,64626" Top="15,11812" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РљРѕРґ"/>
+              <TfrxMemoView Name="Memo2" Left="914,64626" Top="34,01577" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo3" Left="914,64626" Top="52,91342" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo4" Left="914,64626" Top="71,81107" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo5" Left="914,64626" Top="90,70872" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo6" Left="914,64626" Top="109,60637" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo7" Left="793,14224" Top="33,01577" Width="109,60637" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haRight" ParentFont="False" Text="Р¤РѕСЂРјР° РїРѕ РћРљРЈР”"/>
+              <TfrxMemoView Name="Memo8" Left="793,7013" Top="51,91342" Width="109,60637" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haRight" ParentFont="False" Text="РїРѕ РћРљРџРћ"/>
+              <TfrxMemoView Name="Memo9" Left="17,71676" Top="45,91342" Width="774,80365" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaBottom" Text=""/>
+              <TfrxMemoView Name="Memo10" Left="18,89765" Top="63,81107" Width="774,80365" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(СЃС‚СЂСѓРєС‚СѓСЂРЅРѕРµ РїРѕРґСЂР°Р·РґРµР»РµРЅРёРµ)"/>
+              <TfrxMemoView Name="Memo11" Left="17,71676" Top="71,81107" Width="774,80365" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaBottom" Text="[BILL.&#34;FROMCON&#34;]"/>
+              <TfrxMemoView Name="Memo12" Left="18,89765" Top="90,70872" Width="774,80365" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(СЃС‚СЂСѓРєС‚СѓСЂРЅРѕРµ РїРѕРґСЂР°Р·РґРµР»РµРЅРёРµ &#34;РїРѕР»СѓС‡Р°С‚РµР»СЊ&#34;)"/>
+              <TfrxMemoView Name="Memo13" Left="720,89023" Top="91,48825" Width="181,41744" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haRight" ParentFont="False" Text="Р’РёРґ РґРµСЏС‚РµР»СЊРЅРѕСЃС‚Рё РїРѕ РћРљР”Рџ"/>
+              <TfrxMemoView Name="Memo14" Left="722,89023" Top="108,60637" Width="177,63791" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haRight" ParentFont="False" Text="Р’РёРґ РѕРїРµСЂР°С†РёРё"/>
+              <TfrxMemoView Name="Memo15" Left="914,64626" Top="137,84261" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="РЈРўР’Р•Р Р–Р”РђР®"/>
+              <TfrxMemoView Name="Memo16" Left="914,64626" Top="156,74026" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ"/>
+              <TfrxMemoView Name="Memo17" Left="861,73284" Top="176,63791" Width="185,19697" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaBottom" Text="[RESPONSIBLE2.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo19" Left="861,73284" Top="195,53556" Width="185,19697" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РґРѕР»Р¶РЅРѕСЃС‚СЊ)"/>
+              <TfrxMemoView Name="Memo18" Left="861,73284" Top="203,09462" Width="64,25201" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo20" Left="861,73284" Top="221,99227" Width="64,25201" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РїРѕРґРїРёСЃСЊ)"/>
+              <TfrxMemoView Name="Memo21" Left="933,54391" Top="203,09462" Width="113,3859" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaBottom" Text="[RESPONSIBLE2.&#34;NICKNAME&#34;]"/>
+              <TfrxMemoView Name="Memo22" Left="933,54391" Top="221,99227" Width="113,3859" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(СЂР°СЃС€РёС„СЂРѕРІРєР° РїРѕРґРїРёСЃРё)"/>
+              <TfrxMemoView Name="Memo24" Left="861,73284" Top="235,66945" Width="181,41744" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="[DATESTR(&#60;BILL.&#34;DOCUMENTDATE&#34;&#62;)]Рі."/>
+              <TfrxMemoView Name="Memo23" Left="744,56741" Top="244,66945" Width="90,70872" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="1,5" HAlign="haCenter" ParentFont="False" Text="[BILL.&#34;DOCUMENTDATE&#34;]"/>
+              <TfrxMemoView Name="Memo25" Left="744,56741" Top="209,43321" Width="90,70872" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="Р”Р°С‚Р° СЃРѕСЃС‚Р°РІР»РµРЅРёСЏ"/>
+              <TfrxMemoView Name="Memo26" Left="653,85869" Top="244,66945" Width="90,70872" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="1,5" HAlign="haCenter" ParentFont="False" Text="[BILL.&#34;NUMBER&#34;]"/>
+              <TfrxMemoView Name="Memo27" Left="653,85869" Top="209,43321" Width="90,70872" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="РќРѕРјРµСЂ РґРѕРєСѓРјРµРЅС‚Р°"/>
+              <TfrxMemoView Name="Memo28" Left="445,98454" Top="234,33086" Width="177,63791" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Times New Roman" Font.Style="1" Frame.Width="1,5" HAlign="haCenter" ParentFont="False" Text="РќРђРљР›РђР”РќРђРЇ &#13;&#10;РќРђ РћРўРџРЈРЎРљ РўРћР’РђР Рђ"/>
+              <TfrxMemoView Name="Memo29" Left="833,36271" Top="275,46475" Width="109,60637" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="[COMP.&#34;QTIME&#34;]"/>
+              <TfrxMemoView Name="Memo30" Left="740,3154" Top="275,46475" Width="86,92919" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="1,5" HAlign="haRight" ParentFont="False" Text="Р’СЂРµРјСЏ РѕС‚РїСѓСЃРєР°"/>
+              <TfrxMemoView Name="Memo63" Left="793,74088" Top="71,81107" Width="120,94496" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo56" Left="18,89765" Top="22,67718" Width="774,80365" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaBottom" Text="[COMP.&#34;NAME&#34;]"/>
+              <TfrxMemoView Name="Memo57" Left="20,07854" Top="40,57483" Width="774,80365" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РѕСЂРіР°РЅРёР·Р°С†РёСЏ)"/>
+              <TfrxMemoView Name="Memo58" Left="162,85838" Top="273,46475" Width="555,59091" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" ParentFont="False" VAlign="vaBottom" Text="[COMP.&#34;BASIS&#34;]"/>
+              <TfrxMemoView Name="Memo59" Left="18,89765" Top="276,68522" Width="143,62214" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="1,5" ParentFont="False" Text="РћС‚РїСѓС‰РµРЅРѕ РЅР° РѕСЃРЅРѕРІР°РЅРёРё"/>
+              <TfrxMemoView Name="Memo60" Left="162,51979" Top="291,58287" Width="555,59091" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РЅР°РёРјРµРЅРѕРІР°РЅРёРµ, РЅРѕРјРµСЂ,РґР°С‚Р° РґРѕРєСѓРјРµРЅС‚Р°)"/>
+              <TfrxMemoView Name="Memo61" Left="57,03154" Top="303,92146" Width="661,41775" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaBottom" Text="[MOL.&#34;RANK&#34;] [MOL.&#34;NAME&#34;]"/>
+              <TfrxMemoView Name="Memo62" Left="18,89765" Top="306,14193" Width="37,7953" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="1,5" ParentFont="False" Text="Р§РµСЂРµР·"/>
+              <TfrxMemoView Name="Memo64" Left="56,69295" Top="323,03958" Width="661,41775" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(С„Р°РјРёР»РёСЏ, РёРјСЏ, РѕС‚С‡РµСЃС‚РІРѕ РјР°С‚РµСЂРёР°Р»СЊРЅРѕ РѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕРіРѕ Р»РёС†Р°)"/>
+              <TfrxMemoView Name="Memo130" Left="903,30767" Top="0" Width="143,62214" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="12632256" Font.Height="-9" Font.Name="Times New Roman" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[Date] [Time]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Height="79,37013" Left="0" ParentFont="False" Top="453,5436" Width="1046,92981" ReprintOnNewPage="True">
+              <TfrxMemoView Name="Memo31" Left="37" Top="0" Width="26,45671" Height="64,25201" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќРѕРјРµСЂ Рї/Рї"/>
+              <TfrxMemoView Name="Memo32" Left="63,45671" Top="0" Width="351,49629" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРѕРґСѓРєС‚С‹ Рё С‚РѕРІР°СЂС‹"/>
+              <TfrxMemoView Name="Memo33" Left="63,45671" Top="15,11812" Width="313,70099" Height="49,13389" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЅР°РёРјРµРЅРѕРІР°РЅРёРµ, СЃРѕСЂС‚"/>
+              <TfrxMemoView Name="Memo34" Left="377,1577" Top="15,11812" Width="37,7953" Height="49,13389" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РєРѕРґ"/>
+              <TfrxMemoView Name="Memo35" Left="414,953" Top="15,11812" Width="52,91342" Height="49,13389" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЅР°РёРјРµРЅРѕРІР°РЅРёРµ"/>
+              <TfrxMemoView Name="Memo37" Left="509,44125" Top="0" Width="188,9765" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљРѕР»РёС‡РµСЃС‚РІРѕ(РјР°СЃСЃР°)"/>
+              <TfrxMemoView Name="Memo39" Left="906,2919" Top="0" Width="79,37013" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРёРјРµС‡Р°РЅРёРµ"/>
+              <TfrxMemoView Name="Memo40" Left="37" Top="64,2520099999999" Width="26,45671" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="1"/>
+              <TfrxMemoView Name="Memo41" Left="63,45671" Top="64,2520099999999" Width="313,70099" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="2"/>
+              <TfrxMemoView Name="Memo42" Left="377,1577" Top="64,2520099999999" Width="37,7953" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="3"/>
+              <TfrxMemoView Name="Memo43" Left="414,953" Top="64,2520099999999" Width="52,91342" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="4"/>
+              <TfrxMemoView Name="Memo47" Left="906,2919" Top="64,2520099999999" Width="79,37013" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="14"/>
+              <TfrxMemoView Name="Memo65" Left="467,86642" Top="15,11812" Width="41,57483" Height="49,13389" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РєРѕРґ РїРѕ РћРљР•Р"/>
+              <TfrxMemoView Name="Memo66" Left="467,86642" Top="64,2520099999999" Width="41,57483" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="5"/>
+              <TfrxMemoView Name="Memo67" Left="414,953" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р•РґРёРЅРёС†Р° РёР·РјРµСЂРµРЅРёСЏ"/>
+              <TfrxMemoView Name="Memo68" Left="509,44125" Top="15,11812" Width="41,57483" Height="49,13389" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р·Р°С‚СЂРµР±РѕРІР°РЅРѕ"/>
+              <TfrxMemoView Name="Memo69" Left="509,44125" Top="64,2520099999999" Width="41,57483" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="6"/>
+              <TfrxMemoView Name="Memo70" Left="551,01608" Top="15,11812" Width="147,40167" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РѕС‚РїСѓС‰РµРЅРѕ"/>
+              <TfrxMemoView Name="Memo71" Left="551,01608" Top="30,23624" Width="45,35436" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РјРµСЃС‚, С€С‚СѓРє"/>
+              <TfrxMemoView Name="Memo72" Left="551,01608" Top="64,2520099999999" Width="45,35436" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="7"/>
+              <TfrxMemoView Name="Memo73" Left="596,37044" Top="30,23624" Width="49,13389" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РІ РѕРґРЅРѕРј РјРµСЃС‚Рµ"/>
+              <TfrxMemoView Name="Memo74" Left="596,37044" Top="64,2520099999999" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="8"/>
+              <TfrxMemoView Name="Memo75" Left="645,50433" Top="30,23624" Width="52,91342" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РІСЃРµРіРѕ"/>
+              <TfrxMemoView Name="Memo76" Left="645,50433" Top="64,2520099999999" Width="52,91342" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="9"/>
+              <TfrxMemoView Name="Memo77" Left="698,41775" Top="0" Width="98,26778" Height="30,23624" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџРѕ СѓС‡РµС‚РЅС‹Рј С†РµРЅР°Рј, СЂСѓР±.РєРѕРї."/>
+              <TfrxMemoView Name="Memo45" Left="698,41775" Top="30,23624" Width="49,13389" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С†РµРЅР°"/>
+              <TfrxMemoView Name="Memo78" Left="698,41775" Top="64,2520099999999" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="10"/>
+              <TfrxMemoView Name="Memo79" Left="747,55164" Top="30,23624" Width="49,13389" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="СЃСѓРјРјР°"/>
+              <TfrxMemoView Name="Memo80" Left="747,55164" Top="64,2520099999999" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="11"/>
+              <TfrxMemoView Name="Memo81" Left="796,68553" Top="0" Width="109,60637" Height="30,23624" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџРѕ С†РµРЅР°Рј РїСЂРѕРґР°Р¶Рё, СЂСѓР±.РєРѕРї."/>
+              <TfrxMemoView Name="Memo82" Left="796,68553" Top="30,23624" Width="49,13389" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С†РµРЅР°"/>
+              <TfrxMemoView Name="Memo83" Left="796,68553" Top="64,2520099999999" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="12"/>
+              <TfrxMemoView Name="Memo84" Left="845,81942" Top="30,23624" Width="60,47248" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="СЃСѓРјРјР°"/>
+              <TfrxMemoView Name="Memo85" Left="845,81942" Top="64,2520099999999" Width="60,47248" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="13"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Height="15,11812" Left="0" ParentFont="False" Top="555,59091" Width="1046,92981" OnAfterPrint="MasterData1OnAfterPrint" ColumnWidth="0" ColumnGap="0" DataSet="BILLPOS" DataSetName="BILLPOS" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo36" Left="37" Top="0" Width="26,45671" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Line#]"/>
+              <TfrxMemoView Name="Memo38" Left="63,45671" Top="0" Width="313,70099" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;GOODNAME&#34;]"/>
+              <TfrxMemoView Name="Memo44" Left="377,1577" Top="0" Width="37,7953" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo46" Left="414,953" Top="0" Width="52,91342" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" DataField="MESNAME" DataSetName="BILLPOS" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;MESNAME&#34;]"/>
+              <TfrxMemoView Name="Memo48" Left="906,2919" Top="0" Width="79,37013" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo49" Left="467,86642" Top="0" Width="41,57483" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo50" Left="509,44125" Top="0" Width="41,57483" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;QUANTITY&#34;]"/>
+              <TfrxMemoView Name="Memo51" Left="551,01608" Top="0" Width="45,35436" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;QUANTITY&#34;]"/>
+              <TfrxMemoView Name="Memo52" Left="596,37044" Top="0" Width="49,13389" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo53" Left="645,50433" Top="0" Width="52,91342" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;QUANTITY&#34;]"/>
+              <TfrxMemoView Name="Memo54" Left="698,41775" Top="0" Width="49,13389" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;USR$INV_COSTPROVIDER&#34;]"/>
+              <TfrxMemoView Name="Memo55" Left="747,55164" Top="0" Width="49,13389" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;SUMBUY&#34;]"/>
+              <TfrxMemoView Name="Memo86" Left="796,68553" Top="0" Width="49,13389" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;USR$INV_SELCOSTNCU&#34;]"/>
+              <TfrxMemoView Name="Memo87" Left="845,81942" Top="0" Width="60,47248" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[BILLPOS.&#34;SUMSELNCU&#34;]"/>
+            </TfrxMasterData>
+            <TfrxPageFooter Name="PageFooter1" Height="15,11812" Left="0" Top="631,18151" Width="1046,92981" OnBeforePrint="PageFooter1OnBeforePrint" PrintOnLastPage="False">
+              <TfrxMemoView Name="Memo88" Left="414,7483" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РС‚РѕРіРѕ РїРѕ СЃС‚СЂР°РЅРёС†Рµ"/>
+              <TfrxMemoView Name="Memo89" Left="509,23655" Top="0" Width="41,57483" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo90" Left="550,81138" Top="0" Width="45,35436" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;BILLPOS.&#34;QUANTITY&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo91" Left="596,16574" Top="0" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo92" Left="645,29963" Top="0" Width="52,91342" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;BILLPOS.&#34;QUANTITY&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo102" Left="698,21305" Top="0" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo103" Left="747,34694" Top="0" Width="49,13389" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;BILLPOS.&#34;SUMBUY&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo104" Left="796,48083" Top="0" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo105" Left="845,61472" Top="0" Width="60,47248" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;BILLPOS.&#34;SUMSELNCU&#34;&#62;,MasterData1)]"/>
+            </TfrxPageFooter>
+            <TfrxPageHeader Name="PageHeader1" Height="0" Left="0" Top="393,07112" Width="1046,92981" OnAfterPrint="PageHeader1OnAfterPrint" OnBeforePrint="PageHeader1OnBeforePrint"/>
+          </TfrxReportPage>
+          <TfrxReportPage Name="Page2" Orientation="poLandscape" PaperWidth="297" PaperHeight="210" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" PrintOnPreviousPage="True" HGuides.Text="" VGuides.Text="">
+            <TfrxReportSummary Name="ReportSummary1" Height="211,65368" Left="0" Top="18,89765" Width="1046,92981">
+              <TfrxMemoView Name="Memo93" Left="403,40971" Top="19" Width="105,82684" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р’СЃРµРіРѕ РїРѕ РЅР°РєР»Р°РґРЅРѕР№"/>
+              <TfrxMemoView Name="Memo94" Left="509,23655" Top="19" Width="41,57483" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo95" Left="550,81138" Top="19" Width="45,35436" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[&#60;q&#62;]"/>
+              <TfrxMemoView Name="Memo96" Left="596,16574" Top="19" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo97" Left="645,29963" Top="19" Width="52,91342" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[&#60;q&#62;]"/>
+              <TfrxMemoView Name="Memo98" Left="698,21305" Top="19" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo99" Left="747,34694" Top="19" Width="49,13389" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[&#60;sumby&#62;]"/>
+              <TfrxMemoView Name="Memo100" Left="796,48083" Top="19" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo101" Left="845,61472" Top="19" Width="60,47248" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[&#60;sumsell&#62;]"/>
+              <TfrxMemoView Name="Memo106" Left="118,03154" Top="56,11812" Width="411,96877" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" ParentFont="False" Text="[SUMCURRSTR2(200010,&#60;sumsell&#62;,true)]"/>
+              <TfrxMemoView Name="Memo107" Left="18,89765" Top="58,33859" Width="94,48825" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="1,5" ParentFont="False" Text="Р’СЃРµРіРѕ РЅР° СЃСѓРјРјСѓ"/>
+              <TfrxMemoView Name="Memo108" Left="117,69295" Top="75,23624" Width="411,96877" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РїСЂРѕРїРёСЃСЊСЋ)"/>
+              <TfrxMemoView Name="Memo109" Left="608,60668" Top="56,11812" Width="151,1812" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="[SELL.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo110" Left="540,47279" Top="58,33859" Width="60,47248" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="1,5" HAlign="haRight" ParentFont="False" Text="РћС‚РїСѓСЃС‚РёР»"/>
+              <TfrxMemoView Name="Memo111" Left="608,26809" Top="75,23624" Width="151,1812" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РґРѕР»Р¶РЅРѕСЃС‚СЊ)"/>
+              <TfrxMemoView Name="Memo112" Left="771,36271" Top="56,11812" Width="75,5906" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo113" Left="771,02412" Top="75,23624" Width="75,5906" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РїРѕРґРїРёСЃСЊ)"/>
+              <TfrxMemoView Name="Memo114" Left="862,07143" Top="56,11812" Width="124,72449" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="[SELL.&#34;NICKNAME&#34;]"/>
+              <TfrxMemoView Name="Memo115" Left="861,73284" Top="75,23624" Width="124,72449" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(СЂР°СЃС€РёС„СЂРѕРІРєР° РїРѕРґРїРёСЃРё)"/>
+              <TfrxMemoView Name="Memo116" Left="608,60668" Top="97,69295" Width="151,1812" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="[ADD.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo117" Left="540,47279" Top="99,9134200000001" Width="60,47248" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="1,5" HAlign="haRight" ParentFont="False" Text="РџСЂРёРЅСЏР»"/>
+              <TfrxMemoView Name="Memo118" Left="608,26809" Top="116,81107" Width="151,1812" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РґРѕР»Р¶РЅРѕСЃС‚СЊ)"/>
+              <TfrxMemoView Name="Memo119" Left="771,36271" Top="97,69295" Width="75,5906" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo120" Left="771,02412" Top="116,81107" Width="75,5906" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РїРѕРґРїРёСЃСЊ)"/>
+              <TfrxMemoView Name="Memo121" Left="862,07143" Top="97,69295" Width="124,72449" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="[ADD.&#34;NICKNAME&#34;]"/>
+              <TfrxMemoView Name="Memo122" Left="861,73284" Top="116,81107" Width="124,72449" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(СЂР°СЃС€РёС„СЂРѕРІРєР° РїРѕРґРїРёСЃРё)"/>
+              <TfrxMemoView Name="Memo123" Left="110,81107" Top="142,70872" Width="151,1812" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="[RESPONSIBLE2.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo124" Left="18,89765" Top="144,92919" Width="83,14966" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="1,5" ParentFont="False" Text="Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ"/>
+              <TfrxMemoView Name="Memo125" Left="110,47248" Top="161,82684" Width="151,1812" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РґРѕР»Р¶РЅРѕСЃС‚СЊ)"/>
+              <TfrxMemoView Name="Memo126" Left="273,5671" Top="142,70872" Width="75,5906" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo127" Left="273,22851" Top="161,82684" Width="75,5906" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РїРѕРґРїРёСЃСЊ)"/>
+              <TfrxMemoView Name="Memo128" Left="364,27582" Top="142,70872" Width="170,07885" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="[RESPONSIBLE2.&#34;NICKNAME&#34;]"/>
+              <TfrxMemoView Name="Memo129" Left="363,93723" Top="161,82684" Width="170,07885" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(СЂР°СЃС€РёС„СЂРѕРІРєР° РїРѕРґРїРёСЃРё)"/>
+              <TfrxMemoView Name="Memo131" Left="585,94527" Top="145,26778" Width="170,07885" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Width="1,5" ParentFont="False" Text="Р—Р°РІРµРґСѓСЋС‰РёР№ РїСЂРѕРёР·РІРѕРґСЃС‚РІРѕРј"/>
+              <TfrxMemoView Name="Memo133" Left="768,80365" Top="143,04731" Width="75,5906" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo134" Left="768,46506" Top="162,16543" Width="75,5906" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(РїРѕРґРїРёСЃСЊ)"/>
+              <TfrxMemoView Name="Memo135" Left="859,51237" Top="143,04731" Width="124,72449" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="8" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="Р•.Р’. РЎСѓС…РѕРґРѕР»РµС†"/>
+              <TfrxMemoView Name="Memo136" Left="859,17378" Top="162,16543" Width="124,72449" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" Text="(СЂР°СЃС€РёС„СЂРѕРІРєР° РїРѕРґРїРёСЃРё)"/>
+              <TfrxMemoView Name="Memo144" Left="403,40971" Top="4" Width="105,82684" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Width="0,1" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="РС‚РѕРіРѕ:"/>
+              <TfrxMemoView Name="Memo145" Left="509,23655" Top="4" Width="41,57483" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo146" Left="550,81138" Top="4" Width="45,35436" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[&#60;q_P&#62;]"/>
+              <TfrxMemoView Name="Memo147" Left="596,16574" Top="4" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo148" Left="645,29963" Top="4" Width="52,91342" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[&#60;q_P&#62;]"/>
+              <TfrxMemoView Name="Memo149" Left="698,21305" Top="4" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo150" Left="747,34694" Top="4" Width="49,13389" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[&#60;sumby_P&#62;]"/>
+              <TfrxMemoView Name="Memo151" Left="796,48083" Top="4" Width="49,13389" Height="15,11812" ShowHint="False" AllowExpressions="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo152" Left="845,61472" Top="4" Width="60,47248" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[&#60;sumsell_P&#62;]"/>
+            </TfrxReportSummary>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147100506_1616313806
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147100505_1616313806
+    Fields: 
+      NAME: "rp_Main147100506_1616313806"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147051286_157767346 gdc_frmInvDocument147051259_157767346"
+      OBJECTNAME: "gdc_frmInvDocument147051259_157767346"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-02-16T13:57:05+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147100506_1616313806
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAUAAABCQVNJUxEAAADO8e3u4uDt6OUg7vLv8/Hq4AAAAAAAAAAAAAAAAAUAAAAA
+        AAAAAAAAAABGTlNUUFJTVAUAAABRVElNRQ0AAADC8OXs/yDu8u/z8ergAAAAAAAAAAAAAAAABAAA
+        AAAAAAAAAAAAAEZOU1RQUlNUAwAAAFpBVgwAAADQ8+ru4u7k6PLl6/wKAAAAZ2RfY29udGFjdAQA
+        AABOQU1FAgAAAElEBw0AAABjb250YWN0dHlwZT0yAAAAAAIAAABeQUZOU1RQUlNUAwAAAE1PTAMA
+        AADMzssKAAAAZ2RfY29udGFjdAQAAABuYW1lAgAAAGlkBw4AAABjb250YWN0dHlwZSA9MgAAAAAC
+        AAAAXkFGTlNUUFJTVAQAAABTRUxMCAAAAM7y7/Px8ujrCgAAAGdkX2NvbnRhY3QEAAAAbmFtZQIA
+        AABpZAcOAAAAY29udGFjdHR5cGUgPTIAAAAAAgAAAF5BRk5TVFBSU1QDAAAAQUREBgAAAM/w6O3/
+        6woAAABnZF9jb250YWN0BAAAAG5hbWUCAAAAaWQHDgAAAGNvbnRhY3R0eXBlID0yAAAAAAIAAABe
+        QUZOU1RGTFBS
+      SCRIPT: | 
+        '#include MN_TTN
+        Option Explicit
+        Function rp_Main147100506_1616313806(OwnerForm, basis, qTime, Zav, MOL, sell, add)
+          dim doc, id
+          doc = OwnerForm.SelectedKey
+          id = "(" + Join(doc(0), ",") + ")"
+          
+          BaseQueryList.Clear
+          Set rp_Main147100506_1616313806 = _
+            mn_TTN(OwnerForm, OwnerForm.gdcObject.SubType)
+            
+           dim Contact2,Contact3, Contact4, Contact, qcon, qcon1
+          set Contact2 = BaseQueryList.Query(BaseQueryList.Add("Responsible2", 0))
+          Contact2.SQL = _
+            "SELECT " & _
+            "con.name, p.NICKNAME, wp.NAME as rank  " & _
+            "FROM gd_contact con " & _
+            "JOIN gd_people p on p.contactkey = con.id " & _
+            "left join WG_POSITION wp on wp.ID = p.WPOSITIONKEY " & _
+            " WHERE con.id = :id "
+          Contact2.ParamByName("id").AsInteger = Zav(0)
+          Contact2.Open
+        
+          set qcon = BaseQueryList.Query(BaseQueryList.Add("comp",0))
+          qcon.SQL = _
+           "SELECT " & _
+           "CAST('" & basis & "' as VARCHAR(180)) as Basis, " & _
+           "CAST('" & qTime & "' as VARCHAR(9)) as qTime, "  & _
+           " c.* " & _
+           "FROM gd_contact c WHERE c.id = :id "
+          qcon.ParamByName("id").AsInteger = IBLogin.CompanyKey
+          qcon.Open
+        
+          set Contact = BaseQueryList.Query(BaseQueryList.Add("MOL", 0))
+          Contact.SQL = _
+            "SELECT " & _
+            "con.name, p.NICKNAME, wp.NAME as rank  " & _
+            "FROM gd_contact con " & _
+            "JOIN gd_people p on p.contactkey = con.id " & _
+            "left join WG_POSITION wp on wp.ID = p.WPOSITIONKEY " & _
+            " WHERE con.id = :id "
+          Contact.ParamByName("id").AsInteger = MOL(0)
+          Contact.Open
+          
+          set Contact3 = BaseQueryList.Query(BaseQueryList.Add("Sell", 0))
+          Contact3.SQL = _
+            "SELECT " & _
+            "con.name, p.NICKNAME, wp.NAME as rank  " & _
+            "FROM gd_contact con " & _
+            "JOIN gd_people p on p.contactkey = con.id " & _
+            "left join WG_POSITION wp on wp.ID = p.WPOSITIONKEY " & _
+            " WHERE con.id = :id "
+          Contact3.ParamByName("id").AsInteger = sell(0)
+          Contact3.Open
+          
+          set Contact4 = BaseQueryList.Query(BaseQueryList.Add("Add", 0))
+          Contact4.SQL = _
+            "SELECT " & _
+            "con.name, p.NICKNAME, wp.NAME as rank  " & _
+            "FROM gd_contact con " & _
+            "JOIN gd_people p on p.contactkey = con.id " & _
+            "left join WG_POSITION wp on wp.ID = p.WPOSITIONKEY " & _
+            " WHERE con.id = :id "
+          Contact4.ParamByName("id").AsInteger = add(0)
+          Contact4.Open
+          
+        
+        
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "152455816_527022840 mn_TTN"
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147100505_1616313806
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Накладная внутренняя ММПЗ-групп"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147100506_1616313806 rp_Main147100506_1616313806"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147051313_157767346 Отчеты(gdc_frmInvDocument147051259_157767346)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147100551_1616313806 Накладная внутренняя ММПЗ-групп. Выдача в производство"
+      EDITIONDATE: 2021-02-16T13:57:05+03:00
