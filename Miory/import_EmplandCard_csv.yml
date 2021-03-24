@@ -1,0 +1,304 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 149231256_1638717063
+  Name: "import_EmplandCard_csv"
+  Caption: "import_EmplandCard_csv"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 60E3C6347B5E92F8BCF4F096E8C3630E
+Uses: 
+  - "147068092_311980179 GS new. Общепит бэк. Домены"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149223114_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "import_EmplandCard_csv"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-24T18:07:01+03:00
+      DISPLAYSCRIPT: | 
+        IMPORT_EMPLANDCARD_CSV
+        READCARDFROMCSVSTRING
+        READFIOFROMCSVSTRING
+        DECODEDATE
+        DECODESUM
+        EXCEPTION_IMPORT_EMPLANDCARD_CSV
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include TVB_REN_FRMPROGRESSBAR
+        'Option Explicit
+        Function import_EmplandCard_csv
+          'счітываем файл і либо:
+          'находим сотрудника и подставляем в него таб.номер + создаем карту
+          'или создаем сотрудника + созаем к нему карту
+          
+          dim Creator, OpenDialog, FileName, price
+          set Creator = new TCreator
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          
+          Dim gdcObject, gdcDetailObject, DS
+          Dim FSO
+          Set FSO = CreateObject("Scripting.FileSystemObject")
+        
+          dim T, prForm
+          set T = Creator.GetObject(nil, "TIBTransaction", "import_EmplandCard_csv")
+          set T.DefaultDatabase = gdcBaseManager.DataBase
+          call T.Params.Add("read_committed")
+          call T.Params.Add("rec_version")
+          call T.Params.Add("nowait")
+          T.StartTransaction
+        
+          Except Exception_import_EmplandCard_csv(T, prForm)
+        
+          Dim TDialog
+          Set TDialog = Creator.GetObject(Null, "TOpenDialog", "")
+          TDialog.Filter = "Файл csv (*.csv)|*.CSV"
+          If Not TDialog.Execute Then
+            if T.InTransaction then T.rollback
+            Exit function
+          end if
+                  
+          dim FN
+          FN = TDialog.FileName
+        
+          dim Start
+          Start = 3
+        
+          dim F, RecCount
+          Set F = FSO.OpenTextFile(FN, 1)
+          RecCount = 0
+          While Not F.AtEndOfStream
+            RecCount = RecCount + 1
+            F.SkipLine
+          WEnd
+          F.Close
+        
+          Set prForm = New Tvb_ren_frmProgressBar
+         ' Call prForm.Init(prForm, Null)
+          prForm.Caption = "Импорт сотрудников"
+          prForm.Note = "Идет импорт сотрудников в БД ..."
+          prForm.Smooth = True
+          prForm.Min = 0
+          prForm.Max = RecCount - Start - 1
+          prForm.Show
+          
+          Set F = FSO.OpenTextFile(FN, 1)
+          F.SkipLine
+          F.SkipLine
+          F.SkipLine
+                  
+                  
+          dim Counter500, Counter, CounterWrong, CSV , j,wgID , WgPos
+            Counter500 = 0
+            Counter = 0
+            CounterWrong = 0
+            
+          set WgPos = Creator.GetObject(NULL, "TgdcWgPosition", "")
+          WgPos.ReadTransaction = T
+          WgPos.Transaction = T
+          WgPos.SubSet = "All"
+          WgPos.Open
+          
+          set gdcContact = Creator.GetObject(NULL, "TgdcEmployee", "")
+          gdcContact.Transaction = T
+          '    gdcContact.SubType = "ById"
+          gdcContact.Open
+          
+          dim DiscID, gdcDiscount
+          set gdcDiscount = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
+          gdcDiscount.Transaction = T
+          gdcDiscount.SubType = "USR$PF_STAFFCARD"
+          gdcDiscount.Open
+        
+          
+          Do While (Not F.AtEndOfStream) 'and (Counter500<5)
+        
+            prForm.Note = "Імпорт:" & prForm.Position & " из " & prForm.Max
+            Application.ProcessMessages
+        
+            CSV = Trim(F.ReadLine)
+              if CSV <> "" then
+                dim A
+                A = Split(CSV, ";" )
+                ' файлік с картамі
+                if ReadCardFromCSVString(CSV) then
+                  TabNumber = Trim(A(2))    ' табельны нумар
+                  DateIN = DecodeDate(A(4)) ' дата начатку дзеяння карткі
+                  DateOUT = DecodeDate(A(5))' дата зканчэння дзеяння карткі(зволен)
+                  CardCode = Trim(A(6))     ' код карткі
+                  
+                  If Not gdcDiscount.Active Then gdcDiscount.Open
+                  ' не знайшлі картку по ТАБ.НУМАРУ = НУМАРУ КАРТКІ => ТРЭБА СТВАРЫЦЬ
+                  If not gdcDiscount.Locate("USR$NUMBER", Array(TabNumber), "") Then
+        
+                    ' адразу знойдзем супрацоўніка
+                    If gdcContact.Locate("usr$tabnum", Array(TabNumber), "") Then
+                      ConID = gdcContact.ID
+        
+                      gdcDiscount.Append
+                      gdcDiscount.FieldByName("USR$NUMBER").asString = TabNumber
+                      gdcDiscount.FieldByName("USR$CODE").asString = CardCode
+                      gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
+                      gdcDiscount.Post
+                    else
+                      msgbox "Няма звестак па гэтаму табельнаму нумару:" & TabNumber
+                    end if
+        
+                    DiscID = gdcDiscount.FieldByName("ID").asInteger
+        
+                  else
+                   ' знайшлі карту. што рабіць?
+                  end if
+        
+                else
+                  'аналізуем файлік с ФІО
+                 if ReadFIOFromCSVString(CSV) Then
+                       FName = Trim(A(0))          ' імя
+                       MName = Trim(A(1))          ' імя па бацьку
+                       LName = Trim(A(2))          ' прозвішча
+                       TabNumber = Trim(A(3))      ' табельны нумар
+                       DepName = Trim(A(4))        ' падраздяленне
+                       Rank = Left(Trim(A(9)),60)  ' пасада
+                       if Rank = "" Then
+                         Rank = "Сотрудник"
+                       end if
+        
+                    ' толькі тыя, хто мае ТАБЕЛЬНЫ НУМАР
+                    if TabNumber <> "" then
+        
+                      If Not WgPos.Active Then WgPos.Open
+                      If WgPos.Locate("NAME", Array(Rank), "") Then
+                         wgID = WgPos.FieldByName("ID").asInteger
+                      else
+                         WgPos.Append
+                         WgPos.FieldByName("NAME").asString = Rank
+                         WgPos.Post
+                         wgID = WgPos.FieldByName("ID").asInteger
+                      end if
+                    
+        
+                      If not gdcContact.Locate("usr$tabnum", Array(TabNumber), "") Then
+                        gdcContact.Insert
+                        gdcContact.FieldBYName("Name").AsString = LName & " " & FName & " " & MName
+                        gdcContact.FieldBYName("FirstName").AsString = FName
+                        gdcContact.FieldBYName("surName").AsString = LName
+                        gdcContact.FieldBYName("middleName").AsString = MName
+                        gdcContact.FieldBYName("nickName").AsString = LEFT(FName,1) & "." & LEFT(MName,1) & ". " & LName
+                        gdcContact.FieldBYName("Parent").AsInteger = 149223588 'Iblogin.Companykey
+                        gdcContact.FieldBYName("WPOSITIONKEY").AsInteger  = wgID
+                        gdcContact.FieldBYName("usr$tabnum").asString = TabNumber
+                        gdcContact.Post
+                      else
+         '               msgBox "Edit"
+                      end if
+                    end if
+                 else
+                   'файл не соответствует
+                   msgBox"Error file"
+                 end if
+                end if
+                if Counter500 > 500 then
+                  T.Commit
+                  T.StartTransaction
+                  Counter500 = 0
+                end if
+              end if
+            prForm.Position = prForm.Position + 1
+            Counter500 = Counter500 +1
+        
+          loop
+        
+         if T.InTransaction then T.Commit
+          
+         prForm.Close
+         Set prForm = Nothing
+         F.Close
+          
+        
+          
+        End Function
+        
+        function ReadCardFromCSVString(S)
+          dim A
+          A = Split(S, ";" )
+          ReadCardFromCSVString = false
+          
+          if UBound(A) <>10 then exit function
+          ReadCardFromCSVString = true
+        end function
+        
+        function ReadFIOFromCSVString(S)
+          dim A
+          A = Split(S, ";" )
+          ReadFIOFromCSVString = false
+        
+          if UBound(A) < 44 then exit function
+          ReadFIOFromCSVString = true
+        end function
+        
+        
+        function DecodeDate(D)
+          DecodeDate = 0
+          D = Trim(D)
+          dim Arr
+          Arr = Split(D, "-")
+          if UBound(Arr) = 2 then
+            on error resume next
+            DecodeDate = DateSerial(Arr(2), Arr(1), Arr(0))
+            on error goto 0
+          end if
+        end function
+        
+        function DecodeSum(V)
+          DecodeSum = 0
+          V = Trim(V)
+          if Len(V) > 0 then
+            dim Sep
+            Sep = Application.DecimalSeparatorSys
+            if Sep <> "." then
+              V = Join(Split(V, "."), Sep)
+            end if
+            on error resume next
+              DecodeSum = CCur(V)
+            on error goto 0
+          end if
+        end function
+        
+        
+        sub Exception_import_EmplandCard_csv(T, prForm)
+          if Assigned(prForm) then
+            prForm.Close
+            Set prForm = Nothing
+          end if
+          if T.InTransaction then T.Rollback
+        end sub
+        
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147008467_1081391 Tvb_ren_frmProgressBar"
