@@ -1,0 +1,226 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 149233306_1638717063
+  Name: "Sf_export_mn_staffcard"
+  Caption: "Sf_export_mn_staffcard"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: FB04E1136BD5BD620189CCFAD9235752
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147096389_1092285922
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_export_mn_staffcard"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-25T18:07:24+03:00
+      DISPLAYSCRIPT: | 
+        SF_EXPORT_MN_STAFFCARD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include bri_Sync_AddRuid
+        function Sf_export_mn_staffcard(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          set ibsql_mn_staffcard = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql_mn_staffcard.Transaction = OurTr
+          ibsql_mn_staffcard.SQL.Text = _
+            "  select  v.*, p.*, dt.xid as dt_xid, dt.dbid as dt_dbid, " & _
+            "  c.xid as c_xid, c.dbid as c_dbid " &_
+            "  from " & _
+            "  USR$PF_STAFFCARD v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 " &_
+            "  left join GD_P_GETRUID(v.USR$DISCOUNTCARDKEY) dt on 1 = 1 " &_
+            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 "
+        
+          set ibsqlStaff = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlStaff.Transaction = OurTr
+          ibsqlStaff.SQL.Text = _
+            " select  v.ID as limitID, v.*, p.*, c.xid as c_xid, c.dbid as c_dbid " & _
+            " from USR$MN_LIMIT v " & _
+            " left join GD_P_GETRUID(v.id) p on 1 = 1 " & _
+            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 "
+        
+          set ibsqlGetStaff = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetStaff.Transaction = Transaction
+          ibsqlGetStaff.SQL.Text = " select v.ID " & _
+            " from USR$MN_LIMIT v " & _
+            " JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          set ibsqlGet_mn_staffcard = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_mn_staffcard.Transaction = Transaction
+          ibsqlGet_mn_staffcard.SQL.Text = _
+            "select v.id, v.USR$DISABLED FROM USR$MN_STAFFCARD v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          set ibsqlGet_DName = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_DName.Transaction = Transaction
+          ibsqlGet_DName.SQL.Text = _
+            "select v.id FROM USR$MN_DISCOUNTNAME v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          set ibsqlGet_Contact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_Contact.Transaction = Transaction
+          ibsqlGet_Contact.SQL.Text = _
+            "select v.id FROM gd_contact v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          dim qGenID
+          set qGenID = Creator.GetObject(nil, "TIBSQL", "")
+          qGenID.Transaction = Transaction
+          qGenID.SQL.Text = _
+            "SELECT " & _
+            "GEN_ID(gd_g_unique, 1) + GEN_ID(gd_g_offset, 0) AS NewID " & _
+            "FROM RDB$DATABASE "
+        
+          dim qIns
+          set qIns = Creator.GetObject(nil, "TIBSQL", "")
+          qIns.Transaction = Transaction
+          qIns.SQL.Text = _
+            " INSERT INTO usr$MN_STAFFCARD (ID, USR$CONTACTKEY, USR$CODE, USR$NUMBER, USR$DISCOUNTNAMEKEY) " & _
+              " VALUES (:ID, :USR$CONTACTKEY, :USR$CODE, :NUMBER, :USR$DISCOUNTNAMEKEY) "
+              
+          dim qUpd
+          set qUpd = Creator.GetObject(nil, "TIBSQL", "")
+          qUpd.Transaction = Transaction
+          qUpd.SQL.Text = _
+            " UPDATE usr$MN_STAFFCARD SET USR$DISABLED = :USR$DISABLED " & _
+              " WHERE ID = :ID "
+        
+          dim qInsL
+          set qInsL = Creator.GetObject(nil, "TIBSQL", "")
+          qInsL.Transaction = Transaction
+          qInsL.SQL.Text = _
+            " INSERT INTO USR$MN_LIMIT (ID, USR$CONTACTKEY, USR$SUM_DATEBEGIN, USR$SUM_DATEEND, USR$ISUNLIMITED, USR$SUM_DISABLED) " & _
+              " VALUES (:ID, :USR$CONTACTKEY, :DATEBEGIN, :DATEEND, :USR$ISUNLIMITED, :USR$SUM_DISABLED) "
+        
+          dim qUpdL
+          set qUpdL = Creator.GetObject(nil, "TIBSQL", "")
+          qUpdL.Transaction = Transaction
+          qUpdL.SQL.Text = _
+            " UPDATE USR$MN_LIMIT SET " & _
+            " USR$SUM_DATEBEGIN = :DATEBEGIN,  " & _
+            " USR$SUM_DATEEND = :DATEEND,       " & _
+            " USR$SUM_DISABLED =:USR$SUM_DISABLED, " & _
+            " USR$ISUNLIMITED = :ISUNLIMITED,   " & _
+            " USR$SUMMA = :SUMMA,               " & _
+            " /*USR$BALANCE = :BALLANCE  */        " & _
+            " WHERE ID =:ID       "
+            
+          ibsql_mn_staffcard.ExecQuery
+          while not ibsql_mn_staffcard.EOF
+            ibsqlGet_mn_staffcard.Close
+            ibsqlGet_mn_staffcard.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("xid").ASInteger
+            ibsqlGet_mn_staffcard.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("dbid").ASInteger
+            ibsqlGet_mn_staffcard.ExecQuery
+            if ibsqlGet_mn_staffcard.EOF then
+              qGenID.Close
+              qGenID.ExecQuery
+              NewId = qGenID.FieldByName("NewID").AsInteger
+              qIns.Close
+              qIns.ParamBYName("ID").AsInteger = NewId
+              ibsqlGet_DName.Close
+              ibsqlGet_DName.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("dt_xid").ASInteger
+              ibsqlGet_DName.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("dt_dbid").ASInteger
+              ibsqlGet_DName.ExecQuery
+              qIns.ParamBYName("USR$DISCOUNTNAMEKEY").AsVariant = null 'ibsqlGet_DName.FieldByName("id").AsInteger
+              ibsqlGet_Contact.Close
+              ibsqlGet_Contact.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("c_xid").ASInteger
+              ibsqlGet_Contact.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("c_dbid").ASInteger
+              ibsqlGet_Contact.ExecQuery
+              qIns.ParamBYName("USR$CONTACTKEY").AsInteger = ibsqlGet_Contact.FieldByName("id").AsInteger
+              qIns.ParamBYName("usr$CODE").AsString = ibsql_mn_staffcard.FieldByName("usr$CODE").AsString
+              qIns.ParamBYName("NUMBER").AsString = ibsql_mn_staffcard.FieldByName("USR$NUMBER").AsString
+              qIns.ExecQuery
+        
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsql_mn_staffcard.FieldBYName("xid").ASInteger, ibsql_mn_staffcard.FieldBYName("dbid").ASInteger)
+        
+            else
+              if ibsql_mn_staffcard.FieldBYName("USR$DISABLED").ASVariant <> ibsqlGet_mn_staffcard.FieldByName("USR$DISABLED").ASVariant then
+                qUpd.Close
+                qUpd.ParamBYName("ID").AsInteger = ibsqlGet_mn_staffcard.FieldByName("ID").AsInteger
+                qUpd.ParamBYName("USR$DISABLED").ASVariant = ibsql_mn_staffcard.FieldBYName("USR$DISABLED").ASVariant
+                qUpd.ExecQuery
+              end if
+              
+            end if
+            ibsql_mn_staffcard.Next
+          wend
+        
+          ibsqlStaff.ExecQuery
+          while not ibsqlStaff.EOF
+            ibsqlGetStaff.Close
+            ibsqlGetStaff.ParamBYName("xid").AsInteger = ibsqlStaff.FieldBYName("xid").ASInteger
+            ibsqlGetStaff.ParamBYName("dbid").AsInteger = ibsqlStaff.FieldBYName("dbid").ASInteger
+            ibsqlGetStaff.ExecQuery
+            if ibsqlGetStaff.EOF then
+              qGenID.Close
+              qGenID.ExecQuery
+              NewId = qGenID.FieldByName("NewID").AsInteger
+              qInsL.Close
+              qInsL.ParamBYName("ID").AsInteger = NewId
+              ibsqlGet_Contact.Close
+              ibsqlGet_Contact.ParamBYName("xid").AsInteger = ibsqlStaff.FieldBYName("c_xid").ASInteger
+              ibsqlGet_Contact.ParamBYName("dbid").AsInteger = ibsqlStaff.FieldBYName("c_dbid").ASInteger
+              ibsqlGet_Contact.ExecQuery
+              qInsL.ParamBYName("USR$CONTACTKEY").AsInteger = ibsqlGet_Contact.FieldByName("id").AsInteger
+              qInsL.ParamBYName("datebegin").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DATEBEGIN").AsVariant
+              qInsL.ParamBYName("dateend").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DATEEND").AsVariant
+              qInsL.ParamBYName("USR$ISUNLIMITED").AsVariant = ibsqlStaff.FieldByName("USR$ISUNLIMITED").AsVariant
+              qInsL.ParamBYName("USR$SUM_DISABLED").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DISABLED").AsVariant
+              qInsL.ExecQuery
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsqlStaff.FieldBYName("xid").ASInteger, ibsqlStaff.FieldBYName("dbid").ASInteger)
+            else
+             ' нашлі ліміт
+             qUpdL.Close
+             qUpdL.ParamBYName("DATEBEGIN").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DATEBEGIN").AsVariant
+             qUpdL.ParamBYName("DATEEND").AsVariant =  ibsqlStaff.FieldByName("USR$SUM_DATEEND").AsVariant
+             qUpdL.ParamBYName("ISUNLIMITED").AsVariant = ibsqlStaff.FieldByName("USR$ISUNLIMITED").AsVariant
+             qUpdL.ParamBYName("SUMMA").AsVariant =   ibsqlStaff.FieldByName("USR$SUMMA").AsVariant
+             ' сумму остатка обновім разово. т.к. на кассе
+           '''  qUpdL.ParamBYName("BALLANCE").AsVariant = ibsqlStaff.FieldByName("USR$BALANCE").AsVariant
+             qUpdL.ParamBYName("USR$SUM_DISABLED").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DISABLED").AsVariant
+             qUpdL.ParamBYName("ID").AsInteger =  ibsqlGetStaff.FieldByName("ID").AsInteger
+             qUpdL.ExecQuery
+            end if
+            ibsqlStaff.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"

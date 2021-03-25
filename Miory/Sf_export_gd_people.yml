@@ -1,0 +1,206 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 149233309_1638717063
+  Name: "Sf_export_gd_people"
+  Caption: "Sf_export_gd_people"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 35BFA492488C7E1C3784A4AC24188FC9
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 149223600_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$TABNUM"
+      FIELDNAME: "USR$TABNUM"
+      FIELDSOURCE: "DTEXT10"
+      FIELDSOURCEKEY: "147000107_486813904 Текст (10), DTEXT10"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Табельный номер"
+      LSHORTNAME: "Табельный номер"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147000473_31587988 Люди, GD_PEOPLE"
+      RELATIONNAME: "GD_PEOPLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 10
+      VISIBLE: 1
+      EDITIONDATE: 2021-03-24T14:21:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147060655_311980179
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_export_gd_people"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-25T12:33:32+03:00
+      DISPLAYSCRIPT: | 
+        SF_EXPORT_GD_PEOPLE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include bri_Sync_AddRuid
+        function Sf_export_gd_people(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          set ibsqlContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlContact.Transaction = OurTr
+          ibsqlContact.SQL.Text = _
+            " SELECT " & _
+            " people.firstname, people.surname, people.middlename, " & _
+            " people.nickname,people.usr$tabnum, " & _
+            " con.name, p.xid, p.dbid " & _
+            " FROM gd_contact con " & _
+            " JOIN gd_contact maincon on (maincon.lb < con.lb or maincon.rb > con.rb) and maincon.id = :CompanyKey " & _
+            " JOIN gd_people people on people.contactkey = con.id " & _
+            " LEFT JOIN gd_p_getruid(con.id) p on 1 = 1 " & _
+            " WHERE con.contacttype = 2 " & _
+            " ORDER BY con.LB "
+          ibsqlContact.ParamByName("CompanyKey").AsInteger = IBLogin.CompanyKey
+        
+          set ibsqlGetContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetContact.Transaction = Transaction
+          ibsqlGetContact.SQL.Text = _
+            "select con.id FROM gd_contact con JOIN gd_ruid r on con.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+            
+          dim qGenID
+          set qGenID = Creator.GetObject(nil, "TIBSQL", "")
+          qGenID.Transaction = Transaction
+          qGenID.SQL.Text = _
+            "SELECT " & _
+            "GEN_ID(gd_g_unique, 1) + GEN_ID(gd_g_offset, 0) AS NewID " & _
+            "FROM RDB$DATABASE "
+        
+          set ibsqlGetParent = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetParent.Transaction = Transaction
+          ibsqlGetParent.SQL.Text = _
+            "select con.id FROM gd_contact con JOIN gd_ruid r on con.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          dim qIns
+          set qIns = Creator.GetObject(nil, "TIBSQL", "")
+          qIns.Transaction = Transaction
+          qIns.SQL.Text = _
+            " INSERT INTO GD_CONTACT (ID, CONTACTTYPE, PARENT, NAME) VALUES (:ID, 2, :PARENT, :NAME) "
+            
+          dim qIns1
+          set qIns1 = Creator.GetObject(nil, "TIBSQL", "")
+          qIns1.Transaction = Transaction
+          qIns1.SQL.Text = _
+            " INSERT INTO GD_PEOPLE (CONTACTKEY, FIRSTNAME, SURNAME, MIDDLENAME, NICKNAME, USR$TABNUM) VALUES (:ID, :FIRSTNAME, :SURNAME, :MIDDLENAME, :NICKNAME, :TABNUM) "
+        
+          dim qUpd
+          set qUpd = Creator.GetObject(nil, "TIBSQL", "")
+          qUpd.Transaction = Transaction
+          qUpd.SQL.Text = _
+            " UPDATE GD_PEOPLE SET  FIRSTNAME=:FIRSTNAME, " & _
+            " SURNAME=:SURNAME, " & _
+            " MIDDLENAME=:MIDDLENAME, " & _
+            " NICKNAME=:NICKNAME, " & _
+            " USR$TABNUM= :TABNUM " & _
+           "WHERE CONTACTKEY = :ID "
+        
+          ibsqlContact.ExecQuery
+          while not ibsqlContact.EOF
+            ibsqlGetContact.Close
+            ibsqlGetContact.ParamBYName("xid").AsInteger = ibsqlContact.FieldBYName("xid").ASInteger
+            ibsqlGetContact.ParamBYName("dbid").AsInteger = ibsqlContact.FieldBYName("dbid").ASInteger
+            ibsqlGetContact.ExecQuery
+            if ibsqlGetContact.EOF then
+              qGenID.Close
+              qGenID.ExecQuery
+              NewId = qGenID.FieldByName("NewID").AsInteger
+              qIns.Close
+              qIns.ParamBYName("ID").AsInteger = NewId
+              qIns.ParamBYName("Name").AsString = ibsqlContact.FieldByName("Name").AsString
+              ibsqlGetParent.Close
+              ibsqlGetParent.ParamBYName("xid").AsInteger = 149188527
+              ibsqlGetParent.ParamBYName("dbid").AsInteger = 1533693266
+              ibsqlGetParent.ExecQuery
+              qIns.ParamBYName("Parent").AsInteger = ibsqlGetParent.FieldByName("id").AsInteger
+              qIns.ExecQuery
+              
+              qIns1.Close
+              qIns1.ParamBYName("ID").AsInteger = NewId
+              qIns1.ParamBYName("FirstName").AsString = ibsqlContact.FieldByName("FirstName").AsString
+              qIns1.ParamBYName("surName").AsString = ibsqlContact.FieldByName("surName").AsString
+              qIns1.ParamBYName("middleName").AsString = ibsqlContact.FieldByName("middleName").AsString
+              qIns1.ParamBYName("nickName").AsString = ibsqlContact.FieldByName("nickName").AsString
+              qIns1.ParamBYName("TABNUM").AsString = ibsqlContact.FieldByName("usr$tabnum").AsString
+              qIns1.ExecQuery
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsqlContact.FieldBYName("xid").ASInteger, ibsqlContact.FieldBYName("dbid").ASInteger)
+            else
+              qUpd.Close
+              qUpd.ParamBYName("ID").AsInteger = ibsqlGetContact.FieldByName("ID").asInteger
+              qUpd.ParamBYName("FirstName").AsString = ibsqlContact.FieldByName("FirstName").AsString
+              qUpd.ParamBYName("surName").AsString = ibsqlContact.FieldByName("surName").AsString
+              qUpd.ParamBYName("middleName").AsString = ibsqlContact.FieldByName("middleName").AsString
+              qUpd.ParamBYName("nickName").AsString = ibsqlContact.FieldByName("nickName").AsString
+              qUpd.ParamBYName("TABNUM").AsString = ibsqlContact.FieldByName("usr$tabnum").AsString
+              qUpd.ExecQuery
+            end if
+            ibsqlContact.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
