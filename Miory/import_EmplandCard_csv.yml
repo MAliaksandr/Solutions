@@ -5,10 +5,10 @@ Properties:
   RUID: 149231256_1638717063
   Name: "import_EmplandCard_csv"
   Caption: "import_EmplandCard_csv"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 60E3C6347B5E92F8BCF4F096E8C3630E
+  MD5: 975D2DE4731839ADBA846D8B9CD4BD99
 Uses: 
   - "147068092_311980179 GS new. Общепит бэк. Домены"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-03-24T18:07:01+03:00
+      EDITIONDATE: 2021-03-25T13:46:15+03:00
       DISPLAYSCRIPT: | 
         IMPORT_EMPLANDCARD_CSV
         READCARDFROMCSVSTRING
@@ -63,6 +63,7 @@ Objects:
           Set FSO = CreateObject("Scripting.FileSystemObject")
         
           dim T, prForm
+          
           set T = Creator.GetObject(nil, "TIBTransaction", "import_EmplandCard_csv")
           set T.DefaultDatabase = gdcBaseManager.DataBase
           call T.Params.Add("read_committed")

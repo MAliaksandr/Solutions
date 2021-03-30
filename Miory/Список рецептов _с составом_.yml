@@ -1,0 +1,128 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 149234193_1638717063
+  Name: "Список рецептов (с составом)"
+  Caption: "Список рецептов (с составом)"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: B42027395D5A527F550E4BCB32F5BD1C
+Uses: 
+  - "147069521_311980179 GS new. Общепит бэк. Документы. Рецепт"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 149234072_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149234062_1638717063
+    Fields: 
+      NAME: "Список рецептов149234072_1638717063"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR"
+      EDITIONDATE: 2021-03-31T00:01:55+03:00
+      TEMPLATEDATA: !!binary > 
+        GQAAAAAaAEVQU09OMEU3MEEzIChMMzA1MCBTZXJpZXMpAP//////CQAAADQIAACaCwAAAAAAAAAA
+        AAAAAAAAAAAAAAD//wAAAAD//wAAAAAAAAAAAAAAAAMEAEZvcm0ADwAAgNwAAAB4AAAAfAEAACwB
+        AAAEAAAAAgDqAAAACwBNYXN0ZXJEYXRhMQACAQAAAABQAAAA9QIAAB0AAAAxAAUAAQAAAAAAAAAA
+        AP///x8AAAAABgBSRUNFUFQAAAAAAAAA//8AAAAAAAIAAAABAAAAABYAAAABAAAAyAAAABQAAAAB
+        AAAAAAAAAAB3AQAABQBNZW1vMQACABQAAABQAAAAMAAAAB0AAAADAA8AAQAAAAAAAAAAAP///x8s
+        AgAAAAAAAQAOAFtMSU5FVEhST1VHSCNdAAAAAP//AAAAAAACAAAAAQAAAAAWBQBBcmlhbAAJAAAA
+        AAAAAAAACgAAAMwAAgAAAAAA////AAAAAAIAAAAAAAAAAAAFAgAABQBNZW1vMgACAEQAAABQAAAA
+        HAIAABEAAAAAAA0AAQAAAAAAAAAAAP///x8sAgAAAAAAAQAPAFtSRUNFUFQuIk5BTUUiXQAAAAD/
+        /wAAAAAAAgAAAAEAAAAAFgUAQXJpYWwACQAAAAAAAAAAAAgAAADMAAIAAAAAAP///wAAAAACAAAA
+        AAAAAAAAmQIAAAUATWVtbzMAAgBgAgAAUAAAAHAAAAAdAAAAAwAPAAEAAAAAAAAAAAD///8fLAIA
+        AAAAAAEAFQBbUkVDRVBULiJVU1IkT1VUUFVUIl0AAAAA//8AAAAAAAIAAAABAAAAABYFAEFyaWFs
+        AAkAAAAAAAAAAAAIAAAAzAACAAAAAAD///8AAAAAAgAAAAAAAAAAACsDAAAFAE1lbW80AAIARAAA
+        AGAAAAAcAgAADQAAAAMABwABAAAAAAAAAAAA////HywCAAAAAAABABMAW1JFQ0VQVC4iQ09OU0lT
+        VFIiXQAAAAD//wAAAAAAAgAAAAEAAAAAFgUAQXJpYWwABwAAAAEAAAAAAAgAAADMAAIAAAAAAP//
+        /wAAAAACAAAAAAAAAP7+/wMAAAASACDC9e7k7fvlIO/g8ODs5fLw+wAGACMkJgMAMAAGAFBBUkFN
+        MQAGACMkJgsAMAAGAFBBUkFNMAAFACMkJggAAAAAAAAAAAAA/AAAAAAAAAAAAAAAAAAAAABYANeu
+        Md+XruJAl6jeCsCf5UA=
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149234063_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149234062_1638717063
+    Fields: 
+      NAME: "rp_Main147128646_246439263149234063_1638717063"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147012128_9263644 gdc_frmUserComplexDocument147012105_52143670"
+      OBJECTNAME: "gdc_frmUserComplexDocument147012105_52143670"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-31T00:01:55+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147128646_246439263149234063_1638717063
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAMAAABBTEwLAAAAwvHlIPDl9uXv8vsAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAA
+        Rk5TVEZMUFI=
+      SCRIPT: | 
+        function rp_Main147128646_246439263149234063_1638717063(OwnerForm, all)
+          BaseQueryList.Clear
+          doc = OwnerForm.SelectedKey
+          id = "(" + Join(doc(0), ",") + ")"
+        
+          set q = BaseQueryList.Query(BaseQueryList.Add("Recept",0))
+          q.SQl = _
+           " SELECT " & _
+           " g.alias, g.Name, r.USR$OUTPUT, " & _
+           " LIST(lower(rc.GOODNAME)) as consistr " + _
+           " FROM usr$mn_receipt r JOIN gd_good g on g.id = r.usr$goodkey " + _
+           " LEFT JOIN USR$MN_GET_RECEIPT_COMPONENTS(r.DOCUMENTKEY) rc on 1=1 and rc.subheader = 0 "
+           IF not all then
+             q.SQl = q.SQl + _
+             " WHERE r.documentkey in " + ID
+           END IF
+           q.SQl = q.SQl + _
+           " GROUP BY 1,2,3 " & _
+           " ORDER BY g.Name "
+        
+          q.Open
+          set rp_Main147128646_246439263149234063_1638717063 = BaseQueryList
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 149234062_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "05.Список рецептов с составом"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "149234063_1638717063 rp_Main147128646_246439263149234063_1638717063"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147012252_9263644 Отчеты(gdc_frmUserComplexDocument147012105_52143670)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "149234072_1638717063 Список рецептов149234072_1638717063"
+      EDITIONDATE: 2021-03-31T00:01:55+03:00

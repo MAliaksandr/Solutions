@@ -1,0 +1,175 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 149234016_1638717063
+  Name: "ExportStaffCard"
+  Caption: "ExportStaffCard"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 00C92396B0C0CD856415528F66CA4D0E
+Uses: 
+  - "147070860_311980179 GS new. Общепит бэк. Обмен с кассовым сервером"
+  - "149233306_1638717063 Sf_export_mn_staffcard"
+  - "149233309_1638717063 Sf_export_gd_people"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149234014_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ExportStaffCard"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-26T09:49:33+03:00
+      DISPLAYSCRIPT: | 
+        EXPORTSTAFFCARD
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include SF_EXPORT_MN_STAFFCARD
+        '#include SF_EXPORT_GD_PEOPLE
+        '#include SF_EXPORT_GD_EMPLOYEE
+        '#include SF_EXPORT_GD_CONTACT
+        Option Explicit
+        sub ExportStaffCard
+        
+        dim Creator, doc, id, q, FullFileName, i, TimeBegin, gdcConst, MenuPeriod, MainMenuId, FrontID, ExpSuccess
+          set Creator = new TCreator
+        
+          TimeBegin = Time
+          ExpSuccess = True
+        
+          dim FileNameGoods, FileNameMenu, ibsqlGood, ibsqlGroup
+        
+          Dim Database, Transaction, TrLine, OurTr, ibsqlInsRUID, ibsqlDelRUID
+        ''#include TVB_mn_Options
+        
+          set Database = Creator.GetObject(null, "TIBDatabase", "")
+          Database.SQLDialect = 3
+          Database.Params.Add("user_name=SYSDBA")
+          Database.Params.Add("password=masterkey")
+          Database.Params.Add("lc_ctype=WIN1251")
+          Database.LoginPrompt = False
+        
+         ' Depkey = OwnerForm.gdcObject.FieldByName("USR$DEPOTKEY").AsInteger
+        
+          dim ribsql, ibsql
+          set ribsql = New TReadIBSQL
+          set ibsql = ribsql.IBSQL
+          ibsql.SQL.Text = _
+            " select fl.USR$PATH as dbpath, fl.ID from USR$MN_FRONLINK fln " & _
+            " join USR$MN_FRONTLIST fl on fl.ID = fln.USR$FRONTKEY " & _
+            " where fln.USR$DEPKEY = 147039627 " & _
+            " and fl.usr$disabled <> 1 "
+         ' ibsql.ParamByName("depkey").AsInteger = Depkey
+          ibsql.ExecQuery
+          if ibsql.eof then
+            call Application.MessageBox("Не указаны параметры подключения для указанного подразделения!", "Внимание", mb_IconInformation + vBSystemModal)
+            exit sub
+          end if
+        
+          set OurTr = Creator.GetObject(Null, "TIBTransaction", "")
+          OurTr.DefaultDatabase = gdcBaseManager.Database
+          OurTr.Params.Add("nowait")
+          OurTr.Params.Add("rec_version")
+          OurTr.Params.Add("read_committed")
+        
+          while not ibsql.eof
+        
+            FrontID = ibsql.FieldByName("ID").AsInteger
+        
+            Database.Close
+            err.clear
+            on error resume next
+            Database.DatabaseName = ibsql.FieldByName("dbpath").AsString
+            Database.Connected = True
+        
+            set Transaction = Creator.GetObject(Null, "TIBTransaction", "")
+            Transaction.DefaultDatabase = Database
+            Transaction.Params.Add("nowait")
+            Transaction.Params.Add("rec_version")
+            Transaction.Params.Add("read_committed")
+            Transaction.StartTransaction
+        
+            if err.Number <> 0 then
+              call Application.MessageBox("Невозможно подключиться к базе!", "Внимание", mb_IconInformation + vBSystemModal)
+              FrontID = 0
+              ExpSuccess = False
+            end if
+            on error goto 0
+        
+            if FrontID <> 0 then
+        
+              OurTr.StartTransaction
+        
+              set ibsqlInsRUID = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsqlInsRUID.Transaction = Transaction
+              ibsqlInsRUID.SQL.Text = _
+                "EXECUTE BLOCK(ID DFOREIGNKEY = :ID, XID DFOREIGNKEY = :XID, DBID DFOREIGNKEY = :DBID) " & _
+                "AS " & _
+                "BEGIN " & _
+                "  IF (EXISTS(SELECT * FROM GD_RUID WHERE ID = :ID))  THEN " & _
+                "    UPDATE GD_RUID " & _
+                "    SET XID = :XID, " & _
+                "        DBID = :DBID " & _
+                "    WHERE ID = :ID; " & _
+                "  ELSE " & _
+                "    INSERT INTO gd_ruid(id, xid, dbid, modified, editorkey) VALUES (:ID, :XID, :DBID, 'now', 650002); " & _
+                "END "
+        
+              set ibsqlDelRUID = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsqlDelRUID.Transaction = Transaction
+              ibsqlDelRUID.SQL.Text = "DELETE FROM gd_ruid r where xid = :xid and dbid = :dbid"
+        
+        
+            ''  "Контакты"
+            call Sf_export_gd_contact(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''  "Сотрудники"
+            call Sf_export_gd_employee(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Люди"
+            call Sf_export_gd_people(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+            call Sf_export_mn_staffcard(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+            Transaction.Commit
+            OurTr.Commit
+        
+            end if
+        
+            ibsql.next
+          wend
+          call Application.MessageBox ("Выгрузка завершена!","Выгрузка!",vbOkOnly + vbInformation+vbSystemMOdal)
+        End sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147096389_1092285922 Sf_export_mn_staffcard"
+          - 
+            ADDFUNCTIONKEY: "147060655_311980179 Sf_export_gd_people"
+          - 
+            ADDFUNCTIONKEY: "147060649_311980179 Sf_export_gd_employee"
+          - 
+            ADDFUNCTIONKEY: "147060644_311980179 Sf_export_gd_contact"
+          - 
+            ADDFUNCTIONKEY: "147072708_157767346 TVB_mn_Options"
