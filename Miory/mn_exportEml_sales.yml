@@ -1,0 +1,116 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 149234214_1638717063
+  Name: "mn_exportEml_sales"
+  Caption: "mn_exportEml_sales"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: F557CB597873FE5DFE58B65D86C05934
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149234207_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "mn_exportEml_sales"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-04-02T15:35:00+03:00
+      DISPLAYSCRIPT: | 
+        MN_EXPORTEML_SALES
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAUEVSSU9EBgAAAM/l8Oju5AAAAAAAAAAAAAAAAAwAAAAAAAAAAAIAAABeUkZO
+        U1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        ' экспорт сумм по питанию сотрудника в DBF для 1С
+        Function mn_exportEml_sales(period)
+         dim objConnection
+         set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = "D:\"
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          dim objCommandWares
+          set objCommandWares = CreateObject("ADODB.Command")
+          objCommandWares.ActiveConnection = objConnection
+          objCommandWares.CommandType = 1
+        
+          objCommandWares.CommandText = " drop table EmlpSum.dbf "
+          on error resume next
+          objCommandWares.Execute
+          on error goto 0
+        
+          dim Creator, ibsql
+          set Creator = new TCreator
+          set ibsql = Creator.GetObject(null, "TIBSQL", "" )
+          ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.SQL.Text = _
+          "SELECT " & _
+          "  o.USR$LOGICDATE as ADATE, " & _
+          "  pl.USR$TABNUM as TABNUM, " & _
+          "  c.NAME as Contact, " & _
+          "  pay.USR$PAYKINDKEY as KINDTYPEKEY, " & _
+          "  sum(pay.USR$SUMNCU) as SumNcu " & _
+          "FROM usr$mn_payment pay " & _
+          "LEFT JOIN usr$mn_kindtype kt on kt.id = pay.USR$PAYKINDKEY " & _
+          "join usr$mn_order o on o.DOCUMENTKEY = pay.USR$ORDERKEY " & _
+          "left join gd_people pl on pl.CONTACTKEY = o.USR$STAFFKEY " & _
+          "left join gd_contact c on c.ID = pl.CONTACTKEY " & _
+          "WHERE " & _
+          "o.USR$LOGICDATE between :db and :de " & _
+          "and   pay.USR$PAYKINDKEY in (<RUID xid=""147141778"" dbID=""349813242""/>, <RUID xid=""149056596"" dbID=""1324113560""/>) " & _
+          "group by 1, 2 ,3, 4 "
+          ibsql.ParamByName("db").asDateTime = period(0)
+          ibsql.ParamByName("de").asDateTime = period(1)
+          ibsql.ExecQuery
+        
+          objCommandWares.CommandText = " create table EmlpSum (" & _
+            " ADATE varchar(8), " & _
+            " TABNUM varchar(60), " & _
+            " CONTACT varchar(60), " & _
+            " SUMNCU NUMERIC(15, 4)) "
+          objCommandWares.Execute
+        
+          dim InsertSQL
+          while not ibsql.EOF
+        
+            InsertSQL = " insert into EmlpSum (" & _
+            " ADATE, " & _
+            " TABNUM, " & _
+            " CONTACT, " & _
+            " SUMNCU " & _
+            " ) values " & _
+              " (" & _
+              "'" & replace(replace(replace(replace(FormatDateTime(ibsql.FieldByName("ADATE").AsDAteTime, vbShortDate), ",", ""), "/", ""), ".", ""), "-","") & "'" &  ", " & _
+              "'" & ibsql.FieldByName("TABNUM").AsString & "'" &  ", " & _
+              "'" & ibsql.FieldByName("CONTACT").AsString & "'" &  ", " & _
+              replace(CSTR(ibsql.FieldByName("SUMNCU").AsCurrency), ",", ".")&  ") "
+            objCommandWares.CommandText = InsertSQL
+            objCommandWares.Execute
+            ibsql.Next
+          wend
+          MsgBox "Завершено!"
+        End Function
+        
