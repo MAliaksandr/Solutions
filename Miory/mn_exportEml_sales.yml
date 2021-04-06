@@ -5,10 +5,10 @@ Properties:
   RUID: 149234214_1638717063
   Name: "mn_exportEml_sales"
   Caption: "mn_exportEml_sales"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: F557CB597873FE5DFE58B65D86C05934
+  MD5: 7029702C2CF155C20034087C62612A6D
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-04-02T15:35:00+03:00
+      EDITIONDATE: 2021-04-06T15:31:52+03:00
       DISPLAYSCRIPT: | 
         MN_EXPORTEML_SALES
         
@@ -45,10 +45,12 @@ Objects:
         Option Explicit
         ' экспорт сумм по питанию сотрудника в DBF для 1С
         Function mn_exportEml_sales(period)
-         dim objConnection
+         dim objConnection, path, workpath
+          path = "\\folders\FOLDERS\23 Обмен (очистка каждое воскренье)\гедемин\"
+          workpath = "D:\"
          set objConnection = CreateObject("ADODB.Connection")
           objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
-          objConnection.Properties("Data Source") = "D:\"
+          objConnection.Properties("Data Source") = workpath
           objConnection.Properties("Jet OLEDB:Engine Type") = 18
           objConnection.Open
         
@@ -61,6 +63,8 @@ Objects:
           on error resume next
           objCommandWares.Execute
           on error goto 0
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
         
           dim Creator, ibsql
           set Creator = new TCreator
@@ -85,7 +89,11 @@ Objects:
           ibsql.ParamByName("db").asDateTime = period(0)
           ibsql.ParamByName("de").asDateTime = period(1)
           ibsql.ExecQuery
-        
+          
+          if ibsql.EOF Then
+            call Application.MessageBox("Отсутствуют данные для выгрузки. Попробуйте изменить период", "Внимание", vbExclamation+vbOkOnly+vbSistemModal)
+            exit function
+          end if
           objCommandWares.CommandText = " create table EmlpSum (" & _
             " ADATE varchar(8), " & _
             " TABNUM varchar(60), " & _
@@ -111,6 +119,8 @@ Objects:
             objCommandWares.Execute
             ibsql.Next
           wend
-          MsgBox "Завершено!"
+        
+          FSO.CopyFile workpath + "EmlpSum.dbf", path + + "EmlpSum.dbf" , True
+          call Application.MessageBox("Выгрузка завершена!", "Внимание", vbInformation+vbOkOnly+vbSistemModal)
         End Function
         
