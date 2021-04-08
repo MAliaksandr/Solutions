@@ -1,0 +1,170 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 149234579_1638717063
+  Name: "Import_Empl_DBF"
+  Caption: "Import_Empl_DBF"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 436CB46F6EA8FB0F1AC35905562CF59A
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149234205_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Import_Empl_DBF"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-04-08T12:35:42+03:00
+      DISPLAYSCRIPT: | 
+        IMPORT_EMPL_DBF
+        EXCEPTION_IMPORT_EMPL_DBF
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Option Explicit
+        Sub Import_Empl_DBF
+        
+          dim Creator, objConnection, objCommandWares
+          set Creator = new TCreator
+          
+          
+          dim FileName
+          FileName = "Sotr.DBF" 'OpenDialog.FileName
+        
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+        
+          dim Path
+        '  Path = FSO.GetParentFolderName(FileName)
+          Path = "d:\Gedemin\Base\MIORI\Files\"
+          
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = Path
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.RecordSet")
+          objADOQuery.ActiveConnection = objConnection
+          objADOQuery.Open " SELECT  * FROM " &  FileName & " WHERE NOT NUMPROPUSK is NULL ", objConnection
+          objADOQuery.MoveFirst
+          if objADOQuery.EOF then
+            objADOQuery.Close
+            exit sub
+          end if
+          
+          dim T, ibSQL
+          set T = Creator.GetObject(nil, "TIBTransaction", "Import_Empl_DBF")
+          set T.DefaultDatabase = gdcBaseManager.DataBase
+          call T.Params.Add("read_committed")
+          call T.Params.Add("rec_version")
+          call T.Params.Add("nowait")
+          T.StartTransaction
+        
+          Except Exception_Import_Empl_DBF(T)
+        
+          dim TabNum,LASTNAME, NAME, MIDNAME, DPRI,DUVOL, NUMPROPUSK
+          Dim WgPos, gdcContact
+          
+          set WgPos = Creator.GetObject(NULL, "TgdcWgPosition", "")
+          WgPos.ReadTransaction = T
+          WgPos.Transaction = T
+          WgPos.SubSet = "All"
+          WgPos.Open
+        
+          set gdcContact = Creator.GetObject(NULL, "TgdcEmployee", "")
+          gdcContact.Transaction = T
+          '    gdcContact.SubType = "ById"
+          gdcContact.Open
+        
+          dim DiscID, gdcDiscount , ConID
+          set gdcDiscount = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
+          gdcDiscount.Transaction = T
+          gdcDiscount.SubType = "USR$PF_STAFFCARD"
+          gdcDiscount.Open
+            
+          objADOQuery.MoveFirst
+          
+          while not objADOQuery.EOF
+            If Not gdcDiscount.Active Then gdcDiscount.Open
+            
+            TabNum = CINT(objADOQuery.Fields("TABNUMBER").Value)
+            LASTNAME = objADOQuery.Fields("LASTNAME").Value
+            NAME = objADOQuery.Fields("NAME").Value
+            MIDNAME = objADOQuery.Fields("MIDNAME").Value
+            DPRI = objADOQuery.Fields("DPRI").Value
+            DUVOL = objADOQuery.Fields("DUVOL").Value
+            IF  isNull(DUVOL) then DUVOL = DateSerial(2030,12,31)
+            NUMPROPUSK = objADOQuery.Fields("NUMPROPUSK").Value
+            
+            
+            ' не знайшлі картку по ТАБ.НУМАРУ = НУМАРУ КАРТКІ => ТРЭБА СТВАРЫЦЬ
+            IF not gdcDiscount.Locate("USR$NUMBER", Array(TabNum), "") Then
+        
+              ' адразу знойдзем супрацоўніка
+              If gdcContact.Locate("usr$tabnum", Array(TabNum), "") Then
+                ConID = gdcContact.ID
+                gdcDiscount.Append
+                gdcDiscount.FieldByName("USR$NUMBER").asString = CSTR(TabNum)
+                gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
+                gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
+                gdcDiscount.Post
+              else
+             '   msgbox "Няма звестак па гэтаму табельнаму нумару:" & CSTR(TabNumber)
+                gdcContact.Append
+                gdcContact.FieldByName("SURNAME").asString = LASTNAME
+                gdcContact.FieldByName("FIRSTNAME").asVariant = NAME
+                gdcContact.FieldByName("MIDDLENAME").asVariant = MIDNAME
+                gdcContact.FieldByName("NICKNAME").asString = Left(TRIM(NAME),1) & "." & Left(TRIM(MIDNAME),1) & "." & Trim(LASTNAME)
+                gdcContact.FieldByName("NAME").asString = Trim(LASTNAME) & " " & Trim(NAME) & " " & Trim(MIDNAME)
+                gdcContact.FieldByName("USR$TABNUM").asString = CSTR(int(TabNum))
+                gdcContact.Post
+                ConID = gdcContact.ID
+                gdcDiscount.Append
+                gdcDiscount.FieldByName("USR$NUMBER").asString = CSTR(TabNum)
+                gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
+                gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
+                gdcDiscount.Post
+              end if
+        
+              DiscID = gdcDiscount.FieldByName("ID").asInteger
+            ELSE
+              ' знайшлі карту - трэба праверыць тэрмін дзеяння
+              IF DUVOL<=CDATE(FormatDateTime(now, vbShortDate)) Then
+                gdcDiscount.Edit
+                gdcDiscount.FieldByName("USR$DISABLED").asInteger = 1
+                gdcDiscount.Post
+              END IF
+            END IF
+          objADOQuery.MoveNext
+          wend
+        
+          IF T.InTransaction Then T.Commit
+        
+        End Sub
+        
+        sub Exception_Import_Empl_DBF(T)
+          if T.InTransaction then T.Rollback
+        end sub
+        
