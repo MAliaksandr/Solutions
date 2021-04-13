@@ -5,10 +5,10 @@ Properties:
   RUID: 149234214_1638717063
   Name: "mn_exportEml_sales"
   Caption: "mn_exportEml_sales"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 7029702C2CF155C20034087C62612A6D
+  MD5: 69F3E695239E5955BDB0AC0912E581AD
 Objects: 
   - 
     Properties: 
@@ -34,17 +34,18 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-04-06T15:31:52+03:00
+      EDITIONDATE: 2021-04-13T14:24:08+03:00
       DISPLAYSCRIPT: | 
         MN_EXPORTEML_SALES
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QGAAAAUEVSSU9EBgAAAM/l8Oju5AAAAAAAAAAAAAAAAAwAAAAAAAAAAAIAAABeUkZO
-        U1RGTFBS
+        U1RQUlNUBgAAAElTQVVUTwYAAABJU0FVVE8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVEZM
+        UFI=
       SCRIPT: | 
         Option Explicit
         ' экспорт сумм по питанию сотрудника в DBF для 1С
-        Function mn_exportEml_sales(period)
+        Function mn_exportEml_sales(period, isAuto)
          dim objConnection, path, workpath
           path = "\\folders\FOLDERS\23 Обмен (очистка каждое воскренье)\гедемин\"
           workpath = "D:\"
@@ -91,8 +92,10 @@ Objects:
           ibsql.ExecQuery
           
           if ibsql.EOF Then
-            call Application.MessageBox("Отсутствуют данные для выгрузки. Попробуйте изменить период", "Внимание", vbExclamation+vbOkOnly+vbSistemModal)
-            exit function
+            if not isAuto Then
+              call Application.MessageBox("Отсутствуют данные для выгрузки. Попробуйте изменить период", "Внимание", vbExclamation+vbOkOnly+vbSystemModal)
+              exit function
+            end if
           end if
           objCommandWares.CommandText = " create table EmlpSum (" & _
             " ADATE varchar(8), " & _
@@ -121,6 +124,8 @@ Objects:
           wend
         
           FSO.CopyFile workpath + "EmlpSum.dbf", path + + "EmlpSum.dbf" , True
-          call Application.MessageBox("Выгрузка завершена!", "Внимание", vbInformation+vbOkOnly+vbSistemModal)
+          if not isAuto Then
+            call Application.MessageBox("Выгрузка завершена!", "Внимание", vbInformation+vbOkOnly+vbSistemModal)
+          end if
         End Function
         
