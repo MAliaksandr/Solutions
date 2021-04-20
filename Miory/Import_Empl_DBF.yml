@@ -5,10 +5,10 @@ Properties:
   RUID: 149234579_1638717063
   Name: "Import_Empl_DBF"
   Caption: "Import_Empl_DBF"
-  Version: "1.0.0.1"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 436CB46F6EA8FB0F1AC35905562CF59A
+  MD5: D24836CC50413D468A7F95B1519AEFB9
 Objects: 
   - 
     Properties: 
@@ -34,13 +34,14 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-04-08T12:35:42+03:00
+      EDITIONDATE: 2021-04-20T10:59:27+03:00
       DISPLAYSCRIPT: | 
         IMPORT_EMPL_DBF
         EXCEPTION_IMPORT_EMPL_DBF
         
       ENTEREDPARAMS: ~
       SCRIPT: | 
+        '#include EXPORTSTAFFCARD
         Option Explicit
         Sub Import_Empl_DBF
         
@@ -56,7 +57,7 @@ Objects:
         
           dim Path
         '  Path = FSO.GetParentFolderName(FileName)
-          Path = "d:\Gedemin\Base\MIORI\Files\"
+          Path = "\\folders\FOLDERS\23 Обмен (очистка каждое воскренье)\гедемин\"
           
           set objConnection = CreateObject("ADODB.Connection")
           objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
@@ -68,7 +69,6 @@ Objects:
           set objADOQuery = CreateObject("ADODB.RecordSet")
           objADOQuery.ActiveConnection = objConnection
           objADOQuery.Open " SELECT  * FROM " &  FileName & " WHERE NOT NUMPROPUSK is NULL ", objConnection
-          objADOQuery.MoveFirst
           if objADOQuery.EOF then
             objADOQuery.Close
             exit sub
@@ -161,10 +161,17 @@ Objects:
           wend
         
           IF T.InTransaction Then T.Commit
-        
+          ' передадим на кассу
+          call ExportStaffCard
         End Sub
         
         sub Exception_Import_Empl_DBF(T)
           if T.InTransaction then T.Rollback
         end sub
         
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "149234014_1638717063 ExportStaffCard"
