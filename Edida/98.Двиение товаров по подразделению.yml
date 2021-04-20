@@ -1,0 +1,434 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 152555167_1162798582
+  Name: "98.Двиение товаров по подразделению"
+  Caption: "98.Двиение товаров по подразделению"
+  Version: "1.0.0.4"
+  Optional: False
+  Internal: True
+  MD5: B34B27E9212F89FA972E22BC5FEDE440
+Uses: 
+  - "147978914_215642201 Торговля - evt_object"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 152554773_1162798582
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_GETMOVEBYDEPT"
+      EDITIONDATE: 2019-05-23T14:36:21+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_GETMOVEBYDEPT (
+            DEPOTKEY INTEGER,
+            TODEPOTKEY INTEGER,
+            BEGINDATE DATE,
+            ENDDATE DATE,
+            GROUPKEY INTEGER)
+        RETURNS ( 
+            FROMDEP VARCHAR(80),
+            ACCCOSTCARD NUMERIC(15, 4),
+            SELLCOST NUMERIC(15, 4),
+            GOODNAME VARCHAR(80),
+            TODEPKEY INTEGER,
+            TODEPNAME VARCHAR(80),
+            GSPIS NUMERIC(15, 4),
+            PRODIUS NUMERIC(15, 4),
+            GMOVE NUMERIC(15, 4),
+            GRET NUMERIC(15, 4))
+         AS
+        declare variable Tspisgood integer;
+        declare variable TspisGP integer;
+        declare variable Tprodius integer;
+        declare variable Tmovegood integer;
+        declare variable TmoveGP integer;
+        declare variable Tper integer;
+        declare variable Tinv integer;
+        declare variable TODSTR VARCHAR(300);
+        
+        BEGIN
+        SELECT id FROM gd_p_getid(147013043,109092844) INTO :Tspisgood;
+        SELECT id FROM gd_p_getid(147153968,250734751) INTO :TspisGP;
+        SELECT id FROM gd_p_getid(147094173,157767346) INTO :Tprodius;
+        SELECT id FROM gd_p_getid(147051259,157767346) INTO :Tmovegood;
+        SELECT id FROM gd_p_getid(147153868,250734751) INTO :TmoveGP;
+        SELECT id FROM gd_p_getid(147013048,109092844) INTO :Tper;   /*переоценка*/
+        SELECT id FROM gd_p_getid(147013054,109092844) INTO :Tinv;  /*инвентаризация*/
+        
+        SELECT NAME FROM GD_CONTACT WHERE ID = :DEPOTKEY
+        INTO :FROMDEP;
+        
+        IF (:TODEPOTKEY<=0) THEN
+          IF (:GROUPKEY<=0) THEN
+            FOR
+            SELECT
+            co.ACCCOSTCARD AS ACCCOSTCARD,
+            mm.costaac,
+            mm.goodname,
+            MM.CONTACTKEY,
+            TODEP.NAME AS TODEPNAME,
+            SUM(mm.spis) as spis,
+            SUM(mm.gmove) as gmove,
+            SUM(mm.gret) as gret
+            FROM
+            (select
+                C.USR$MN_CALCCARDKEY as cc,
+                c.USR$INV_COSTACCNCU as costaac,
+                g.name as goodname,
+                TM.CONTACTKEY,
+                doc.id,
+                IIF(doc.documenttypekey in(:Tspisgood,:TspisGP),m2.credit,0) as spis,
+                IIF(doc.documenttypekey in (:Tmovegood,:TmoveGP) and m2.credit>0, m2.credit,0) as gmove,
+                IIF(doc.documenttypekey in (:Tmovegood,:TmoveGP) and m2.debit>0,m2.debit,0) as gret
+              from
+                gd_contact maindepot
+                join gd_contact depot on maindepot.lb <= depot.lb and maindepot.rb >= depot.rb
+                join inv_movement m on depot.id = m.contactkey
+                join inv_card c on m.cardkey = c.id
+                left join gd_good g on g.ID = c.GOODKEY
+                join gd_document doc on doc.id = m.documentkey
+                join gd_document doc1 on doc1.id = c.firstdocumentkey
+                join gd_documenttype doct on doct.id = doc.documenttypekey
+                LEFT JOIN GD_GOODGROUP GG ON GG.ID = G.GROUPKEY
+                LEFT JOIN inv_movement m1 ON m.id = m1.id AND m.movementdate < :begindate
+                LEFT JOIN inv_movement m2 ON m.id = m2.id
+                LEFT JOIN inv_movement Tm ON m.MOVEMENTKEY = TM.MOVEMENTKEY AND TM.CONTACTKEY!=M.CONTACTKEY
+                LEFT JOIN GD_GOODGROUP GG1 ON GG1.LB<=GG.LB AND GG1.RB>=GG.RB
+              where
+               maindepot.id = :DEPOTKEY
+               and m.movementdate >= :begindate
+               and m.movementdate <= :enddate
+               and doc.documenttypekey <> :Tper
+              and doc.documenttypekey <> :Tinv
+              AND  NOT TM.CONTACTKEY IS NULL
+             group by 1,2,3,4,5,6,7,8 ) mm
+             LEFT JOIN USR$P_GETACCCOSTCCARD(mm.cc) co ON (1=1)
+             LEFT JOIN GD_CONTACT TODEP ON TODEP.ID = MM.CONTACTKEY
+             GROUP BY 1 ,2,3,4,5
+             HAVING
+                 SUM(mm.spis)<>0 OR
+                 SUM(mm.gmove) <>0 OR
+                 SUM(mm.gret) <>0
+              order by 5,3
+             INTO :ACCCOSTCARD, :SELLCOST, :goodname, :TODEPKEY, :TODEPNAME,:GSPIS,:gmove,:gret
+            DO
+             SUSPEND;
+        
+           IF (:GROUPKEY>0) THEN
+            FOR
+            SELECT
+            co.ACCCOSTCARD AS ACCCOSTCARD,
+            mm.costaac,
+            mm.goodname,
+            MM.CONTACTKEY,
+            TODEP.NAME AS TODEPNAME,
+            SUM(mm.spis) as spis,
+            SUM(mm.gmove) as gmove,
+            SUM(mm.gret) as gret
+            FROM
+            (select
+                C.USR$MN_CALCCARDKEY as cc,
+                c.USR$INV_COSTACCNCU as costaac,
+                g.name as goodname,
+                TM.CONTACTKEY,
+                doc.id,
+                IIF(doc.documenttypekey in(:Tspisgood,:TspisGP),m2.credit,0) as spis,
+                IIF(doc.documenttypekey in (:Tmovegood,:TmoveGP) and m2.credit>0, m2.credit,0) as gmove,
+                IIF(doc.documenttypekey in (:Tmovegood,:TmoveGP) and m2.debit>0,m2.debit,0) as gret
+              from
+                gd_contact maindepot
+                join gd_contact depot on maindepot.lb <= depot.lb and maindepot.rb >= depot.rb
+                join inv_movement m on depot.id = m.contactkey
+                join inv_card c on m.cardkey = c.id
+                left join gd_good g on g.ID = c.GOODKEY
+                join gd_document doc on doc.id = m.documentkey
+                join gd_document doc1 on doc1.id = c.firstdocumentkey
+                join gd_documenttype doct on doct.id = doc.documenttypekey
+                LEFT JOIN GD_GOODGROUP GG ON GG.ID = G.GROUPKEY
+                LEFT JOIN inv_movement m1 ON m.id = m1.id AND m.movementdate < :begindate
+                LEFT JOIN inv_movement m2 ON m.id = m2.id
+                LEFT JOIN inv_movement Tm ON m.MOVEMENTKEY = TM.MOVEMENTKEY AND TM.CONTACTKEY!=M.CONTACTKEY
+                LEFT JOIN GD_GOODGROUP GG1 ON GG1.LB<=GG.LB AND GG1.RB>=GG.RB
+              where
+               maindepot.id = :DEPOTKEY
+               and m.movementdate >= :begindate
+               and m.movementdate <= :enddate
+               and doc.documenttypekey <> :Tper
+              and doc.documenttypekey <> :Tinv
+              AND GG1.ID = :GROUPKEY
+              AND  NOT TM.CONTACTKEY IS NULL
+             group by 1,2,3,4,5,6,7,8 ) mm
+             LEFT JOIN USR$P_GETACCCOSTCCARD(mm.cc) co ON (1=1)
+             LEFT JOIN GD_CONTACT TODEP ON TODEP.ID = MM.CONTACTKEY
+             GROUP BY 1 ,2,3,4,5
+             HAVING
+                 SUM(mm.spis)<>0 OR
+                 SUM(mm.gmove) <>0 OR
+                 SUM(mm.gret) <>0
+              order by 5,3
+             INTO :ACCCOSTCARD, :SELLCOST, :goodname, :TODEPKEY, :TODEPNAME,:GSPIS,:gmove,:gret
+            DO
+             SUSPEND;
+        
+        IF (:TODEPOTKEY>0) THEN
+          IF (:GROUPKEY<=0) THEN
+            FOR
+            SELECT
+            co.ACCCOSTCARD AS ACCCOSTCARD,
+            mm.costaac,
+            mm.goodname,
+            MM.CONTACTKEY,
+            TODEP.NAME AS TODEPNAME,
+            SUM(mm.spis) as spis,
+            SUM(mm.gmove) as gmove,
+            SUM(mm.gret) as gret
+            FROM
+            (select
+                C.USR$MN_CALCCARDKEY as cc,
+                c.USR$INV_COSTACCNCU as costaac,
+                g.name as goodname,
+                TM.CONTACTKEY,
+                doc.id,
+                IIF(doc.documenttypekey in(:Tspisgood,:TspisGP),m2.credit,0) as spis,
+                IIF(doc.documenttypekey in (:Tmovegood,:TmoveGP) and m2.credit>0, m2.credit,0) as gmove,
+                IIF(doc.documenttypekey in (:Tmovegood,:TmoveGP) and m2.debit>0,m2.debit,0) as gret,
+                0 as sell
+              from
+                gd_contact maindepot
+                join gd_contact depot on maindepot.lb <= depot.lb and maindepot.rb >= depot.rb
+                join inv_movement m on depot.id = m.contactkey
+                join inv_card c on m.cardkey = c.id
+                left join gd_good g on g.ID = c.GOODKEY
+                join gd_document doc on doc.id = m.documentkey
+                join gd_document doc1 on doc1.id = c.firstdocumentkey
+                join gd_documenttype doct on doct.id = doc.documenttypekey
+                LEFT JOIN GD_GOODGROUP GG ON GG.ID = G.GROUPKEY
+                LEFT JOIN inv_movement m1 ON m.id = m1.id AND m.movementdate < :begindate
+                LEFT JOIN inv_movement m2 ON m.id = m2.id
+                LEFT JOIN inv_movement Tm ON m.MOVEMENTKEY = TM.MOVEMENTKEY AND TM.CONTACTKEY!=M.CONTACTKEY
+                LEFT JOIN GD_GOODGROUP GG1 ON GG1.LB<=GG.LB AND GG1.RB>=GG.RB
+              where
+               maindepot.id = :DEPOTKEY
+               and m.movementdate >= :begindate
+               and m.movementdate <= :enddate
+               and doc.documenttypekey <> :Tper
+              and doc.documenttypekey <> :Tinv
+              and TM.CONTACTKEY = :todepotkey
+             group by 1,2,3,4,5,6,7,8 ) mm
+             LEFT JOIN USR$P_GETACCCOSTCCARD(mm.cc) co ON (1=1)
+             LEFT JOIN GD_CONTACT TODEP ON TODEP.ID = MM.CONTACTKEY
+             GROUP BY 1 ,2,3,4,5
+             order by 5,3
+             INTO :ACCCOSTCARD, :SELLCOST, :goodname, :TODEPKEY, :TODEPNAME,:GSPIS,:gmove,:gret
+             DO
+             SUSPEND;
+        
+           IF (:GROUPKEY>0) THEN
+             FOR
+            SELECT
+            co.ACCCOSTCARD AS ACCCOSTCARD,
+            mm.costaac,
+            mm.goodname,
+            MM.CONTACTKEY,
+            TODEP.NAME AS TODEPNAME,
+            SUM(mm.spis) as spis,
+            SUM(mm.gmove) as gmove,
+            SUM(mm.gret) as gret
+            FROM
+            (select
+                C.USR$MN_CALCCARDKEY as cc,
+                c.USR$INV_COSTACCNCU as costaac,
+                g.name as goodname,
+                TM.CONTACTKEY,
+                doc.id,
+                IIF(doc.documenttypekey in(:Tspisgood,:TspisGP),m2.credit,0) as spis,
+                IIF(doc.documenttypekey in (:Tmovegood,:TmoveGP) and m2.credit>0, m2.credit,0) as gmove,
+                IIF(doc.documenttypekey in (:Tmovegood,:TmoveGP) and m2.debit>0,m2.debit,0) as gret,
+                0 as sell
+              from
+                gd_contact maindepot
+                join gd_contact depot on maindepot.lb <= depot.lb and maindepot.rb >= depot.rb
+                join inv_movement m on depot.id = m.contactkey
+                join inv_card c on m.cardkey = c.id
+                left join gd_good g on g.ID = c.GOODKEY
+                join gd_document doc on doc.id = m.documentkey
+                join gd_document doc1 on doc1.id = c.firstdocumentkey
+                join gd_documenttype doct on doct.id = doc.documenttypekey
+                LEFT JOIN GD_GOODGROUP GG ON GG.ID = G.GROUPKEY
+                LEFT JOIN inv_movement m1 ON m.id = m1.id AND m.movementdate < :begindate
+                LEFT JOIN inv_movement m2 ON m.id = m2.id
+                LEFT JOIN inv_movement Tm ON m.MOVEMENTKEY = TM.MOVEMENTKEY AND TM.CONTACTKEY!=M.CONTACTKEY
+                LEFT JOIN GD_GOODGROUP GG1 ON GG1.LB<=GG.LB AND GG1.RB>=GG.RB
+              where
+               maindepot.id = :DEPOTKEY
+               and m.movementdate >= :begindate
+               and m.movementdate <= :enddate
+               and doc.documenttypekey <> :Tper
+              and doc.documenttypekey <> :Tinv
+              and TM.CONTACTKEY = :todepotkey
+              AND GG1.ID = :GROUPKEY
+             group by 1,2,3,4,5,6,7,8 ) mm
+             LEFT JOIN USR$P_GETACCCOSTCCARD(mm.cc) co ON (1=1)
+             LEFT JOIN GD_CONTACT TODEP ON TODEP.ID = MM.CONTACTKEY
+             GROUP BY 1 ,2,3,4,5
+             order by 5,3
+             INTO :ACCCOSTCARD, :SELLCOST, :goodname, :TODEPKEY, :TODEPNAME,:GSPIS,:gmove,:gret
+             DO
+             SUSPEND;
+        END
+      RDB$DESCRIPTION: | 
+        /*ДВИЖЕНИЕ ПО ПОДРАЗДЕЛЕНИЮ*/ 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 152554934_1162798582
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 152554774_1162798582
+    Fields: 
+      NAME: "98.Движение товаров по подразделению"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2019-05-21T12:26:29+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="43584,4481242014" ReportOptions.Description.Text="" ReportOptions.LastChange="43584,4481242014" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D22512200010C2400000020446174615365743D225449544C452220446174615365744E616D653D225449544C45220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="215,9" PaperHeight="279,4" PaperSize="1" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="45,35436" Left="0" Top="18,89765" Width="740,409927">
+              <TfrxMemoView Name="Memo1" Left="0" Top="3,77953" Width="740,78788" Height="41,57483" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="Р”РІРёР¶РµРЅРёРµ С‚РѕРІР°СЂРѕРІ РїРѕ РїРѕРґСЂР°Р·РґРµР»РµРЅРёСЋ [Q.&#34;FROMDEP&#34;]&#13;&#10;Р·Р° РїРµСЂРёРѕРґ СЃ [TITLE.&#34;BeginDate&#34;] РїРѕ [TITLE.&#34;EndDate&#34;]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="18,89765" Left="0" Top="170,07885" Width="740,409927">
+              <TfrxMemoView Name="Memo3" Left="0" Top="0" Width="374,17347" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°РёРјРµРЅРѕРІР°РЅРёРµ"/>
+              <TfrxMemoView Name="Memo4" Left="374,17347" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљРѕР»РёС‡РµСЃС‚РІРѕ"/>
+              <TfrxMemoView Name="Memo5" Left="449,76407" Top="0" Width="94,48825" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¦РµРЅР°"/>
+              <TfrxMemoView Name="Memo11" Left="544,25232" Top="0" Width="94,48825" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎСѓРјРјР°"/>
+            </TfrxHeader>
+            <TfrxGroupHeader Name="GroupHeader1" Height="22,67718" Left="0" Top="124,72449" Width="740,409927" Condition="Q.&#34;TODEPKEY&#34;">
+              <TfrxMemoView Name="Memo2" Left="3,77953" Top="0" Width="427,08689" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="Р’ РїРѕРґСЂР°Р·РґРµР»РµРЅРёРµ: [Q.&#34;TODEPNAME&#34;]"/>
+            </TfrxGroupHeader>
+            <TfrxMasterData Name="MasterData1" Height="18,89765" Left="0" Top="211,65368" Width="740,409927" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0">
+              <TfrxMemoView Name="Memo6" Left="0" Top="0" Width="374,17347" Height="18,89765" ShowHint="False" DataField="GOODNAME" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GOODNAME&#34;]"/>
+              <TfrxMemoView Name="Memo7" Left="374,17347" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;TODEPKEY&#34;&#62;=147008106,&#60;Q.&#34;GSPIS&#34;&#62;,&#60;Q.&#34;GMOVE&#34;&#62;)]"/>
+              <TfrxMemoView Name="Memo8" Left="449,76407" Top="0" Width="94,48825" Height="18,89765" ShowHint="False" DataField="SELLCOST" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;SELLCOST&#34;]"/>
+              <TfrxMemoView Name="Memo14" Left="544,25232" Top="0" Width="94,48825" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;TODEPKEY&#34;&#62;=147008106,&#60;Q.&#34;GSPIS&#34;&#62;,&#60;Q.&#34;GMOVE&#34;&#62;)*&#60;Q.&#34;SELLCOST&#34;&#62;]"/>
+            </TfrxMasterData>
+            <TfrxGroupFooter Name="GroupFooter1" Height="18,89765" Left="0" Top="253,22851" Width="740,409927">
+              <TfrxMemoView Name="Memo9" Left="0" Top="0" Width="374,17347" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;TODEPKEY&#34;&#62;=147008106,'РЎРїРёСЃР°РЅРѕ','РС‚РѕРіРѕ РІ РїРѕРґСЂР°Р·РґРµР»РµРЅРёРµ РїРµСЂРµРґР°РЅРѕ:')]"/>
+              <TfrxMemoView Name="Memo10" Left="374,17347" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(IIF(&#60;Q.&#34;TODEPKEY&#34;&#62;=147008106,&#60;Q.&#34;GSPIS&#34;&#62;,&#60;Q.&#34;GMOVE&#34;&#62;),MasterData1)]"/>
+              <TfrxMemoView Name="Memo16" Left="449,76407" Top="0" Width="188,9765" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(IIF(&#60;Q.&#34;TODEPKEY&#34;&#62;=147008106,&#60;Q.&#34;GSPIS&#34;&#62;,&#60;Q.&#34;GMOVE&#34;&#62;)*&#60;Q.&#34;SELLCOST&#34;&#62;,MasterData1)]"/>
+            </TfrxGroupFooter>
+            <TfrxFooter Name="Footer1" Height="26,45671" Left="0" Top="294,80334" Width="740,409927">
+              <TfrxMemoView Name="Memo12" Left="0" Top="0" Width="374,17347" Height="26,45671" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" VAlign="vaBottom" Text="РС‚РѕРіРѕ:"/>
+              <TfrxMemoView Name="Memo13" Left="374,17347" Top="0" Width="75,5906" Height="26,45671" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaBottom" Text="[SUM(&#60;Q.&#34;GMOVE&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo15" Left="449,76407" Top="0" Width="188,9765" Height="26,45671" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(IIF(&#60;Q.&#34;TODEPKEY&#34;&#62;=147008106,&#60;Q.&#34;GSPIS&#34;&#62;,&#60;Q.&#34;GMOVE&#34;&#62;)*&#60;Q.&#34;SELLCOST&#34;&#62;,MasterData1)]"/>
+            </TfrxFooter>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 152554775_1162798582
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 152554774_1162798582
+    Fields: 
+      NAME: "rp_Main152554775_1162798582"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2019-05-21T12:28:42+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN152554775_1162798582
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAREVQVA0AAADP7uTw4Ofk5evl7ejlCgAAAGdkX2NvbnRhY3QEAAAAbmFtZQIA
+        AABpZAcPAAAAY29udGFjdHR5cGUgPSA0AAAAAAIAAABeUkZOU1RQUlNUBgAAAFRPREVQVA8AAADC
+        IO/u5PDg5+Tl6+Xt6OUKAAAAZ2RfY29udGFjdAQAAABuYW1lAgAAAGlkBw8AAABjb250YWN0dHlw
+        ZSA9IDQAAAAAAAAAAEZOU1RQUlNUBgAAAFBFUklPRAYAAADP5fDo7uQAAAAAAAAAAAAAAAAMAAAA
+        AAAAAAACAAAAXlJGTlNUUFJTVAIAAABHRw0AAADD8PPv7+Ag8u7i4PDgDAAAAGdkX2dvb2Rncm91
+        cAQAAABuYW1lAgAAAGlkBwAAAAAAAAAAAgAAAF5BRk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main152554775_1162798582(dept, todept, period, gg)
+          BaseQueryList.Clear
+          
+          Dim q
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = _
+            "  SELECT " & _
+            "    fromdep, " & _
+            "    ACCCOSTCARD, " & _
+            "    SELLCOST, " & _
+            "    GOODNAME, " & _
+            "    TODEPKEY, " & _
+            "    TODEPNAME, " & _
+            "    GSPIS, " & _
+            "    PRODIUS, " & _
+            "    GMOVE, " & _
+            "    GRET " & _
+            " FROM USR$P_GETMOVEBYDEPT(:dept, :todept, :db,:de, :gg) "
+          q.ParamByName("dept").asInteger = dept(0)
+          q.ParamByName("todept").asInteger = todept(0)
+          q.ParamByName("db").asDateTime =period(0)
+          q.ParamByName("de").asDateTime =period(1)
+          q.ParamByName("gg").asInteger =gg(0)
+          q.Open
+          
+          dim title
+          set title = BaseQueryList.Query(BaseQueryList.Add("title", 1))
+          call title.AddField("BeginDate", "ftDateTime", 0, 0)
+          call title.AddField("EndDate", "ftDateTime", 0, 0)
+          title.OPen
+          title.Edit
+          Title.FieldBYNAme("BeginDate").AsDateTime = period(0)
+          Title.FieldBYNAme("EndDate").AsDateTime = period(1)
+          title.Post
+        
+          Set rp_Main152554775_1162798582 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 152554774_1162798582
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "98. Движение товаров по подразделению"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: "147012342_52143670 Исследователь\\01. Общепит\\03. Производство"
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "152554775_1162798582 rp_Main152554775_1162798582"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147094279_157767347 Отчеты по общепиту"
+      SERVERKEY: ~
+      TEMPLATEKEY: "152554934_1162798582 98.Движение товаров по подразделению"
+      EDITIONDATE: 2019-05-21T12:28:42+03:00
