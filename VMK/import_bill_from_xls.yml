@@ -1,0 +1,543 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 155345406_1656334246
+  Name: "import_bill_from_xls"
+  Caption: "import_bill_from_xls"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: E31EF09F7A2301F487E82213425FB67A
+Uses: 
+  - "147978914_215642201 Торговля - evt_object"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 155295332_1656334246
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "import_bill_from_xls"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147011022_109092844 gdc_frmInvDocument147010993_109092844"
+      OBJECTNAME: "gdc_frmInvDocument147010993_109092844"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-04-26T18:53:21+03:00
+      DISPLAYSCRIPT: | 
+        IMPORT_BILL_FROM_XLS
+        FINDCOUNTRY
+        FINDCUSTOMER
+        FINDGOODBYPARAM
+        IMPORT_BILL_FROM_XLS_EXCEPTION
+        GET_RECORDCOUNT_XLS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAkAAABUT0RFUFRLRVkdAAAAz+7k8ODn5OXr5e3o5Sjq8+TgIO/u8fLz7+Dl8ikK
+        AAAAZ2RfY29udGFjdAQAAABuYW1lAgAAAGlkBw8AAABjb250YWN0dHlwZSA9IDQAAAAABAAAAF5S
+        XkFGTlNUUFJTVAkAAABTVEFSVExJTkUfAAAAz+Xw4uD/IPHy8O7q4CDxIOTg7e377Ogg4iD04Onr
+        5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAABeUkZOU1RQUlNUCAAAAFJDT1VOVEVSEwAAANfo8evu
+        IPHy8O7qIOIg9ODp6+UAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAXlJGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub import_bill_from_xls(OwnerForm, toDeptKey, startLine, Rcounter)
+        
+        ''''''''''
+        ' параметры макроса:
+        ' ПОДРАЗДЕЛЕНИЕ - куда по-умолчанию складываем остатки
+        ' Первая строка с данными в файле - номер строки в xls-файле в которой идую данные для импорта
+        ' Число строк в файле - 0 по умолчанию - читать весь файл, иначе НОМЕР СТРОКИ ДО КОТОРОЙ БУДЕТ СЧИТЫВАТЬСЯ ФАЙЛ(не включительно)
+        '                                        должен быть строго больше номера 1 строки с данными
+        '
+        ' Пример: файл одержит 300 строк. Данные начинаются с 3 строки.(1-я строка - пустая, 2-шапка таблицы, 3-данные)
+        '    нам нужно считать 3 строки с данными.
+        '    параметры в таком случае будут: startLine = 3, Rcounter = 6
+        ''''''''''
+        Dim Path, FileList, Creator, i, Str, FFSO, gdcContact, Transaction, ibsqlGetContact, FileName, _
+            Tr, LenDocNum, DocNum, DocDate, othergoup, FromDepkey, DocParentKey, value_id, good_id, ibsql_QUALITYCERT
+        
+          if (Rcounter<>0) and (startLine>=Rcounter) Then
+             call Application.MessageBox("Строки начала и окончания не должны совпадать. Выполнение остановлено",  _
+                "Внимание", vbokonly + vbSystemmodal + vbCritical)
+            exit sub
+          end if
+          ' группа ТМЦ ----ВСЕ
+          othergoup = gdcbasemanager.GetIDByRUIDString("147005904_63934951")
+          'ОАО "ВОЛКОВЫССКИЙ МЯСОКОМБИНАТ"
+          FromDepkey = gdcBasemanager.getIdByRuidString("147056842_1582913322")
+        
+          set Creator = new TCreator
+          set Transaction = Creator.GetObject(null, "TIBTransaction", "")
+          Transaction.DefaultDatabase = gdcBaseManager.Database
+          Transaction.StartTransaction
+        
+          set Tr = Creator.GetObject(null, "TIBTransaction", "")
+          Tr.DefaultDatabase = gdcBaseManager.Database
+          Tr.StartTransaction
+        
+          Except import_bill_from_xls_Exception(Transaction, Tr)
+          
+          ' set FFSO = CreateOBject("Scripting.FileSystemObject")
+        
+          dim OpenDialog
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          OpenDialog.InitialDir = path
+          OpenDialog.Title = "Открыть файл содержащий документы"
+          OpenDialog.Filter =  "*.xls|*.xls"
+          if OpenDialog.Execute then
+            FileName = OpenDialog.FileName
+          else
+            Exit Sub
+          end if
+          
+          
+          dim fso, tf, errQty, logpath
+          errQty = 0
+          Set fso = CreateObject("Scripting.FileSystemObject")
+          logpath = FSO.GetParentFolderName(FSO.GetFile(FileName)) & "\InfoLog\"
+        
+          if not FSO.FolderExists(logpath) then FSO.CreateFolder(logpath)
+        
+          Set tf = fso.CreateTextFile(logpath & "Log.txt", True)
+        
+          tf.WriteLine("Ход выполнения: ")
+        
+          Dim Exc, Sh, gdcGood
+          Set Exc = CreateObject("Excel.Application")
+          call Exc.Workbooks.Open(FileName)
+          set Sh = Exc.Worksheets(1)
+        
+          Dim PrCount : PrCount = 0
+        
+          pf_ProgressBar.Caption = "Идет анализ файла..."
+          pf_ProgressBar.Show
+        
+          IF Rcounter<>0 Then
+            PrCount = Rcounter - startLine + 1
+          else
+            Rcounter = get_recordcount_xls(Exc)
+            PrCount = Rcounter - startLine + 1
+          end if
+          
+          set gdcGood = Creator.GetObject(nil, "TgdcGood", "")
+          gdcGood.Transaction = Tr
+          gdcGood.Open
+        
+          Dim FindByDocID : Set FindByDocID = Creator.GetObject(nil, "TIBSQL", "")
+          FindByDocID.Transaction = gdcBaseManager.ReadTransaction
+          FindByDocID.SQL.Text = _
+            " select " & _
+            "   doc.id " & _
+            " from " & _
+            "   gd_document doc " & _
+            " where " & _
+            "   doc.NUMBER = :NUMBER " & _
+            "   and doc.PARENT is null " & _
+            "   and doc.DOCUMENTTYPEKEY = <RUID xID=""147010993"" dbID=""109092844""/> " ' ТИП ДОКУМЕНТА - 01. Накладная на получение товара
+        
+           Dim ibsql, ibsqlgr, ibsql_ei, ibsql_tax
+           set ibsql = Creator.GetObject(nil, "TIBSQL", "")
+           ibsql.Transaction = Transaction
+           ibsql.SQL.Text = _
+           "select * from gd_good g " & _
+           "WHERE g.alias = :cod "
+        
+           set ibsql_tax = Creator.GetObject(nil, "TIBSQL", "")
+           ibsql_tax.Transaction = Transaction
+           ibsql_tax.SQL.Text = _
+             "select gt.RATE from " & _
+             "GD_GOODTAX gt " & _
+             "where gt.GOODKEY = :goodkey " & _
+             "and gt.TAXKEY = :taxkey " & _
+             "and gt.DATETAX <= :dateto " & _
+             "order by gt.DATETAX desc "
+             
+           set ibsql_QUALITYCERT = Creator.GetObject(nil, "TIBSQL", "")
+           ibsql_QUALITYCERT.Transaction = Transaction
+           ibsql_QUALITYCERT.SQL.Text = _
+             "SELECT Q.ID " & _
+             "FROM USR$INV_QUALITYCERT Q " & _
+             "WHERE Q.USR$DATE = :qDATE " & _
+             "  AND Q.USR$NUMBER = :qNumber "
+             
+            Dim ibsqlIns, ibtr, ibtrq
+            set ibsqlIns = Creator.GetObject(NULL, "TIBSQL", "")
+            
+            Dim ibsqlqIns
+            set ibtrq = Creator.GetObject(NULL, "TIBtransaction", "")
+            
+            set ibsqlqIns = Creator.GetObject(NULL, "TIBSQL", "")
+            ibtrq.DefaultDatabase = gdcBaseManager.Database
+            ibsqlqIns.Transaction = Tr
+            ibtrq.StartTransaction
+            
+            set ibtr = Creator.GetObject(NULL, "TIBtransaction", "")
+            ibtr.DefaultDatabase = gdcBaseManager.Database
+            ibtr.StartTransaction
+            ibsqlIns.Transaction = ibtr
+        
+           If not Transaction.InTransaction then
+                  Transaction.StartTransaction
+           end if
+        
+           Dim gdcAddInvDocument, vbAddInvDocument, gdcAddInvDocumentLine
+        
+        ''''''''
+        'колонка - номер
+        '--------------------
+        'Код склада - 1
+        'Штрих-код  - 2
+        'Код товара - 3
+        'Наименование ТМЦ - 4
+        'Ед. изм. - 5
+        'Код партии - 6
+        'Дата док-та прихода - 7
+        'Номер док-та прихода - 8
+        'Кол-во - 9
+        'Цена розн. - 10
+        'Сумма в рубл. - 11
+        'Дата прих. - 12
+        'Посл. движ. - 13
+        'Код поставщика - 14
+        'Наименование поставщика - 15
+        'УНП - 16
+        'Цена изг. - 17
+        'Опт. надб. - 18
+        'НДС П - 19
+        'Цена пост. - 20
+        'Торг. надб. - 21
+        'НДС Р - 22
+        'Товар Внутренний код продукции- 23
+        'Годен до - 24
+        'Страна изг. - 25
+        '№ - 26
+        'Код оп. - 27
+        
+        ''''''''
+        ''''''''
+        
+          pf_ProgressBar.Caption = "Импорт данных"
+          pf_ProgressBar.Max = PrCount
+          pf_ProgressBar.Show
+        
+        
+         for i = startLine to Rcounter
+           if not Assigned(gdcAddInvDocument) then
+            set vbAddInvDocument = New TVBInvDocument
+            call vbAddInvDocument.InitDocument(inv_DocAddwOptBill_RUID, Tr, Tr)
+            set gdcAddInvDocument = vbAddInvDocument.gdcInvDocument
+            set gdcAddInvDocumentLine = vbAddInvDocument.gdcInvDocumentLine
+           end if
+            gdcAddInvDocument.Open
+            gdcAddInvDocumentLine.Open
+        
+          If not Tr.InTransaction then
+            Tr.StartTransaction
+          end if
+        
+          If Trim(Exc.ActiveSheet.Cells(i,6).Value) <> "" Then
+          If Trim(Exc.ActiveSheet.Cells(i,6).Value) > 0 Then
+                FindByDocID.Close
+                DocDate = Trim(Exc.ActiveSheet.Cells(i,7).Value)
+                DocNum = Right(Trim(Exc.ActiveSheet.Cells(i,8).Value),2) & Left(Trim(Exc.ActiveSheet.Cells(i,8).Value),7)
+                FindByDocID.ParamByName("NUMBER").AsVariant = DocNum
+              '  FindByDocID.ParamByName("DATEDOC").AsDateTime =  DocDate
+                FindByDocID.ExecQuery
+        
+           if FindByDocID.Eof then
+             gdcAddInvDocument.Insert
+             gdcAddInvDocument.FieldByname("documentDate").AsDateTime = DocDate
+             gdcAddInvDocument.FieldByname("number").AsString = DocNum
+             gdcAddInvDocument.FieldByname("USR$CONTACTKEY").AsInteger = FindCustomer(Trim(Exc.ActiveSheet.Cells(i,16).Value), ibsql)
+             gdcAddInvDocument.FieldByname("DELAYED").AsInteger = 0
+             gdcAddInvDocument.FieldByname("DESCRIPTION").AsString = "!!!REMAINS!!!!"
+             gdcAddInvDocument.FieldByname("USR$DEPTKEY").AsInteger = toDeptKey(0)
+             DocParentKey = gdcAddInvDocument.ID
+             gdcAddInvDocument.Post
+             tf.WriteLine("Создан документ: " & CSTR(DocNum) & "")
+           Else
+            If gdcAddInvDocument.Locate("DOCUMENTKEY", FindByDocID.FieldByName("ID").AsInteger, False) Then
+              DocParentKey = gdcAddInvDocument.ID
+            End If
+           End If
+        
+           if Trim(Trim(Exc.ActiveSheet.Cells(i,5).Value)) = "кг" then
+             value_id = gdcBaseManager.GetIDByRUIDString("3000002_17")
+           else
+             value_id = gdcBaseManager.GetIDByRUIDString("3000001_17")
+           end if
+        
+        '   ibsql.Close
+        '   ibsql.ParamByName("cod").AsString = Trim(Exc.ActiveSheet.Cells(i,23).Value)
+        '   ibsql.ExecQuery
+        
+           'Штрих-код  - 2
+           'Код товара - 3
+           'Товар Внутренний код продукции- 23
+           good_id = FindGoodByParam(Trim(Exc.ActiveSheet.Cells(i,3).Value), Trim(Exc.ActiveSheet.Cells(i,2).Value), _
+                                      Trim(Exc.ActiveSheet.Cells(i,23).Value), ibsql)
+        
+         if good_id<0 then
+           gdcGood.Insert
+           gdcGood.FieldByName("alias").AsString = Trim(Exc.ActiveSheet.Cells(i,3).Value)
+           gdcGood.FieldByName("USR$PF_UNIQUECODE").AsString = Trim(Exc.ActiveSheet.Cells(i,3).Value)
+           gdcGood.FieldByName("name").AsString = Trim(Exc.ActiveSheet.Cells(i,4).Value)
+           gdcGood.FieldByName("usr$fullname").AsString = Trim(Exc.ActiveSheet.Cells(i,4).Value)
+           gdcGood.FieldByName("groupkey").AsString =  othergoup
+           gdcGood.FieldByName("valuekey").AsString = value_id
+           gdcGood.Post
+           gdcAddInvDocument.Transaction.CommitRetaining
+           good_id = gdcGood.Id
+           tf.WriteLine("Добавлен товар: " & Trim(Exc.ActiveSheet.Cells(i,4).Value) & "")
+         else
+           good_id = ibsql.FieldByName("ID").AsInteger
+         end if
+        
+         '''''''''' Вставка  НДС''''''''''''''''
+         ibsql_tax.close
+         ibsql_tax.paramByname("goodkey").AsInteger = good_id
+         ibsql_tax.paramByname("taxkey").AsInteger = gdcBaseManager.GetIDByRUIDString("147065078_486813904")
+         ibsql_tax.paramByname("dateto").AsDateTime = DocDate
+         ibsql_tax.ExecQuery
+        
+         if  Trim(Exc.ActiveSheet.Cells(i,18).Value) <> ibsql_tax.FieldByname("RATE").AsCurrency then
+            If not ibtr.InTransaction then
+                ibtr.StartTransaction
+            end if
+            ibsqlIns.SQL.Text = "INSERT INTO gd_goodtax (goodkey, taxkey, datetax, rate) " +_
+            " SELECT g.id, :taxkey, :datetax, :rate FROM gd_good g WHERE g.id IN (" + CSTR(good_id) + ")" + _
+            "   AND NOT EXISTS (SELECT * FROM gd_goodtax gt WHERE gt.goodkey = g.id AND " + _
+            "     gt.taxkey = :taxkey AND gt.datetax = :datetax) "
+            ibsqlIns.ParamByName("taxkey").AsInteger = gdcBaseManager.GetIDByRUIDString("147065078_486813904")
+            ibsqlIns.ParamByName("datetax").AsDateTime = DocDate
+            If Trim(Exc.ActiveSheet.Cells(i,18).Value) = "" Then
+              ibsqlIns.ParamByName("rate").AsCurrency = 0
+            Else
+              ibsqlIns.ParamByName("rate").AsCurrency = Trim(Exc.ActiveSheet.Cells(i,18).Value)
+            End If
+            ibsqlIns.ExecQuery
+            ibsqlIns.Close
+        
+        
+         end if
+         ''''''''''''''''
+           gdcAddInvDocumentLine.Insert
+           gdcAddInvDocumentLine.FieldByName("goodkey").AsInteger = good_id
+           gdcAddInvDocumentLine.FieldByName("quantity").AsCurrency = Trim(Exc.ActiveSheet.Cells(i,9).Value)
+           gdcAddInvDocumentLine.FieldByName("TO_USR$INV_COSTPROVIDER").AsCurrency = Trim(Exc.ActiveSheet.Cells(i,20).Value)
+           gdcAddInvDocumentLine.FieldByName("TO_USR$INV_ORIGINCOUNTRYKEY").AsVariant = FindCountry(Trim(Exc.ActiveSheet.Cells(i,25).Value), ibsql)
+           If Trim(Exc.ActiveSheet.Cells(i,19).Value) = "" Then
+             gdcAddInvDocumentLine.FieldByName("TO_USR$INV_ADDNDS").AsCurrency = 0
+             gdcAddInvDocumentLine.FieldByName("TO_USR$INV_SELLNDS").AsCurrency = 0
+           Else
+             gdcAddInvDocumentLine.FieldByName("TO_USR$INV_ADDNDS").AsCurrency = (Trim(Exc.ActiveSheet.Cells(i,19).Value))
+             gdcAddInvDocumentLine.FieldByName("TO_USR$INV_SELLNDS").AsCurrency = (Trim(Exc.ActiveSheet.Cells(i,19).Value))
+           End If
+        
+           ' gdcAddInvDocumentLine.FieldByName("TO_USR$INV_EXPIRYDATE").AsVariant = Trim(Exc.ActiveSheet.Cells(i,24).Value)
+           gdcAddInvDocumentLine.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = Trim(Exc.ActiveSheet.Cells(i,10).Value)
+        
+        ' я не знаю что это
+        '  ------------------------
+           If Trim(Exc.ActiveSheet.Cells(i,6).Value) <> ""   Then
+             If Trim(Exc.ActiveSheet.Cells(i,7).Value) <> "" Then
+                If not ibtrq.InTransaction then
+                  ibtrq.StartTransaction
+                end if
+               ibsql_QUALITYCERT.Close
+               ibsql_QUALITYCERT.ParamByName("qNumber").AsString = Trim(Exc.ActiveSheet.Cells(i,6).Value)
+               ibsql_QUALITYCERT.ParamByName("qDate").AsDateTime = Trim(Exc.ActiveSheet.Cells(i,7).Value)
+               ibsql_QUALITYCERT.ExecQuery
+        
+               If IsNull(ibsql_QUALITYCERT.FieldByName("ID").AsVariant) Then
+                  ibsqlqIns.Close
+                  ibsqlqIns.SQL.Text = "INSERT INTO USR$INV_QUALITYCERT (USR$DATE, USR$NUMBER) " +_
+                  " VALUES(:USR$DATE, :USR$NUMBER ) RETURNING ID "
+                  ibsqlqIns.ParamByName("USR$DATE").AsDateTime = Trim(Exc.ActiveSheet.Cells(i,7).Value)
+                  ibsqlqIns.ParamByName("USR$NUMBER").AsString = Trim(Exc.ActiveSheet.Cells(i,6).Value)
+                  ibsqlqIns.ExecQuery
+                 gdcAddInvDocumentLine.FieldByName("TO_USR$INV_QUALITYCERTKEY").AsInteger = ibsqlqIns.FieldByName("ID").AsInteger
+                 tf.WriteLine("Добавлен сертіфікат: " &  Trim(Exc.ActiveSheet.Cells(i,6).Value) & "")
+               Else
+                 gdcAddInvDocumentLine.FieldByName("TO_USR$INV_QUALITYCERTKEY").AsInteger = ibsql_QUALITYCERT.FieldByName("ID").AsVariant
+               End If
+             End If
+           End If
+        
+           gdcAddInvDocumentLine.Post
+           if ibtr.InTransaction then ibtr.Commit
+           if Tr.InTransaction then Tr.Commit
+        
+         end if
+         end if
+         
+         pf_ProgressBar.Note = _
+              "Товар: " & _
+              Trim(Exc.ActiveSheet.Cells(i,4).Value)
+         pf_ProgressBar.StepIt
+         If pf_ProgressBar.Canceled Then
+           if Transaction.inTransaction then Transaction.Rollback
+           if Tr.inTransaction then TR.Rollback
+           if Assigned(pf_ProgressBar) then pf_ProgressBar.Close
+           Exit sub
+         End If
+        Next
+          if Tr.InTransaction then Tr.Commit
+          if Transaction.InTransaction then Transaction.Commit
+          if ibtr.InTransaction then ibtr.Commit
+          if ibtrq.InTransaction then ibtrq.Commit
+        
+          call Application.MessageBox("Импорт завершен ",  _
+                "Внимание", vbokonly + vbSystemmodal + vbInformation)
+                
+          dim Log
+          Set Log = CreateObject("WScript.Shell")
+          Log.Run("notepad " & logpath & "Log.txt")
+          tf.Close
+        End Sub
+        
+        Function FindCountry(country,ibsql)
+         FindCountry = null
+         ibsql.Close
+          ibsql.SQL.Text = _
+          "SELECT " & _
+          "p.ID " & _
+          "FROM GD_PLACE p " & _
+          "WHERE UPPER(p.NAME) like '%' || :country  || '%' " & _
+          "and p.PLACETYPE = 'Страна' "
+          ibsql.ParamByNAme("country").asString = UCase(country)
+          ibsql.ExecQuery
+          
+          if not ibsql.EOF Then
+            FindCountry = ibsql.FieldByName("ID").asInteger
+          ELSE
+           ' ИНАЧЕ БУДЕТ РБ "
+            FindCountry = dcBaseManager.GetIDByRUIDString("1800010_17")
+          end if
+          
+        end function
+        
+        Function FindCustomer(ByUNN, ibsql)
+          FindCustomer = null
+          ibsql.Close
+          ibsql.SQL.Text = _
+           "select " & _
+           "  c.COMPANYKEY " & _
+           "from gd_companycode c " & _
+           "left join gd_contact con on con.ID = c.COMPANYKEY " & _
+           "where c.TAXID = :TAXID "
+          ibsql.ParamByNAme("TAXID").asString = ByUNN
+          ibsql.ExecQuery
+          
+          if not ibsql.EOF Then
+            FindCustomer = ibsql.FieldByName("COMPANYKEY").asInteger
+          ELSE
+           ' ИНАЧЕ БУДЕТ ОАО "ВОЛКОВЫССКИЙ МЯСОКОМБИНАТ"
+            FindCustomer = gdcBasemanager.getIdByRuidString("147056842_1582913322")
+          end if
+        end function
+        
+        Function FindGoodByParam(byCode, ByBarCode, ByAlias, ibsql)
+          FindGoodByParam = -1
+          
+          ibsql.Close
+          ibsql.SQL.Text = _
+          "SELECT " & _
+          "  ID " & _
+          "FROM GD_GOOD " & _
+          "WHERE ALIAS =:ALIAS "
+          ibsql.ParamByNAme("ALIAS").asString = ByAlias
+          ibsql.ExecQuery
+        
+          if not ibsql.EOF Then
+            FindGoodByParam = ibsql.FieldByName("ID").asInteger
+            exit function
+          end if
+          
+          If Len(ByBarCode) = 12 Then
+           ibsql.SQL.Text = _
+           "select g.id from gd_good g " & _
+           "LEFT JOIN CALC_EAN13(:cod) ean13 ON 1=1 " & _
+           "WHERE Left(g.BARCODE,12) = :cod " & _
+           "   OR EAN13.BARCODE_EAN13 = g.BARCODE "
+           ibsql.Close
+           ibsql.ParamByName("cod").AsString = ByBarCode
+           ibsql.ExecQuery
+        
+           if not ibsql.eof then
+            FindGoodByParam = ibsql.FieldByName("ID").AsInteger
+            Exit Function
+           End If
+          End If
+        
+          If Len(ByBarCode) = 7 Then
+           ibsql.SQL.Text = _
+           "select g.id from gd_good g " & _
+           "LEFT JOIN CALC_EAN8(:cod) ean13 ON 1=1 " & _
+           "WHERE Left(g.BARCODE,7) = :cod " & _
+           "   OR EAN13.BARCODE_EAN8 = g.BARCODE "
+           ibsql.Close
+           ibsql.ParamByName("cod").AsString = ByBarCode
+           ibsql.ExecQuery
+           if not ibsql.eof then
+             FindGoodByParam = ibsql.FieldByName("ID").AsInteger
+             Exit Function
+           end If
+          END IF
+          
+          ibsql.Close
+          ibsql.SQL.Text = _
+          "SELECT " & _
+          "  ID " & _
+          "FROM GD_GOOD  " & _
+          "WHERE USR$PF_UNIQUECODE = :UNIQUECODE "
+          ibsql.ParamByNAme("UNIQUECODE").asString = byCode
+          ibsql.ExecQuery
+          if not ibsql.EOF Then
+            FindGoodByParam = ibsql.FieldByName("ID").asInteger
+          end if
+        end function
+        
+        sub import_bill_from_xls_Exception(Tr1, Tr2, prForm)
+          if Tr1.inTransaction then Tr1.Rollback
+          if Tr2.inTransaction then Tr2.Rollback
+          if Assigned(prForm) then prForm = nothing
+        end sub
+        
+        function get_recordcount_xls(Exc)
+          get_recordcount_xls = 0
+          ' можно читать по любой колонке(или нескольким)
+          ' если подряд 5 пустых строк - считаем что записи в файле закончились
+          dim i, counter, isEnd
+           i = 1
+           isEnd = false
+          while not isEnd
+             IF Trim(Exc.ActiveSheet.Cells(i,3).Value) ="" and _
+                   Trim(Exc.ActiveSheet.Cells(i+1,3).Value) ="" and _
+                   Trim(Exc.ActiveSheet.Cells(i+2,3).Value) ="" and _
+                   Trim(Exc.ActiveSheet.Cells(i+4,3).Value) ="" and _
+                   Trim(Exc.ActiveSheet.Cells(i+5,3).Value) ="" Then
+               counter = i - 1
+               isEnd = true
+             end if
+             i=i+1
+          wend
+          get_recordcount_xls = counter
+        end function
+        
+        
+        
