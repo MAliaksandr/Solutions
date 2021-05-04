@@ -1,0 +1,765 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147008637_1607724074
+  Name: "gs_get_DataBase_References"
+  Caption: "gs_get_DataBase_References"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 2F30CA3C726D5B88D7F4DEA65BF4350D
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147008141_1607724074
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_DataBase_Synch_RUID"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-01-28T23:42:36+03:00
+      DISPLAYSCRIPT: | 
+        GS_DATABASE_SYNCH_RUID
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QFAAAASUJTUUwFAAAASUJTUUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
+        U1QMAAAASUJTUUxERUxSVUlEDAAAAElCU1FMREVMUlVJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNUUFJTVAIAAABJRAIAAABJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNUUFJTVAMA
+        AABYSUQDAAAAWElEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNUBAAAAERCSUQEAAAA
+        REJJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Function gs_DataBase_Synch_RUID(ibsql, ibsqlDelRUID, id, xid, dbid)
+          if dbid = 17 then exit function
+          ibsqlDelRUID.Close
+          ibsqlDelRUID.ParamByName("xID").AsInteger = xid
+          ibsqlDelRUID.ParamByName("dbID").AsInteger = dbid
+          ibsqlDelRUID.ExecQuery
+        
+          ibsql.Close
+          ibsql.ParamByName("id").AsInteger = id
+          ibsql.ParamByName("xid").AsInteger = xid
+          ibsql.ParamByName("dbid").AsInteger = dbid
+          ibsql.ExecQuery
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147008193_1607724074
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_Get_DataBase_GoodGroup"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-01-29T00:40:06+03:00
+      DISPLAYSCRIPT: | 
+        GS_GET_DATABASE_GOODGROUP
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QCAAAAVFICAAAAVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QFAAAA
+        T1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QHAAAAQ1JFQVRP
+        UgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNUDAAAAElCU1FMREVM
+        UlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QMAAAA
+        SUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include GS_DATABASE_SYNCH_RUID
+        Option Explicit
+        Function gs_Get_DataBase_goodgroup(ByRef Tr, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          gs_Get_DataBase_goodgroup = False
+        
+          dim IbsqlMenuCount
+          set IbsqlMenuCount = Creator.GetObject(null, "TIBSQL", "")
+          IbsqlMenuCount.Transaction = Tr
+          IbsqlMenuCount.SQL.Text = _
+            "SELECT " & _
+            "  COUNT(DISTINCT g.ID) as reccount " & _
+            "FROM " & _
+            "  GD_GOODGROUP g " & _
+            "  LEFT JOIN GD_P_GETRUID(g.id) p on 1 = 1 " & _
+            "  LEFT JOIN GD_GOODGROUP gg1 on gg1.id = g.id " & _
+            "  LEFT JOIN GD_GOODGROUP gg2 on gg1.lb >= gg2.lb and gg1.rb <= gg2.rb "
+          IbsqlMenuCount.ExecQuery
+        
+          dim ibsqlGoodGroup,ibsqlGoodGroupParent
+          set ibsqlGoodGroup = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGoodGroup.Transaction = Tr
+          ibsqlGoodGroup.SQL.Text = _
+            "select  " & _
+            "  distinct  " & _
+            "  g.name, g.parent, g.alias, p.xid, p.dbid " & _
+            "from " & _
+            "  gd_goodgroup g " & _
+            "  left join GD_P_GETRUID(g.id) p on 1 = 1 " + _
+            "  LEFT JOIN GD_GOODGROUP gg1 on gg1.id = g.id " & _
+            "  LEFT JOIN GD_GOODGROUP gg2 on gg1.lb >= gg2.lb and gg1.rb <= gg2.rb " &_
+            " ORDER BY g.lb "
+        
+          set ibsqlGoodGroupParent = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGoodGroupParent.Transaction = Tr
+          ibsqlGoodGroupParent.SQL.Text = _
+            " select p.xid, p.dbid " & _
+            " from " & _
+            " GD_P_GETRUID(:Parent) p "
+        
+          dim gdcGoodGroup,ibsqlGetGoodGroup
+          set gdcGoodGroup = Creator.GetObject(NULL, "TgdcGoodGroup", "")
+          gdcGoodGroup.Transaction = OurTr
+          gdcGoodGroup.SubSet = "ByID"
+          gdcGoodGroup.Open
+        
+          set ibsqlGetGoodGroup = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetGoodGroup.Transaction = OurTr
+          ibsqlGetGoodGroup.SQL.Text = _
+            "select gg.id FROM gd_goodgroup gg JOIN gd_ruid r on gg.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          dim RecCnt
+        
+          ibsqlGoodGroup.ExecQuery
+        
+          while not ibsqlGoodGroup.EOF
+            ibsqlGetGoodGroup.Close
+            ibsqlGetGoodGroup.ParamBYName("xid").AsInteger = ibsqlGoodGroup.FieldBYName("xid").ASInteger
+            ibsqlGetGoodGroup.ParamBYName("dbid").AsInteger = ibsqlGoodGroup.FieldBYName("dbid").ASInteger
+            ibsqlGetGoodGroup.ExecQuery
+            if ibsqlGetGoodGroup.EOF then
+              gdcGoodGroup.Insert
+              gdcGoodGroup.FieldBYName("Name").AsString = ibsqlGoodGroup.FieldByName("Name").AsString
+              if ibsqlGoodGroup.FieldByname("Parent").IsNull then
+                gdcGoodGroup.FieldBYName("Parent").Clear
+              else
+                ibsqlGoodGroupParent.Close
+                ibsqlGoodGroupParent.ParamByName("Parent").AsInteger = ibsqlGoodGroup.FieldByName("Parent").AsInteger
+                ibsqlGoodGroupParent.ExecQuery
+                gdcGoodGroup.FieldBYName("Parent").AsInteger = gdcBaseManager.GetIDByRUIDTr(ibsqlGoodGroupParent.FieldByName("xid").ASInteger, ibsqlGoodGroupParent.FieldByName("dbID").ASInteger, OurTr)
+              end if
+              gdcGoodGroup.Post
+              call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcGoodGroup.FieldByName("id").AsInteger, ibsqlGoodGroup.FieldBYName("xid").ASInteger, ibsqlGoodGroup.FieldBYName("dbid").ASInteger)
+            else
+              gdcGoodGroup.Close
+              gdcGoodGroup.extraconditions.add("z.id=:groupkey")
+              gdcGoodGroup.paramByname("groupkey").AsInteger = ibsqlGetGoodGroup.fieldByname("id").AsInteger
+              gdcGoodGroup.Open
+              if not gdcGoodGroup.eof then
+                gdcGoodGroup.edit
+                gdcGoodGroup.FieldBYName("Name").AsString = ibsqlGoodGroup.FieldByName("Name").AsString
+                if ibsqlGoodGroup.FieldByname("Parent").IsNull then
+                  gdcGoodGroup.FieldBYName("Parent").Clear
+                else
+                  ibsqlGoodGroupParent.Close
+                  ibsqlGoodGroupParent.ParamByName("Parent").AsInteger = ibsqlGoodGroup.FieldByName("Parent").AsInteger
+                  ibsqlGoodGroupParent.ExecQuery
+                  gdcGoodGroup.FieldBYName("Parent").AsInteger = gdcBaseManager.GetIDByRUIDTr(ibsqlGoodGroupParent.FieldByName("xid").ASInteger, ibsqlGoodGroupParent.FieldByName("dbID").ASInteger, OurTr)
+                end if
+                gdcGoodGroup.Post
+              end if
+            end if
+            ibsqlGoodGroup.Next
+          wend
+        
+          if Tr.InTransaction then Tr.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+          gs_Get_DataBase_goodgroup = True
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147008141_1607724074 gs_DataBase_Synch_RUID"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147008146_1607724074
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_Get_DataBase_department"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-01-28T23:52:32+03:00
+      DISPLAYSCRIPT: | 
+        GS_GET_DATABASE_DEPARTMENT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QCAAAAVFICAAAAVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QFAAAA
+        T1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QHAAAAQ1JFQVRP
+        UgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNUDAAAAElCU1FMREVM
+        UlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QMAAAA
+        SUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include GS_DATABASE_SYNCH_RUID
+        Function gs_Get_DataBase_department(ByRef Tr, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+        set ibsqlContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlContact.Transaction = Tr
+          ibsqlContact.SQL.Text = _
+            "select " & _
+            "  con.name, " & _
+            "  con.parent, " & _
+            "  p.xid, p.dbid, " & _
+            "  pp.xid p_xid, pp.dbid p_dbid " & _
+            "from " & _
+            "  gd_contact con " & _
+            "  JOIN gd_contact maincon on maincon.lb <= con.lb and maincon.rb >= con.rb " & _
+            "  LEFT JOIN gd_p_getruid(con.id) p on 1 = 1 " & _
+            "  LEFT JOIN gd_p_getruid(con.Parent) pp on 1=1 " & _
+            "where " & _
+            "  con.contacttype = 4 " & _
+            "ORDER BY " & _
+            "  con.LB "
+        
+          set gdcContact = Creator.GetObject(NULL, "TgdcDepartment", "")
+          gdcContact.Transaction = OurTr
+          gdcContact.SubSet = "ByID"
+          gdcContact.Open
+          set ibsqlGetContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetContact.Transaction = OurTr
+          ibsqlGetContact.SQL.Text = _
+            "select con.id FROM gd_contact con JOIN gd_ruid r on con.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          ibsqlContact.ExecQuery
+          while not ibsqlContact.EOF
+            ibsqlGetContact.Close
+            ibsqlGetContact.ParamBYName("xid").AsInteger = ibsqlContact.FieldBYName("xid").ASInteger
+            ibsqlGetContact.ParamBYName("dbid").AsInteger = ibsqlContact.FieldBYName("dbid").ASInteger
+            ibsqlGetContact.ExecQuery
+            if ibsqlGetContact.EOF then
+              gdcContact.Insert
+              gdcContact.FieldBYName("Name").AsString = ibsqlContact.FieldByName("Name").AsString
+        '      if gdcBaseManager.GetIDByRUIDTr(ibsqlContact.FieldByName("p_xid").ASInteger, ibsqlContact.FieldByName("p_dbID").ASInteger, OurTr) = -1 then
+                gdcContact.FieldBYName("Parent").AsInteger = Iblogin.Companykey
+        '      else
+        '        gdcContact.FieldBYName("Parent").AsInteger = gdcBaseManager.GetIDByRUIDTr(ibsqlContact.FieldByName("p_xid").ASInteger, ibsqlContact.FieldByName("p_dbID").ASInteger, OurTr)
+        '      end if
+              gdcContact.Post
+              call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcContact.FieldByName("id").AsInteger, ibsqlContact.FieldBYName("xid").ASInteger, ibsqlContact.FieldBYName("dbid").ASInteger)
+            end if
+            ibsqlContact.Next
+          wend
+        
+          if Tr.InTransaction then Tr.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+          
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147008141_1607724074 gs_DataBase_Synch_RUID"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147008322_1607724074
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147008224_1607724074
+    Fields: 
+      NAME: "gs_Get_DataBase_gd_value"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-01-29T00:54:48+03:00
+      DISPLAYSCRIPT: | 
+        GS_GET_DATABASE_GD_VALUE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_DATABASE_SYNCH_RUID
+        Function gs_Get_DataBase_gd_value(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          set ibsqlValue = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlValue.Transaction = Transaction
+          ibsqlValue.SQL.Text = _
+            "select * " & _
+            "from " & _
+            "  gd_value v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 "
+        
+          set gdcValue = Creator.GetObject(NULL, "TgdcValue", "")
+          gdcValue.Transaction = OurTr
+          gdcValue.SubSet = "ByID"
+          gdcValue.Open
+        
+          set ibsqlGetValue = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetValue.Transaction = OurTr
+          ibsqlGetValue.SQL.Text = _
+            "select v.id FROM gd_value v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          ibsqlValue.ExecQuery
+          while not ibsqlValue.EOF
+            ibsqlGetValue.Close
+            ibsqlGetValue.ParamBYName("xid").AsInteger = ibsqlValue.FieldBYName("xid").ASInteger
+            ibsqlGetValue.ParamBYName("dbid").AsInteger = ibsqlValue.FieldBYName("dbid").ASInteger
+            ibsqlGetValue.ExecQuery
+            if ibsqlGetValue.EOF then
+              gdcValue.Insert
+              gdcValue.FieldBYName("Name").AsString = ibsqlValue.FieldByName("Name").AsString
+              gdcValue.Post
+              call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcValue.FieldByName("id").AsInteger, ibsqlValue.FieldBYName("xid").ASInteger, ibsqlValue.FieldBYName("dbid").ASInteger)
+            end if
+            Application.ProcessMessages
+            ibsqlValue.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147008141_1607724074 gs_DataBase_Synch_RUID"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147008224_1607724074
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_Get_DataBase_gd_good"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-01-29T00:56:14+03:00
+      DISPLAYSCRIPT: | 
+        GS_GET_DATABASE_GD_GOOD
+        FILLFIELDS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_GET_DATABASE_GD_VALUE
+        '#include GS_DATABASE_SYNCH_RUID
+        Option Explicit
+        Function gs_Get_DataBase_gd_good(ByRef Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          gs_Get_DataBase_gd_good = False
+          
+          call gs_Get_DataBase_gd_value(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          
+          dim ibsqlGood
+          set ibsqlGood = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGood.Transaction = Transaction
+          ibsqlGood.SQL.Text = _
+            "select " & _
+            "  distinct " & _
+            "  p.xid, p.dbid, g.name, g.barcode, g.alias, " & _
+            "  v.xid v_xid, v.dbid v_dbid, " & _
+            "  gg.xid gg_xid, gg.dbid gg_dbid " & _
+           "from " & _
+            "  gd_good g " & _
+            "  left join GD_P_GETRUID(g.id) p on 1 = 1 " & _
+            "  LEFT JOIN gd_p_getruid(g.valuekey) v on 1 = 1 " & _
+            "  LEFT JOIN gd_p_getruid(g.groupkey) gg on 1 = 1 " & _
+            "  JOIN GD_GOODGROUP gg1 on gg1.id = g.groupkey " & _
+            "  JOIN GD_GOODGROUP gg2 on gg1.lb >= gg2.lb and gg1.rb <= gg2.rb " & _
+            "Order by " & _
+            "  g.name "
+        
+          dim gdcGood, ibsqlGetGood
+          set gdcGood = Creator.GetObject(NULL, "TgdcGood", "")
+          gdcGood.Transaction = OurTr
+          gdcGood.SubSet = "ByID"
+          gdcGood.Open
+        
+          set ibsqlGetGood = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetGood.Transaction = OurTr
+          ibsqlGetGood.SQL.Text = _
+            " select g.id FROM gd_good g JOIN gd_ruid r on g.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          ibsqlGood.ExecQuery
+        
+          while not ibsqlGood.EOF
+            ibsqlGetGood.Close
+            ibsqlGetGood.ParamBYName("xid").AsInteger = ibsqlGood.FieldBYName("xid").ASInteger
+            ibsqlGetGood.ParamBYName("dbid").AsInteger = ibsqlGood.FieldBYName("dbid").ASInteger
+            ibsqlGetGood.ExecQuery
+            if ibsqlGetGood.EOF then
+              '' Если ruid в локальной базе не найден, то считаем, что товара нет = > вставляем
+              gdcGood.Insert
+              call FillFields(gdcGood, ibsqlGood, OurTr)
+              gdcGood.Post
+              ''' Синхронизируем ruid (устанавливаем как на удалённой базе)
+              call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcGood.FieldByName("id").AsInteger, ibsqlGood.FieldBYName("xid").ASInteger, ibsqlGood.FieldBYName("dbid").ASInteger)
+            else
+              '' ruid найден на локальной базе
+              gdcGood.Close
+              gdcGood.id = ibsqlGetGood.fieldByname("id").AsInteger
+              gdcGood.Open
+              '' поиск среди товаров по возвращённому найденному ID в GD_RUID
+              if not gdcGood.eof then
+                '' Товар найден => обновляем
+                '' Для ускорения загрузки можно сделать сравнение по ключевым полям (наименование, группа и т.д.)
+                gdcGood.Edit
+                call FillFields(gdcGood, ibsqlGood, OurTr)
+                gdcGood.post
+              else
+                '' Товар не найден => добавляем
+                gdcGood.Insert
+                call FillFields(gdcGood, ibsqlGood, OurTr)
+                gdcGood.Post
+                ''' Синхронизируем ruid (устанавливаем как на удалённой базе)
+                call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcGood.FieldByName("id").AsInteger, ibsqlGood.FieldBYName("xid").ASInteger, ibsqlGood.FieldBYName("dbid").ASInteger)
+              end if
+            end if
+        
+            ibsqlGood.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+          gs_Get_DataBase_gd_good = True
+        end function
+        
+        Sub FillFields(gdcGood, ibsqlGood, OurTr)
+          gdcGood.FieldBYName("Name").AsString = ibsqlGood.FieldByName("Name").AsString
+          gdcGood.FieldBYName("barcode").AsString = ibsqlGood.FieldByName("barcode").AsString
+          gdcGood.FieldBYName("Alias").AsString = ibsqlGood.FieldByName("Alias").AsString
+          gdcGood.FieldBYName("GroupKey").AsInteger = gdcBaseManager.GetIDByRUIDTr(ibsqlGood.FieldByName("gg_xid").ASInteger, ibsqlGood.FieldByName("gg_dbID").ASInteger, OurTr)
+          gdcGood.FieldBYName("ValueKey").AsInteger = gdcBaseManager.GetIDByRUIDTr(ibsqlGood.FieldByName("v_xid").ASInteger, ibsqlGood.FieldByName("v_dbID").ASInteger, OurTr)
+          '' Загрузка необязательных полей.
+        End sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147008322_1607724074 gs_Get_DataBase_gd_value"
+          - 
+            ADDFUNCTIONKEY: "147008141_1607724074 gs_DataBase_Synch_RUID"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147008140_1607724074
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_Get_DataBase_gd_contact"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-01-29T00:30:40+03:00
+      DISPLAYSCRIPT: | 
+        GS_GET_DATABASE_GD_CONTACT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QCAAAAVFICAAAAVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QFAAAA
+        T1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QHAAAAQ1JFQVRP
+        UgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNUDAAAAElCU1FMREVM
+        UlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QMAAAA
+        SUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include GS_DATABASE_SYNCH_RUID
+        Function gs_Get_DataBase_gd_contact(ByRef Tr, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+        set ibsqlContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlContact.Transaction = Tr
+          ibsqlContact.SQL.Text = _
+            "select " & _
+            "con.name, " & _
+            "con.parent, " & _
+            "cm.FULLNAME, " & _
+            "con.ADDRESS, " & _
+            "con.COUNTRY, " & _
+            "con.CITY, " & _
+            "con.DISTRICT, " & _
+            "con.EMAIL, " & _
+            "con.FAX, " & _
+            "con.NOTE, " & _
+            "con.REGION, " & _
+            "con.PHONE, " & _
+            "con.ZIP, con.CONTACTTYPE, " & _
+            "p.xid, p.dbid, " & _
+            "pp.xid p_xid, pp.dbid p_dbid " & _
+            "from " & _
+            "  gd_contact con " & _
+            "  JOIN gd_contact maincon on maincon.lb <= con.lb and maincon.rb >= con.rb " & _
+            "  LEFT JOIN gd_p_getruid(con.id) p on 1 = 1 " & _
+            "  LEFT JOIN gd_p_getruid(con.Parent) pp on 1=1 " & _
+            "  left join gd_company cm on cm.CONTACTKEY = con.ID " & _
+            "where " & _
+            "  con.contacttype=3 " & _
+            "ORDER BY " & _
+            "  con.LB "
+        
+          set gdcCompany = Creator.GetObject(NULL, "TgdcCompany", "")
+          gdcCompany.Transaction = OurTr
+          gdcCompany.SubSet = "ByID"
+          gdcCompany.Open
+          set ibsqlGetContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetContact.Transaction = OurTr
+          ibsqlGetContact.SQL.Text = _
+            "select con.id FROM gd_contact con JOIN gd_ruid r on con.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          ibsqlContact.ExecQuery
+          while not ibsqlContact.EOF
+            ibsqlGetContact.Close
+            ibsqlGetContact.ParamBYName("xid").AsInteger = ibsqlContact.FieldBYName("xid").ASInteger
+            ibsqlGetContact.ParamBYName("dbid").AsInteger = ibsqlContact.FieldBYName("dbid").ASInteger
+            ibsqlGetContact.ExecQuery
+            if ibsqlGetContact.EOF then
+              gdcCompany.Insert
+              gdcCompany.FieldBYName("Name").AsString = ibsqlContact.FieldByName("Name").AsString
+              gdcCompany.FieldBYName("CONTACTTYPE").AsVariant = ibsqlContact.FieldByName("CONTACTTYPE").AsVariant
+              gdcCompany.FieldBYName("FULLNAME").AsString = ibsqlContact.FieldByName("FULLNAME").AsString
+              gdcCompany.FieldBYName("ADDRESS").AsString = ibsqlContact.FieldByName("ADDRESS").AsString
+              gdcCompany.FieldBYName("COUNTRY").AsString = ibsqlContact.FieldByName("COUNTRY").AsString
+              gdcCompany.FieldBYName("CITY").AsString = ibsqlContact.FieldByName("CITY").AsString
+              gdcCompany.FieldBYName("DISTRICT").AsString = ibsqlContact.FieldByName("DISTRICT").AsString
+              gdcCompany.FieldBYName("EMAIL").AsString = ibsqlContact.FieldByName("EMAIL").AsString
+              gdcCompany.FieldBYName("FAX").AsString = ibsqlContact.FieldByName("FAX").AsString
+              gdcCompany.FieldBYName("NOTE").AsString = ibsqlContact.FieldByName("NOTE").AsString
+              gdcCompany.FieldBYName("REGION").AsString = ibsqlContact.FieldByName("REGION").AsString
+              gdcCompany.FieldBYName("PHONE").AsString = ibsqlContact.FieldByName("PHONE").AsString
+              gdcCompany.FieldBYName("ZIP").AsString = ibsqlContact.FieldByName("ZIP").AsString
+              gdcCompany.FieldBYName("Parent").AsInteger = Iblogin.Companykey
+              gdcCompany.Post
+              call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcCompany.FieldByName("id").AsInteger, ibsqlContact.FieldBYName("xid").ASInteger, ibsqlContact.FieldBYName("dbid").ASInteger)
+            end if
+            ibsqlContact.Next
+          wend
+        
+          if Tr.InTransaction then Tr.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+          
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147008141_1607724074 gs_DataBase_Synch_RUID"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147008139_1607724074
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_get_DataBase_References"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-01-30T23:51:13+03:00
+      DISPLAYSCRIPT: | 
+        GS_GET_DATABASE_REFERENCES
+        GS_GET_DATABASE_REFERENCES_EXCEPT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QIAAAAQkFTRVBBVEgIAAAAQkFTRVBBVEgAAAAAAAAAAAAAAAAFAAAAAAAAAAACAAAA
+        XlJGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_GET_DATABASE_GD_GOOD
+        '#include GS_GET_DATABASE_GOODGROUP
+        '#include GS_GET_DATABASE_DEPARTMENT
+        '#include GS_GET_DATABASE_GD_CONTACT
+        Option Explicit
+        Function gs_get_DataBase_References(BasePath)
+        
+          dim Creator, Database, Tr, OurTr, ibsqlInsRUID, ibsqlDelRUID
+          set Creator = New TCreator
+        
+          set Database = Creator.GetObject(Null, "TIBDatabase", "")
+          Err.Clear
+        '  on error resume next
+        
+          Database.DatabaseName = BasePath
+          Database.Params.Clear
+          Database.SQLDialect = 3
+          Database.Params.Add("user_name=SYSDBA")
+          Database.Params.Add("password=masterkey")
+          Database.Params.Add("lc_ctype=WIN1251")
+          Database.LoginPrompt = False
+          Database.Connected = True
+        
+          if err.Number <> 0 then
+            call Application.MessageBox("Невозможно подключиться к базе!", "Внимание", mb_IconInformation + vBSystemModal)
+            exit Function
+          end if
+          
+          set Tr = Creator.GetObject(Null, "TIBTransaction", "")
+          Tr.DefaultDatabase = Database
+          Tr.StartTransaction
+        
+        
+          set OurTr = Creator.GetObject(null, "TIBTransaction", "ourTr")
+          OurTr.DefaultDatabase = gdcBaseManager.Database
+          OurTr.Params.Add("nowait")
+          OurTr.Params.Add("rec_version")
+          OurTr.Params.Add("read_committed")
+          OurTr.StartTransaction
+        
+          Except gs_get_DataBase_References_except(Tr, OurTr)
+          
+          set ibsqlInsRUID = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlInsRUID.Transaction = OurTr
+          ibsqlInsRUID.SQL.Text = _
+            "EXECUTE BLOCK(ID INTEGER = :ID, XID INTEGER = :XID, DBID INTEGER = :DBID) " & _
+            "AS " & _
+            "BEGIN " & _
+            "  IF (EXISTS(SELECT * FROM GD_RUID WHERE ID = :ID))  THEN " & _
+            "    UPDATE GD_RUID " & _
+            "    SET XID = :XID, " & _
+            "        DBID = :DBID " & _
+            "    WHERE ID = :ID; " & _
+            "  ELSE " & _
+            "    INSERT INTO gd_ruid(id, xid, dbid, modified, editorkey) VALUES (:ID, :XID, :DBID, 'now', 650002); " & _
+            "END "
+            
+          set ibsqlDelRUID = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlDelRUID.Transaction = OurTr
+          ibsqlDelRUID.SQL.Text = "DELETE FROM gd_ruid r where xid = :xid and dbid = :dbid"
+        
+        
+         ' call gs_Get_DataBase_department(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         ' call gs_Get_DataBase_gd_contact(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        '  call gs_Get_DataBase_goodgroup(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          call gs_Get_DataBase_gd_good(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            
+          If Tr.InTransaction Then Tr.Commit
+          If OurTr.InTransaction Then OurTr.Commit
+            
+        End Function
+        
+        Sub gs_get_DataBase_References_except(Tr, OurTr)
+          If Tr.InTransaction Then Tr.Rollback
+          If OurTr.InTransaction Then OurTr.Rollback
+        End Sub
+        
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147008224_1607724074 gs_Get_DataBase_gd_good"
+          - 
+            ADDFUNCTIONKEY: "147008193_1607724074 gs_Get_DataBase_GoodGroup"
+          - 
+            ADDFUNCTIONKEY: "147008146_1607724074 gs_Get_DataBase_department"
+          - 
+            ADDFUNCTIONKEY: "147008140_1607724074 gs_Get_DataBase_gd_contact"

@@ -1,0 +1,820 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 261609894_1437966193
+  Name: "Экспорт на весы. CAS"
+  Caption: "Экспорт на весы. CAS"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: 3F887BF290084684792D3BE0DA8CADD4
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147031857_244089702
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actUnLoadInScalesOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147031045_228053996 usrf_price_view"
+      OBJECTNAME: "usrf_price_view"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-04-28T13:42:55+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTUNLOADINSCALESONEXECUTE
+        MACROS147018175_244089502
+        EXCELMACROSFORSCALES
+        FORSCALES_GETVALIDVALUE
+        FORSCALES_VALUEDATE
+        MACROS147839116_1856326892
+        MASSAMACROSFORSCALES
+        USRF_ADDING_TRANSPORT_CARRIAGE
+        EXPORTTOSCALEACLAS
+        ACLASMACROSFORSCALES
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include PF_ONOFFTRANSACTION
+        Option Explicit
+        Sub usrg_actUnLoadInScalesOnExecute(ByVal Sender)
+          Dim docid
+          docid = ""
+        
+          Dim ibGr, i
+          Set ibGr = Sender.OwnerForm.FindComponent("usrg_ScalesGrid")
+        
+          If ibGr.CheckBox.CheckCount > 0 Then
+            For i = 0 to ibGr.CheckBox.CheckCount - 1
+              If docid = "" Then
+                docid = ibGr.CheckBox.CheckList(i)
+              Else
+                docid = docid & ", " & ibGr.CheckBox.CheckList(i)
+              End If
+            Next
+          End If
+        
+          If docid = "" Then docid = "0"
+          docid = "(" & docid & ")"
+        
+          If docid = "(0)" Then
+            Call Application.MessageBox("Не выбраны весы!", "Внимание", mb_OK or mb_IconExclamation or vbSystemModal)
+            Exit Sub
+          End If
+        
+          ibGr.DataSource.DataSet.DisableControls
+        
+          Dim DataBase, Transaction
+          Set DataBase = Sender.OwnerForm.FindComponent("usrg_IBDataBase")
+          Set Transaction = Sender.OwnerForm.FindComponent("usrg_IBTransaction")
+          
+          Dim qSQL, Creator
+          Set Creator = New TCreator
+          
+        
+          Set qSQL = Creator.GetObject(null, "TIBSQL", "")
+          qSQL.DataBase = DataBase
+          qSQL.Transaction = Transaction
+          qSQL.SQL.Text = _
+            "UPDATE USR$PF_FSCALES SET USR$SELECTED = 0"
+          qSQL.ExecQuery
+          qSQL.Close
+          qSQL.SQL.Text = _
+            "UPDATE USR$PF_FSCALES SET USR$SELECTED = 1 WHERE ID IN " & docid
+          qSQL.ExecQuery
+        
+          Call pf_OnOffTransaction(Transaction)
+        
+        '  Dim Gedemin
+        '  Set Gedemin = CreateObject("Gedemin.gsGedeminApplication")
+        '  Gedemin.LoginSilent "Synchronizer", "Synchronizer", _
+        '   Sender.OwnerForm.FindComponent("usrg_IBDataBase").DataBaseName
+        '
+        '  Gedemin.System.ExecuteScript "Macros147018175_244089502", "APPLICATION", NULL
+        '  Gedemin.System.ExecuteScript "Macros147839116_1856326892", "APPLICATION", NULL
+        '  Gedemin.System.ExecuteScript "ExportToScaleACLAS", "APPLICATION", NULL
+          
+          Call Macros147018175_244089502(qSQL)
+          Call Macros147839116_1856326892(qSQL)
+          Call ExportToScaleACLAS(qSQL)
+        
+          qSQL.Close
+          qSQL.SQL.Text = _
+            "UPDATE USR$PF_FSCALES SET USR$SELECTED = 0"
+          qSQL.ExecQuery
+        
+          Call pf_OnOffTransaction(Transaction)
+        
+          ibGr.DataSource.DataSet.Close
+          ibGr.DataSource.DataSet.Open
+          ibGr.DataSource.DataSet.EnableControls
+        
+          Call Application.MessageBox("Экспорт успешно завершён!", "Внимание", mb_OK or vbInformation or vbSystemModal)
+        End Sub
+        
+        'Экспорт в Excel данных для весов
+        '------------------------------------------------------------------------
+        Sub Macros147018175_244089502(qScales)
+          qScales.Close
+          qScales.SQL.Text = _
+            "SELECT s.USR$PATH " & _
+            "FROM USR$PF_FSCALES s " & _
+            "JOIN GD_RUID r ON r.ID = s.USR$ECTTYPESKEY " & _
+            "WHERE " & _
+            "  (r.XID = 147018130 AND r.DBID = 244089502) " & _
+            "  AND COALESCE(s.USR$SELECTED, 0) = 1 "
+          qScales.ExecQuery
+        
+          While  Not qScales.Eof
+            Call ExcelMacrosForScales(_
+              qScales.FieldByName("USR$PATH").AsString, _
+              qScales.Transaction, _
+              qScales.DataBase)
+            qScales.Next
+          Wend
+        End Sub
+        
+        Sub ExcelMacrosForScales(Path, Transaction, DataBase)
+          Dim Creator
+          Set Creator = New TCreator
+          
+          Dim q
+          Set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.DataBase = DataBase
+          q.Transaction = Transaction
+          q.SQL.Text = _
+            "SELECT " & _
+            "  g.NAME AS GoodName, " & _
+            "  IIF(Not g.USR$PF_WEIGHTCODE IS NULL, g.USR$PF_WEIGHTCODE, g.ALIAS ) AS ALIAS, " & _
+            "  p.USR$PRICE AS Price, " & _
+            "  g.USR$MN_PROTEIN AS Protein, " & _
+            "  g.USR$MN_FAT AS Fat, " & _
+            "  g.USR$MN_UGLEVOD AS Uglevod, " & _
+            "  g.USR$MN_CALORIE AS Calorie, g.USR$CONTENT as Content, " & _
+            "  p.USR$DATEMAKING, " & _
+            "  p.USR$EXPIRYDATE "  & _
+            "FROM GD_GOOD g " & _
+            "JOIN USR$PF_PRICELIST p ON p.USR$GOODKEY = g.ID  " & _
+            "WHERE COALESCE(g.USR$PF_ISWEIGHT, 0) = 1 " & _
+            "ORDER BY g.USR$MN_PROTEIN, g.USR$MN_FAT, g.USR$MN_UGLEVOD, g.USR$MN_CALORIE, g.NAME "
+          q.ExecQuery
+        
+          If q.EoF Then Exit Sub
+        
+          Dim FSO
+          Set FSO = CreateObject("Scripting.FileSystemObject")
+        
+          Dim FileName
+          FileName = "PLU" & Year(Now) & Right("0" & Month(Now), 2)& Right("0" & Day(Now), 2) & ".xls"
+        
+          Dim FileNameNut
+          FileNameNut = Path & "NutritionFact" & FileName
+        
+          If FSO.FileExists(FileNameNut) Then
+            Call FSO.DeleteFile(FileNameNut)
+          End If
+        
+          Dim ConnectionString
+          ConnectionString = _
+                   "Driver={Microsoft Excel Driver (*.xls)};" & _
+                   "Dbq=" & FileNameNut & ";" & _
+                   "ReadOnly=False;"
+        
+          Dim objConING
+          Set objConING = CreateObject("ADODB.Connection")
+          objConING.ConnectionString = ConnectionString
+          objConING.Open
+        
+          Dim objCmdING
+          Set objCmdING = CreateObject("ADODB.Command")
+          objCmdING.ActiveConnection = objConING
+          objCmdING.CommandText = _
+            "CREATE TABLE " & _
+            " INGREDIENT(" & _
+            "[Код] VARCHAR(120), " & _
+            "[1Page-1] VARCHAR(254), "  & _
+            "[1Page-2] VARCHAR(254), "  & _
+            "[1Page-3] VARCHAR(254)) "
+          objCmdING.Execute
+        
+          FileName = Path & "PLU" & Year(Now) & Right("0" & Month(Now), 2)& Right("0" & Day(Now), 2) & ".xls"
+        
+          If FSO.FileExists(FileName) Then
+            Call FSO.DeleteFile(FileName)
+          End If
+        
+          ConnectionString = _
+                   "Driver={Microsoft Excel Driver (*.xls)};" & _
+                   "Dbq=" & FileName & ";" & _
+                   "ReadOnly=False;"
+        
+          Dim objConPLU
+          Set objConPLU = CreateObject("ADODB.Connection")
+          objConPLU.ConnectionString = ConnectionString
+          objConPLU.Open
+        
+          Dim objCmdPLU
+          Set objCmdPLU = CreateObject("ADODB.Command")
+          objCmdPLU.ActiveConnection = objConPLU
+          objCmdPLU.CommandText = _
+            "CREATE TABLE " & _
+            " PLU( " & _
+            "[1.Отдел №] VARCHAR(120), " & _
+            "[2.Товар №] VARCHAR(120), " & _
+            "[4.Тип товара] VARCHAR(120), " & _
+            "[11.Код товара] VARCHAR(120), " & _
+            "[10.Наимен. 1] VARCHAR(120), " & _
+            "[30.Наимен. 2] VARCHAR(120), " & _
+            "[31.Наимен. 3(Код Ростеста)] VARCHAR(120), " & _
+            "[9.Группа №] VARCHAR(120), " & _
+            "[49.ExeBarcode] VARCHAR(120), " & _
+            "[80.Формат этикетки №] VARCHAR(120), " & _
+            "[81.Доп. формат №] VARCHAR(120), " & _
+            "[55.Страна произх. №] VARCHAR(120), " & _
+            "[5.Единица взвешивания] VARCHAR(120), " & _
+            "[100.Заданная масса] VARCHAR(120), " & _
+            "[3.Prefix] VARCHAR(120), " & _
+            "[14.Кол-во товаров в наборе] VARCHAR(120), " & _
+            "[15.Наимен. единицы №] VARCHAR(120), " & _
+            "[26.Фиксиров. стоимость] VARCHAR(120), " & _
+            "[6.Цена] VARCHAR(120), " & _
+            "[91.Специальная цена] VARCHAR(120), " & _
+            "[8.Tax No] VARCHAR(120), " & _
+            "[13.Масса тары] VARCHAR(120), " & _
+            "[12.Тара №] VARCHAR(120), " & _
+            "[24.%Tare] VARCHAR(120), " & _
+            "[23.Tare % limit] VARCHAR(120), " & _
+            "[85.Формат штрих-кода №] VARCHAR(120), " & _
+            "[86.Формат доп. штрих-кода №] VARCHAR(120), " & _
+            "[20.Дата производства] VARCHAR(120), " & _
+            "[18.Дата упаковки] VARCHAR(120), " & _
+            "[19.Время упаковки] VARCHAR(120), " & _
+            "[16.Годен до (дата)] VARCHAR(120), " & _
+            "[17.Годен до (время)] VARCHAR(120), " & _
+            "[22.Cook by date] VARCHAR(120), " & _
+            "[25.Состав продукта №] VARCHAR(120), " & _
+            "[35.Перемещ. мясопрод. №] VARCHAR(120), " & _
+            "[50.Bonus] VARCHAR(120), " & _
+            "[70.Пищевая ценность №] VARCHAR(120), " & _
+            "[90.Доп. текст №] VARCHAR(120), " & _
+            "[71.Reference Dept] VARCHAR(120), " & _
+            "[69.Reference PLU] VARCHAR(120), " & _
+            "[64.Coupled Dept] VARCHAR(120), " & _
+            "[68.Coupled PLU] VARCHAR(120), " & _
+            "[60.# of LinkPLU] VARCHAR(120), " & _
+            "[61.Link Dept1] VARCHAR(120), " & _
+            "[65.Link PLU1] VARCHAR(120), " & _
+            "[62.Link Dept2] VARCHAR(120), " & _
+            "[66.Link PLU2] VARCHAR(120), " & _
+            "[99.Состав продукта] VARCHAR(254)) "
+          objCmdPLU.Execute
+        
+          Dim objRecSetING
+          Set objRecSetING = CreateObject("ADODB.Recordset")
+          objRecSetING.ActiveConnection = objConING
+          objRecSetING.LockType = 3
+          objRecSetING.Open "Select * from [INGREDIENT$A0:D65535]"
+        
+          Dim objRecSetPLU
+          Set objRecSetPLU = CreateObject("ADODB.Recordset")
+          objRecSetPLU.ActiveConnection = objConPLU
+          objRecSetPLU.LockType = 3
+          objRecSetPLU.Open "Select * from [PLU$A0:AU65535]"
+        
+          Dim i, i_nut, NumNut
+          i = 2
+          i_nut = 2
+          NumNut = 0
+        
+          Dim Protein, Fat, Uglevod, Calorie, strInsert, Content, fdescr
+          Protein = 0
+          Fat = 0
+          Uglevod = 0
+          Calorie = 0
+          Content =""
+          fdescr = ""
+          While  Not q.EoF
+            If    q.FieldByName("Protein").AsCurrency <> Protein _
+               or q.FieldByName("Fat").AsCurrency <> Fat _
+               or q.FieldByName("Uglevod").AsCurrency <> Uglevod _
+               or q.FieldByName("Calorie").AsCurrency <> Calorie _
+               or q.FieldByName("Content").AsString <> Content Then
+              NumNut = NumNut + 1
+              
+              Content = ForScales_GetValidValue(q.FieldByName("content").AsString)
+        
+              Protein = q.FieldByName("Protein").AsCurrency
+              Fat = q.FieldByName("Fat").AsCurrency
+              Uglevod = q.FieldByName("Uglevod").AsCurrency
+              Calorie = q.FieldByName("Calorie").AsCurrency
+        
+              fdescr = _
+                "В 100 гр продукта содержится: " & VBCR & _
+                "белков: " & CSTR(Protein) & ", жиров: " & CSTR(Fat) & _
+                ", углеводов: " & CSTR(Uglevod) & "." & VBCR & _
+                "Энергетическая ценность: " & CSTR(Calorie) & " кКал"
+                
+           '  Content = Content + & CSTR(fdescr)
+        
+           dim st1 , st2, st3, ln
+           st2=""
+           st3=""
+           ln = LEN(Content)
+           st1 =LEFT(Content,254)
+           st2 =Mid(Content,255,500)
+           if ln>500 then st3 = Mid(Content,500)
+           
+           'st2 = RIGHT(Content, LEN(Content)-254)
+        '      objRecSetING.AddNew
+        '      objRecSetING("Код") = CStr(NumNut)
+        '      objRecSetING("1Page-1") = st1 '+fdescr
+        '      objRecSetING("1Page-2") = "2"
+        '      objRecSetING("1Page-3") = "3"
+        '      objRecSetING.Update
+        
+              i_nut = i_nut + 1
+        
+            dim strInsINGR
+        
+            strInsINGR = "INSERT INTO INGREDIENT([Код], [1Page-1], [1Page-2], [1Page-3]) VALUES('" & CStr(NumNut) & "', '" & st1 & "', '" & st2 & "', '" & st3 & "')"
+            objCmdING.CommandText = strInsINGR
+            objCmdING.Execute
+              
+            End If
+        
+            
+        
+            strInsert = _
+              "INSERT INTO PLU([1#Отдел №], [2#Товар №], [4#Тип товара], [11#Код товара], [10#Наимен# 1], [9#Группа №], [20#Дата производства], [16#Годен до (дата)], [6#Цена], [13#Масса тары], [99#Состав продукта] "
+            If NumNut > 0 Then
+              strInsert = strInsert & ", [25#Состав продукта №]"
+            End If
+            strInsert = strInsert & ") " & _
+              "VALUES('0', '" & q.FieldByName("ALIAS").AsString & "', '1', '" & q.FieldByName("ALIAS").AsString & "', '" & ForScales_GetValidValue(q.FieldByName("GoodName").AsString) & "', '0', '" & ForScales_ValueDate(q.FieldByName("USR$DATEMAKING").AsString) & "', '" & ForScales_ValueDate(q.FieldByName("USR$EXPIRYDATE").AsString)  & "', '"& q.FieldByName("PRICE").AsString*100 & "', '0'" & ", '" & LEFT(Content,250) & "'"
+            If NumNut > 0 Then
+              strInsert = strInsert & ", '" & CStr(NumNut) & "'"
+            End If
+            strInsert = strInsert & ")"
+        
+            objCmdPLU.CommandText = strInsert
+            objCmdPLU.Execute
+        
+            i = i + 1
+            q.Next
+          Wend
+        End Sub
+        
+        Function ForScales_GetValidValue(Value)
+        '  Value = Replace(Value, ";", "")
+          Value = Replace(Value, vbCr, "")
+          Value = Replace(Value, vbLf, "")
+           Value = Replace(Value, ",", ";")
+           Value = Replace(Value, "'", "-")
+           Value = Replace(Value, "_", "")
+           Value = Replace(Value, "  ", "")
+          ForScales_GetValidValue = Value
+        End Function
+        
+        Function ForScales_ValueDate(Value)
+          if Value="" then exit function
+          dim A
+          A=split(Value,".")
+          
+          Value =  A(0) & A(1) & Right(A(2),2)
+          ForScales_ValueDate =Value
+        end function
+        '------------------------------------------------------------------------
+        
+        'Экспорт в весы Масса-К (расширенный)
+        '------------------------------------------------------------------------
+        Sub Macros147839116_1856326892(qScales)
+          qScales.Close
+          qScales.SQL.Text = _
+            "SELECT s.USR$PATH " & _
+            "FROM USR$PF_FSCALES s " & _
+            "JOIN GD_RUID r ON r.ID = s.USR$ECTTYPESKEY " & _
+            "WHERE " & _
+            "  (r.XID = 147018128 AND r.DBID = 244089502) " & _
+            "  AND COALESCE(s.USR$SELECTED, 0) = 1 "
+          qScales.ExecQuery
+        
+          While Not qScales.Eof
+            Call MassaMacrosForScales(_
+              qScales.FieldByName("USR$PATH").AsString, _
+              qScales.Transaction, _
+              qScales.DataBase)
+            qScales.Next
+          Wend
+        End Sub
+        
+        Sub MassaMacrosForScales(Path, Transaction, DataBase)
+          Dim Creator
+          Set Creator = New TCreator
+        
+          Dim q
+          Set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.DataBase = DataBase
+          q.Transaction = Transaction
+          q.SQL.Text = _
+            "SELECT USR$CODE " & _
+            "FROM USR$PF_WEIGHTBARCODE " & _
+            "WHERE USR$CODE IS NOT NULL "
+          q.ExecQuery
+        
+          If q.EOF Then
+            Call Exception.Raise("Exception", "Заполните документ 'Баркод для весового товара'!")
+            Exit Sub
+          End If
+        
+          q.Close
+          q.SQL.Text = _
+            "SELECT * FROM AT_RELATION_FIELDS f " & _
+            "WHERE f.RELATIONNAME = 'GD_GOOD' " & _
+            "  AND f.FIELDNAME = 'USR$MN_PROTEIN' "
+          q.ExecQuery
+        
+          Dim AddStrSelect, AddStrGroup
+          AddStrSelect = ""
+          AddStrGroup = ""
+          If Not q.EoF Then
+            AddStrSelect = _
+                    "  g.USR$MN_PROTEIN AS Protein, " & _
+                    "  g.USR$MN_FAT AS Fat, " & _
+                    "  g.USR$MN_UGLEVOD AS Uglevod, " & _
+                    "  g.USR$MN_CALORIE AS Calorie, "
+            AddStrGroup = _
+                    ",  g.USR$MN_PROTEIN, " & _
+                    "  g.USR$MN_FAT, " & _
+                    "  g.USR$MN_UGLEVOD, " & _
+                    "  g.USR$MN_CALORIE "
+          End If
+          q.Close
+          q.SQL.Text = _
+            "SELECT " & _
+            "  g.ID AS PRD_ID, " & _
+            "  g.NAME AS PRD_NAME, " & _
+            "  g.DESCRIPTION PRD_CONT, " & _
+            "  0 AS FLG_CNTR, " & _
+            "  IIF(NOT g.USR$PF_WEIGHTCODE IS NULL, g.USR$PF_WEIGHTCODE, g_s_delchar(g.ALIAS) ) AS PRD_CODE, /* MAX 8*/ " & _
+            "  g_s_delchar(g.ALIAS) AS PRD_PLU, /*MAX 8*/ " & _
+            "  COALESCE(wbc_sel.USR$CODE, 22) AS PRD_PREF, " & _
+            "  g.BARCODE AS PRD_BAR, " & _
+            AddStrSelect & _
+            "  MAX(p.USR$PRICE) AS PRD_PRCE " & _
+            "FROM GD_GOOD g " & _
+            "JOIN USR$PF_PRICELIST p ON p.USR$GOODKEY = g.ID " & _
+            "LEFT JOIN GD_GOODGROUP gr ON gr.ID = g.GROUPKEY " & _
+            "LEFT JOIN (SELECT FIRST 1 wbc.USR$CODE FROM USR$PF_WEIGHTBARCODE wbc )  wbc_sel ON 1 = 1 " & _
+            "WHERE COALESCE(g.USR$PF_ISWEIGHT, 0) = 1 " & _
+            "GROUP BY " & _
+            "  g.ID, " & _
+            "  g.NAME, " & _
+            "  g.DESCRIPTION, " & _
+            "  IIF(NOT g.USR$PF_WEIGHTCODE IS NULL, g.USR$PF_WEIGHTCODE, g_s_delchar(g.ALIAS) ), " & _
+            "  g_s_delchar(g.ALIAS), " & _
+            "  COALESCE(wbc_sel.USR$CODE, 22), " & _
+            "  g.BARCODE " & _
+            AddStrGroup
+        
+          q.ExecQuery
+        
+          If q.EoF Then
+            q.Close
+            Call Application.MessageBox("В прайсе нет весовых товаров", "Внимание", vbSystemModal + vbInformation)
+            Exit Sub
+          End If
+        
+          Dim SaveDialog, FSO
+          Set SaveDialog = Creator.GetObject(nil, "TSaveDialog", "")
+          Set FSO = CreateObject("Scripting.FileSystemObject")
+          Dim ToExit
+          Dim FileName
+          FileName = Path & "\price.dbf"
+        
+          If FSO.FileExists(FileName) Then
+            Call FSO.DeleteFile(FileName)
+          End If
+        
+          Dim FName
+          FName = FSO.GetFileName(FileName)
+        
+          Dim objConnection
+          Set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = Path
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          Dim qryDoc
+          Set qryDoc = CreateObject("ADODB.Command")
+          qryDoc.ActiveConnection = objConnection
+          qryDoc.CommandText = _
+            "CREATE TABLE " & _
+             FName & "( " & _
+            "PRD_ID VARCHAR(12), " & _
+            "PRD_NAME VARCHAR(254), " & _
+            "FLG_CNTR VARCHAR(1), " & _
+            "PRD_CODE VARCHAR(32), " & _
+            "PRD_PLU VARCHAR(8), " & _
+            "PRD_PREF VARCHAR(2),"  & _
+            "PRD_BAR VARCHAR(14), " & _
+            "GRP_ID VARCHAR(12), " & _
+            "GRP_NAME VARCHAR(254), " & _
+            "MSR_ID VARCHAR(3), " & _
+            "MSR_NAME VARCHAR(25), " & _
+            "PRD_PRCE VARCHAR(15), " & _
+            "PRD_CERT VARCHAR(4), " & _
+            "PRD_CMP1 VARCHAR(254), " & _
+            "PRD_CMP2 VARCHAR(254), " & _
+            "PRD_TARE VARCHAR(15), " & _
+            "PRD_LIFE VARCHAR(16), " & _
+            "PRD_DATE VARCHAR(16), " & _
+            "PRD_INFO VARCHAR(254)) "
+          qryDoc.Execute
+        
+        
+          qryDoc.CommandText = _
+            "INSERT INTO " & FName & "(" & _
+            "  PRD_ID, " & _
+            "  PRD_NAME, " & _
+            "  FLG_CNTR, " & _
+            "  PRD_INFO, " & _
+            "  PRD_CODE, " & _
+            "  PRD_PLU, " & _
+            "  PRD_PREF, " & _
+            "  PRD_BAR, " & _
+            "  PRD_PRCE, " & _
+            "  PRD_CMP1, " & _
+            "  PRD_CMP2) " & _
+            "VALUES( " & _
+            "  :PRD_ID, " & _
+            "  :PRD_NAME, " & _
+            "  0, " & _
+            "  :PRD_INFO, " & _
+            "  :PRD_CODE, " & _
+            "  :PRD_PLU, " & _
+            "  :PRD_PREF, " & _
+            "  :PRD_BAR, " & _
+            "  :PRD_PRCE, " & _
+            "  :PRD_CMP1, " & _
+            "  :PRD_CMP2) "
+          Dim Ingr1, Ingr2 ,Fu1, Fu2
+          Ingr1 = ""
+          Ingr2 = ""
+          While Not q.EoF
+            qryDoc.Parameters(0).Value = q.FieldByName("PRD_ID").AsString
+         '========= Перенос
+           If CStr(Len(q.FieldByName("PRD_NAME").AsString)) > 25 Then
+            Fu1 =  usrf_Adding_transport_carriage(q.FieldByName("PRD_NAME").AsString,25)
+            qryDoc.Parameters(1).Value = Fu1
+           Else
+            qryDoc.Parameters(1).Value = q.FieldByName("PRD_NAME").AsString
+           End If
+           If CStr(Len(q.FieldByName("PRD_CONT").AsString)) > 52 Then
+            Fu2 =  usrf_Adding_transport_carriage(q.FieldByName("PRD_CONT").AsString,50)
+            qryDoc.Parameters(2).Value = Fu2
+           Else
+            qryDoc.Parameters(2).Value = q.FieldByName("PRD_CONT").AsString
+           End If
+         '=========
+            qryDoc.Parameters(3).Value = q.FieldByName("PRD_CODE").AsString
+            qryDoc.Parameters(4).Value = ""'q.FieldByName("PRD_PLU").AsString
+            qryDoc.Parameters(5).Value = q.FieldByName("PRD_PREF").AsString
+            qryDoc.Parameters(6).Value = ""'q.FieldByName("PRD_BAR").AsString
+            qryDoc.Parameters(7).Value = q.FieldByName("PRD_PRCE").AsCurrency
+            If AddStrSelect <> "" Then
+              Ingr1 = ""
+              If q.FieldByName("Protein").AsCurrency > 0 Then
+                Ingr1 = "белков: " & q.FieldByName("Protein").AsString
+              End If
+              If q.FieldByName("Fat").AsCurrency > 0 Then
+                If Ingr1 <> "" Then Ingr1 = Ingr1 & ", "
+                Ingr1 = Ingr1 & "жиров: " & q.FieldByName("Fat").AsString
+              End If
+              If q.FieldByName("Uglevod").AsCurrency > 0 Then
+                If Ingr1 <> "" Then Ingr1 = Ingr1 & ", "
+                Ingr1 = Ingr1 & "углеводов: " & q.FieldByName("Uglevod").AsString
+              End If
+              If Ingr1 <> "" Then
+                Ingr1 = "В 100 гр продукта содержится: " & Ingr1 & ". "
+              End If
+              If q.FieldByName("Calorie").AsCurrency > 0 Then
+                Ingr2 = _
+                  "Энергетическая ценность: " & q.FieldByName("Calorie").AsString & " кКал"
+              Else
+                Ingr2 = ""
+              End If
+            End If
+            qryDoc.Parameters(8).Value = Ingr1
+            qryDoc.Parameters(9).Value = Ingr2
+            qryDoc.Execute
+            q.Next
+          Wend
+        End Sub
+        
+        'Функция переноса строки (входные параметры : Строка , _
+        ' через сколько символов перенос)
+        Function usrf_Adding_transport_carriage(String, FontCol)
+          Dim count ,i,f,m,t,Str
+          usrf_Adding_transport_carriage = ""
+          count = Int(Len(String)/FontCol)
+          f = 0
+          m = 1
+          Str = ""
+          For i=0 to count
+            t = 0
+            f = FontCol
+            t = Mid(String,m,f)
+            If count > 0 Then
+              Str = Str + t & vbCrLf
+            Else
+              Str = Str + t
+            End If
+            If count > 0 Then
+              m = m + FontCol
+            End If
+          Next
+          usrf_Adding_transport_carriage = Str
+        End Function
+        '------------------------------------------------------------------------
+        
+        'Экспорт на весы AClas
+        '------------------------------------------------------------------------
+        Sub ExportToScaleACLAS(qScales)
+          qScales.Close
+          qScales.SQL.Text = _
+            "SELECT s.USR$PATH " & _
+            "FROM USR$PF_FSCALES s " & _
+            "JOIN GD_RUID r ON r.ID = s.USR$ECTTYPESKEY " & _
+            "WHERE " & _
+            "  (r.XID = 147018129 AND r.DBID = 244089502) " & _
+            "  AND COALESCE(s.USR$SELECTED, 0) = 1 "
+          qScales.ExecQuery
+        
+          While Not qScales.Eof
+            Call AClasMacrosForScales(_
+              qScales.FieldByName("USR$PATH").AsString, _
+              qScales.Transaction, _
+              qScales.DataBase)
+            qScales.Next
+          Wend
+        End Sub
+        
+        Sub AClasMacrosForScales(Path, Transaction, DataBase)
+          Dim Creator
+          Set Creator = New TCreator
+        
+          Dim q
+          Set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.DataBase = DataBase
+          q.Transaction = Transaction
+        
+          q.SQL.Text = _
+            "SELECT " & _
+            "  USR$PF_WEIGHTCODE AS CODE " & _
+            "FROM GD_GOOD " & _
+            "WHERE " & _
+            "  USR$PF_ISWEIGHT = 1 " & _
+            "  AND COALESCE(USR$PF_WEIGHTCODE, '') <> '' " & _
+            "GROUP BY 1 " & _
+            " HAVING COUNT(*) > 2 "
+          q.ExecQuery
+        
+          If Not q.Eof Then
+            Dim Code
+            Code = ""
+            While Not q.Eof
+              If Code = "" Then
+                Code = q.FieldByName("CODE").AsString
+              Else
+                Code = Code & ", " & q.FieldByName("CODE").AsString
+              End If
+             q.Next
+            Wend
+        
+        
+            Call Exception.Raise("Exception", "В базе дублируются следующие коды: " & vbCR & Code)
+            Exit Sub
+          End If
+        
+          q.Close
+          q.SQL.Text = _
+            "SELECT USR$CODE " & _
+            "FROM USR$PF_WEIGHTBARCODE " & _
+            "WHERE USR$CODE IS NOT NULL "
+          q.ExecQuery
+        
+          If q.EOF Then
+            Exit Sub
+            Call Exception.Raise("Exception", "Заполните документ 'Баркод для весового товара'!")
+          End If
+        
+          q.Close
+          q.SQL.Text = _
+            "SELECT * FROM AT_RELATION_FIELDS f " & _
+            "WHERE f.RELATIONNAME = 'GD_GOOD' " & _
+            "  AND f.FIELDNAME = 'USR$MN_PROTEIN' "
+          q.ExecQuery
+        
+          Dim AddStrSelect, AddStrGroup
+          AddStrSelect = ""
+          AddStrGroup = ""
+          If Not q.EoF Then
+            AddStrSelect = _
+                    "  g.USR$MN_PROTEIN AS Protein, " & _
+                    "  g.USR$MN_FAT AS Fat, " & _
+                    "  g.USR$MN_UGLEVOD AS Uglevod, " & _
+                    "  g.USR$MN_CALORIE AS Calorie, "
+            AddStrGroup = _
+                    ",  g.USR$MN_PROTEIN, " & _
+                    "  g.USR$MN_FAT, " & _
+                    "  g.USR$MN_UGLEVOD, " & _
+                    "  g.USR$MN_CALORIE "
+          End If
+          q.Close
+          q.SQL.Text = _
+            "SELECT " & _
+            "  g.ID AS PRD_ID, " & _
+            "  g.NAME AS GOODNAME, " & _
+            "  IIF(NOT g.USR$PF_WEIGHTCODE IS NULL, g.USR$PF_WEIGHTCODE, g_s_delchar(g.ALIAS)) AS LFCODE, " & _
+            "  IIF(NOT g.USR$PF_WEIGHTCODE IS NULL, g.USR$PF_WEIGHTCODE, g_s_delchar(g.ALIAS)) AS CODE, " & _
+            "  v.NAME, " & _
+            "  7 AS BARTYPE," & _
+            "  MAX(p.USR$PRICE) * 100 AS PRICE " & _
+            "FROM GD_GOOD g " & _
+            "JOIN GD_VALUE v ON v.ID = g.VALUEKEY " & _
+            "JOIN USR$PF_PRICELIST p ON p.USR$GOODKEY = g.ID " & _
+            "LEFT JOIN GD_GOODGROUP gr ON gr.ID = g.GROUPKEY " & _
+            "LEFT JOIN (SELECT FIRST 1 wbc.USR$CODE FROM USR$PF_WEIGHTBARCODE wbc )  wbc_sel ON 1 = 1 " & _
+            "WHERE COALESCE(g.USR$PF_ISWEIGHT, 0) = 1 " & _
+            "GROUP BY 1,2,3,4,5,6 "
+          q.ExecQuery
+        
+          If q.EoF Then
+            q.Close
+            Call Application.MessageBox("В прайсе нет весовых товаров", "Внимание", vbSystemModal + vbInformation)
+            Exit Sub
+          End If
+        
+          Dim FSO
+          Set FSO = CreateObject("Scripting.FileSystemObject")
+        
+          Dim FileName
+          FileName = Path & "\Price.txp"
+        
+          If FSO.FileExists(FileName) Then
+            Call FSO.DeleteFile(FileName)
+          End If
+        
+          Dim Name, List
+          Set List = FSO.CreateTextFile(FileName, True, False)
+        
+          While Not q.EoF
+            Call List.WriteLine(0 & vbTab & Left(q.FieldByName("GOODNAME").AsString, 36) & vbTab & _
+              Left(q.FieldByName("LFCODE").AsString, 6) & vbTab & _
+              q.FieldByName("CODE").AsString & vbTab & _
+              q.FieldByName("BARTYPE").AsString & vbTab & _
+              q.FieldByName("PRICE").AsString & vbTab & _
+              4 & vbTab & _
+              22 & vbTab & _
+              0 & vbTab & _
+              111 & vbTab & _
+              0 & vbTab & _
+              0 & vbTab & _
+              0 & vbTab & _
+              0 & vbTab & _
+              0 & vbTab & _
+              0 & vbTab & _
+              0 & vbTab & _
+              0 & vbTab)
+        
+              'q.FieldByName("CODE").AsString & String(10 - Len(q.FieldByName("CODE").AsString), "0")
+            q.Next
+          Wend
+        
+          Call List.Close
+        End Sub
+        '------------------------------------------------------------------------
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147031569_228053996 pf_OnOffTransaction"
