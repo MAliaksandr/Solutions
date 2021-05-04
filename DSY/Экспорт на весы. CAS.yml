@@ -5,10 +5,10 @@ Properties:
   RUID: 261609894_1437966193
   Name: "Экспорт на весы. CAS"
   Caption: "Экспорт на весы. CAS"
-  Version: "1.0.0.3"
+  Version: "1.0.0.6"
   Optional: False
   Internal: True
-  MD5: 3F887BF290084684792D3BE0DA8CADD4
+  MD5: D58E3FF6F81C2D9B6EE7DE273EC9D8C5
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-04-28T13:42:55+03:00
+      EDITIONDATE: 2021-05-04T14:58:14+03:00
       DISPLAYSCRIPT: | 
         USRG_ACTUNLOADINSCALESONEXECUTE
         MACROS147018175_244089502
@@ -282,7 +282,7 @@ Objects:
             "[65.Link PLU1] VARCHAR(120), " & _
             "[62.Link Dept2] VARCHAR(120), " & _
             "[66.Link PLU2] VARCHAR(120), " & _
-            "[99.Состав продукта] VARCHAR(254)) "
+            "[99.Состав продукта] MEMO) "
           objCmdPLU.Execute
         
           Dim objRecSetING
@@ -329,17 +329,7 @@ Objects:
                 "белков: " & CSTR(Protein) & ", жиров: " & CSTR(Fat) & _
                 ", углеводов: " & CSTR(Uglevod) & "." & VBCR & _
                 "Энергетическая ценность: " & CSTR(Calorie) & " кКал"
-                
-           '  Content = Content + & CSTR(fdescr)
         
-           dim st1 , st2, st3, ln
-           st2=""
-           st3=""
-           ln = LEN(Content)
-           st1 =LEFT(Content,254)
-           st2 =Mid(Content,255,500)
-           if ln>500 then st3 = Mid(Content,500)
-           
            'st2 = RIGHT(Content, LEN(Content)-254)
         '      objRecSetING.AddNew
         '      objRecSetING("Код") = CStr(NumNut)
@@ -366,7 +356,18 @@ Objects:
               strInsert = strInsert & ", [25#Состав продукта №]"
             End If
             strInsert = strInsert & ") " & _
-              "VALUES('0', '" & q.FieldByName("ALIAS").AsString & "', '1', '" & q.FieldByName("ALIAS").AsString & "', '" & ForScales_GetValidValue(q.FieldByName("GoodName").AsString) & "', '0', '" & ForScales_ValueDate(q.FieldByName("USR$DATEMAKING").AsString) & "', '" & ForScales_ValueDate(q.FieldByName("USR$EXPIRYDATE").AsString)  & "', '"& q.FieldByName("PRICE").AsString*100 & "', '0'" & ", '" & LEFT(Content,250) & "'"
+              "VALUES('0', '" & _
+              q.FieldByName("ALIAS").AsString & "', " & _
+              "'1', " & _
+              "'" & q.FieldByName("ALIAS").AsString & "', '" & _
+              ForScales_GetValidValue(q.FieldByName("GoodName").AsString) & "', " & _
+              "'0', '" & _
+              ForScales_ValueDate(q.FieldByName("USR$DATEMAKING").AsString) & "', '" & _
+              ForScales_ValueDate(q.FieldByName("USR$EXPIRYDATE").AsString)  & "', '" & _
+              q.FieldByName("PRICE").AsString*100 & "', " & _
+              "'0'" & _
+              ", '" & _
+              q.FieldByName("CONTENT").AsString & "'"
             If NumNut > 0 Then
               strInsert = strInsert & ", '" & CStr(NumNut) & "'"
             End If
@@ -388,6 +389,7 @@ Objects:
            Value = Replace(Value, "'", "-")
            Value = Replace(Value, "_", "")
            Value = Replace(Value, "  ", "")
+           Value = Replace(Value, "%", "")
           ForScales_GetValidValue = Value
         End Function
         
