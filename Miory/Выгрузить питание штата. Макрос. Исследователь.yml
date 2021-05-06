@@ -1,0 +1,59 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 153296770_1655689185
+  Name: "Выгрузить питание штата. Макрос. Исследователь"
+  Caption: "Выгрузить питание штата. Макрос. Исследователь"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: A8F3B04F4D188D094499B52DF0CD3AAE
+Uses: 
+  - "149234214_1638717063 mn_exportEml_sales"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149947401_1606276715
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros149947401_1606276715"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-05-06T13:49:19+03:00
+      DISPLAYSCRIPT: | 
+        MACROS149947401_1606276715
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAUEVSSU9EBgAAAM/l8Oju5AAAAAAAAAAAAAAAAAwAAAAAAAAAAAIAAABeUkZO
+        U1RQUlNUBAAAAEVNUEwJAAAA0e7y8PPk7ejqCgAAAGdkX2NvbnRhY3QEAAAAbmFtZQIAAABpZAcP
+        AAAAY29udGFjdHR5cGUgPSAyAAAAAAIAAABeQUZOU1RGTFBS
+      SCRIPT: | 
+        '#include MN_EXPORTEML_SALES
+        Option Explicit
+        Sub Macros149947401_1606276715(period, empl)
+          call mn_exportEml_sales(period, false, empl)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "149234207_1638717063 mn_exportEml_sales"

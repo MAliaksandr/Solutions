@@ -5,10 +5,10 @@ Properties:
   RUID: 151657434_1606276715
   Name: "mn_ExportEmpl_sale_auto"
   Caption: "mn_ExportEmpl_sale_auto"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 6FDE581642BA8FEA89A0C0619A113B5E
+  MD5: 060C42D5CDDF9A375B46EAA02B19FB62
 Uses: 
   - "149234214_1638717063 mn_exportEml_sales"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-04-13T16:19:29+03:00
+      EDITIONDATE: 2021-05-06T13:47:38+03:00
       DISPLAYSCRIPT: | 
         MN_EXPORTEMPL_SALE_AUTO
         
@@ -53,7 +53,7 @@ Objects:
          period(0) = db
          period(1) = de
           
-         call mn_exportEml_sales(period, true)
+         call mn_exportEml_sales(period, true, null)
           
         End Function
         
