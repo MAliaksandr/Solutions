@@ -5,10 +5,10 @@ Properties:
   RUID: 155345406_1656334246
   Name: "import_bill_from_xls"
   Caption: "import_bill_from_xls"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: E31EF09F7A2301F487E82213425FB67A
+  MD5: B916B0813097C17CF1234C214DEEF440
 Uses: 
   - "147978914_215642201 Торговля - evt_object"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-04-26T18:53:21+03:00
+      EDITIONDATE: 2021-04-26T21:28:52+03:00
       DISPLAYSCRIPT: | 
         IMPORT_BILL_FROM_XLS
         FINDCOUNTRY
@@ -335,6 +335,8 @@ Objects:
         
          end if
          ''''''''''''''''
+          ' не нашли позцию по гудкею - вставляем
+          IF NOT gdcAddInvDocumentLine.Locate("GOODKEY;QUANTITY",array(good_id,Trim(Exc.ActiveSheet.Cells(i,9).Value)),false) THEN
            gdcAddInvDocumentLine.Insert
            gdcAddInvDocumentLine.FieldByName("goodkey").AsInteger = good_id
            gdcAddInvDocumentLine.FieldByName("quantity").AsCurrency = Trim(Exc.ActiveSheet.Cells(i,9).Value)
@@ -379,6 +381,10 @@ Objects:
            End If
         
            gdcAddInvDocumentLine.Post
+          ELSE
+            tf.WriteLine("Нашли позицию документа " &  Trim(Exc.ActiveSheet.Cells(i,4).Value) & "")
+          END IF
+        
            if ibtr.InTransaction then ibtr.Commit
            if Tr.InTransaction then Tr.Commit
         
@@ -426,7 +432,7 @@ Objects:
             FindCountry = ibsql.FieldByName("ID").asInteger
           ELSE
            ' ИНАЧЕ БУДЕТ РБ "
-            FindCountry = dcBaseManager.GetIDByRUIDString("1800010_17")
+            FindCountry = gdcBaseManager.GetIDByRUIDString("1800010_17")
           end if
           
         end function
