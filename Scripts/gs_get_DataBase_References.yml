@@ -5,10 +5,10 @@ Properties:
   RUID: 147008637_1607724074
   Name: "gs_get_DataBase_References"
   Caption: "gs_get_DataBase_References"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 2F30CA3C726D5B88D7F4DEA65BF4350D
+  MD5: C6C7A220240CB34222641AB929CF2AF5
 Objects: 
   - 
     Properties: 
@@ -83,7 +83,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-01-29T00:40:06+03:00
+      EDITIONDATE: 2021-05-14T15:43:13+03:00
       DISPLAYSCRIPT: | 
         GS_GET_DATABASE_GOODGROUP
         
@@ -98,8 +98,9 @@ Objects:
         '#include GS_DATABASE_SYNCH_RUID
         Option Explicit
         Function gs_Get_DataBase_goodgroup(ByRef Tr, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-          gs_Get_DataBase_goodgroup = False
-        
+          gs_Get_DataBase_goodgroup = 0
+          dim rCounter
+          rCounter = 0
           dim IbsqlMenuCount
           set IbsqlMenuCount = Creator.GetObject(null, "TIBSQL", "")
           IbsqlMenuCount.Transaction = Tr
@@ -187,13 +188,14 @@ Objects:
                 gdcGoodGroup.Post
               end if
             end if
+            rCounter = rCounter + 1
             ibsqlGoodGroup.Next
           wend
         
           if Tr.InTransaction then Tr.CommitRetaining
           if OurTr.InTransaction then OurTr.CommitRetaining
         
-          gs_Get_DataBase_goodgroup = True
+          gs_Get_DataBase_goodgroup = rCounter
         End Function
         
     Set: 
@@ -226,7 +228,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-01-28T23:52:32+03:00
+      EDITIONDATE: 2021-05-14T15:46:05+03:00
       DISPLAYSCRIPT: | 
         GS_GET_DATABASE_DEPARTMENT
         
@@ -240,7 +242,9 @@ Objects:
       SCRIPT: | 
         '#include GS_DATABASE_SYNCH_RUID
         Function gs_Get_DataBase_department(ByRef Tr, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-        
+         gs_Get_DataBase_department = 0
+         dim Counter
+         Counter = 0
         set ibsqlContact = Creator.GetObject(NULL, "TIBSQL", "")
           ibsqlContact.Transaction = Tr
           ibsqlContact.SQL.Text = _
@@ -286,12 +290,13 @@ Objects:
               gdcContact.Post
               call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcContact.FieldByName("id").AsInteger, ibsqlContact.FieldBYName("xid").ASInteger, ibsqlContact.FieldBYName("dbid").ASInteger)
             end if
+            Counter = Counter + 1
             ibsqlContact.Next
           wend
         
           if Tr.InTransaction then Tr.CommitRetaining
           if OurTr.InTransaction then OurTr.CommitRetaining
-          
+          gs_Get_DataBase_department =  Counter
         End Function
         
     Set: 
@@ -408,7 +413,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-01-29T00:56:14+03:00
+      EDITIONDATE: 2021-05-14T15:51:58+03:00
       DISPLAYSCRIPT: | 
         GS_GET_DATABASE_GD_GOOD
         FILLFIELDS
@@ -425,11 +430,13 @@ Objects:
         '#include GS_DATABASE_SYNCH_RUID
         Option Explicit
         Function gs_Get_DataBase_gd_good(ByRef Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-          gs_Get_DataBase_gd_good = False
+          gs_Get_DataBase_gd_good = 0
           
           call gs_Get_DataBase_gd_value(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
           
-          dim ibsqlGood
+          dim ibsqlGood, rCounter
+          rCounter = 0
+          
           set ibsqlGood = Creator.GetObject(NULL, "TIBSQL", "")
           ibsqlGood.Transaction = Transaction
           ibsqlGood.SQL.Text = _
@@ -448,7 +455,7 @@ Objects:
             "Order by " & _
             "  g.name "
         
-          dim gdcGood, ibsqlGetGood
+          dim gdcGood, ibsqlGetGood, ibsqlGetGoodGr
           set gdcGood = Creator.GetObject(NULL, "TgdcGood", "")
           gdcGood.Transaction = OurTr
           gdcGood.SubSet = "ByID"
@@ -460,6 +467,16 @@ Objects:
             " select g.id FROM gd_good g JOIN gd_ruid r on g.id = r.id " & _
             " WHERE r.xid = :xid and r.dbid = :dbid "
         
+          set ibsqlGetGoodGr = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetGoodGr.Transaction = OurTr
+          ibsqlGetGoodGr.SQL.Text = _
+           "SELECT FIRST(1) " & _
+           "  ID " & _
+           "FROM GD_GOODGROUP " & _
+           "WHERE PARENT is null "
+          ibsqlGetGoodGr.ExecQuery
+          
+        
           ibsqlGood.ExecQuery
         
           while not ibsqlGood.EOF
@@ -470,7 +487,7 @@ Objects:
             if ibsqlGetGood.EOF then
               '' Если ruid в локальной базе не найден, то считаем, что товара нет = > вставляем
               gdcGood.Insert
-              call FillFields(gdcGood, ibsqlGood, OurTr)
+              call FillFields(gdcGood, ibsqlGood, ibsqlGetGoodGr, OurTr)
               gdcGood.Post
               ''' Синхронизируем ruid (устанавливаем как на удалённой базе)
               call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcGood.FieldByName("id").AsInteger, ibsqlGood.FieldBYName("xid").ASInteger, ibsqlGood.FieldBYName("dbid").ASInteger)
@@ -484,33 +501,47 @@ Objects:
                 '' Товар найден => обновляем
                 '' Для ускорения загрузки можно сделать сравнение по ключевым полям (наименование, группа и т.д.)
                 gdcGood.Edit
-                call FillFields(gdcGood, ibsqlGood, OurTr)
+                call FillFields(gdcGood, ibsqlGood, ibsqlGetGoodGr, OurTr)
                 gdcGood.post
               else
                 '' Товар не найден => добавляем
                 gdcGood.Insert
-                call FillFields(gdcGood, ibsqlGood, OurTr)
+                call FillFields(gdcGood, ibsqlGood, ibsqlGetGoodGr, OurTr)
                 gdcGood.Post
                 ''' Синхронизируем ruid (устанавливаем как на удалённой базе)
                 call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcGood.FieldByName("id").AsInteger, ibsqlGood.FieldBYName("xid").ASInteger, ibsqlGood.FieldBYName("dbid").ASInteger)
               end if
             end if
-        
+            rCounter = rCounter + 1
             ibsqlGood.Next
           wend
         
           if Transaction.InTransaction then Transaction.CommitRetaining
           if OurTr.InTransaction then OurTr.CommitRetaining
         
-          gs_Get_DataBase_gd_good = True
+          gs_Get_DataBase_gd_good = rCounter
         end function
         
-        Sub FillFields(gdcGood, ibsqlGood, OurTr)
+        Sub FillFields(gdcGood, ibsqlGood, ibsqlGetGoodGr, OurTr)
+          dim vKey, grKey
+          grKey = gdcBaseManager.GetIDByRUIDTr(ibsqlGood.FieldByName("gg_xid").ASInteger, ibsqlGood.FieldByName("gg_dbID").ASInteger, OurTr)
+          vKey = gdcBaseManager.GetIDByRUIDTr(ibsqlGood.FieldByName("v_xid").ASInteger, ibsqlGood.FieldByName("v_dbID").ASInteger, OurTr)
           gdcGood.FieldBYName("Name").AsString = ibsqlGood.FieldByName("Name").AsString
           gdcGood.FieldBYName("barcode").AsString = ibsqlGood.FieldByName("barcode").AsString
           gdcGood.FieldBYName("Alias").AsString = ibsqlGood.FieldByName("Alias").AsString
-          gdcGood.FieldBYName("GroupKey").AsInteger = gdcBaseManager.GetIDByRUIDTr(ibsqlGood.FieldByName("gg_xid").ASInteger, ibsqlGood.FieldByName("gg_dbID").ASInteger, OurTr)
-          gdcGood.FieldBYName("ValueKey").AsInteger = gdcBaseManager.GetIDByRUIDTr(ibsqlGood.FieldByName("v_xid").ASInteger, ibsqlGood.FieldByName("v_dbID").ASInteger, OurTr)
+        
+          IF grKey <> -1 Then
+            gdcGood.FieldBYName("GroupKey").AsInteger = grKey
+          ELSE
+            gdcGood.FieldBYName("GroupKey").AsInteger = ibsqlGetGoodGr.FieldByName("ID").asInteger
+          END IF
+        
+          IF vKey <> -1 Then
+            gdcGood.FieldBYName("ValueKey").AsInteger =  vKey
+          ELSE
+           ' все в ШТ.
+            gdcGood.FieldBYName("ValueKey").AsInteger = gdcBaseManager.GetIDBYRUIDString("3000001_17")
+          END IF
           '' Загрузка необязательных полей.
         End sub
         
@@ -546,7 +577,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-01-29T00:30:40+03:00
+      EDITIONDATE: 2021-05-14T15:47:01+03:00
       DISPLAYSCRIPT: | 
         GS_GET_DATABASE_GD_CONTACT
         
@@ -560,7 +591,9 @@ Objects:
       SCRIPT: | 
         '#include GS_DATABASE_SYNCH_RUID
         Function gs_Get_DataBase_gd_contact(ByRef Tr, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-        
+          gs_Get_DataBase_gd_contact=0
+          dim Counter
+          Counter = 0
         set ibsqlContact = Creator.GetObject(NULL, "TIBSQL", "")
           ibsqlContact.Transaction = Tr
           ibsqlContact.SQL.Text = _
@@ -626,12 +659,14 @@ Objects:
               gdcCompany.Post
               call gs_DataBase_Synch_RUID(ibsqlInsRUID, ibsqlDelRUID, gdcCompany.FieldByName("id").AsInteger, ibsqlContact.FieldBYName("xid").ASInteger, ibsqlContact.FieldBYName("dbid").ASInteger)
             end if
+            Counter = Counter + 1
             ibsqlContact.Next
+        
           wend
         
           if Tr.InTransaction then Tr.CommitRetaining
           if OurTr.InTransaction then OurTr.CommitRetaining
-          
+          gs_Get_DataBase_gd_contact = Counter
         End Function
         
     Set: 
@@ -664,7 +699,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-01-30T23:51:13+03:00
+      EDITIONDATE: 2021-05-14T17:18:54+03:00
       DISPLAYSCRIPT: | 
         GS_GET_DATABASE_REFERENCES
         GS_GET_DATABASE_REFERENCES_EXCEPT
@@ -682,10 +717,16 @@ Objects:
         
           dim Creator, Database, Tr, OurTr, ibsqlInsRUID, ibsqlDelRUID
           set Creator = New TCreator
-        
+          dim Tb, Te, procTime
+          Tb = now
+          Dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          IF NOT FSO.FileExists(BasePath) then
+            call Application.MessageBox("Файл БД не найден! Проверьте пути и повторите попытку..." +vbLf + _
+                       "Операция прервана", "Внимание", vbCritical + vbOkOnly + vBSystemModal)
+            exit function
+          END IF
           set Database = Creator.GetObject(Null, "TIBDatabase", "")
-          Err.Clear
-        '  on error resume next
         
           Database.DatabaseName = BasePath
           Database.Params.Clear
@@ -695,11 +736,21 @@ Objects:
           Database.Params.Add("lc_ctype=WIN1251")
           Database.LoginPrompt = False
           Database.Connected = True
-        
+          
+         on error resume next
+          Database.Open
+          
           if err.Number <> 0 then
             call Application.MessageBox("Невозможно подключиться к базе!", "Внимание", mb_IconInformation + vBSystemModal)
             exit Function
           end if
+          
+          
+        '  Dim pf_ProgressBar
+        '  Set pf_ProgressBar = New Tvb_pf_ProgressBar
+        '  pf_ProgressBar.Caption = "Импорт данных"
+        '  pf_ProgressBar.Max = 4
+        '  pf_ProgressBar.Show
           
           set Tr = Creator.GetObject(Null, "TIBTransaction", "")
           Tr.DefaultDatabase = Database
@@ -734,14 +785,33 @@ Objects:
           ibsqlDelRUID.Transaction = OurTr
           ibsqlDelRUID.SQL.Text = "DELETE FROM gd_ruid r where xid = :xid and dbid = :dbid"
         
+          pf_ProgressBar.Note = "Импорт подразделений: "
         
-         ' call gs_Get_DataBase_department(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-         ' call gs_Get_DataBase_gd_contact(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-        '  call gs_Get_DataBase_goodgroup(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-          call gs_Get_DataBase_gd_good(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-            
+        
+          dim cCounter , grCounter, gCounter, dCounter
+         ' pf_ProgressBar.Note = "Импорт подразделений: "
+          dCounter = gs_Get_DataBase_department(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         ' pf_ProgressBar.Note = "Импорт компаний: "
+          cCounter = gs_Get_DataBase_gd_contact(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         ' pf_ProgressBar.Note = "Импорт товарных групп: "
+          grCounter = gs_Get_DataBase_goodgroup(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         ' pf_ProgressBar.Note = "Импорт товаров: "
+          gCounter = gs_Get_DataBase_gd_good(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+         ' pf_ProgressBar.StepIt
+        
           If Tr.InTransaction Then Tr.Commit
           If OurTr.InTransaction Then OurTr.Commit
+          
+          Te = now
+          procTime = DateDiff(n, Te, Tb)
+          call Application.MessageBox("Импорт даннных успешно завершен..." + vbLF & _
+                "выполнение заняло: " & CSTR(DateDiff("s", Tb, Te)) & "sec." & vbLF & vbLF & _
+                "Обработано: " & vbLF & _
+                "товаров: " & CSTR(gCounter) & vbLF & _
+                "тов. групп: " & CSTR(grCounter) & vbLF & _
+                "поразделений: " & CSTR(dCounter) & vbLF & _
+                "контактов: "  & CSTR(cCounter) , "Внимание", vbInformation + vbOkOnly + vBSystemModal)
             
         End Function
         
