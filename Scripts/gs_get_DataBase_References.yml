@@ -5,10 +5,10 @@ Properties:
   RUID: 147008637_1607724074
   Name: "gs_get_DataBase_References"
   Caption: "gs_get_DataBase_References"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: C6C7A220240CB34222641AB929CF2AF5
+  MD5: 9A3A81097CD4F6F4ABAAD000B2F9E202
 Objects: 
   - 
     Properties: 
@@ -699,21 +699,23 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-05-14T17:18:54+03:00
+      EDITIONDATE: 2021-05-14T18:14:23+03:00
       DISPLAYSCRIPT: | 
         GS_GET_DATABASE_REFERENCES
         GS_GET_DATABASE_REFERENCES_EXCEPT
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QIAAAAQkFTRVBBVEgIAAAAQkFTRVBBVEgAAAAAAAAAAAAAAAAFAAAAAAAAAAACAAAA
-        XlJGTlNURkxQUg==
+        XlJGTlNUUFJTVAMAAABSRUYJAAAAz+Dw4Ozl8vD7AAAAAAAAAAAAAAAADwAAAAAAAAAAQAAAAF5W
+        Is/u5PDg5OXr5e3o/z0xIiwiyu7s7+Dt6Og9MiIsItLu4uDw7fvlIOPw8+/v+z0zIiwi0u7i4PD7
+        PTQiXlJGTlNURkxQUg==
       SCRIPT: | 
         '#include GS_GET_DATABASE_GD_GOOD
         '#include GS_GET_DATABASE_GOODGROUP
         '#include GS_GET_DATABASE_DEPARTMENT
         '#include GS_GET_DATABASE_GD_CONTACT
         Option Explicit
-        Function gs_get_DataBase_References(BasePath)
+        Function gs_get_DataBase_References(BasePath, REF)
         
           dim Creator, Database, Tr, OurTr, ibsqlInsRUID, ibsqlDelRUID
           set Creator = New TCreator
@@ -790,14 +792,21 @@ Objects:
         
           dim cCounter , grCounter, gCounter, dCounter
          ' pf_ProgressBar.Note = "Импорт подразделений: "
-          dCounter = gs_Get_DataBase_department(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         IF inStr(join(REF,""),1) Then
+           dCounter = gs_Get_DataBase_department(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         END IF
          ' pf_ProgressBar.Note = "Импорт компаний: "
-          cCounter = gs_Get_DataBase_gd_contact(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         IF inStr(join(REF,""),2) Then
+           cCounter = gs_Get_DataBase_gd_contact(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         END IF
          ' pf_ProgressBar.Note = "Импорт товарных групп: "
-          grCounter = gs_Get_DataBase_goodgroup(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         IF inStr(join(REF,""),3) Then
+           grCounter = gs_Get_DataBase_goodgroup(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         END IF
          ' pf_ProgressBar.Note = "Импорт товаров: "
-          gCounter = gs_Get_DataBase_gd_good(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
-        
+         IF inStr(join(REF,""),4) Then
+            gCounter = gs_Get_DataBase_gd_good(Tr, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+         end if
          ' pf_ProgressBar.StepIt
         
           If Tr.InTransaction Then Tr.Commit
