@@ -5,10 +5,14 @@ Properties:
   RUID: 149233306_1638717063
   Name: "Sf_export_mn_staffcard"
   Caption: "Sf_export_mn_staffcard"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 9E30699B8E94EDA2FB29FABD2F5CDEBC
+  MD5: 0E86952E527DF8BEEFCB28C8F3448ABB
+Uses: 
+  - "147067874_311980179 GS new. Общепит бэк. Исследователь"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147135685_478233273 GS.PositiveCash.Карты сотрудников"
 Objects: 
   - 
     Properties: 
@@ -34,7 +38,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-03-26T09:43:33+03:00
+      EDITIONDATE: 2021-06-04T20:05:11+03:00
       DISPLAYSCRIPT: | 
         SF_EXPORT_MN_STAFFCARD
         
@@ -57,7 +61,8 @@ Objects:
             "  USR$PF_STAFFCARD v " & _
             "  left join GD_P_GETRUID(v.id) p on 1 = 1 " &_
             "  left join GD_P_GETRUID(v.USR$DISCOUNTCARDKEY) dt on 1 = 1 " &_
-            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 "
+            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 " & _
+            "  WHERE COALESCE(v.USR$ISEXPORT,0)=0 "
         
           set ibsqlStaff = Creator.GetObject(NULL, "TIBSQL", "")
           ibsqlStaff.Transaction = OurTr
@@ -65,7 +70,8 @@ Objects:
             " select  v.ID as limitID, v.*, p.*, c.xid as c_xid, c.dbid as c_dbid " & _
             " from USR$MN_LIMIT v " & _
             " left join GD_P_GETRUID(v.id) p on 1 = 1 " & _
-            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 "
+            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 " & _
+            " WHERE COALESCE(v.USR$ISEXPORT,0) =0 "
         
           set ibsqlGetStaff = Creator.GetObject(NULL, "TIBSQL", "")
           ibsqlGetStaff.Transaction = Transaction
@@ -118,8 +124,8 @@ Objects:
           set qInsL = Creator.GetObject(nil, "TIBSQL", "")
           qInsL.Transaction = Transaction
           qInsL.SQL.Text = _
-            " INSERT INTO USR$MN_LIMIT (ID, USR$CONTACTKEY, USR$SUM_DATEBEGIN, USR$SUM_DATEEND, USR$ISUNLIMITED, USR$SUM_DISABLED) " & _
-              " VALUES (:ID, :USR$CONTACTKEY, :DATEBEGIN, :DATEEND, :USR$ISUNLIMITED, :USR$SUM_DISABLED) "
+            " INSERT INTO USR$MN_LIMIT (ID, USR$CONTACTKEY, USR$SUM_DATEBEGIN, USR$SUM_DATEEND, USR$ISUNLIMITED, USR$SUM_DISABLED,USR$SUMMA,USR$BALANCE) " & _
+              " VALUES (:ID, :USR$CONTACTKEY, :DATEBEGIN, :DATEEND, :USR$ISUNLIMITED, :USR$SUM_DISABLED,:USR$SUMMA,:USR$BALANCE) "
         
           dim qUpdL
           set qUpdL = Creator.GetObject(nil, "TIBSQL", "")
@@ -195,6 +201,8 @@ Objects:
               qInsL.ParamBYName("dateend").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DATEEND").AsVariant
               qInsL.ParamBYName("USR$ISUNLIMITED").AsVariant = ibsqlStaff.FieldByName("USR$ISUNLIMITED").AsVariant
               qInsL.ParamBYName("USR$SUM_DISABLED").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DISABLED").AsVariant
+              qInsL.ParamBYName("USR$SUMMA").AsVariant = ibsqlStaff.FieldByName("USR$SUMMA").AsVariant
+              qInsL.ParamBYName("USR$BALANCE").AsVariant = ibsqlStaff.FieldByName("USR$BALANCE").AsVariant
               qInsL.ExecQuery
               call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsqlStaff.FieldBYName("xid").ASInteger, ibsqlStaff.FieldBYName("dbid").ASInteger)
             else
@@ -212,6 +220,17 @@ Objects:
             end if
             ibsqlStaff.Next
           wend
+          
+          ibsqlStaff.Close
+          ibsqlStaff.SQL.Text = _
+            " UPDATE USR$MN_LIMIT set USR$ISEXPORT = 1 WHERE COALESCE(USR$ISEXPORT,0)=0 "
+          ibsqlStaff.ExecQuery
+          
+         ibsql_mn_staffcard.Close
+         ibsql_mn_staffcard.SQL.Text = _
+            " UPDATE USR$PF_STAFFCARD set USR$ISEXPORT = 1 WHERE COALESCE(USR$ISEXPORT,0)=0 "
+         ibsql_mn_staffcard.ExecQuery
+         
         
           if Transaction.InTransaction then Transaction.CommitRetaining
           if OurTr.InTransaction then OurTr.CommitRetaining
@@ -224,3 +243,208 @@ Objects:
         Items: 
           - 
             ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 149201952_1606276715
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 156813654_1655689185
+    Fields: 
+      PARENT: "147947869_1533692330 Исследователь\\Общепит\\Справочники фронт-офиса"
+      NAME: "Карты сотрудников"
+      CLASSNAME: ~
+      CMD: "149201952_1606276715"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 115
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2021-03-17T01:12:08+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 149201958_1606276715
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 156813654_1655689185
+    Fields: 
+      PARENT: "149201952_1606276715 Исследователь\\Общепит\\Справочники фронт-офиса\\Карты сотрудников"
+      NAME: "Карты сотрудников"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "147134915_478233273"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 148
+      ORDR: ~
+      SUBTYPE: "USR$PF_STAFFCARD"
+      EDITIONDATE: 2021-06-04T20:03:20+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 156813654_1655689185
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$ISEXPORT"
+      FIELDNAME: "USR$ISEXPORT"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Передано"
+      LSHORTNAME: "Передано"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147134915_478233273 Карты сотрудников, USR$PF_STAFFCARD"
+      RELATIONNAME: "USR$PF_STAFFCARD"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-06-04T20:07:23+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTrigger"
+      RUID: 156813655_1655689185
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      RDB$FLAGS: 1
+      RDB$TRIGGER_INACTIVE: 0
+      RDB$TRIGGER_NAME: "USR$PF_BIU_STAFFCARD_EXP       "
+      RDB$TRIGGER_SEQUENCE: 1
+      RDB$TRIGGER_TYPE: 17
+      RELATIONKEY: "147134915_478233273 Карты сотрудников, USR$PF_STAFFCARD"
+      RELATIONNAME: "USR$PF_STAFFCARD"
+      TRIGGERNAME: "USR$PF_BIU_STAFFCARD_EXP"
+      TRIGGER_INACTIVE: 0
+      EDITIONDATE: 2021-06-04T20:02:59+03:00
+      RDB$DESCRIPTION: ~
+      RDB$TRIGGER_SOURCE: | 
+        AS
+        BEGIN
+         IF ( (new.USR$CODE<>old.USR$CODE) or
+              (new.USR$NUM_CARD<>old.USR$NUM_CARD) OR
+              (new.USR$CONTACTKEY<>old.USR$CONTACTKEY) or
+              (new.USR$DISCOUNTCARDKEY<>old.USR$DISCOUNTCARDKEY) or
+              (new.USR$DISABLED<>old.USR$DISABLED) ) THEN
+        
+              new.USR$ISEXPORT = 0;
+        END
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 149201959_1606276715
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 156813639_1655689185
+    Fields: 
+      PARENT: "149201952_1606276715 Исследователь\\Общепит\\Справочники фронт-офиса\\Карты сотрудников"
+      NAME: "Кредитные лимиты"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "147037575_355551483"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 104
+      ORDR: ~
+      SUBTYPE: "USR$MN_LIMIT"
+      EDITIONDATE: 2021-06-04T19:33:50+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 156813639_1655689185
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$ISEXPORT"
+      FIELDNAME: "USR$ISEXPORT"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Экспортировано"
+      LSHORTNAME: "Экспортировано"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147037575_355551483 Кредитные лимиты, USR$MN_LIMIT"
+      RELATIONNAME: "USR$MN_LIMIT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-06-04T19:31:36+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTrigger"
+      RUID: 156813641_1655689185
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      RDB$FLAGS: 1
+      RDB$TRIGGER_INACTIVE: 0
+      RDB$TRIGGER_NAME: "USR$MN_BIU_LIMIT_EXP           "
+      RDB$TRIGGER_SEQUENCE: 1
+      RDB$TRIGGER_TYPE: 17
+      RELATIONKEY: "147037575_355551483 Кредитные лимиты, USR$MN_LIMIT"
+      RELATIONNAME: "USR$MN_LIMIT"
+      TRIGGERNAME: "USR$MN_BIU_LIMIT_EXP"
+      TRIGGER_INACTIVE: 0
+      EDITIONDATE: 2021-06-04T19:32:36+03:00
+      RDB$DESCRIPTION: ~
+      RDB$TRIGGER_SOURCE: | 
+        AS
+        BEGIN
+          IF ( (new.USR$SUM_DATEEND <> old.USR$SUM_DATEEND) or
+            (new.USR$SUM_DATEBEGIN <> old.USR$SUM_DATEBEGIN) or
+            (new.USR$ISUNLIMITED <> old.USR$ISUNLIMITED) or
+            (new.USR$SUM_DISABLED<> old.USR$SUM_DISABLED) or
+            (new.USR$SUMMA<>old.USR$SUMMA) ) THEN
+                NEW.USR$ISEXPORT = 0;
+        END

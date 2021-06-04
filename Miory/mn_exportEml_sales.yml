@@ -5,10 +5,10 @@ Properties:
   RUID: 149234214_1638717063
   Name: "mn_exportEml_sales"
   Caption: "mn_exportEml_sales"
-  Version: "1.0.0.4"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 77E3D0ED36A45D416811C390D8553E4E
+  MD5: B44647BABEF0056A59920761D1A4160C
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-05-06T13:53:31+03:00
+      EDITIONDATE: 2021-06-01T12:14:16+03:00
       DISPLAYSCRIPT: | 
         MN_EXPORTEML_SALES
         
@@ -87,7 +87,7 @@ Objects:
           "o.USR$LOGICDATE between :db and :de " & _
           "and   pay.USR$PAYKINDKEY in (<RUID xid=""147141778"" dbID=""349813242""/>, <RUID xid=""149056596"" dbID=""1324113560""/>) "
           
-          if not isNull(empl) Then
+          if not isNull(empl) and empl(0)>-1 Then
               ibsql.SQL.Text  =   ibsql.SQL.Text & _
             " AND c.ID = " & empl(0)
           end if
