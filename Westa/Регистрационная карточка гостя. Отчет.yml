@@ -5,10 +5,10 @@ Properties:
   RUID: 175234277_1688578661
   Name: "Регистрационная карточка гостя. Отчет"
   Caption: "Регистрационная карточка гостя"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: ECB373002FD663899534A67FD2BCA359
+  MD5: 31364C0C6A8EE01A88D837492D346535
 Uses: 
   - "147364159_796152036 GS.Санаторий.Отдел продаж.Исследователь"
   - "147755479_69526485 GS.Общие.EVT_OBJECT"
@@ -120,7 +120,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-06-17T14:44:35+03:00
+      EDITIONDATE: 2021-06-17T16:50:58+03:00
       DISPLAYSCRIPT: | 
         RP_MAIN175234013_1688578661
         
@@ -187,7 +187,7 @@ Objects:
             "WHERE  (NOT res.ID IS NULL) " & _
             "  AND res.USR$STATEKEY <> :CANCELKEY " & _
             "  AND  res.USR$CONTACTKEY = :contactkey " & _
-            "ORDER BY 1,2,3,4,5,6,7 " & _
+            "ORDER BY rp.USR$DATEBEGIN, 1,2,3,4,5,6,7 " & _
             " "
           q.ParamByName("contactkey").AsInteger = contactkey(0)
           q.ParamByName("CANCELKEY").AsInteger = HT_ReservationStateDict.GetCanceledState.Key
@@ -220,4 +220,4 @@ Objects:
       REPORTGROUPKEY: "147188924_779589892 Документы пользователя\\Заявка"
       SERVERKEY: ~
       TEMPLATEKEY: "175234170_1688578661 Регистрационная карточка гостя.Бронирование"
-      EDITIONDATE: 2021-06-17T14:44:35+03:00
+      EDITIONDATE: 2021-06-17T16:50:58+03:00
