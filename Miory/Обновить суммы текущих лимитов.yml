@@ -1,0 +1,101 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 157413543_1655689185
+  Name: "Обновить суммы текущих лимитов"
+  Caption: "Обновить суммы текущих лимитов"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 587B772F1F90DC8E9FA8B10D0672033F
+Uses: 
+  - "147013803_377987845 GS.PositiveCheck.Лимиты.Функции"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 157412235_1655689185
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 157412233_1655689185
+    Fields: 
+      NAME: "update_sum_limit"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014914_530059235 gdc_frmAttrUserDefinedUSR_MN_LIMIT"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_LIMIT"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-06-24T12:08:22+03:00
+      DISPLAYSCRIPT: | 
+        UPDATE_SUM_LIMIT
+        EXCEPTION_UPDATE_SUM_LIMIT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAAREVURUVORBcAAADE4PLgIO7q7u334O3o/yDk5enx8uLo/wAAAAAAAAAAAAAA
+        AAIAAAAAAAAAAAIAAABeUkZOU1RQUlNUBAAAAFNVTU0MAAAA0fPs7OAg6+js6PLgAAAAAAAAAAAA
+        AAAAAQAAAAAAAAAAAgAAAF5SRk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Sub update_sum_limit(deteend, summ)
+          Dim Creator,  tr, ibSQL
+          set Creator = new TCreator
+          set tr = Creator.GetObject(NULL, "TIBTransaction", "")
+          tr.DefaultDatabase = gdcBaseManager.Database
+          tr.StartTransaction
+          
+          Except Exception_update_sum_limit(Tr)
+          
+          set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+          ibSQL.Transaction = tr
+          ibSQL.SQL.Text = _
+          "update USR$MN_LIMIT " & _
+          "  set USR$SUM_DATEEND =:deteend, " & _
+          "  USR$SUMMA = :summ, " & _
+          "  USR$BALANCE=:summ " & _
+          "where COALESCE(USR$SUM_DISABLED,0)=0 "
+          ibSQL.ParamByName("deteend").asDateTime =deteend
+          ibSQL.ParamByName("summ").asCurrency =summ
+          ibSQL.ExecQuery
+          
+          IF tr.inTransaction Then tr.Commit
+          Call Application.MessageBox("Суммы лимитов успешно обновлены!", "Внимание",  vbInformation+vbOkOnly+vbSystemModal)
+          IF Application.MessageBox("Передать изменения на кассу?", "Внимание",  vbQuestion+vbYesNo+vbSystemModal)=vbYes Then
+            call ExportStaffCard
+          End if
+        End Sub
+        
+        sub Exception_update_sum_limit(Tr)
+          if Tr.InTransaction then Tr.Rollback
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 157412233_1655689185
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Обновить суммы текущих лимитов"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "157412235_1655689185 update_sum_limit"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147032745_530077600 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_LIMIT"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2021-06-24T12:08:22+03:00
