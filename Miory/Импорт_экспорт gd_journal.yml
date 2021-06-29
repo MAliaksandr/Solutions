@@ -5,10 +5,10 @@ Properties:
   RUID: 149296957_1638717063
   Name: "Импорт/экспорт gd_journal"
   Caption: "Импорт/экспорт gd_journal"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: E616514865E8120B17903D10C5BBC8BB
+  MD5: 013A8DDF08DF45392AFB7F4AC6615533
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-06-29T13:13:53+03:00
+      EDITIONDATE: 2021-06-29T13:44:08+03:00
       DISPLAYSCRIPT: | 
         GS_EXPORT_JOURNAL
         Q_FILENAME
@@ -175,12 +175,12 @@ Objects:
               "'" & CSTR(ibsql.FieldByName("con_xid").AsInteger) & "'" & "," & _
               "'" & CSTR(ibsql.FieldByName("con_dbid").AsInteger) & "'" & "," & _
               "'" & CSTR(ibsql.FieldByName("ID").AsVariant) & "'" & "," & _
-              "'" & ValidValue(LEFT(TRIM(ibsql.FieldByName("DATA").AsString),250)) & "'" &  ", " & _
+              "'" & ValidValue(ibsql.FieldByName("DATA").AsString) & "'" &  ", " & _
               "'" & CSTR(ibsql.FieldByName("OBJECTID").AsVariant) & "'" & "," & _
               "'" & CSTR(ibsql.FieldByName("obj_xid").AsInteger) & "'" & "," & _
               "'" & CSTR(ibsql.FieldByName("obj_dbid").AsInteger) & "'" & "," & _
               "'" & CSTR(ibsql.FieldByName("OPERATIONDATE").AsDAteTime) & "'" &  ", " & _
-              "'" & ValidValue(LEFT(TRIM(ibsql.FieldByName("SOURCE").AsString),250)) & "'"  & _
+              "'" & ValidValue(ibsql.FieldByName("SOURCE").AsString) & "'"  & _
               ") "
             objCommandWares.CommandText = InsertSQL
             objCommandWares.Execute
@@ -225,9 +225,11 @@ Objects:
         end function
         
         Function ValidValue(Value)
+          Value = REPLACE(Value, vbCrLF, " ")
           Value = REPLACE(Value, ",", "")
           Value = REPLACE(Value, "'", "")
           Value = REPLACE(Value, "  ", " ")
+          ValidValue = Value
         end function
         
   - 
