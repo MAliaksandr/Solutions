@@ -1,0 +1,380 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 149296957_1638717063
+  Name: "Импорт/экспорт gd_journal"
+  Caption: "Импорт/экспорт gd_journal"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: E616514865E8120B17903D10C5BBC8BB
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149296950_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_Export_journal"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-06-29T13:13:53+03:00
+      DISPLAYSCRIPT: | 
+        GS_EXPORT_JOURNAL
+        Q_FILENAME
+        Q_FILEPATH
+        VALIDVALUE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAUEVSSU9EBgAAAM/l8Oju5AAAAAAAAAAAAAAAAAwAAAAAAAAAAAIAAABeUkZO
+        U1RQUlNUBQAAAElQQVRIFQAAAMzl8fLuIPXw4O3l7ej/IODw9eji4AAAAAAAAAAAAAAAAA0AAAAA
+        AAAAAEgAAABeViIxLtD/5O7sIPEgwcQ9MSIsICIyLtD/5O7sIPEgZ2VkZW1pbi5leGU9MiIsICIz
+        LsIg6u7w7eUg5Ojx6uAgRDpcPTMiXlJGTlNUUFJTVAUAAABJU0RFTB0AAADT5ODr6PL8IOTg7e37
+        5SDv7vHr5SD96vHv7vDy4AAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub gs_Export_journal(Period,  iPath, isDel)
+        
+          dim mnth,yr,tablename, BeginDate, EndDate, fso, FilePath, realname
+          Set fso = CreateObject("Scripting.FileSystemObject")
+          Select case iPath
+            case 1
+              'путь к БД
+              FilePath = fso.GetParentFolderName(System.DataBAse.Databasename) & "\"
+              FilePath = q_FilePath(FilePath)
+            case 2
+              'путь к gedemin.exe
+              FilePath = System.GedeminPath
+            case 3
+              FilePath = "D:\"
+          end select
+        
+        
+          BeginDate = CSTR(Period(0)) + " 00:00:00"
+          EndDate = CSTR(Period(1)) + " 23:59:59"
+        
+          'файл с читаемым названием
+          tablename = q_fileName(Period)
+        
+          if FSO.FileExists(FilePath + tablename) Then
+             IF Application.MessageBox("Файл с таким именем уже существует!" + vbLf + _
+                "Если продолжить сохранение, все данные в файле будут перезаписаны без возможности восстановления."+  vbLf + _
+                "Продолжить сохранение?","Внимание",vbYesNo+vbInformation+vbSystemModal) = vbNO Then
+        
+                call Application.MessageBox("Проверьте содержимое файла и повторите выгрузку!","Внимание",vbOkOnly+vbInformation+vbSystemModal)
+                Set FSO = Nothing
+                exit sub
+             ELSE
+               FSO.DeleteFile(FilePath + tablename)
+             end if
+          end if
+        
+        
+          'временный файл для обработки
+          tablename = FilePath +  "temp.dbf"
+        
+          dim Creator, ibsql, Tr
+          set Creator = new TCreator
+          set ibsql = Creator.GetObject(null, "TIBSQL", "" )
+          set Tr = Creator.GetObject("", "TIBTRANSACTION","")
+          Tr.DefaultDataBase = gdcBaseManager.DataBase
+          Tr.StartTransaction
+          ibsql.Transaction = Tr
+          ibsql.SQL.Text = _
+            "SELECT " & _
+            "j.CONTACTKEY, " & _
+            "r.XID as  con_xid, " & _
+            "r.DBID as con_dbid, " & _
+            "j.ID, " & _
+            "j.DATA, " & _
+            "j.OBJECTID, " & _
+            "ro.XID as obj_xid, " & _
+            "ro.DBID as obj_dbid, " & _
+            "j.OPERATIONDATE, " & _
+            "j.SOURCE " & _
+            "FROM GD_JOURNAL j " & _
+            "left join gd_ruid r on r.ID = j.CONTACTKEY " & _
+            "left join gd_ruid ro on ro.ID = j.OBJECTID " & _
+            "WHERE " & _
+            "j.OPERATIONDATE between :db and :de "
+        
+          ibsql.ParamByName("db").AsDateTime = BeginDate
+          ibsql.ParamByName("de").AsDateTime = EndDate
+          ibsql.ExecQuery
+        
+          if ibsql.EOF then
+            call Application.MessageBox("За данный период записи в журнале не найдены." + vbLf + _
+            "Выполнение остановлено!","Внимание",vbOkOnly+vbInformation+vbSystemModal)
+            exit sub
+          end if
+        
+        
+          dim objConnection, objCommandWares, InsertSQL
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = FilePath
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          set objCommandWares = CreateObject("ADODB.Command")
+          objCommandWares.ActiveConnection = objConnection
+          objCommandWares.CommandType = 1
+        
+          objCommandWares.CommandText = " drop table " & tablename
+          on error resume next
+          objCommandWares.Execute
+          on error goto 0
+        
+        
+        
+          objCommandWares.CommandText = " create table " & tablename & " (" & _
+            " Contactkey varchar(11),"& _
+            " con_xid varchar(11), " & _
+            " con_dbid varchar(11), " & _
+            " ID varchar(11), " & _
+            " DATA varchar(250), " & _
+            " OBJECTID varchar(11), " & _
+            " obj_xid varchar(11), " & _
+            " obj_dbid varchar(11), " & _
+            " OPERATIONDATE varchar(30), " & _
+            " SOURCE varchar(250)) "
+         objCommandWares.Execute
+        
+        
+          while not ibsql.EOF
+            InsertSQL = " insert into " & tablename & " (" & _
+            " Contactkey, " & _
+            " con_xid, " & _
+            " con_dbid, " & _
+            " ID, " & _
+            " DATA, " & _
+            " OBJECTID, " & _
+            " obj_xid, " & _
+            " obj_dbid, " & _
+            " OPERATIONDATE, " & _
+            " SOURCE " & _
+            " ) values " & _
+              " (" & _
+              "'" & CSTR(ibsql.FieldByName("CONTACTKEY").AsVariant) & "'" & "," & _
+              "'" & CSTR(ibsql.FieldByName("con_xid").AsInteger) & "'" & "," & _
+              "'" & CSTR(ibsql.FieldByName("con_dbid").AsInteger) & "'" & "," & _
+              "'" & CSTR(ibsql.FieldByName("ID").AsVariant) & "'" & "," & _
+              "'" & ValidValue(LEFT(TRIM(ibsql.FieldByName("DATA").AsString),250)) & "'" &  ", " & _
+              "'" & CSTR(ibsql.FieldByName("OBJECTID").AsVariant) & "'" & "," & _
+              "'" & CSTR(ibsql.FieldByName("obj_xid").AsInteger) & "'" & "," & _
+              "'" & CSTR(ibsql.FieldByName("obj_dbid").AsInteger) & "'" & "," & _
+              "'" & CSTR(ibsql.FieldByName("OPERATIONDATE").AsDAteTime) & "'" &  ", " & _
+              "'" & ValidValue(LEFT(TRIM(ibsql.FieldByName("SOURCE").AsString),250)) & "'"  & _
+              ") "
+            objCommandWares.CommandText = InsertSQL
+            objCommandWares.Execute
+            ibsql.Next
+          wend
+           if isDel Then
+             ibsql.Close
+             ibsql.SQL.Text = _
+             "DELETE FROM GD_JOURNAL WHERE " & _
+             "OPERATIONDATE between :db and :de "
+             ibsql.ParamByName("db").AsDateTime = BeginDate
+             ibsql.ParamByName("de").AsDateTime = EndDate
+             ibsql.ExecQuery
+           end if
+           if Tr.inTransaction then
+             Tr.Commit
+           end if
+        
+          realname = FilePath + q_fileName(Period)
+        
+          'переименуем в адекватный формат
+          FSO.MOVEFILE tablename, realname
+          Set FSO = Nothing
+          call Application.MessageBox("Операция завершена.","Внимание",vbOkOnly+vbInformation+vbSystemModal)
+        End Sub
+        
+        function q_fileName(Period)
+         ' привести к читаему формату
+          IF Period(0) <> Period(1) Then
+            q_fileName = "journal_" + CSTR(REPLACE(PERIOD(0),".","")) + "-" + CSTR(REPLACE(PERIOD(1),".","")) + ".dbf"
+          else
+            q_fileName = "journal_" + CSTR(REPLACE(PERIOD(1),".","")) + ".dbf"
+          end if
+        End Function
+        
+        function q_FilePath(path)
+          dim arr
+          arr = split(path,":")
+          if Ubound(arr)>1 Then
+             q_FilePath = Arr(1) + ":" + Arr(2)
+          end if
+        end function
+        
+        Function ValidValue(Value)
+          Value = REPLACE(Value, ",", "")
+          Value = REPLACE(Value, "'", "")
+          Value = REPLACE(Value, "  ", " ")
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149296949_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_Import_JOURNAL"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-06-29T12:33:59+03:00
+      DISPLAYSCRIPT: | 
+        GS_IMPORT_JOURNAL
+        PF_VALIDVALUE
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Option Explicit
+        Sub gs_Import_JOURNAL
+         dim Creator, OpenDialog
+          set Creator = new TCreator
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          OpenDialog.Filter = "*.dbf|*.dbf"
+          if not OpenDialog.Execute Then
+            call Application.MessageBox("Операция прервана","Внимание",vbOkOnly+vbInformation+vbSystemModal)
+            exit sub
+          end if
+        
+          dim FileName, FirstFileName
+          FirstFileName = OpenDialog.FileName
+        
+        
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+        
+          FileName = FSO.GetParentFolderName(FirstFileName) + "\" + "qTemp.dbf"
+        
+          if FSO.FileExists(FileName) Then
+            FSO.DeleteFile(FileName)
+          end if
+        
+          FSO.MoveFile FirstFileName, FileName
+        
+          dim Path
+          Path = FSO.GetParentFolderName(FileName)
+        
+          dim objConnection
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = Path
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.RecordSet")
+          objADOQuery.ActiveConnection = objConnection
+          objADOQuery.Open "SELECT  * FROM " &  FileName , objConnection
+                           '& " WHERE NOT (SURNAME IS NULL) AND NOT (PERCENT IS NULL)" & _
+                           '  " AND NOT (CARDCODE IS NULL)" , objConnection
+          objADOQuery.MoveFirst
+          if objADOQuery.EOF then
+            objADOQuery.Close
+            exit sub
+          end if
+        
+          dim Transaction
+          set Transaction = Creator.GetObject(nil, "TIBTransaction", "")
+          Transaction.DefaultDataBase = gdcBaseManager.Database
+          call Transaction.Params.Add("nowait")
+          call Transaction.Params.Add("read_committed")
+          call Transaction.Params.Add("rec_version")
+          Transaction.StartTransaction
+        
+          dim qRec
+          set qRec = Creator.GetObject(nil, "TIBSQL", "")
+          qRec.Transaction = Transaction
+          qRec.SQl.Text = _
+           "EXECUTE BLOCK( " & _
+           "con_xid integer = :con_xid, " & _
+           "con_dbid integer = :con_dbid, " & _
+           "DATA VARCHAR(250) =:DATA, " & _
+           "obj_xid integer = :obj_xid, " & _
+           "obj_dbid integer = :obj_dbid, " & _
+           "OPERATIONDATE varchar(30) =:OPERATIONDATE, " & _
+           "SOURCE VARCHAR(100) = :SOURCE) " & _
+           "as " & _
+           "declare variable ContID integer; " & _
+           "declare variable ObjID integer; " & _
+           "BEGIN " & _
+           "  IF (not con_xid is nULL) THEN " & _
+           "    EXECUTE PROCEDURE GD_P_GETID(:con_xid,:con_dbid) RETURNING_VALUES :ContID; /*  */ " & _
+           "  IF (NOT obj_xid is NULL) THEN " & _
+           "    EXECUTE PROCEDURE GD_P_GETID(:obj_xid,:obj_dbid) RETURNING_VALUES :ObjID; /*  */ " & _
+           " " & _
+           "  INSERT INTO GD_JOURNAL (CONTACTKEY, DATA, OBJECTID, OPERATIONDATE,SOURCE) VALUES " & _
+           "    (:ContID,:DATA,:ObjID,:OPERATIONDATE,:SOURCE); " & _
+           "END "
+        
+        
+          while not objADOQuery.Eof
+            qRec.ParamByName("con_xid").AsInteger = objADOQuery.Fields("con_xid").Value
+            qRec.ParamByName("con_dbid").AsInteger = objADOQuery.Fields("con_dbid").Value
+            qRec.ParamByName("DATA").AsString = pf_ValidValue(objADOQuery.Fields("DATA").Value,2)
+            qRec.ParamByName("obj_xid").AsInteger = objADOQuery.Fields("obj_xid").Value
+            qRec.ParamByName("obj_dbid").AsInteger = objADOQuery.Fields("obj_dbid").Value
+            qRec.ParamByName("OPERATIONDATE").AsString = pf_ValidValue(objADOQuery.Fields("OPERATIOND").Value,2)
+            qRec.ParamByName("SOURCE").AsString = pf_ValidValue(objADOQuery.Fields("SOURCE").Value,2)
+            qRec.ExecQuery
+            qRec.Close
+        
+            objADOQuery.MoveNext
+          wend
+        
+          if Transaction.InTransaction then Transaction.Commit
+          objADOQuery.Close
+        
+          ' возвращаем Файл в исходное состояние
+          FSO.MoveFile FileName, FirstFileName
+          SET FSO = Nothing
+          call Application.MessageBox("Импорт завершен", "Внимание", vbSystemModal + vbInformation )
+        
+        End Sub
+        
+        Function pf_ValidValue(Value, AsType)
+          pf_ValidValue = Value
+          if isNull(Value) then
+            if AsType = 1 then
+              pf_ValidValue = 0
+            else
+              pf_ValidValue = ""
+            end if
+          end if
+        End Function
+        
