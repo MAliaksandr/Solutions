@@ -1,0 +1,334 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 169018656_1402385391
+  Name: "Предварительная загрузка. Отчет."
+  Caption: "Предварительная загрузка. Отчет."
+  Version: "1.0.0.4"
+  Optional: False
+  Internal: True
+  MD5: 2073982088E3BC880B534EE44AA38754
+Uses: 
+  - "147978914_215642201 Торговля - evt_object"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 169018578_1402385391
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169018421_1402385391
+    Fields: 
+      NAME: "Предварительная загрузка. "
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2020-12-22T11:42:47+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44174,6239759144" ReportOptions.Description.Text="" ReportOptions.LastChange="44174,6239759144" ScriptLanguage="PascalScript" ScriptText.Text="&#13;&#10;&#13;&#10;begin&#13;&#10;end." PropData="08446174617365747301010C2200000020446174615365743D224D41494E2220446174615365744E616D653D224D41494E2200010C1E00000020446174615365743D224D532220446174615365744E616D653D224D53220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="297" PaperHeight="210" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="22,67718" Left="0" Top="18,89765" Width="1046,92981">
+              <TfrxMemoView Name="Memo1" Left="18,89765" Top="0" Width="1043,15028" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅР°СЏ Р·Р°РіСЂСѓР·РєР° РЅР° [DATESTR(&#60;Date&#62;)]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="37,7953" Left="0" Top="102,04731" Width="1046,92981">
+              <TfrxMemoView Name="Memo2" Left="18,89765" Top="0" Width="113,3859" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="Р”Р°С‚Р°"/>
+              <TfrxMemoView Name="Memo9" Left="158,74026" Top="0" Width="52,91342" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[MAIN.&#34;USR$DATE&#34;]"/>
+              <TfrxMemoView Name="Memo16" Left="18,89765" Top="18,89765" Width="113,3859" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="Р”РµРЅСЊ РЅРµРґРµР»Рё"/>
+              <TfrxMemoView Name="Memo17" Left="158,74026" Top="18,89765" Width="52,91342" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(DayOfWeek(&#60;MAIN.&#34;USR$DATE&#34;&#62;)-1=0,7,DayOfWeek(&#60;MAIN.&#34;USR$DATE&#34;&#62;)-1)] "/>
+            </TfrxHeader>
+            <TfrxFooter Name="Footer1" Height="22,67718" Left="0" Top="298,58287" Width="1046,92981"/>
+            <TfrxMasterData Name="MasterData1" Height="113,3859" Left="0" Top="162,51979" Width="1046,92981" ColumnWidth="0" ColumnGap="0" DataSet="MAIN" DataSetName="MAIN" RowCount="0">
+              <TfrxMemoView Name="Memo3" Left="18,89765" Top="0" Width="113,3859" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text="Р—Р°РµР·Рґ (РєРѕР»-РІРѕ)"/>
+              <TfrxMemoView Name="Memo4" Left="18,89765" Top="18,89765" Width="113,3859" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="3" Frame.Typ="15" ParentFont="False" Text="СЂРµР·РёРґРµРЅС‚С‹"/>
+              <TfrxMemoView Name="Memo5" Left="18,89765" Top="37,7953" Width="113,3859" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="3" Frame.Typ="15" ParentFont="False" Text="РЅРµСЂРµР·РёРґРµРЅС‚С‹"/>
+              <TfrxMemoView Name="Memo6" Left="18,89765" Top="56,69295" Width="113,3859" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text="Р’С‹РµР·Рґ"/>
+              <TfrxMemoView Name="Memo7" Left="18,89765" Top="75,5906" Width="113,3859" Height="18,89765" ShowHint="False" Color="-2147483633" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="3" Frame.Typ="15" ParentFont="False" Text="РІСЃРµРіРѕ:"/>
+              <TfrxMemoView Name="Memo8" Left="18,89765" Top="94,48825" Width="113,3859" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Text="Р’ С‚.С‡. РґРµС‚РµР№"/>
+              <TfrxMemoView Name="Memo10" Left="158,74026" Top="0" Width="52,91342" Height="18,89765" ShowHint="False" DataField="AddPeople" DataSet="MAIN" DataSetName="MAIN" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[MAIN.&#34;AddPeople&#34;]"/>
+              <TfrxMemoView Name="Memo11" Left="158,74026" Top="18,89765" Width="52,91342" Height="18,89765" ShowHint="False" Color="15000804" DataField="isResident" DataSet="MAIN" DataSetName="MAIN" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[MAIN.&#34;isResident&#34;]"/>
+              <TfrxMemoView Name="Memo12" Left="158,74026" Top="37,7953" Width="52,91342" Height="18,89765" ShowHint="False" Color="15000804" DataField="noResident" DataSet="MAIN" DataSetName="MAIN" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[MAIN.&#34;noResident&#34;]"/>
+              <TfrxMemoView Name="Memo13" Left="158,74026" Top="56,69295" Width="52,91342" Height="18,89765" ShowHint="False" DataField="OutPeople" DataSet="MAIN" DataSetName="MAIN" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[MAIN.&#34;OutPeople&#34;]"/>
+              <TfrxMemoView Name="Memo14" Left="158,74026" Top="75,5906" Width="52,91342" Height="18,89765" ShowHint="False" Color="-2147483633" DataField="AllPeople" DataSet="MAIN" DataSetName="MAIN" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[MAIN.&#34;AllPeople&#34;]"/>
+              <TfrxMemoView Name="Memo15" Left="158,74026" Top="94,48825" Width="52,91342" Height="18,89765" ShowHint="False" DataField="isChildren" DataSet="MAIN" DataSetName="MAIN" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[MAIN.&#34;isChildren&#34;]"/>
+            </TfrxMasterData>
+            <TfrxMasterData Name="MasterData2" Height="718,1107" Left="158,74026" Top="0" Vertical="True" Width="52,91342" ColumnWidth="0" ColumnGap="0" DataSet="MS" DataSetName="MS" RowCount="0"/>
+            <TfrxFooter Name="Footer2" Height="718,1107" Left="257,00804" Top="0" Vertical="True" Width="22,67718"/>
+            <TfrxHeader Name="Header2" Height="718,1107" Left="18,89765" Top="0" Vertical="True" Width="113,3859" ReprintOnNewPage="True"/>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169018422_1402385391
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169018421_1402385391
+    Fields: 
+      NAME: "rp_Main169018422_1402385391"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-04-16T17:17:39+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN169018422_1402385391
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAUEVSSU9EBgAAAM/l8Oju5AAAAAAAAAAAAAAAAAwAAAAAAAAAAAIAAABeUkZO
+        U1RQUlNUDQAAAFBFUk1JVFRZUEVLRVkLAAAA0ujvIO/z8uXi6ugTAAAAVVNSJFNBTl9QRVJNSVRf
+        VFlQRQgAAABVU1IkTkFNRQsAAABET0NVTUVOVEtFWQhnAAAARVhJU1RTKFNFTEVDVCBkb2MuSUQg
+        RlJPTSBHRF9ET0NVTUVOVCBkb2MgV0hFUkUgZG9jLklEID0gRE9DVU1FTlRLRVkgQU5EIENPQUxF
+        U0NFKGRvYy5ESVNBQkxFRCwgMCkgPSAwKQAAAAACAAAAXkFGTlNUUFJTVAoAAABIT1VTSU5HS0VZ
+        BgAAAMru8O/z8Q4AAABVU1IkSFRfSE9VU0lORwgAAABVU1IkTkFNRQIAAABJRAgAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main169018422_1402385391(Period, PermitTypeKey,HousingKey)
+          BaseQueryList.Clear
+        
+          dim strWhere
+          if Join(PermitTypeKey) <> "" then
+            strWhere = strWhere & " AND res.USR$TYPE_PERMIT IN (" &  Join(PermitTypeKey, ",") & ") "
+          end if
+          
+          if Join(HousingKey) <> "" then
+            strWhere = strWhere & " AND numb.USR$HOUSINGKEY IN (" &  Join(HousingKey, ",") & ") "
+          end if
+        
+          
+         ' Dim q
+        '  Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+        '  q.SQL = "введите текст запроса"
+        '  q.Open
+          
+          dim DB, DE
+          DB = Period(0)
+          DE = Period(1)
+          
+            '2. Создадим ДатаСет и заполним его датами за месяц
+          dim MS
+          set MS = BaseQueryList.Query(BaseQueryList.Add("MS", 1))
+          call MS.AddField("USR$DATE", "ftDate", 0, 0)
+          MS.Open
+          while DB <= DE
+            MS.Append
+            MS.FieldByName("USR$DATE").AsDateTime = DB
+            MS.Post
+            DB = DateAdd("d", 1, DB)
+          wend
+        
+          '3. Основной набор данных.
+          dim Main
+          set Main = BaseQueryList.Query(BaseQueryList.Add("Main", 1))
+          call Main.AddField("AddPeople", "ftInteger", 0, 0)
+          call Main.AddField("isResident", "ftInteger", 0, 0)
+          call Main.AddField("noResident", "ftInteger", 0, 0)
+          call Main.AddField("OutPeople", "ftInteger", 0, 0)
+          call Main.AddField("isChildren", "ftInteger", 0, 0)
+          call Main.AddField("AllPeople", "ftInteger", 0, 0)
+          call Main.AddField("USR$DATE", "ftDate", 0, 0)
+          Main.Open
+          
+           '4. Запрос данных за один день
+          dim SQL, Creator
+          set Creator = new TCreator
+          set SQL = Creator.GetObject(nil, "TIBSQL", "")
+          SQL.Transaction = gdcBaseManager.ReadTransaction
+          SQL.SQL.Text = "SELECT " & _
+            "  m.ADATE, " & _
+            "  SUM(m.AddPeople) as AddPeople, " & _
+            "  SUM(m.isResident) as isResident, " & _
+            "  SUM(m.noResident) as noResident, " & _
+            "  SUM(m.OutPeople) as OutPeople, " & _
+            "  SUM(m.isChildren) as isChildren, " & _
+            "  SUM(M.Allpeople) AS Allpeople " & _
+            "FROM ( " & _
+            "    SELECT " & _
+            "       rp.USR$DATEBEGIN as ADATE, " & _
+            "       count(res.USR$CONTACTKEY) as AddPeople, " & _
+            "       SUM(IIF(p.USR$NATIONALITYKEY=1800010,1,0)) As isResident, " & _
+            "       SUM(IIF(p.USR$NATIONALITYKEY<>1800010,1,0)) As noResident, " & _
+            "       0 as OutPeople, " & _
+            "       SUM(iif(age.FULLYEARAGE<18,1,0)) as isChildren, " & _
+            "       SUM(res.USR$COUNTNIGHT) AS Allpeople " & _
+            "    FROM USR$HT_RESERVATION res " & _
+            "    LEFT JOIN USR$SAN_REQUESTLINE l ON res.ID =  l.USR$RESERVATIONKEY " & _
+            "    LEFT JOIN USR$SAN_REQUEST req ON  req.DOCUMENTKEY = l.MASTERKEY " & _
+            "     JOIN USR$SAN_RESERVEDROOMPLACE rp ON  rp.USR$REQUESTLINEKEY = l.DOCUMENTKEY " & _
+            "    LEFT JOIN USR$HT_NUMBER numb ON numb.ID = l.USR$ROOMKEY " & _
+            "    LEFT JOIN GD_PEOPLE p ON p.CONTACTKEY = res.USR$CONTACTKEY " & _
+            "    LEFT JOIN usr$san_p_fullage(p.birthday,:aDate) age ON 1 = 1 " & _
+            "    WHERE  (NOT res.ID IS NULL) " & _
+            strWhere & _
+            "     AND COALESCE(res.USR$DATEBEGINFACT, res.USR$DATEBEGIN)= :aDate " & _
+            "      AND res.USR$STATEKEY <> :CANCELKEY " & _
+            "    group by 1 " & _
+            "    UNION ALL " & _
+            "    SELECT " & _
+            "       rp.USR$DATEEND as ADATE, " & _
+            "       0 as AddPeople, " & _
+            "       0 As isResident, " & _
+            "       0 As noResident, " & _
+            "       count(res.USR$CONTACTKEY) as OutPeople, " & _
+            "       SUM(iif(age.FULLYEARAGE<18,1,0)) as isChildren, " & _
+            "       0 AS Allpeople " & _
+            "    FROM USR$HT_RESERVATION res " & _
+            "    LEFT JOIN USR$SAN_REQUESTLINE l ON res.ID =  l.USR$RESERVATIONKEY " & _
+            "    LEFT JOIN USR$SAN_REQUEST req ON  req.DOCUMENTKEY = l.MASTERKEY " & _
+            "     JOIN USR$SAN_RESERVEDROOMPLACE rp ON  rp.USR$REQUESTLINEKEY = l.DOCUMENTKEY " & _
+            "    LEFT JOIN USR$HT_NUMBER numb ON numb.ID = l.USR$ROOMKEY " & _
+            "    LEFT JOIN GD_PEOPLE p ON p.CONTACTKEY = res.USR$CONTACTKEY " & _
+            "    LEFT JOIN usr$san_p_fullage(p.birthday,:aDate) age ON 1 = 1 " & _
+            "    WHERE  (NOT res.ID IS NULL) " & _
+            strWhere & _
+            "     AND res.USR$DATEEND = :aDate " & _
+            "      AND res.USR$STATEKEY <> :CANCELKEY " & _
+            "    group by 1) m " & _
+            "GROUP BY 1 "
+        
+          DIM ibSQL
+          set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+          ibSQL.Transaction = gdcBaseManager.ReadTransaction
+          ibSQL.SQL.Text = _
+            "SELECT " & _
+            " SUM(m.CountGuest) as CountGuest, " & _
+            " SUM(m.CountChild) as CountChild " & _
+            "FROM " & _
+            " (SELECT " & _
+            "   numb.USR$HOUSINGKEY, " & _
+            "   numb.USR$FLOORKEY, " & _
+            "   (select " & _
+            "      count(lc.ID) " & _
+            "    from USR$HT_RESERVATION lc " & _
+            "    left join USR$HT_NUMBER tn ON tn.ID = lc.USR$NUMBERKEY " & _
+            "    where tn.USR$HOUSINGKEY = numb.USR$HOUSINGKEY " & _
+            "      AND (tn.USR$FLOORKEY = numb.USR$FLOORKEY " & _
+            "        OR numb.USR$HOUSINGKEY = :k2) " & _
+            "        AND lc.USR$DATEBEGIN <= :DB " & _
+            "        AND lc.USR$DATEEND >= :DB " & _
+            "        AND lc.USR$DATEEND <> :DB " & _
+            "      AND NOT lc.USR$STATEKEY IN (:statekey1, :statekey2, :statekey3, :statekey4) " & _
+            "      AND NOT lc.USR$TYPE_PERMIT IN (:typepermkey1, :typepermkey2, :typepermkey3) " & _
+            " " & _
+            "      AND EXISTS (select " & _
+            "                    st1.id " & _
+            "                  from USR$HT_RES_STATEDICT st1 " & _
+            "                  where COALESCE(st1.USR$BLOCKROOM, 0) = 0 " & _
+            "                    and st1.ID = lc.USR$STATEKEY) )   as CountGuest , " & _
+            "                     " & _
+            "                     " & _
+            "   (select count(lc.ID) " & _
+            "    from USR$HT_RESERVATION lc " & _
+            "    left join USR$HT_NUMBER tn ON tn.ID = lc.USR$NUMBERKEY " & _
+            "    left join USR$HT_TARRIFTYPE tt on tt.ID = lc.USR$TARRIFTYPEKEY " & _
+            "    where tn.USR$HOUSINGKEY = numb.USR$HOUSINGKEY AND (tn.USR$FLOORKEY = numb.USR$FLOORKEY OR numb.USR$HOUSINGKEY = :k2) AND lc.USR$DATEBEGIN <= :DB  AND lc.USR$DATEEND >= :DB AND lc.USR$DATEEND <> :DB " & _
+            "      AND NOT lc.USR$STATEKEY IN (:statekey1, :statekey2, :statekey3, :statekey4) AND COALESCE(tt.USR$TYPE, 0) = 1 AND NOT lc.USR$TYPE_PERMIT IN (:typepermkey1, :typepermkey2, :typepermkey3) " & _
+            " " & _
+            "      AND EXISTS (select st1.id from USR$HT_RES_STATEDICT st1 where COALESCE(st1.USR$BLOCKROOM, 0) = 0 and st1.ID = lc.USR$STATEKEY) )   as CountChild " & _
+            " " & _
+            " " & _
+            " " & _
+            "FROM USR$HT_NUMBER numb " & _
+            "LEFT JOIN USR$SAN_REQUESTLINE l ON numb.ID = l.USR$ROOMKEY AND l.USR$DATEBEGIN <= :DB  AND l.USR$DATEEND >= :DB AND l.USR$DATEEND <> :DB " & _
+            "LEFT JOIN USR$SAN_REQUEST req ON req.DOCUMENTKEY = l.MASTERKEY " & _
+            "LEFT JOIN GD_DOCUMENT d ON d.ID = req.DOCUMENTKEY " & _
+            "LEFT JOIN USR$HT_HOUSING house ON numb.USR$HOUSINGKEY = house.ID " & _
+            "LEFT JOIN USR$HT_FLOOR floor ON floor.ID = numb.USR$FLOORKEY " & _
+            "LEFT JOIN USR$HT_RESERVATION res ON res.ID = l.USR$RESERVATIONKEY AND res.USR$DATEBEGIN <= :DB  AND res.USR$DATEEND >= :DB AND res.USR$DATEEND <> :DB " & _
+            " AND NOT res.USR$STATEKEY IN (:statekey1, :statekey2, :statekey3, :statekey4) AND NOT res.USR$TYPE_PERMIT IN (:typepermkey1, :typepermkey2, :typepermkey3) " & _
+            " AND EXISTS (select id from USR$HT_RES_STATEDICT st where COALESCE(st.USR$BLOCKROOM, 0) = 0 and st.ID = res.USR$STATEKEY) " & _
+            " " & _
+            "WHERE 1=1 " & _
+            strWhere & _
+            "GROUP BY 1,2,3 " & _
+            "ORDER BY 1,2 ) m "
+        
+        
+          MS.First
+          while not MS.Eof
+            SQL.ParamByName("aDate").AsDateTime = MS.FieldByName("USR$DATE").asDateTime
+            SQL.ParamByName("CANCELKEY").AsInteger = HT_ReservationStateDict.GetCanceledState.Key
+            SQL.ExecQuery
+            
+            'тут же еще из шахматки
+            ibSQL.Close
+            ibSQL.ParamByName("statekey1").AsInteger = HT_ReservationStateDict.GetCanceledState.Key
+            ibSQL.ParamByName("statekey2").AsInteger = HT_ReservationStateDict.GetQuotaState.Key
+            ibSQL.ParamByName("statekey3").AsInteger = HT_ReservationStateDict.GetEvictedState.Key
+            ibSQL.ParamByName("statekey4").AsInteger = gdcBaseManager.GetIDByRUIDString("147491476_809241643")
+            ibSQL.ParamByName("typepermkey1").AsInteger = gdcBaseManager.GetIDByRUIDString("147656017_820098289")
+            ibSQL.ParamByName("typepermkey2").AsInteger = gdcBaseManager.GetIDByRUIDString("147656016_820098289")
+            ibSQL.ParamByName("typepermkey3").AsInteger = gdcBaseManager.GetIDByRUIDString("147406748_820098289")
+            ibSQL.ParamByName("DB").AsDateTime = MS.FieldByName("USR$DATE").asDateTime
+            ibSQL.ExecQuery
+        
+            Main.Append
+            Main.FieldByName("USR$DATE").AsDateTime = Ms.FieldByName("USR$DATE").AsDateTime
+            IF not SQL.EOF Then
+              Main.FieldByName("AddPeople").AsInteger = SQL.FieldByName("AddPeople").AsInteger
+              Main.FieldByName("isResident").AsInteger = SQL.FieldByName("isResident").AsInteger
+              Main.FieldByName("noResident").AsInteger =  SQL.FieldByName("noResident").AsInteger
+              Main.FieldByName("OutPeople").AsInteger  = SQL.FieldByName("OutPeople").AsInteger
+              Main.FieldByName("isChildren").AsInteger   = ibSQL.FieldByName("CountChild").AsInteger
+              Main.FieldByName("AllPeople").AsInteger   = ibSQL.FieldByName("CountGuest").AsInteger
+            ELSE
+              Main.FieldByName("AddPeople").AsInteger = 0
+              Main.FieldByName("isResident").AsInteger = 0
+              Main.FieldByName("noResident").AsInteger = 0
+              Main.FieldByName("OutPeople").AsInteger = 0
+              Main.FieldByName("isChildren").AsInteger = 0
+              Main.FieldByName("AllPeople").AsInteger = 0
+            END IF
+            Main.Post
+            SQL.Close
+            MS.Next
+          WEND
+          
+           BaseQueryList.AddMasterDetail "MS", "USR$DATE", "Main", "USR$DATE"
+          
+          
+        
+          Set rp_Main169018422_1402385391 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 169018421_1402385391
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Предварительная загрузка"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: "148685345_820098289 Исследователь\\3. Бронирование\\17. Отчеты"
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "169018422_1402385391 rp_Main169018422_1402385391"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147011962_109092844 Торговля\\Отчеты по оптовому складу"
+      SERVERKEY: ~
+      TEMPLATEKEY: "169018578_1402385391 Предварительная загрузка."
+      EDITIONDATE: 2021-04-16T17:17:39+03:00
