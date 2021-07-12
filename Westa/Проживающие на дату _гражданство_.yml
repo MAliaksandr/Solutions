@@ -1,0 +1,238 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 175235013_1688578661
+  Name: "Проживающие на дату (гражданство)"
+  Caption: "Проживающие на дату (гражданство)"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: DE9E94051FEED03D8A5E36151268B5FE
+Uses: 
+  - "147364159_796152036 GS.Санаторий.Отдел продаж.Исследователь"
+  - "147376588_789097196 VESTA.Заявка"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 175234739_1688578661
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 175234729_1688578661
+    Fields: 
+      NAME: "Веста. Отчёт по гражданству проживающих175234739_1688578661"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2021-07-12T16:43:34+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="42879,6088630556" ReportOptions.Description.Text="" ReportOptions.LastChange="42879,6397174768" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;//  GroupHeader1.Height :=20;&#13;&#10;//  GroupHeader2.Height :=15;      &#13;&#10;//  IF (&#60;Q.&#34;FIRM&#34;&#62; = '') THEN&#13;&#10;//    Begin                &#13;&#10;//    GroupHeader1.Height :=0;&#13;&#10;//    GroupFooter1.Height :=0;&#13;&#10;//    Memo17.Visible :=False;&#13;&#10;//    Memo18.Visible :=False;&#13;&#10;//    Memo19.Visible :=False;&#13;&#10;//    Memo20.Visible :=False;&#13;&#10;//    Memo21.Visible :=False;&#13;&#10;//    Memo22.Visible :=False;        &#13;&#10;//    End;                &#13;&#10;//  IF (&#60;Q.&#34;PERMITTYPENAME&#34;&#62; = '') THEN&#13;&#10;//    begin                                          &#13;&#10;//    GroupHeader2.Height :=0;&#13;&#10;//    GroupFooter2.Height :=0;&#13;&#10;//    Memo24.Visible :=False;&#13;&#10;//    Memo25.Visible :=False;&#13;&#10;//    Memo26.Visible :=False;&#13;&#10;//    Memo27.Visible :=False;&#13;&#10;//    Memo28.Visible :=False;        &#13;&#10;//    end            &#13;&#10;      &#13;&#10;         &#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D22512200010C2200000020446174615365743D22514445542220446174615365744E616D653D2251444554220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="30,23624" Left="0" Top="18,89765" Width="718,1107">
+              <TfrxMemoView Name="Memo1" Align="baWidth" Left="0" Top="3,77953" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРѕР¶РёРІР°СЋС‰РёРµ РЅР° РґР°С‚Сѓ [PARAM0]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="60,47248" Left="0" Top="109,60637" Width="718,1107">
+              <TfrxMemoView Name="Memo2" Left="188,9765" Top="0" Width="219,21274" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РўРёРї РїСѓС‚РµРІРєРё"/>
+              <TfrxMemoView Name="Memo3" Left="408,18924" Top="0" Width="45,35436" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљРѕР»-РІРѕ РїСѓС‚РµРІРѕРє"/>
+              <TfrxMemoView Name="Memo4" Left="453,5436" Top="0" Width="41,57483" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљРѕР»-РІРѕ РєРѕР№РєРѕ-РґРЅРµР№"/>
+              <TfrxMemoView Name="Memo5" Left="612,28386" Top="0" Width="52,91342" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎСѓРјРјР° РІ РІР°Р»СЋС‚Рµ СЃС‡РµС‚Р°"/>
+              <TfrxMemoView Name="Memo6" Left="665,19728" Top="0" Width="52,91342" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎСѓРјРјР° РІ Р±РµР». СЂСѓР±Р»СЏС…"/>
+              <TfrxMemoView Name="Memo26" Left="0" Top="0" Width="188,9765" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¤РРћ"/>
+              <TfrxMemoView Name="Memo29" Left="495,11843" Top="0" Width="60,47248" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р”Р°С‚Р° Р·Р°РµР·РґР°"/>
+              <TfrxMemoView Name="Memo33" Left="555,59091" Top="0" Width="56,69295" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р”Р°С‚Р° РІС‹РµР·РґР°"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="22,67718" Left="0" Top="192,75603" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0">
+              <TfrxMemoView Name="Memo17" Left="0" Top="0" Width="264,5671" Height="22,67718" ShowHint="False" Color="16777180" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="3" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;COUNTRYNAME&#34;]"/>
+              <TfrxMemoView Name="Memo7" Left="604,7248" Top="0" Width="60,47248" Height="22,67718" ShowHint="False" Color="16777180" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo8" Left="589,60668" Top="0" Width="128,50402" Height="22,67718" ShowHint="False" Color="16777180" DataField="S_NCU" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;S_NCU&#34;]"/>
+              <TfrxMemoView Name="Memo9" Left="408,18924" Top="0" Width="45,35436" Height="22,67718" ShowHint="False" Color="16777180" DataField="COUNTRES" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;COUNTRES&#34;]"/>
+              <TfrxMemoView Name="Memo10" Left="453,5436" Top="0" Width="41,57483" Height="22,67718" ShowHint="False" Color="16777180" DataField="COUNTNIGHT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;COUNTNIGHT&#34;]"/>
+              <TfrxMemoView Name="Memo30" Left="495,11843" Top="0" Width="49,13389" Height="22,67718" ShowHint="False" Color="16777180" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo34" Left="544,25232" Top="0" Width="45,35436" Height="22,67718" ShowHint="False" Color="16777180" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text=""/>
+            </TfrxMasterData>
+            <TfrxFooter Name="Footer1" Height="0" Left="0" Top="347,71676" Width="718,1107"/>
+            <TfrxDetailData Name="DetailData1" Height="18,89765" Left="0" Top="260,78757" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="QDET" DataSetName="QDET" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo18" Left="188,9765" Top="0" Width="219,21274" Height="18,89765" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[QDET.&#34;PERMITTYPENAME&#34;]"/>
+              <TfrxMemoView Name="Memo19" Left="408,18924" Top="0" Width="45,35436" Height="18,89765" ShowHint="False" StretchMode="smMaxHeight" DataField="COUNTRES" DataSet="QDET" DataSetName="QDET" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[QDET.&#34;COUNTRES&#34;]"/>
+              <TfrxMemoView Name="Memo20" Left="453,5436" Top="0" Width="41,57483" Height="18,89765" ShowHint="False" StretchMode="smMaxHeight" DataField="COUNTNIGHT" DataSet="QDET" DataSetName="QDET" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[QDET.&#34;COUNTNIGHT&#34;]"/>
+              <TfrxMemoView Name="Memo21" Left="612,28386" Top="0" Width="52,91342" Height="18,89765" ShowHint="False" StretchMode="smMaxHeight" DataField="S" DataSet="QDET" DataSetName="QDET" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[QDET.&#34;S&#34;]"/>
+              <TfrxMemoView Name="Memo22" Left="665,19728" Top="0" Width="52,91342" Height="18,89765" ShowHint="False" StretchMode="smMaxHeight" DataField="S_NCU" DataSet="QDET" DataSetName="QDET" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[QDET.&#34;S_NCU&#34;]"/>
+              <TfrxMemoView Name="Memo27" Left="0" Top="0" Width="188,9765" Height="18,89765" ShowHint="False" StretchMode="smMaxHeight" DataField="GUESTNAME" DataSet="QDET" DataSetName="QDET" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[QDET.&#34;GUESTNAME&#34;]"/>
+              <TfrxMemoView Name="Memo31" Left="495,11843" Top="0" Width="60,47248" Height="18,89765" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$DATEBEGIN" DataSet="QDET" DataSetName="QDET" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[QDET.&#34;USR$DATEBEGIN&#34;]"/>
+              <TfrxMemoView Name="Memo35" Left="555,59091" Top="0" Width="56,69295" Height="18,89765" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$DATEEND" DataSet="QDET" DataSetName="QDET" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[QDET.&#34;USR$DATEEND&#34;]"/>
+            </TfrxDetailData>
+            <TfrxGroupHeader Name="GroupHeader1" Height="0" Left="0" Top="238,11039" Width="718,1107" Condition="Q.&#34;ID&#34;" StartNewPage="True"/>
+            <TfrxGroupFooter Name="GroupFooter1" Height="22,67718" Left="0" Top="302,3624" Width="718,1107">
+              <TfrxMemoView Name="Memo12" Left="0" Top="0" Width="408,18924" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="РС‚РѕРіРѕ РїРѕ [Q.&#34;FIRM&#34;]"/>
+              <TfrxMemoView Name="Memo14" Left="665,19728" Top="0" Width="52,91342" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;QDet.&#34;S_NCU&#34;&#62;)]"/>
+              <TfrxMemoView Name="Memo15" Left="408,18924" Top="0" Width="45,35436" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;QDet.&#34;COUNTRES&#34;&#62;)]"/>
+              <TfrxMemoView Name="Memo16" Left="453,5436" Top="0" Width="41,57483" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;QDET.&#34;COUNTNIGHT&#34;&#62;)]"/>
+              <TfrxMemoView Name="Memo13" Left="582,04762" Top="0" Width="83,14966" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;QDet.&#34;S&#34;&#62;)]"/>
+              <TfrxMemoView Name="Memo32" Left="495,11843" Top="0" Width="60,47248" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo36" Left="555,59091" Top="0" Width="56,69295" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text=""/>
+            </TfrxGroupFooter>
+            <TfrxReportSummary Name="ReportSummary1" Height="22,67718" Left="0" Top="408,18924" Width="718,1107">
+              <TfrxMemoView Name="Memo11" Left="491,3389" Top="0" Width="113,3859" Height="22,67718" ShowHint="False" Color="10027007" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q.&#34;S&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo23" Left="604,7248" Top="0" Width="113,3859" Height="22,67718" ShowHint="False" Color="10027007" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q.&#34;S_NCU&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo24" Left="264,5671" Top="0" Width="113,3859" Height="22,67718" ShowHint="False" Color="10027007" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q.&#34;COUNTRES&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo25" Left="377,953" Top="0" Width="113,3859" Height="22,67718" ShowHint="False" Color="10027007" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q.&#34;COUNTNIGHT&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo28" Left="3,77953" Top="0" Width="260,78757" Height="22,67718" ShowHint="False" Color="10027007" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="Р’СЃРµРіРѕ РїСЂРѕР¶РёРІР°СЋС‰РёС…:"/>
+            </TfrxReportSummary>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 175234730_1688578661
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 175234729_1688578661
+    Fields: 
+      NAME: "rp_Main147411849_809241643175234730_1688578661"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147188926_789097196 gdc_frmUserComplexDocument147188916_779589892"
+      OBJECTNAME: "gdc_frmUserComplexDocument147188916_779589892"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-07-12T16:56:15+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147411849_809241643175234730_1688578661
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAUEVSSU9EBwAAAM3gIOTg8vMAAAAAAAAAAAAAAAACAAAAAAAAAAACAAAAXlJG
+        TlNUUFJTVAoAAABDT05UQUNUS0VZCwAAAM7w4+Dt6Ofg9ujoCgAAAGdkX2NvbnRhY3QEAAAAbmFt
+        ZQIAAABpZAgSAAAAY29udGFjdHR5cGUgaW4gKDMpAAAAAAIAAABeQUZOU1RQUlNUDQAAAFBFUk1J
+        VFRZUEVLRVkLAAAA0ujvIO/z8uXi7uoTAAAAVVNSJFNBTl9QRVJNSVRfVFlQRQgAAAB1c3IkbmFt
+        ZQsAAABET0NVTUVOVEtFWQhnAAAARVhJU1RTKFNFTEVDVCBkb2MuSUQgRlJPTSBHRF9ET0NVTUVO
+        VCBkb2MgV0hFUkUgZG9jLklEID0gRE9DVU1FTlRLRVkgQU5EIENPQUxFU0NFKGRvYy5ESVNBQkxF
+        RCwgMCkgPSAwKQAAAAACAAAAXkFGTlNUUFJTVAUAAABJU09VVBQAAADT9+jy++Lg8vwg4vvl5+bg
+        /vno9QAAAAAAAAAAAAAAAAYAAAAAAAAAACYAAADT9+jy++Lg8vwg8uX1LCDq8u4g4vvl5+bg5fIg
+        4iD98u4g5OXt/EZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main147411849_809241643175234730_1688578661(Period, ContactKey, PermitTypeKey, isOut)
+          BaseQueryList.Clear
+        
+          Dim strWhere, strSelect, strGroupBy, strOutPl
+          strSelect = " CAST('' as Varchar(1)) as ID, CAST('' as Varchar(1)) as FIRM, "
+          if  Join(ContactKey, ",") <> "" then
+            strSelect = "c.id, c.name as FIRM, "
+            strWhere = " AND req.USR$CONTACTKEY in (" & Join(ContactKey, ",") & ")"
+          end if
+          
+          strOutPl = " and res.USR$DATEEND <> :DB "
+          IF isOut Then
+            strOutPl = ""
+          end if
+        
+          dim strSelecTPerm
+          strSelecTPerm = " CAST('' as Varchar(1)) as PermitTypeKey, CAST('' as Varchar(1)) as PermitTypeName, "
+          if  Join(PermitTypeKey, ",") <> "" then
+            strSelecTPerm = " t.DOCUMENTKEY as PermitTypeKey,  t.USR$NAME as PermitTypeName, "
+            strWhere = strWhere & " AND res.USR$TYPE_PERMIT IN (" &  Join(PermitTypeKey, ",") & ") "
+          end if
+          
+        
+          Dim q
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = "SELECT " & _
+            "  ck.COUNTRYKEY, plc.NAME as COUNTRYNAME, " & _
+            strSelect & _
+            "  COUNT(res.ID) AS COUNTRES, " & _
+            "  SUM(res.USR$COUNTNIGHT) AS COUNTNIGHT, " & _
+            "  SUM(res.USR$TOTALPARTSUM) AS S, " & _
+            "  SUM(res.USR$SUMNCU) AS S_NCU " & _
+            "FROM USR$HT_RESERVATION res " & _
+            "  LEFT JOIN GD_CONTACT con ON con.ID = res.USR$CONTACTKEY " & _
+            "  LEFT JOIN USR$SAN_REQUEST req on req.DOCUMENTKEY = res.USR$REQUESTKEY " & _
+            "  LEFT JOIN GD_CONTACT c on c.ID = req.USR$CONTACTKEY " & _
+            "  LEFT JOIN USR$GET_COUNTRYKEY(res.USR$CONTACTKEY) ck on 1=1 " & _
+            "  LEFT JOIN GD_PLACE plc on plc.ID =ck.COUNTRYKEY " & _
+            "  LEFT JOIN USR$SAN_PERMIT_TYPE t ON t.DOCUMENTKEY = res.USR$TYPE_PERMIT " & _
+            "WHERE res.USR$DATEBEGIN <= :DB AND res.USR$DATEEND >= :DB" & _
+            strOutPl & _
+            "  AND res.USR$STATEKEY <> :CANCELKEY " & _
+            strWhere & _
+            "GROUP BY 1,2,3,4 "
+          q.ParamByName("DB").AsDateTime = Period
+          q.ParamByName("CANCELKEY").AsInteger = HT_ReservationStateDict.GetCanceledState.Key
+          q.Open
+          
+          
+          Dim qDet
+          Set qDet = BaseQueryList.Query(BaseQueryList.Add("qDet", 0))
+          qDet.SQL = "SELECT " & _
+            "  ck.COUNTRYKey, plc.NAME as COUNTRYNAME, " & _
+            strSelect & _
+            strSelecTPerm & _
+            "  guest.NAME as GUESTNAME, " & _
+            "res.USR$DATEBEGIN, " & _
+            "res.USR$DATEEND, " & _
+            "  COUNT(res.ID) AS COUNTRES, " & _
+            "  SUM(res.USR$COUNTNIGHT) AS COUNTNIGHT, " & _
+            "  SUM(res.USR$TOTALPARTSUM) AS S, " & _
+            "  SUM(res.USR$SUMNCU) AS S_NCU " & _
+            "FROM USR$HT_RESERVATION res " & _
+            "  LEFT JOIN GD_CONTACT con ON con.ID = res.USR$CONTACTKEY " & _
+            "  LEFT JOIN USR$SAN_REQUEST req on req.DOCUMENTKEY = res.USR$REQUESTKEY " & _
+            "  LEFT JOIN GD_CONTACT c on c.ID = req.USR$CONTACTKEY " & _
+            "  LEFT JOIN USR$GET_COUNTRYKEY(res.USR$CONTACTKEY) ck on 1=1 " & _
+            " LEFT JOIN GD_CONTACT guest ON guest.ID = res.USR$CONTACTKEY " & _
+            "  LEFT JOIN GD_PLACE plc on plc.ID =ck.COUNTRYKEY " & _
+            "  LEFT JOIN USR$SAN_PERMIT_TYPE t ON t.DOCUMENTKEY = res.USR$TYPE_PERMIT " & _
+            "WHERE res.USR$DATEBEGIN <= :DB AND res.USR$DATEEND >= :DB " & _
+            strOutPl & _
+            "  AND res.USR$STATEKEY <> :CANCELKEY " & _
+            strWhere & _
+            "GROUP BY 1,2,3,4,5,6,7,8,9 " & _
+            "ORDER BY COUNTRYNAME, GUESTNAME "
+          qDet.ParamByName("DB").AsDateTime = Period
+          qDet.ParamByName("CANCELKEY").AsInteger = HT_ReservationStateDict.GetCanceledState.Key
+          qDet.Open
+          
+          BaseQueryList.AddMasterDetail "q","COUNTRYKey;id","qDet", "COUNTRYKey;ID"
+          
+        
+          Set rp_Main147411849_809241643175234730_1688578661 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 175234729_1688578661
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Проживающие на дату (гражданство)"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: "148685345_820098289 Исследователь\\3. Бронирование\\17. Отчеты"
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "175234730_1688578661 rp_Main147411849_809241643175234730_1688578661"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147222667_779589892 Отчеты(gdc_frmUserComplexDocument147188916_779589892)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "175234739_1688578661 Веста. Отчёт по гражданству проживающих175234739_1688578661"
+      EDITIONDATE: 2021-07-12T16:56:15+03:00
