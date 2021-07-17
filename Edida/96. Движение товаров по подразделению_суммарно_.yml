@@ -5,10 +5,10 @@ Properties:
   RUID: 167529382_1652141406
   Name: "96. Движение товаров по подразделению(суммарно)"
   Caption: "96. Движение товаров по подразделению "
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: FE9994C2B196F3792A18C9DEB1838202
+  MD5: 3E58A22C71C6B81A1D5585732D11778A
 Uses: 
   - "147978914_215642201 Торговля - evt_object"
 Objects: 
@@ -86,7 +86,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-07-17T11:35:01+03:00
+      EDITIONDATE: 2021-07-17T11:59:36+03:00
       DISPLAYSCRIPT: | 
         RP_MAIN152554775_1162798582167529313_1652141406
         
@@ -112,6 +112,7 @@ Objects:
             " sum(m.GMOVE) as GMOVE, " & _
             " sum(m.GRET) as GRET " & _
             " from (SELECT " & _
+            "    TODEPKEY, " & _
             "    fromdep, " & _
             "    ACCCOSTCARD, " & _
             "    SELLCOST, " & _
@@ -120,7 +121,8 @@ Objects:
             "    PRODIUS, " & _
             "    GMOVE, " & _
             "    GRET " & _
-            " FROM USR$P_GETMOVEBYDEPT(:dept, :todept, :db,:de, :gg)) m " & _
+            " FROM USR$P_GETMOVEBYDEPT(:dept, :todept, :db,:de, :gg) " & _
+            " where TODEPKEY<><RUID xID=""147047656"" dbID=""1087494377""/>) m " & _
             " group by 1,2 " & _
             " ORDER BY GOODNAME, SELLCOST "
         
@@ -162,7 +164,7 @@ Objects:
       DESCRIPTION: ~
       DISPLAYINMENU: 1
       EVENTFORMULAKEY: ~
-      FOLDERKEY: ~
+      FOLDERKEY: "147012342_52143670 Исследователь\\01. Общепит\\03. Производство"
       FRQREFRESH: 1
       GLOBALREPORTKEY: ~
       ISLOCALEXECUTE: 1
@@ -174,4 +176,4 @@ Objects:
       REPORTGROUPKEY: "147094279_157767347 Отчеты по общепиту"
       SERVERKEY: ~
       TEMPLATEKEY: "167529322_1652141406 96.Движение товаров по подразделению(суммарно)"
-      EDITIONDATE: 2021-07-17T11:35:01+03:00
+      EDITIONDATE: 2021-07-17T11:59:36+03:00
