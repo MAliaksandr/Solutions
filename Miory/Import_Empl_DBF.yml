@@ -5,10 +5,10 @@ Properties:
   RUID: 149234579_1638717063
   Name: "Import_Empl_DBF"
   Caption: "Import_Empl_DBF"
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: D24836CC50413D468A7F95B1519AEFB9
+  MD5: 1334B0F249629018737C71E7731E7320
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-04-20T10:59:27+03:00
+      EDITIONDATE: 2021-07-21T19:00:02+03:00
       DISPLAYSCRIPT: | 
         IMPORT_EMPL_DBF
         EXCEPTION_IMPORT_EMPL_DBF
@@ -57,7 +57,7 @@ Objects:
         
           dim Path
         '  Path = FSO.GetParentFolderName(FileName)
-          Path = "\\folders\FOLDERS\23 Обмен (очистка каждое воскренье)\гедемин\"
+          Path = "d:\Gedemin\Base\MIORI\base\"
           
           set objConnection = CreateObject("ADODB.Connection")
           objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
@@ -103,6 +103,13 @@ Objects:
           gdcDiscount.Transaction = T
           gdcDiscount.SubType = "USR$PF_STAFFCARD"
           gdcDiscount.Open
+          
+          'патрэбна рабіць адразу і фаміраванне лімітаў
+          Dim FormLimit
+          set FormLimit = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
+          FormLimit.Transaction = T
+          FormLimit.SubType = "USR$MN_FORMATION_LIMIT"
+          FormLimit.Open
             
           objADOQuery.MoveFirst
           
@@ -130,6 +137,7 @@ Objects:
                 gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
                 gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
                 gdcDiscount.Post
+                
               else
              '   msgbox "Няма звестак па гэтаму табельнаму нумару:" & CSTR(TabNumber)
                 gdcContact.Append
@@ -147,6 +155,16 @@ Objects:
                 gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
                 gdcDiscount.Post
               end if
+              
+             IF NOT FormLimit.Locate("USR$CONTACTKEY", ConID, "") Then
+               FormLimit.Append
+               FormLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asInteger = gdcBaseManager.GetIDBYRuidString("149812188_1606276715")
+               FormLimit.FieldByName("USR$SUMMA").asVariant = 333
+               FormLimit.FieldByName("USR$DATEBEGIN").asDateTime= DateSerial(year(now),01,01)
+               FormLimit.FieldByName("USR$DATEEND").asDateTime= DateSerial(year(now),12,31)
+               FormLimit.FieldByName("USR$CONTACTKEY").asInteger =ConID
+               FormLimit.Post
+             END IF
         
               DiscID = gdcDiscount.FieldByName("ID").asInteger
             ELSE
