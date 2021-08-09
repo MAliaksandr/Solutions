@@ -1,0 +1,254 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 175936229_1192700761
+  Name: "Предварительный счет на гостин.проживание"
+  Caption: "Предварительный счет на гостин.проживание"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 5F2B560FF51279F33B7FF28052A85290
+Uses: 
+  - "147408052_815437717 VESTA.Счет-фактура для гостиничного проживания"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 175932722_1192700761
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$FUTUREINVOICE"
+      FIELDNAME: "USR$FUTUREINVOICE"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Предварительный счет"
+      LSHORTNAME: "Предварительный"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147408026_815437717 Счет-фактура для гост. проживания , USR$HT_INVOICE"
+      RELATIONNAME: "USR$HT_INVOICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-09T16:37:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 175932750_1192700761
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DATEINVOICE"
+      FIELDNAME: "USR$DATEINVOICE"
+      FIELDSOURCE: "DDATE"
+      FIELDSOURCEKEY: "147000160_486813904 Дата, DDATE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дата предварительной с/ф"
+      LSHORTNAME: "Дата предварит. с/ф"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147408026_815437717 Счет-фактура для гост. проживания , USR$HT_INVOICE"
+      RELATIONNAME: "USR$HT_INVOICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-09T16:36:37+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 174579783_1192700761
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 175934734_1192700761
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgUserSimpleDocument147408025_815437717_2)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "174579783_1192700761"
+      EDITIONDATE: 2021-04-01T10:58:42+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 174579782_1192700761
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 175934734_1192700761
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgUserSimpleDocument147408025_815437717"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-04-01T10:58:42+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 175934734_1192700761
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrat_DBCheckBox_USR_FUTUREINVOICEOnClick"
+      COMMENT: ~
+      EVENT: "ONCLICK"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147408035_815437717 gdc_dlgUserSimpleDocument147408025_815437717"
+      OBJECTNAME: "gdc_dlgUserSimpleDocument147408025_815437717"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-09T16:15:28+03:00
+      DISPLAYSCRIPT: | 
+        USRAT_DBCHECKBOX_USR_FUTUREINVOICEONCLICK
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrat_DBCheckBox_USR_FUTUREINVOICEOnClick(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnClick", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+        
+        
+          dim DataSet, FutureInv
+          set DataSet = Sender.Ownerform.FindComponent("dsgdcBase").DataSet
+          set FutureInv = Sender.Ownerform.FindComponent("usrat_DBCheckBox_USR_FUTUREINVOICE")
+        '
+          Dim ParamResult, ParamWindow, ParamList
+          IF NOT FutureInv.Checked Then
+        
+           set ParamWindow = System.GetNewParamWindow(0)
+           call ParamWindow.AddParam("Дата счета", "PRMDate", "")
+           ParamResult = ParamWindow.Execute
+           if IsEmpty(ParamResult) then exit sub
+           
+           
+           
+            IF Application.MessageBox("Для счета будет установлена дата: " & CSTR(ParamResult(0)) & vbCrLf & "Продолжить?","Внимание", vbYesNo+VBInformation+vbSystemModal) = vbYes THEN
+              DataSet.FieldByName("DOCUMENTDATE").asVariant = FormatDateTime(ParamResult(0), vbshortdate)
+            END IF
+          END IF
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 175932924_1192700761
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 175932922_1192700761
+    Fields: 
+      NAME: "TgdcUserDocument147408025_815437717DoBeforePost"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147409886_809241643 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocument\\TgdcUserDocument147408025_815437717"
+      OBJECTNAME: "TgdcUserDocument147408025_815437717"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-09T15:04:15+03:00
+      DISPLAYSCRIPT: | 
+        TGDCUSERDOCUMENT147408025_815437717DOBEFOREPOST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub TgdcUserDocument147408025_815437717DoBeforePost(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "DoBeforePost", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+        
+          if Self.FieldByName("USR$FUTUREINVOICE").asInteger = 1 and _
+              Self.FieldByName("USR$DATEINVOICE").isNull Then
+             Self.FieldByName("USR$DATEINVOICE").asDateTime = Self.FieldByName("DOCUMENTDATE").asDateTime
+          end if
+          
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 175932922_1192700761
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOBEFOREPOST"
+      FUNCTIONKEY: "175932924_1192700761 TgdcUserDocument147408025_815437717DoBeforePost"
+      OBJECTKEY: "147409886_809241643 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocument\\TgdcUserDocument147408025_815437717"
+      OBJECTNAME: "TgdcUserDocument147408025_815437717"
+      PARENTNAME: "TgdcUserDocument"
+      EDITIONDATE: 2021-08-09T15:04:15+03:00
