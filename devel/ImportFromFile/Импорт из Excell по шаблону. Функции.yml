@@ -1,0 +1,132 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 154577947_1631104572
+  Name: "Импорт из Excell по шаблону. Функции"
+  Caption: "Импорт из Excell по шаблону. Функции"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: AB1AC0660F22FE0F5AEF9B45F8D66B43
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154566998_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ImFF_TmplSetParams"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "CONST"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-11T13:49:01+03:00
+      DISPLAYSCRIPT: ~
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        'Переменные для импорта из Excell на основании шаблонов
+        public pGNAME
+        public pStartLine  'номер строки, с которой начинаем работу
+        
+        public pCOSTBYNCU
+        public pVATPERC
+        public pDESCR
+        public pBARCODE
+        
+        public pALIAS
+        public pSELLCOST
+        
+        public pAndRecL ' номер колонки, по которой будет проверяться конец файла
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154566984_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Imff_setParams"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-11T13:52:49+03:00
+      DISPLAYSCRIPT: | 
+        IMFF_SETPARAMS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QFAAAAVEVNUEwFAAAAVEVNUEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVEZM
+        UFI=
+      SCRIPT: | 
+        Function Imff_setParams(BYVal templ)
+          'функция определяет массив глобальных переменных из заданного шаблона
+          'примерно так:
+          'наим.ТМЦ/ШК/артикул/цена покуп/%НДС/роз.цена/описание/
+          '-------- так же нужно учесть определяется ли НОМЕР ЯЧЕЙКИ или НАЗВАНИЕ -> возвращаться будет число либо наимнование
+          '-------------------------------------------------------
+          '-------------------------------------------------------
+          ' !!!!!!!! при добавлении новых параметров, их необходимо объявить в глоб переменных ImportTmplSetParams !!!!!!!!
+          '-------------------------------------------------------
+          '-------------------------------------------------------
+        
+          set Creator = New TCreator
+          set gdcTemplParam = Creator.GetObject(nil, "TgdcAttrUserDefined", "")
+          gdcTemplParam.SubType = "USR$IMPORTTEMPLATE"
+          gdcTemplParam.ExtraConditions.Add("ID = :ID")
+          gdcTemplParam.ParamByName("ID").AsInteger = templ(0)
+          gdcTemplParam.Open
+          gdcTemplParam.Last
+        
+          IF gdcTemplParam.RecordCount > 0 then
+            'наименование ТМЦ
+            pGNAME = gdcTemplParam.FieldByName("USR$GOODNAME").AsInteger
+            'розн.цена
+            pSELLCOST = gdcTemplParam.FieldByName("USR$SELLCOST").AsInteger
+            'ШК
+            pBARCODE = gdcTemplParam.FieldByName("USR$BARCODE").AsInteger
+            'код товара
+            pALIAS = gdcTemplParam.FieldByName("USR$ALIAS").AsInteger
+            'покупная цена
+            pCOSTBYNCU = gdcTemplParam.FieldByName("USR$COSTBYNCU").AsInteger
+            'ставка НДС
+            pVATPERC = gdcTemplParam.FieldByName("USR$VATPERC").AsInteger
+            'описание ТМЦ
+            pDESCR = gdcTemplParam.FieldByName("USR$DESCRIPTION").AsInteger
+            
+            'номер строки, с которой начинаем работу
+            pStartLine = gdcTemplParam.FieldByName("USR$STARTLINE").AsInteger
+            ' номер колонки, по которой будет проверяться конец файла
+            pAndRecL = gdcTemplParam.FieldByName("USR$STARTLINE").AsInteger
+          else
+            call Application.MessageBox("Не указан шаблон", "Внимание", vbOkOnly + vbInformation + vbSystemModal)
+          end if
+          
+          gdcTemplParam.Close
+        End Function
+        
