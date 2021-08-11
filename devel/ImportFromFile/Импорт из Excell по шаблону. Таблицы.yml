@@ -5,10 +5,10 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: D62F77E51F59D2A6AAA07B02B3676B7F
+  MD5: 4308A0C8DC414E2F7C93C6298559D25F
 Uses: 
   - "148509668_396646306 Торговля - исследователь"
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
@@ -658,7 +658,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-08-11T13:44:09+03:00
+      EDITIONDATE: 2021-08-11T16:08:57+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
           ActiveControl = nil
@@ -810,19 +810,19 @@ Objects:
                   TabStop = False
                   Visible = True
                   object usrat_DBEdit_USR_GOODNAME_Label: TLabel
-                    Left = 63
+                    Left = 58
                     Top = 16
                   end
                   object usrat_DBEdit_USR_DESCRIPTION_Label: TLabel
-                    Left = 65
+                    Left = 60
                     Top = 86
                   end
                   object usrat_DBEdit_USR_BARCODE_Label: TLabel
-                    Left = 65
+                    Left = 60
                     Top = 63
                   end
                   object usrat_DBEdit_USR_ALIAS_Label: TLabel
-                    Left = 65
+                    Left = 60
                     Top = 40
                   end
                   object usrat_DBEdit_USR_GOODNAME: TxDBCalculatorEdit
@@ -882,22 +882,28 @@ Objects:
                   TabStop = False
                   Visible = True
                   object usrat_DBEdit_USR_SELLCOST_Label: TLabel
-                    Left = 68
+                    Left = 63
                     Top = 47
                   end
                   object usrat_DBEdit_USR_VATPERC_Label: TLabel
-                    Left = 69
+                    Left = 64
                     Top = 68
                   end
                   object usrat_DBEdit_USR_COSTBYNCU_Label: TLabel
-                    Left = 69
+                    Left = 64
                     Top = 21
+                  end
+                  object usrat_DBEdit_USR_QUANTITY_Label: TLabel
+                    Left = 64
+                    Top = 91
+                    Width = 60
+                    Caption = 'Количество'
                   end
                   object usrat_DBEdit_USR_COSTBYNCU: TxDBCalculatorEdit
                     Left = 8
                     Top = 18
                     Width = 52
-                    Cursor = crArrow
+                    Cursor = crIBeam
                     TabOrder = 0
                   end
                   object usrat_DBEdit_USR_VATPERC: TxDBCalculatorEdit
@@ -913,6 +919,13 @@ Objects:
                     Width = 52
                     Cursor = crIBeam
                     TabOrder = 2
+                  end
+                  object usrat_DBEdit_USR_QUANTITY: TxDBCalculatorEdit
+                    Left = 8
+                    Top = 88
+                    Width = 52
+                    Cursor = crIBeam
+                    TabOrder = 3
                   end
                 end
                 object usrg_USR_IMPORTTEMPLATE_GroupBox3: TGroupBox
@@ -1085,3 +1098,45 @@ Objects:
           end
         end
         
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 154577959_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$QUANTITY"
+      FIELDNAME: "USR$QUANTITY"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Количество"
+      LSHORTNAME: "Количество"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-11T16:07:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~

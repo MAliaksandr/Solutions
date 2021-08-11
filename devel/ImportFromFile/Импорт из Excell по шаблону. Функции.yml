@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: AB1AC0660F22FE0F5AEF9B45F8D66B43
+  MD5: 6C91BF7B67409E49DC7F8A0955E0830A
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-11T13:49:01+03:00
+      EDITIONDATE: 2021-08-11T16:10:25+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -50,7 +50,9 @@ Objects:
         public pALIAS
         public pSELLCOST
         
-        public pAndRecL ' номер колонки, по которой будет проверяться конец файла
+        public pAndRecL    ' номер колонки, по которой будет проверяться конец файла
+        public pQfreeLine  ' количество последовательно идущих пустых строк
+        public pQuant      ' количество ТМЦ в позиции документа
         
   - 
     Properties: 
@@ -76,7 +78,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-11T13:52:49+03:00
+      EDITIONDATE: 2021-08-11T16:23:47+03:00
       DISPLAYSCRIPT: | 
         IMFF_SETPARAMS
         
@@ -123,6 +125,15 @@ Objects:
             pStartLine = gdcTemplParam.FieldByName("USR$STARTLINE").AsInteger
             ' номер колонки, по которой будет проверяться конец файла
             pAndRecL = gdcTemplParam.FieldByName("USR$STARTLINE").AsInteger
+            ' количество последовательно идущих пустых строк
+            pQfreeLine = gdcTemplParam.FieldByName("USR$QFREELINE").AsInteger
+            ' количество ТМЦ в позиции документа
+            pQuant = gdcTemplParam.FieldByName("USR$QUANTITY").AsInteger
+            
+            if pQuant = 0 Then
+              call Application.MessageBox("В шаблоне не задано поле для 'количества'" & vbCrLf & _
+              "Возможны ошибки при импорте!", "Внимание", vbOkOnly + vbCritical + vbSystemModal)
+            end if
           else
             call Application.MessageBox("Не указан шаблон", "Внимание", vbOkOnly + vbInformation + vbSystemModal)
           end if
@@ -130,3 +141,401 @@ Objects:
           gdcTemplParam.Close
         End Function
         
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154577838_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Imff_findgood"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-11T18:29:38+03:00
+      DISPLAYSCRIPT: | 
+        IMFF_FINDGOOD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QFAAAASUJTUUwFAAAASUJTUUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
+        U1QCAAAAU0gCAAAAU0gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        'ф-я ищет ТМЦ в БД по разным критериям. последовательность поиска будет обозначена позже
+        ' долно венуть GOODKEY или найденного или вновь вставленного
+        Function Imff_findgood(ibSQL, Sh)
+          Imff_findgood = -1
+        
+          ibsql.Close
+          ibsql.SQL.Text = _
+          "SELECT " & _
+          "  ID " & _
+          "FROM GD_GOOD " & _
+          "WHERE ALIAS =:ALIAS "
+          ibsql.ParamByNAme("ALIAS").asString = Sh.Cells(pStartLine, pAlias).Value
+          ibsql.ExecQuery
+        
+          if not ibsql.EOF Then
+            Imff_findgood = ibsql.FieldByName("ID").asInteger
+            exit function
+          end if
+        
+          ByBarCode = Sh.Cells(pStartLine, pBarCode).Value
+        
+          If Len(ByBarCode) = 12 Then
+           ibsql.SQL.Text = _
+           "select g.id from gd_good g " & _
+           " /*LEFT JOIN CALC_EAN13(:cod) ean13 ON 1=1*/ " & _
+           "WHERE Left(g.BARCODE,12) = :cod " & _
+           "   /*OR EAN13.BARCODE_EAN13 = g.BARCODE*/ "
+           ibsql.Close
+           ibsql.ParamByName("cod").AsString = ByBarCode
+           ibsql.ExecQuery
+        
+           if not ibsql.eof then
+            Imff_findgood = ibsql.FieldByName("ID").AsInteger
+            Exit Function
+           End If
+          End If
+        
+          If Len(ByBarCode) = 7 Then
+           ibsql.SQL.Text = _
+           "select g.id from gd_good g " & _
+           "LEFT JOIN CALC_EAN8(:cod) ean13 ON 1=1 " & _
+           "WHERE Left(g.BARCODE,7) = :cod " & _
+           "   OR EAN13.BARCODE_EAN8 = g.BARCODE "
+           ibsql.Close
+           ibsql.ParamByName("cod").AsString = ByBarCode
+           ibsql.ExecQuery
+           if not ibsql.eof then
+             Imff_findgood = ibsql.FieldByName("ID").AsInteger
+             Exit Function
+           end If
+          END IF
+        
+          
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154479221_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Imff_Excell"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-11T18:29:07+03:00
+      DISPLAYSCRIPT: | 
+        IMFF_EXCELL
+        IMFF_EXCELL_ROLLBACK
+        ANDRECORDS
+        CORRECTLINE
+        ADDLINE
+        FINDGOOD
+        ARR_GOODINFO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAUAAABURU1QTAYAAADYwMHLzs0SAAAAVVNSJElNUE9SVFRFTVBMQVRFCAAAAHVz
+        ciROQU1FAgAAAElEBwAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include IMFF_FINDGOOD
+        '#include IMFF_SETPARAMS
+        'Option Explicit
+        Function Imff_Excell(OwnerForm, templ)
+        
+          dim Creator, OpenDialog, FileName
+          set Creator = new TCreator
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          Dim gdcObject, gdcDetailObject, DS
+          set gdcObject = OwnerForm.gdcObject
+          set gdcDetailObject = OwnerForm.Documentline
+        
+          if ((gdcObject.FieldByname("usr$deptkey").isNull) or (gdcObject.FieldByname("usr$contactkey").isNull)) then
+            call Application.MessageBox("Не заполнены обязательные поля в шапке документа", "Внимание", vbOkOnly+vbSystemModal+vbCritical)
+            exit function
+          end if
+        
+          ' тут мы определяем индексы(ячейки) соответствующие нужным данным
+          Imff_setParams(templ)
+        
+        
+          OpenDialog.Filter = "*.xls|*.xls"
+          OpenDialog.DefaultExt = "xls"
+        
+          if OpenDialog.Execute then
+            FileName = OpenDialog.FileName
+          else
+            Exit function
+          end if
+        
+          Dim Exc, Sh, Sh1
+          Set Exc = CreateObject("Excel.Application")
+          if not Assigned(Exc) then Exit function
+          except Imff_Excell_Rollback(Exc)
+        
+          set Creator = New TCreator
+          call Exc.Workbooks.Open(FileName)
+        
+          dim i, c  ,goodname,quantity,price
+          c = 0
+          ' проверка на непустые лісты в кніге
+          for  i =1 to  Exc.Worksheets.count
+            set Sh1 = Exc.Worksheets(i)
+            '' проверка на ПУСТОЙ лист
+            ''if ((Sh1.Cells(1, 1).Value <> "") and (Sh1.Cells(1, 2).Value = "")) then
+              c = i
+            ''  exit for
+            '' end if
+          next
+          if (c <> 0 ) then
+            set  Sh = Exc.Worksheets(c)
+        
+            dim ibSQL,  gdcGood
+            set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+            ibSQL.Transaction = gdcObject.Transaction
+            
+            set gdcGood = Creator.GetObject(nil, "TgdcGood", "")
+            DIM description
+            description = ""
+            r = pStartLine
+           WHILE NOT andRecords(Sh, pStartLine)
+             IF CorrectLine(Sh, pStartLine) THEN
+               call addLine(ibSQL, Creator, gdcObject.Transaction, gdcDetailobject, Sh)
+             END IF
+             pStartLine = pStartLine + 1
+           WEND
+          end if
+        
+          
+          if Assigned(Exc) then
+            Exc.Workbooks.Close
+            set Exc = nothing
+          end if
+          
+          gdcObject.CloseOpen
+          
+        End Function
+        
+        ' откат при ошибке
+        Sub Imff_Excell_Rollback(Exc)
+          if Assigned(Exc) then Exc.Workbooks.Close
+          set Exc = nothing
+        End sub
+        
+          ' конец файла по третьей колонке?
+          ' нужно учесть, с какой строки по шаблону начинаются данные
+          ' pQfreeLine колічество пустых строк
+        function andRecords(Sh, r)
+          andRecords = false
+             res = 0
+             For i = r to pQfreeLine + r
+               if Sh.Cells(i, pAndRecL).Value = "" Then
+                 res = res + 1
+               end if
+             next
+             
+             if res = pQfreeLine and r = pAndRecL then
+                call Application.MessageBox("Неожиданный конец файла. " & vbCrLf & "Выполнение будет остановлено! " & vbCrLf & _
+                   "Текущее значение параметра проверки столбца: " & CSTR(pAndRecL) & vbCrLf & _
+                   "Измените параметры в шаблоне и повторите попытку!", "Внимание", vbOkOnly + vbExclamation + vbSystemModal)
+                   andRecords = true
+             elseif res = pQfreeLine and r > pAndRecL Then
+                call Application.MessageBox("Достигнут конец файла с данными. " & vbCrLf & _
+                   "Операция успешно завершена", "Внимание", vbOkOnly + vbExclamation + vbSystemModal)
+                   andRecords = true
+             end if
+          
+             ' if Sh.Cells(r, pAndRecL).Value = "" and _
+        '         Sh.Cells(r+1, pAndRecL).Value  = "" and _
+        '         Sh.Cells(r+2, pAndRecL).Value = "" Then
+        '         call Application.MessageBox("Неожиданный конец файла. " & vbCrLf & "Выполнение будет остановлено! " & vbCrLf & _
+        '         "Текущее значение параметра проверки столбца: " & CSTR(pAndRecL) & vbCrLf & _
+        '         "Измените параметры в шаблоне и повторите попытку!", "Внимание", vbOkOnly + vbExclamation + vbSystemModal)
+        '       andRecords = true
+        '      end if
+        end function
+        
+        ' здесь же проверим корректность данных, на случай если в файле лишь бы что идет
+        function CorrectLine(Sh, r)
+           CorrectLine = true
+             ' розничная цена не строка и не 0 (в параметрах шаблона указана)
+             IF pCostByNCU <> 0 AND (Sh.Cells(r, pCostByNCU).Value = "" or TypeName(Sh.Cells(pStartLine, pSELLCOST).Value) = "String") THEN
+               CorrectLine = false
+             END IF
+           '
+        '     IF pSELLCOST <> 0 AND (Sh.Cells(r, pSELLCOST).Value = "" or TypeName(Sh.Cells(pStartLine, pSELLCOST).Value) = "String") THEN
+        '       CorrectLine = false
+        '     END IF
+             ' количество не строка и не 0 (в параметрах шаблона указана)
+             IF pQuant <> 0 AND (Sh.Cells(r, pQuant).Value = "" or TypeName(Sh.Cells(pStartLine, pQuant).Value) = "String") THEN
+               CorrectLine = false
+             END IF
+             ' наименование ТМЦ не менее 3 символов
+             IF Sh.Cells(r, pGNAME).Value <> "" and LEN(Sh.Cells(r, pGNAME).Value)<=3 Then CorrectLine = false
+        end function
+        
+        
+        ' функция вставки позиций
+        sub addLine(ibSQL, Creator, tr, gdcDetailobject, Sh)
+        
+          goodname = Sh.Cells(pStartLine, pGNAME).Value
+          quantity = cstr(Sh.Cells(pStartLine, 2).Value)
+          price =  Replace(Sh.Cells(pStartLine, pSELLCOST).Value, "'", "")
+        
+          dim gdcGood
+          set gdcGood = Creator.GetObject(nil, "TgdcGood", "")
+          gdcGood.Transaction = Tr
+          gdcGood.Open
+          
+        
+          dim BookMark , goodkey, garr
+          redim garr(2)
+          garr(0) = goodname
+          garr(1) =quantity
+          garr(2) = price
+        
+         ' goodkey = findGood(Creator, tr, goodname)
+          
+          goodkey = Imff_findgood(ibSQL, Sh)
+          
+          if goodkey<0 then
+           gdcGood.Insert
+           gdcGood.FieldByName("alias").AsString = Trim(Sh.Cells(pStartLine, pAlias).Value)
+           gdcGood.FieldByName("name").AsString = Trim(Sh.Cells(pStartLine, pGNAME).Value)
+           gdcGood.FieldByName("BARCODE").AsString = Trim(Sh.Cells(pStartLine, pBarcode).Value)
+           gdcGood.FieldByName("groupkey").AsString =  gdcBaseManager.GetIDByRUID(147064209, 725379940) ''''''''''
+           gdcGood.FieldByName("valuekey").AsString = gdcBaseManager.GetIDByRUID(3000001, 17)           '''''''''''
+           gdcGood.FieldByName("description").AsString = Trim(Sh.Cells(pStartLine, pDescr).Value)
+           gdcGood.Post
+           gdcDetailObject.Transaction.CommitRetaining
+           goodkey = gdcGood.Id
+         '  tf.WriteLine("Добавлен товар: " & Trim(Exc.ActiveSheet.Cells(i,4).Value) & "")
+         else
+           goodkey = ibsql.FieldByName("ID").AsInteger
+         end if
+          
+          gdcDetailObject.DisableControls
+          BookMark = gdcDetailObject.GetBookMark
+          gdcDetailobject.Append
+          gdcDetailObject.FieldbyName("goodkey").AsInteger = goodkey
+        
+          gdcDetailObject.FieldbyName("groupkey").asinteger = gdcBaseManager.GetIDByRUID(147064209, 725379940)
+          gdcDetailObject.FieldbyName("valuekey").asinteger = gdcBaseManager.GetIDByRUID(3000001, 17)
+          gdcDetailObject.FieldbyName("quantity").asCurrency = Sh.Cells(pStartLine, pQuant).Value
+        
+          gdcDetailObject.FieldbyName("TO_USR$INV_COSTPROVIDER").asCurrency  = Sh.Cells(pStartLine, pCostByNCU).Value
+          gdcDetailObject.FieldbyName("TO_USR$INV_COSTBUYNCU").asCurrency  = Sh.Cells(pStartLine, pCostByNCU).Value
+          gdcDetailObject.FieldbyName("TO_USR$INV_ADDNDS").asCurrency  = Sh.Cells(pStartLine, pVatPerc).Value
+          gdcDetailObject.FieldbyName("TO_USR$INV_SELLNDS").asCurrency  = Sh.Cells(pStartLine, pVatPerc).Value
+          gdcDetailObject.FieldbyName("TO_USR$INV_COSTRETAILNCU").asCurrency  = Sh.Cells(pStartLine, pSellCost).Value
+          gdcDetailObject.Post
+          gdcDetailObject.GotoBookMark(BookMark)
+          gdcDetailObject.EnableControls
+        end sub
+        
+        function findGood(Creator, tr, goodname)
+          findGood = null
+          ' долно венуть GOODKEY или найденного или вновь вставленного
+        
+            if len(goodname)>60 Then
+        
+              dim arrG, Gname
+              arrG = Split(goodname,",")
+              Gname = arrG(0)
+            else
+              Gname = goodname
+            end if
+        
+        
+            dim gGood,  gdcGood
+            set gGood = Creator.GetObject(nil, "TIBSQL", "")
+            gGood.Transaction = tr
+            gGood.SQL.TExt = _
+            "EXECUTE BLOCK( " & _
+            "GNAME VARCHAR(60) =:GNAME, " & _
+            "GBARCODE VARCHAR(24) =:GBARCODE, " & _
+            "GALIAS VARCHAR(16) =:GALIAS, " & _
+            "GDESCRIPTION VARCHAR(180)=:GDESCRIPTION) " & _
+            "RETURNS( " & _
+            "GOODKEY INTEGER) " & _
+            "      as " & _
+            "DECLARE VARIABLE GKEY INTEGER; " & _
+            "DECLARE VARIABLE NewID INTEGER; " & _
+            "BEGIN " & _
+            "GKEY = null; " & _
+            "NewID = null; " & _
+            "  SELECT " & _
+            "  g.ID " & _
+            "  FROM GD_GOOD g " & _
+            "  where  UPPER(g.NAME) like '%' || :GNAME || '%' " & _
+            "  INTO :GKEY; " & _
+            "  GOODKEY = GKEY; " & _
+            "  IF (:GKEY is NUll) THEN " & _
+            "   BEGIN " & _
+            "    SELECT " & _
+            "       GEN_ID(gd_g_unique, 1) + GEN_ID(gd_g_offset, 0) " & _
+            "    FROM RDB$DATABASE " & _
+            "    INTO :NewID; " & _
+            "    " & _
+            "    INSERT INTO GD_GOOD(id, NAME,VALUEKEY, GROUPKEY/*,BARCODE,DESCRIPTION,ALIAS*/) " & _
+            "       VALUES(:NewID,:GNAME,3000001, 154479276/*,:GBARCODE,:GDESCRIPTION,:GALIAS*/); " & _
+            "        " & _
+            "    GOODKEY = NewID; " & _
+            "   END " & _
+            "  SUSPEND; " & _
+            "END "
+           gGood.ParamByName("GNAME").asString = Gname
+           gGood.ParamByName("GBARCODE").asString =""
+           gGood.ParamByName("GALIAS").asString = ""
+           gGood.ParamByName("GDESCRIPTION").asString =LEFT(RIGHT(goodname, LEN(goodname)-LEN(Gname)),180)
+           gGood.ExecQuery
+        
+          findGood = gGood.FieldBYName("GOODKEY").asInteger
+        end function
+        
+        sub arr_goodinfo(goodname)
+           arr_goodinfo
+           dim arrG
+           set arrG = Split(goodname,",")
+           
+        end sub
+        
+        
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "154577838_1631104572 Imff_findgood"
+          - 
+            ADDFUNCTIONKEY: "154566984_1631104572 Imff_setParams"
