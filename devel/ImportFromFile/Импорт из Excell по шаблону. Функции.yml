@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 6C91BF7B67409E49DC7F8A0955E0830A
+  MD5: 7F1CC660B0D4FA926510796332F028C7
 Objects: 
   - 
     Properties: 
@@ -252,7 +252,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-11T18:29:07+03:00
+      EDITIONDATE: 2021-08-18T14:17:50+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         IMFF_EXCELL_ROLLBACK
@@ -368,7 +368,7 @@ Objects:
                    "Текущее значение параметра проверки столбца: " & CSTR(pAndRecL) & vbCrLf & _
                    "Измените параметры в шаблоне и повторите попытку!", "Внимание", vbOkOnly + vbExclamation + vbSystemModal)
                    andRecords = true
-             elseif res = pQfreeLine and r > pAndRecL Then
+             elseif res = pQfreeLine + 1  and r > pAndRecL Then
                 call Application.MessageBox("Достигнут конец файла с данными. " & vbCrLf & _
                    "Операция успешно завершена", "Внимание", vbOkOnly + vbExclamation + vbSystemModal)
                    andRecords = true
@@ -455,7 +455,10 @@ Objects:
           gdcDetailObject.FieldbyName("TO_USR$INV_COSTPROVIDER").asCurrency  = Sh.Cells(pStartLine, pCostByNCU).Value
           gdcDetailObject.FieldbyName("TO_USR$INV_COSTBUYNCU").asCurrency  = Sh.Cells(pStartLine, pCostByNCU).Value
           gdcDetailObject.FieldbyName("TO_USR$INV_ADDNDS").asCurrency  = Sh.Cells(pStartLine, pVatPerc).Value
-          gdcDetailObject.FieldbyName("TO_USR$INV_SELLNDS").asCurrency  = Sh.Cells(pStartLine, pVatPerc).Value
+          'если организация НЕ ПЛАТЕЛЬЩИК НДС
+          if not InvOptions.NDSDodger Then
+            gdcDetailObject.FieldbyName("TO_USR$INV_SELLNDS").asCurrency  = Sh.Cells(pStartLine, pVatPerc).Value
+          end if
           gdcDetailObject.FieldbyName("TO_USR$INV_COSTRETAILNCU").asCurrency  = Sh.Cells(pStartLine, pSellCost).Value
           gdcDetailObject.Post
           gdcDetailObject.GotoBookMark(BookMark)
