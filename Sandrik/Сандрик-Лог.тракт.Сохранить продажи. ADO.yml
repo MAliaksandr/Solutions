@@ -1,0 +1,281 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 219968016_1398647910
+  Name: "Сандрик-Лог.тракт.Сохранить продажи. ADO"
+  Caption: "Сандрик-Лог.тракт.Сохранить продажи. ADO"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: BBAD16E8461DAB9D25F9CB92C74D5764
+Uses: 
+  - "209316035_2119495691 экспорт товаров в КС ADO"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219967989_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219967988_1398647910
+    Fields: 
+      NAME: "ecr_ZServer_CreateTable_ADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T12:31:58+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_CREATETABLE_ADO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QKAAAAQVRBQkxFVFlQRQsAAADS6O8g8uDh6+j2+wAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAABGTlNUUFJTVAsAAABPQkpBRE9RVUVSWQsAAABPQkpBRE9RVUVSWQAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        ' создает таблицы для обмена данными через ADO
+        sub ecr_ZServer_CreateTable_ADO(aTableType,objADOQuery)
+         ' для работы с ДБФ  plu_ref & plu_sell
+         
+          dim Fdbf
+          select case aTableType
+          
+            case 0    ' справочник кодов
+             Fdbf = Split(ecr_TEServer_Ref_Filename, ".")(0)
+              InsertSQL = "CREATE TABLE " +_
+              Fdbf + _
+              " (SECTIONID CHAR(4), " + _
+              "  PLU CHAR(18), " + _
+              "  PLUNAME CHAR(60), " + _
+              "  PRICE NUMERIC(13, 2), " + _
+              "  DEPARTMENT NUMERIC(2, 0), " + _
+              "  DISCOUNT NUMERIC(6, 2), " + _
+              "  Q NUMERIC(13, 3), " + _
+              "  SQ NUMERIC(5, 3), " + _
+              "  DQ NUMERIC(6, 3), " + _
+              "  LOCK BOOLEAN) "
+        
+            case 1    ' условие для выборки "истории продаж с выборкой по условию"
+        
+                Fdbf = Split(ecr_TEServer_Sell_Filename, ".")(0)
+        
+                InsertSQL = "CREATE TABLE " & _
+                Fdbf + _
+                  "  (SECTIONID CHAR(4), " + _
+                  "  PLU CHAR(18), " + _
+                  "  FROMDATE DATE, " + _
+                  "  TODATE DATE ) "
+        
+          end select
+          
+                objADOQuery.CommandText = InsertSQL
+                on error resume next
+                objADOQuery.Execute
+                on error goto 0
+        
+        end  sub
+        
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147014574_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219967988_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvDocument147006557_63934951)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147014574_23783130"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147014573_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219967988_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvDocument147006557_63934951"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-09-24T16:43:37+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147014551_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219967988_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmInvDocument147006557_63934951"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147014573_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147006557_63934951"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147014574_23783130 Отчеты(gdc_frmInvDocument147006557_63934951)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-09-24T16:43:37+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219967988_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "SaveSellsADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014551_23783130 gdc_frmInvDocument147006557_63934951"
+      OBJECTNAME: "gdc_frmInvDocument147006557_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T14:17:42+03:00
+      DISPLAYSCRIPT: | 
+        SAVESELLSADO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAYAAABJU0xBU1QJAAAAz+7x6+Xk7ejlAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAA
+        AEZOU1RQUlNUCQAAAERBVEVCRUdJTgsAAADE4PLgIO3g9+Dr4AAAAAAAAAAAAAAAAAIAAAAAAAAA
+        AAAAAABGTlNUUFJTVAcAAABEQVRFRU5EDgAAAMTg8uAg7uru7ffg7ej/AAAAAAAAAAAAAAAAAgAA
+        AAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include ECR_TESERVER_WAITING_ADO
+        '#include ECR_ZSERVER_CREATETABLE_ADO
+        ' #include ecr_ZServer_CreateTable
+        ' #include ecr_ZServer_SetParams
+        ' #include ecr_TEServer_Waiting
+        sub SaveSellsADO(OwnerForm, isLast, DateBegin, DateEnd)
+        ' Сохранить продажи (TEServer)
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttFromCass)
+        
+          ErrorCount = 0
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          ' для работы с сетевыми ДБФ
+          dim ObjCon
+          set ObjCon = CreateObject("ADODB.Connection")
+          ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjCon.Properties("Data Source") = ecr_TEServer_workpath
+          ObjCon.Properties("Jet OLEDB:Engine Type") = 18
+          ObjCon.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.Command")
+          objADOQuery.ActiveConnection = ObjCon
+          
+          dim AdoQuery
+          set AdoQuery = CreateObject("ADODB.RecordSet")
+          AdoQuery.ActiveConnection = ObjCon
+        
+        
+          ' +++ прием данных из кассы +++
+          
+          if isLast then   ' последние (необработанные) продажи
+            FullFileName = "'" + ecr_TEServer_workpath + ecr_TEServer_Sell_Filename + "'"
+        
+            InsertSQL = _
+              "INSERT INTO COMMAND" + _
+              "(ROWID,SERVERID,COMMANDID,FILENAME,FLAG) "  + _
+              " VALUES(9," + _
+              CStr(ECR_TEServer_ServerID) + ", "  + _
+              CStr(ecr_TEServer_ocGetSells) + ", " + _
+              FullFileName + ", 0) "
+              objADOQuery.CommandText = InsertSQL
+              objADOQuery.Execute
+          else             ' продажи за период
+        
+            FullFileName = ecr_TEServer_workpath + ecr_TEServer_Sell_Filename
+            set FSO = CreateObject("Scripting.FileSystemObject")
+        
+            if FSO.FileExists(FullFileName) then
+              FSO.DeleteFile(FullFileName)     ' файл может иметь др. стр-ру, поэтому - удаляем
+            end if
+            
+            call ecr_ZServer_CreateTable_ADO(1, objADOQuery)
+                                                                  '  "'" + cstr() + "' " + _
+            objADOQuery.CommandText = _
+            "INSERT INTO " & _
+            Split(ecr_TEServer_Sell_Filename,".")(0) + _
+             "(FROMDATE,TODATE) Values(" + _
+             "'" + CSTR(DateBegin) + "'," + _
+             "'" + CSTR(DateEnd) + "')"
+            objADOQuery.Execute
+        
+        
+           InsertSQL  = "INSERT INTO " + _
+           Split(ecr_TEServer_FullCommandFileName,".")(0) + _
+              " (ROWID,SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+              " VALUES(10," + _
+              CStr(ecr_TEServer_ServerID) + ", "  + _
+              CStr(ecr_TEServer_ocGetCondSells) + ", " + _
+              FullFileName + ", 0) "
+           objADOQuery.Execute
+          end if
+          
+          
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting_ADO(ObjCon, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+        
+        '   ' удаляем запись из command.dbf
+        '    qryDoc.SQL = "DELETE FROM " + FullCommandFileName
+        '    qryDoc.ExecSQL
+        
+            call MsgBox("Данные сохранены.", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          else
+            call MsgBox("При сохранении продаж возникла ошибка! - " + ceDescr, mb_OK or mb_IconExclamation or mb_TaskModal, "Внимание")
+          end if
+        
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "215165918_639165248 ecr_TEServer_Waiting_ADO"
+          - 
+            ADDFUNCTIONKEY: "219967989_1398647910 ecr_ZServer_CreateTable_ADO"
+          - 
+            ADDFUNCTIONKEY: "147006692_122479781 ecr_ZServer_CreateTable"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"

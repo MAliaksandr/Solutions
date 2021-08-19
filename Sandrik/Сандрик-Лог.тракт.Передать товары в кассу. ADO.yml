@@ -1,0 +1,1156 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 219968030_1398647910
+  Name: "Сандрик-Лог.тракт.Передать товары в кассу. ADO"
+  Caption: "Сандрик-Лог.тракт.Передать товары в кассу. ADO"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: 240E7A6D742BD71F3679EBFB691D45FE
+Uses: 
+  - "219968016_1398647910 Сандрик-Лог.тракт.Сохранить продажи. ADO"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219967989_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ecr_ZServer_CreateTable_ADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T12:31:58+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_CREATETABLE_ADO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QKAAAAQVRBQkxFVFlQRQsAAADS6O8g8uDh6+j2+wAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAABGTlNUUFJTVAsAAABPQkpBRE9RVUVSWQsAAABPQkpBRE9RVUVSWQAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        ' создает таблицы для обмена данными через ADO
+        sub ecr_ZServer_CreateTable_ADO(aTableType,objADOQuery)
+         ' для работы с ДБФ  plu_ref & plu_sell
+         
+          dim Fdbf
+          select case aTableType
+          
+            case 0    ' справочник кодов
+             Fdbf = Split(ecr_TEServer_Ref_Filename, ".")(0)
+              InsertSQL = "CREATE TABLE " +_
+              Fdbf + _
+              " (SECTIONID CHAR(4), " + _
+              "  PLU CHAR(18), " + _
+              "  PLUNAME CHAR(60), " + _
+              "  PRICE NUMERIC(13, 2), " + _
+              "  DEPARTMENT NUMERIC(2, 0), " + _
+              "  DISCOUNT NUMERIC(6, 2), " + _
+              "  Q NUMERIC(13, 3), " + _
+              "  SQ NUMERIC(5, 3), " + _
+              "  DQ NUMERIC(6, 3), " + _
+              "  LOCK BOOLEAN) "
+        
+            case 1    ' условие для выборки "истории продаж с выборкой по условию"
+        
+                Fdbf = Split(ecr_TEServer_Sell_Filename, ".")(0)
+        
+                InsertSQL = "CREATE TABLE " & _
+                Fdbf + _
+                  "  (SECTIONID CHAR(4), " + _
+                  "  PLU CHAR(18), " + _
+                  "  FROMDATE DATE, " + _
+                  "  TODATE DATE ) "
+        
+          end select
+          
+                objADOQuery.CommandText = InsertSQL
+                on error resume next
+                objADOQuery.Execute
+                on error goto 0
+        
+        end  sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968025_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968026_1398647910
+    Fields: 
+      NAME: "ecr_ZServer_SendGoodsInfoToCassADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T13:59:04+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QKAAAAR0RDRE9DSEVBRAoAAABHRENET0NIRUFEAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAEZOU1RQUlNUCgAAAEdEQ0RPQ0xJTkUKAAAAR0RDRE9DTElORQAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVAkAAABERVBURklFTEQJAAAAREVQVEZJRUxEAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include ECR_TESERVER_WAITING_ADO
+        '#include ECR_ZSERVER_CREATETABLE_ADO
+        '#include GS_DNMNTODIVIDE
+        ' #include ecr_ZServer_SetParams
+        ' #include ecr_DeptList
+        function ecr_ZServer_SendGoodsInfoToCassADO(ByRef gdcDocHead, ByRef gdcDocLine, ByRef DeptField)
+        ' передает информацию о товарах в кассу
+        ' gdcDocHead -  шапка документа (объект)
+        ' gdcDocLine - позиция документа  (объект)
+        ' DeptField - поле, в кот. хранится код подразделения (объект)
+        
+        '  fPref - префикс поля карточки (to/from)
+        '  QSign  - знак для количества (+/-)
+          select case gdcDocHead.SubType
+            case "147010993_109092844" ' приход
+              fPref = "TO"
+              QSign  = 1
+            case "147022442_63934951" ' отпуск из розничной
+              fPref = "FROM"
+              QSign  = -1
+            case "147004788_45137928" ' возврат от покупателей
+              fPref = "FROM"
+              QSign  = 1
+            case "147005934_63934951" ' выдача в торг. подразделение
+              fPref = "TO"
+              QSign  = 1
+            case "147033442_420473850" ' Укомплектование
+              fPref = "TO"
+              QSign  = 1
+            case "147013026_109092844" ' Внутреннее перемещение
+              fPref = "from"
+              QSign  = 1
+        
+            case "147013038_109092844" ' возврат поставщику
+              fPref = "FROM"
+              QSign  = -1
+            case "147013048_109092844" ' переоценка
+              fPref = "TO"
+              QSign  = 0
+            case else
+              call Application.MessageBox("Неизвестный тип документа!", "Внимание", mb_OK or mb_IconStop or vbSystemModal)
+              exit function
+          end select
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          dim ToDivide
+          ToDivide =  gs_DnmnToDivide
+        
+          ' номер отдела
+          DeptNp = ecr_DeptList.GetNpByID(DeptField.AsInteger)
+        
+          if DeptNp < 0 then
+            call Application.MessageBox("Для подразделения """ + _
+              gdcDocHead.FieldByName("INVDOC_" + DeptField.FieldName + "_NAME").AsString + _
+              """ не установлен номер отдела!", "Внимание", mb_OK or mb_IconStop or vbSystemModal)
+            ecr_CriticalError = ecr_TEServer_ceDept
+            exit function
+          end if
+        
+          ' номер секции
+          Section = ""
+          SectionID = ecr_DeptList.GetSectionByID(DeptField.AsInteger)
+          if SectionID > -1 then
+            Section = CStr(SectionID)
+          end if
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+        
+          dim ObjCon
+          set ObjCon = CreateObject("ADODB.Connection")
+          ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjCon.Properties("Data Source") = ecr_TEServer_workpath
+          ObjCon.Properties("Jet OLEDB:Engine Type") = 18
+          ObjCon.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.Command")
+          objADOQuery.ActiveConnection = ObjCon
+        
+        
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          if FSO.FileExists(FullFileName) then
+            InsertSQL = _
+            "DELETE FROM " + _
+            Split(ecr_TEServer_Ref_Filename,".")(0)
+            objADOQuery.Commandtext = InsertSQL
+            objADOQuery.Execute
+          else
+           call ecr_ZServer_CreateTable_ADO(0, objADOQuery)
+          end if
+        
+          FullFileName = "'" + FullFileName + "'"
+        
+          ' формируем список
+          gdcDocLine.First
+          while not gdcDocLine.EOF 'and not isCriticalError
+          
+            if gdcDocLine.FieldByName("BARCODE").AsString = "" then
+              plucode = gdcDocLine.FieldByName("USR$SDR_ECRCODE").AsString + _
+                gdcDocLine.FieldByName(fpref + "_USR$SDR_ECRCODE").AsString
+            else
+              ' Yuri: только если перекрыт GetSelectClause...
+              plucode = gdcDocLine.FieldByName("BARCODE").AsString
+            end if
+        
+            dim PRICE, QUANT
+            PRICE = gdcDocLine.FieldByName(fPref + "_USR$INV_COSTRETAILNCU").AsVariant
+            QUANT = QSign * gdcDocLine.FieldByName("QUANTITY").AsCurrency
+        
+            InsertSQL = _
+            "INSERT INTO " + _
+            Split(ecr_TEServer_Ref_Filename,".")(0) + _
+            " (SECTIONID, " & _
+            " PLU," & _
+            " PLUNAME, " & _
+            " PRICE," & _
+            " DEPARTMENT, Q) " & _
+            " VALUES(" & _
+            "" & Section & "," & _
+            "'" & plucode & "'," & _
+            "'" & gdcDocLine.FieldByName("GOODNAME").AsString & "'," & _
+            "" & Replace(PRICE,",",".") & "," & _
+            "" & DeptNp & "," & _
+            "" & Replace(QUANT,",",".") & ") "
+        
+            objADOQuery.CommandText = InsertSQL
+            objADOQuery.Execute
+            gdcDocLine.Next
+          wend
+          gdcDocLine.First
+        
+          InsertSQL = _
+           "INSERT INTO command" + _
+            " (ROWID, SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(1," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocSetPLU) + ", " + _
+            FullFileName + ", 0) "
+          objADOQuery.CommandText = InsertSQL
+          objADOQuery.Execute
+          
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting_ADO(ObjCon, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+            call Application.MessageBox("Данные успешно переданы.", "Внимание", mb_OK or mb_IconInformation or vbSystemModal)
+          else
+            call Application.MessageBox("При передаче данных возникла ошибка! - " + ceDescr, "Внимание", mb_OK or mb_IconExclamation or vbSystemModal)
+          end if
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "215165918_639165248 ecr_TEServer_Waiting_ADO"
+          - 
+            ADDFUNCTIONKEY: "219967989_1398647910 ecr_ZServer_CreateTable_ADO"
+          - 
+            ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147011026_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968026_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvDocument147010993_109092844)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147011026_109092844"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147011025_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968026_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvDocument147010993_109092844"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-03-29T14:02:01+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147011022_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968026_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmInvDocument147010993_109092844"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147011025_109092844 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147010993_109092844"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147011026_109092844 Отчеты(gdc_frmInvDocument147010993_109092844)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-03-29T14:02:01+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968028_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968026_1398647910
+    Fields: 
+      NAME: "ecr_ZServer_SendGoodsInfoToCass_Add219968028_1398647910"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147011022_109092844 gdc_frmInvDocument147010993_109092844"
+      OBJECTNAME: "gdc_frmInvDocument147010993_109092844"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T14:00:37+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_SENDGOODSINFOTOCASS_ADD219968028_1398647910
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        sub ecr_ZServer_SendGoodsInfoToCass_Add219968028_1398647910(OwnerForm)
+        ' накладная на получение товара
+        
+          set DocHead = OwnerForm.FindComponent("gdcInvDocument")
+          set DocLine = OwnerForm.FindComponent("gdcInvDocumentLine")
+          set Field = DocHead.FieldByName("USR$DEPTKEY")
+        
+          call ecr_ZServer_SendGoodsInfoToCassADO(DocHead, DocLine, Field)
+        
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219968025_1398647910 ecr_ZServer_SendGoodsInfoToCassADO"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 219968026_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Передать товары в кассу (TEServer) 2020"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "219968028_1398647910 ecr_ZServer_SendGoodsInfoToCass_Add219968028_1398647910"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147011025_109092844 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147010993_109092844"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-17T14:00:38+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147013139_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968039_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvDocument147013026_109092844)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147013139_109092844"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147013138_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968039_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvDocument147013026_109092844"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-04-07T06:04:24+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147013131_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968039_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmInvDocument147013026_109092844"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147013138_109092844 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147013026_109092844"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147013139_109092844 Отчеты(gdc_frmInvDocument147013026_109092844)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-04-07T06:04:24+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968039_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ecr_ZServer_SendGoodsInfoToCass_Add15525219968039_1398647910"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147013131_109092844 gdc_frmInvDocument147013026_109092844"
+      OBJECTNAME: "gdc_frmInvDocument147013026_109092844"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T14:02:18+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_SENDGOODSINFOTOCASS_ADD15525219968039_1398647910
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        sub ecr_ZServer_SendGoodsInfoToCass_Add15525219968039_1398647910(OwnerForm)
+        ' накладная на получение товара
+        
+          set DocHead = OwnerForm.FindComponent("gdcInvDocument")
+          set DocLine = OwnerForm.FindComponent("gdcInvDocumentLine")
+          set Field = DocHead.FieldByName("USR$TOCONTACTKEY")
+        
+          call ecr_ZServer_SendGoodsInfoToCassADO(DocHead, DocLine, Field)
+        
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219968025_1398647910 ecr_ZServer_SendGoodsInfoToCassADO"
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147023615_63934951
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968047_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvDocument147022442_63934951)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147023615_63934951"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147023614_63934951
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968047_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvDocument147022442_63934951"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-04-21T13:46:29+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147022463_63934951
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968047_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmInvDocument147022442_63934951"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147023614_63934951 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147022442_63934951"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147023615_63934951 Отчеты(gdc_frmInvDocument147022442_63934951)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-04-21T13:46:29+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968047_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ecr_ZServer_SendGoodsInfoToCass_SellBill219968047_1398647910"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147022463_63934951 gdc_frmInvDocument147022442_63934951"
+      OBJECTNAME: "gdc_frmInvDocument147022442_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T14:03:26+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_SENDGOODSINFOTOCASS_SELLBILL219968047_1398647910
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        sub ecr_ZServer_SendGoodsInfoToCass_SellBill219968047_1398647910(OwnerForm)
+        ' отпуск на сторону
+        ' списание товара из остатков в TEServer'е
+        
+          set DocHead = OwnerForm.FindComponent("gdcInvDocument")
+          set DocLine = OwnerForm.FindComponent("gdcInvDocumentLine")
+          set Field = DocHead.FieldByName("USR$MAINDEPOTKEY")
+        
+          call ecr_ZServer_SendGoodsInfoToCassADO(DocHead, DocLine, Field)
+        
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219968025_1398647910 ecr_ZServer_SendGoodsInfoToCassADO"
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147010216_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968055_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvDocument147004788_45137928)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147010216_109092844"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147010215_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968055_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvDocument147004788_45137928"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-03-26T18:50:49+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147010198_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968055_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmInvDocument147004788_45137928"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147010215_109092844 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147004788_45137928"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147010216_109092844 Отчеты(gdc_frmInvDocument147004788_45137928)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-03-26T18:50:49+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968055_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros182207063_1690181547219968055_1398647910"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147010198_109092844 gdc_frmInvDocument147004788_45137928"
+      OBJECTNAME: "gdc_frmInvDocument147004788_45137928"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T14:04:45+03:00
+      DISPLAYSCRIPT: | 
+        MACROS182207063_1690181547219968055_1398647910
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        sub Macros182207063_1690181547219968055_1398647910(OwnerForm)
+        
+        
+          set DocHead = OwnerForm.FindComponent("gdcInvDocument")
+          set DocLine = OwnerForm.FindComponent("gdcInvDocumentLine")
+          set Field = DocHead.FieldByName("USR$DEPTKEY")
+        
+          call ecr_ZServer_SendGoodsInfoToCassADO(DocHead, DocLine, Field)
+        
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219968025_1398647910 ecr_ZServer_SendGoodsInfoToCassADO"
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147013211_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968063_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvDocument147013038_109092844)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147013211_109092844"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147013210_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968063_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvDocument147013038_109092844"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-04-07T06:26:23+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147013199_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968063_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmInvDocument147013038_109092844"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147013210_109092844 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147013038_109092844"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147013211_109092844 Отчеты(gdc_frmInvDocument147013038_109092844)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-04-07T06:26:23+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968063_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ecr_ZServer_SendGoodsInfoToCass_RetProv219968063_1398647910"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147013199_109092844 gdc_frmInvDocument147013038_109092844"
+      OBJECTNAME: "gdc_frmInvDocument147013038_109092844"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T14:05:53+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_SENDGOODSINFOTOCASS_RETPROV219968063_1398647910
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        sub ecr_ZServer_SendGoodsInfoToCass_RetProv219968063_1398647910(OwnerForm)
+        ' возврат поставщику
+        ' списание товара из остатков в TEServer'е
+        
+          set DocHead = OwnerForm.FindComponent("gdcInvDocument")
+          set DocLine = OwnerForm.FindComponent("gdcInvDocumentLine")
+          set Field = DocHead.FieldByName("USR$MAINDEPOTKEY")
+        
+          call ecr_ZServer_SendGoodsInfoToCassADO(DocHead, DocLine, Field)
+        
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219968025_1398647910 ecr_ZServer_SendGoodsInfoToCassADO"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 219968037_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Передать товары в кассу (TEServer) 2020"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "219968039_1398647910 ecr_ZServer_SendGoodsInfoToCass_Add15525219968039_1398647910"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147013138_109092844 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147013026_109092844"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-17T14:02:18+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 219968045_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Зафиксировать продажу товара (TEServer) 2020"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "219968047_1398647910 ecr_ZServer_SendGoodsInfoToCass_SellBill219968047_1398647910"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147023614_63934951 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147022442_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-17T14:03:26+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 219968053_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Передать в кассу (TEServer) Возвраты 2020"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "219968055_1398647910 Macros182207063_1690181547219968055_1398647910"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147010215_109092844 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147004788_45137928"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-17T14:04:45+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 219968061_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Зафиксировать возврат товара (TEServer) 2020"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "219968063_1398647910 ecr_ZServer_SendGoodsInfoToCass_RetProv219968063_1398647910"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147013210_109092844 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147013038_109092844"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-17T14:05:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147014521_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968069_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvDocument147013048_109092844)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147014521_23783130"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147014520_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968069_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvDocument147013048_109092844"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-09-24T16:37:51+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147014507_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968069_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmInvDocument147013048_109092844"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147014520_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147013048_109092844"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147014521_23783130 Отчеты(gdc_frmInvDocument147013048_109092844)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-09-24T16:37:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968071_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968069_1398647910
+    Fields: 
+      NAME: "ecr_ZServer_SendGoodsInfoToCass_NewCost219968071_1398647910"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014507_23783130 gdc_frmInvDocument147013048_109092844"
+      OBJECTNAME: "gdc_frmInvDocument147013048_109092844"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T14:06:48+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_SENDGOODSINFOTOCASS_NEWCOST219968071_1398647910
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        sub ecr_ZServer_SendGoodsInfoToCass_NewCost219968071_1398647910(OwnerForm)
+        ' переоценка товаров
+        
+          set DocHead = OwnerForm.FindComponent("gdcInvDocument")
+          set DocLine = OwnerForm.FindComponent("gdcInvDocumentLine")
+          set Field = DocHead.FieldByName("USR$DEPTKEY")
+          
+          call ecr_ZServer_SendGoodsInfoToCassADO(DocHead, DocLine, Field)
+        
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219968025_1398647910 ecr_ZServer_SendGoodsInfoToCassADO"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 219968069_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Передать товары в кассу (TEServer) 2020"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "219968071_1398647910 ecr_ZServer_SendGoodsInfoToCass_NewCost219968071_1398647910"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014520_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147013048_109092844"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-17T14:06:48+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 219967986_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Сохранить продажи (TEServer) 2020"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "219967988_1398647910 SaveSellsADO"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014573_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147006557_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-17T14:17:42+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147034033_493319834
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968072_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvDocument147033442_420473850)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147034033_420473850"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147034032_493319834
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968072_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvDocument147033442_420473850"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2005-11-22T13:12:41+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147033447_420473850
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968072_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmInvDocument147033442_420473850"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147034032_493319834 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147033442_420473850"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147034033_493319834 Отчеты(gdc_frmInvDocument147033442_420473850)"
+      SUBTYPE: ""
+      EDITIONDATE: 2005-11-22T13:12:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968074_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968072_1398647910
+    Fields: 
+      NAME: "Macros160790493_878043984219968074_1398647910"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147033447_420473850 gdc_frmInvDocument147033442_420473850"
+      OBJECTNAME: "gdc_frmInvDocument147033442_420473850"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-17T14:10:55+03:00
+      DISPLAYSCRIPT: | 
+        MACROS160790493_878043984219968074_1398647910
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        
+        sub Macros160790493_878043984219968074_1398647910(OwnerForm)
+        
+          set DocHead = OwnerForm.FindComponent("gdcInvDocument")
+          set DocLine = OwnerForm.FindComponent("gdcInvDocumentLine")
+          set Field = DocHead.FieldByName("USR$TOCONTACTKEY")
+        
+          call ecr_ZServer_SendGoodsInfoToCassADO(DocHead, DocLine, Field)
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219968025_1398647910 ecr_ZServer_SendGoodsInfoToCassADO"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 219968072_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Передать товары в кассу 2020"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "219968074_1398647910 Macros160790493_878043984219968074_1398647910"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147034032_493319834 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147033442_420473850"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2020-03-17T14:10:55+03:00

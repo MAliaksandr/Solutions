@@ -1,0 +1,1352 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 219972394_1398647910
+  Name: "Сандрик-Лог.тракт. Принять продажи по подразделению. ADO"
+  Caption: "Сандрик-Лог.тракт. Принять продажи по подразделению. ADO"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: AAE6BA1B13D36291C56C45CA8970268C
+Uses: 
+  - "215174259_639165248 импорт_скидок_ADO"
+  - "217517392_985027797 товарнный отчет по проводкам. Карт-чеки"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcSimpleTable"
+      RUID: 219968079_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968351_1398647910
+    Fields: 
+      BRANCHKEY: "219968080_1398647910 Исследователь\\01.Торговля\\Служебные\\TempSaleTable"
+      DESCRIPTION: "USR$TEMPSALETABLE"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "TempSaleTable"
+      LSHORTNAME: "TempSaleTable"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2020-03-17T14:32:13+03:00
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147000128_31587988
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968351_1398647910
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "Текст (32)"
+      FCHARLENGTH: 32
+      FFIELDTYPE: 37
+      FIELDNAME: "DTEXT32"
+      FLAG: ~
+      FLENGTH: 32
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Текст (32)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2014-10-21T22:27:33+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968351_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 10
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Идентификатор"
+      FIELDNAME: "ID"
+      FIELDSOURCE: "DINTKEY"
+      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Идентификатор"
+      LSHORTNAME: "Идентификатор"
+      NULLFLAG: 1
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2020-03-17T14:33:38+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968352_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 10
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Не активно"
+      FIELDNAME: "DISABLED"
+      FIELDSOURCE: "DDISABLED"
+      FIELDSOURCEKEY: "147000136_486813904 DDISABLED"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Не активно"
+      LSHORTNAME: "Не активно"
+      NULLFLAG: ~
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2020-03-17T14:33:38+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968353_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дата модификации"
+      FIELDNAME: "EDITIONDATE"
+      FIELDSOURCE: "DEDITIONDATE"
+      FIELDSOURCEKEY: "147000184_31587988 Дата редактирования, DEDITIONDATE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дата модификации"
+      LSHORTNAME: "Дата модификации"
+      NULLFLAG: ~
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2020-03-17T14:33:38+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968354_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Кто модифицировал"
+      FIELDNAME: "EDITORKEY"
+      FIELDSOURCE: "DINTKEY"
+      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Кто модифицировал"
+      LSHORTNAME: "Кто модифицировал"
+      NULLFLAG: ~
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2020-03-17T14:33:38+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968081_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$HISTORYID"
+      FIELDNAME: "USR$HISTORYID"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "historyID"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:33:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968082_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$HDATE"
+      FIELDNAME: "USR$HDATE"
+      FIELDSOURCE: "DDATE"
+      FIELDSOURCEKEY: "147000160_486813904 Дата, DDATE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "hdate"
+      LSHORTNAME: "Дата"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:35:04+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968355_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$HTIME"
+      FIELDNAME: "USR$HTIME"
+      FIELDSOURCE: "DTIME"
+      FIELDSOURCEKEY: "147000165_31587988 Время, DTIME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "htime"
+      LSHORTNAME: "Время"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:35:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968356_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$SECTIONID"
+      FIELDNAME: "USR$SECTIONID"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "sectionID"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:35:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968357_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$PLU"
+      FIELDNAME: "USR$PLU"
+      FIELDSOURCE: "DTEXT32"
+      FIELDSOURCEKEY: "147000128_31587988 Текст (32), DTEXT32"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "plu"
+      LSHORTNAME: "Текст (32)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 32
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:36:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968358_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$BARCODE"
+      FIELDNAME: "USR$BARCODE"
+      FIELDSOURCE: "DTEXT32"
+      FIELDSOURCEKEY: "147000128_31587988 Текст (32), DTEXT32"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "barcode"
+      LSHORTNAME: "Текст (32)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 32
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:36:36+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968359_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$PLUNAME"
+      FIELDNAME: "USR$PLUNAME"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "pluname"
+      LSHORTNAME: "Текст (60)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:37:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968360_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$PRICE"
+      FIELDNAME: "USR$PRICE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "price"
+      LSHORTNAME: "Сумма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:37:26+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968361_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$Q"
+      FIELDNAME: "USR$Q"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "q"
+      LSHORTNAME: "Сумма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:37:48+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968362_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$SUMMA"
+      FIELDNAME: "USR$SUMMA"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "summa"
+      LSHORTNAME: "Сумма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:38:06+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968363_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$HTYPE"
+      FIELDNAME: "USR$HTYPE"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "htype"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:38:28+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968364_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DEPARTMENT"
+      FIELDNAME: "USR$DEPARTMENT"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "department"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:38:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968365_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$PAYMTYPE"
+      FIELDNAME: "USR$PAYMTYPE"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "paymtype"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:39:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968366_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DOCTYPE"
+      FIELDNAME: "USR$DOCTYPE"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "doctype"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:39:51+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968367_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$OPERATOR"
+      FIELDNAME: "USR$OPERATOR"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "operator"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:40:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968368_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$TICKETNUM"
+      FIELDNAME: "USR$TICKETNUM"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ticketnum"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:40:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968369_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$FUCTNUM"
+      FIELDNAME: "USR$FUCTNUM"
+      FIELDSOURCE: "DTEXT32"
+      FIELDSOURCEKEY: "147000128_31587988 Текст (32), DTEXT32"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "fuctnum"
+      LSHORTNAME: "Текст (32)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 32
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:41:35+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968370_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$CLIENT"
+      FIELDNAME: "USR$CLIENT"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "client"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:42:09+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 219968371_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$EQID"
+      FIELDNAME: "USR$EQID"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "eqid"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "219968079_1398647910 TempSaleTable, USR$TEMPSALETABLE"
+      RELATIONNAME: "USR$TEMPSALETABLE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2020-03-17T14:42:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147014572_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968078_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(dlgInvDocument147006557_63934951)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147014572_23783130"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147006997_63934951
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968078_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "dlgInvDocument147006557_63934951"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2002-12-28T13:45:27+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147006996_63934951
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968078_1398647910
+    Fields: 
+      PARENT: ~
+      NAME: "dlgInvDocument147006557_63934951"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147006997_63934951 Локальные макросы"
+      OBJECTNAME: "dlgInvDocument147006557_63934951"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147014572_23783130 Отчеты(dlgInvDocument147006557_63934951)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-09-24T16:43:34+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968078_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ImportSellsADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147006996_63934951 dlgInvDocument147006557_63934951"
+      OBJECTNAME: "dlgInvDocument147006557_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-19T01:45:51+03:00
+      DISPLAYSCRIPT: | 
+        IMPORTSELLSADO
+        IMPORTSELLSADO_EXCEPT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVBAAAABJU0NVUlJFTlRSRU1BSU5THwAAAM3lIOjx7+7r/Ofu4uDy/CDy5erz+ejl
+        IO7x8uDy6ugAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        ' #include ecr_ZServer_SetParams
+        ' #include ecr_TEServer_MakeSell
+        ' #include ecr_TEServer_DoSaveErrLog
+        ' #include ecr_DeptList
+        ' #include ecr_TEServer_GetBuildPath
+        ' #include ecr_TEServer_DoCreateErrLog
+        sub ImportSellsADO(OwnerForm, IsCurrentRemains)
+        ' Принять продажи по подразделению
+        
+          set actRemainsRef = OwnerForm.FindComponent("actRemainsRef")
+          if not actRemainsRef.Enabled then exit sub
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttFromCass)
+        
+          ErrorCount = 0
+          dim qSQL, Creator, TR
+          set Creator = new TCreator
+          set TR= Creator.GetObject(nil, "TIBTransaction", "")
+          TR.DefaultDatabase = gdcBaseManager.DataBase
+          tr.StartTransaction
+        
+          except ImportSellsADO_Except(Tr)
+        
+          set qSQL = Creator.GetObject(nil, "TIBSQL","")
+          qSQL.Transaction = tr
+          
+          qSQL.SQL.Text = _
+          "DELETE FROM USR$TEMPSALETABLE"
+          qSQL.ExecQuery
+          
+          qSQL.Close
+          qSQL.SQL.Text = _
+          "INSERT INTO USR$TEMPSALETABLE(USR$HISTORYID,USR$HDATE,USR$HTIME,USR$SECTIONID,USR$PLU,USR$BARCODE,USR$PLUNAME,USR$PRICE,USR$Q,USR$SUMMA,USR$HTYPE,USR$DEPARTMENT,USR$PAYMTYPE,USR$DOCTYPE,USR$OPERATOR,USR$TICKETNUM,USR$FUCTNUM,USR$CLIENT,USR$EQID) " & _
+          "VALUES(:HISTORYID,:HDATE,:HTIME,:SECTIONID,:PLU,:BARCODE,:PLUNAME,:PRICE,:Q,:SUMMA,:HTYPE,:DEPARTMENT,:PAYMTYPE,:DOCTYPE,:OPERATOR,:TICKETNUM,:FUCTNUM,:CLIENT,:EQID) "
+        
+          set ibSQL = Creator.GetObject(nil, "TIBSQL","")
+          ibSQL.Transaction = tr
+          ibSQL.SQL.Text = _
+          " SELECT " & _
+          " sells.USR$PLU as PLU, " & _
+          " SUM(sells.USR$Q) as SUMM, " & _
+          " SUM(sells.USR$SUMMA) as summa, " & _
+          " sells.USR$PRICE as PRICE, " & _
+          " sells.USR$HDATE as HDATE " & _
+          " FROM USR$TEMPSALETABLE sells " & _
+          " WHERE not (USR$PLU is NULL) AND " & _
+          " sells.USR$DEPARTMENT = :DeptNp AND USR$SUMMA <> 0 " & _
+          " and sells.USR$DOCTYPE=0 " & _
+          " GROUP BY USR$PLU, USR$PRICE, USR$HDATE "
+        
+        
+          
+          
+          dim ObjCon
+          set ObjCon = CreateObject("ADODB.Connection")
+          ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjCon.Properties("Data Source") = ecr_TEServer_workpath
+          ObjCon.Properties("Jet OLEDB:Engine Type") = 18
+          ObjCon.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.Command")
+          objADOQuery.ActiveConnection = ObjCon
+        
+          dim AdoQuery
+          set AdoQuery = CreateObject("ADODB.RecordSet")
+          AdoQuery.ActiveConnection = ObjCon
+        
+          FullFileName = "'" + ecr_TEServer_GetBuildPath(ecr_TEServer_workpath, ecr_TEServer_Sell_Filename) + "'"
+        
+          set DateGoodHead = OwnerForm.FindComponent("dsgdcBase").DataSet
+          set DateGoodLine = OwnerForm.FindComponent("FTopDataSource").DataSet
+          DateGoodLine.Movement.IsGetRemains = False
+        
+        
+          set ErrList = Creator.GetObject(nil, "TStringList", "")
+          ' проверка на существование файла ошибок, создание
+          ecr_TEServer_DoCreateErrLog(ErrList)
+        
+          set gdcRemains = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
+          gdcRemains.gdcDocumentLine = DateGoodLine
+        
+          if DateGoodHead.FieldByName("documentdate").AsVariant <> Date then
+            gdcRemains.CurrentRemains = False
+          end if
+        
+        '@АЧ использование текущих остатков при снятии реализации
+          if IsCurrentRemains = False then
+            gdcRemains.CurrentRemains = True
+          end if
+        
+          if ecr_DeptList.CodeByCost then _
+            gdcRemains.ExtraConditions.Add("C.USR$SDR_ECRCODE = :card_code")
+        
+          set sqlGoods = Creator.GetObject(nil, "TIBSQL", "")
+          sqlGoods.Transaction = DateGoodHead.Transaction
+          sqlGoods.SQL.Add("SELECT NAME, "+ecr_TEServer_CodeField+", ID FROM gd_good " + _
+            " WHERE "+ecr_TEServer_CodeField+" = :BarCode")
+        
+          DeptNp = ecr_DeptList.GetNpByID(DateGoodHead.FieldByName("USR$CONTACTKEY").AsInteger)
+        ' FullFileName = "c:\plu_sell.dbf"
+        
+          ' временная таблица для продаж соответсвует файлу plu_sell.dbf
+         ''' "USR$TEMPSALETABLE"
+          
+          AdoQuery.Open " SELECT * FROM " & ecr_TEServer_Sell_Filename & " s " & _
+                        " WHERE s.DEPARTMENT =" & DeptNp & ""
+        
+          AdoQuery.MoveFirst
+          while not AdoQuery.EOF
+              qSQL.ParamByName("HISTORYID").asVariant = AdoQuery.Fields(0).value
+              qSQL.ParamByName("HDATE").asVariant = AdoQuery.Fields(1).value
+              qSQL.ParamByName("HTIME").asVariant = AdoQuery.Fields(2).value
+              qSQL.ParamByName("SECTIONID").asVariant = AdoQuery.Fields(3).value
+              qSQL.ParamByName("PLU").asVariant = AdoQuery.Fields(4).value
+              qSQL.ParamByName("BARCODE").asVariant = AdoQuery.Fields(5).value
+              qSQL.ParamByName("PLUNAME").asVariant = AdoQuery.Fields(6).value
+              qSQL.ParamByName("PRICE").asVariant = AdoQuery.Fields(7).value
+              qSQL.ParamByName("Q").asVariant = AdoQuery.Fields(8).value
+              qSQL.ParamByName("SUMMA").asVariant = AdoQuery.Fields(9).value
+              qSQL.ParamByName("HTYPE").asVariant = AdoQuery.Fields(10).value
+              qSQL.ParamByName("DEPARTMENT").asVariant = AdoQuery.Fields(11).value
+              qSQL.ParamByName("PAYMTYPE").asVariant = AdoQuery.Fields(12).value
+              qSQL.ParamByName("DOCTYPE").asVariant = AdoQuery.Fields(13).value
+              qSQL.ParamByName("OPERATOR").asVariant = AdoQuery.Fields(14).value
+              qSQL.ParamByName("TICKETNUM").asVariant = AdoQuery.Fields(15).value
+              qSQL.ParamByName("FUCTNUM").asVariant = AdoQuery.Fields(16).value
+              qSQL.ParamByName("CLIENT").asVariant = AdoQuery.Fields(17).value
+              qSQL.ParamByName("EQID").asVariant = AdoQuery.Fields(18).value
+              qSQL.ExecQuery
+              AdoQuery.MoveNext
+          wend
+          AdoQuery.Close
+          Tr.Commit
+            ' данные в в таблицу внесены. снова стартуем тр и обрабатываем
+          Tr.StartTransaction
+        
+          ibSQL.Close
+          ibSQL.ParamByName("DeptNp").asInteger = DeptNp
+          ibSQL.ExecQuery
+          while not ibSQL.EOF
+            call ecr_TEServer_MakeSell(DateGoodLine, gdcRemains, ibSQL, sqlGoods, ErrList)
+            ibSQL.next
+          wend
+          if tr.InTransaction then tr.Commit
+        
+          if ecr_TEServer_SaveErrLog then
+            ecr_TEServer_DoSaveErrLog(ErrList)
+          else
+            call MsgBox("Данные приняты. Количество ошибок - " + CStr(ErrList.Count-1) + _
+            ".", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          end if
+        
+          DateGoodLine.Movement.IsGetRemains = True
+        
+        end sub
+        
+        sub ImportSellsADO_Except(tr)
+          if tr.InTransaction then
+            tr.Rollback
+          end if
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020218_281066798 ecr_TEServer_MakeSell"
+          - 
+            ADDFUNCTIONKEY: "147023762_281066798 ecr_TEServer_DoSaveErrLog"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147045020_281066798 ecr_TEServer_GetBuildPath"
+          - 
+            ADDFUNCTIONKEY: "147047410_281066798 ecr_TEServer_DoCreateErrLog"
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147034545_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968351_1398647910
+    Fields: 
+      PARENT: "147013028_109092844 Исследователь\\01.Торговля"
+      NAME: "Служебные"
+      CLASSNAME: ~
+      CMD: "147034545_23783130"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 219968080_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 219968351_1398647910
+    Fields: 
+      PARENT: "147034545_23783130 Исследователь\\01.Торговля\\Служебные"
+      NAME: "TempSaleTable"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: ~
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$TEMPSALETABLE"
+      EDITIONDATE: 2020-03-17T14:33:36+03:00
+      DISABLED: 0
