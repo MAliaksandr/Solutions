@@ -1,0 +1,581 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 220391971_1646796305
+  Name: "Основание для БЕЗ НДС"
+  Caption: "Основание для БЕЗ НДС"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: AA28A64D9DD7D15F40AD720C3DE9C175
+Uses: 
+  - "147753062_69526485 GS.Общие.Хранилище"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147013028_109092844
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      PARENT: "710000_17 Исследователь"
+      NAME: "Торговля"
+      CLASSNAME: ~
+      CMD: "147013028_109092844"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2016-02-08T12:58:55+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 220391940_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      PARENT: "147013028_109092844 Исследователь\\Торговля"
+      NAME: "Основания"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: ~
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$INFBASE"
+      EDITIONDATE: 2021-08-04T10:46:10+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcSimpleTable"
+      RUID: 220391939_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "220391940_1646796305 Исследователь\\Торговля\\Основания"
+      DESCRIPTION: "USR$INFBASE"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Основания"
+      LSHORTNAME: "Основания"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$INFBASE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2021-08-04T10:44:14+03:00
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147000119_31587988
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "Текст (1024)"
+      FCHARLENGTH: 1024
+      FFIELDTYPE: 37
+      FIELDNAME: "DTEXT1024"
+      FLAG: ~
+      FLENGTH: 1024
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Текст (1024)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2003-01-31T19:42:00+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 220391942_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$INFOBASE"
+      FIELDNAME: "USR$INFOBASE"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Основание"
+      LSHORTNAME: "Основание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "220391939_1646796305 Основания, USR$INFBASE"
+      RELATIONNAME: "USR$INFBASE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-04T10:46:52+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147000112_486813904
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "Текст (60)"
+      FCHARLENGTH: 60
+      FFIELDTYPE: 37
+      FIELDNAME: "DTEXT60"
+      FLAG: ~
+      FLENGTH: 60
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Текст (60)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2003-01-31T19:41:09+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 220391941_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$BASENAME"
+      FIELDNAME: "USR$BASENAME"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование основания"
+      LSHORTNAME: "Наименование основан"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "220391939_1646796305 Основания, USR$INFBASE"
+      RELATIONNAME: "USR$INFBASE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-04T10:46:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 220391949_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$INFBASE"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-08-04T11:00:16+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_INFBASE: Tgdc_dlgAttrUserDefined
+          Left = 719
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 205
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 181
+          end
+          object btnNew: TButton
+            Top = 181
+          end
+          object btnHelp: TButton
+            Top = 181
+          end
+          object btnOK: TButton
+            Top = 181
+          end
+          object btnCancel: TButton
+            Top = 181
+          end
+          object pnlMain: TPanel
+            Height = 172
+            object atAttributes: TatContainer
+              Height = 172
+              object usrat_DBEdit_USR_BASENAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_INFOBASE_Label: TLabel
+              end
+              object usrg_USR_INFBASE: TDBMemo
+                Tag = 0
+                Left = 72
+                Top = 32
+                Width = 393
+                Height = 105
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                TabStop = True
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoDisplay = True
+                BorderStyle = bsSingle
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DataField = 'USR$INFOBASE'
+                DataSource = dsgdcBase
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ReadOnly = False
+                ScrollBars = ssNone
+                TabOrder = 2
+                Visible = True
+                WantTabs = False
+                WordWrap = True
+              end
+              object usrat_DBEdit_USR_BASENAME: TDBEdit
+                Width = 313
+              end
+              object usrat_DBEdit_USR_INFOBASE: TDBEdit
+                Left = 79
+                Top = 140
+                Visible = False
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 54
+            Top = 139
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 24
+            Top = 127
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 24
+            Top = 96
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 220391945_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_INFBASE"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_INFBASE"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-08-04T10:47:34+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 220391943_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391939_1646796305
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_INFBASE"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_INFBASE"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-08-04T10:47:33+03:00
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 220391963_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "USR$VATBASE"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$VATBASE"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Основание для \"БЕЗ НДС\""
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$BASENAME"
+      REFLISTLNAME: "Наименование основания"
+      REFLNAME: "Основания"
+      REFTABLE: "USR$INFBASE"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-04T10:59:28+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcUnknownTable"
+      RUID: 147000531_31587988
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 220391964_1646796305
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Справочник ТМЦ"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Справочник ТМЦ"
+      LSHORTNAME: "Справочник ТМЦ"
+      REFERENCEKEY: ~
+      RELATIONNAME: "GD_GOOD"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2009-08-18T11:52:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 220391964_1646796305
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$VATBASE"
+      FIELDNAME: "USR$VATBASE"
+      FIELDSOURCE: "USR$VATBASE"
+      FIELDSOURCEKEY: "220391963_1646796305 Основание для \"БЕЗ НДС\", USR$VATBASE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Основание для \"БЕЗ НДС\""
+      LSHORTNAME: "Основание для \"БЕЗ Н"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$BASENAME"
+      REFRELATIONNAME: "USR$INFBASE"
+      RELATIONKEY: "147000531_31587988 Справочник ТМЦ, GD_GOOD"
+      RELATIONNAME: "GD_GOOD"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-04T10:59:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
