@@ -1,0 +1,208 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 167595466_1651677185
+  Name: "Разделка туш. Edida. "
+  Caption: "Разделка туш. Edida. "
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 7F39F68FD0A4A9178F5D090CC35B80D8
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147030111_348847816
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "mn_scr_Chopping"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "147030052_348847816 dlgInvDocument147030029_348847816"
+      OBJECTNAME: "dlgInvDocument147030029_348847816"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2021-04-16T12:13:47+03:00
+      DISPLAYSCRIPT: | 
+        MN_SCR_CHOPPING
+        GETRETAILCOST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        function mn_scr_Chopping(OwnerForm)
+          set DocLineCredit =  OwnerForm.FindComponent("FSecondDocumentLine")
+          set DocLineDebit =  OwnerForm.DocumentLine
+        
+            if not OwnerForm.gdcObject.VariableExists("DontRecalc") then
+              OwnerForm.gdcObject.AddVariableItem("DontRecalc")
+            end if
+            OwnerForm.gdcObject.Variables("DontRecalc") = True
+        
+          set Creator = new TCreator
+          set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
+        
+          ibsql.Transaction = DocLineCredit.Transaction
+        
+          ibsql.SQl.Text = _
+            "SELECT cl.usr$goodkey, cl.usr$weightperc, cl.usr$costcoeff " & _
+            "FROM " & _
+            "  usr$mn_choppcoeff c " & _
+            "  JOIN usr$mn_choppcoeffline cl on cl.masterkey = c.documentkey " & _
+            "WHERE " & _
+            "  c.documentkey = :documentkey and ((cl.usr$weightperc > 0) or (cl.usr$costcoeff > 0))"
+        
+          DocLineDebit.First
+          while not DocLineDebit.Eof
+            DocLineDebit.Delete
+          wend
+          DocLineCredit.First
+          while not DocLineCredit.EOF
+            DocLineCredit.Edit
+            DocLineCredit.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+              gs.MulDiv(DocLineCredit.FieldByName("FROM_USR$INV_COSTRETAILNCU").AsCurrency, _
+              DocLineCredit.FieldByName("OUTQUANTITY").AsCurrency, 1, 1, 2)
+            DocLineCredit.Post
+            if not DocLineCredit.FieldBYName("USR$CHOPPTYPEKEY").IsNull then
+              ibsql.Close
+              ibsql.ParamByName("documentkey").AsInteger = DocLineCredit.FieldByName("USR$CHOPPTYPEKEY").AsInteger
+              ibsql.ExecQuery
+              SumTRWithNDS = 0
+              while not ibsql.EOF
+                DocLineDebit.Append
+                DocLineDebit.FieldByName("Goodkey").AsInteger = ibsql.FieldByName("usr$goodkey").ASInteger
+        
+                DocLineDebit.FieldByName("to_usr$inv_accountkey").AsInteger = _
+                  DocLineCredit.FieldByName("from_usr$inv_accountkey").AsInteger
+        
+                DocLineDebit.FieldByName("INQUANTITY").AsCurrency = _
+                   gs.MulDiv(DocLineCredit.FieldByName("OUTQUANTITY").ASCurrency, _
+                   ibsql.FieldByName("usr$weightperc").AsCurrency, 100, 1, 3)
+                'Рассчитать цену
+                
+                DocLineDebit.FieldByName("to_usr$inv_costbuyncu").AsCurrency = _
+                  DocLineCredit.FieldByName("FROM_USR$INV_COSTBUYNCU").ASCurrency
+                 
+                DocLineDebit.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency = _
+                   DocLineCredit.FieldByName("FROM_USR$INV_COSTTRADENCU").ASCurrency * _
+                   ibsql.FieldByName("USR$COSTCOEFF").AsCurrency
+        
+                DocLineDebit.FieldByName("TO_USR$INV_SELLNDS").AsCurrency = _
+                  DocLineCredit.FieldByName("FROM_USR$INV_SELLNDS").AsCurrency
+        
+                DocLineDebit.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency = _
+                   DocLineCredit.FieldByName("FROM_USR$INV_COSTTRWITHNDS").ASCurrency * _
+                   ibsql.FieldByName("USR$COSTCOEFF").AsCurrency
+        
+                DocLineDebit.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = _
+                  getRetailCost(_
+                    DocLineDebit.FieldByName("Goodkey").AsInteger, _
+                    DocLineDebit.MasterSource.DataSet.FieldByName("USR$DEPOTKEY").AsInteger, _
+                    DocLineDebit.MasterSource.DataSet.FieldByName("DOCUMENTDATE").AsDateTime, _
+                    DocLineDebit.id, _
+                    DocLineDebit)
+        
+                DocLineDebit.FieldByName("TO_usr$inv_extracost").AsCurrency = _
+                  DocLineDebit.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency
+        
+                DocLineDebit.FieldByName("TO_usr$inv_exttaxsalecost").AsCurrency = _
+                  DocLineDebit.FieldByName("TO_usr$inv_extracost").AsCurrency
+        
+                DocLineDebit.FieldByName("TO_usr$inv_extraservicecost").AsCurrency = _
+                  DocLineDebit.FieldByName("TO_usr$inv_extracost").AsCurrency
+        
+                DocLineDebit.FieldByName("USR$QTYNORM").AsCurrency = _
+                   gs.MulDiv(DocLineCredit.FieldByName("OUTQUANTITY").ASCurrency, _
+                   ibsql.FieldByName("usr$weightperc").AsCurrency, 100, 1, 5)
+        
+                DocLineDebit.FieldByName("USR$KOEFNORM").AsCurrency = _
+                   ibsql.FieldByName("usr$COSTCOEFF").AsCurrency
+        
+                DocLineDebit.FieldByName("TO_usr$inv_selcostncu").AsCurrency = _
+                  mn_Options.RoundCalcCardCost(DocLineDebit.FieldByName("TO_usr$inv_extracost").AsCurrency)
+        
+                DocLineDebit.FieldByName("TO_usr$inv_extrands").AsCurrency = _
+                  (DocLineDebit.FieldByName("TO_USR$INV_EXTRACOST").AsCurrency - DocLineDebit.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency) *_
+                  (DocLineCredit.FieldByName("TO_USR$INV_SELLNDS").AsCurrency/(DocLineCredit.FieldByName("TO_USR$INV_SELLNDS").AsCurrency + 100))
+        
+                DocLineDebit.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+                  gs.MulDiv(DocLineDebit.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency, _
+                  DocLineDebit.FieldByName("INQUANTITY").AsCurrency, 1, 1, 2)
+                  
+                SumTRWithNDS = SumTRWithNDS + DocLineDebit.FieldByName("USR$SUMRETAILNCU").AsCurrency
+        
+                DocLineDebit.FieldByName("TO_USR$INV_ADDLINEKEY").AsInteger = DocLineCredit.ID
+                
+                DocLineDebit.Post
+                ibsql.Next
+              wend
+            end if
+            DocLineCredit.Next
+          wend
+        
+          OwnerForm.gdcObject.Variables("DontRecalc") = False
+          
+        end function
+        
+        function getRetailCost(goodkey, depkey, date, curkey, Self)
+          dim Creator, qCost
+          set Creator = new TCreator
+          set qCost = Creator.GetObject(null, "TIBSQL", "")
+          if Self.Transaction.InTransaction then
+            qCost.Transaction = Self.Transaction
+          else
+            qCost.Transaction = Self.ReadTransaction
+          end if
+          qCost.SQL.Text = _
+              "SELECT FIRST(1) " & _
+              "  C.USR$INV_COSTRETAILNCU " & _
+              "FROM GD_DOCUMENT D " & _
+              "JOIN USR$MN_CHOPPING CH ON CH.DOCUMENTKEY = D.ID " & _
+              "LEFT JOIN USR$MN_CHOPPINGLINE CHL ON CHL.MASTERKEY = CH.DOCUMENTKEY " & _
+              "LEFT JOIN INV_CARD C ON C.ID  =  CHL.FROMCARDKEY " & _
+              "WHERE " & _
+              "  CH.USR$DEPOTKEY = :DEPTKEY " & _
+              "  AND D.DOCUMENTDATE<=:DOCDATE " & _
+              "  AND c.goodkey = :goodkey " & _
+              "  AND C.USR$INV_COSTRETAILNCU<>0 and d.id <>:curdockey " & _
+              "ORDER BY D.DOCUMENTDATE DESC "
+        
+          qCost.ParamByName("goodkey").AsInteger = goodkey
+          qCost.ParamByName("DEPTKEY").AsInteger = depkey
+          qCost.ParamByName("curdockey").AsInteger = curkey
+         ' qCost.ParamByName("doctype").AsInteger = gdcBaseManager.GetIDByRUIDString("147030029_348847816")
+          qCost.ParamByName("docdate").AsDateTime = date
+          qCost.ExecQuery
+        
+          getRetailCost = qCost.FieldByName("USR$INV_COSTRETAILNCU").AsCurrency
+        end function
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147063348_311980179
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOFIELDCHANGE"
+      FUNCTIONKEY: "147063350_311980179 TgdcInvDocumentLine147030029_348847816DoFieldChange"
+      OBJECTKEY: "147054349_531354363 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147030029_348847816"
+      OBJECTNAME: "TgdcInvDocumentLine147030029_348847816"
+      PARENTNAME: "TgdcInvDocumentLine"
+      EDITIONDATE: 2021-04-16T12:12:40+03:00
