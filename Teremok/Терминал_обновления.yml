@@ -1,0 +1,118 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 151664167_645636702
+  Name: "Терминал_обновления"
+  Caption: "Терминал_обновления"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 43468237B29622D8B0B20968FB9AAD58
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 151664163_645636702
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$GET_LAST_ACCCOST"
+      EDITIONDATE: 2017-05-22T13:41:20+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$GET_LAST_ACCCOST (
+            GOODKEY INTEGER)
+        RETURNS ( 
+            CARDKEY INTEGER,
+            LASTDATE DATE,
+            COST NUMERIC(15, 4))
+         AS
+        begin
+          SELECT First(1)
+            Max(doc.documentdate),
+            c.id,
+            c.usr$inv_costaccncu
+          FROM inv_card c
+          left join gd_document doc on doc.id = c.documentkey
+          where c.goodkey = :GOODKEY
+          and doc.documenttypekey in ((select id from GD_P_GETID(147012468, 486813904)), (select id from GD_P_GETID(147010993, 109092844)), (select id from GD_P_GETID(147037882,26077578)), (select id from GD_P_GETID(147013048, 109092844)))
+          and doc.parent <> 158469165
+          group by
+            c.id, c.usr$inv_costaccncu
+          order by 1 desc, 2 desc
+          INTO :LASTDATE, :CARDKEY, :COST;
+          suspend;
+        END
+        
+      RDB$DESCRIPTION: | 
+        @ 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147233052_244600472
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SLUCKUN_FILLTEMPGOODS"
+      EDITIONDATE: 2017-05-22T13:41:20+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SLUCKUN_FILLTEMPGOODS (
+            REMAINSDATE DATE,
+            COMPANYKEY INTEGER,
+            DEPARTMENTKEY INTEGER)
+         AS
+        DECLARE VARIABLE Goodkey INTEGER;
+        DECLARE VARIABLE SubLB INTEGER;
+        DECLARE VARIABLE SubRB INTEGER;
+        DECLARE VARIABLE GLB INTEGER;
+        DECLARE VARIABLE GRB INTEGER;
+        DECLARE VARIABLE PRICE1 NUMERIC(15, 4);
+        DECLARE VARIABLE PRICE2 NUMERIC(15, 4);
+        DECLARE VARIABLE REMAINS NUMERIC(15, 4);
+        BEGIN
+          SubLB = NULL;
+          SELECT LB, RB FROM GD_CONTACT WHERE ID = :DEPARTMENTKEY
+          INTO :SubLB, :SubRB;
+          IF (SubLB IS NULL) THEN EXIT;
+        
+          /*
+          SELECT LB, RB FROM GD_GOODGROUP WHERE ID = :GROUPKEY
+          INTO :GLB, :GRB;
+          IF (GLB IS NULL) THEN EXIT;       */
+        
+          DELETE FROM USR$SLUCKUN_TEMPGOODS;
+          INSERT INTO USR$SLUCKUN_TEMPGOODS(USR$GOODKEY)
+            SELECT G.ID FROM GD_GOOD G;
+           /* JOIN GD_GOODGROUP GG ON GG.ID = G.GROUPKEY AND GG.LB >= :GLB AND GG.RB <= :GRB;    */
+        
+          FOR
+            SELECT
+            g.ID,
+            lc.COST AS Price1, /*MAX(c.USR$INV_COSTRETAILNCU) AS Price1,*/
+            MAX(c.USR$INV_COSTACCNCU) AS Price2,
+            SUM ( M.BALANCE - REST.REMAINS ) AS REMAINS
+            FROM INV_CARD C
+            JOIN GD_GOOD G ON G.ID  =  C.GOODKEY
+            JOIN INV_BALANCE M ON C.ID  =  M.CARDKEY
+            /*JOIN GD_GOODGROUP GG ON GG.ID = G.GROUPKEY AND GG.LB >= :GLB AND GG.RB <= :GRB  */
+            JOIN GD_CONTACT CON ON
+                     M.CONTACTKEY  =  CON.ID
+                 AND CON.LB  >= :SubLb
+                 AND CON.RB  <= :SubRB
+            LEFT JOIN INV_GETCARDMOVEMENT ( M.CARDKEY, M.CONTACTKEY, :REMAINSDATE ) REST ON 1  =  1
+            LEFT JOIN USR$GET_LAST_COST(G.ID)  as lc on 1=1
+            WHERE  CAST( C.COMPANYKEY + 0 AS INTEGER )  =  :COMPANYKEY
+            GROUP BY 1,2
+           /* HAVING SUM ( M.BALANCE - REST.REMAINS )  >  0*/
+            INTO :Goodkey, :Price1, :Price2, :Remains
+          DO
+          BEGIN
+            UPDATE USR$SLUCKUN_TEMPGOODS
+            SET USR$PRICE1 = :Price1, USR$PRICE2 = :Price2, USR$REMAINS = :REMAINS
+            WHERE USR$GOODKEY = :Goodkey;
+          END
+        END
+      RDB$DESCRIPTION: | 
+        @ 

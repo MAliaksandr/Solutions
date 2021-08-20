@@ -1,0 +1,113 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 157894399_968398030
+  Name: "Исправление_индексов_inv-tec"
+  Caption: "Исправление_индексов_inv-tec"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 5A47149928354C9AC92EB7463CEF0628
+Uses: 
+  - "147036747_228053996 GS.Терминал Inventory.Метаданные"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 157894391_968398030
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Delete_index_Inv_tec"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2018-04-28T12:25:42+03:00
+      DISPLAYSCRIPT: | 
+        DELETE_INDEX_INV_TEC
+        NEW_NAMEFILE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QCAAAAU1APAAAA0e/o8e7qIOjt5OXq8e7iAAAAAAAAAAAAAAAADwAAAAAAAAAAPAAA
+        AF5WItLu4uDw+z1HT09EUyIsIsru5Psg8u7i4PDu4j1CQVJDT0RFIiwiUE9TPVBPUyIsICJET0M9
+        RE9DIkZOU1RGTFBS
+      SCRIPT: | 
+        ' функция должна переименовывать индексы для ТСД
+        Function Delete_index_Inv_tec(sp)
+          dim TermPath, FSO, File, FsN, FlN
+          dim Creator
+          set Creator = new TCreator
+          dim frm
+          set frm = Creator.GetObject(nil, "usrf_sluckun_terminal_params", "usrf_sluckun_terminal_params")
+          TermPath = frm.getComponent("usrg_edPath").text
+          IF TermPath="" Then
+            TermPath = "C:\Program Files\Inv-tec\Bases\"
+          end if
+          Set FSO = CreateObject("Scripting.FileSystemObject")
+          dim i, fl_no_found
+          fl_no_found = ""
+          IF FSO.FolderExists(TermPath) Then
+            For i=0 to UBound(sp)
+              FsN = sp(i)
+              FlN = FsN & ".CDX"
+              IF FSO.FileExists(TermPath & FlN) THEN
+                File = FSO.GetFile(TermPath & FlN)
+                nFile = new_nameFile(TermPath, FsN)
+                  IF FSO.FileExists(File) THEN
+                    FSO.MoveFile File, nFile
+                  END IF
+              ELSE
+                  fl_no_found = fl_no_found & " " & FlN & vbLF
+              END IF
+            next
+          else
+                call Application.MessageBox("Неверно указать путь", "Внимание", vbOkOnly+vbCritical+vbSystemModal)
+              END IF
+          dim no_foundSTR
+          no_foundSTR = ""
+          if fl_no_found <> "" Then
+            no_foundSTR = " Файл(ы):" & vbLF & fl_no_found & " не найден(ы)."
+          end if
+          call Application.MessageBox("Операция завершена" & VBLF & _
+             no_foundSTR, "Внимание", vbOkOnly+vbInformation+vbSystemModal)
+          Set FSO = Nothing
+        End Function
+        function new_nameFile(TermPath, indexF)
+         dim nFile
+         nFile = TermPath & indexF & "_" & REPLACE(LEFT(CSTR(now),10),".","_") & ".CDX"
+         new_nameFile = nFile
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 157894395_968398030
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "149553638_1183151662 Исследователь\\Работа с терминалом"
+      NAME: "99.Исправление индексов"
+      CLASSNAME: ~
+      CMD: "157894391_968398030"
+      CMDTYPE: 1
+      HOTKEY: ~
+      IMGINDEX: 144
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2018-04-25T19:17:26+03:00
+      DISABLED: 0

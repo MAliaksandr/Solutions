@@ -1,0 +1,229 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 157829565_1001777637
+  Name: "webinfolog"
+  Caption: "webinfolog"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 68E30ECD626BA5A5BE79DB628D0ABF4D
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcSimpleTable"
+      RUID: 157829301_1001777637
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "USR$TEMP_WEBINFO"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "USR$TEMP_WEBINFO"
+      LSHORTNAME: "USR$TEMP_WEBINFO"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$TEMP_WEBINFO"
+      RELATIONTYPE: "T"
+      EDITIONDATE: 2018-04-23T08:57:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 157829309_1001777637
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 157829301_1001777637
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$COMPANY"
+      FIELDSOURCE: "DTEXT255"
+      FIELDSOURCEKEY: "147000118_31587988 Текст (255), DTEXT255"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Компания"
+      LSHORTNAME: "Компания"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "157829301_1001777637 USR$TEMP_WEBINFO"
+      RELATIONNAME: "USR$TEMP_WEBINFO"
+      RELATIONTYPE: "T"
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 255
+      VISIBLE: 1
+      EDITIONDATE: 2018-04-23T09:00:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 157829307_1001777637
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 157829301_1001777637
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Передано"
+      FIELDNAME: "USR$ISSENDER"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Передано"
+      LSHORTNAME: "Передано"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "157829301_1001777637 USR$TEMP_WEBINFO"
+      RELATIONNAME: "USR$TEMP_WEBINFO"
+      RELATIONTYPE: "T"
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2018-04-23T08:59:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT '0'
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 157829306_1001777637
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 157829301_1001777637
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$DATA"
+      FIELDSOURCE: "DBLOBTEXT80_1251"
+      FIELDSOURCEKEY: "147000173_31587988 BLOBTEXT80_1251, DBLOBTEXT80_1251"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "INFO"
+      LSHORTNAME: "INFO"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "157829301_1001777637 USR$TEMP_WEBINFO"
+      RELATIONNAME: "USR$TEMP_WEBINFO"
+      RELATIONTYPE: "T"
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2018-04-23T08:59:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 157829317_1001777637
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 157829301_1001777637
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_TEMP_WEBINFO"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_TEMP_WEBINFO"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2018-04-23T09:09:20+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 157829334_1001777637
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 157829301_1001777637
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_TEMP_WEBINFO)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "157829334_1001777637"
+      EDITIONDATE: 2018-04-23T09:11:59+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 157829333_1001777637
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 157829301_1001777637
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_TEMP_WEBINFO"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2018-04-23T09:11:59+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 157829315_1001777637
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 157829301_1001777637
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_TEMP_WEBINFO"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "157829333_1001777637 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_TEMP_WEBINFO"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "157829334_1001777637 Отчеты(gdc_frmAttrUserDefinedUSR_TEMP_WEBINFO)"
+      SUBTYPE: ""
+      EDITIONDATE: 2018-04-23T09:11:59+03:00

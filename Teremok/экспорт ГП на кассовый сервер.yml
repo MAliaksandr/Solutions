@@ -1,0 +1,69 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 152730618_645636702
+  Name: "экспорт ГП на кассовый сервер"
+  Caption: "экспорт ГП на кассовый сервер"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 1379FA599075AC9F3C2D5AA8B1EB275A
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 152730585_645636702
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Экспортировать ГП"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "152730587_645636702 Macros152730587_645636702"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147031639_1646528124 Локальные макросы"
+      OBJECTNAME: "gdc_frmExplorer"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2017-05-30T19:26:39+03:00
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 152730595_645636702
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$MN_GET_LAST_COST"
+      EDITIONDATE: 2017-05-30T19:41:14+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$MN_GET_LAST_COST (
+            GOODKEY INTEGER)
+        RETURNS ( 
+            CARDKEY INTEGER,
+            LASTDATE DATE,
+            COST NUMERIC(15, 4))
+         AS
+        begin
+          /* смотрим только документы: производство ГП и перемещение ГП*/
+          SELECT First(1)
+            Max(doc.documentdate),
+            c.id,
+            c.USR$INV_SELCOSTNCU
+          FROM inv_card c
+          left join gd_document doc on doc.id = c.documentkey
+          where c.goodkey = :GOODKEY
+          and doc.documenttypekey in ((select id from GD_P_GETID(147153868, 250734751)), (select id from GD_P_GETID(147094173, 157767346)))
+          and c.USR$INV_SELCOSTNCU <>0
+          group by
+            c.id, c.USR$INV_SELCOSTNCU
+          order by 1 desc, 2 desc
+          INTO :LASTDATE, :CARDKEY, :COST;
+          suspend;
+        END
+        
+      RDB$DESCRIPTION: | 
+        @ 
