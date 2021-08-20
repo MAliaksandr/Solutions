@@ -1,0 +1,845 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 151965024_1162798582
+  Name: "Передать остатки Едида 2019"
+  Caption: "Передать остатки Едида 2019"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 05A1CEABBA66608A7F2B5D0A65ADDE82
+Uses: 
+  - "147978914_215642201 Торговля - evt_object"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147020216_281066798
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147045060_281066798
+    Fields: 
+      NAME: "ecr_TEServer_Waiting"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2019-01-11T09:40:38+03:00
+      DISPLAYSCRIPT: | 
+        ECR_TESERVER_WAITING
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAREJGTU5HBgAAAERCRk1ORwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        UFJTVA0AAABDRURFU0NSSVBUSU9ODQAAAENFREVTQ1JJUFRJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        option explicit
+        function ecr_TEServer_Waiting(ByRef DBFMng, ByRef ceDescription)
+        ' ожидание обработки запроса TEServer'ом
+        ' возвращает код ошибки (и описание в ceDescription)
+        
+          ecr_TEServer_Waiting = ecr_TEServer_ceOK
+        
+        '  on error resume next
+          'qryDoc.ExecSQL
+        '
+        '  if err.number <> 0 then
+        '    ecr_TEServer_Waiting = ecr_TEServer_ceServer
+        '    ceDescription = err.Description + vbCR + _
+        '      "Возможно, не запущен кассовый сервер № " + CStr(ecr_TEServer_ServerID) + "."
+        '  end if
+        '  on error goto 0
+        '  if ecr_TEServer_Waiting <> ecr_TEServer_ceOK then exit function
+        
+          WinAPI.Sleep(2500)         ' ждем опроса TEServer'а
+          
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          
+          dim SQLText
+          SQLText = _
+            "SELECT * FROM   " & FSO.getBaseName(ecr_TEServer_FullCommandFileName) & ".dbf "
+          '' Создаём объект RecordSet
+        
+          dim objTable
+         ' _теоретически_ записей м.б. несколько - проверяем последнюю
+        '  while (not objTable.EOF)
+        '    MsgBox _
+        '      objTable.Fields.Item("DocNumber").Value & vbNewLine & _
+        '      objTable.Fields.Item("DocDate").Value & vbNewLine & _
+        '      objTable.Fields.Item("DocName").Value
+        '    objTable.MoveNext
+        '  wend
+        
+          do while True
+        
+        
+            set objTable = DBFMng.OpenTable(SQLText, null)
+        '    while not objTable.eof
+        '      objTable.MoveNext
+        '    wend
+        '    objTable.MovePrevious
+            ' все успешно обработалось - выходим
+        
+            if objTable.Fields.Item("FLAG").Value = 1 then
+               ecr_TEServer_Waiting = ecr_TEServer_ceOK
+               exit do
+            ' обработка в процессе - ждем дальше
+            elseif objTable.Fields.Item("FLAG").Value = 2 then
+              DBFMng.CloseTable
+              WinAPI.Sleep(1000)      ' ждем дальше
+        
+            ' предполагаем, что не запущен сервер
+            elseif objTable.Fields.Item("FLAG").Value = 0 then
+              ecr_TEServer_Waiting = ecr_TEServer_ceServer
+              ceDescription = "Не запущен кассовый сервер № " + CStr(ecr_TEServer_ServerID) + "."
+              exit do
+        
+            ' произошла ошибка
+            elseif objTable.Fields.Item("FLAG").Value = 9 then
+              ecr_TEServer_Waiting = ecr_TEServer_ceError
+              ceDescription = objTable.Fields.Item("INFO").Value
+              exit do
+            end if
+          loop
+        
+          DBFMng.CloseTable
+        
+          SQLText = "DELETE FROM " & FSO.getBaseName(ecr_TEServer_FullCommandFileName)
+          call DBFMng.ExecuteCommand(SQLText, null)
+        
+        '  qryDoc.SQL = "DELETE FROM " + ecr_TEServer_FullCommandFileName
+        '  qryDoc.ExecSQL
+        
+        
+         ' qryDoc.SQL = "SELECT * FROM " + ecr_TEServer_FullCommandFileName
+        '  do while True
+        '    qryDoc.Open
+        '    qryDoc.Last ' _теоретически_ записей м.б. несколько - проверяем последнюю
+        '
+        '    ' все успешно обработалось - выходим
+        '    if qryDoc.FieldByName("FLAG").AsInteger = 1 then
+        '      ecr_TEServer_Waiting = ecr_TEServer_ceOK
+        '      exit do
+        '
+        '    ' обработка в процессе - ждем дальше
+        '    elseif qryDoc.FieldByName("FLAG").AsInteger = 2 then
+        '      qryDoc.Close
+        '      WinAPI.Sleep(1000)      ' ждем дальше
+        '
+        '    ' предполагаем, что не запущен сервер
+        '    elseif qryDoc.FieldByName("FLAG").AsInteger = 0 then
+        '      ecr_TEServer_Waiting = ecr_TEServer_ceServer
+        '      ceDescription = "Не запущен кассовый сервер № " + CStr(ecr_TEServer_ServerID) + "."
+        '      exit do
+        '
+        '    ' произошла ошибка
+        '    elseif qryDoc.FieldByName("FLAG").AsInteger = 9 then
+        '      ecr_TEServer_Waiting = ecr_TEServer_ceError
+        '      ceDescription = qryDoc.FieldByName("INFO").AsString
+        '      exit do
+        '    end if
+        '
+        '  loop
+        '  qryDoc.Close
+        '
+        '  ' удаляем запись из command.dbf
+        '  qryDoc.SQL = "DELETE FROM " + ecr_TEServer_FullCommandFileName
+        '  qryDoc.ExecSQL
+        
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147045020_281066798
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147045060_281066798
+    Fields: 
+      NAME: "ecr_TEServer_GetBuildPath"
+      COMMENT: "Создание пути к файлу"
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2005-08-11T15:58:52+03:00
+      DISPLAYSCRIPT: | 
+        ECR_TESERVER_GETBUILDPATH
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAUEFUSAQAAABQQVRIAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAEZOU1RQUlNU
+        BAAAAE5BTUUEAAAATkFNRQAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        option explicit
+        Function ecr_TEServer_GetBuildPath(path, name)
+        ' функция синтезирует путь к файлу, вставляя если необходимо \
+           Dim fso, newpath
+           Set fso = CreateObject("Scripting.FileSystemObject")
+           newpath = fso.BuildPath(path, name)
+           ecr_TEServer_GetBuildPath = newpath
+        End Function
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147040356_260108671
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147045060_281066798
+    Fields: 
+      NAME: "ecr_DeptList"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2017-10-20T11:49:12+03:00
+      DISPLAYSCRIPT: | 
+        ECR_DEPTLIST
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        option explicit
+        function ecr_DeptList
+          if not Assigned(ecr_DeptList_) then
+            set ecr_DeptList_ = New Tecr_DeptList
+          end if
+        
+          set ecr_DeptList = ecr_DeptList_
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147012321_13359259
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147045060_281066798
+    Fields: 
+      NAME: "ecr_ZServer_SetParams"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2019-01-11T10:57:38+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_SETPARAMS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QMAAAAVFJBTlNGRVJUWVBFDAAAAFRSQU5TRkVSVFlQRQAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        ' устанавливает параметры
+        ' #include ecr_TEServer_GetBuildPath
+        ' #include ecr_DeptList
+        function ecr_ZServer_SetParams(ByVal TransferType)
+        ' TransferType - тип обмена (прием/передача)
+        
+          if ecr_TEServer_ServerID > -1 and _
+             TransferType = ecr_TEServer_ttToCass then exit function
+        
+          set Creator = New TCreator
+        
+          set gdcZServerRef = Creator.GetObject(nil, "TgdcAttrUserDefined", "")
+          gdcZServerRef.SubType = ecr_TEServer_RefTableName
+          gdcZServerRef.ExtraConditions.Add("USR$ComputerName = :CompName")
+          gdcZServerRef.ParamByName("CompName").AsString = WinAPI.GetComputerName
+          gdcZServerRef.Open
+          gdcZServerRef.Last
+          if gdcZServerRef.RecordCount > 0 then
+        
+            ' если прием и серверов несколько, то выбираем один
+            ' если передача, то подойдет любой
+            if TransferType = ecr_TEServer_ttFromCass and _
+               gdcZServerRef.RecordCount > 1 then
+              do while True
+                if gdcZServerRef.ChooseItemsSelf(False, "", "") then
+                  if gdcZServerRef.SelectedID.Count > 0 then
+                    if gdcZServerRef.Locate("ID", gdcZServerRef.SelectedID(0), "") then
+                      exit do
+                    else   ' видимо, позиция не попадает в фильтр
+                      call Application.MessageBox("Позиция справочника не найдена!", "Внимание", mb_OK or mb_IconStop or vbSystemModal)
+                    end if
+                  else     ' ничего не выбрано
+                    call Application.MessageBox("Необходимо выбрать кассу!", "Внимание", mb_OK or mb_IconStop or vbSystemModal)
+                  end if
+                end if
+              loop
+            end if
+        
+            ecr_TEServer_workpath = gdcZServerRef.FieldByName("USR$WorkPath").AsString
+            if Right(ecr_TEServer_workpath, 1) <> "\" then
+              ecr_TEServer_workpath = ecr_TEServer_workpath + "\"
+            end if
+        
+            ecr_TEServer_commandpath = gdcZServerRef.FieldByName("USR$CommandPath").AsString
+            ecr_TEServer_ServerID = gdcZServerRef.FieldByName("USR$ServerID").AsInteger
+        
+        '    ecr_TEServer_CodeByCost = CBool(gdcZServerRef.FieldByName("USR$CODEBYCOST").AsInteger)
+        '    ecr_TEServer_CostCodeLength = gdcZServerRef.FieldByName("USR$COSTCODELENGTH").AsInteger
+        
+            ' журнал ошибок
+            ecr_TEServer_SaveErrLog = CBool(gdcZServerRef.FieldByName("USR$SAVEERRLOG").AsInteger)
+            ecr_TEServer_SaveErrLogM = CBool(gdcZServerRef.FieldByName("USR$SAVEERRLOGM").AsInteger)
+            ecr_TEServer_ErrLogPath = gdcZServerRef.FieldByName("USR$ERRLOGPATH").AsString
+        
+            if Not ecr_TEServer_SaveErrLogM then
+              set FSO = CreateObject("Scripting.FileSystemObject")
+              if fso.FolderExists(ecr_TEServer_ErrLogPath) then
+              else
+                ecr_TEServer_ErrLogPath = fso.GetParentFolderName(ecr_TEServer_ErrLogPath)
+              end if
+            end if
+        
+            if ecr_DeptList.CodeByCost then
+              ecr_TEServer_CodeField = "USR$SDR_ECRCODE"
+            else
+              ecr_TEServer_CodeField = "BARCODE"
+            end if
+        
+            ecr_TEServer_FullCommandFileName = "'" + ecr_TEServer_GetBuildPath(ecr_TEServer_commandpath , "\command.dbf")+"'"
+        
+          else ' записей в справочнике нет
+            call Application.MessageBox("Параметры связи с сервером TEServer для данного компьютера не найдены. " + vbCR + _
+                   "       Будут использованы значения по умолчанию. ", "Внимание", mb_OK or mb_IconExclamation or vbSystemModal)
+          end if
+          gdcZServerRef.Close
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147045020_281066798 ecr_TEServer_GetBuildPath"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147006692_122479781
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147045060_281066798
+    Fields: 
+      NAME: "ecr_ZServer_CreateTable"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2018-09-28T15:37:58+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_CREATETABLE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QKAAAAQVRBQkxFVFlQRQsAAADS6O8g8uDh6+j2+wAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        ' создает таблицы для обмена данными
+        option explicit
+        function ecr_ZServer_CreateTable(aTableType)
+        
+        '  set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+        '  set qryDoc = gsql.Query(gsql.Add("qryDoc", 0))
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          
+          dim DBFMng, TableName, tblStructure, SQLText
+          set DBFMng = new TVB_DBF_Manager
+          DBFMng.SetConnection(ecr_TEServer_workpath)
+        
+          select case aTableType
+            case 0    ' справочник кодов
+              qryDoc.SQL = "CREATE TABLE '" +_
+              ecr_TEServer_workpath + ecr_TEServer_Ref_Filename + "' " + _
+              " (SECTIONID CHAR(4), " + _
+              "  PLU CHAR(18), " + _
+              "  PLUNAME CHAR(60), " + _
+              "  PRICE NUMERIC(13, 2), " + _
+              "  DEPARTMENT NUMERIC(2, 0), " + _
+              "  DISCOUNT NUMERIC(6, 2), " + _
+              "  Q NUMERIC(13, 3), " + _
+              "  SQ NUMERIC(5, 3), " + _
+              "  DQ NUMERIC(6, 3), " + _
+              "  LOCK BOOLEAN) "
+        
+            case 1    ' условие для выборки "истории продаж с выборкой по условию"
+                ' Массив полей таблицы в формате (([Имя поля],[Тип поля])
+              TableName = FSO.getBaseName(ecr_TEServer_workpath + ecr_TEServer_Sell_Filename)
+              tblStructure = array(_
+                array("SECTIONID", "Character(4)"), _
+                array("PLU", "Character(18)"), _
+                array("FROMDATE", "DATE"), _
+                array("TODATE", "DATE"))
+              '' Создаём таблицу
+              call DBFMng.CreateTable(TableName, tblStructure)
+        '      qryDoc.SQL = "CREATE TABLE '" + _
+        '      ecr_TEServer_workpath + ecr_TEServer_Sell_Filename + "' " + _
+        '      " (SECTIONID CHAR(4), " + _
+        '      "  PLU CHAR(18), " + _
+        '      "  FROMDATE DATE, " + _
+        '      "  TODATE DATE ) "
+        
+        '    case 2
+        
+        'sectionId	Character	4	Номер секции, которой принадлежит код товара
+        'plu	Character	18	Код товара
+        
+          end select
+        '  qryDoc.ExecSQL
+        
+        end  function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147045062_281066798
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147045060_281066798
+    Fields: 
+      NAME: "Macros147045062_281066798"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014649_23783130 gdc_frmInvViewRemains147025940_63934951"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2019-02-28T15:44:37+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147045062_281066798
+        GET_REMAINS_SQL
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAQAAABERVBUDQAAAM/u5PDg5+Tl6+Xt6OUKAAAAZ2RfY29udGFjdAQAAABuYW1l
+        AgAAAGlkBw8AAABjb250YWN0dHlwZSA9IDQAAAAAOgAAAMXx6+gg7+7k8ODn5OXr5e3o5SDt5SDi
+        ++Hw4O3uLCDh8+Tz8iDi++Pw8+bl7fsg4vHlIO7x8uDy6uhGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ecr_DeptList
+        '#include ecr_ZServer_SetParams
+        '#include ecr_TEServer_Waiting
+        '#include ecr_ZServer_CreateTable
+        sub Macros147045062_281066798(OwnerForm, dept)
+        
+        ' Передать товары в кассу (TEServer) из остатков
+        
+          set Creator = New TCreator
+          set gdcDocLine = Creator.GetObject(nil, "TIBSQL", "")
+          gdcDocLine.Transaction = gdcBaseManager.ReadTransaction
+          gdcDocLine.SQL.Text = get_remains_SQL(dept)
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+        
+          dim Section, SectionID
+          ' номер секции
+          Section = ""
+          SectionID = ecr_DeptList.GetSectionByID(dept(0))
+          if SectionID > -1 then Section = CStr(SectionID)
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          dim FullFileName
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+        
+          dim DBFMng, TableName, tblStructure, SQLText
+          set DBFMng = new TVB_DBF_Manager
+          DBFMng.SetConnection(ecr_TEServer_workpath)
+        
+          TableName = ecr_TEServer_Ref_Filename
+          ' Массив полей таблицы в формате (([Имя поля],[Тип поля])
+          tblStructure = array(_
+            array("SECTIONID", "Character(4)"), _
+            array("PLU", "Character(18)"), _
+            array("PLUNAME", "Character(60)"), _
+            array("PRICE", "Numeric(13, 2)"), _
+            array("DEPARTMENT", "Numeric(3)"), _
+            array("Q", "Numeric(13, 3)"))
+          '' Создаём таблицу
+          call DBFMng.CreateTable(TableName, tblStructure)
+        
+          dim gsql, qryDoc, FSO
+        '  set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+        '  set qryDoc = gsql.Query(gsql.Add("qryDoc", 0))
+        
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          if FSO.FileExists(FullFileName) then
+             SQLText = "DELETE FROM " & FSO.getBaseName(FullFileName)
+             call DBFMng.ExecuteCommand(SQLText, null)
+        '    qryDoc.SQL = "DELETE FROM '" + FullFileName + "'"
+        '    qryDoc.ExecSQL
+          else
+            ecr_ZServer_CreateTable(0)
+          end if
+        
+        '  '''''  Вставка записи  '''''
+          SQLText = _
+            "insert into " & FSO.getBaseName(FullFileName) & " " & _
+            "( " & _
+            "  SECTIONID, " & _
+            "  PLU, " & _
+            "  PLUNAME, " & _
+            "  PRICE, " & _
+            "  DEPARTMENT, " & _
+            "  Q " & _
+            ")   " & _
+            "values " & _
+            "  (?, ?, ?, ?, ?, ?) "
+        
+          ' формируем список
+         ' gdcDocLine.ParamByName("companykey").AsInteger =
+          gdcDocLine.ExecQuery
+        '  gdcDocLine.First
+          while not gdcDocLine.EOF
+        
+            set DeptField = gdcDocLine.FieldByName("CONTACTKEY")
+        
+            ' товары м.б. на разных подразделениях
+            DeptNp = ecr_DeptList.GetNpByID(DeptField.AsInteger)
+            ' номер секции
+            Section = ""
+            SectionID = ecr_DeptList.GetSectionByID(DeptField.AsInteger)
+            if SectionID > -1 then
+              Section = CStr(SectionID)
+            end if
+        
+            plucode = trim(gdcDocLine.FieldByName("BARCODE").AsString)
+            cost = gdcDocLine.FieldByName(fPref + "USR$INV_COSTRETAILNCU").AsVariant
+            goodname = gdcDocLine.FieldByName("NAMEGOOD").AsString
+            quantity = gdcDocLine.FieldByName("REMAINS").AsCurrency
+        
+        
+            call DBFMng.ExecuteCommand(SQLText, array(_
+                Section, _
+                plucode, _
+                goodname, _
+                cost, _
+                DeptNp, _
+                quantity _
+              ))
+        
+             isPos = true
+            gdcDocLine.Next
+          wend
+        
+          if not isPos then
+            call Application.MessageBox("Нет товаров для выгрузки!", "Внимание", mb_OK or mb_IconExclamation or vbSystemModal)
+            exit sub
+          end if
+        
+        
+          SQLText = _
+            "SELECT * FROM " & FSO.getBaseName(ecr_TEServer_FullCommandFileName)
+        
+          call DBFMng.ExecuteCommand(SQLText, null)
+        
+          SQLText = _
+            "insert into " & FSO.getBaseName(ecr_TEServer_FullCommandFileName) &"  " & _
+            "  (ROWID, SERVERID, COMMANDID, FILENAME, FLAG) " & _
+            "values " & _
+            "  (?, ?, ?, ?, ?) "
+        
+          call DBFMng.ExecuteCommand(SQLText, array(_
+            1, _
+            ecr_TEServer_ServerID, _
+            ecr_TEServer_ocSetPLU, _
+            FullFileName, _
+            0 _
+          ))
+        
+          dim ceDescr
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting(DBFMng, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+           ' call UpdateDoc(gdcDocHead)
+        '    gdcDocHead.CloseOpen
+            call Application.MessageBox("Данные успешно переданы.", "Внимание", mb_OK or mb_IconInformation or vbSystemModal)
+          else
+            call Application.MessageBox("При передаче данных возникла ошибка! - " + ceDescr, "Внимание", mb_OK or mb_IconExclamation or vbSystemModal)
+          end if
+        
+        end sub
+        
+        function get_remains_SQL(dept)
+          get_remains_SQL = _
+            "SELECT  " & _
+            "  MIN ( M.CARDKEY ) AS ID,  " & _
+            "  G.ID AS GOODKEY,  " & _
+            "  G.NAME AS NAMEGOOD,  " & _
+            "  G.ALIAS AS GOODALIAS,  " & _
+            "  SUM ( M.BALANCE ) AS REMAINS,  " & _
+            "  CON.ID AS CONTACTKEY,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  COALESCE(C.USR$INV_COSTRETAILNCU, c.USR$INV_SELCOSTNCU) as USR$INV_COSTRETAILNCU, " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE  " & _
+            "  " & _
+            "FROM  " & _
+            "  INV_CARD C " & _
+            "    JOIN  " & _
+            "      GD_GOOD G " & _
+            "    ON  " & _
+            "      ( G.ID  =  C.GOODKEY )  " & _
+            "    JOIN  " & _
+            "      INV_BALANCE M " & _
+            "    ON  " & _
+            "      C.ID  =  M.CARDKEY " & _
+            "         AND  " & _
+            "      M.BALANCE  >  0 " & _
+            "    JOIN  " & _
+            "      GD_CONTACT COMPANY " & _
+            "    ON  " & _
+            "      COMPANY.ID = C.COMPANYKEY  " & _
+            "    JOIN  " & _
+            "      GD_CONTACT CON " & _
+            "    ON  " & _
+            "      M.CONTACTKEY  =  CON.ID " & _
+            "         AND  " & _
+            "      CON.LB  >=  COMPANY.LB " & _
+            "         AND  " & _
+            "      CON.RB  <=  COMPANY.RB " & _
+            " " & _
+            "WHERE  "
+            IF dept(0)>-1 THEN
+              get_remains_SQL = get_remains_SQL & _
+              " CON.id = " & dept(0)
+            ELSE
+             get_remains_SQL = get_remains_SQL & _
+              " CAST ( C.COMPANYKEY + 0 AS INTEGER )  =  <companykey/> and " & _
+              " CON.ID IN (<RUID xid=""147047660"" dbid=""1087494377""/>, <RUID xid=""147047659"" dbid=""1087494377""/>, <RUID xid=""147047661"" dbid=""1087494377""/>, <RUID xid=""147047657"" dbid=""1087494377""/> )"
+            END IF
+            get_remains_SQL = get_remains_SQL & _
+            "   " & _
+            "     AND  " & _
+            "  M.BALANCE  >  0 " & _
+            " " & _
+            "GROUP BY " & _
+            "  G.ID,  " & _
+            "  G.NAME,  " & _
+            "  G.ALIAS,  " & _
+            "  CON.ID,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  c.USR$INV_SELCOSTNCU, " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE " & _
+            "HAVING  " & _
+            "  SUM ( M.BALANCE )  >  0 " & _
+            " "
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"
+          - 
+            ADDFUNCTIONKEY: "147006692_122479781 ecr_ZServer_CreateTable"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 147045060_281066798
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Передать товары в кассу"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "147045062_281066798 Macros147045062_281066798"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014662_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2019-02-28T15:44:37+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 151965022_1162798582
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 151965020_1162798582
+    Fields: 
+      NAME: "Macros151965022_1162798582"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014649_23783130 gdc_frmInvViewRemains147025940_63934951"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2019-02-28T15:48:10+03:00
+      DISPLAYSCRIPT: | 
+        MACROS151965022_1162798582
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ECR_TESERVER_WAITING
+        Option Explicit
+        Sub Macros151965022_1162798582(OwnerForm)
+          ' Очистить список кодов (товаров)
+          IF Application.MessageBox("Все товары на кассовом сервере будут очищены!!!", "Продолжить?" , vbSystemModal+vbExclamation+vbYEsNo) = vbNo THEN
+             call Application.MessageBox("Выполнение прервано!", "Сообщение", vbSystemModal+vbInformation+vbOkOnly)
+            exit sub
+          end IF
+          dim ecr_CriticalError, Creator
+          set Creator = New TCreator
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+          
+          dim DBFMng, TableName, tblStructure, SQLText, FSO
+          set DBFMng = new TVB_DBF_Manager
+          DBFMng.SetConnection(ecr_TEServer_workpath)
+        
+         set FSO = CreateObject("Scripting.FileSystemObject")
+         SQLText = _
+            "SELECT * FROM " & FSO.getBaseName(ecr_TEServer_FullCommandFileName)
+        
+          call DBFMng.ExecuteCommand(SQLText, null)
+        
+          SQLText = _
+            "insert into " & FSO.getBaseName(ecr_TEServer_FullCommandFileName) &"  " & _
+            "  (ROWID, SERVERID, COMMANDID, FLAG) " & _
+            "values " & _
+            "  (?, ?, ?, ?) "
+        
+          call DBFMng.ExecuteCommand(SQLText, array(_
+            33, _
+            ecr_TEServer_ServerID, _
+            ecr_TEServer_ocClearAllGoods, _
+            0 _
+          ))
+        
+          dim ceDescr
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting(DBFMng, ceDescr)
+        
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+            call MsgBox("Операция успешно выполнена.", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          else
+            call MsgBox("При выполнении операции возникла ошибка! - " + ceDescr, mb_OK or mb_IconExclamation or mb_TaskModal, "Внимание")
+          end if
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 151965020_1162798582
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Очистить кассу"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "151965022_1162798582 Macros151965022_1162798582"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014662_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2019-02-28T15:48:10+03:00
