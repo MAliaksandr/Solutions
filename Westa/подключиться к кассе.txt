@@ -1,0 +1,20 @@
+Option Explicit
+Sub Macros162754828_417844906(OwnerForm)
+  Dim obj : Set obj = OwnerForm.gdcObject
+
+  Dim sPath : sPath = obj.FieldByname("USR$PATH").AsString
+  
+  If Application.MessageBox("Вы хотите подключиться к БД указанного терминала?", "Внимание!", vbYesNo + vbQuestion + vbSystemModal) = vbNo Then
+    Exit Sub
+  End If
+  
+  If sPath = "" Then
+    Call Application.MessageBox("Не указан путь к базе данных.", "Внимание!", vbOkOnly + vbCritical + vbSystemModal)
+    Exit Sub
+  End If
+  
+  Dim WSHShell : Set WSHShell = CreateObject("WScript.Shell")
+  On Error Resume Next
+  Call WSHShell.Run("""" & Application.ExeName & """ /sn """ & obj.FieldByname("USR$PATH").AsString & """ /user Administrator /password Administrator /q", 1, False)
+  On Error GoTo 0
+End Sub
