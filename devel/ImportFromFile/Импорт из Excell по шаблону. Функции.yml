@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: 7F1CC660B0D4FA926510796332F028C7
+  MD5: 38E1CB030C123F41EA167A4A411B5480
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-11T16:10:25+03:00
+      EDITIONDATE: 2021-08-24T13:24:45+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -53,6 +53,13 @@ Objects:
         public pAndRecL    ' номер колонки, по которой будет проверяться конец файла
         public pQfreeLine  ' количество последовательно идущих пустых строк
         public pQuant      ' количество ТМЦ в позиции документа
+        
+        public pDocDate    ' дата документа
+        public pDocNumb    ' номер документа
+        public pPath       ' рабочая директория
+        public pDept       ' подразделение
+        public pClient     ' клиент
+        
         
   - 
     Properties: 
@@ -78,7 +85,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-11T16:23:47+03:00
+      EDITIONDATE: 2021-08-24T15:03:51+03:00
       DISPLAYSCRIPT: | 
         IMFF_SETPARAMS
         
@@ -129,6 +136,13 @@ Objects:
             pQfreeLine = gdcTemplParam.FieldByName("USR$QFREELINE").AsInteger
             ' количество ТМЦ в позиции документа
             pQuant = gdcTemplParam.FieldByName("USR$QUANTITY").AsInteger
+            
+            
+            pDocDate = gdcTemplParam.FieldByName("USR$DOCDATE").AsInteger      ' дата документа
+            pDocNumb = gdcTemplParam.FieldByName("USR$DOCNUMBER").AsInteger    ' номер документа
+            pPath = gdcTemplParam.FieldByName("USR$PATH").AsString             ' рабочая директория
+            pDept = gdcTemplParam.FieldByName("USR$DEPARTMENT").AsInteger      ' подразделение
+            pClient = gdcTemplParam.FieldByName("USR$CONTACT").AsInteger       ' клиент
             
             if pQuant = 0 Then
               call Application.MessageBox("В шаблоне не задано поле для 'количества'" & vbCrLf & _

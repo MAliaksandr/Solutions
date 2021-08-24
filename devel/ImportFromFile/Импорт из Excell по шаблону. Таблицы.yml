@@ -5,10 +5,10 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 4308A0C8DC414E2F7C93C6298559D25F
+  MD5: 3A9BCEB1E8007E8EE7D7BDA4F8E74F97
 Uses: 
   - "148509668_396646306 Торговля - исследователь"
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
@@ -658,29 +658,43 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-08-11T16:08:57+03:00
+      EDITIONDATE: 2021-08-24T16:13:58+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
-          ActiveControl = nil
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = usrg_USR_IMPORTTEMPLATE_PageControl1
+          BorderStyle = bsSingle
+          ClientHeight = 330
+          ClientWidth = 481
           PixelsPerInch = 96
           TextHeight = 13
           object btnAccess: TButton
+            Top = 306
           end
           object btnNew: TButton
+            Top = 306
           end
           object btnHelp: TButton
+            Top = 306
           end
           object btnOK: TButton
+            Left = 333
+            Top = 306
           end
           object btnCancel: TButton
+            Left = 407
+            Top = 306
           end
           object pnlMain: TPanel
+            Width = 481
+            Height = 297
             object usrg_USR_IMPORTTEMPLATE_PageControl1: TPageControl
               Tag = 0
               Left = 0
               Top = 0
-              Width = 475
-              Height = 290
+              Width = 481
+              Height = 297
               Cursor = crDefault
               Hint = ''
               HelpContext = 0
@@ -744,10 +758,10 @@ Objects:
                 end
                 object usrg_info: TStaticText
                   Tag = 0
-                  Left = 12
-                  Top = 29
-                  Width = 442
-                  Height = 49
+                  Left = 4
+                  Top = 23
+                  Width = 458
+                  Height = 32
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
@@ -779,18 +793,18 @@ Objects:
                   TabStop = False
                   Visible = True
                 end
-                object usrg_USR_IMPORTTEMPLATE_GroupBox1: TGroupBox
+                object usrg_USR_IMPORTTEMPLATE_PageControl2: TPageControl
                   Tag = 0
-                  Left = 9
-                  Top = 66
-                  Width = 209
-                  Height = 113
+                  Left = 4
+                  Top = 50
+                  Width = 463
+                  Height = 218
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
+                  ActivePage = usrg_TBSheetMain
                   Align = alNone
                   Anchors = [akLeft, akTop]
-                  Caption = 'ТМЦ'
                   Constraints.MaxHeight = 0
                   Constraints.MaxWidth = 0
                   Constraints.MinHeight = 0
@@ -800,194 +814,428 @@ Objects:
                   DragKind = dkDrag
                   DragMode = dmManual
                   Enabled = True
+                  HotTrack = False
+                  Images = nil
+                  MultiLine = False
+                  OwnerDraw = False
                   ParentBiDiMode = True
-                  ParentColor = True
-                  ParentCtl3D = True
                   ParentFont = True
                   ParentShowHint = True
                   PopupMenu = nil
-                  TabOrder = 1
-                  TabStop = False
-                  Visible = True
-                  object usrat_DBEdit_USR_GOODNAME_Label: TLabel
-                    Left = 58
-                    Top = 16
-                  end
-                  object usrat_DBEdit_USR_DESCRIPTION_Label: TLabel
-                    Left = 60
-                    Top = 86
-                  end
-                  object usrat_DBEdit_USR_BARCODE_Label: TLabel
-                    Left = 60
-                    Top = 63
-                  end
-                  object usrat_DBEdit_USR_ALIAS_Label: TLabel
-                    Left = 60
-                    Top = 40
-                  end
-                  object usrat_DBEdit_USR_GOODNAME: TxDBCalculatorEdit
-                    Left = 5
-                    Top = 13
-                    Width = 52
-                    TabOrder = 0
-                  end
-                  object usrat_DBEdit_USR_ALIAS: TxDBCalculatorEdit
-                    Left = 5
-                    Top = 36
-                    Width = 52
-                    TabOrder = 1
-                  end
-                  object usrat_DBEdit_USR_BARCODE: TxDBCalculatorEdit
-                    Left = 5
-                    Top = 59
-                    Width = 52
-                    TabOrder = 2
-                  end
-                  object usrat_DBEdit_USR_DESCRIPTION: TxDBCalculatorEdit
-                    Left = 5
-                    Top = 82
-                    Width = 52
-                    Cursor = crArrow
-                    TabOrder = 3
-                  end
-                end
-                object usrg_USR_IMPORTTEMPLATE_GroupBox2: TGroupBox
-                  Tag = 0
-                  Left = 225
-                  Top = 66
-                  Width = 219
-                  Height = 112
-                  Cursor = crDefault
-                  Hint = ''
-                  HelpContext = 0
-                  Align = alNone
-                  Anchors = [akLeft, akTop]
-                  Caption = 'Цены и суммы'
-                  Constraints.MaxHeight = 0
-                  Constraints.MaxWidth = 0
-                  Constraints.MinHeight = 0
-                  Constraints.MinWidth = 0
-                  DockSite = False
-                  DragCursor = crDrag
-                  DragKind = dkDrag
-                  DragMode = dmManual
-                  Enabled = True
-                  ParentBiDiMode = True
-                  ParentColor = True
-                  ParentCtl3D = True
-                  ParentFont = True
-                  ParentShowHint = True
-                  PopupMenu = nil
+                  RaggedRight = False
+                  ScrollOpposite = False
+                  Style = tsTabs
+                  TabHeight = 0
                   TabOrder = 2
-                  TabStop = False
+                  TabPosition = tpTop
+                  TabStop = True
+                  TabWidth = 0
                   Visible = True
-                  object usrat_DBEdit_USR_SELLCOST_Label: TLabel
-                    Left = 63
-                    Top = 47
+                  object usrg_TBSheetMain: TTabSheet
+                    Tag = 0
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    BorderWidth = 0
+                    Caption = 'Общие параметры'
+                    DragMode = dmManual
+                    Enabled = True
+                    Highlighted = False
+                    ImageIndex = 0
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabVisible = True
+                    object usrg_USR_IMPORTTEMPLATE_GroupBox3: TGroupBox
+                      Tag = 0
+                      Left = 3
+                      Top = 0
+                      Width = 449
+                      Height = 183
+                      Cursor = crDefault
+                      Hint = ''
+                      HelpContext = 0
+                      Align = alNone
+                      Anchors = [akLeft, akTop]
+                      Caption = ''
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DockSite = False
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentCtl3D = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      TabOrder = 0
+                      TabStop = False
+                      Visible = True
+                      object usrat_DBEdit_USR_STARTLINE_Label: TLabel
+                        Left = 66
+                        Top = 20
+                        Width = 133
+                        Caption = 'Строка начала обработки'
+                      end
+                      object usrat_DBEdit_USR_QFREELINE_Label: TLabel
+                        Left = 67
+                        Top = 40
+                        Width = 132
+                        Caption = 'Количество пустых строк'
+                      end
+                      object usrat_DBEdit_USR_PATH_Label: TLabel
+                        Left = 5
+                        Top = 113
+                      end
+                      object usrat_DBEdit_USR_STARTLINE: TxDBCalculatorEdit
+                        Left = 9
+                        Top = 16
+                        Width = 52
+                        Cursor = crIBeam
+                        TabOrder = 0
+                      end
+                      object usrat_DBEdit_USR_QFREELINE: TxDBCalculatorEdit
+                        Left = 10
+                        Top = 38
+                        Width = 51
+                        Cursor = crArrow
+                        TabOrder = 1
+                      end
+                      object usrat_DBEdit_USR_PATH: TDBEdit
+                        Left = 119
+                        Top = 109
+                        Width = 319
+                        TabOrder = 2
+                      end
+                      object usrg_USR_IMPORTTEMPLATE_BitBtn1: TBitBtn
+                        Tag = 0
+                        Left = 349
+                        Top = 151
+                        Width = 91
+                        Height = 25
+                        Cursor = crDefault
+                        Hint = ''
+                        HelpContext = 0
+                        Action = nil
+                        Anchors = [akLeft, akTop]
+                        Cancel = False
+                        Caption = 'По-умолчанию'
+                        Constraints.MaxHeight = 0
+                        Constraints.MaxWidth = 0
+                        Constraints.MinHeight = 0
+                        Constraints.MinWidth = 0
+                        Default = False
+                        DragCursor = crDrag
+                        DragKind = dkDrag
+                        DragMode = dmManual
+                        Enabled = True
+                        ModalResult = 0
+                        ParentBiDiMode = True
+                        ParentFont = True
+                        ParentShowHint = True
+                        PopupMenu = nil
+                        TabOrder = 3
+                        TabStop = True
+                        Visible = True
+                        Kind = bkCustom
+                        Layout = blGlyphLeft
+                        Margin = -1
+                        NumGlyphs = 1
+                        Style = bsAutoDetect
+                        Spacing = 4
+                      end
+                    end
                   end
-                  object usrat_DBEdit_USR_VATPERC_Label: TLabel
-                    Left = 64
-                    Top = 68
+                  object usrg_DocInf: TTabSheet
+                    Tag = 0
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    BorderWidth = 0
+                    Caption = 'Параметры документа'
+                    DragMode = dmManual
+                    Enabled = True
+                    Highlighted = False
+                    ImageIndex = 0
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabVisible = True
+                    object usrat_DBEdit_USR_CONTACT_Label: TLabel
+                      Left = 120
+                      Top = 72
+                    end
+                    object usrat_DBEdit_USR_DEPARTMENT_Label: TLabel
+                      Left = 77
+                      Top = 51
+                    end
+                    object usrat_DBEdit_USR_DOCNUMBER_Label: TLabel
+                      Left = 68
+                      Top = 29
+                    end
+                    object usrat_DBEdit_USR_DOCDATE_Label: TLabel
+                      Left = 73
+                      Top = 8
+                    end
+                    object usrat_DBEdit_USR_DEPRUID_Label: TLabel
+                      Left = 114
+                      Top = 163
+                    end
+                    object usrat_DBEdit_USR_CONTACTRUID_Label: TLabel
+                      Left = 300
+                      Top = 161
+                    end
+                    object usrat_DBEdit_USR_DOCDATE: TxDBCalculatorEdit
+                      Left = 4
+                      Top = 4
+                      Width = 60
+                      Cursor = crIBeam
+                      TabOrder = 0
+                    end
+                    object usrat_DBEdit_USR_DOCNUMBER: TxDBCalculatorEdit
+                      Left = 4
+                      Top = 26
+                      Width = 60
+                      Cursor = crIBeam
+                      TabOrder = 1
+                    end
+                    object usrat_DBEdit_USR_DEPARTMENT: TxDBCalculatorEdit
+                      Left = 4
+                      Top = 48
+                      Width = 60
+                      Cursor = crIBeam
+                      TabOrder = 2
+                    end
+                    object usrat_DBEdit_USR_CONTACT: TxDBCalculatorEdit
+                      Left = 4
+                      Top = 70
+                      Width = 60
+                      Cursor = crIBeam
+                      TabOrder = 3
+                    end
+                    object usrat_DBEdit_USR_DEPRUID: TxDBCalculatorEdit
+                      Left = 235
+                      Top = 158
+                      Width = 60
+                      Cursor = crIBeam
+                      TabOrder = 4
+                    end
+                    object usrat_DBEdit_USR_CONTACTRUID: TxDBCalculatorEdit
+                      Left = 379
+                      Top = 158
+                      Width = 60
+                      Cursor = crIBeam
+                      TabOrder = 5
+                    end
                   end
-                  object usrat_DBEdit_USR_COSTBYNCU_Label: TLabel
-                    Left = 64
-                    Top = 21
+                  object usrg_TBSheetGood: TTabSheet
+                    Tag = 0
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    BorderWidth = 0
+                    Caption = 'ТМЦ'
+                    DragMode = dmManual
+                    Enabled = True
+                    Highlighted = False
+                    ImageIndex = 0
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabVisible = True
+                    object usrg_USR_IMPORTTEMPLATE_GroupBox1: TGroupBox
+                      Tag = 0
+                      Left = 1
+                      Top = 0
+                      Width = 452
+                      Height = 183
+                      Cursor = crDefault
+                      Hint = ''
+                      HelpContext = 0
+                      Align = alNone
+                      Anchors = [akLeft, akTop]
+                      Caption = ''
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DockSite = False
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentCtl3D = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      TabOrder = 0
+                      TabStop = False
+                      Visible = True
+                      object usrat_DBEdit_USR_GOODNAME_Label: TLabel
+                        Left = 58
+                        Top = 16
+                      end
+                      object usrat_DBEdit_USR_DESCRIPTION_Label: TLabel
+                        Left = 60
+                        Top = 86
+                      end
+                      object usrat_DBEdit_USR_BARCODE_Label: TLabel
+                        Left = 60
+                        Top = 63
+                      end
+                      object usrat_DBEdit_USR_ALIAS_Label: TLabel
+                        Left = 60
+                        Top = 40
+                      end
+                      object usrat_DBEdit_USR_GOODNAME: TxDBCalculatorEdit
+                        Left = 5
+                        Top = 13
+                        Width = 52
+                        TabOrder = 0
+                      end
+                      object usrat_DBEdit_USR_ALIAS: TxDBCalculatorEdit
+                        Left = 5
+                        Top = 36
+                        Width = 52
+                        TabOrder = 1
+                      end
+                      object usrat_DBEdit_USR_BARCODE: TxDBCalculatorEdit
+                        Left = 5
+                        Top = 59
+                        Width = 52
+                        TabOrder = 2
+                      end
+                      object usrat_DBEdit_USR_DESCRIPTION: TxDBCalculatorEdit
+                        Left = 5
+                        Top = 82
+                        Width = 52
+                        Cursor = crArrow
+                        TabOrder = 3
+                      end
+                    end
                   end
-                  object usrat_DBEdit_USR_QUANTITY_Label: TLabel
-                    Left = 64
-                    Top = 91
-                    Width = 60
-                    Caption = 'Количество'
-                  end
-                  object usrat_DBEdit_USR_COSTBYNCU: TxDBCalculatorEdit
-                    Left = 8
-                    Top = 18
-                    Width = 52
-                    Cursor = crIBeam
-                    TabOrder = 0
-                  end
-                  object usrat_DBEdit_USR_VATPERC: TxDBCalculatorEdit
-                    Left = 8
-                    Top = 65
-                    Width = 52
-                    Cursor = crIBeam
-                    TabOrder = 1
-                  end
-                  object usrat_DBEdit_USR_SELLCOST: TxDBCalculatorEdit
-                    Left = 9
-                    Top = 42
-                    Width = 52
-                    Cursor = crIBeam
-                    TabOrder = 2
-                  end
-                  object usrat_DBEdit_USR_QUANTITY: TxDBCalculatorEdit
-                    Left = 8
-                    Top = 88
-                    Width = 52
-                    Cursor = crIBeam
-                    TabOrder = 3
-                  end
-                end
-                object usrg_USR_IMPORTTEMPLATE_GroupBox3: TGroupBox
-                  Tag = 0
-                  Left = 16
-                  Top = 186
-                  Width = 425
-                  Height = 67
-                  Cursor = crDefault
-                  Hint = ''
-                  HelpContext = 0
-                  Align = alNone
-                  Anchors = [akLeft, akTop]
-                  Caption = 'Общие'
-                  Constraints.MaxHeight = 0
-                  Constraints.MaxWidth = 0
-                  Constraints.MinHeight = 0
-                  Constraints.MinWidth = 0
-                  DockSite = False
-                  DragCursor = crDrag
-                  DragKind = dkDrag
-                  DragMode = dmManual
-                  Enabled = True
-                  ParentBiDiMode = True
-                  ParentColor = True
-                  ParentCtl3D = True
-                  ParentFont = True
-                  ParentShowHint = True
-                  PopupMenu = nil
-                  TabOrder = 4
-                  TabStop = False
-                  Visible = True
-                  object usrat_DBEdit_USR_STARTLINE_Label: TLabel
-                    Left = 66
-                    Top = 20
-                    Width = 133
-                    Caption = 'Строка начала обработки'
-                  end
-                  object usrat_DBEdit_USR_QFREELINE_Label: TLabel
-                    Left = 67
-                    Top = 40
-                    Width = 132
-                    Caption = 'Количество пустых строк'
-                  end
-                  object usrat_DBEdit_USR_STARTLINE: TxDBCalculatorEdit
-                    Left = 9
-                    Top = 16
-                    Width = 52
-                    Cursor = crIBeam
-                    TabOrder = 0
-                  end
-                  object usrat_DBEdit_USR_QFREELINE: TxDBCalculatorEdit
-                    Left = 10
-                    Top = 38
-                    Width = 51
-                    TabOrder = 1
+                  object usrg_TBSheetCost: TTabSheet
+                    Tag = 0
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    BorderWidth = 0
+                    Caption = 'Цены и суммы'
+                    DragMode = dmManual
+                    Enabled = True
+                    Highlighted = False
+                    ImageIndex = 0
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabVisible = True
+                    object usrg_USR_IMPORTTEMPLATE_GroupBox2: TGroupBox
+                      Tag = 0
+                      Left = 2
+                      Top = 0
+                      Width = 449
+                      Height = 184
+                      Cursor = crDefault
+                      Hint = ''
+                      HelpContext = 0
+                      Align = alNone
+                      Anchors = [akLeft, akTop]
+                      Caption = ''
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DockSite = False
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentCtl3D = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      TabOrder = 0
+                      TabStop = False
+                      Visible = True
+                      object usrat_DBEdit_USR_SELLCOST_Label: TLabel
+                        Left = 63
+                        Top = 47
+                      end
+                      object usrat_DBEdit_USR_VATPERC_Label: TLabel
+                        Left = 64
+                        Top = 68
+                      end
+                      object usrat_DBEdit_USR_COSTBYNCU_Label: TLabel
+                        Left = 64
+                        Top = 21
+                      end
+                      object usrat_DBEdit_USR_QUANTITY_Label: TLabel
+                        Left = 64
+                        Top = 91
+                        Width = 60
+                        Caption = 'Количество'
+                      end
+                      object usrat_DBEdit_USR_COSTBYNCU: TxDBCalculatorEdit
+                        Left = 8
+                        Top = 18
+                        Width = 52
+                        Cursor = crIBeam
+                        TabOrder = 0
+                      end
+                      object usrat_DBEdit_USR_VATPERC: TxDBCalculatorEdit
+                        Left = 8
+                        Top = 65
+                        Width = 52
+                        Cursor = crIBeam
+                        TabOrder = 1
+                      end
+                      object usrat_DBEdit_USR_SELLCOST: TxDBCalculatorEdit
+                        Left = 9
+                        Top = 42
+                        Width = 52
+                        Cursor = crIBeam
+                        TabOrder = 2
+                      end
+                      object usrat_DBEdit_USR_QUANTITY: TxDBCalculatorEdit
+                        Left = 8
+                        Top = 88
+                        Width = 52
+                        Cursor = crIBeam
+                        TabOrder = 3
+                      end
+                    end
                   end
                 end
                 object usrat_DBEdit_USR_NAME: TDBEdit
                   Left = 155
                   Top = 0
                   Width = 300
+                  TabOrder = 1
                 end
               end
               object usrg_USR_IMPORTTEMPLATE_TabSheet2: TTabSheet
@@ -1010,8 +1258,9 @@ Objects:
                 PopupMenu = nil
                 TabVisible = True
                 object atAttributes: TatContainer
-                  Width = 467
-                  Height = 262
+                  Width = 473
+                  Height = 269
+                  VertScrollBar.Position = 0
                 end
               end
             end
@@ -1137,6 +1386,300 @@ Objects:
       STRINGLENGTH: ~
       VISIBLE: 1
       EDITIONDATE: 2021-08-11T16:07:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 154581441_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$PATH"
+      FIELDNAME: "USR$PATH"
+      FIELDSOURCE: "DTEXT180"
+      FIELDSOURCEKEY: "147000116_31587988 Текст (180), DTEXT180"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Путь к файлу обмена"
+      LSHORTNAME: "Путь к файлу обмена"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 180
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-24T13:11:27+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 154581437_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$CONTACTRUID"
+      FIELDNAME: "USR$CONTACTRUID"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Клиент(ключ)"
+      LSHORTNAME: "Клиент(ключ)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-24T12:51:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 154581436_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$CONTACT"
+      FIELDNAME: "USR$CONTACT"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Клиент"
+      LSHORTNAME: "Клиент"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-24T12:51:12+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 154581435_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DEPRUID"
+      FIELDNAME: "USR$DEPRUID"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Подразделение(ключ)"
+      LSHORTNAME: "Подразделение(ключ)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-24T13:22:02+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 154581434_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DEPARTMENT"
+      FIELDNAME: "USR$DEPARTMENT"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Подразделение"
+      LSHORTNAME: "Подразделение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-24T12:49:09+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 154581433_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DOCNUMBER"
+      FIELDNAME: "USR$DOCNUMBER"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Номер документа"
+      LSHORTNAME: "Номер документа"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-24T12:47:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 154581432_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DOCDATE"
+      FIELDNAME: "USR$DOCDATE"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дата документа"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-08-24T12:46:27+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~

@@ -1,0 +1,199 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 154581535_1631104572
+  Name: "Импорт из Excell по шаблону. Параметры по-умолчанию. Функции"
+  Caption: "Импорт из Excell по шаблону. Параметры по-умолчанию. Функции"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: FBFA77050D25A8E60291F71DCC7841C5
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154581523_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Default_setParams"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-24T16:47:07+03:00
+      DISPLAYSCRIPT: | 
+        DEFAULT_SETPARAMS
+        EXCEPT_DEFAULT_SETPARAMS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QDAAAAT0JKAwAAAE9CSgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function Default_setParams(Obj)
+          ' задает параметры шаблона по-умолчанию
+          
+          if Obj.State = dsInsert Then
+           call Application.MessageBox("Необходимо сохранить шаблон.", "Внимание", vbokOnly+vbSysytemMOdal+vbCritical)
+           exit function
+          end if
+        
+          IF Application.MessageBox("Будут утановлены параметры по-умолчанию. Продолжить?",  _
+             "Внимание", vbYesNo+vbSystemMOdal+vbExclamation) = vbNo then exit function
+             
+          dim Creator, ibsql, Tr
+          set Creator = new TCreator
+          set Tr = Creator.GetObject(null, "TIBTransaction", "")
+          Tr.DefaultDataBase = gdcBaseManager.DataBase
+          Tr.StartTransaction
+        
+          Except Except_Default_setParams(Tr)
+        
+          set ibsql = Creator.GetObject(null, "TIBSQL", "" )
+          ibsql.Transaction = Tr
+          ibsql.SQL.Text = _
+            "UPDATE USR$IMPORTTEMPLATE " & _
+            "SET " & _
+            "  USR$DOCDATE = 1, " & _
+            "  USR$DOCNUMBER	= 2, " & _
+            "  USR$DEPARTMENT = 3, " & _
+            "  USR$DEPRUID = 0, " & _
+            "  USR$CONTACT = 6, " & _
+            "  USR$CONTACTRUID = 0, " & _
+            "  USR$QUANTITY = 9, " & _
+            "  USR$SELLCOST=10, " & _
+            "  USR$VATPERC=11, " & _
+            "  USR$GOODNAME=12, " & _
+            "   " & _
+            "  USR$STARTLINE=0, " & _
+            "  USR$ALIAS=0, " & _
+            "  USR$BARCODE=0, " & _
+            "  USR$DESCRIPTION=0, " & _
+            "  USR$COSTBYNCU=0, " & _
+            "  USR$QFREELINE=0, " & _
+            "  USR$PATH = 'd:\' " & _
+            "WHERE ID = :reckey "
+          ibsql.ParamByName("reckey").asInteger =Obj.ID
+          ibsql.ExecQuery
+          
+          if Tr.InTransaction then Tr.Commit
+          Obj.CloseOpen
+        
+        End Function
+        Sub Except_Default_setParams(Tr)
+          Tr.RollBack
+        end sub
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 154581439_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 154581527_1631104572
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "154581439_1631104572"
+      EDITIONDATE: 2021-08-24T12:54:02+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 154581438_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 154581527_1631104572
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-08-24T12:54:02+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 154479216_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 154581527_1631104572
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "154581438_1631104572 Локальные макросы"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "154581439_1631104572 Отчеты(gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE)"
+      SUBTYPE: ""
+      EDITIONDATE: 2021-08-24T12:54:02+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154581527_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_USR_IMPORTTEMPLATE_BitBtn1OnClick"
+      COMMENT: ~
+      EVENT: "ONCLICK"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "154479216_1631104572 gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-24T16:13:58+03:00
+      DISPLAYSCRIPT: | 
+        USRG_USR_IMPORTTEMPLATE_BITBTN1ONCLICK
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include DEFAULT_SETPARAMS
+        Option Explicit
+        Sub usrg_USR_IMPORTTEMPLATE_BitBtn1OnClick(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnClick", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          call Default_setParams(Sender.OwnerForm.gdcObject)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "154581523_1631104572 Default_setParams"

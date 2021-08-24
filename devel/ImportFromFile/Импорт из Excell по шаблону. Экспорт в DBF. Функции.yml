@@ -1,0 +1,246 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 154581548_1631104572
+  Name: "Импорт из Excell по шаблону. Экспорт в DBF. Функции"
+  Caption: "Импорт из Excell по шаблону. Экспорт в DBF. Функции"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 882A663D21209674F024FD3340B2A679
+Uses: 
+  - "154577947_1631104572 Импорт из Excell по шаблону. Функции"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154581440_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "F_exchange_sell"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-24T16:45:08+03:00
+      DISPLAYSCRIPT: | 
+        F_EXCHANGE_SELL
+        EXCEPT_F_EXCHANGE_SELL
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAUAAABURU1QTAUAAABURU1QTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include F_CORRECTVALUEDBF
+        '#include IMFF_SETPARAMS
+        Option Explicit
+        ' функция обмена данными через файл DBF
+        Function F_exchange_sell(OwnerForm, templ)
+          dim objConnection, objCommandWares
+         ' инициализация индексов(ячеек) соответствующие нужным данным
+          Imff_setParams(templ)
+          
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = pPath
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          set objCommandWares = CreateObject("ADODB.Command")
+          objCommandWares.ActiveConnection = objConnection
+          objCommandWares.CommandType = 1
+          
+          dim mnth,yr,tablename
+        
+          tablename = pDocNumb
+        
+          objCommandWares.CommandText = " drop table " & tablename
+          on error resume next
+          objCommandWares.Execute
+          on error goto 0
+        
+          dim Creator, ibsql, Tr
+          set Creator = new TCreator
+          set Tr = Creator.GetObject(null, "TIBTransaction", "")
+          Tr.DefaultDataBase = gdcBaseManager.DataBase
+          Tr.StartTransaction
+          
+          Except Except_F_exchange_sell(Tr)
+          
+          set ibsql = Creator.GetObject(null, "TIBSQL", "" )
+          ibsql.Transaction = Tr
+          ibsql.SQL.Text = _
+            "SELECT " & _
+            "d.DOCUMENTDATE, " & _
+            "d.NUMBER, " & _
+            "DEP.ID, " & _
+            "r_dep.xid as dep_XID, " & _
+            "r_dep.dbid as dep_DBID, " & _
+            "DEP.NAME as DEPNAME, " & _
+            "CONT.ID, " & _
+            "r_cont.xid as cont_XID, " & _
+            "r_cont.dbid as cont_DBID, " & _
+            "CONT.NAME as CONTNAME, " & _
+            "g.ID as goodkey, " & _
+            "r_g.xid as g_XID, " & _
+            "r_g.dbid as g_DBID, " & _
+            "g.NAME as Goodname, " & _
+            "v.ID as valuekey, " & _
+            "r_v.xid as v_XID, " & _
+            "r_v.dbid as v_DBID, " & _
+            "v.NAME as valuename, " & _
+            "l.DOCUMENTKEY, " & _
+            "l.QUANTITY, " & _
+            "c.USR$INV_COSTNCU as COST, " & _
+            "l.USR$SUMNCU, " & _
+            "l.USR$SUMNDSNCU, " & _
+            "l.USR$SUMWITHNDSNCU " & _
+            "FROM GD_DOCUMENT D " & _
+            "JOIN USR$INV_SELLBILL SB on SB.DOCUMENTKEY = D.ID " & _
+            "LEFT JOIN USR$INV_SELLBILLLINE L on l.MASTERKEY = SB.DOCUMENTKEY " & _
+            "LEFT JOIN GD_CONTACT DEP on DEP.ID = SB.USR$MAINDEPOTKEY " & _
+            "LEFT JOIN GD_P_GETRUID(DEP.ID) r_dep on 1=1 " & _
+            "LEFT JOIN GD_CONTACT CONT on CONT.ID = SB.USR$CONTACTKEY " & _
+            "LEFT JOIN GD_P_GETRUID(CONT.ID) r_cont on 1=1 " & _
+            "lEFT JOIN INV_CARD C ON C.ID = l.TOCARDKEY " & _
+            "LEFT JOIN GD_GOOD G ON G.ID = C.GOODKEY " & _
+            "LEFT JOIN GD_P_GETRUID(G.ID) r_g on 1=1 " & _
+            "LEFT JOIN GD_VALUE v on V.ID = g.VALUEKEY " & _
+            "LEFT JOIN GD_P_GETRUID(V.ID) r_v on 1=1 " & _
+            "WHERE d.ID = :dockey "
+        
+          ibsql.ParamByName("dockey").AsInteger = OwnerForm.gdcObject.ID
+          ibsql.ExecQuery
+          
+          dim MaxInd, tbl, i
+          MaxInd = 30
+          tbl = ""
+          i = 1
+          While i <MaxInd
+             IF tbl <>"" Then
+               tbl = tbl + _
+               ", a" & CSTR(i) & " varchar(11)"
+             else
+               tbl = tbl + _
+               "a" & CSTR(i) & " varchar(11)"
+             END IF
+             i = i + 1
+          wend
+        
+        
+          objCommandWares.CommandText = _
+            " create table " & tablename & " (" & _
+            tbl & _
+            " ) "
+         objCommandWares.Execute
+          dim InsertSQL
+          while not ibsql.EOF
+        
+            InsertSQL = " insert into " & tablename & " (" & _
+            " a" & CSTR(pDocDate) & ", "  & _
+            " a" & CSTR(pDocNumb) & ", " & _
+            " a" & CSTR(pQuant) & ", " & _
+            " a" & CSTR(pCOSTBYNCU) & " " & _
+            " ) values " & _
+              " (" & _
+              "'" & F_correctValueDBF(ibsql.FieldByName("DOCUMENTDATE").AsDAteTime, 3) & "'" &  ", " & _
+              "'" & F_correctValueDBF(ibsql.FieldByName("NUMBER").AsString, 2) & "'" &  ", " & _
+              F_correctValueDBF(ibsql.FieldByName("QUANTITY").AsCurrency,1 ) &  ", " & _
+              F_correctValueDBF(ibsql.FieldByName("COST").AsCurrency,1) &  " " & _
+              ") "
+            objCommandWares.CommandText = InsertSQL
+            objCommandWares.Execute
+            ibsql.Next
+          wend
+          
+          if Tr.InTransaction then Tr.Commit
+          MsgBox "Завершено!"
+        
+        End Function
+        
+        sub Except_F_exchange_sell (Transaction)
+          Transaction.Rollback
+        end sub
+        
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "154581542_1631104572 F_correctValueDBF"
+          - 
+            ADDFUNCTIONKEY: "154566984_1631104572 Imff_setParams"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154581542_1631104572
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "F_correctValueDBF"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-08-24T16:42:03+03:00
+      DISPLAYSCRIPT: | 
+        F_CORRECTVALUEDBF
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QDAAAAVkFMAwAAAFZBTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNUUFJTVAUA
+        AABWVFlQRQUAAABWVFlQRQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        ' определяет значения
+        ' vtype: 1 - число
+        '        2 - строка
+        '        3 - date
+        Function F_correctValueDBF(val, vtype)
+        
+         Select case vtype
+           case 1
+              res = Replace(CSTR(val), ",", ".")
+           case 2
+              res = Replace(CSTR(val), "'", "-")
+           case 3
+              res = FormatDateTime(val, vbShortDate)
+              res = Replace(res, "/", "")
+              res = Replace(res, ".", "")
+              res = Replace(res, "-", "")
+           case else
+              res = Replace(CSTR(val), ",", ".")
+              res = Replace(CSTR(val), "'", "")
+              res = Replace(res, ".", "")
+         end select
+         
+        
+         F_correctValueDBF = res
+        End Function
+        
