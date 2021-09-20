@@ -1,0 +1,1007 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 160970564_1743838890
+  Name: "Торговля. Рассрочка. Методы"
+  Caption: "Торговля. Рассрочка. Методы"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: EF779CFF55309F562BB88CF8C5FADD13
+Uses: 
+  - "194442289_637058871 Возврат от покупателя."
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 149519032_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149519462_1658323743
+    Fields: 
+      PARENT: "147010431_119560140 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocument"
+      NAME: "TgdcUserDocument149518266_1658323743"
+      CLASSNAME: "TgdcUserDocument"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "149518266_1658323743"
+      EDITIONDATE: 2011-05-06T18:27:06+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149519464_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149519462_1658323743
+    Fields: 
+      NAME: "TgdcUserDocument149518266_1658323743DoFieldChange"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "149519032_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocument\\TgdcUserDocument149518266_1658323743"
+      OBJECTNAME: "TgdcUserDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-23T18:11:00+03:00
+      DISPLAYSCRIPT: | 
+        TGDCUSERDOCUMENT149518266_1658323743DOFIELDCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        BQAAAEZJRUxEBQAAAEZJRUxEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        option explicit
+        sub TgdcUserDocument149518266_1658323743DoFieldChange(Self, Field)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          call Inherited(Self, "DoFieldChange", Array(Self, Field))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          if Field.FieldName = "USR$PREPAYMENT" then
+            if Self.FieldByName("USR$SELLBILLKEY").IsNull then exit sub
+            dim Creator, q
+            set Creator = new TCreator
+            
+            set q = Creator.GetObject(nil, "TIBSQL", "")
+            if Self.Transaction.InTransaction then
+              q.Transaction = Self.Transaction
+            else
+              q.Transaction = Self.ReadTransaction
+            end if
+            q.SQL.Text = _
+              "  SELECT SUM(USR$SUMWITHSALETAX) AS S " & _
+              "  FROM USR$INV_SELLBILLLINE " & _
+              "  WHERE MASTERKEY = :SELLBILLKEY "
+            q.ParamByName("SELLBILLKEY").AsInteger = Self.FieldByName("USR$SELLBILLKEY").AsInteger
+            q.ExecQuery
+            if q.FieldByName("S").AsCurrency > Field.AsCurrency then
+              Self.FieldByName("USR$SUM").AsCurrency = q.FieldByName("S").AsCurrency - Field.AsCurrency
+            else
+              Self.FieldByName("USR$SUM").AsCurrency = 0
+            end if
+            Self.FieldByName("TOPAY").AsCurrency = _
+              Self.FieldByName("USR$SUM").AsCurrency - Self.FieldByName("USR$PAYED").AsCurrency
+          end if
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 149519462_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOFIELDCHANGE"
+      FUNCTIONKEY: "149519464_1658323743 TgdcUserDocument149518266_1658323743DoFieldChange"
+      OBJECTKEY: "149519032_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocument\\TgdcUserDocument149518266_1658323743"
+      OBJECTNAME: "TgdcUserDocument149518266_1658323743"
+      PARENTNAME: "TgdcUserDocument"
+      EDITIONDATE: 2011-05-23T18:11:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149519035_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149519033_1658323743
+    Fields: 
+      NAME: "TgdcUserDocument149518266_1658323743GetSelectClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "149519032_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocument\\TgdcUserDocument149518266_1658323743"
+      OBJECTNAME: "TgdcUserDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-23T13:52:36+03:00
+      DISPLAYSCRIPT: | 
+        TGDCUSERDOCUMENT149518266_1658323743GETSELECTCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        option explicit
+        function TgdcUserDocument149518266_1658323743GetSelectClause(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcUserDocument149518266_1658323743GetSelectClause = _
+            Inherited(Self, "GetSelectClause", Array(Self)) & _
+            ", (COALESCE(U.USR$SUM, 0.0000) - COALESCE(U.USR$PAYED, 0.0000)) AS ToPay " & _
+            ", (SELECT FIRST 1 OnDate FROM USR$PD_P_DOWNPAYMENT_TABLE (U.USR$SUM, Z.DOCUMENTDATE) ORDER BY 1 DESC) AS MaxDate  " & _
+            ", (COALESCE(U.USR$SUM, 0.0000) + COALESCE(U.USR$PREPAYMENT, 0.0000)) AS AllSumPay "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 149519033_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETSELECTCLAUSE"
+      FUNCTIONKEY: "149519035_1658323743 TgdcUserDocument149518266_1658323743GetSelectClause"
+      OBJECTKEY: "149519032_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocument\\TgdcUserDocument149518266_1658323743"
+      OBJECTNAME: "TgdcUserDocument149518266_1658323743"
+      PARENTNAME: "TgdcUserDocument"
+      EDITIONDATE: 2011-05-23T13:52:36+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 149518399_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518411_1658323743
+    Fields: 
+      PARENT: "147005633_15581101 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocumentLine"
+      NAME: "TgdcUserDocumentLine149518266_1658323743"
+      CLASSNAME: "TgdcUserDocumentLine"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "149518266_1658323743"
+      EDITIONDATE: 2011-04-30T17:19:55+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518413_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518411_1658323743
+    Fields: 
+      NAME: "TgdcUserDocumentLine149518266_1658323743DoAfterDelete"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "149518399_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocumentLine\\TgdcUserDocumentLine149518266_1658323743"
+      OBJECTNAME: "TgdcUserDocumentLine149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-04-30T17:24:07+03:00
+      DISPLAYSCRIPT: | 
+        TGDCUSERDOCUMENTLINE149518266_1658323743DOAFTERDELETE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        option explicit
+        sub TgdcUserDocumentLine149518266_1658323743DoAfterDelete(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          call Inherited(Self, "DoAfterDelete", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          if Assigned(Self.MasterSource) then
+            call Self.MasterSource.DataSet.Refresh
+          end if
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 149518411_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOAFTERDELETE"
+      FUNCTIONKEY: "149518413_1658323743 TgdcUserDocumentLine149518266_1658323743DoAfterDelete"
+      OBJECTKEY: "149518399_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocumentLine\\TgdcUserDocumentLine149518266_1658323743"
+      OBJECTNAME: "TgdcUserDocumentLine149518266_1658323743"
+      PARENTNAME: "TgdcUserDocumentLine"
+      EDITIONDATE: 2011-04-30T17:24:07+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518402_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518400_1658323743
+    Fields: 
+      NAME: "TgdcUserDocumentLine149518266_1658323743DoAfterPost"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "149518399_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocumentLine\\TgdcUserDocumentLine149518266_1658323743"
+      OBJECTNAME: "TgdcUserDocumentLine149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-04-30T17:19:56+03:00
+      DISPLAYSCRIPT: | 
+        TGDCUSERDOCUMENTLINE149518266_1658323743DOAFTERPOST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        option explicit
+        sub TgdcUserDocumentLine149518266_1658323743DoAfterPost(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          call Inherited(Self, "DoAfterPost", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          if Assigned(Self.MasterSource) then
+            call Self.MasterSource.DataSet.Refresh
+          end if
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 149518400_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOAFTERPOST"
+      FUNCTIONKEY: "149518402_1658323743 TgdcUserDocumentLine149518266_1658323743DoAfterPost"
+      OBJECTKEY: "149518399_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocumentLine\\TgdcUserDocumentLine149518266_1658323743"
+      OBJECTNAME: "TgdcUserDocumentLine149518266_1658323743"
+      PARENTNAME: "TgdcUserDocumentLine"
+      EDITIONDATE: 2011-04-30T17:19:56+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 149518351_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518947_1658323743
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgUserComplexDocument149518266_1658323743)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "149518351_1658323743"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 149518350_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518947_1658323743
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2011-04-30T16:08:58+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 149518349_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518947_1658323743
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "149518350_1658323743 Локальные макросы"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "149518351_1658323743 Отчеты(gdc_dlgUserComplexDocument149518266_1658323743)"
+      SUBTYPE: ""
+      EDITIONDATE: 2011-04-30T16:08:58+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518947_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actClearBillOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-05T20:37:42+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTCLEARBILLONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        option explicit
+        sub usrg_actClearBillOnExecute(ByVal Sender)
+          if Application.MessageBox( _
+            "Если очистить ссылку на документ продажи, сам документ продажи не будет удалён. Продолжить?", _
+            "Внимание", vbQuestion  + vbSystemModal + vbYesNo) = vbYes then
+            Sender.OwnerForm.gdcObject.Edit
+            Sender.OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").Clear
+            Sender.OwnerForm.gdcObject.FieldByName("USR$SUM").Clear
+            Sender.OwnerForm.gdcObject.Post
+          end if
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518950_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actClearBillOnUpdate"
+      COMMENT: ~
+      EVENT: "ONUPDATE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-05T20:35:24+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTCLEARBILLONUPDATE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        option explicit
+        sub usrg_actClearBillOnUpdate(ByVal Sender)
+          Sender.Enabled = (not Sender.OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").IsNull)
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518954_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actDeleteBillOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-06T15:51:00+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTDELETEBILLONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        option explicit
+        sub usrg_actDeleteBillOnExecute(ByVal Sender)
+          if Application.MessageBox( _
+            "Документ продажи  будет удалён. Продолжить?", _
+            "Внимание", vbQuestion  + vbSystemModal + vbYesNo) = vbYes then
+            dim gdcO
+            set gdcO = Sender.OwnerForm.gdcObject
+            
+            dim LK
+            LK = gdcO.FieldByName("USR$SELLBILLKEY").AsInteger
+            dim Creator
+            set Creator = new TCreator
+            dim gdcBill
+            set gdcBill = Creator.GetObject(nil, "TgdcInvDocument", "")
+            gdcBill.SubType = "147022442_63934951"
+            gdcBill.SubSet = "ByID"
+            gdcBill.Transaction = gdcO.Transaction
+            gdcBill.ReadTransaction = gdcO.Transaction
+            gdcBill.ID = LK
+            gdcBill.Open
+            
+            gdcO.Edit
+            gdcO.FieldByName("USR$SELLBILLKEY").Clear
+            gdcO.FieldByName("USR$SUM").Clear
+            gdcO.Post
+           ' Sender.OwnerForm.GetComponent("usrg_gdcSellBillLine").CloseOpen
+            gdcBill.Delete
+          end if
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518957_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actDeleteBillOnUpdate"
+      COMMENT: ~
+      EVENT: "ONUPDATE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-06T16:35:45+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTDELETEBILLONUPDATE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        option explicit
+        sub usrg_actDeleteBillOnUpdate(ByVal Sender)
+         Sender.Enabled = false ' (not Sender.OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").IsNull)
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518434_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518931_1658323743
+    Fields: 
+      NAME: "wg_GetDownPaymentTable"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2015-02-18T14:17:53+03:00
+      DISPLAYSCRIPT: | 
+        WG_GETDOWNPAYMENTTABLE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QDAAAARlJNAwAAAEZSTQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function wg_GetDownPaymentTable(ByRef frm)
+          dim gdcObject
+          set gdcObject = frm.gdcObject
+          
+          dim ds
+          set ds = frm.GetComponent("usrg_ibdsPaymentTable")
+          ds.Close
+          ds.ParamByName("SumPay").AsCurrency = gdcObject.FieldByName("USR$SUM").AsCurrency
+          ds.ParamByName("OnDate").AsDateTime = gdcObject.FieldByName("DOCUMENTDATE").AsDateTime
+          ds.Open
+          ds.Last
+          
+        End function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518931_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actEditBillOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2015-01-14T13:10:11+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTEDITBILLONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include WG_GETDOWNPAYMENTTABLE
+        ' создать\редактировать связанную накладную
+        option explicit
+        sub usrg_actEditBillOnExecute(ByVal Sender)
+          'чтобы, если поменялась ТОЛЬКО накладная, а Рассрочка - нет, все не откатилось
+          dim gdcO
+          set gdcO = Sender.OwnerForm.gdcObject
+          if (not (gdcO.State = dsEdit or gdcO.State = dsInsert)) then
+            gdcO.Edit
+          end if
+          gdcO.FieldByName("DOCUMENTKEY").AsInteger = gdcO.FieldByName("DOCUMENTKEY").AsInteger
+          gdcO.Post
+        
+          dim Creator
+          set Creator = new TCreator
+        
+          dim IsInserted
+          IsInserted = false
+          dim gdcBill
+          set gdcBill = Creator.GetObject(nil, "TgdcInvDocument", "")
+          gdcBill.SubType = "147022442_63934951"
+          gdcBill.SubSet = "ByID"
+          gdcBill.Transaction = gdcO.Transaction
+          gdcBill.ReadTransaction = gdcO.Transaction
+          if gdcO.FieldByName("USR$SELLBILLKEY").IsNull then
+            gdcBill.Open
+            gdcBill.Insert
+            gdcBill.FieldByName("DOCUMENTDATE").AsDateTime = _
+               gdcO.FieldByName("DOCUMENTDATE").AsDateTime
+            gdcBill.FieldByName("USR$CONTACTKEY").AsVariant = _
+              gdcO.FieldByName("USR$CONTACTKEY").AsVariant
+            gdcBill.FieldByName("USR$MANAGERKEY").AsVariant = _
+              gdcBaseManager.GetIdByRuidString("160035177_1665905672")
+            gdcBill.Post
+            IsInserted = true
+            gdcO.Edit
+            gdcO.FieldByName("USR$SELLBILLKEY").AsInteger = gdcBill.ID
+            gdcO.Post
+          else
+            gdcBill.ID = gdcO.FieldByName("USR$SELLBILLKEY").AsInteger
+            gdcBill.Open
+          end if
+          if not gdcBill.EditDialog("") then
+             if IsInserted then
+               gdcO.Edit
+               gdcO.FieldByName("USR$SELLBILLKEY").Clear
+               gdcO.Post
+               gdcBill.Delete
+             end if
+          end if
+          gdcO.Refresh
+          call wg_GetDownPaymentTable(Sender.OwnerForm)
+          Sender.OwnerForm.GetComponent("usrg_gdcSellBillLine").CloseOpen
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "149518434_1658323743 wg_GetDownPaymentTable"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518935_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actSelectBillOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-06T19:18:25+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTSELECTBILLONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        option explicit
+        sub usrg_actSelectBillOnExecute(ByVal Sender)
+          'чтобы, если поменялась ТОЛЬКО накладная, а Рассрочка - нет, все не откатилось
+          dim gdcO
+          set gdcO = Sender.OwnerForm.gdcObject
+          if (not (gdcO.State = dsEdit or gdcO.State = dsInsert)) then
+            gdcO.Edit
+          end if
+          gdcO.FieldByName("DOCUMENTKEY").AsInteger = gdcO.FieldByName("DOCUMENTKEY").AsInteger
+          gdcO.Post
+        
+          dim Creator
+          set Creator = new TCreator
+        
+          dim IsInserted
+          IsInserted = false
+          dim gdcBill
+          set gdcBill = Creator.GetObject(nil, "TgdcInvDocument", "")
+          gdcBill.SubType = "147022442_63934951"
+          gdcBill.SubSet = "All"
+          gdcBill.Transaction = gdcO.Transaction
+          gdcBill.ReadTransaction = gdcO.Transaction
+        
+          gdcBill.Open
+          
+          dim frm
+          set frm = gdcBill.CreateViewFormNewInstance(Sender.OwnerForm, "Tgdc_frmInvDocument", gdcBill.SubType, true)
+          frm.GetComponent("pnChoose").Visible = true
+          dim gdcBillT
+          set gdcBillT = frm.gdcObject
+          gdcBillT.Close
+          gdcBillT.ExtraConditions.Add(" (NOT EXISTS(SELECT * FROM USR$PD_DOWNPAYMENT WHERE USR$SELLBILLKEY = Z.ID ))")
+          gdcBillT.ExtraConditions.Add(" INVDOC.USR$CONTACTKEY = :ConKey ")
+          gdcBillT.ParamByName("ConKey").AsInteger = gdcO.FieldByName("USR$CONTACTKEY").AsInteger
+          gdcBillT.Transaction = gdcO.Transaction
+          gdcBillT.ReadTransaction = gdcO.Transaction
+          gdcBillT.Open
+          if frm.ShowModal <> 1 then
+            exit sub
+          end if
+        
+          gdcO.Edit
+          gdcO.FieldByName("USR$SELLBILLKEY").AsInteger = gdcBillT.ID
+          gdcO.Post
+        
+          gdcO.Refresh
+          call wg_GetDownPaymentTable(Sender.OwnerForm)
+          Sender.OwnerForm.GetComponent("usrg_gdcSellBillLine").CloseOpen
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518938_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actSelectBillOnUpdate"
+      COMMENT: ~
+      EVENT: "ONUPDATE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-06T16:36:56+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTSELECTBILLONUPDATE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        option explicit
+        sub usrg_actSelectBillOnUpdate(ByVal Sender)
+          Sender.Enabled = (Sender.OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").IsNull)
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518366_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gdc_dlgUserComplexDocument149518266_1658323743OnLoadSettingsAfterCreate"
+      COMMENT: ~
+      EVENT: "ONLOADSETTINGSAFTERCREATE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-04T15:45:33+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGUSERCOMPLEXDOCUMENT149518266_1658323743ONLOADSETTINGSAFTERCREATE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        option explicit
+        sub gdc_dlgUserComplexDocument149518266_1658323743OnLoadSettingsAfterCreate(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          call   Inherited(Sender, "OnLoadSettingsAfterCreate", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          call Sender.LoadGrid(Sender.GetComponent("usrg_grSellBillLine"))
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518371_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gdc_dlgUserComplexDocument149518266_1658323743OnSaveSettings"
+      COMMENT: ~
+      EVENT: "ONSAVESETTINGS"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-04T15:44:03+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGUSERCOMPLEXDOCUMENT149518266_1658323743ONSAVESETTINGS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        option explicit
+        sub gdc_dlgUserComplexDocument149518266_1658323743OnSaveSettings(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          call   Inherited(Sender, "OnSaveSettings", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          call Sender.SaveGrid(Sender.GetComponent("usrg_grSellBillLine"))
+          call Sender.SaveGrid(Sender.GetComponent("usrg_grPaymentTable"))
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518359_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gdc_dlgUserComplexDocument149518266_1658323743OnSetupDialog"
+      COMMENT: ~
+      EVENT: "ONSETUPDIALOG"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-06T15:46:40+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGUSERCOMPLEXDOCUMENT149518266_1658323743ONSETUPDIALOG
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include WG_GETDOWNPAYMENTTABLE
+        option explicit
+        sub gdc_dlgUserComplexDocument149518266_1658323743OnSetupDialog(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          call   Inherited(Sender, "OnSetupDialog", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+         ' Sender.GetComponent("usrg_gdcSellBill").Close
+          Sender.GetComponent("usrg_gdcSellBillLine").Close
+          
+        '  Sender.GetComponent("usrg_gdcSellBill").Transaction = _
+        '    Sender.gdcObject.Transaction
+        '  Sender.GetComponent("usrg_gdcSellBill").ReadTransaction = _
+        '    Sender.gdcObject.ReadTransaction
+        '  Sender.GetComponent("usrg_gdcSellBill").Open
+          
+          Sender.GetComponent("usrg_gdcSellBillLine").Transaction = _
+            Sender.gdcObject.Transaction
+          Sender.GetComponent("usrg_gdcSellBillLine").ReadTransaction = _
+            Sender.gdcObject.ReadTransaction
+          Sender.GetComponent("usrg_gdcSellBillLine").Open
+          
+          if Sender.gdcObject.State = dsEdit then
+            Sender.gdcObject.Refresh
+          end if
+          
+          Sender.GetComponent("usrg_ibdsPaymentTable").Close
+          Sender.GetComponent("usrg_ibdsPaymentTable").Transaction = _
+            Sender.gdcObject.Transaction
+          Sender.GetComponent("usrg_ibdsPaymentTable").ReadTransaction = _
+            Sender.gdcObject.ReadTransaction
+          call wg_GetDownPaymentTable(Sender)
+          call Sender.LoadGrid(Sender.GetComponent("usrg_grPaymentTable"))
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "149518434_1658323743 wg_GetDownPaymentTable"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149518964_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gdc_dlgUserComplexDocument149518266_1658323743OnSyncField"
+      COMMENT: ~
+      EVENT: "ONSYNCFIELD"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2011-05-05T21:07:35+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGUSERCOMPLEXDOCUMENT149518266_1658323743ONSYNCFIELD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        UFJTVAUAAABGSUVMRAUAAABGSUVMRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNUUFJTVAgA
+        AABTWU5DTElTVAgAAABTWU5DTElTVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include WG_GETDOWNPAYMENTTABLE
+        option explicit
+        sub gdc_dlgUserComplexDocument149518266_1658323743OnSyncField(ByVal Sender, ByVal Field, ByVal SyncList)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          call   Inherited(Sender, "OnSyncField", Array(Sender, Field, SyncList))
+        '*** конец кода поддержки встроенного обработчика            ***
+          select case Field.FieldName
+            case "DOCUMENTDATE", "USR$SUM"
+              call wg_GetDownPaymentTable(Sender.OwnerForm)
+          end select
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "149518434_1658323743 wg_GetDownPaymentTable"
