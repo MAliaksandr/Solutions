@@ -5,10 +5,10 @@ Properties:
   RUID: 160970515_1743838890
   Name: "Торговля. Рассрочка. Методанные"
   Caption: "Торговля. Рассрочка. Методанные"
-  Version: "1.0.0.3"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 7B2B17D818DEDA2E7BC0D4C582F30269
+  MD5: 62F65304886F17F4C68153876A19E304
 Uses: 
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "160970564_1743838890 Торговля. Рассрочка. Методы"
@@ -26,7 +26,7 @@ Objects:
       IncludeSiblings: False
       HeadObject: 149519250_1658323743
     Fields: 
-      BRANCHKEY: ~
+      BRANCHKEY: "148504394_1647524629 Исследователь\\Торговля\\Рассрочка"
       DESCRIPTION: "Рассрочка"
       EXTENDEDFIELDS: ~
       LISTFIELD: ~
@@ -36,7 +36,7 @@ Objects:
       RELATIONNAME: "USR$PD_DOWNPAYMENT"
       RELATIONTYPE: "T"
       SEMCATEGORY: ~
-      EDITIONDATE: 2011-04-30T12:18:43+03:00
+      EDITIONDATE: 2021-09-17T16:18:58+03:00
   - 
     Properties: 
       Class: "TgdcTableField"
@@ -992,12 +992,12 @@ Objects:
       NAME: "gdc_frmAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
       CLASSNAME: ""
       DESCRIPTION: ~
-      MACROSGROUPKEY: "160970560_1743838890 Локальные макросы"
+      MACROSGROUPKEY: "148504396_1647524629 Локальные макросы"
       OBJECTNAME: "gdc_frmAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
       OBJECTTYPE: 0
-      REPORTGROUPKEY: "160970561_1743838890 Отчеты(gdc_frmAttrUserDefinedUSR_PD_DOWNPAYMENT_COND)"
+      REPORTGROUPKEY: "148504397_1647524629 Отчеты(gdc_frmAttrUserDefinedUSR_PD_DOWNPAYMENT_COND)"
       SUBTYPE: ""
-      EDITIONDATE: 2021-09-17T15:50:58+03:00
+      EDITIONDATE: 2021-09-17T16:20:02+03:00
   - 
     Properties: 
       Class: "TgdcStorageValue"
@@ -1013,38 +1013,38 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-09-20T17:03:48+03:00
+      EDITIONDATE: 2021-09-20T18:02:29+03:00
       BLOB_DATA: | 
         object gdc_dlgUserComplexDocument149518266_1658323743: Tgdc_dlgUserComplexDocument
-          Left = 0
-          Top = 40
-          Height = 784
+          Left = -8
+          Top = -8
+          Height = 840
           ActiveControl = nil
           PixelsPerInch = 96
           TextHeight = 13
           object btnAccess: TButton
-            Top = 729
+            Top = 785
           end
           object btnNew: TButton
-            Top = 729
+            Top = 785
           end
           object btnHelp: TButton
-            Top = 729
+            Top = 785
           end
           object btnOK: TButton
-            Top = 729
+            Top = 785
           end
           object btnCancel: TButton
-            Top = 729
+            Top = 785
           end
           object pnlMain: TPanel
-            Height = 719
+            Height = 775
             object splMain: TSplitter
             end
             object pnlMaster: TPanel
               TabOrder = 0
               object pnlHolding: TPanel
-                Width = 1520
+                Width = 1536
                 object lblCompany: TLabel
                 end
                 object iblkCompany: TgsIBLookupComboBox
@@ -1054,12 +1054,12 @@ Objects:
                 Tag = 0
                 Left = 0
                 Top = 0
-                Width = 1520
-                Height = 284
+                Width = 1536
+                Height = 244
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
-                ActivePage = usrg_tsAttributes
+                ActivePage = usrg_tsCommon
                 Align = alClient
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 Constraints.MaxHeight = 0
@@ -1368,8 +1368,8 @@ Objects:
                   object usrg_tbtBill: TTBToolbar
                     Tag = 0
                     Left = 0
-                    Top = 234
-                    Width = 1512
+                    Top = 194
+                    Width = 1528
                     Height = 22
                     Cursor = crDefault
                     HelpContext = 0
@@ -1521,8 +1521,8 @@ Objects:
                   TabVisible = True
                   object atContainer: TatContainer
                     Top = 0
-                    Width = 1512
-                    Height = 256
+                    Width = 1528
+                    Height = 216
                     TabOrder = 0
                     Visible = True
                     object usrat_xDateDBEdit_USR_MAXDATE_Label: TLabel
@@ -1537,20 +1537,13 @@ Objects:
                       Left = 11
                       Top = 33
                     end
-                    object usrat_xDateDBEdit_USR_MN_PRINTDATE_Label: TLabel
-                      Left = 11
-                      Top = 113
-                    end
-                    object usrat_DBEdit_USR_MN_SMDOCID_Label: TLabel
-                      Left = 11
-                      Top = 136
-                    end
-                    object usrat_xDateDBEdit_USR_MAXDATE: TxDateDBEdit
+                    object usrat_DBEdit_USR_PAYED: TxDBCalculatorEdit
                       Left = 363
-                      Top = 54
+                      Top = 7
                       Width = 100
+                      Cursor = crIBeam
                       Enabled = False
-                      TabOrder = 9
+                      TabOrder = 2
                     end
                     object usrat_DBEdit_USR_SUM: TxDBCalculatorEdit
                       Left = 363
@@ -1558,15 +1551,14 @@ Objects:
                       Width = 100
                       Cursor = crArrow
                       Enabled = False
-                      TabOrder = 8
+                      TabOrder = 3
                     end
-                    object usrat_DBEdit_USR_PAYED: TxDBCalculatorEdit
+                    object usrat_xDateDBEdit_USR_MAXDATE: TxDateDBEdit
                       Left = 363
-                      Top = 7
+                      Top = 54
                       Width = 100
-                      Cursor = crIBeam
                       Enabled = False
-                      TabOrder = 7
+                      TabOrder = 4
                     end
                     object usrat_DBEdit_USR_SORTNUMBER: TxDBCalculatorEdit
                       Left = 167
@@ -1580,31 +1572,6 @@ Objects:
                       Cursor = crIBeam
                       TabOrder = 1
                     end
-                    object usrat_DBCheckBox_USR_BRI_1C_MOVED: TDBCheckBox
-                      Left = 11
-                      Top = 52
-                      TabOrder = 2
-                    end
-                    object usrat_DBCheckBox_USR_BTE_ISINTERNAL: TDBCheckBox
-                      Left = 11
-                      Top = 71
-                      TabOrder = 3
-                    end
-                    object usrat_xDateDBEdit_USR_MN_PRINTDATE: TxDateDBEdit
-                      Left = 167
-                      Top = 109
-                      TabOrder = 5
-                    end
-                    object usrat_DBCheckBox_USR_BTE_ISCONFIRM: TDBCheckBox
-                      Left = 11
-                      Top = 90
-                      TabOrder = 4
-                    end
-                    object usrat_DBEdit_USR_MN_SMDOCID: TDBEdit
-                      Left = 167
-                      Top = 132
-                      TabOrder = 6
-                    end
                   end
                 end
               end
@@ -1612,9 +1579,9 @@ Objects:
             object usrg_PageControlDetail: TPageControl
               Tag = 0
               Left = 0
-              Top = 288
-              Width = 1520
-              Height = 431
+              Top = 248
+              Width = 1536
+              Height = 527
               Cursor = crDefault
               Hint = ''
               HelpContext = 0
@@ -1670,8 +1637,8 @@ Objects:
                   Tag = 0
                   Left = 0
                   Top = 0
-                  Width = 1512
-                  Height = 403
+                  Width = 1528
+                  Height = 499
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
@@ -1745,6 +1712,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMNCU'
                       Title.Caption = 'Сумма в НДЕ'
@@ -1760,6 +1728,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMNDSNCU'
                       Title.Caption = 'Сумма НДС НДЕ'
@@ -1768,6 +1737,7 @@ Objects:
                       TotalType = ttSum
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMSALETAX'
                       Title.Caption = 'Сумма нал с продаж'
@@ -1776,6 +1746,7 @@ Objects:
                       TotalType = ttSum
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMWITHNDSNCU'
                       Title.Caption = 'Сумма с НДС'
@@ -1784,6 +1755,7 @@ Objects:
                       TotalType = ttSum
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMWITHSALETAX'
                       Title.Caption = 'Сумма с нал с продаж'
@@ -1799,6 +1771,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_COSTNCU'
                       Title.Caption = 'Цена руб.'
@@ -1806,6 +1779,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_COSTNDSNCU'
                       Title.Caption = 'Цена НДС руб.'
@@ -1820,20 +1794,7 @@ Objects:
                       Visible = True
                     end
                     item
-                      Expanded = False
-                      FieldName = 'USR$VMK_PRIMECOST'
-                      Title.Caption = 'Себестоимость'
-                      Width = 118
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$VMK_SUMAMORT'
-                      Title.Caption = 'Сумма амортизации'
-                      Width = 118
-                      Visible = True
-                    end
-                    item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_BUYNDSNCU'
                       Title.Caption = 'НДС прихода руб.'
@@ -1841,6 +1802,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTPROVIDER'
                       Title.Caption = 'Цена поставщика'
@@ -1848,6 +1810,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTTRWITHNDS'
                       Title.Caption = 'Цена с НДС и торг.надбавкой'
@@ -1855,6 +1818,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTTRADENCU'
                       Title.Caption = 'Цена с торговой надбавкой'
@@ -1862,6 +1826,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_TRADEPERC'
                       Title.Caption = 'Торговая надбавка'
@@ -1869,6 +1834,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_PERCPROVIDER'
                       Title.Caption = 'Надбавка поставщика'
@@ -1876,6 +1842,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_SELLNDS'
                       Title.Caption = 'ставка НДС отпуска'
@@ -1883,6 +1850,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_SELLNDS'
                       Title.Caption = 'ставка НДС отпуска (Карточки по товару)'
@@ -1890,6 +1858,7 @@ Objects:
                       Visible = True
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMNDSCUR'
                       Title.Caption = 'Сумма НДС(вал)'
@@ -1898,6 +1867,7 @@ Objects:
                       TotalType = ttSum
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_COSTGLASSNCU'
                       Title.Caption = 'Цена стеклопосуды (Карточки по товару)'
@@ -1905,6 +1875,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'SUMNCU'
                       Title.Caption = 'Сумма в НДЕ'
@@ -1912,20 +1883,7 @@ Objects:
                       Visible = False
                     end
                     item
-                      Expanded = False
-                      FieldName = 'USR$VMK_SUMRETAIL'
-                      Title.Caption = 'Сумма в розничных ценах'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$VMK_PERCENT'
-                      Title.Caption = 'Процент скидки'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTBUYNCU'
                       Title.Caption = 'Цена покупная'
@@ -1933,6 +1891,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_PERCSELL'
                       Title.Caption = 'Надбавка отпуска'
@@ -1940,6 +1899,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'CURRKEY'
                       Title.Caption = 'Валюта'
@@ -1947,6 +1907,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'COMPANYKEY'
                       Title.Caption = 'Компания'
@@ -1954,6 +1915,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'CREATORKEY'
                       Title.Caption = 'Кто создал'
@@ -1968,6 +1930,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'EDITORKEY'
                       Title.Caption = 'Кто исправил'
@@ -1989,6 +1952,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'DISABLED'
                       Title.Caption = 'Отключено'
@@ -1996,6 +1960,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'RESERVED'
                       Title.Caption = 'Зарезервировано'
@@ -2003,6 +1968,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'ID'
                       Title.Caption = 'Ключ'
@@ -2010,6 +1976,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'PARENT'
                       Title.Caption = 'Родитель'
@@ -2017,6 +1984,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'DOCUMENTTYPEKEY'
                       Title.Caption = 'Тип документа'
@@ -2024,6 +1992,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TRTYPEKEY'
                       Title.Caption = 'Тип транзакции'
@@ -2031,6 +2000,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TRANSACTIONKEY'
                       Title.Caption = 'Транзакция'
@@ -2059,6 +2029,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'SUMCURR'
                       Title.Caption = 'Сумма в валюте'
@@ -2066,6 +2037,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'SUMEQ'
                       Title.Caption = 'Сумма в эквиваленте'
@@ -2073,6 +2045,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'DELAYED'
                       Title.Caption = 'Отложенный'
@@ -2087,6 +2060,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'VALUEKEY'
                       Title.Caption = 'Ед. изм.'
@@ -2094,6 +2068,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'GROUPKEY'
                       Title.Caption = 'Группа'
@@ -2101,6 +2076,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'LINEDISABLED'
                       Title.Caption = 'Отменен'
@@ -2108,6 +2084,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'DISABLED1'
                       Title.Caption = 'Отменен (Отпуск товара на сторону(позиция))'
@@ -2115,6 +2092,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'DOCUMENTKEY'
                       Title.Caption = 'Ключ документа'
@@ -2122,18 +2100,23 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROMCARDKEY'
+                      Title.Caption = 'Из карточки'
                       Width = -1
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'MASTERKEY'
+                      Title.Caption = 'Родитель (Отпуск товара на сторону(позиция))'
                       Width = -1
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'REMAINS'
                       Title.Caption = 'Остаток'
@@ -2141,6 +2124,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'RESERVED1'
                       ReadOnly = True
@@ -2149,8 +2133,10 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TOCARDKEY'
+                      Title.Caption = 'В карточку'
                       Width = -1
                       Visible = False
                     end
@@ -2176,6 +2162,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$DEPOTKEY'
                       Title.Caption = 'Подразделение'
@@ -2183,6 +2170,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$DEPTKEY'
                       Title.Caption = 'Подразделение(устар.)'
@@ -2197,6 +2185,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$GRASSWEIGHT'
                       Title.Caption = 'Брутто вес'
@@ -2204,6 +2193,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$QUANTPACK'
                       Title.Caption = 'Кол-во упаковок'
@@ -2211,6 +2201,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMCUR'
                       Title.Caption = 'Сумма(вал)'
@@ -2218,6 +2209,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMEQ'
                       Title.Caption = 'Сумма в экв.'
@@ -2225,6 +2217,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SUMWITHNDSCUR'
                       Title.Caption = 'Сумма с НДС(вал)'
@@ -2232,27 +2225,7 @@ Objects:
                       Visible = False
                     end
                     item
-                      Expanded = False
-                      FieldName = 'USR$TIMEWORK'
-                      Title.Caption = 'Время изготовления'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$VMK_MAINCOSTNCU'
-                      Title.Caption = 'Основная цена'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$VMK_MAINPOSKEY'
-                      Title.Caption = 'Поз.главной накл.'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$WITHGUIDE'
                       Width = -1
@@ -2364,6 +2337,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'GOODKEY'
                       Title.Caption = 'Товар'
@@ -2371,6 +2345,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_ACCOUNTKEY'
                       Title.Caption = 'Счет (Карточки по товару)'
@@ -2378,6 +2353,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_BILLLINEKEY'
                       Title.Caption = 'Позиция счета'
@@ -2385,6 +2361,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_CERTNEWKEY'
                       Title.Caption = 'Сертификат'
@@ -2392,6 +2369,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTBUYEQ'
                       Title.Caption = 'Цена покупная(экв.)'
@@ -2399,6 +2377,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTGLASSNCU'
                       Title.Caption = 'Цена стеклопосуды'
@@ -2406,6 +2385,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTOILTAX'
                       Title.Caption = 'Цена налога на топливо входящий'
@@ -2413,6 +2393,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTRETAILEQ'
                       Title.Caption = 'Розничная цена(экв.)'
@@ -2420,6 +2401,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTRETAILNCU'
                       Title.Caption = 'Розничная цена'
@@ -2434,6 +2416,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_OPTDELIVERYKEY'
                       Title.Caption = 'Условия поставки'
@@ -2441,6 +2424,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_ORIGINCOUNTRYKEY'
                       Title.Caption = 'Страна происхождения'
@@ -2448,6 +2432,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_PACKKEY'
                       Title.Caption = 'Упаковка'
@@ -2455,6 +2440,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_PRODUCERKEY'
                       Title.Caption = 'Производитель'
@@ -2462,6 +2448,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_PROVIDER'
                       Title.Caption = 'Поставщик'
@@ -2469,6 +2456,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_QUANTINPACK'
                       Title.Caption = 'Кол-во в упаковке'
@@ -2476,6 +2464,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$INV_TAXSALE'
                       Title.Caption = 'Ставка налога с продаж'
@@ -2483,6 +2472,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'FROM_USR$PRICELIST'
                       Title.Caption = 'Прейскурант цен'
@@ -2490,6 +2480,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_COSTFULLEQ'
                       Title.Caption = 'Цена отпуска(экв.)'
@@ -2497,6 +2488,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_CUSTPERMITKEY'
                       Title.Caption = 'Таможенное разрешение'
@@ -2504,6 +2496,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_GTRCERTKEY'
                       Title.Caption = 'Удостоверение ГГР'
@@ -2511,6 +2504,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_MOVEDOCKEY'
                       Title.Caption = 'Ссылка на позицию расхода'
@@ -2518,6 +2512,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_PACKKEY'
                       Title.Caption = 'Упаковка (Карточки по товару)'
@@ -2525,6 +2520,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_QUALITYCERTKEY'
                       Title.Caption = 'Удостоверение качества'
@@ -2532,6 +2528,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_QUANTINPACK'
                       Title.Caption = 'Кол-во в упаковке (Карточки по товару)'
@@ -2539,6 +2536,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_STATDECLARKEY'
                       Title.Caption = 'Статистическая декларация'
@@ -2546,6 +2544,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'TO_USR$INV_TAXSALE'
                       Title.Caption = 'Ставка налога с продаж (Карточки по товару)'
@@ -2553,6 +2552,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$SORTNUMBER'
                       ReadOnly = False
@@ -2561,44 +2561,10 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$EQRATE'
                       Title.Caption = 'Курс эквивалента'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$BTE_ISINTERNAL'
-                      Title.Caption = 'Внутренний документ'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$BRI_1C_MOVED'
-                      Title.Caption = 'перенесено в 1с'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_PRINTDATE'
-                      Title.Caption = 'Дата печати (Документы)'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$BTE_ISCONFIRM'
-                      Title.Caption = 'Документ подтвержден'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_SMDOCID'
-                      Title.Caption = 'DOCID Супермаг'
                       Width = -1
                       Visible = False
                     end
@@ -2617,6 +2583,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$CLITICALDAYS'
                       Title.Caption = 'Кол-во критичных дней'
@@ -2624,16 +2591,10 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$PF_ISWEIGHT'
                       Title.Caption = 'Весовой товар'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$WC_DURABILITY'
-                      Title.Caption = 'Срок службы'
                       Width = -1
                       Visible = False
                     end
@@ -2645,6 +2606,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$PF_ISFRAC'
                       Title.Caption = 'Дробное количество'
@@ -2652,6 +2614,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$PF_PRICE'
                       Title.Caption = 'Розничная цена (Справочник ТМЦ)'
@@ -2659,6 +2622,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$INV_PERCKEY'
                       Title.Caption = 'Наценочная группа'
@@ -2673,6 +2637,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$INV_REFFORMTORGKEY'
                       Title.Caption = 'Группа по форме №3-торг'
@@ -2687,6 +2652,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$INV_WEIGHT'
                       Title.Caption = 'Вес товара'
@@ -2694,6 +2660,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$OUTVALUEKEY'
                       Title.Caption = 'Ед. изм. отпуска'
@@ -2715,6 +2682,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$INV_OPTPERC'
                       Title.Caption = 'Оптовая надбавка'
@@ -2722,6 +2690,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_ASHES'
                       Title.Caption = 'Зола'
@@ -2729,6 +2698,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_CALCIUM'
                       Title.Caption = 'Кальций'
@@ -2736,6 +2706,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_CALORIE'
                       Title.Caption = 'Калорийность'
@@ -2743,6 +2714,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_CAROTIN'
                       Title.Caption = 'Каротин'
@@ -2750,6 +2722,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_CELLULOSE'
                       Title.Caption = 'Целлюлоза'
@@ -2757,6 +2730,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_EMPTY'
                       Title.Caption = 'Вес пустой'
@@ -2764,6 +2738,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_FAT'
                       Title.Caption = 'Жир'
@@ -2771,6 +2746,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_MEASURE'
                       Title.Caption = 'Мера'
@@ -2778,6 +2754,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_FULL'
                       Title.Caption = 'Вес полный'
@@ -2785,6 +2762,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_IRON'
                       Title.Caption = 'Железо'
@@ -2792,6 +2770,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_MAGNESIUM'
                       Title.Caption = 'Магний'
@@ -2799,6 +2778,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_NATRIUM'
                       Title.Caption = 'Натрий'
@@ -2806,6 +2786,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_PHOSPHORUS'
                       Title.Caption = 'Фосфор'
@@ -2813,6 +2794,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_PORTIONS'
                       Title.Caption = 'Кол-во порций'
@@ -2820,6 +2802,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_POTASSIUM'
                       Title.Caption = 'Калий'
@@ -2827,6 +2810,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_PROTEIN'
                       Title.Caption = 'Белок'
@@ -2834,6 +2818,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_STARCH'
                       Title.Caption = 'Крахмал'
@@ -2841,6 +2826,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_UGLEVOD'
                       Title.Caption = 'Углеводы'
@@ -2848,6 +2834,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_VITAMIN_C'
                       Title.Caption = 'Витамин C'
@@ -2855,6 +2842,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_VITAMIN_PP'
                       Title.Caption = 'Витамин PP'
@@ -2862,6 +2850,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_VITAMIN_A'
                       Title.Caption = 'Витамин А'
@@ -2869,6 +2858,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_VITAMIN_B1'
                       Title.Caption = 'Витамин B1'
@@ -2876,14 +2866,7 @@ Objects:
                       Visible = False
                     end
                     item
-                      Expanded = False
-                      FieldName = 'USR$SORTALIAS'
-                      ReadOnly = False
-                      Title.Caption = 'SORTALIAS'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_VITAMIN_B2'
                       Title.Caption = 'Витамин B2'
@@ -2891,6 +2874,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_WATER'
                       Title.Caption = 'Вода'
@@ -2898,6 +2882,7 @@ Objects:
                       Visible = False
                     end
                     item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$MN_MAINGOODKEY'
                       Title.Caption = 'Базовый товар'
@@ -2912,72 +2897,10 @@ Objects:
                       Visible = False
                     end
                     item
-                      Expanded = False
-                      FieldName = 'USR$MN_MASSA'
-                      Title.Caption = 'Массовая доля сухих веществ'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_FATMEASURE'
-                      Title.Caption = 'Процент жира'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
+                      Alignment = taRightJustify
                       Expanded = False
                       FieldName = 'USR$INV_COEFF'
                       Title.Caption = 'Коэфициент к отчету'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$REF6TORGKEY'
-                      Title.Caption = 'Группа 6 торг'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'G_USR$REF6TORGKEY_USR$NAME'
-                      Title.Caption = 'Наименование (Справочник 6 торг)'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$REF6TORG'
-                      Title.Caption = 'Коэф. 6 торг'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$REF4TORG'
-                      Title.Caption = 'Коэф. 4 торг'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$REFALCGROUPKEY'
-                      Title.Caption = 'Группа алкоголя'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'G_USR$REFALCGROUPKEY_USR$NAME'
-                      Title.Caption = 'Наименование (Группы алкоголя)'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_VOLUME'
-                      Title.Caption = 'Объем'
                       Width = -1
                       Visible = False
                     end
@@ -3004,6 +2927,221 @@ Objects:
                       Title.Caption = 'Только просмотр'
                       Width = -1
                       Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$CUSTDATEEXPORT'
+                      Title.Caption = 'Дата разрешения на убытие'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$CUSTDATERELEASE'
+                      Title.Caption = 'Дата выпуска (таможня)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$CUSTPERMITKEY'
+                      Title.Caption = 'Таможенное разрешение'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$EVAT_COMMENTKEY'
+                      Title.Caption = 'Комментарий для ЭСЧФ'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$REASON'
+                      Title.Caption = 'Причина выбытия'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$SUMACCNCU'
+                      Title.Caption = 'Сумма в учетных ценах'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$SUMROUND'
+                      Title.Caption = 'Сумма округлений'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$SUMTRADE'
+                      Title.Caption = 'Сумма торговой надбавки'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_PRICELIST'
+                      Title.Caption = 'Прейскурант цен(string)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_PRICELIST'
+                      Title.Caption = 'Прейскурант цен(string) (Карточки по товару)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'INVLINE_USR$DEPTKEY_ADDRESS'
+                      Title.Caption = 'Адрес'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'INVLINE_USR$DEPOTKEY_ADDRESS'
+                      Title.Caption = 'Адрес (Контакты)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'INVLINE_USR$REASON_USR$NAME'
+                      Title.Caption = 'Причина'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'INVLINE_USR$EVAT_COMM4019995671'
+                      Title.Caption = 'Комментарий'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'INVLINE_USR$CUSTPERMI3581433714'
+                      Title.Caption = 'Номер (Таможенное разрешение)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$CONTENT'
+                      Title.Caption = 'Состав'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$FULLNAME'
+                      Title.Caption = 'Полное наименование'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$MN_ONLY'
+                      Title.Caption = 'Штучный'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$MN_MAINGOODKEY_ALIAS'
+                      Title.Caption = 'Шифр ТМЦ (Справочник ТМЦ)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$MN_MAINGOODKEY_BARCODE'
+                      Title.Caption = 'Штрих код'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_SUGAR'
+                      Title.Caption = 'Сахар'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$MN_LOSSKOEFF'
+                      Title.Caption = 'Коэф. отхода'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$INV_LOSS'
+                      Title.Caption = 'Ест. убыль'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$INV_PERCROPE'
+                      Title.Caption = 'Процент веревок'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$FOREIGNNAME'
+                      Title.Caption = 'Наименование (англ.)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$NATURALLOSSGROUP'
+                      Title.Caption = 'Группа товара для убыли'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$NATURALLOSSGROUP_USR$NAME'
+                      Title.Caption = 'Наименование (Группы товара для норм естественной убыли)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'USR$MAXDISCPERC'
+                      Title.Caption = 'Максимальная скидка'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$ETTN_CODE'
+                      Title.Caption = 'Код для электронных документов'
+                      Width = -1
+                      Visible = False
                     end>
                 end
               end
@@ -3028,12 +3166,12 @@ Objects:
                 TabVisible = True
                 object pnlDetail: TPanel
                   Top = 0
-                  Width = 1512
-                  Height = 403
+                  Width = 1528
+                  Height = 499
                   object ibgrDetail: TgsIBGrid
                     Left = 9
-                    Width = 1494
-                    Height = 368
+                    Width = 1510
+                    Height = 464
                     Expands = <>
                     Conditions = <>
                     ColumnEditors = <>
@@ -3240,41 +3378,6 @@ Objects:
                         Visible = False
                       end
                       item
-                        Expanded = False
-                        FieldName = 'USR$BTE_ISINTERNAL'
-                        Title.Caption = 'Внутренний документ'
-                        Width = -1
-                        Visible = False
-                      end
-                      item
-                        Expanded = False
-                        FieldName = 'USR$BRI_1C_MOVED'
-                        Title.Caption = 'перенесено в 1с'
-                        Width = -1
-                        Visible = False
-                      end
-                      item
-                        Expanded = False
-                        FieldName = 'USR$MN_PRINTDATE'
-                        Title.Caption = 'Дата печати (Документы)'
-                        Width = -1
-                        Visible = False
-                      end
-                      item
-                        Expanded = False
-                        FieldName = 'USR$BTE_ISCONFIRM'
-                        Title.Caption = 'Документ подтвержден'
-                        Width = -1
-                        Visible = False
-                      end
-                      item
-                        Expanded = False
-                        FieldName = 'USR$MN_SMDOCID'
-                        Title.Caption = 'DOCID Супермаг'
-                        Width = -1
-                        Visible = False
-                      end
-                      item
                         Alignment = taRightJustify
                         Expanded = False
                         FieldName = 'AFULL'
@@ -3300,7 +3403,7 @@ Objects:
                       end>
                   end
                   object tbdTop: TTBDock
-                    Width = 1512
+                    Width = 1528
                     object tbDetail: TTBToolbar
                       SavedAtRunTime = True
                       object tbNew: TTBItem
@@ -3329,16 +3432,16 @@ Objects:
                   end
                   object tbdLeft: TTBDock
                     Width = 9
-                    Height = 368
+                    Height = 464
                   end
                   object tbdRight: TTBDock
-                    Left = 1503
+                    Left = 1519
                     Width = 9
-                    Height = 368
+                    Height = 464
                   end
                   object tbdBottom: TTBDock
-                    Top = 394
-                    Width = 1512
+                    Top = 490
+                    Width = 1528
                     Height = 9
                   end
                 end
@@ -3366,8 +3469,8 @@ Objects:
                   Tag = 0
                   Left = 0
                   Top = 0
-                  Width = 1512
-                  Height = 403
+                  Width = 1528
+                  Height = 499
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
@@ -3431,7 +3534,7 @@ Objects:
                       Expanded = False
                       FieldName = 'ONDATE'
                       Title.Caption = 'Дата'
-                      Width = 667
+                      Width = 674
                       Visible = True
                     end
                     item
@@ -3439,7 +3542,7 @@ Objects:
                       Expanded = False
                       FieldName = 'TOPAY'
                       Title.Caption = 'Оплатить'
-                      Width = 810
+                      Width = 836
                       Visible = True
                       DisplayFormat = '#,##0.00'
                       TotalType = ttSum
@@ -4018,7 +4121,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2018-03-13T16:23:29+03:00
+      EDITIONDATE: 2021-09-20T17:32:47+03:00
       BLOB_DATA: !!binary > 
         VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
         bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
@@ -4029,78 +4132,72 @@ Objects:
         CQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGFVVfVVNSJENPTlRBQ1RLRVlfTkFNRQhSZWFkT25seQgN
         VGl0bGUuQ2FwdGlvbgYGyuvo5e3yBVdpZHRoA70AB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxk
         TmFtZQYXVV9VU1IkV0FSUkFOVE9SS0VZX05BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCs/u
-        8PP36PLl6/wFV2lkdGgDqwAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtVU1IkTUFY
-        REFURQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYRzODq8S4g5ODy4CDu7+vg8vsFV2lkdGgDggAH
-        VmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdVU1IkU1VNCFJlYWRPbmx5CA1UaXRsZS5D
-        YXB0aW9uBg3R8+zs4CDv7urz7+roBVdpZHRoAmYHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGRO
-        YW1lBglVU1IkUEFZRUQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCM7v6+D35e3uBVdpZHRoAlgH
-        VmlzaWJsZQkAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUG
-        BVRPUEFZDVRpdGxlLkNhcHRpb24GCM7v6+Dy6PL8BVdpZHRoAlwHVmlzaWJsZQkAAQlBbGlnbm1l
-        bnQHDXRhTGVmdEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYHTUFYREFURQ1UaXRsZS5DYXB0
-        aW9uBgrM4OrxLiDk4PLgBVdpZHRoAkAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBg9V
-        U1IkU0VMTEJJTExLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GE83g6uvg5O3g/yDt4CDu8u/z
-        8eoFV2lkdGgCcQdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlVTUiRQUkVQQVlNRU5U
-        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgXA4uDt8QVXaWR0aAJ2B1Zpc2libGUJAAEJQWxpZ25t
-        ZW50Bw50YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBglBTExTVU1QQVkNVGl0bGUu
-        Q2FwdGlvbgYJQUxMU1VNUEFZBVdpZHRoAnYHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1l
-        BgJJRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYEyuv+9wVXaWR0aAL/B1Zpc2libGUIAAEIRXhw
-        YW5kZWQICUZpZWxkTmFtZQYGUEFSRU5UCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgjQ7uTo8uXr
-        /AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYPRE9DVU1FTlRUWVBFS0VZ
-        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg3S6O8g5O7q8+zl7fLgBVdpZHRoAv8HVmlzaWJsZQgA
-        AQhFeHBhbmRlZAgJRmllbGROYW1lBglUUlRZUEVLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24G
-        DtLo7yDy8ODt5+Dq9ujoBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5U
-        UkFOU0FDVElPTktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYK0vDg7efg6vbo/wVXaWR0aAL/
-        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLREVTQ1JJUFRJT04IUmVhZE9ubHkIDVRp
-        dGxlLkNhcHRpb24GCM7v6PHg7ejlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
-        YW1lBgZTVU1OQ1UIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GC9Hz7OzgIOIgzcTFBVdpZHRoAv8H
-        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdTVU1DVVJSCFJlYWRPbmx5CA1UaXRsZS5D
-        YXB0aW9uBg7R8+zs4CDiIOLg6/7y5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxk
-        TmFtZQYFU1VNRVEIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GE9Hz7OzgIOIg/eri6OLg6+Xt8uUF
-        V2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB0RFTEFZRUQIUmVhZE9ubHkI
-        DVRpdGxlLkNhcHRpb24GCs7y6+7m5e3t++kFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlG
-        aWVsZE5hbWUGB0NVUlJLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBsLg6/7y4AVXaWR0aAL/
-        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKQ09NUEFOWUtFWQhSZWFkT25seQgNVGl0
-        bGUuQ2FwdGlvbgYIyu7s7+Dt6P8FV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
-        bWUGCkNSRUFUT1JLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCsry7iDx7ufk4OsFV2lkdGgC
-        /wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDENSRUFUSU9OREFURQhSZWFkT25seQgN
-        VGl0bGUuQ2FwdGlvbgYNxODy4CDx7ufk4O3o/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
-        CUZpZWxkTmFtZQYJRURJVE9SS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgzK8u4g6PHv8ODi
-        6OsFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGC0VESVRJT05EQVRFCFJl
-        YWRPbmx5CA1UaXRsZS5DYXB0aW9uBg7E4PLgIOjn7OXt5e3o/wVXaWR0aAL/B1Zpc2libGUIAAEI
-        RXhwYW5kZWQICUZpZWxkTmFtZQYJUFJJTlREQVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgvE
-        4PLgIO/l9+Dy6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYIRElTQUJM
-        RUQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCc7y6uv+9+Xt7gVXaWR0aAL/B1Zpc2libGUIAAEI
-        RXhwYW5kZWQICUZpZWxkTmFtZQYIUkVTRVJWRUQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD8fg
-        8OXn5fDi6PDu4uDt7gVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLRE9D
-        VU1FTlRLRVkNVGl0bGUuQ2FwdGlvbgYOyuv+9yDk7urz7OXt8uAFV2lkdGgC/wdWaXNpYmxlCAAB
-        CEV4cGFuZGVkCAlGaWVsZE5hbWUGCVJFU0VSVkVEMQ1UaXRsZS5DYXB0aW9uBhvH4PDl5+Xw4ujw
-        7uLg7e4gKNDg8fHw7vfq4CkFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUG
-        DlVTUiRDT05UQUNUS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgbK6+jl7fIFV2lkdGgC/wdW
-        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGEFVTUiRXQVJSQU5UT1JLRVkIUmVhZE9ubHkI
-        DVRpdGxlLkNhcHRpb24GCs/u8PP36PLl6/wFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlG
-        aWVsZE5hbWUGDlVTUiRTT1JUTlVNQkVSCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhTN7uzl8CDk
-        6/8g8e7w8ujw7uLq6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKVVNS
-        JEVRUkFURQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQyvPw8SD96uLo4uDr5e3y4AVXaWR0aAL/
-        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYSVVNSJEJURV9JU0lOVEVSTkFMCFJlYWRP
-        bmx5CA1UaXRsZS5DYXB0aW9uBhPC7fPy8OXt7ejpIOTu6vPs5e3yBVdpZHRoAv8HVmlzaWJsZQgA
-        AQhFeHBhbmRlZAgJRmllbGROYW1lBhBVU1IkQlJJXzFDX01PVkVECFJlYWRPbmx5CA1UaXRsZS5D
-        YXB0aW9uBg/v5fDl7eXx5e3uIOIgMfEFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVs
-        ZE5hbWUGEFVTUiRNTl9QUklOVERBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GF8Tg8uAg7+X3
-        4PLoICjE7urz7OXt8vspBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhFV
-        U1IkQlRFX0lTQ09ORklSTQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYUxO7q8+zl7fIg7+7k8uLl
-        8Obk5e0FV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlVTUiRNTl9TTURP
-        Q0lECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg5ET0NJRCDR8+/l8Ozg4wVXaWR0aAL/B1Zpc2li
-        bGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYYVV9VU1IkU0VMTEJJTExLRVlfTlVNQkVSCFJlYWRP
-        bmx5CA1UaXRsZS5DYXB0aW9uBhHN7uzl8CAoxO7q8+zl7fL7KQVXaWR0aAL/B1Zpc2libGUIAAEI
-        RXhwYW5kZWQICUZpZWxkTmFtZQYeVV9VU1IkU0VMTEJJTExLRVlfRE9DVU1FTlREQVRFCFJlYWRP
-        bmx5CA1UaXRsZS5DYXB0aW9uBhDE4PLgICjE7urz7OXt8vspBVdpZHRoAv8HVmlzaWJsZQgAAQlB
-        bGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGBUFGVUxMCFJlYWRP
-        bmx5CA1UaXRsZS5DYXB0aW9uBg3P7uvt++kg5O7x8vPvBVdpZHRoAv8HVmlzaWJsZQgAAQlBbGln
-        bm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGBUFDSEFHCFJlYWRPbmx5
-        CA1UaXRsZS5DYXB0aW9uBhnP8O7x7O7y8CDoIPDl5ODq8ujw7uLg7ejlBVdpZHRoAv8HVmlzaWJs
-        ZQgAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGBUFWSUVX
-        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg/S7uv86u4g7/Du8ezu8vAFV2lkdGgC/wdWaXNpYmxl
-        CAAACAi0HgkI
+        8PP36PLl6/wFV2lkdGgCYAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGC1VTUiRNQVhE
+        QVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhHM4OrxLiDk4PLgIO7v6+Dy+wVXaWR0aAOCAAdW
+        aXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB1VTUiRTVU0IUmVhZE9ubHkIDVRpdGxlLkNh
+        cHRpb24GDdHz7OzgIO/u6vPv6ugFV2lkdGgCZgdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGCVVTUiRQQVlFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYIzu/r4Pfl7e4FV2lkdGgCWAdW
+        aXNpYmxlCQABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYF
+        VE9QQVkNVGl0bGUuQ2FwdGlvbgYIzu/r4PLo8vwFV2lkdGgCXAdWaXNpYmxlCQABCUFsaWdubWVu
+        dAcNdGFMZWZ0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgdNQVhEQVRFDVRpdGxlLkNhcHRp
+        b24GCszg6vEuIOTg8uAFV2lkdGgCQAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGD1VT
+        UiRTRUxMQklMTEtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYTzeDq6+Dk7eD/IO3gIO7y7/Px
+        6gVXaWR0aAJxB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYOVVNSJFBSRVBBWU1FTlQI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBcDi4O3xBVdpZHRoAnYHVmlzaWJsZQkAAQlBbGlnbm1l
+        bnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGCUFMTFNVTVBBWQ1UaXRsZS5D
+        YXB0aW9uBglBTExTVU1QQVkFV2lkdGgCdgdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUG
+        AklECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgTK6/73BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBgZQQVJFTlQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCNDu5Ojy5ev8
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg9ET0NVTUVOVFRZUEVLRVkI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDdLo7yDk7urz7OXt8uAFV2lkdGgC/wdWaXNpYmxlCAAB
+        CEV4cGFuZGVkCAlGaWVsZE5hbWUGCVRSVFlQRUtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYO
+        0ujvIPLw4O3n4Or26OgFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlRS
+        QU5TQUNUSU9OS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgrS8ODt5+Dq9uj/BVdpZHRoAv8H
+        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtERVNDUklQVElPTghSZWFkT25seQgNVGl0
+        bGUuQ2FwdGlvbgYIzu/o8eDt6OUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGBlNVTU5DVQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYL0fPs7OAg4iDNxMUFV2lkdGgC/wdW
+        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB1NVTUNVUlIIUmVhZE9ubHkIDVRpdGxlLkNh
+        cHRpb24GDtHz7OzgIOIg4uDr/vLlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBgVTVU1FUQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYT0fPs7OAg4iD96uLo4uDr5e3y5QVX
+        aWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHREVMQVlFRAhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYKzvLr7ubl7e376QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZp
+        ZWxkTmFtZQYHQ1VSUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYGwuDr/vLgBVdpZHRoAv8H
+        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpDT01QQU5ZS0VZCFJlYWRPbmx5CA1UaXRs
+        ZS5DYXB0aW9uBgjK7uzv4O3o/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYKQ1JFQVRPUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYKyvLuIPHu5+Tg6wVXaWR0aAL/
+        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMQ1JFQVRJT05EQVRFCFJlYWRPbmx5CA1U
+        aXRsZS5DYXB0aW9uBg3E4PLgIPHu5+Tg7ej/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBglFRElUT1JLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDMry7iDo8e/w4OLo
+        6wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLRURJVElPTkRBVEUIUmVh
+        ZE9ubHkIDVRpdGxlLkNhcHRpb24GDsTg8uAg6Ofs5e3l7ej/BVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBglQUklOVERBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GC8Tg
+        8uAg7+X34PLoBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghESVNBQkxF
+        RAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYJzvLq6/735e3uBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBghSRVNFUlZFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYPx+Dw
+        5efl8OLo8O7i4O3uBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtET0NV
+        TUVOVEtFWQ1UaXRsZS5DYXB0aW9uBg7K6/73IOTu6vPs5e3y4AVXaWR0aAL/B1Zpc2libGUIAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYJUkVTRVJWRUQxDVRpdGxlLkNhcHRpb24GG8fg8OXn5fDi6PDu
+        4uDt7iAo0ODx8fDu9+rgKQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYO
+        VVNSJENPTlRBQ1RLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBsrr6OXt8gVXaWR0aAL/B1Zp
+        c2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYQVVNSJFdBUlJBTlRPUktFWQhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYKz+7w8/fo8uXr/AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZp
+        ZWxkTmFtZQYOVVNSJFNPUlROVU1CRVIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GFM3u7OXwIOTr
+        /yDx7vDy6PDu4uroBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpVU1Ik
+        RVFSQVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhDK8/DxIP3q4uji4Ovl7fLgBVdpZHRoAv8H
+        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhhVX1VTUiRTRUxMQklMTEtFWV9OVU1CRVII
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GEc3u7OXwICjE7urz7OXt8vspBVdpZHRoAv8HVmlzaWJs
+        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBh5VX1VTUiRTRUxMQklMTEtFWV9ET0NVTUVOVERBVEUI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GEMTg8uAgKMTu6vPs5e3y+ykFV2lkdGgC/wdWaXNpYmxl
+        CAABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUZVTEwI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDc/u6+376SDk7vHy8+8FV2lkdGgC/wdWaXNpYmxlCAAB
+        CUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUNIQUcIUmVh
+        ZE9ubHkIDVRpdGxlLkNhcHRpb24GGc/w7vHs7vLwIOgg8OXk4Ory6PDu4uDt6OUFV2lkdGgC/wdW
+        aXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYF
+        QVZJRVcIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD9Lu6/zq7iDv8O7x7O7y8AVXaWR0aAL/B1Zp
+        c2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYaVV9VU1IkV0FSUkFOVE9SS0VZX0FERFJFU1MI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBcDk8OXxBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBhhVX1VTUiRDT05UQUNUS0VZX0FERFJFU1MIUmVhZE9ubHkIDVRpdGxlLkNh
+        cHRpb24GBcDk8OXxBVdpZHRoAv8HVmlzaWJsZQgAAAgItB4JCA==
   - 
     Properties: 
       Class: "TgdcStorageFolder"
@@ -4153,7 +4250,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2011-04-30T16:02:18+03:00
+      EDITIONDATE: 2021-09-20T13:05:41+03:00
       BLOB_DATA: !!binary > 
         VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAA8wAAAYIY2xX
         aW5kb3cBBgZUYWhvbWEGD2NsSGlnaGxpZ2h0VGV4dAL1AAIIAAPMAAAGC2NsSGlnaGxpZ2h0AQYG
@@ -4197,21 +4294,13 @@ Objects:
         BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5VU1IkU09SVE5VTUJFUghS
         ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYUze7s5fAg5Ov/IPHu8PLo8O7i6ugFV2lkdGgC/wdWaXNp
         YmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGClVTUiRFUVJBVEUNVGl0bGUuQ2FwdGlvbgYQyvPw
-        8SD96uLo4uDr5e3y4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYSVVNS
-        JEJURV9JU0lOVEVSTkFMDVRpdGxlLkNhcHRpb24GE8Lt8/Lw5e3t6Okg5O7q8+zl7fIFV2lkdGgC
-        /wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGEFVTUiRCUklfMUNfTU9WRUQNVGl0bGUu
-        Q2FwdGlvbgYP7+Xw5e3l8eXt7iDiIDHxBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmll
-        bGROYW1lBhBVU1IkTU5fUFJJTlREQVRFDVRpdGxlLkNhcHRpb24GF8Tg8uAg7+X34PLoICjE7urz
-        7OXt8vspBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhFVU1IkQlRFX0lT
-        Q09ORklSTQ1UaXRsZS5DYXB0aW9uBhTE7urz7OXt8iDv7uTy4uXw5uTl7QVXaWR0aAL/B1Zpc2li
-        bGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYOVVNSJE1OX1NNRE9DSUQNVGl0bGUuQ2FwdGlvbgYO
-        RE9DSUQg0fPv5fDs4OMFV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdodEp1c3Rp
-        ZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUZVTEwNVGl0bGUuQ2FwdGlvbgYNz+7r7fvpIOTu8fLz
-        7wVXaWR0aAL/B1Zpc2libGUIAAEJQWxpZ25tZW50Bw50YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJ
-        RmllbGROYW1lBgVBQ0hBRw1UaXRsZS5DYXB0aW9uBhnP8O7x7O7y8CDoIPDl5ODq8ujw7uLg7ejl
+        8SD96uLo4uDr5e3y4AVXaWR0aAL/B1Zpc2libGUIAAEJQWxpZ25tZW50Bw50YVJpZ2h0SnVzdGlm
+        eQhFeHBhbmRlZAgJRmllbGROYW1lBgVBRlVMTA1UaXRsZS5DYXB0aW9uBg3P7uvt++kg5O7x8vPv
         BVdpZHRoAv8HVmlzaWJsZQgAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlG
-        aWVsZE5hbWUGBUFWSUVXDVRpdGxlLkNhcHRpb24GD9Lu6/zq7iDv8O7x7O7y8AVXaWR0aAL/B1Zp
-        c2libGUIAAAICP0cCQg=
+        aWVsZE5hbWUGBUFDSEFHDVRpdGxlLkNhcHRpb24GGc/w7vHs7vLwIOgg8OXk4Ory6PDu4uDt6OUF
+        V2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZp
+        ZWxkTmFtZQYFQVZJRVcNVGl0bGUuQ2FwdGlvbgYP0u7r/OruIO/w7vHs7vLwBVdpZHRoAv8HVmlz
+        aWJsZQgAAAgI/RwJCA==
   - 
     Properties: 
       Class: "TgdcDelphiObject"
@@ -4384,7 +4473,7 @@ Objects:
       OBJECTKEY: "149518928_1658323743 gdc_dlgUserComplexDocument149518266_1658323743\\usrg_actEditBill"
       OBJECTNAME: "usrg_actEditBill"
       PARENTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
-      EDITIONDATE: 2015-01-14T13:10:11+03:00
+      EDITIONDATE: 2021-09-20T16:29:25+03:00
   - 
     Properties: 
       Class: "TgdcDelphiObject"
@@ -4617,4 +4706,94 @@ Objects:
             NEW.USR$SUM = COALESCE(NewS, 0.0000) - COALESCE(NEW.USR$PREPAYMENT, 0.0000);
           ELSE
             NEW.USR$SUM = 0;
+        END
+  - 
+    Properties: 
+      Class: "TgdcInvFeatureDocumentLineTable"
+      RUID: 147012497_486813904
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518531_1658323743
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Отпуск товара на сторону(позиция)"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Отпуск товара на сторону(позиция)"
+      LSHORTNAME: "Отпуск товара на сторону(позиция)"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$INV_SELLBILLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2011-01-14T17:22:14+03:00
+  - 
+    Properties: 
+      Class: "TgdcTrigger"
+      RUID: 149518531_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      RDB$FLAGS: 1
+      RDB$TRIGGER_INACTIVE: 0
+      RDB$TRIGGER_NAME: "USR$INV_BD_SELLBILLLINE_DP     "
+      RDB$TRIGGER_SEQUENCE: 1
+      RDB$TRIGGER_TYPE: 5
+      RELATIONKEY: "147012497_486813904 Отпуск товара на сторону(позиция), USR$INV_SELLBILLLINE"
+      RELATIONNAME: "USR$INV_SELLBILLLINE"
+      TRIGGERNAME: "USR$INV_BD_SELLBILLLINE_DP"
+      TRIGGER_INACTIVE: 0
+      EDITIONDATE: 2011-05-23T17:43:01+03:00
+      RDB$DESCRIPTION: ~
+      RDB$TRIGGER_SOURCE: | 
+        AS
+        DECLARE S NUMERIC (15, 4);
+        BEGIN
+          SELECT SUM(USR$SUMWITHSALETAX)
+          FROM USR$INV_SELLBILLLINE
+          WHERE MASTERKEY = OLD.MASTERKEY
+            AND DOCUMENTKEY <> OLD.DOCUMENTKEY
+          INTO :S;
+          
+          IF (S IS NULL) THEN S = 0;
+        
+          UPDATE USR$PD_DOWNPAYMENT
+          SET USR$SUM = IIF(:S >= COALESCE(USR$PREPAYMENT, 0.0000), :S - COALESCE(USR$PREPAYMENT, 0.0000), 0)
+          WHERE USR$SELLBILLKEY = OLD.MASTERKEY;
+        
+        END
+  - 
+    Properties: 
+      Class: "TgdcTrigger"
+      RUID: 149518530_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      RDB$FLAGS: 1
+      RDB$TRIGGER_INACTIVE: 0
+      RDB$TRIGGER_NAME: "USR$INV_AIU_SELLBILLLINE       "
+      RDB$TRIGGER_SEQUENCE: 2
+      RDB$TRIGGER_TYPE: 18
+      RELATIONKEY: "147012497_486813904 Отпуск товара на сторону(позиция), USR$INV_SELLBILLLINE"
+      RELATIONNAME: "USR$INV_SELLBILLLINE"
+      TRIGGERNAME: "USR$INV_AIU_SELLBILLLINE"
+      TRIGGER_INACTIVE: 0
+      EDITIONDATE: 2011-05-23T17:43:13+03:00
+      RDB$DESCRIPTION: ~
+      RDB$TRIGGER_SOURCE: | 
+        AS
+        DECLARE S NUMERIC (15, 4);
+        BEGIN
+          SELECT SUM(USR$SUMWITHSALETAX)
+          FROM USR$INV_SELLBILLLINE
+          WHERE MASTERKEY = NEW.MASTERKEY
+          INTO :S;
+        
+          IF (S IS NULL) THEN S = 0;
+          
+          UPDATE USR$PD_DOWNPAYMENT
+          SET USR$SUM = IIF(:S >= COALESCE(USR$PREPAYMENT, 0.0000), :S - COALESCE(USR$PREPAYMENT, 0.0000), 0)
+          WHERE USR$SELLBILLKEY = NEW.MASTERKEY;
         END

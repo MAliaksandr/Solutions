@@ -5,10 +5,10 @@ Properties:
   RUID: 160970564_1743838890
   Name: "Торговля. Рассрочка. Методы"
   Caption: "Торговля. Рассрочка. Методы"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: EF779CFF55309F562BB88CF8C5FADD13
+  MD5: EE9D1370C6DDB24C3CFE766B10F65F0F
 Uses: 
   - "194442289_637058871 Возврат от покупателя."
   - "147755479_69526485 GS.Общие.EVT_OBJECT"
@@ -57,7 +57,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2011-05-23T18:11:00+03:00
+      EDITIONDATE: 2021-09-20T13:45:16+03:00
       DISPLAYSCRIPT: | 
         TGDCUSERDOCUMENT149518266_1658323743DOFIELDCHANGE
         
@@ -83,7 +83,7 @@ Objects:
               q.Transaction = Self.ReadTransaction
             end if
             q.SQL.Text = _
-              "  SELECT SUM(USR$SUMWITHSALETAX) AS S " & _
+              "  SELECT SUM(USR$SUMWITHNDSNCU) AS S " & _
               "  FROM USR$INV_SELLBILLLINE " & _
               "  WHERE MASTERKEY = :SELLBILLKEY "
             q.ParamByName("SELLBILLKEY").AsInteger = Self.FieldByName("USR$SELLBILLKEY").AsInteger
@@ -112,7 +112,7 @@ Objects:
       OBJECTKEY: "149519032_1658323743 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcUserBaseDocument\\TgdcUserDocument\\TgdcUserDocument149518266_1658323743"
       OBJECTNAME: "TgdcUserDocument149518266_1658323743"
       PARENTNAME: "TgdcUserDocument"
-      EDITIONDATE: 2011-05-23T18:11:00+03:00
+      EDITIONDATE: 2021-09-20T13:45:16+03:00
   - 
     Properties: 
       Class: "TgdcFunction"
@@ -609,7 +609,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2015-01-14T13:10:11+03:00
+      EDITIONDATE: 2021-09-20T16:29:25+03:00
       DISPLAYSCRIPT: | 
         USRG_ACTEDITBILLONEXECUTE
         
@@ -648,8 +648,7 @@ Objects:
                gdcO.FieldByName("DOCUMENTDATE").AsDateTime
             gdcBill.FieldByName("USR$CONTACTKEY").AsVariant = _
               gdcO.FieldByName("USR$CONTACTKEY").AsVariant
-            gdcBill.FieldByName("USR$MANAGERKEY").AsVariant = _
-              gdcBaseManager.GetIdByRuidString("160035177_1665905672")
+            gdcBill.FieldByName("USR$MANAGERKEY").AsVariant = IBLogin.ContactKey
             gdcBill.Post
             IsInserted = true
             gdcO.Edit
@@ -667,6 +666,7 @@ Objects:
                gdcBill.Delete
              end if
           end if
+          'gdcO.
           gdcO.Refresh
           call wg_GetDownPaymentTable(Sender.OwnerForm)
           Sender.OwnerForm.GetComponent("usrg_gdcSellBillLine").CloseOpen
@@ -821,7 +821,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2011-05-04T15:45:33+03:00
+      EDITIONDATE: 2021-09-20T13:09:05+03:00
       DISPLAYSCRIPT: | 
         GDC_DLGUSERCOMPLEXDOCUMENT149518266_1658323743ONLOADSETTINGSAFTERCREATE
         
@@ -862,7 +862,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2011-05-04T15:44:03+03:00
+      EDITIONDATE: 2021-09-20T13:08:55+03:00
       DISPLAYSCRIPT: | 
         GDC_DLGUSERCOMPLEXDOCUMENT149518266_1658323743ONSAVESETTINGS
         
@@ -904,7 +904,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2011-05-06T15:46:40+03:00
+      EDITIONDATE: 2021-09-20T13:08:53+03:00
       DISPLAYSCRIPT: | 
         GDC_DLGUSERCOMPLEXDOCUMENT149518266_1658323743ONSETUPDIALOG
         
@@ -977,7 +977,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2011-05-05T21:07:35+03:00
+      EDITIONDATE: 2021-09-20T13:09:35+03:00
       DISPLAYSCRIPT: | 
         GDC_DLGUSERCOMPLEXDOCUMENT149518266_1658323743ONSYNCFIELD
         

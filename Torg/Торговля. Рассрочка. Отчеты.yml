@@ -5,10 +5,10 @@ Properties:
   RUID: 160970657_1743838890
   Name: "Торговля. Рассрочка. Отчеты"
   Caption: "Торговля. Рассрочка. Отчеты"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 7A25B23DA3FE502EEB737503B6A4EC16
+  MD5: 22E3584620F78CD9736886239A5C3C6E
 Uses: 
   - "160970515_1743838890 Торговля. Рассрочка. Методанные"
 Objects: 
@@ -128,7 +128,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2015-02-04T15:06:07+03:00
+      EDITIONDATE: 2021-09-20T19:15:44+03:00
       DISPLAYSCRIPT: | 
         RP_MAIN160043361_1665905672
         
@@ -189,7 +189,7 @@ Objects:
       DontRemove: False
       IncludeSiblings: False
     Fields: 
-      NAME: "Поступление 2014"
+      NAME: "Поступление"
       DESCRIPTION: ~
       DISPLAYINMENU: 1
       EVENTFORMULAKEY: ~
@@ -205,7 +205,7 @@ Objects:
       REPORTGROUPKEY: "155503140_1665905672 Отчеты(gdc_frmUserComplexDocument149518266_1658323743)"
       SERVERKEY: ~
       TEMPLATEKEY: "160043370_1665905672 Поступление товара за 2014"
-      EDITIONDATE: 2015-02-04T15:06:07+03:00
+      EDITIONDATE: 2021-09-20T19:15:44+03:00
   - 
     Properties: 
       Class: "TgdcTemplate"
@@ -218,32 +218,32 @@ Objects:
       NAME: "Рассрочка за период"
       DESCRIPTION: ~
       TEMPLATETYPE: "FR4"
-      EDITIONDATE: 2016-07-27T22:22:43+03:00
+      EDITIONDATE: 2021-09-20T19:15:14+03:00
       TEMPLATEDATA: | 
         <?xml version="1.0" encoding="utf-8"?>
-        <Tgs_fr4SingleReport Version="4.12.6" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="40983,7759552199" ReportOptions.Description.Text="" ReportOptions.LastChange="40983,7759552199" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D22512200010C2400000020446174615365743D225449544C452220446174615365744E616D653D225449544C45220000095661726961626C65730100055374796C650100">
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="40983,7759552199" ReportOptions.Description.Text="" ReportOptions.LastChange="40983,7759552199" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D22512200010C2400000020446174615365743D225449544C452220446174615365744E616D653D225449544C45220000095661726961626C65730100055374796C650100">
           <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
           <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
             <TfrxReportTitle Name="ReportTitle1" Height="37" Left="0" Top="18,89765" Width="718,1107">
               <TfrxMemoView Name="Memo1" Left="1" Top="4" Width="717" Height="18" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="РћС‚С‡РµС‚ РїРѕ СЂР°СЃСЃСЂРѕС‡РєРµ Р·Р° РїРµСЂРёРѕРґ СЃ [TITLE.&#34;BeginDate&#34;] РїРѕ [TITLE.&#34;EndDate&#34;]"/>
             </TfrxReportTitle>
             <TfrxHeader Name="Header1" Height="27" Left="0" Top="117,16543" Width="718,1107">
-              <TfrxMemoView Name="Memo2" Left="3" Top="11" Width="248" Height="16" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РџРѕРєСѓРїР°С‚РµР»СЊ"/>
-              <TfrxMemoView Name="Memo3" Left="251" Top="11" Width="129" Height="16" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎСѓРјРјР° СЂР°СЃСЃСЂРѕС‡РєРё"/>
-              <TfrxMemoView Name="Memo4" Left="380" Top="11" Width="129" Height="16" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РћРїР»Р°С‡РµРЅРѕ"/>
-              <TfrxMemoView Name="Memo5" Left="509" Top="11" Width="129" Height="16" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ"/>
+              <TfrxMemoView Name="Memo2" Left="3,77953" Top="4,33859" Width="249,44898" Height="22,67718" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РџРѕРєСѓРїР°С‚РµР»СЊ"/>
+              <TfrxMemoView Name="Memo3" Left="253,22851" Top="4,33859" Width="128,50402" Height="22,67718" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎСѓРјРјР° СЂР°СЃСЃСЂРѕС‡РєРё"/>
+              <TfrxMemoView Name="Memo4" Left="381,73253" Top="4,33859" Width="128,50402" Height="22,67718" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РћРїР»Р°С‡РµРЅРѕ"/>
+              <TfrxMemoView Name="Memo5" Left="510,23655" Top="4,33859" Width="128,50402" Height="22,67718" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ"/>
             </TfrxHeader>
             <TfrxMasterData Name="MasterData1" Height="20" Left="0" Top="166,29932" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0">
-              <TfrxMemoView Name="Memo6" Left="3" Top="0" Width="248" Height="20" ShowHint="False" DataField="U_USR$CONTACTKEY_NAME" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;U_USR$CONTACTKEY_NAME&#34;]"/>
-              <TfrxMemoView Name="Memo7" Left="251" Top="0" Width="129" Height="20" ShowHint="False" DataField="ALLSUMPAY" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;ALLSUMPAY&#34;]"/>
-              <TfrxMemoView Name="Memo8" Left="380" Top="0" Width="129" Height="20" ShowHint="False" DataField="USR$PAYED" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$PAYED&#34;]"/>
-              <TfrxMemoView Name="Memo9" Left="509" Top="0" Width="129" Height="20" ShowHint="False" DataField="TOPAY" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;TOPAY&#34;]"/>
+              <TfrxMemoView Name="Memo6" Left="3,77953" Top="0" Width="249,44898" Height="18,89765" ShowHint="False" DataField="CONTACT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;CONTACT&#34;]"/>
+              <TfrxMemoView Name="Memo7" Left="253,22851" Top="0" Width="128,50402" Height="18,89765" ShowHint="False" DataField="ALLSUMPAY" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;ALLSUMPAY&#34;]"/>
+              <TfrxMemoView Name="Memo8" Left="381,73253" Top="0" Width="128,50402" Height="18,89765" ShowHint="False" DataField="PAYED" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;PAYED&#34;]"/>
+              <TfrxMemoView Name="Memo9" Left="510,23655" Top="0" Width="128,50402" Height="18,89765" ShowHint="False" DataField="TOPAY" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;TOPAY&#34;]"/>
             </TfrxMasterData>
             <TfrxFooter Name="Footer1" Height="20" Left="0" Top="207,87415" Width="718,1107">
-              <TfrxMemoView Name="Memo10" Left="3" Top="1" Width="248" Height="16" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="РС‚РѕРіРѕ:"/>
-              <TfrxMemoView Name="Memo11" Left="251" Top="1" Width="129" Height="16" ShowHint="False" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[SUM(&#60;Q.&#34;ALLSUMPAY&#34;&#62;,MasterData1)]"/>
-              <TfrxMemoView Name="Memo12" Left="380" Top="1" Width="129" Height="16" ShowHint="False" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[SUM(&#60;Q.&#34;USR$PAYED&#34;&#62;,MasterData1)]"/>
-              <TfrxMemoView Name="Memo13" Left="509" Top="1" Width="129" Height="16" ShowHint="False" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[SUM(&#60;Q.&#34;TOPAY&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo10" Left="3,77953" Top="0" Width="249,44898" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="РС‚РѕРіРѕ:"/>
+              <TfrxMemoView Name="Memo11" Left="253,22851" Top="0" Width="128,50402" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[SUM(&#60;Q.&#34;ALLSUMPAY&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo12" Left="381,73253" Top="0" Width="128,50402" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[SUM(&#60;Q.&#34;PAYED&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo13" Left="510,23655" Top="0" Width="128,50402" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[SUM(&#60;Q.&#34;TOPAY&#34;&#62;,MasterData1)]"/>
             </TfrxFooter>
           </TfrxReportPage>
         </Tgs_fr4SingleReport>
@@ -273,7 +273,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2016-07-27T22:23:48+03:00
+      EDITIONDATE: 2021-09-20T19:15:14+03:00
       DISPLAYSCRIPT: | 
         RP_MAIN155811894_1665905672
         
@@ -298,45 +298,20 @@ Objects:
           Dim q
           Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
           q.SQL = " SELECT " & _
-            "  u.USR$PAYED, " & _
-            "  ( ( COALESCE ( U.USR$SUM, 0.0000 ) - COALESCE ( U.USR$PAYED, 0.0000 ) ) ) AS TOPAY, " & _
-            "  ( SELECT " & _
-            "    FIRST ( 1 ) " & _
-            "    ONDATE " & _
-            "  FROM " & _
-            "    USR$PD_P_DOWNPAYMENT_TABLE ( U.USR$SUM, Z.DOCUMENTDATE ) " & _
-            "ORDER BY " & _
-            "    1 DESC ) AS MAXDATE, " & _
-            "  ( ( COALESCE ( U.USR$SUM, 0.0000 ) + COALESCE ( U.USR$PREPAYMENT, 0.0000 ) ) ) AS ALLSUMPAY, " & _
-            "  Z.USR$SORTNUMBER, " & _
-            "    Z.USR$BTE_ISINTERNAL, " & _
-            "  U_USR$CONTACTKEY.NAME AS U_USR$CONTACTKEY_NAME, " & _
-            "  U_USR$SELLBILLKEY.DOCUMENTDATE AS U_USR$SELLBILLKEY_DOCUMENTDATE " & _
-            "FROM " & _
-            "  GD_DOCUMENT Z " & _
-            "    JOIN " & _
-            "      USR$PD_DOWNPAYMENT U " & _
-            "    ON " & _
-            "      U.DOCUMENTKEY  =  Z.ID " & _
-            "    LEFT JOIN " & _
-            "      GD_CONTACT U_USR$CONTACTKEY " & _
-            "    ON " & _
-            "      U_USR$CONTACTKEY.ID  =  U.USR$CONTACTKEY " & _
-            "    LEFT JOIN " & _
-            "      GD_CONTACT U_USR$WARRANTORKEY " & _
-            "    ON " & _
-            "      U_USR$WARRANTORKEY.ID  =  U.USR$WARRANTORKEY " & _
-            "    LEFT JOIN " & _
-            "      GD_DOCUMENT U_USR$SELLBILLKEY " & _
-            "    ON " & _
-            "      U_USR$SELLBILLKEY.ID  =  U.USR$SELLBILLKEY " & _
+            "  u.USR$PAYED as PAYED, " & _
+            "  ((COALESCE(U.USR$SUM,0.0000) - COALESCE(U.USR$PAYED,0.0000))) AS TOPAY, " & _
+            "  (SELECT FIRST ( 1 ) " & _
+            "    ONDATE FROM USR$PD_P_DOWNPAYMENT_TABLE (U.USR$SUM, Z.DOCUMENTDATE ) ORDER BY 1 DESC ) AS MAXDATE, " & _
+            "  ((COALESCE(U.USR$SUM, 0.0000) + COALESCE (U.USR$PREPAYMENT, 0.0000))) AS ALLSUMPAY, " & _
+            "  CON.NAME AS CONTACT, " & _
+            "  SBDOC.DOCUMENTDATE AS SBDOCUMENTDATE " & _
+            "FROM GD_DOCUMENT Z " & _
+            "JOIN USR$PD_DOWNPAYMENT U ON U.DOCUMENTKEY  =  Z.ID " & _
+            "LEFT JOIN GD_CONTACT CON ON CON.ID  =  U.USR$CONTACTKEY " & _
+            "LEFT JOIN GD_DOCUMENT SBDOC ON SBDOC.ID  =  U.USR$SELLBILLKEY " & _
             " " & _
             "WHERE " & _
-            "  Z.DOCUMENTTYPEKEY  =  151696176 " & _
-            "  AND Z.DOCUMENTDATE >= :datebegin " & _
-            "  AND Z.DOCUMENTDATE <= :dateend "
-        
-        
+            "   Z.DOCUMENTDATE BETWEEN :datebegin and :dateend "
           q.ParamByName("datebegin").AsVariant = DateBegin
           q.ParamByName("dateend").AsVariant = DateEnd
           q.Open
@@ -357,7 +332,7 @@ Objects:
       DESCRIPTION: ~
       DISPLAYINMENU: 1
       EVENTFORMULAKEY: ~
-      FOLDERKEY: "149518241_1658323743 Исследователь\\!Касса\\Рассрочка"
+      FOLDERKEY: ~
       FRQREFRESH: 1
       GLOBALREPORTKEY: ~
       ISLOCALEXECUTE: 1
@@ -369,7 +344,7 @@ Objects:
       REPORTGROUPKEY: "155503140_1665905672 Отчеты(gdc_frmUserComplexDocument149518266_1658323743)"
       SERVERKEY: ~
       TEMPLATEKEY: "155819154_1665905672 Рассрочка за период"
-      EDITIONDATE: 2012-03-15T18:50:03+03:00
+      EDITIONDATE: 2021-09-20T19:15:14+03:00
   - 
     Properties: 
       Class: "TgdcTemplate"
@@ -509,7 +484,7 @@ Objects:
       REPORTGROUPKEY: "155503140_1665905672 Отчеты(gdc_frmUserComplexDocument149518266_1658323743)"
       SERVERKEY: ~
       TEMPLATEKEY: "160043314_1665905672 Цены из прихода(рассрочка)"
-      EDITIONDATE: 2016-11-21T20:42:35+03:00
+      EDITIONDATE: 2021-09-20T19:15:16+03:00
   - 
     Properties: 
       Class: "TgdcTemplate"
@@ -522,16 +497,16 @@ Objects:
       NAME: "Обязатльство по рассрочке"
       DESCRIPTION: ~
       TEMPLATETYPE: "FR4"
-      EDITIONDATE: 2016-11-21T20:44:00+03:00
+      EDITIONDATE: 2021-09-20T19:02:44+03:00
       TEMPLATEDATA: | 
         <?xml version="1.0" encoding="utf-8"?>
-        <Tgs_fr4SingleReport Version="4.12.6" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="40904,6022158912" ReportOptions.Description.Text="" ReportOptions.LastChange="40904,6022158912" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2A00000020446174615365743D2243414C454E4441522220446174615365744E616D653D2243414C454E4441522200010C3200000020446174615365743D22444F574E5F5041594D454E542220446174615365744E616D653D22444F574E5F5041594D454E542200010C1E00000020446174615365743D2251312220446174615365744E616D653D2251312200010C2400000020446174615365743D2253524F4B492220446174615365744E616D653D2253524F4B49220000095661726961626C65730100055374796C650100">
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="40904,6022158912" ReportOptions.Description.Text="" ReportOptions.LastChange="40904,6022158912" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2A00000020446174615365743D2243414C454E4441522220446174615365744E616D653D2243414C454E4441522200010C3200000020446174615365743D22444F574E5F5041594D454E542220446174615365744E616D653D22444F574E5F5041594D454E542200010C1E00000020446174615365743D2251312220446174615365744E616D653D2251312200010C2400000020446174615365743D2253524F4B492220446174615365744E616D653D2253524F4B49220000095661726961626C65730100055374796C650100">
           <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
           <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
             <TfrxReportTitle Name="ReportTitle1" Height="88" Left="0" Top="18,89765" Width="718,1107">
               <TfrxMemoView Name="Memo1" Left="1" Top="23" Width="716" Height="16" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="РћР‘РЇР—РђРўР•Р›Р¬РЎРўР’Рћ в„– [DOWN_PAYMENT.&#34;NUMBER&#34;] РѕС‚ [DOWN_PAYMENT.&#34;DOCUMENTDATE&#34;]"/>
             </TfrxReportTitle>
-            <TfrxHeader Name="Header1" Height="244" Left="0" Top="166,29932" Width="718,1107">
+            <TfrxHeader Name="Header1" Height="255,33859" Left="0" Top="166,29932" Width="718,1107">
               <TfrxMemoView Name="Memo4" Left="1" Top="33" Width="715" Height="19" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Р№(Р°СЏ) РїРѕ РјРµСЃС‚Сѓ Р¶РёС‚РµР»СЊСЃС‚РІР° Рё (РёР»Рё) РјРµСЃС‚Сѓ РїСЂРµР±С‹РІР°РЅРёСЏ "/>
               <TfrxMemoView Name="Memo6" Left="3" Top="79" Width="717" Height="21" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="РїРѕР»СѓС‡Р°СЋС‰РёР№(Р°СЏ) РґРѕС…РѕРґ (Р·Р°СЂР°Р±РѕС‚РЅСѓСЋ РїР»Р°С‚Сѓ, РїРµРЅСЃРёСЋ, РґСЂ. РІРёРґС‹ РґРѕС…РѕРґР°) РѕС‚"/>
               <TfrxMemoView Name="Memo7" Left="1" Top="90" Width="715" Height="25" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" Text=""/>
@@ -539,34 +514,43 @@ Objects:
               <TfrxMemoView Name="Memo9" Left="1" Top="113" Width="716" Height="16" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="(РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РїСЂРµРґРїСЂРёСЏС‚РёСЏ, РѕСЂРіР°РЅР° РЅР°С‡РёСЃР»СЏСЋС‰РµРіРѕ Р·Р°СЂР°Р±РѕС‚РЅСѓСЋ РїР»Р°С‚Сѓ, РїРµРЅСЃРёСЋ)"/>
               <TfrxMemoView Name="Memo10" Left="0" Top="137" Width="715" Height="16" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" Text=""/>
               <TfrxMemoView Name="Memo11" Left="1" Top="162" Width="717" Height="22" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="РїСЂРёРѕР±СЂРµР»(Р°) РІ РјР°РіР°Р·РёРЅРµ &#34;РўРћР’РђР Р«&#34; РћРђРћ &#34;РџР°СЂРѕС…РѕРЅСЃРєРѕРµ&#34;"/>
-              <TfrxMemoView Name="Memo12" Left="0" Top="185" Width="717" Height="21" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="СЃ СЂР°СЃСЃСЂРѕС‡РєРѕР№ РїР»Р°С‚РµР¶Р° РЅР° [SROKI.&#34;COUNT&#34;] РјРµСЃСЏС†Р°(РµРІ), РІ С‚РѕРј С‡РёСЃР»Рµ [SROKI.&#34;MONTHPAY&#34;]"/>
+              <TfrxMemoView Name="Memo12" Left="0" Top="185,19697" Width="718,1107" Height="22,67718" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="СЃ СЂР°СЃСЃСЂРѕС‡РєРѕР№ РїР»Р°С‚РµР¶Р° РЅР° [SROKI.&#34;COUNT&#34;] РјРµСЃСЏС†Р°(РµРІ), РІ С‚РѕРј С‡РёСЃР»Рµ [SROKI.&#34;MONTHPAY&#34;]"/>
               <TfrxMemoView Name="Memo2" Left="0" Top="11" Width="718" Height="18" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="РЇ, РіСЂР°Р¶РґР°РЅРёРЅ(РєР°) [DOWN_PAYMENT.&#34;NAME&#34;] "/>
-              <TfrxMemoView Name="Memo13" Left="5" Top="228" Width="230" Height="16" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РќР°РёРјРµРЅРѕРІР°РЅРёРµ С‚РѕРІР°СЂР°"/>
-              <TfrxMemoView Name="Memo14" Left="235" Top="228" Width="58" Height="16" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РђСЂС‚РёРєСѓР»"/>
-              <TfrxMemoView Name="Memo15" Left="293" Top="228" Width="144" Height="16" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р—Р°РІРѕРґСЃРєРѕР№ РЅРѕРјРµСЂ"/>
-              <TfrxMemoView Name="Memo16" Left="437" Top="228" Width="70" Height="16" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РљРѕР»РёС‡РµСЃС‚РІРѕ"/>
-              <TfrxMemoView Name="Memo17" Left="507" Top="228" Width="94" Height="16" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р РѕР·РЅРёС‡РЅР°СЏ С†РµРЅР°"/>
-              <TfrxMemoView Name="Memo18" Left="601" Top="228" Width="113" Height="16" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎСѓРјРјР°"/>
+              <TfrxMemoView Name="Memo13" Left="0" Top="209,87415" Width="253,22851" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°РёРјРµРЅРѕРІР°РЅРёРµ С‚РѕРІР°СЂР°"/>
+              <TfrxMemoView Name="Memo14" Left="253,22851" Top="209,87415" Width="52,91342" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РђСЂС‚РёРєСѓР»"/>
+              <TfrxMemoView Name="Memo15" Left="306,14193" Top="209,87415" Width="102,04731" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р—Р°РІРѕРґСЃРєРѕР№ РЅРѕРјРµСЂ"/>
+              <TfrxMemoView Name="Memo16" Left="408,18924" Top="209,87415" Width="34,01577" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљРѕР»-&#13;&#10;РІРѕ"/>
+              <TfrxMemoView Name="Memo17" Left="442,20501" Top="209,87415" Width="60,47248" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¦РµРЅР°"/>
+              <TfrxMemoView Name="Memo18" Left="657,63822" Top="209,87415" Width="60,47248" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎСѓРјРјР° СЃ РќР”РЎ, СЂСѓР±.РєРѕРї."/>
+              <TfrxMemoView Name="Memo49" Left="502,67749" Top="209,87415" Width="60,47248" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎСѓРјРјР°, СЂСѓР±.РєРѕРї."/>
+              <TfrxMemoView Name="Memo52" Left="563,14997" Top="209,87415" Width="37,7953" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР”РЎ, %"/>
+              <TfrxMemoView Name="Memo55" Left="600,94527" Top="209,87415" Width="56,69295" Height="45,35436" ShowHint="False" Color="14211288" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎСѓРјРјР° РќР”РЎ, СЂСѓР±.РєРѕРї."/>
             </TfrxHeader>
-            <TfrxMasterData Name="MasterData1" Height="21" Left="0" Top="434,64595" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSetName="Q1" RowCount="0" Stretched="True">
-              <TfrxMemoView Name="Memo19" Left="5" Top="0" Width="230" Height="21" ShowHint="False" StretchMode="smMaxHeight" DataField="GOODNAME" DataSetName="Q1" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;GOODNAME&#34;]"/>
-              <TfrxMemoView Name="Memo20" Left="235" Top="0" Width="58" Height="21" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
-              <TfrxMemoView Name="Memo21" Left="293" Top="0" Width="144" Height="21" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
-              <TfrxMemoView Name="Memo22" Left="437" Top="0" Width="70" Height="21" ShowHint="False" StretchMode="smMaxHeight" DataField="QUANTITY" DataSetName="Q1" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;QUANTITY&#34;]"/>
-              <TfrxMemoView Name="Memo23" Left="507" Top="0" Width="94" Height="21" ShowHint="False" StretchMode="smMaxHeight" DataSetName="Q1" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;TO_USR$INV_COSTWITHNDSNCU&#34;]"/>
-              <TfrxMemoView Name="Memo24" Left="601" Top="0" Width="113" Height="21" ShowHint="False" StretchMode="smMaxHeight" DataSetName="Q1" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;USR$SUMWITHNDSNCU&#34;]"/>
+            <TfrxMasterData Name="MasterData1" Height="21" Left="0" Top="445,98454" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="Q1" DataSetName="Q1" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo19" Left="0" Top="0" Width="253,22851" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GOODNAME" DataSet="Q1" DataSetName="Q1" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;GOODNAME&#34;]"/>
+              <TfrxMemoView Name="Memo20" Left="253,22851" Top="0" Width="52,91342" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo21" Left="306,14193" Top="0" Width="102,04731" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo22" Left="408,18924" Top="0" Width="34,01577" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="QUANTITY" DataSet="Q1" DataSetName="Q1" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;QUANTITY&#34;]"/>
+              <TfrxMemoView Name="Memo23" Left="442,20501" Top="0" Width="60,47248" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="COST" DataSet="Q1" DataSetName="Q1" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;COST&#34;]"/>
+              <TfrxMemoView Name="Memo24" Left="657,63822" Top="0" Width="60,47248" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$SUMWITHNDSNCU" DataSet="Q1" DataSetName="Q1" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;USR$SUMWITHNDSNCU&#34;]"/>
+              <TfrxMemoView Name="Memo50" Left="502,67749" Top="0" Width="60,47248" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$SUMNCU" DataSet="Q1" DataSetName="Q1" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;USR$SUMNCU&#34;]"/>
+              <TfrxMemoView Name="Memo53" Left="563,14997" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q1" DataSetName="Q1" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;USR$SUMWITHNDSNCU&#34;]"/>
+              <TfrxMemoView Name="Memo56" Left="600,94527" Top="0" Width="56,69295" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$SUMNDSNCU" DataSet="Q1" DataSetName="Q1" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q1.&#34;USR$SUMNDSNCU&#34;]"/>
             </TfrxMasterData>
-            <TfrxFooter Name="Footer1" Height="299" Left="0" Top="480,00031" Width="718,1107">
-              <TfrxMemoView Name="Memo27" Left="5" Top="0" Width="432" Height="21" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="РС‚РѕРіРѕ:"/>
-              <TfrxMemoView Name="Memo28" Left="437" Top="0" Width="70" Height="21" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[SUM(&#60;Q1.&#34;QUANTITY&#34;&#62;)]"/>
-              <TfrxMemoView Name="Memo29" Left="507" Top="0" Width="94" Height="21" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="----"/>
-              <TfrxMemoView Name="Memo30" Left="601" Top="0" Width="113" Height="21" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[SUM(&#60;Q1.&#34;USR$SUMWITHNDSNCU&#34;&#62;)]"/>
+            <TfrxFooter Name="Footer1" Height="299" Left="0" Top="491,3389" Width="718,1107">
+              <TfrxMemoView Name="Memo27" Left="0" Top="0" Width="408,18924" Height="22,67718" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="РС‚РѕРіРѕ:"/>
+              <TfrxMemoView Name="Memo28" Left="408,18924" Top="0" Width="34,01577" Height="22,67718" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q1.&#34;QUANTITY&#34;&#62;)]"/>
+              <TfrxMemoView Name="Memo29" Left="442,20501" Top="0" Width="60,47248" Height="22,67718" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="-"/>
+              <TfrxMemoView Name="Memo30" Left="657,63822" Top="0" Width="60,47248" Height="22,67718" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q1.&#34;USR$SUMWITHNDSNCU&#34;&#62;)]"/>
               <TfrxMemoView Name="Memo25" Left="-1" Top="103,76376" Width="717" Height="18" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="Р’РЅРµСЃРµРЅРѕ РЅР°Р»РёС‡РЅС‹РјРё [round(&#60;DOWN_PAYMENT.&#34;USR$PREPAYMENT&#34;&#62;/&#60;DOWN_PAYMENT.&#34;RETAILSUM&#34;&#62;*100)] РїСЂРѕС†РµРЅС‚РѕРІ СЃС‚РѕРёРјРѕСЃС‚Рё.  РЎСѓРјРјР° [DOWN_PAYMENT.&#34;USR$PREPAYMENT&#34;] СЂСѓР±."/>
               <TfrxMemoView Name="Memo26" Left="0" Top="155" Width="717" Height="18" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="РћСЃС‚Р°Р»СЊРЅСѓСЋ С‡Р°СЃС‚СЊ СЃС‚РѕРёРјРѕСЃС‚Рё С‚РѕРІР°СЂР° РІ СЃСѓРјРјРµ [DOWN_PAYMENT.&#34;SUMDOLG&#34;] СЂСѓР±."/>
               <TfrxMemoView Name="Memo31" Left="0" Top="174" Width="717" Height="18" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="3" Frame.Typ="8" ParentFont="False" Text="[SUMCURRSTR(200010,&#60;DOWN_PAYMENT.&#34;SUMDOLG&#34;&#62;,FALSE)]"/>
               <TfrxMemoView Name="Memo32" Left="-1" Top="191" Width="717" Height="18" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="(СЃСѓРјРјР° РїСЂРѕРїРёСЃСЊСЋ)"/>
               <TfrxMemoView Name="Memo33" Left="0" Top="215" Width="717" Height="56" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="РћР±СЏР·СѓСЋСЃСЊ РїР»Р°С‚РёС‚СЊ РµР¶РµРјРµСЃСЏС‡РЅС‹РјРё РІР·РЅРѕСЃР°РјРё РІ РєР°СЃСЃСѓ РјР°РіР°Р·РёРЅР° РґРѕ 25 С‡РёСЃР»Р° РєР°Р¶РґРѕРіРѕ РјРµСЃСЏС†Р°. РќР°С‡РёРЅР°СЏ СЃ [DATESTR(&#60;SROKI.&#34;MIDATE&#34;&#62;)]Рі  РїРѕ  [DATESTR(&#60;SROKI.&#34;MAXDATE&#34;&#62;)]Рі "/>
               <TfrxMemoView Name="Memo114" Left="3,77953" Top="123,94496" Width="714,33117" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="2" Frame.Typ="8" ParentFont="False" Text="[SUMCURRSTR(200010,&#60;DOWN_PAYMENT.&#34;USR$PREPAYMENT&#34;&#62;,false)]"/>
+              <TfrxMemoView Name="Memo51" Left="502,67749" Top="0" Width="60,47248" Height="22,67718" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q1.&#34;USR$SUMNCU&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo54" Left="563,14997" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="-"/>
+              <TfrxMemoView Name="Memo57" Left="600,94527" Top="0" Width="56,69295" Height="22,67718" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="3" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q1.&#34;USR$SUMNDSNCU&#34;&#62;,MasterData1)]"/>
             </TfrxFooter>
           </TfrxReportPage>
           <TfrxReportPage Name="Page2" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
@@ -601,8 +585,8 @@ Objects:
               <TfrxMemoView Name="Memo123" Left="597,16574" Top="0" Width="105,82684" Height="41,57483" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р РѕСЃРїРёСЃСЊ"/>
             </TfrxHeader>
             <TfrxMasterData Name="MasterData2" Height="18,89765" Left="0" Top="684,09493" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="CALENDAR" DataSetName="CALENDAR" RowCount="0">
-              <TfrxMemoView Name="Memo124" Left="11,33859" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" DataSetName="CALENDAR" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;ONDATE&#34;]"/>
-              <TfrxMemoView Name="Memo125" Left="98,26778" Top="0" Width="109,60637" Height="18,89765" ShowHint="False" DataSetName="CALENDAR" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;TOPAY&#34;]"/>
+              <TfrxMemoView Name="Memo124" Left="11,33859" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" DataSet="CALENDAR" DataSetName="CALENDAR" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;ONDATE&#34;]"/>
+              <TfrxMemoView Name="Memo125" Left="98,26778" Top="0" Width="109,60637" Height="18,89765" ShowHint="False" DataSet="CALENDAR" DataSetName="CALENDAR" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;TOPAY&#34;]"/>
               <TfrxMemoView Name="Memo126" Left="207,87415" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
               <TfrxMemoView Name="Memo127" Left="294,80334" Top="0" Width="105,82684" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
               <TfrxMemoView Name="Memo128" Left="400,63018" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
@@ -637,7 +621,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2016-11-21T20:44:05+03:00
+      EDITIONDATE: 2021-09-20T19:02:44+03:00
       DISPLAYSCRIPT: | 
         RP_MAIN155503142_1665905672
         
@@ -692,219 +676,34 @@ Objects:
           dim q1
           Set q1 = BaseQueryList.Query(BaseQueryList.Add("q1", 0))
           q1.SQL = "SELECT " & _
-            " " & _
+            "  D.DOCUMENTDATE, " & _
+            "  D.NUMBER, " & _
+            "  SELLDOC.DOCUMENTDATE as SELLDOCDATE, " & _
+            "  SELLDOC.NUMBER as SELLDOCNUMBER, " & _
             "  G.NAME AS GOODNAME, " & _
-            "  G.ALIAS AS GOODALIAS, " & _
             "  V.NAME, " & _
-            "  INVLINE.QUANTITY, " & _
-            "  INVLINE.USR$BASISFORCOST, " & _
-            "  INVLINE.USR$CARGOCLASS, " & _
-            "  INVLINE.USR$CARGOCODE, " & _
-            "  INVLINE.USR$DOCUMENTS, " & _
-            "  INVLINE.USR$GRASSWEIGHT, " & _
-            "  INVLINE.USR$QUANTPACK, " & _
-            "  INVLINE.USR$SUMCUR, " & _
-            "  INVLINE.USR$SUMEQ, " & _
-            "  INVLINE.USR$SUMNCU, " & _
-            "  INVLINE.USR$SUMNDSCUR, " & _
-            "  INVLINE.USR$SUMNDSNCU, " & _
-            "  INVLINE.USR$SUMSALETAX, " & _
-            "  INVLINE.USR$SUMWITHNDSCUR, " & _
-            "  INVLINE.USR$SUMWITHNDSNCU, " & _
-            "  INVLINE.USR$SUMWITHSALETAX, " & _
-            "  INVLINE.USR$TIMEWORK, " & _
-            "  INVLINE.USR$VMK_MAINCOSTNCU, " & _
-            "  INVLINE.USR$VMK_MAINPOSKEY, " & _
-            "  INVLINE.USR$VMK_PERCENT, " & _
-            "  INVLINE.USR$VMK_PRIMECOST, " & _
-            "  INVLINE.USR$VMK_SUMAMORT, " & _
-            "  INVLINE.USR$VMK_SUMRETAIL, " & _
-            "  INVLINE.USR$WITHGUIDE, " & _
-            "  CARD_USR$INV_ACCOUNTKEY.ALIAS AS CARD_USR$INV_ACCOUNTKEY_ALIAS, " & _
-            "  CARD_USR$INV_BILLLINEKEY.NUMBER AS CARD_USR$INV_BILLLINEKEY_NUMBER, " & _
-            "  CARD_USR$INV_CERTNEWKEY.USR$NUMBER AS CARD_USR$INV_CERTNEWK2420802037, " & _
-            "  CARD_USR$INV_OPTDELIVERYKEY.USR$NAME AS CARD_USR$INV_OPTDELIV3483582483, " & _
-            "  CARD_USR$INV_ORIGINCOUNTRYKEY.NAME AS CARD_USR$INV_ORIGINCO2222723292, " & _
-            "  CARD_USR$INV_PACKKEY.NAME AS CARD_USR$INV_PACKKEY_NAME, " & _
-            "  CARD_USR$INV_PRODUCERKEY.NAME AS CARD_USR$INV_PRODUCERKEY_NAME, " & _
-            "  CARD_USR$INV_PROVIDER.NAME AS CARD_USR$INV_PROVIDER_NAME, " & _
-            "  CARD_USR$PRICELIST.NAME AS CARD_USR$PRICELIST_NAME, " & _
-            "  TOCARD_USR$INV_CUSTPERMITKEY.USR$NUMBER AS TOCARD_USR$INV_CUSTPE3338802201, " & _
-            "  TOCARD_USR$INV_GTRCERTKEY.USR$NUMBER AS TOCARD_USR$INV_GTRCER2990631326, " & _
-            "  TOCARD_USR$INV_MOVEDOCKEY.NUMBER AS TOCARD_USR$INV_MOVEDO2964561240, " & _
-            "  TOCARD_USR$INV_PACKKEY.NAME AS TOCARD_USR$INV_PACKKEY_NAME, " & _
-            "  TOCARD_USR$INV_QUALITYCERTKEY.USR$NUMBER AS TOCARD_USR$INV_QUALIT1471675379, " & _
-            "  TOCARD_USR$INV_STATDECLARKEY.USR$NUMBER AS TOCARD_USR$INV_STATDE3668716616, " & _
-            "  CARD.GOODKEY, " & _
-            "  CARD.USR$INV_ACCOUNTKEY AS FROM_USR$INV_ACCOUNTKEY, " & _
-            "  CARD.USR$INV_BILLLINEKEY AS FROM_USR$INV_BILLLINEKEY, " & _
-            "  CARD.USR$INV_BUYNDSNCU AS FROM_USR$INV_BUYNDSNCU, " & _
-            "  CARD.USR$INV_CERTNEWKEY AS FROM_USR$INV_CERTNEWKEY, " & _
-            "  CARD.USR$INV_COSTBUYEQ AS FROM_USR$INV_COSTBUYEQ, " & _
-            "  CARD.USR$INV_COSTBUYNCU AS FROM_USR$INV_COSTBUYNCU, " & _
-            "  CARD.USR$INV_COSTGLASSNCU AS FROM_USR$INV_COSTGLASSNCU, " & _
-            "  CARD.USR$INV_COSTOILTAX AS FROM_USR$INV_COSTOILTAX, " & _
-            "  CARD.USR$INV_COSTPROVIDER AS FROM_USR$INV_COSTPROVIDER, " & _
-            "  CARD.USR$INV_COSTRETAILEQ AS FROM_USR$INV_COSTRETAILEQ, " & _
-            "  CARD.USR$INV_COSTRETAILNCU AS FROM_USR$INV_COSTRETAILNCU, " & _
-            "  CARD.USR$INV_COSTTRADENCU AS FROM_USR$INV_COSTTRADENCU, " & _
-            "  CARD.USR$INV_COSTTRWITHNDS AS FROM_USR$INV_COSTTRWITHNDS, " & _
-            "  CARD.USR$INV_DATERECEIVE AS FROM_USR$INV_DATERECEIVE, " & _
-            "  CARD.USR$INV_OPTDELIVERYKEY AS FROM_USR$INV_OPTDELIVERYKEY, " & _
-            "  CARD.USR$INV_ORIGINCOUNTRYKEY AS FROM_USR$INV_ORIGINCOUNTRYKEY, " & _
-            "  CARD.USR$INV_PACKKEY AS FROM_USR$INV_PACKKEY, " & _
-            "  CARD.USR$INV_PERCPROVIDER AS FROM_USR$INV_PERCPROVIDER, " & _
-            "  CARD.USR$INV_PRODUCERKEY AS FROM_USR$INV_PRODUCERKEY, " & _
-            "  CARD.USR$INV_PROVIDER AS FROM_USR$INV_PROVIDER, " & _
-            "  CARD.USR$INV_QUANTINPACK AS FROM_USR$INV_QUANTINPACK, " & _
-            "  CARD.USR$INV_SELLNDS AS FROM_USR$INV_SELLNDS, " & _
-            "  CARD.USR$INV_TAXSALE AS FROM_USR$INV_TAXSALE, " & _
-            "  CARD.USR$INV_TRADEPERC AS FROM_USR$INV_TRADEPERC, " & _
-            "  CARD.USR$PRICELIST AS FROM_USR$PRICELIST, " & _
-            "  TOCARD.USR$INV_COSTFULLEQ AS TO_USR$INV_COSTFULLEQ, " & _
-            "  TOCARD.USR$INV_COSTFULLNCU AS TO_USR$INV_COSTFULLNCU, " & _
-            "  TOCARD.USR$INV_COSTGLASSNCU AS TO_USR$INV_COSTGLASSNCU, " & _
-            "  TOCARD.USR$INV_COSTNCU AS TO_USR$INV_COSTNCU, " & _
-            "  TOCARD.USR$INV_COSTNDSNCU AS TO_USR$INV_COSTNDSNCU, " & _
-            "  TOCARD.USR$INV_COSTWITHNDSNCU AS TO_USR$INV_COSTWITHNDSNCU, " & _
-            "  TOCARD.USR$INV_CUSTPERMITKEY AS TO_USR$INV_CUSTPERMITKEY, " & _
-            "  TOCARD.USR$INV_GTRCERTKEY AS TO_USR$INV_GTRCERTKEY, " & _
-            "  TOCARD.USR$INV_MOVEDOCKEY AS TO_USR$INV_MOVEDOCKEY, " & _
-            "  TOCARD.USR$INV_PACKKEY AS TO_USR$INV_PACKKEY, " & _
-            "  TOCARD.USR$INV_PERCSELL AS TO_USR$INV_PERCSELL, " & _
-            "  TOCARD.USR$INV_QUALITYCERTKEY AS TO_USR$INV_QUALITYCERTKEY, " & _
-            "  TOCARD.USR$INV_QUANTINPACK AS TO_USR$INV_QUANTINPACK, " & _
-            "  TOCARD.USR$INV_SELLNDS AS TO_USR$INV_SELLNDS, " & _
-            "  TOCARD.USR$INV_STATDECLARKEY AS TO_USR$INV_STATDECLARKEY, " & _
-            "  TOCARD.USR$INV_TAXSALE AS TO_USR$INV_TAXSALE, " & _
-            "  INVLINE_USR$DEPTKEY.NAME AS INVLINE_USR$DEPTKEY_NAME, " & _
-            "  INVLINE_USR$DEPOTKEY.NAME AS INVLINE_USR$DEPOTKEY_NAME " & _
+            "  L.QUANTITY, " & _
+            "  TC.USR$INV_COSTNCU as COST, " & _
+            "  l.USR$SUMNCU, " & _
+            "  l.USR$SUMNDSNCU, " & _
+            "  l.USR$SUMWITHNDSNCU " & _
             " " & _
             " " & _
-            "FROM " & _
-            "  GD_DOCUMENT Z " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_SELLBILLLINE INVLINE " & _
-            "    ON " & _
-            "      ( Z.ID  =  INVLINE.DOCUMENTKEY ) " & _
-            "    LEFT JOIN " & _
-            "      INV_CARD CARD " & _
-            "    ON " & _
-            "      ( CARD.ID  =  INVLINE.FROMCARDKEY ) " & _
-            "    LEFT JOIN " & _
-            "      GD_GOOD G " & _
-            "    ON " & _
-            "      ( G.ID  =  CARD.GOODKEY ) " & _
-            "    LEFT JOIN " & _
-            "      GD_VALUE V " & _
-            "    ON " & _
-            "      ( G.VALUEKEY  =  V.ID ) " & _
-            "    LEFT JOIN " & _
-            "      INV_CARD TOCARD " & _
-            "    ON " & _
-            "      ( TOCARD.ID  =  INVLINE.TOCARDKEY ) " & _
-            "    LEFT JOIN " & _
-            "      AC_ACCOUNT CARD_USR$INV_ACCOUNTKEY " & _
-            "    ON " & _
-            "      ( CARD.USR$INV_ACCOUNTKEY  =  CARD_USR$INV_ACCOUNTKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      GD_DOCUMENT CARD_USR$INV_BILLLINEKEY " & _
-            "    ON " & _
-            "      ( CARD.USR$INV_BILLLINEKEY  =  CARD_USR$INV_BILLLINEKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_CERTNEW CARD_USR$INV_CERTNEWKEY " & _
-            "    ON " & _
-            "      ( CARD.USR$INV_CERTNEWKEY  =  CARD_USR$INV_CERTNEWKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_OPTIONDELIVERY CARD_USR$INV_OPTDELIVERYKEY " & _
-            "    ON " & _
-            "      ( CARD.USR$INV_OPTDELIVERYKEY  =  CARD_USR$INV_OPTDELIVERYKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      GD_PLACE CARD_USR$INV_ORIGINCOUNTRYKEY " & _
-            "    ON " & _
-            "      ( CARD.USR$INV_ORIGINCOUNTRYKEY  =  CARD_USR$INV_ORIGINCOUNTRYKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      GD_VALUE CARD_USR$INV_PACKKEY " & _
-            "    ON " & _
-            "      ( CARD.USR$INV_PACKKEY  =  CARD_USR$INV_PACKKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      GD_CONTACT CARD_USR$INV_PRODUCERKEY " & _
-            "    ON " & _
-            "      ( CARD.USR$INV_PRODUCERKEY  =  CARD_USR$INV_PRODUCERKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      GD_CONTACT CARD_USR$INV_PROVIDER " & _
-            "    ON " & _
-            "      ( CARD.USR$INV_PROVIDER  =  CARD_USR$INV_PROVIDER.ID ) " & _
-            "    LEFT JOIN " & _
-            "      INV_PRICE CARD_USR$PRICELIST " & _
-            "    ON " & _
-            "      ( CARD.USR$PRICELIST  =  CARD_USR$PRICELIST.DOCUMENTKEY ) " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_CUSTPERMIT TOCARD_USR$INV_CUSTPERMITKEY " & _
-            "    ON " & _
-            "      ( TOCARD.USR$INV_CUSTPERMITKEY  =  TOCARD_USR$INV_CUSTPERMITKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_GTRCERT TOCARD_USR$INV_GTRCERTKEY " & _
-            "    ON " & _
-            "      ( TOCARD.USR$INV_GTRCERTKEY  =  TOCARD_USR$INV_GTRCERTKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      GD_DOCUMENT TOCARD_USR$INV_MOVEDOCKEY " & _
-            "    ON " & _
-            "      ( TOCARD.USR$INV_MOVEDOCKEY  =  TOCARD_USR$INV_MOVEDOCKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      GD_VALUE TOCARD_USR$INV_PACKKEY " & _
-            "    ON " & _
-            "      ( TOCARD.USR$INV_PACKKEY  =  TOCARD_USR$INV_PACKKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_QUALITYCERT TOCARD_USR$INV_QUALITYCERTKEY " & _
-            "    ON " & _
-            "      ( TOCARD.USR$INV_QUALITYCERTKEY  =  TOCARD_USR$INV_QUALITYCERTKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_STATDECLAR TOCARD_USR$INV_STATDECLARKEY " & _
-            "    ON " & _
-            "      ( TOCARD.USR$INV_STATDECLARKEY  =  TOCARD_USR$INV_STATDECLARKEY.ID ) " & _
-            "    LEFT JOIN " & _
-            "      GD_CONTACT INVLINE_USR$DEPTKEY " & _
-            "    ON " & _
-            "      INVLINE_USR$DEPTKEY.ID  =  INVLINE.USR$DEPTKEY " & _
-            "    LEFT JOIN " & _
-            "      GD_CONTACT INVLINE_USR$DEPOTKEY " & _
-            "    ON " & _
-            "      INVLINE_USR$DEPOTKEY.ID  =  INVLINE.USR$DEPOTKEY " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_GROUPPERC G_USR$INV_PERCKEY " & _
-            "    ON " & _
-            "      G_USR$INV_PERCKEY.ID  =  G.USR$INV_PERCKEY " & _
-            "    LEFT JOIN " & _
-            "      USR$INV_REFFORMTORG G_USR$INV_REFFORMTORGKEY " & _
-            "    ON " & _
-            "      G_USR$INV_REFFORMTORGKEY.ID  =  G.USR$INV_REFFORMTORGKEY " & _
-            "    LEFT JOIN " & _
-            "      GD_VALUE G_USR$OUTVALUEKEY " & _
-            "    ON " & _
-            "      G_USR$OUTVALUEKEY.ID  =  G.USR$OUTVALUEKEY " & _
-            "    LEFT JOIN " & _
-            "      GD_GOOD G_USR$MN_MAINGOODKEY " & _
-            "    ON " & _
-            "      G_USR$MN_MAINGOODKEY.ID  =  G.USR$MN_MAINGOODKEY " & _
-            "    LEFT JOIN " & _
-            "      USR$REF_6TORG G_USR$REF6TORGKEY " & _
-            "    ON " & _
-            "      G_USR$REF6TORGKEY.ID  =  G.USR$REF6TORGKEY " & _
-            "    LEFT JOIN " & _
-            "      USR$MN_ALCGROUP G_USR$REFALCGROUPKEY " & _
-            "    ON " & _
-            "      G_USR$REFALCGROUPKEY.ID  =  G.USR$REFALCGROUPKEY " & _
+            "FROM GD_DOCUMENT D " & _
+            "JOIN USR$PD_DOWNPAYMENT DP on DP.DOCUMENTKEY = D.ID " & _
+            "LEFT JOIN USR$INV_SELLBILL SB on SB.DOCUMENTKEY = DP.USR$SELLBILLKEY " & _
+            "LEFT JOIN USR$INV_SELLBILLLINE L ON SB.DOCUMENTKEY  =  L.MASTERKEY " & _
+            "LEFT JOIN INV_CARD C ON C.ID  =  L.FROMCARDKEY " & _
+            "LEFT JOIN GD_GOOD G ON G.ID  =  C.GOODKEY " & _
+            "LEFT JOIN GD_VALUE V ON G.VALUEKEY  =  V.ID " & _
+            "LEFT JOIN INV_CARD TC ON TC.ID  =  L.TOCARDKEY " & _
+            "LEFT JOIN GD_DOCUMENT SELLDOC on SELLDOC.ID = SB.DOCUMENTKEY " & _
+            " " & _
             " " & _
             "WHERE " & _
-            "  ( Z.PARENT  =  :parent ) " & _
-            "     AND " & _
-            "  Z.DOCUMENTTYPEKEY  =  147018304 " & _
-            "     AND " & _
-            "  Z.PARENT + 0 IS NOT NULL " & _
-            "     AND " & _
-            "  INVLINE.DOCUMENTKEY IS NOT NULL "
-          q1.ParamByName("parent").AsInteger = OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").AsInteger
+            " D.ID =  :DOCUMENTKEY"
+        
+          q1.ParamByName("DOCUMENTKEY").AsInteger = OwnerForm.gdcObject.ID
           q1.Open
         
           Dim paygraph
@@ -981,4 +780,4 @@ Objects:
       REPORTGROUPKEY: "149518275_1658323743 Документы пользователя\\Рассрочка"
       SERVERKEY: ~
       TEMPLATEKEY: "155503214_1665905672 Обязатльство по рассрочке"
-      EDITIONDATE: 2016-11-21T20:44:05+03:00
+      EDITIONDATE: 2021-09-20T19:02:44+03:00
