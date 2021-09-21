@@ -5,10 +5,10 @@ Properties:
   RUID: 160970515_1743838890
   Name: "Торговля. Рассрочка. Методанные"
   Caption: "Торговля. Рассрочка. Методанные"
-  Version: "1.0.0.6"
+  Version: "1.0.0.7"
   Optional: False
   Internal: True
-  MD5: 479C833F88E93AC1CDAF513107C0F556
+  MD5: C5770489465A7ECDEFFA6578E9C40348
 Uses: 
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "160970564_1743838890 Торговля. Рассрочка. Методы"
@@ -16,6 +16,7 @@ Uses:
   - "147728891_43451302 Общие данные"
   - "194442289_637058871 Возврат от покупателя."
   - "147753062_69526485 GS.Общие.Хранилище"
+  - "148509668_396646306 Торговля - исследователь"
 Objects: 
   - 
     Properties: 
@@ -555,10 +556,10 @@ Objects:
       CMD: "149518241_1658323743"
       CMDTYPE: 0
       HOTKEY: ~
-      IMGINDEX: 0
+      IMGINDEX: 92
       ORDR: ~
       SUBTYPE: ~
-      EDITIONDATE: 2021-09-21T13:23:43+03:00
+      EDITIONDATE: 2021-09-21T14:12:18+03:00
       DISABLED: 0
   - 
     Properties: 
@@ -3912,7 +3913,7 @@ Objects:
       IMGINDEX: 0
       ORDR: ~
       SUBTYPE: "149518266_1658323743"
-      EDITIONDATE: 2021-09-21T13:27:09+03:00
+      EDITIONDATE: 2021-09-21T14:11:44+03:00
       DISABLED: 0
   - 
     Properties: 
@@ -4797,3 +4798,41 @@ Objects:
           SET USR$SUM = IIF(:S >= COALESCE(USR$PREPAYMENT, 0.0000), :S - COALESCE(USR$PREPAYMENT, 0.0000), 0)
           WHERE USR$SELLBILLKEY = NEW.MASTERKEY;
         END
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 148505769_1647524629
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "149518241_1658323743 Исследователь\\Торговля\\Рассрочка"
+      NAME: "02. Отчёты"
+      CLASSNAME: ~
+      CMD: "148505769_1647524629"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 7
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2021-09-21T14:10:24+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 148505784_1647524629
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "149518241_1658323743 Исследователь\\Торговля\\Рассрочка"
+      NAME: "03. Справочники"
+      CLASSNAME: ~
+      CMD: "148505784_1647524629"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 85
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2021-09-21T14:11:36+03:00
+      DISABLED: 0
