@@ -5,12 +5,13 @@ Properties:
   RUID: 160970657_1743838890
   Name: "Торговля. Рассрочка. Отчеты"
   Caption: "Торговля. Рассрочка. Отчеты"
-  Version: "1.0.0.3"
+  Version: "1.0.0.7"
   Optional: False
   Internal: True
-  MD5: D7969FD53E42F65A8ADDC3F1B8895567
+  MD5: C705A90F976DC8BA986B4B212A339ED2
 Uses: 
-  - "160970515_1743838890 Торговля. Рассрочка. Методанные"
+  - "148509668_396646306 Торговля - исследователь"
+  - "160970515_1743838890 Торговля. Рассрочка. Метаданные"
 Objects: 
   - 
     Properties: 
@@ -485,17 +486,55 @@ Objects:
       EDITIONDATE: 2021-09-21T13:30:00+03:00
   - 
     Properties: 
-      Class: "TgdcTemplate"
-      RUID: 155503214_1665905672
+      Class: "TgdcExplorer"
+      RUID: 148504368_1647524629
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 155503141_1665905672
     Fields: 
-      NAME: "Обязатльство по рассрочке"
+      PARENT: "148505769_1647524629 Исследователь\\Торговля\\Рассрочка\\02. Отчёты"
+      NAME: "Поступление"
+      CLASSNAME: ~
+      CMD: "160043360_1665905672"
+      CMDTYPE: 2
+      HOTKEY: ~
+      IMGINDEX: 15
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2021-09-21T14:27:22+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 148504382_1647524629
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "148505769_1647524629 Исследователь\\Торговля\\Рассрочка\\02. Отчёты"
+      NAME: "Цены из прихода"
+      CLASSNAME: ~
+      CMD: "160043268_1665905672"
+      CMDTYPE: 2
+      HOTKEY: ~
+      IMGINDEX: 15
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2021-09-21T14:27:32+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 148505934_1647524629
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 148505924_1647524629
+    Fields: 
+      NAME: "Обязатльство по рассрочке148505934_1647524629"
       DESCRIPTION: ~
       TEMPLATETYPE: "FR4"
-      EDITIONDATE: 2021-09-21T14:00:18+03:00
+      EDITIONDATE: 2021-09-21T14:41:17+03:00
       TEMPLATEDATA: | 
         <?xml version="1.0" encoding="utf-8"?>
         <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="40904,6022158912" ReportOptions.Description.Text="" ReportOptions.LastChange="40904,6022158912" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2A00000020446174615365743D2243414C454E4441522220446174615365744E616D653D2243414C454E4441522200010C3200000020446174615365743D22444F574E5F5041594D454E542220446174615365744E616D653D22444F574E5F5041594D454E542200010C1E00000020446174615365743D2251312220446174615365744E616D653D2251312200010C2400000020446174615365743D2253524F4B492220446174615365744E616D653D2253524F4B492200010C2400000020446174615365743D225449544C452220446174615365744E616D653D225449544C45220000095661726961626C65730100055374796C650100">
@@ -597,13 +636,13 @@ Objects:
   - 
     Properties: 
       Class: "TgdcFunction"
-      RUID: 155503142_1665905672
+      RUID: 148505925_1647524629
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 155503141_1665905672
+      HeadObject: 148505924_1647524629
     Fields: 
-      NAME: "rp_Main155503142_1665905672"
+      NAME: "rp_Main155503142_1665905672148505925_1647524629"
       COMMENT: ~
       EVENT: ~
       FUNCTIONTYPE: ~
@@ -613,22 +652,22 @@ Objects:
       LOCALNAME: ~
       MODIFYDATE: ~
       MODULE: "REPORTMAIN"
-      MODULECODE: "1010001_17 APPLICATION"
-      OBJECTNAME: "APPLICATION"
+      MODULECODE: "151860855_1665905672 gdc_frmUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_frmUserComplexDocument149518266_1658323743"
       OWNERNAME: ~
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-09-21T14:08:23+03:00
+      EDITIONDATE: 2021-09-21T14:42:05+03:00
       DISPLAYSCRIPT: | 
-        RP_MAIN155503142_1665905672
+        RP_MAIN155503142_1665905672148505925_1647524629
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
         AABGTlNURkxQUg==
       SCRIPT: | 
         Option Explicit
-        Function rp_Main155503142_1665905672(OwnerForm)
+        Function rp_Main155503142_1665905672148505925_1647524629(OwnerForm)
           BaseQueryList.Clear
         
           Dim q
@@ -749,27 +788,13 @@ Objects:
           Title.FieldByName("ChiefShort").AsVariant = CurrCompanyInfo.ChiefAccountantShort
           Title.Post
           
-          Set rp_Main155503142_1665905672 = BaseQueryList
+          Set rp_Main155503142_1665905672148505925_1647524629 = BaseQueryList
         End Function
         
   - 
     Properties: 
-      Class: "TgdcReportGroup"
-      RUID: 149518275_1658323743
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 155503141_1665905672
-    Fields: 
-      PARENT: "147006462_486813904 Документы пользователя"
-      NAME: "Рассрочка"
-      DESCRIPTION: "Рассрочка"
-      USERGROUPNAME: "149518275_1658323743"
-      EDITIONDATE: 2000-01-01T00:00:00+03:00
-  - 
-    Properties: 
       Class: "TgdcReport"
-      RUID: 155503141_1665905672
+      RUID: 148505924_1647524629
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
@@ -779,15 +804,15 @@ Objects:
       DISPLAYINMENU: 1
       EVENTFORMULAKEY: ~
       FOLDERKEY: ~
-      FRQREFRESH: ~
+      FRQREFRESH: 0
       GLOBALREPORTKEY: ~
       ISLOCALEXECUTE: 1
       ISREBUILD: 1
-      MAINFORMULAKEY: "155503142_1665905672 rp_Main155503142_1665905672"
+      MAINFORMULAKEY: "148505925_1647524629 rp_Main155503142_1665905672148505925_1647524629"
       MODALPREVIEW: 0
       PARAMFORMULAKEY: ~
       PREVIEW: 1
-      REPORTGROUPKEY: "149518275_1658323743 Документы пользователя\\Рассрочка"
+      REPORTGROUPKEY: "155503140_1665905672 Отчеты(gdc_frmUserComplexDocument149518266_1658323743)"
       SERVERKEY: ~
-      TEMPLATEKEY: "155503214_1665905672 Обязатльство по рассрочке"
-      EDITIONDATE: 2021-09-21T14:08:23+03:00
+      TEMPLATEKEY: "148505934_1647524629 Обязатльство по рассрочке148505934_1647524629"
+      EDITIONDATE: 2021-09-21T14:42:05+03:00

@@ -5,10 +5,10 @@ Properties:
   RUID: 160970564_1743838890
   Name: "Торговля. Рассрочка. Методы"
   Caption: "Торговля. Рассрочка. Методы"
-  Version: "1.0.0.3"
+  Version: "1.0.0.6"
   Optional: False
   Internal: True
-  MD5: EE9D1370C6DDB24C3CFE766B10F65F0F
+  MD5: 83EC2D1062E77F0280A10B12FC6793FB
 Uses: 
   - "194442289_637058871 Возврат от покупателя."
   - "147755479_69526485 GS.Общие.EVT_OBJECT"
@@ -525,7 +525,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2011-05-06T16:35:45+03:00
+      EDITIONDATE: 2021-09-21T15:59:04+03:00
       DISPLAYSCRIPT: | 
         USRG_ACTDELETEBILLONUPDATE
         
@@ -535,7 +535,7 @@ Objects:
       SCRIPT: | 
         option explicit
         sub usrg_actDeleteBillOnUpdate(ByVal Sender)
-         Sender.Enabled = false ' (not Sender.OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").IsNull)
+         Sender.Enabled = not Sender.OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").IsNull
         end sub
         
   - 
@@ -609,7 +609,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-09-20T16:29:25+03:00
+      EDITIONDATE: 2021-09-21T15:24:24+03:00
       DISPLAYSCRIPT: | 
         USRG_ACTEDITBILLONEXECUTE
         
@@ -666,7 +666,6 @@ Objects:
                gdcBill.Delete
              end if
           end if
-          'gdcO.
           gdcO.Refresh
           call wg_GetDownPaymentTable(Sender.OwnerForm)
           Sender.OwnerForm.GetComponent("usrg_gdcSellBillLine").CloseOpen
@@ -702,7 +701,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2011-05-06T19:18:25+03:00
+      EDITIONDATE: 2021-09-21T16:08:23+03:00
       DISPLAYSCRIPT: | 
         USRG_ACTSELECTBILLONEXECUTE
         
@@ -710,6 +709,7 @@ Objects:
         U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
         RkxQUg==
       SCRIPT: | 
+        '#include INV_CHOOSEITEMSDIALOG
         option explicit
         sub usrg_actSelectBillOnExecute(ByVal Sender)
           'чтобы, если поменялась ТОЛЬКО накладная, а Рассрочка - нет, все не откатилось
@@ -735,31 +735,41 @@ Objects:
         
           gdcBill.Open
           
-          dim frm
+          dim frm, ChooseCondition
           set frm = gdcBill.CreateViewFormNewInstance(Sender.OwnerForm, "Tgdc_frmInvDocument", gdcBill.SubType, true)
           frm.GetComponent("pnChoose").Visible = true
           dim gdcBillT
           set gdcBillT = frm.gdcObject
-          gdcBillT.Close
-          gdcBillT.ExtraConditions.Add(" (NOT EXISTS(SELECT * FROM USR$PD_DOWNPAYMENT WHERE USR$SELLBILLKEY = Z.ID ))")
-          gdcBillT.ExtraConditions.Add(" INVDOC.USR$CONTACTKEY = :ConKey ")
-          gdcBillT.ParamByName("ConKey").AsInteger = gdcO.FieldByName("USR$CONTACTKEY").AsInteger
-          gdcBillT.Transaction = gdcO.Transaction
-          gdcBillT.ReadTransaction = gdcO.Transaction
-          gdcBillT.Open
-          if frm.ShowModal <> 1 then
-            exit sub
-          end if
+          ChooseCondition =  "(NOT EXISTS(SELECT * FROM USR$PD_DOWNPAYMENT WHERE USR$SELLBILLKEY = Z.ID )) " & _
+                             "AND INVDOC.USR$CONTACTKEY = " & gdcO.FieldByName("USR$CONTACTKEY").AsInteger
         
-          gdcO.Edit
-          gdcO.FieldByName("USR$SELLBILLKEY").AsInteger = gdcBillT.ID
-          gdcO.Post
+          if inv_ChooseItemsDialog(gdcBillT, ChooseCondition, False, "", "") then
+            gdcBillT.SubSet = "OnlySelected"
+            gdcBillT.ExtraConditions.Clear
+            gdcBillT.Open
+            
+            if gdcBillT.ID<>-1 Then
+              gdcO.Edit
+              gdcO.FieldByName("USR$SELLBILLKEY").AsInteger = gdcBillT.ID
+              gdcO.Post
+            end if
+          end if
+          
+        '    if frm.ShowModal <> 1 then
+        '      exit sub
+        '    end if
         
           gdcO.Refresh
           call wg_GetDownPaymentTable(Sender.OwnerForm)
           Sender.OwnerForm.GetComponent("usrg_gdcSellBillLine").CloseOpen
         end sub
         
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147024389_23783130 inv_ChooseItemsDialog"
   - 
     Properties: 
       Class: "TgdcFunction"
@@ -784,7 +794,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2011-05-06T16:36:56+03:00
+      EDITIONDATE: 2021-09-21T16:37:56+03:00
       DISPLAYSCRIPT: | 
         USRG_ACTSELECTBILLONUPDATE
         
@@ -794,7 +804,8 @@ Objects:
       SCRIPT: | 
         option explicit
         sub usrg_actSelectBillOnUpdate(ByVal Sender)
-          Sender.Enabled = (Sender.OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").IsNull)
+          Sender.Enabled = (Sender.OwnerForm.gdcObject.FieldByName("USR$SELLBILLKEY").IsNull and _
+            not Sender.OwnerForm.gdcObject.FieldByName("USR$CONTACTKEY").IsNull )
         end sub
         
   - 
@@ -1005,3 +1016,63 @@ Objects:
         Items: 
           - 
             ADDFUNCTIONKEY: "149518434_1658323743 wg_GetDownPaymentTable"
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 148504856_1647524629
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONLOADSETTINGSAFTERCREATE"
+      FUNCTIONKEY: "149518366_1658323743 gdc_dlgUserComplexDocument149518266_1658323743OnLoadSettingsAfterCreate"
+      OBJECTKEY: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      PARENTNAME: ~
+      EDITIONDATE: 2021-09-20T13:09:04+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 148504853_1647524629
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONSAVESETTINGS"
+      FUNCTIONKEY: "149518371_1658323743 gdc_dlgUserComplexDocument149518266_1658323743OnSaveSettings"
+      OBJECTKEY: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      PARENTNAME: ~
+      EDITIONDATE: 2021-09-20T13:08:54+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 148504850_1647524629
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONSETUPDIALOG"
+      FUNCTIONKEY: "149518359_1658323743 gdc_dlgUserComplexDocument149518266_1658323743OnSetupDialog"
+      OBJECTKEY: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      PARENTNAME: ~
+      EDITIONDATE: 2021-09-20T13:08:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 148504847_1647524629
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONSYNCFIELD"
+      FUNCTIONKEY: "149518964_1658323743 gdc_dlgUserComplexDocument149518266_1658323743OnSyncField"
+      OBJECTKEY: "149518349_1658323743 gdc_dlgUserComplexDocument149518266_1658323743"
+      OBJECTNAME: "gdc_dlgUserComplexDocument149518266_1658323743"
+      PARENTNAME: ~
+      EDITIONDATE: 2021-09-20T13:09:35+03:00
