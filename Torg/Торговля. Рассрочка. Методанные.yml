@@ -5,10 +5,10 @@ Properties:
   RUID: 160970515_1743838890
   Name: "Торговля. Рассрочка. Метаданные"
   Caption: "Торговля. Рассрочка. Метаданные"
-  Version: "1.0.0.11"
+  Version: "1.0.0.12"
   Optional: False
   Internal: True
-  MD5: 2DC0AFCAB09A6783C6669127EB5F8D01
+  MD5: 9EDE2E547DBD2B1DB331BB75983941D2
 Uses: 
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "160970564_1743838890 Торговля. Рассрочка. Методы"
@@ -745,7 +745,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-09-21T16:49:40+03:00
+      EDITIONDATE: 2021-09-22T23:07:11+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND: Tgdc_dlgAttrUserDefined
           Left = 556
@@ -835,18 +835,12 @@ Objects:
                 ParentShowHint = True
                 PopupMenu = nil
                 TabVisible = True
-                object usrat_DBEdit_USR_MAXSUM_Label: TLabel
-                end
-                object usrat_DBEdit_USR_MONTH_Label: TLabel
-                end
-                object usrat_DBEdit_USR_PERCENT_Label: TLabel
-                end
                 object usrg_info: TLabel
                   Tag = 0
                   Left = 7
-                  Top = 94
-                  Width = 391
-                  Height = 31
+                  Top = 102
+                  Width = 295
+                  Height = 47
                   Cursor = crDefault
                   Hint = ''
                   Align = alNone
@@ -876,18 +870,63 @@ Objects:
                   Visible = True
                   WordWrap = True
                 end
+                object usrat_DBEdit_USR_MAXSUM_Label: TLabel
+                end
+                object usrat_DBEdit_USR_MONTH_Label: TLabel
+                end
+                object usrat_DBEdit_USR_PERCENT_Label: TLabel
+                end
+                object usrat_DBEdit_USR_XDAY_Label: TLabel
+                end
+                object usrg_sp_xday: TSpinEdit
+                  Tag = 0
+                  Left = 220
+                  Top = 74
+                  Width = 51
+                  Height = 22
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  TabStop = True
+                  Anchors = [akLeft, akTop]
+                  AutoSelect = True
+                  AutoSize = True
+                  Color = clWindow
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DragCursor = crDrag
+                  DragMode = dmManual
+                  EditorEnabled = True
+                  Enabled = True
+                  Increment = 1
+                  MaxLength = 0
+                  MaxValue = 28
+                  MinValue = 1
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  ReadOnly = False
+                  TabOrder = 3
+                  Value = 28
+                  Visible = True
+                end
                 object usrat_DBEdit_USR_MAXSUM: TxDBCalculatorEdit
                   Left = 220
-                  Width = 165
+                  Width = 97
                   Cursor = crIBeam
                 end
                 object usrat_DBEdit_USR_MONTH: TxDBCalculatorEdit
                   Left = 220
-                  Width = 165
+                  Width = 97
+                  Cursor = crIBeam
                 end
                 object usrat_DBEdit_USR_PERCENT: TxDBCalculatorEdit
                   Left = 220
-                  Width = 165
+                  Width = 97
                   Cursor = crIBeam
                 end
               end
@@ -913,6 +952,9 @@ Objects:
                 object atAttributes: TatContainer
                   Width = 409
                   Height = 167
+                  object usrat_DBEdit_USR_XDAY: TxDBCalculatorEdit
+                    Visible = False
+                  end
                 end
               end
             end
@@ -1046,7 +1088,7 @@ Objects:
       IncludeSiblings: False
     Fields: 
       PROCEDURENAME: "USR$PD_P_DOWNPAYMENT_TABLE"
-      EDITIONDATE: 2021-09-17T16:16:44+03:00
+      EDITIONDATE: 2021-09-22T23:31:38+03:00
       PROCEDURESOURCE: | 
         CREATE OR ALTER PROCEDURE USR$PD_P_DOWNPAYMENT_TABLE (
             SUMPAY NUMERIC(15, 4),
@@ -1062,21 +1104,33 @@ Objects:
         DECLARE Y INTEGER;
         DECLARE PERC NUMERIC(15, 4);
         DECLARE SUM_TEMP NUMERIC(15, 4);
+        DECLARE VARIABLE XDAY INTEGER;
+        DECLARE VARIABLE XD VARCHAR(2);
         BEGIN 
           SELECT FIRST 1
             COALESCE(cond.USR$MONTH, 0),
             COALESCE(cond.USR$PERCENT, 0),
-            cond.USR$MAXSUM
+            cond.USR$MAXSUM,
+            Coalesce(cond.USR$XDAY, 25)
           FROM USR$PD_DOWNPAYMENT_COND cond
           WHERE cond.USR$MAXSUM >= :SUMPAY
           ORDER BY cond.USR$MAXSUM
-          INTO :MaxM, :PERC, :SUM_TEMP;
+          INTO :MaxM, :PERC, :SUM_TEMP, :XDAY;
           
           IF (COALESCE(SUM_TEMP, 0) = 0) THEN
             EXIT;
           SUM_TEMP = 0;
           
-          FIRSTDATE = CAST('25.' || EXTRACT(MONTH FROM FIRSTDATE) || '.' || EXTRACT(YEAR FROM FIRSTDATE) AS DATE);
+           /* если в это месяце нет нужного числа - берем последнее*/
+          EXECUTE PROCEDURE USR$PD_P_GETLASTDAY(EXTRACT(MONTH FROM FIRSTDATE), EXTRACT(YEAR FROM FIRSTDATE))
+              RETURNING_VALUES :XDAY;
+        
+          IF (:XDAY<10) Then
+            XD = CAST('0' || CAST(:XDAY as VARCHAR(1)) as VARCHAR(2));
+          ELSE
+            XD = CAST(:XDAY as VARCHAR(2));
+            
+          FIRSTDATE = CAST(:XD || '.'  || EXTRACT(MONTH FROM FIRSTDATE) || '.' || EXTRACT(YEAR FROM FIRSTDATE) AS DATE);
           
           /*первый взнос*/
           /*если 0 месяцев - все выплачиваем сразу и выходим*/
@@ -1097,10 +1151,12 @@ Objects:
           IF (SUMPAY <= 0 ) THEN
             EXIT;
           TOPAY = ROUND(SUMPAY / MaxM , 2);
-          D = EXTRACT(DAY FROM FIRSTDATE);
+         /* D = EXTRACT(DAY FROM FIRSTDATE);*/
           M = EXTRACT(MONTH FROM FIRSTDATE) + 1;
           Y = EXTRACT(YEAR FROM FIRSTDATE);
-          
+        
+          EXECUTE PROCEDURE USR$PD_P_GETLASTDAY(:M, :Y)
+              RETURNING_VALUES :D;
           i = 1;
           WHILE (i < MaxM ) DO
           BEGIN
@@ -1109,6 +1165,8 @@ Objects:
               M = 1;
               Y = Y + 1;
             END
+            EXECUTE PROCEDURE USR$PD_P_GETLASTDAY(:M, :Y)
+              RETURNING_VALUES :D;
             ONDATE = CAST(D || '.' || M ||'.' || Y  AS DATE);
             SUMPAY = SUMPAY - TOPAY;
             SUSPEND;
@@ -1124,6 +1182,8 @@ Objects:
               M = 1;
               Y = Y + 1;
             END
+            EXECUTE PROCEDURE USR$PD_P_GETLASTDAY(:M, :Y)
+              RETURNING_VALUES :D;
             ONDATE = CAST(D || '.' || M ||'.' || Y  AS DATE);
             TOPAY = SUMPAY;
             SUSPEND;
@@ -1264,7 +1324,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-09-22T21:21:40+03:00
+      EDITIONDATE: 2021-09-22T21:31:01+03:00
       BLOB_DATA: !!binary > 
         VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
         bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
@@ -1299,7 +1359,7 @@ Objects:
         CEV4cGFuZGVkCAlGaWVsZE5hbWUGC1VTUiRJU1BBWUVEDVRpdGxlLkNhcHRpb24GCM7v6+D35e3u
         BVdpZHRoAkAHVmlzaWJsZQkAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlG
         aWVsZE5hbWUGB0RPTEdEQVkIUmVhZE9ubHkJDVRpdGxlLkNhcHRpb24GB0RPTEdEQVkFV2lkdGgC
-        /wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGAklEDVRpdGxlLkNhcHRpb24GBMrr/vcF
+        QAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGAklEDVRpdGxlLkNhcHRpb24GBMrr/vcF
         V2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBlBBUkVOVA1UaXRsZS5DYXB0
         aW9uBgjQ7uTo8uXr/AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYPRE9D
         VU1FTlRUWVBFS0VZDVRpdGxlLkNhcHRpb24GDdLo7yDk7urz7OXt8uAFV2lkdGgC/wdWaXNpYmxl
@@ -5212,3 +5272,42 @@ Objects:
         
       RDB$DESCRIPTION: | 
         Количество дней 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147116366_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$PD_P_GETLASTDAY"
+      EDITIONDATE: 2021-09-22T23:31:38+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$PD_P_GETLASTDAY (
+            M INTEGER,
+            Y INTEGER)
+        RETURNS ( 
+            LASTDAY INTEGER)
+         AS
+        DECLARE VARIABLE NM INTEGER;
+        DECLARE D VARCHAR(2);
+        DECLARE VARIABLE ADATE DATE;
+        BEGIN
+        
+           D = '01';
+           NM = M+1;
+           IF (Y =0) Then
+             Y=EXTRACT(YEAR FROM CURRENT_DATE);
+           IF (NM>12) Then
+             BEGIN
+              NM = 1;
+              Y = Y + 1;
+             END
+        
+           ADATE = CAST(D || '.' || NM || '.' || Y  AS DATE);
+           LASTDAY = EXTRACT(DAY FROM DATEADD(DAY,-1,ADATE));
+        
+           SUSPEND;
+        END
+      RDB$DESCRIPTION: | 
+        Вернет последний день указанного месяца
