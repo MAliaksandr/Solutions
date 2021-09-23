@@ -5,10 +5,10 @@ Properties:
   RUID: 160970515_1743838890
   Name: "Торговля. Рассрочка. Метаданные"
   Caption: "Торговля. Рассрочка. Метаданные"
-  Version: "1.0.0.13"
+  Version: "1.0.0.17"
   Optional: False
   Internal: True
-  MD5: 86BC98F504F59A43C265A02D3F479FFB
+  MD5: F1054BE0CCA1E1DAD14EC0B6531A84DF
 Uses: 
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "160970564_1743838890 Торговля. Рассрочка. Методы"
@@ -731,6 +731,89 @@ Objects:
       OBJECTS: ~
   - 
     Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147116181_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$PD_P_QUANTDAY"
+      EDITIONDATE: 2021-09-22T21:39:43+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$PD_P_QUANTDAY (
+            DOCUMENTKEY INTEGER)
+        RETURNS ( 
+            QDAY INTEGER)
+         AS
+         DECLARE VARIABLE PLANDATE DATE;
+         DECLARE VARIABLE FACTDATE DATE;
+         DECLARE VARIABLE ISPAYED SMALLINT;
+         DECLARE VARIABLE ASUM NUMERIC;
+        BEGIN
+        QDAY = 0;
+          SELECT FIRST(1) USR$DATE, USR$FACTDATE, COALESCE(USR$ISPAYED,0),  coalesce(USR$FACTSUM,0) FROM USR$PD_DOWNPAYMENTLINE WHERE DOCUMENTKEY =:DOCUMENTKEY
+          INTO:PLANDATE, :FACTDATE, :ISPAYED, :ASUM;
+          
+          IF ((ISPAYED=0) and (ASUM=0)) THEN
+            BEGIN
+        
+            IF (PLANDATE is nULL) Then
+             PLANDATE=Current_date;
+             
+            IF (FACTDATE is null) Then
+              FACTDATE = current_date;
+        
+            QDAY = DATEDIFF(Day, :PLANDATE, :FACTDATE);
+        
+            IF (QDAY<0) THEN
+              QDAY =0;
+            END
+            suspend;
+        END
+        
+      RDB$DESCRIPTION: | 
+        Количество дней 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147116366_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$PD_P_GETLASTDAY"
+      EDITIONDATE: 2021-09-22T23:31:38+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$PD_P_GETLASTDAY (
+            M INTEGER,
+            Y INTEGER)
+        RETURNS ( 
+            LASTDAY INTEGER)
+         AS
+        DECLARE VARIABLE NM INTEGER;
+        DECLARE D VARCHAR(2);
+        DECLARE VARIABLE ADATE DATE;
+        BEGIN
+        
+           D = '01';
+           NM = M+1;
+           IF (Y =0) Then
+             Y=EXTRACT(YEAR FROM CURRENT_DATE);
+           IF (NM>12) Then
+             BEGIN
+              NM = 1;
+              Y = Y + 1;
+             END
+        
+           ADATE = CAST(D || '.' || NM || '.' || Y  AS DATE);
+           LASTDAY = EXTRACT(DAY FROM DATEADD(DAY,-1,ADATE));
+        
+           SUSPEND;
+        END
+      RDB$DESCRIPTION: | 
+        Вернет последний день указанного месяца
+  - 
+    Properties: 
       Class: "TgdcStorageValue"
       RUID: 149518257_1658323743
       AlwaysOverwrite: False
@@ -1081,6 +1164,96 @@ Objects:
       EDITIONDATE: 2021-09-21T14:24:59+03:00
   - 
     Properties: 
+      Class: "TgdcTableField"
+      RUID: 147116337_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$XDAY"
+      FIELDNAME: "USR$XDAY"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дата платежа"
+      LSHORTNAME: "Дата платежа"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "149518240_1658323743 Условия рассрочки, USR$PD_DOWNPAYMENT_COND"
+      RELATIONNAME: "USR$PD_DOWNPAYMENT_COND"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-09-23T17:20:07+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 149518274_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518266_1658323743
+    Fields: 
+      PARENT: "149518241_1658323743 Исследователь\\Торговля\\Рассрочка"
+      NAME: "01. Рассрочка"
+      CLASSNAME: "TgdcUserDocument"
+      CMD: "149518266_1658323743"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "149518266_1658323743"
+      EDITIONDATE: 2021-09-22T19:22:52+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcDocumentBranch"
+      RUID: 149518265_1658323743
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149518266_1658323743
+    Fields: 
+      PARENT: "801000_17 Документ пользователя"
+      NAME: "Розница"
+      BRANCHKEY: ~
+      CLASSNAME: ~
+      DESCRIPTION: ~
+      DOCUMENTTYPE: "B"
+      HEADERFUNCTIONKEY: ~
+      HEADERRELKEY: ~
+      ISCHECKNUMBER: 0
+      ISCOMMON: 0
+      LINEFUNCTIONKEY: ~
+      LINERELKEY: ~
+      REPORTGROUPKEY: ~
+      RUID: "149518265_1658323743"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+      HEADERFUNCTIONTEMPLATE: ~
+      LINEFUNCTIONTEMPLATE: ~
+      OPTIONS: ~
+  - 
+    Properties: 
       Class: "TgdcStoredProc"
       RUID: 149518426_1658323743
       AlwaysOverwrite: False
@@ -1196,54 +1369,6 @@ Objects:
         @ 
   - 
     Properties: 
-      Class: "TgdcExplorer"
-      RUID: 149518274_1658323743
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 149518266_1658323743
-    Fields: 
-      PARENT: "149518241_1658323743 Исследователь\\Торговля\\Рассрочка"
-      NAME: "01. Рассрочка"
-      CLASSNAME: "TgdcUserDocument"
-      CMD: "149518266_1658323743"
-      CMDTYPE: 0
-      HOTKEY: ~
-      IMGINDEX: 0
-      ORDR: ~
-      SUBTYPE: "149518266_1658323743"
-      EDITIONDATE: 2021-09-22T19:22:52+03:00
-      DISABLED: 0
-  - 
-    Properties: 
-      Class: "TgdcDocumentBranch"
-      RUID: 149518265_1658323743
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 149518266_1658323743
-    Fields: 
-      PARENT: "801000_17 Документ пользователя"
-      NAME: "Розница"
-      BRANCHKEY: ~
-      CLASSNAME: ~
-      DESCRIPTION: ~
-      DOCUMENTTYPE: "B"
-      HEADERFUNCTIONKEY: ~
-      HEADERRELKEY: ~
-      ISCHECKNUMBER: 0
-      ISCOMMON: 0
-      LINEFUNCTIONKEY: ~
-      LINERELKEY: ~
-      REPORTGROUPKEY: ~
-      RUID: "149518265_1658323743"
-      EDITIONDATE: 2000-01-01T00:00:00+03:00
-      DISABLED: 0
-      HEADERFUNCTIONTEMPLATE: ~
-      LINEFUNCTIONTEMPLATE: ~
-      OPTIONS: ~
-  - 
-    Properties: 
       Class: "TgdcUserDocumentType"
       RUID: 149518266_1658323743
       AlwaysOverwrite: False
@@ -1324,7 +1449,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-09-22T21:31:01+03:00
+      EDITIONDATE: 2021-09-23T01:01:14+03:00
       BLOB_DATA: !!binary > 
         VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
         bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
@@ -1351,57 +1476,61 @@ Objects:
         dC5OYW1lBg1NUyBTYW5zIFNlcmlmCkZvbnQuU3R5bGULAAVDb2xvcgT/gIAAC0V4cHJlc3Npb24x
         BgEwDUNvbmRpdGlvbktpbmQHCGNrQmlnZ2VyDkRpc3BsYXlPcHRpb25zCwdkb0NvbG9yAA9FdmFs
         dWF0ZUZvcm11bGEIDVVzZXJDb25kaXRpb24IAAAJDgEIRXhwYW5kZWQICUZpZWxkTmFtZQYIVVNS
-        JERBVEUNVGl0bGUuQ2FwdGlvbgYLxODy4CDu7+vg8vsFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBh
-        bmRlZAgJRmllbGROYW1lBgdVU1IkU1VNDVRpdGxlLkNhcHRpb24GBdHz7OzgBVdpZHRoA4IAB1Zp
-        c2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMVVNSJEZBQ1REQVRFDVRpdGxlLkNhcHRpb24G
-        CdTg6vIu5ODy4AVXaWR0aAJbB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLVVNSJEZB
-        Q1RTVU0NVGl0bGUuQ2FwdGlvbgYR1ODq8uj35fHq4P8g8fPs7OAFV2lkdGgCdwdWaXNpYmxlCQAB
-        CEV4cGFuZGVkCAlGaWVsZE5hbWUGC1VTUiRJU1BBWUVEDVRpdGxlLkNhcHRpb24GCM7v6+D35e3u
-        BVdpZHRoAkAHVmlzaWJsZQkAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlG
-        aWVsZE5hbWUGB0RPTEdEQVkIUmVhZE9ubHkJDVRpdGxlLkNhcHRpb24GB0RPTEdEQVkFV2lkdGgC
-        QAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGAklEDVRpdGxlLkNhcHRpb24GBMrr/vcF
-        V2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBlBBUkVOVA1UaXRsZS5DYXB0
-        aW9uBgjQ7uTo8uXr/AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYPRE9D
-        VU1FTlRUWVBFS0VZDVRpdGxlLkNhcHRpb24GDdLo7yDk7urz7OXt8uAFV2lkdGgC/wdWaXNpYmxl
-        CAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCVRSVFlQRUtFWQ1UaXRsZS5DYXB0aW9uBg7S6O8g8vDg
-        7efg6vbo6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYOVFJBTlNBQ1RJ
-        T05LRVkNVGl0bGUuQ2FwdGlvbgYK0vDg7efg6vbo/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5k
-        ZWQICUZpZWxkTmFtZQYGTlVNQkVSDVRpdGxlLkNhcHRpb24GBc3u7OXwBVdpZHRoAv8HVmlzaWJs
-        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxET0NVTUVOVERBVEUNVGl0bGUuQ2FwdGlvbgYExODy
-        4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLREVTQ1JJUFRJT04NVGl0
-        bGUuQ2FwdGlvbgYIzu/o8eDt6OUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
-        bWUGBlNVTU5DVQ1UaXRsZS5DYXB0aW9uBgvR8+zs4CDiIM3ExQVXaWR0aAL/B1Zpc2libGUIAAEI
-        RXhwYW5kZWQICUZpZWxkTmFtZQYHU1VNQ1VSUg1UaXRsZS5DYXB0aW9uBg7R8+zs4CDiIOLg6/7y
-        5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYFU1VNRVENVGl0bGUuQ2Fw
-        dGlvbgYT0fPs7OAg4iD96uLo4uDr5e3y5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZp
-        ZWxkTmFtZQYHREVMQVlFRA1UaXRsZS5DYXB0aW9uBgrO8uvu5uXt7fvpBVdpZHRoAv8HVmlzaWJs
-        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdDVVJSS0VZDVRpdGxlLkNhcHRpb24GBsLg6/7y4AVX
-        aWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKQ09NUEFOWUtFWQ1UaXRsZS5D
-        YXB0aW9uBgjK7uzv4O3o/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYK
-        Q1JFQVRPUktFWQ1UaXRsZS5DYXB0aW9uBgrK8u4g8e7n5ODrBVdpZHRoAv8HVmlzaWJsZQgAAQhF
-        eHBhbmRlZAgJRmllbGROYW1lBgxDUkVBVElPTkRBVEUNVGl0bGUuQ2FwdGlvbgYNxODy4CDx7ufk
-        4O3o/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJRURJVE9SS0VZDVRp
-        dGxlLkNhcHRpb24GDMry7iDo8e/w4OLo6wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZp
-        ZWxkTmFtZQYLRURJVElPTkRBVEUNVGl0bGUuQ2FwdGlvbgYOxODy4CDo5+zl7eXt6P8FV2lkdGgC
-        /wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCVBSSU5UREFURQ1UaXRsZS5DYXB0aW9u
-        BgvE4PLgIO/l9+Dy6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYIRElT
-        QUJMRUQNVGl0bGUuQ2FwdGlvbgYJzvLq6/735e3uBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
-        ZAgJRmllbGROYW1lBghSRVNFUlZFRA1UaXRsZS5DYXB0aW9uBg/H4PDl5+Xw4ujw7uLg7e4FV2lk
-        dGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGC0RPQ1VNRU5US0VZCFJlYWRPbmx5
-        CQ1UaXRsZS5DYXB0aW9uBg7K6/73IOTu6vPs5e3y4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5k
-        ZWQICUZpZWxkTmFtZQYJTUFTVEVSS0VZCFJlYWRPbmx5CQ1UaXRsZS5DYXB0aW9uBh3Q7uTo8uXr
-        /CAo0ODx8fDu9+rgKO/u5+j26P8pKQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxk
-        TmFtZQYJUkVTRVJWRUQxCFJlYWRPbmx5CQ1UaXRsZS5DYXB0aW9uBiTH4PDl5+Xw4ujw7uLg7e4g
-        KNDg8fHw7vfq4Cjv7ufo9uj/KSkFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
-        bWUGDlVTUiRTT1JUTlVNQkVSCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhTN7uzl8CDk6/8g8e7w
-        8ujw7uLq6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKVVNSJEVRUkFU
-        RQ1UaXRsZS5DYXB0aW9uBhDK8/DxIP3q4uji4Ovl7fLgBVdpZHRoAv8HVmlzaWJsZQgAAQlBbGln
-        bm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGBUFGVUxMDVRpdGxlLkNh
-        cHRpb24GDc/u6+376SDk7vHy8+8FV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdo
-        dEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUNIQUcNVGl0bGUuQ2FwdGlvbgYZz/Du8ezu
-        8vAg6CDw5eTg6vLo8O7i4O3o5QVXaWR0aAL/B1Zpc2libGUIAAEJQWxpZ25tZW50Bw50YVJpZ2h0
-        SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgVBVklFVw1UaXRsZS5DYXB0aW9uBg/S7uv86u4g
-        7/Du8ezu8vAFV2lkdGgC/wdWaXNpYmxlCAAACAi9HgkI
+        JERBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GC8Tg8uAg7u/r4PL7BVdpZHRoA4IAB1Zpc2li
+        bGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHVVNSJFNVTQhSZWFkT25seQgNVGl0bGUuQ2FwdGlv
+        bgYF0fPs7OAFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxVU1IkRkFD
+        VERBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCdTg6vIu5ODy4AVXaWR0aAJbB1Zpc2libGUJ
+        AAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLVVNSJEZBQ1RTVU0IUmVhZE9ubHkIDVRpdGxlLkNhcHRp
+        b24GEdTg6vLo9+Xx6uD/IPHz7OzgBVdpZHRoAncHVmlzaWJsZQkAAQlBbGlnbm1lbnQHDnRhUmln
+        aHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGB0RPTEdEQVkNVGl0bGUuQ2FwdGlvbgYLyu7r
+        LeLuIOTt5ekFV2lkdGgCUQdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGC1VTUiRJU1BB
+        WUVECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgjO7+vg9+Xt7gVXaWR0aAL/B1Zpc2libGUIAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYCSUQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBMrr/vcFV2lk
+        dGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBlBBUkVOVAhSZWFkT25seQgNVGl0
+        bGUuQ2FwdGlvbgYI0O7k6PLl6/wFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGD0RPQ1VNRU5UVFlQRUtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYN0ujvIOTu6vPs5e3y
+        4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJVFJUWVBFS0VZCFJlYWRP
+        bmx5CA1UaXRsZS5DYXB0aW9uBg7S6O8g8vDg7efg6vbo6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhw
+        YW5kZWQICUZpZWxkTmFtZQYOVFJBTlNBQ1RJT05LRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24G
+        CtLw4O3n4Or26P8FV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBk5VTUJF
+        UghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYFze7s5fAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGDERPQ1VNRU5UREFURQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYExODy
+        4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLREVTQ1JJUFRJT04IUmVh
+        ZE9ubHkIDVRpdGxlLkNhcHRpb24GCM7v6PHg7ejlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgZTVU1OQ1UIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GC9Hz7OzgIOIgzcTF
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdTVU1DVVJSCFJlYWRPbmx5
+        CA1UaXRsZS5DYXB0aW9uBg7R8+zs4CDiIOLg6/7y5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5k
+        ZWQICUZpZWxkTmFtZQYFU1VNRVEIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GE9Hz7OzgIOIg/eri
+        6OLg6+Xt8uUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB0RFTEFZRUQI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCs7y6+7m5e3t++kFV2lkdGgC/wdWaXNpYmxlCAABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGB0NVUlJLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBsLg6/7y
+        4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKQ09NUEFOWUtFWQhSZWFk
+        T25seQgNVGl0bGUuQ2FwdGlvbgYIyu7s7+Dt6P8FV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGCkNSRUFUT1JLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCsry7iDx7ufk
+        4OsFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDENSRUFUSU9OREFURQhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYNxODy4CDx7ufk4O3o/wVXaWR0aAL/B1Zpc2libGUIAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYJRURJVE9SS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgzK
+        8u4g6PHv8ODi6OsFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGC0VESVRJ
+        T05EQVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg7E4PLgIOjn7OXt5e3o/wVXaWR0aAL/B1Zp
+        c2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJUFJJTlREQVRFCFJlYWRPbmx5CA1UaXRsZS5D
+        YXB0aW9uBgvE4PLgIO/l9+Dy6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYIRElTQUJMRUQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCc7y6uv+9+Xt7gVXaWR0aAL/B1Zp
+        c2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYIUkVTRVJWRUQIUmVhZE9ubHkIDVRpdGxlLkNh
+        cHRpb24GD8fg8OXn5fDi6PDu4uDt7gVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxk
+        TmFtZQYLRE9DVU1FTlRLRVkNVGl0bGUuQ2FwdGlvbgYOyuv+9yDk7urz7OXt8uAFV2lkdGgC/wdW
+        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCU1BU1RFUktFWQ1UaXRsZS5DYXB0aW9uBh3Q
+        7uTo8uXr/CAo0ODx8fDu9+rgKO/u5+j26P8pKQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
+        CUZpZWxkTmFtZQYJUkVTRVJWRUQxDVRpdGxlLkNhcHRpb24GJMfg8OXn5fDi6PDu4uDt7iAo0ODx
+        8fDu9+rgKO/u5+j26P8pKQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYO
+        VVNSJFNPUlROVU1CRVIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GFM3u7OXwIOTr/yDx7vDy6PDu
+        4uroBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpVU1IkRVFSQVRFCFJl
+        YWRPbmx5CA1UaXRsZS5DYXB0aW9uBhDK8/DxIP3q4uji4Ovl7fLgBVdpZHRoAv8HVmlzaWJsZQgA
+        AQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGBUFGVUxMDVRp
+        dGxlLkNhcHRpb24GDc/u6+376SDk7vHy8+8FV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVudAcO
+        dGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUNIQUcNVGl0bGUuQ2FwdGlvbgYZ
+        z/Du8ezu8vAg6CDw5eTg6vLo8O7i4O3o5QVXaWR0aAL/B1Zpc2libGUIAAEJQWxpZ25tZW50Bw50
+        YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgVBVklFVw1UaXRsZS5DYXB0aW9uBg/S
+        7uv86u4g7/Du8ezu8vAFV2lkdGgC/wdWaXNpYmxlCAAACAi0HgkI
   - 
     Properties: 
       Class: "TgdcStorageFolder"
@@ -1666,38 +1795,38 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-09-22T19:39:18+03:00
+      EDITIONDATE: 2021-09-23T17:12:22+03:00
       BLOB_DATA: | 
         object gdc_dlgUserComplexDocument149518266_1658323743: Tgdc_dlgUserComplexDocument
-          Left = -8
-          Top = -8
-          Height = 840
+          Left = 0
+          Top = 40
+          Height = 783
           ActiveControl = nil
           PixelsPerInch = 96
           TextHeight = 13
           object btnAccess: TButton
-            Top = 785
+            Top = 728
           end
           object btnNew: TButton
-            Top = 785
+            Top = 728
           end
           object btnHelp: TButton
-            Top = 785
+            Top = 728
           end
           object btnOK: TButton
-            Top = 785
+            Top = 728
           end
           object btnCancel: TButton
-            Top = 785
+            Top = 728
           end
           object pnlMain: TPanel
-            Height = 775
+            Height = 718
             object splMain: TSplitter
             end
             object pnlMaster: TPanel
               TabOrder = 0
               object pnlHolding: TPanel
-                Width = 1536
+                Width = 1520
                 object lblCompany: TLabel
                 end
                 object iblkCompany: TgsIBLookupComboBox
@@ -1707,7 +1836,7 @@ Objects:
                 Tag = 0
                 Left = 0
                 Top = 0
-                Width = 1536
+                Width = 1520
                 Height = 218
                 Cursor = crDefault
                 Hint = ''
@@ -2022,7 +2151,7 @@ Objects:
                     Tag = 0
                     Left = 0
                     Top = 168
-                    Width = 1528
+                    Width = 1512
                     Height = 22
                     Cursor = crDefault
                     HelpContext = 0
@@ -2174,7 +2303,7 @@ Objects:
                   TabVisible = True
                   object atContainer: TatContainer
                     Top = 0
-                    Width = 1528
+                    Width = 1512
                     Height = 165
                     TabOrder = 0
                     Visible = False
@@ -2233,8 +2362,8 @@ Objects:
               Tag = 0
               Left = 0
               Top = 222
-              Width = 1536
-              Height = 553
+              Width = 1520
+              Height = 496
               Cursor = crDefault
               Hint = ''
               HelpContext = 0
@@ -2290,8 +2419,8 @@ Objects:
                   Tag = 0
                   Left = 0
                   Top = 0
-                  Width = 1528
-                  Height = 525
+                  Width = 1512
+                  Height = 468
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
@@ -3702,12 +3831,12 @@ Objects:
                 TabVisible = True
                 object pnlDetail: TPanel
                   Top = 0
-                  Width = 1528
-                  Height = 525
+                  Width = 1512
+                  Height = 468
                   object ibgrDetail: TgsIBGrid
                     Left = 0
-                    Width = 1528
-                    Height = 499
+                    Width = 1512
+                    Height = 442
                     Expands = <>
                     Conditions = <
                       item
@@ -3981,10 +4110,18 @@ Objects:
                         Title.Caption = 'Только просмотр'
                         Width = -1
                         Visible = False
+                      end
+                      item
+                        Alignment = taRightJustify
+                        Expanded = False
+                        FieldName = 'DOLGDAY'
+                        Title.Caption = 'DOLGDAY'
+                        Width = -1
+                        Visible = False
                       end>
                   end
                   object tbdTop: TTBDock
-                    Width = 1528
+                    Width = 1512
                     object tbDetail: TTBToolbar
                       DockPos = 0
                       SavedAtRunTime = True
@@ -4029,16 +4166,16 @@ Objects:
                   end
                   object tbdLeft: TTBDock
                     Width = 0
-                    Height = 499
+                    Height = 442
                   end
                   object tbdRight: TTBDock
-                    Left = 1528
+                    Left = 1512
                     Width = 0
-                    Height = 499
+                    Height = 442
                   end
                   object tbdBottom: TTBDock
-                    Top = 525
-                    Width = 1528
+                    Top = 468
+                    Width = 1512
                     Height = 0
                   end
                 end
@@ -4061,13 +4198,13 @@ Objects:
                 ParentFont = True
                 ParentShowHint = True
                 PopupMenu = nil
-                TabVisible = True
+                TabVisible = False
                 object usrg_grPaymentTable: TgsIBGrid
                   Tag = 0
                   Left = 0
                   Top = 0
-                  Width = 1528
-                  Height = 525
+                  Width = 1512
+                  Height = 468
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
@@ -4131,7 +4268,7 @@ Objects:
                       Expanded = False
                       FieldName = 'ONDATE'
                       Title.Caption = 'Дата'
-                      Width = 672
+                      Width = 665
                       Visible = True
                     end
                     item
@@ -4139,7 +4276,7 @@ Objects:
                       Expanded = False
                       FieldName = 'TOPAY'
                       Title.Caption = 'Оплатить'
-                      Width = 821
+                      Width = 812
                       Visible = True
                       DisplayFormat = '#,##0.00'
                       TotalType = ttSum
@@ -5228,86 +5365,3 @@ Objects:
           end
         end
         
-  - 
-    Properties: 
-      Class: "TgdcStoredProc"
-      RUID: 147116181_1599401795
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      PROCEDURENAME: "USR$PD_P_QUANTDAY"
-      EDITIONDATE: 2021-09-22T21:39:43+03:00
-      PROCEDURESOURCE: | 
-        CREATE OR ALTER PROCEDURE USR$PD_P_QUANTDAY (
-            DOCUMENTKEY INTEGER)
-        RETURNS ( 
-            QDAY INTEGER)
-         AS
-         DECLARE VARIABLE PLANDATE DATE;
-         DECLARE VARIABLE FACTDATE DATE;
-         DECLARE VARIABLE ISPAYED SMALLINT;
-         DECLARE VARIABLE ASUM NUMERIC;
-        BEGIN
-        QDAY = 0;
-          SELECT FIRST(1) USR$DATE, USR$FACTDATE, COALESCE(USR$ISPAYED,0),  coalesce(USR$FACTSUM,0) FROM USR$PD_DOWNPAYMENTLINE WHERE DOCUMENTKEY =:DOCUMENTKEY
-          INTO:PLANDATE, :FACTDATE, :ISPAYED, :ASUM;
-          
-          IF ((ISPAYED=0) and (ASUM=0)) THEN
-            BEGIN
-        
-            IF (PLANDATE is nULL) Then
-             PLANDATE=Current_date;
-             
-            IF (FACTDATE is null) Then
-              FACTDATE = current_date;
-        
-            QDAY = DATEDIFF(Day, :PLANDATE, :FACTDATE);
-        
-            IF (QDAY<0) THEN
-              QDAY =0;
-            END
-            suspend;
-        END
-        
-      RDB$DESCRIPTION: | 
-        Количество дней 
-  - 
-    Properties: 
-      Class: "TgdcStoredProc"
-      RUID: 147116366_1599401795
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      PROCEDURENAME: "USR$PD_P_GETLASTDAY"
-      EDITIONDATE: 2021-09-22T23:31:38+03:00
-      PROCEDURESOURCE: | 
-        CREATE OR ALTER PROCEDURE USR$PD_P_GETLASTDAY (
-            M INTEGER,
-            Y INTEGER)
-        RETURNS ( 
-            LASTDAY INTEGER)
-         AS
-        DECLARE VARIABLE NM INTEGER;
-        DECLARE D VARCHAR(2);
-        DECLARE VARIABLE ADATE DATE;
-        BEGIN
-        
-           D = '01';
-           NM = M+1;
-           IF (Y =0) Then
-             Y=EXTRACT(YEAR FROM CURRENT_DATE);
-           IF (NM>12) Then
-             BEGIN
-              NM = 1;
-              Y = Y + 1;
-             END
-        
-           ADATE = CAST(D || '.' || NM || '.' || Y  AS DATE);
-           LASTDAY = EXTRACT(DAY FROM DATEADD(DAY,-1,ADATE));
-        
-           SUSPEND;
-        END
-      RDB$DESCRIPTION: | 
-        Вернет последний день указанного месяца

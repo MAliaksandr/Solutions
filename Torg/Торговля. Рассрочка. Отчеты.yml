@@ -5,10 +5,10 @@ Properties:
   RUID: 160970657_1743838890
   Name: "Торговля. Рассрочка. Отчеты"
   Caption: "Торговля. Рассрочка. Отчеты"
-  Version: "1.0.0.7"
+  Version: "1.0.0.8"
   Optional: False
   Internal: True
-  MD5: C705A90F976DC8BA986B4B212A339ED2
+  MD5: 384538F1477A6DA9179B058A6E8DDF84
 Uses: 
   - "148509668_396646306 Торговля - исследователь"
   - "160970515_1743838890 Торговля. Рассрочка. Метаданные"
@@ -534,7 +534,7 @@ Objects:
       NAME: "Обязатльство по рассрочке148505934_1647524629"
       DESCRIPTION: ~
       TEMPLATETYPE: "FR4"
-      EDITIONDATE: 2021-09-21T14:41:17+03:00
+      EDITIONDATE: 2021-09-23T17:14:51+03:00
       TEMPLATEDATA: | 
         <?xml version="1.0" encoding="utf-8"?>
         <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="40904,6022158912" ReportOptions.Description.Text="" ReportOptions.LastChange="40904,6022158912" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2A00000020446174615365743D2243414C454E4441522220446174615365744E616D653D2243414C454E4441522200010C3200000020446174615365743D22444F574E5F5041594D454E542220446174615365744E616D653D22444F574E5F5041594D454E542200010C1E00000020446174615365743D2251312220446174615365744E616D653D2251312200010C2400000020446174615365743D2253524F4B492220446174615365744E616D653D2253524F4B492200010C2400000020446174615365743D225449544C452220446174615365744E616D653D225449544C45220000095661726961626C65730100055374796C650100">
@@ -622,10 +622,10 @@ Objects:
               <TfrxMemoView Name="Memo123" Left="597,16574" Top="0" Width="105,82684" Height="41,57483" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р РѕСЃРїРёСЃСЊ"/>
             </TfrxHeader>
             <TfrxMasterData Name="MasterData2" Height="18,89765" Left="0" Top="684,09493" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="CALENDAR" DataSetName="CALENDAR" RowCount="0">
-              <TfrxMemoView Name="Memo124" Left="11,33859" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" DataSetName="CALENDAR" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;ONDATE&#34;]"/>
-              <TfrxMemoView Name="Memo125" Left="98,26778" Top="0" Width="109,60637" Height="18,89765" ShowHint="False" DataSetName="CALENDAR" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;TOPAY&#34;]"/>
-              <TfrxMemoView Name="Memo126" Left="207,87415" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
-              <TfrxMemoView Name="Memo127" Left="294,80334" Top="0" Width="105,82684" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo124" Left="11,33859" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" DataField="USR$DATE" DataSet="CALENDAR" DataSetName="CALENDAR" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;USR$DATE&#34;]"/>
+              <TfrxMemoView Name="Memo125" Left="98,26778" Top="0" Width="109,60637" Height="18,89765" ShowHint="False" DataField="USR$SUM" DataSet="CALENDAR" DataSetName="CALENDAR" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;USR$SUM&#34;]"/>
+              <TfrxMemoView Name="Memo126" Left="207,87415" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" DataField="USR$FACTDATE" DataSet="CALENDAR" DataSetName="CALENDAR" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;USR$FACTDATE&#34;]"/>
+              <TfrxMemoView Name="Memo127" Left="294,80334" Top="0" Width="105,82684" Height="18,89765" ShowHint="False" DataField="USR$FACTSUM" DataSet="CALENDAR" DataSetName="CALENDAR" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[CALENDAR.&#34;USR$FACTSUM&#34;]"/>
               <TfrxMemoView Name="Memo128" Left="400,63018" Top="0" Width="86,92919" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
               <TfrxMemoView Name="Memo129" Left="487,55937" Top="0" Width="109,60637" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
               <TfrxMemoView Name="Memo130" Left="597,16574" Top="0" Width="105,82684" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
@@ -658,7 +658,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-09-21T14:42:05+03:00
+      EDITIONDATE: 2021-09-23T17:14:52+03:00
       DISPLAYSCRIPT: | 
         RP_MAIN155503142_1665905672148505925_1647524629
         
@@ -746,18 +746,29 @@ Objects:
           Dim paygraph
           Set paygraph = BaseQueryList.Query(BaseQueryList.Add("calendar", 0))
           paygraph.SQL = _
-          "SELECT * FROM USR$PD_P_DOWNPAYMENT_TABLE (:Sumpay, :OnDate) where topay>0 "
-          paygraph.ParamByName("Sumpay").AsCurrency = q.FieldByNAme("SUMDOLG").AsCurrency
-          paygraph.ParamByName("OnDate").AsDateTime = q.FieldByNAme("DOCUMENTDATE").AsCurrency
+          "SELECT " & _
+          "L.USR$DATE, " & _
+          "L.USR$SUM, " & _
+          "L.USR$FACTDATE, " & _
+          "L.USR$FACTSUM, " & _
+          "L.USR$ISPAYED " & _
+          "FROM GD_DOCUMENT D " & _
+          "JOIN USR$PD_DOWNPAYMENTLINE L ON L.DOCUMENTKEY  =  D.ID " & _
+          "WHERE " & _
+          "  L.MASTERKEY = :DOCKEY " & _
+          "  AND D.DOCUMENTTYPEKEY = (" & OwnerForm.gdcObject.FieldByName("DOCUMENTTYPEKEY").asInteger & ") " & _
+          "ORDER BY 1 "
+          paygraph.ParamByName("DOCKEY").AsInteger = OwnerForm.gdcObject.ID
           paygraph.Open
         
         
           dim mmonth
           mmonth = ""
           while not paygraph.EOF
-             mmonth = mmonth + LCase(MonthName(month(paygraph.FieldByName("ondate").AsDateTime), false)) & ", "
+             mmonth = mmonth + LCase(MonthName(month(paygraph.FieldByName("USR$DATE").AsDateTime), false)) & ", "
              paygraph.next
           wend
+        
         
         
           dim ps
@@ -815,4 +826,4 @@ Objects:
       REPORTGROUPKEY: "155503140_1665905672 Отчеты(gdc_frmUserComplexDocument149518266_1658323743)"
       SERVERKEY: ~
       TEMPLATEKEY: "148505934_1647524629 Обязатльство по рассрочке148505934_1647524629"
-      EDITIONDATE: 2021-09-21T14:42:05+03:00
+      EDITIONDATE: 2021-09-23T17:14:52+03:00
