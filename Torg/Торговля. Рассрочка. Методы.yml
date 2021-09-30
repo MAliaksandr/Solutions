@@ -5,10 +5,10 @@ Properties:
   RUID: 160970564_1743838890
   Name: "Торговля. Рассрочка. Методы"
   Caption: "Торговля. Рассрочка. Методы"
-  Version: "1.0.0.9"
+  Version: "1.0.0.11"
   Optional: False
   Internal: True
-  MD5: 7118AF4D566D70F297A7DCA5262A0C3F
+  MD5: ABF7628F5F0134574FEBDB75C684EB17
 Uses: 
   - "194442289_637058871 Возврат от покупателя."
   - "147755479_69526485 GS.Общие.EVT_OBJECT"
@@ -1523,3 +1523,181 @@ Objects:
       OBJECTNAME: "TgdcUserDocumentLine149518266_1658323743"
       PARENTNAME: "TgdcUserDocumentLine"
       EDITIONDATE: 2021-09-22T21:17:20+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147115925_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147116339_1599401795
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147115925_1599401795"
+      EDITIONDATE: 2021-09-21T16:46:14+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147115924_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147116339_1599401795
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-09-21T16:46:14+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147116341_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147116339_1599401795
+    Fields: 
+      NAME: "usrg_USR_PD_DOWNPAYMENT_COND_SpinEdit1OnChange"
+      COMMENT: ~
+      EVENT: "ONCHANGE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "160970492_1743838890 gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-09-22T22:05:04+03:00
+      DISPLAYSCRIPT: | 
+        USRG_USR_PD_DOWNPAYMENT_COND_SPINEDIT1ONCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_USR_PD_DOWNPAYMENT_COND_SpinEdit1OnChange(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnChange", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+           dim Obj
+           set Obj = Sender.OwnerForm.gdcObject
+           if Assigned(Obj) Then
+             IF Sender.Text <> "" Then
+               Obj.FieldByName("USR$XDAY").asInteger = CINT(Sender.Text)
+             else
+               Obj.FieldByName("USR$XDAY").asInteger = 25
+             end if
+           end if
+        
+           
+        
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147116338_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147116339_1599401795
+    Fields: 
+      PARENT: "160970492_1743838890 gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      NAME: "usrg_sp_xday"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_sp_xday"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-09-22T21:58:05+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147116339_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCHANGE"
+      FUNCTIONKEY: "147116341_1599401795 usrg_USR_PD_DOWNPAYMENT_COND_SpinEdit1OnChange"
+      OBJECTKEY: "147116338_1599401795 gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND\\usrg_sp_xday"
+      OBJECTNAME: "usrg_sp_xday"
+      PARENTNAME: "gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      EDITIONDATE: 2021-09-22T22:05:04+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147116344_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147116342_1599401795
+    Fields: 
+      NAME: "gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_CONDOnShow"
+      COMMENT: ~
+      EVENT: "ONSHOW"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "160970492_1743838890 gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-09-22T22:10:14+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGATTRUSERDEFINEDUSR_PD_DOWNPAYMENT_CONDONSHOW
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_CONDOnShow(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnShow", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          Sender.FindComponent("usrg_sp_xday").text = CSTR(Sender.OwnerForm.gdcObject.FieldByName("USR$XDAY").asInteger)
+          
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147116342_1599401795
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONSHOW"
+      FUNCTIONKEY: "147116344_1599401795 gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_CONDOnShow"
+      OBJECTKEY: "160970492_1743838890 gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_PD_DOWNPAYMENT_COND"
+      PARENTNAME: ~
+      EDITIONDATE: 2021-09-22T22:10:14+03:00
