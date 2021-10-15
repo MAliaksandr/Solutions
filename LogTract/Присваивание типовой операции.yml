@@ -1,0 +1,111 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 233724979_639165248
+  Name: "Присваивание типовой операции"
+  Caption: "Присваивание типовой операции"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 808A7500B54AEBC8508C526703B36AC3
+Uses: 
+  - "147978722_215642201 09 Основные средства evt_object"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 233724936_639165248
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 233724934_639165248
+    Fields: 
+      NAME: "Macros233724936_639165248"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147005058_50219829 gdc_frmInvDocument147004952_50219829"
+      OBJECTNAME: "gdc_frmInvDocument147004952_50219829"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-10-15T12:38:08+03:00
+      DISPLAYSCRIPT: | 
+        MACROS233724936_639165248
+        EXCEPTMACROS233724936_639165248
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros233724936_639165248(OwnerForm)
+        dim Obj, Tr , UpdateSQL, Creator, Detail
+        set Obj = OwnerForm.gdcObject
+        set Detail = OwnerForm.gdcDetailObject
+        ' TO ОС. Ввод в эксплуатацию
+        ' gdcBaseManager.GetIDBYRuidString("147458733_50219829")
+        
+         call Application.MessageBox("После установки тип.операции необходимо перепровести документ","Внимание", vbOkOnly+vbSystemModal+vbInformation)
+        
+          set Creator = new TCreator
+          set Tr = Creator.GetObject(nil, "TIBTransaction", "")
+          Tr.DefaultDatabase = gdcBaseManager.DataBase
+          Tr.StartTransaction
+          except ExceptMacros233724936_639165248(Tr)
+          
+          set UpdateSQL = Creator.GetObject(nil, "TIBSQL", "")
+          UpdateSQL.Transaction = Tr
+          UpdateSQL.SQL.Text = _
+           "UPDATE GD_DOCUMENT " & _
+           "SET TRANSACTIONKEY = :TrKey " & _
+           "WHERE PARENT = :DocKey "
+          UpdateSQL.ParamByName("TrKey").asVariant =  gdcBaseManager.GetIDBYRuidString("147458733_50219829")   '147032836'
+          UpdateSQL.ParamByName("DocKey").asVariant = Obj.ID
+          UpdateSQL.ExecQuery
+        
+          if Tr.InTransaction then Tr.Commit
+          
+          'obj.first
+        '  while not obj.EOF
+         '  Detail.Edit
+        '   Detail.FieldBYName("QUANTITY").asVariant = Detail.FieldBYName("QUANTITY").asVariant
+        '   Detail.Post
+        ''  obj.next
+        '  wend
+        
+        call Application.MessageBox("Завершено","Внимание", vbOkOnly+vbSystemModal+vbInformation)
+        
+        End Sub
+        
+        sub ExceptMacros233724936_639165248(Tr)
+          if tr.inTrasaction then tr.rollback
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 233724934_639165248
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Присваивание типовой операции"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "233724936_639165248 Macros233724936_639165248"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147009278_50219829 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvDocument147004952_50219829"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2021-10-15T12:38:09+03:00
