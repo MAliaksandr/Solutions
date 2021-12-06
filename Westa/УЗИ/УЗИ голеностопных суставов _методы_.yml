@@ -5,10 +5,10 @@ Properties:
   RUID: 176961640_1767353537
   Name: "УЗИ голеностопных суставов (методы)"
   Caption: "УЗИ голеностопных суставов (методы)"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 0BDFC424F234803C0276084B2133ABE7
+  MD5: BDBCFC113F2FE372201C248F58E80DAB
 Uses: 
   - "147753062_69526485 GS.Общие.Хранилище"
   - "147697029_71168484 GS.Санаторий.МУ.ИБ.Документы"
@@ -29,7 +29,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-12-06T15:22:00+03:00
+      EDITIONDATE: 2021-12-06T17:17:32+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_SAN_ADDANKLEJOINT: Tgdc_dlgAttrUserDefined
           Left = 591
@@ -816,19 +816,19 @@ Objects:
                     Visible = True
                     WordWrap = False
                   end
-                  object usrat_gsIBLookupComboBox_USR_L_INTROVERSION_V_Label: TLabel
-                    Left = 613
+                  object usrat_DBEdit_USR_L_INTROVERSION_V_Label: TLabel
+                    Left = 620
                     Top = 26
-                    Width = 22
+                    Width = 18
                     Height = 14
-                    Caption = ' мм'
+                    Caption = 'мм'
                   end
-                  object usrat_gsIBLookupComboBox_USR_R_INTROVERSION_V_Label: TLabel
-                    Left = 275
-                    Top = 26
-                    Width = 22
+                  object usrat_DBEdit_USR_R_INTROVERSION_V_Label: TLabel
+                    Left = 281
+                    Top = 27
+                    Width = 18
                     Height = 14
-                    Caption = ' мм'
+                    Caption = 'мм'
                   end
                   object usrat_gsIBLookupComboBox_USR_R_INTROVERSION: TgsIBLookupComboBox
                     Left = 9
@@ -843,7 +843,7 @@ Objects:
                   end
                   object usrat_gsIBLookupComboBox_USR_L_INTROVERSION: TgsIBLookupComboBox
                     Left = 346
-                    Top = 20
+                    Top = 21
                     Width = 161
                     Height = 22
                     Condition = 'USR$TYPE = 4'
@@ -852,24 +852,20 @@ Objects:
                     ParentFont = False
                     TabOrder = 1
                   end
-                  object usrat_gsIBLookupComboBox_USR_L_INTROVERSION_V: TgsIBLookupComboBox
-                    Left = 544
+                  object usrat_DBEdit_USR_L_INTROVERSION_V: TxDBCalculatorEdit
+                    Left = 546
                     Top = 21
-                    Width = 68
+                    Width = 65
                     Height = 22
-                    Font.Style = []
-                    ItemHeight = 14
-                    ParentFont = False
+                    Cursor = crIBeam
                     TabOrder = 2
                   end
-                  object usrat_gsIBLookupComboBox_USR_R_INTROVERSION_V: TgsIBLookupComboBox
+                  object usrat_DBEdit_USR_R_INTROVERSION_V: TxDBCalculatorEdit
                     Left = 207
-                    Top = 21
+                    Top = 23
                     Width = 68
                     Height = 22
-                    Font.Style = []
-                    ItemHeight = 14
-                    ParentFont = False
+                    Cursor = crIBeam
                     TabOrder = 3
                   end
                 end
@@ -953,7 +949,7 @@ Objects:
                     Top = 19
                     Width = 68
                     Height = 22
-                    Cursor = crIBeam
+                    Cursor = crArrow
                     Font.Style = []
                     ParentFont = False
                     TabOrder = 1
@@ -1651,269 +1647,258 @@ Objects:
                 TabVisible = True
                 object atAttributes: TatContainer
                   Width = 759
-                  Height = 736
-                  VertScrollBar.Position = 260
+                  Height = 840
+                  VertScrollBar.Position = 1192
                   Align = alNone
                   Anchors = [akLeft, akTop]
                   Visible = False
-                  object usrat_DBEdit_Z_USR_R_CAVITY_USR_NAME_Label: TLabel
-                    Top = 2
-                  end
-                  object usrat_DBEdit_Z_USR_L_LIQUID_USR_NAME_Label: TLabel
-                    Top = -251
-                  end
-                  object usrat_DBEdit_Z_USR_L_CAVITY_USR_NAME_Label: TLabel
-                    Top = 163
-                  end
-                  object usrat_DBEdit_Z_USR_L_INTROVERSION_V_USR_NAME_Label: TLabel
-                    Top = 140
-                  end
-                  object usrat_DBEdit_Z_USR_R_INTROVERSION_V_USR_NAME_Label: TLabel
-                    Top = 255
-                  end
-                  object usrat_DBEdit_Z_USR_R_LIQUID_USR_NAME_Label: TLabel
-                    Top = -136
-                  end
-                  object usrat_DBEdit_Z_USR_R_SYNDESMOSIS_USR_NAME_Label: TLabel
-                    Top = -113
-                  end
-                  object usrat_DBEdit_Z_USR_L_JOINTMUSCSTRU2784616678_Label: TLabel
-                    Top = -90
-                  end
-                  object usrat_DBEdit_Z_USR_L_SYNDESMOSIS_USR_NAME_Label: TLabel
-                    Top = -67
-                  end
                   object usrat_DBEdit_Z_USR_R_MEMBRANE_USR_NAME_Label: TLabel
-                    Top = -44
-                  end
-                  object usrat_DBEdit_Z_USR_L_MEMBRANE_USR_NAME_Label: TLabel
-                    Top = -21
-                  end
-                  object usrat_DBEdit_Z_USR_L_INTROVERSION_USR_NAME_Label: TLabel
-                    Top = 25
-                  end
-                  object usrat_DBEdit_Z_USR_R_KORTOST_USR_NAME_Label: TLabel
-                    Top = -182
-                  end
-                  object usrat_DBEdit_Z_USR_R_KORTPOV_USR_NAME_Label: TLabel
-                    Top = 186
-                  end
-                  object usrat_DBEdit_Z_USR_L_KORTOST_USR_NAME_Label: TLabel
-                    Top = -159
+                    Top = -976
                   end
                   object usrat_DBEdit_Z_USR_R_KORTC_USR_NAME_Label: TLabel
-                    Top = -228
+                    Top = -1160
                   end
                   object usrat_DBEdit_Z_USR_L_KORTC_USR_NAME_Label: TLabel
-                    Top = -205
+                    Top = -1137
                   end
-                  object usrat_DBEdit_Z_USR_L_KORTPOV_USR_NAME_Label: TLabel
-                    Top = 209
+                  object usrat_DBEdit_Z_USR_L_KORTOST_USR_NAME_Label: TLabel
+                    Top = -1091
                   end
-                  object usrat_DBEdit_Z_USR_L_GRISTLECONT_USR_NAME_Label: TLabel
-                    Top = 94
+                  object usrat_DBEdit_Z_USR_R_LIQUID_USR_NAME_Label: TLabel
+                    Top = -1068
                   end
-                  object usrat_DBEdit_Z_USR_R_INTROVERSION_USR_NAME_Label: TLabel
-                    Top = 117
-                  end
-                  object usrat_DBEdit_Z_USR_R_GRISTLECONT_USR_NAME_Label: TLabel
-                    Top = 71
-                  end
-                  object usrat_DBEdit_Z_USR_R_GRISTLE_USR_NAME_Label: TLabel
-                    Top = 232
-                  end
-                  object usrat_DBEdit_Z_USR_L_GRISTLE_USR_NAME_Label: TLabel
-                    Top = 48
+                  object usrat_DBEdit_Z_USR_L_MEMBRANE_USR_NAME_Label: TLabel
+                    Top = -953
                   end
                   object usrat_DBEdit_Z_USR_R_JOINTMUSCSTRU3481063115_Label: TLabel
-                    Top = 508
-                  end
-                  object usrat_DBEdit_Z_USR_L_FOOTMUSCSTATE_USR_NAME_Label: TLabel
-                    Top = 278
-                  end
-                  object usrat_DBEdit_Z_USR_L_ACHILLESTENDO2805028178_Label: TLabel
-                    Top = 462
-                  end
-                  object usrat_DBEdit_Z_USR_R_FOOTMUSCSTATE_USR_NAME_Label: TLabel
-                    Top = 347
-                  end
-                  object usrat_DBEdit_Z_USR_R_ACHILLESTENDO2076638939_Label: TLabel
-                    Top = 439
-                  end
-                  object usrat_DBEdit_Z_USR_R_FOOTMUSCSTRUCT_USR_NAME_Label: TLabel
-                    Top = 370
-                  end
-                  object usrat_DBEdit_Z_USR_L_FOOTMUSCSTRUCT_USR_NAME_Label: TLabel
-                    Top = 301
-                  end
-                  object usrat_DBEdit_Z_USR_L_JOINTMUSCSTATE_USR_NAME_Label: TLabel
-                    Top = 324
-                  end
-                  object usrat_DBEdit_Z_USR_R_ACHILLESTENDO2056081146_Label: TLabel
-                    Top = 416
+                    Top = -424
                   end
                   object usrat_DBEdit_Z_USR_R_JOINTMUSCSTATE_USR_NAME_Label: TLabel
-                    Top = 485
+                    Top = -447
+                  end
+                  object usrat_DBEdit_Z_USR_L_JOINTMUSCSTRU2784616678_Label: TLabel
+                    Top = -1022
+                  end
+                  object usrat_DBEdit_Z_USR_L_SYNDESMOSIS_USR_NAME_Label: TLabel
+                    Top = -999
+                  end
+                  object usrat_DBEdit_Z_USR_R_SYNDESMOSIS_USR_NAME_Label: TLabel
+                    Top = -1045
+                  end
+                  object usrat_DBEdit_Z_USR_L_LIQUID_USR_NAME_Label: TLabel
+                    Top = -1183
+                  end
+                  object usrat_DBEdit_Z_USR_L_INTROVERSION_USR_NAME_Label: TLabel
+                    Top = -907
+                  end
+                  object usrat_DBEdit_Z_USR_L_GRISTLE_USR_NAME_Label: TLabel
+                    Top = -884
+                  end
+                  object usrat_DBEdit_Z_USR_R_GRISTLECONT_USR_NAME_Label: TLabel
+                    Top = -861
+                  end
+                  object usrat_DBEdit_Z_USR_L_GRISTLECONT_USR_NAME_Label: TLabel
+                    Top = -838
+                  end
+                  object usrat_DBEdit_Z_USR_R_INTROVERSION_USR_NAME_Label: TLabel
+                    Top = -815
+                  end
+                  object usrat_DBEdit_Z_USR_L_CAVITY_USR_NAME_Label: TLabel
+                    Top = -769
+                  end
+                  object usrat_DBEdit_Z_USR_R_KORTPOV_USR_NAME_Label: TLabel
+                    Top = -746
+                  end
+                  object usrat_DBEdit_Z_USR_R_KORTOST_USR_NAME_Label: TLabel
+                    Top = -1114
+                  end
+                  object usrat_DBEdit_Z_USR_L_KORTPOV_USR_NAME_Label: TLabel
+                    Top = -723
+                  end
+                  object usrat_DBEdit_Z_USR_R_GRISTLE_USR_NAME_Label: TLabel
+                    Top = -700
+                  end
+                  object usrat_DBEdit_Z_USR_R_CAVITY_USR_NAME_Label: TLabel
+                    Top = -930
+                  end
+                  object usrat_DBEdit_Z_USR_L_FOOTMUSCSTRUCT_USR_NAME_Label: TLabel
+                    Top = -631
+                  end
+                  object usrat_DBEdit_Z_USR_R_FOOTMUSCSTRUCT_USR_NAME_Label: TLabel
+                    Top = -562
+                  end
+                  object usrat_DBEdit_Z_USR_R_FOOTMUSCSTATE_USR_NAME_Label: TLabel
+                    Top = -585
+                  end
+                  object usrat_DBEdit_Z_USR_L_FOOTMUSCSTATE_USR_NAME_Label: TLabel
+                    Top = -654
                   end
                   object usrat_DBEdit_Z_USR_L_ACHILLESTENDON146313079_Label: TLabel
-                    Top = 393
+                    Top = -539
+                  end
+                  object usrat_DBEdit_Z_USR_R_ACHILLESTENDO2056081146_Label: TLabel
+                    Top = -516
+                  end
+                  object usrat_DBEdit_Z_USR_R_ACHILLESTENDO2076638939_Label: TLabel
+                    Top = -493
+                  end
+                  object usrat_DBEdit_Z_USR_L_ACHILLESTENDO2805028178_Label: TLabel
+                    Top = -470
+                  end
+                  object usrat_DBEdit_Z_USR_L_JOINTMUSCSTATE_USR_NAME_Label: TLabel
+                    Top = -608
                   end
                   object usrat_gsIBLookupComboBox_USR_R_KORTC_Label: TLabel
-                    Top = 531
+                    Top = -401
                   end
                   object usrat_gsIBLookupComboBox_USR_L_KORTC_Label: TLabel
-                    Top = 554
+                    Top = -378
                   end
                   object usrat_gsIBLookupComboBox_USR_L_KORTOST_Label: TLabel
-                    Top = 577
+                    Top = -355
                   end
                   object usrat_gsIBLookupComboBox_USR_R_KORTOST_Label: TLabel
-                    Top = 600
+                    Top = -332
                   end
                   object usrat_DBEdit_USR_R_KORTOST_V_Label: TLabel
-                    Top = 623
+                    Top = -309
                   end
                   object usrat_DBEdit_USR_L_KORTOST_V_Label: TLabel
-                    Top = 646
+                    Top = -286
                   end
                   object usrat_gsIBLookupComboBox_USR_R_KORTPOV_Label: TLabel
-                    Top = 669
+                    Top = -263
                   end
                   object usrat_gsIBLookupComboBox_USR_L_KORTPOV_Label: TLabel
-                    Top = 692
+                    Top = -240
                   end
                   object usrat_gsIBLookupComboBox_USR_R_INTROVERSION_Label: TLabel
-                    Top = 807
+                    Top = -125
                   end
                   object usrat_gsIBLookupComboBox_USR_L_INTROVERSION_Label: TLabel
-                    Top = 830
+                    Top = -102
                   end
                   object usrat_gsIBLookupComboBox_USR_L_LIQUID_Label: TLabel
-                    Top = 991
+                    Top = 59
                   end
                   object usrat_gsIBLookupComboBox_USR_R_LIQUID_Label: TLabel
-                    Top = 1014
+                    Top = 82
                   end
                   object usrat_gsIBLookupComboBox_USR_R_JOINTMUSCSTATE_Label: TLabel
-                    Top = 1267
+                    Top = 335
                   end
                   object usrat_gsIBLookupComboBox_USR_L_JOINTMUSCSTATE_Label: TLabel
-                    Top = 1290
+                    Top = 358
                   end
                   object usrat_gsIBLookupComboBox_USR_L_FOOTMUSCSTRUCT_Label: TLabel
-                    Top = 1359
+                    Top = 427
                   end
                   object usrat_gsIBLookupComboBox_USR_R_FOOTMUSCSTRUCT_Label: TLabel
-                    Top = 1382
+                    Top = 450
                   end
                   object usrat_DBEdit_USR_REPORT_Label: TLabel
-                    Top = 2462
-                  end
-                  object usrat_DBEdit_Z_USR_R_CAVITY_USR_NAME: TDBEdit
-                    Top = -2
-                  end
-                  object usrat_DBEdit_Z_USR_L_LIQUID_USR_NAME: TDBEdit
-                    Top = -255
-                  end
-                  object usrat_DBEdit_Z_USR_L_CAVITY_USR_NAME: TDBEdit
-                    Top = 159
-                  end
-                  object usrat_DBEdit_Z_USR_L_INTROVERSION_V_USR_NAME: TDBEdit
-                    Top = 136
-                  end
-                  object usrat_DBEdit_Z_USR_R_INTROVERSION_V_USR_NAME: TDBEdit
-                    Top = 251
-                  end
-                  object usrat_DBEdit_Z_USR_R_LIQUID_USR_NAME: TDBEdit
-                    Top = -140
-                  end
-                  object usrat_DBEdit_Z_USR_R_SYNDESMOSIS_USR_NAME: TDBEdit
-                    Top = -117
-                  end
-                  object usrat_DBEdit_Z_USR_L_JOINTMUSCSTRU2784616678: TDBEdit
-                    Top = -94
-                  end
-                  object usrat_DBEdit_Z_USR_L_SYNDESMOSIS_USR_NAME: TDBEdit
-                    Top = -71
+                    Top = 1530
                   end
                   object usrat_DBEdit_Z_USR_R_MEMBRANE_USR_NAME: TDBEdit
-                    Top = -48
-                  end
-                  object usrat_DBEdit_Z_USR_L_MEMBRANE_USR_NAME: TDBEdit
-                    Top = -25
-                  end
-                  object usrat_DBEdit_Z_USR_L_INTROVERSION_USR_NAME: TDBEdit
-                    Top = 21
-                  end
-                  object usrat_DBEdit_Z_USR_R_KORTOST_USR_NAME: TDBEdit
-                    Top = -186
-                  end
-                  object usrat_DBEdit_Z_USR_R_KORTPOV_USR_NAME: TDBEdit
-                    Top = 182
-                  end
-                  object usrat_DBEdit_Z_USR_L_KORTOST_USR_NAME: TDBEdit
-                    Top = -163
+                    Top = -980
                   end
                   object usrat_DBEdit_Z_USR_R_KORTC_USR_NAME: TDBEdit
-                    Top = -232
+                    Top = -1164
                   end
                   object usrat_DBEdit_Z_USR_L_KORTC_USR_NAME: TDBEdit
-                    Top = -209
+                    Top = -1141
                   end
-                  object usrat_DBEdit_Z_USR_L_KORTPOV_USR_NAME: TDBEdit
-                    Top = 205
+                  object usrat_DBEdit_Z_USR_L_KORTOST_USR_NAME: TDBEdit
+                    Top = -1095
                   end
-                  object usrat_DBEdit_Z_USR_L_GRISTLECONT_USR_NAME: TDBEdit
-                    Top = 90
+                  object usrat_DBEdit_Z_USR_R_LIQUID_USR_NAME: TDBEdit
+                    Top = -1072
                   end
-                  object usrat_DBEdit_Z_USR_R_INTROVERSION_USR_NAME: TDBEdit
-                    Top = 113
-                  end
-                  object usrat_DBEdit_Z_USR_R_GRISTLECONT_USR_NAME: TDBEdit
-                    Top = 67
-                  end
-                  object usrat_DBEdit_Z_USR_R_GRISTLE_USR_NAME: TDBEdit
-                    Top = 228
-                  end
-                  object usrat_DBEdit_Z_USR_L_GRISTLE_USR_NAME: TDBEdit
-                    Top = 44
+                  object usrat_DBEdit_Z_USR_L_MEMBRANE_USR_NAME: TDBEdit
+                    Top = -957
                   end
                   object usrat_DBEdit_Z_USR_R_JOINTMUSCSTRU3481063115: TDBEdit
-                    Top = 504
+                    Top = -428
                   end
-                  object usrat_DBEdit_Z_USR_L_FOOTMUSCSTATE_USR_NAME: TDBEdit
-                    Top = 274
+                  object usrat_DBEdit_Z_USR_R_JOINTMUSCSTATE_USR_NAME: TDBEdit
+                    Top = -451
                   end
-                  object usrat_DBEdit_Z_USR_L_ACHILLESTENDO2805028178: TDBEdit
-                    Top = 458
+                  object usrat_DBEdit_Z_USR_L_JOINTMUSCSTRU2784616678: TDBEdit
+                    Top = -1026
                   end
-                  object usrat_DBEdit_Z_USR_R_FOOTMUSCSTATE_USR_NAME: TDBEdit
-                    Top = 343
+                  object usrat_DBEdit_Z_USR_L_SYNDESMOSIS_USR_NAME: TDBEdit
+                    Top = -1003
                   end
-                  object usrat_DBEdit_Z_USR_R_ACHILLESTENDO2076638939: TDBEdit
-                    Top = 435
+                  object usrat_DBEdit_Z_USR_R_SYNDESMOSIS_USR_NAME: TDBEdit
+                    Top = -1049
                   end
-                  object usrat_DBEdit_Z_USR_R_FOOTMUSCSTRUCT_USR_NAME: TDBEdit
-                    Top = 366
+                  object usrat_DBEdit_Z_USR_L_LIQUID_USR_NAME: TDBEdit
+                    Top = -1187
+                  end
+                  object usrat_DBEdit_Z_USR_L_INTROVERSION_USR_NAME: TDBEdit
+                    Top = -911
+                  end
+                  object usrat_DBEdit_Z_USR_L_GRISTLE_USR_NAME: TDBEdit
+                    Top = -888
+                  end
+                  object usrat_DBEdit_Z_USR_R_GRISTLECONT_USR_NAME: TDBEdit
+                    Top = -865
+                  end
+                  object usrat_DBEdit_Z_USR_L_GRISTLECONT_USR_NAME: TDBEdit
+                    Top = -842
+                  end
+                  object usrat_DBEdit_Z_USR_R_INTROVERSION_USR_NAME: TDBEdit
+                    Top = -819
+                  end
+                  object usrat_DBEdit_Z_USR_L_CAVITY_USR_NAME: TDBEdit
+                    Top = -773
+                  end
+                  object usrat_DBEdit_Z_USR_R_KORTPOV_USR_NAME: TDBEdit
+                    Top = -750
+                  end
+                  object usrat_DBEdit_Z_USR_R_KORTOST_USR_NAME: TDBEdit
+                    Top = -1118
+                  end
+                  object usrat_DBEdit_Z_USR_L_KORTPOV_USR_NAME: TDBEdit
+                    Top = -727
+                  end
+                  object usrat_DBEdit_Z_USR_R_GRISTLE_USR_NAME: TDBEdit
+                    Top = -704
+                  end
+                  object usrat_DBEdit_Z_USR_R_CAVITY_USR_NAME: TDBEdit
+                    Top = -934
                   end
                   object usrat_DBEdit_Z_USR_L_FOOTMUSCSTRUCT_USR_NAME: TDBEdit
                     Left = 329
-                    Top = 289
+                    Top = -643
                   end
-                  object usrat_DBEdit_Z_USR_L_JOINTMUSCSTATE_USR_NAME: TDBEdit
-                    Top = 320
+                  object usrat_DBEdit_Z_USR_R_FOOTMUSCSTRUCT_USR_NAME: TDBEdit
+                    Top = -566
                   end
-                  object usrat_DBEdit_Z_USR_R_ACHILLESTENDO2056081146: TDBEdit
-                    Top = 412
+                  object usrat_DBEdit_Z_USR_R_FOOTMUSCSTATE_USR_NAME: TDBEdit
+                    Top = -589
                   end
-                  object usrat_DBEdit_Z_USR_R_JOINTMUSCSTATE_USR_NAME: TDBEdit
-                    Top = 481
+                  object usrat_DBEdit_Z_USR_L_FOOTMUSCSTATE_USR_NAME: TDBEdit
+                    Left = 289
+                    Top = -730
                   end
                   object usrat_DBEdit_Z_USR_L_ACHILLESTENDON146313079: TDBEdit
-                    Top = 389
+                    Top = -543
+                  end
+                  object usrat_DBEdit_Z_USR_R_ACHILLESTENDO2056081146: TDBEdit
+                    Top = -520
+                  end
+                  object usrat_DBEdit_Z_USR_R_ACHILLESTENDO2076638939: TDBEdit
+                    Top = -497
+                  end
+                  object usrat_DBEdit_Z_USR_L_ACHILLESTENDO2805028178: TDBEdit
+                    Top = -474
+                  end
+                  object usrat_DBEdit_Z_USR_L_JOINTMUSCSTATE_USR_NAME: TDBEdit
+                    Top = -612
                   end
                   object usrat_DBEdit_USR_REPORT: TDBEdit
-                    Top = 2458
+                    Top = 1526
                   end
                 end
               end
@@ -2176,7 +2161,7 @@ Objects:
       NAME: "20. УЗИ ахилловых сухожилий176961341_1767353537"
       DESCRIPTION: ~
       TEMPLATETYPE: "FR4"
-      EDITIONDATE: 2021-12-06T15:13:42+03:00
+      EDITIONDATE: 2021-12-06T17:24:45+03:00
       TEMPLATEDATA: | 
         <?xml version="1.0" encoding="utf-8"?>
         <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44498,7636023148" ReportOptions.Description.Text="" ReportOptions.LastChange="44498,7636023148" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C3000000020446174615365743D22494E464F434F4D50414E592220446174615365744E616D653D22494E464F434F4D50414E592200010C1C00000020446174615365743D22512220446174615365744E616D653D2251220000095661726961626C65730100055374796C650100">
@@ -2195,36 +2180,36 @@ Objects:
               <TfrxMemoView Name="Memo9" Left="608,50433" Top="120,94496" Width="109,60637" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$DATE&#34;]"/>
             </TfrxReportTitle>
             <TfrxHeader Name="Header1" Height="0" Left="0" Top="234,33086" Width="740,409927"/>
-            <TfrxMasterData Name="MasterData1" Height="680,3154" Left="0" Top="257,00804" Width="740,409927" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0">
+            <TfrxMasterData Name="MasterData1" Height="680,3154" Left="0" Top="257,00804" Width="740,409927" ColumnWidth="0" ColumnGap="0" DataSetName="Q" RowCount="0">
               <TfrxMemoView Name="Memo12" Left="18,89765" Top="0" Width="359,05535" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂР°РІС‹Р№"/>
               <TfrxMemoView Name="Memo13" Left="377,953" Top="0" Width="359,05535" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р›РµРІС‹Р№"/>
               <TfrxMemoView Name="Memo14" Left="18,89765" Top="18,89765" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљРѕРЅС‚СѓСЂ РєРѕСЂС‚РёРєР°Р»СЊРЅРѕРіРѕ СЃР»РѕСЏ РјРµРґРёР°Р»СЊРЅРѕР№ Рё Р»Р°С‚РµСЂР°Р»СЊРЅРѕР№ Р»РѕРґС‹Р¶РєРё"/>
-              <TfrxMemoView Name="Memo15" Left="18,89765" Top="37,7953" Width="359,05535" Height="30,23624" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_CONTR&#34;]&#13;&#10;[Q.&#34;R_KORTOST&#34;] [IIF(&#60;Q.&#34;USR$R_KORTOST_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;USR$R_KORTOST_V&#34;&#62;)+ ' РјРј ','')]"/>
-              <TfrxMemoView Name="Memo16" Left="377,953" Top="37,7953" Width="359,05535" Height="30,23624" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_CONTR&#34;]&#13;&#10;[Q.&#34;L_KORTOST&#34;] [IIF(&#60;Q.&#34;USR$L_KORTOST_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;USR$L_KORTOST_V&#34;&#62;)+ ' РјРј ','')]"/>
+              <TfrxMemoView Name="Memo15" Left="18,89765" Top="37,7953" Width="359,05535" Height="30,23624" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_CONTR&#34;]&#13;&#10;[Q.&#34;R_KORTOST&#34;] [IIF(&#60;Q.&#34;USR$R_KORTOST_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;USR$R_KORTOST_V&#34;&#62;)+ ' РјРј ','')]"/>
+              <TfrxMemoView Name="Memo16" Left="377,953" Top="37,7953" Width="359,05535" Height="30,23624" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_CONTR&#34;]&#13;&#10;[Q.&#34;L_KORTOST&#34;] [IIF(&#60;Q.&#34;USR$L_KORTOST_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;USR$L_KORTOST_V&#34;&#62;)+ ' РјРј ','')]"/>
               <TfrxMemoView Name="Memo17" Left="18,89765" Top="68,03154" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљРѕРЅС‚СѓСЂ СЃСѓСЃС‚Р°РІРЅРѕР№ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё С‚Р°СЂР°РЅРЅРѕР№ РєРѕСЃС‚Рё"/>
-              <TfrxMemoView Name="Memo18" Left="18,89765" Top="86,92919" Width="359,05535" Height="18,89765" ShowHint="False" DataField="R_KORTPOV" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_KORTPOV&#34;]"/>
-              <TfrxMemoView Name="Memo19" Left="377,953" Top="86,92919" Width="359,05535" Height="18,89765" ShowHint="False" DataField="L_KORTPOV" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_KORTPOV&#34;]"/>
+              <TfrxMemoView Name="Memo18" Left="18,89765" Top="86,92919" Width="359,05535" Height="18,89765" ShowHint="False" DataField="R_KORTPOV" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_KORTPOV&#34;]"/>
+              <TfrxMemoView Name="Memo19" Left="377,953" Top="86,92919" Width="359,05535" Height="18,89765" ShowHint="False" DataField="L_KORTPOV" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_KORTPOV&#34;]"/>
               <TfrxMemoView Name="Memo20" Left="18,89765" Top="105,82684" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р“РµР°Р»РёРЅРѕРІС‹Р№ С…СЂСЏС‰ РїРµСЂРµРґРЅРµР№ СЃСѓСЃС‚Р°РІРЅРѕР№ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё С‚Р°СЂР°РЅРЅРѕР№ РєРѕСЃС‚Рё"/>
-              <TfrxMemoView Name="Memo21" Left="18,89765" Top="124,72449" Width="359,05535" Height="30,23624" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_GRISTLE&#34;]&#13;&#10;[Q.&#34;R_GRISTLECONT&#34;]"/>
-              <TfrxMemoView Name="Memo22" Left="377,953" Top="124,72449" Width="359,05535" Height="30,23624" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_GRISTLE&#34;]&#13;&#10;[Q.&#34;L_GRISTLECONT&#34;]"/>
+              <TfrxMemoView Name="Memo21" Left="18,89765" Top="124,72449" Width="359,05535" Height="30,23624" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_GRISTLE&#34;]&#13;&#10;[Q.&#34;R_GRISTLECONT&#34;]"/>
+              <TfrxMemoView Name="Memo22" Left="377,953" Top="124,72449" Width="359,05535" Height="30,23624" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_GRISTLE&#34;]&#13;&#10;[Q.&#34;L_GRISTLECONT&#34;]"/>
               <TfrxMemoView Name="Memo23" Left="18,89765" Top="154,96073" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р’РµСЂС…РЅРёР№ Р·Р°РІРѕСЂРѕС‚"/>
-              <TfrxMemoView Name="Memo24" Left="18,89765" Top="173,85838" Width="359,05535" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_INTROV&#34;] [IIF(&#60;Q.&#34;R_INTROVERSION_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;R_INTROVERSION_V&#34;&#62;)+ ' РјРј ','')]"/>
-              <TfrxMemoView Name="Memo25" Left="377,953" Top="173,85838" Width="359,05535" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_INTROV&#34;] [IIF(&#60;Q.&#34;R_INTROVERSION_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;R_INTROVERSION_V&#34;&#62;)+ ' РјРј ','')]"/>
+              <TfrxMemoView Name="Memo24" Left="18,89765" Top="173,85838" Width="359,05535" Height="18,89765" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_INTROV&#34;] [IIF(&#60;Q.&#34;R_INTROVERSION_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;R_INTROVERSION_V&#34;&#62;)+ ' РјРј ','')]"/>
+              <TfrxMemoView Name="Memo25" Left="377,953" Top="173,85838" Width="359,05535" Height="18,89765" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_INTROV&#34;] [IIF(&#60;Q.&#34;L_INTROVERSION_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;L_INTROVERSION_V&#34;&#62;)+ ' РјРј ','')]"/>
               <TfrxMemoView Name="Memo26" Left="18,89765" Top="192,75603" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџРѕР»РѕСЃС‚СЊ РіРѕР»РµРЅРѕСЃС‚РѕРїРЅРѕРіРѕ  СЃСѓСЃС‚Р°РІР°"/>
-              <TfrxMemoView Name="Memo27" Left="18,89765" Top="211,65368" Width="359,05535" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_CAVITY&#34;] [IIF(&#60;Q.&#34;R_CAVITY_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;R_CAVITY_V&#34;&#62;)+ ' РјРј ','')]"/>
-              <TfrxMemoView Name="Memo28" Left="377,953" Top="211,65368" Width="359,05535" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_CAVITY&#34;] [IIF(&#60;Q.&#34;L_CAVITY_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;L_CAVITY_V&#34;&#62;)+ ' РјРј ','')]"/>
+              <TfrxMemoView Name="Memo27" Left="18,89765" Top="211,65368" Width="359,05535" Height="18,89765" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_CAVITY&#34;] [IIF(&#60;Q.&#34;R_CAVITY_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;R_CAVITY_V&#34;&#62;)+ ' РјРј ','')]"/>
+              <TfrxMemoView Name="Memo28" Left="377,953" Top="211,65368" Width="359,05535" Height="18,89765" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_CAVITY&#34;] [IIF(&#60;Q.&#34;L_CAVITY_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;L_CAVITY_V&#34;&#62;)+ ' РјРј ','')]"/>
               <TfrxMemoView Name="Memo29" Left="18,89765" Top="230,55133" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р’РЅСѓС‚СЂРёСЃСѓСЃС‚Р°РІРЅР°СЏ Р¶РёРґРєРѕСЃС‚СЊ"/>
-              <TfrxMemoView Name="Memo30" Left="18,89765" Top="249,44898" Width="359,05535" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_LIQUID&#34;]"/>
-              <TfrxMemoView Name="Memo31" Left="377,953" Top="249,44898" Width="359,05535" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_LIQUID&#34;]"/>
+              <TfrxMemoView Name="Memo30" Left="18,89765" Top="249,44898" Width="359,05535" Height="18,89765" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_LIQUID&#34;]"/>
+              <TfrxMemoView Name="Memo31" Left="377,953" Top="249,44898" Width="359,05535" Height="18,89765" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_LIQUID&#34;]"/>
               <TfrxMemoView Name="Memo32" Left="18,89765" Top="268,34663" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎРёРЅРѕРІРёР°Р»СЊРЅР°СЏ РѕР±РѕР»РѕС‡РєР°"/>
               <TfrxMemoView Name="Memo33" Left="18,89765" Top="287,24428" Width="359,05535" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_MEMBR&#34;] [IIF(&#60;Q.&#34;R_MEMBR_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;R_MEMBR_V&#34;&#62;)+ ' РјРј ','')]"/>
               <TfrxMemoView Name="Memo34" Left="377,953" Top="287,24428" Width="359,05535" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_MEMBR&#34;] [IIF(&#60;Q.&#34;L_MEMBR_V&#34;&#62;&#60;&#62;0,' РґРѕ ' + FloatToStr(&#60;Q.&#34;L_MEMBR_V&#34;&#62;)+ ' РјРј ','')]"/>
               <TfrxMemoView Name="Memo35" Left="18,89765" Top="306,14193" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р”РёСЃС‚Р°Р»СЊРЅС‹Р№ РјРµР¶Р±РµСЂС†РѕРІС‹Р№ СЃРёРЅРґРµСЃРјРѕР·"/>
-              <TfrxMemoView Name="Memo36" Left="18,89765" Top="325,03958" Width="359,05535" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_SYNDESMOSIS&#34;] [IIF(&#60;Q.&#34;R_SYNDESMOSIS_V&#34;&#62;&#60;&#62;0,', С€РёСЂРёРЅР° ' + FloatToStr(&#60;Q.&#34;R_SYNDESMOSIS_V&#34;&#62;)+ ' РјРј ','')]"/>
-              <TfrxMemoView Name="Memo37" Left="377,953" Top="325,03958" Width="359,05535" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_SYNDESMOSIS&#34;] [IIF(&#60;Q.&#34;L_SYNDESMOSIS_V&#34;&#62;&#60;&#62;0,', С€РёСЂРёРЅР° ' + FloatToStr(&#60;Q.&#34;L_SYNDESMOSIS_V&#34;&#62;)+ ' РјРј ','')]"/>
+              <TfrxMemoView Name="Memo36" Left="18,89765" Top="325,03958" Width="359,05535" Height="18,89765" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_SYNDESMOSIS&#34;] [IIF(&#60;Q.&#34;R_SYNDESMOSIS_V&#34;&#62;&#60;&#62;0,', С€РёСЂРёРЅР° ' + FloatToStr(&#60;Q.&#34;R_SYNDESMOSIS_V&#34;&#62;)+ ' РјРј ','')]"/>
+              <TfrxMemoView Name="Memo37" Left="377,953" Top="325,03958" Width="359,05535" Height="18,89765" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_SYNDESMOSIS&#34;] [IIF(&#60;Q.&#34;L_SYNDESMOSIS_V&#34;&#62;&#60;&#62;0,', С€РёСЂРёРЅР° ' + FloatToStr(&#60;Q.&#34;L_SYNDESMOSIS_V&#34;&#62;)+ ' РјРј ','')]"/>
               <TfrxMemoView Name="Memo38" Left="18,89765" Top="343,93723" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎРІСЏР·РєРё РјРµРґРёР°Р»СЊРЅРѕРіРѕ РѕС‚РґРµР»Р° СЃСѓСЃС‚Р°РІР°"/>
-              <TfrxMemoView Name="Memo39" Left="18,89765" Top="362,83488" Width="359,05535" Height="30,23624" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_JOINTMUSCSTRUCT&#34;]&#13;&#10;[Q.&#34;R_JOINTMUSCSTATE&#34;]"/>
-              <TfrxMemoView Name="Memo40" Left="377,953" Top="362,83488" Width="359,05535" Height="30,23624" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_JOINTMUSCSTRUCT&#34;]&#13;&#10;[Q.&#34;L_JOINTMUSCSTATE&#34;]"/>
+              <TfrxMemoView Name="Memo39" Left="18,89765" Top="362,83488" Width="359,05535" Height="30,23624" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_JOINTMUSCSTRUCT&#34;]&#13;&#10;[Q.&#34;R_JOINTMUSCSTATE&#34;]"/>
+              <TfrxMemoView Name="Memo40" Left="377,953" Top="362,83488" Width="359,05535" Height="30,23624" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_JOINTMUSCSTRUCT&#34;]&#13;&#10;[Q.&#34;L_JOINTMUSCSTATE&#34;]"/>
               <TfrxMemoView Name="Memo41" Left="18,89765" Top="516,77984" Width="105,82684" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" ParentFont="False" VAlign="vaCenter" Text="Р—Р°РєР»СЋС‡РµРЅРёРµ"/>
               <TfrxMemoView Name="Memo42" Left="18,89765" Top="535,67749" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="0" Frame.Typ="12" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
               <TfrxMemoView Name="Memo43" Left="18,89765" Top="569,69326" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="0" Frame.Typ="12" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
@@ -2234,11 +2219,11 @@ Objects:
               <TfrxMemoView Name="Memo47" Left="60,47248" Top="645,28386" Width="120,94496" Height="18,89765" ShowHint="False" AutoWidth="True" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;DOCTORNAME&#34;]"/>
               <TfrxMemoView Name="Memo48" Left="128,50402" Top="516,77984" Width="608,50433" Height="71,81107" ShowHint="False" Text="[Q.&#34;USR$REPORT&#34;]"/>
               <TfrxMemoView Name="Memo10" Left="18,89765" Top="393,07112" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎРІСЏР·РєРё Р»Р°С‚РµСЂР°Р»СЊРЅРѕРіРѕ РѕС‚РґРµР»Р° СЃС‚РѕРїС‹"/>
-              <TfrxMemoView Name="Memo11" Left="18,89765" Top="411,96877" Width="359,05535" Height="30,23624" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_FOOTMUSCSTRUCT&#34;]&#13;&#10;[Q.&#34;R_FOOTMUSCSTATE&#34;]"/>
-              <TfrxMemoView Name="Memo49" Left="377,953" Top="411,96877" Width="359,05535" Height="30,23624" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_FOOTMUSCSTRUCT&#34;]&#13;&#10;[Q.&#34;L_FOOTMUSCSTATE&#34;]"/>
+              <TfrxMemoView Name="Memo11" Left="18,89765" Top="411,96877" Width="359,05535" Height="30,23624" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_FOOTMUSCSTRUCT&#34;]&#13;&#10;[Q.&#34;R_FOOTMUSCSTATE&#34;]"/>
+              <TfrxMemoView Name="Memo49" Left="377,953" Top="411,96877" Width="359,05535" Height="30,23624" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_FOOTMUSCSTRUCT&#34;]&#13;&#10;[Q.&#34;L_FOOTMUSCSTATE&#34;]"/>
               <TfrxMemoView Name="Memo50" Left="18,89765" Top="442,20501" Width="718,1107" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РђС…РёР»Р»РѕРІРѕ СЃСѓС…РѕР¶РёР»РёРµ"/>
-              <TfrxMemoView Name="Memo51" Left="18,89765" Top="461,10266" Width="359,05535" Height="45,35436" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_ACHILLESTENDONSTRUCT&#34;]&#13;&#10;[Q.&#34;R_ACHILLESTENDONSTATE&#34;]&#13;&#10;С‚РѕР»С‰РёРЅР° [Q.&#34;R_ACHILLESTENDON_V&#34;] РјРј"/>
-              <TfrxMemoView Name="Memo52" Left="377,953" Top="461,10266" Width="359,05535" Height="45,35436" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_ACHILLESTENDONSTRUCT&#34;]&#13;&#10;[Q.&#34;L_ACHILLESTENDONSTATE&#34;]&#13;&#10;С‚РѕР»С‰РёРЅР° [Q.&#34;L_ACHILLESTENDON_V&#34;] РјРј"/>
+              <TfrxMemoView Name="Memo51" Left="18,89765" Top="461,10266" Width="359,05535" Height="45,35436" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;R_ACHILLESTENDONSTRUCT&#34;]&#13;&#10;[Q.&#34;R_ACHILLESTENDONSTATE&#34;]&#13;&#10;С‚РѕР»С‰РёРЅР° [Q.&#34;R_ACHILLESTENDON_V&#34;] РјРј"/>
+              <TfrxMemoView Name="Memo52" Left="377,953" Top="461,10266" Width="359,05535" Height="45,35436" ShowHint="False" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;L_ACHILLESTENDONSTRUCT&#34;]&#13;&#10;[Q.&#34;L_ACHILLESTENDONSTATE&#34;]&#13;&#10;С‚РѕР»С‰РёРЅР° [Q.&#34;L_ACHILLESTENDON_V&#34;] РјРј"/>
             </TfrxMasterData>
           </TfrxReportPage>
         </Tgs_fr4SingleReport>
@@ -2268,7 +2253,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-12-06T16:50:45+03:00
+      EDITIONDATE: 2021-12-06T17:24:45+03:00
       DISPLAYSCRIPT: | 
         RP_MAIN176960375_1767353537176961332_1767353537
         
@@ -2431,7 +2416,7 @@ Objects:
       REPORTGROUPKEY: "147020158_1818238909 Документы пользователя5\\История болезни"
       SERVERKEY: ~
       TEMPLATEKEY: "176961341_1767353537 20. УЗИ ахилловых сухожилий176961341_1767353537"
-      EDITIONDATE: 2021-12-06T16:50:45+03:00
+      EDITIONDATE: 2021-12-06T17:24:45+03:00
   - 
     Properties: 
       Class: "TgdcStorageValue"
