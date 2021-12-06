@@ -1,0 +1,2783 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 176961766_1767353537
+  Name: "УЗИ ахилловых сухожилий (методанные)"
+  Caption: "Справочник для УЗИ ахилловых сухожили"
+  Version: "1.0.0.5"
+  Optional: False
+  Internal: True
+  MD5: 914294085AB03ECBBC62DBBD0EBAE452
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147693015_71168484 GS.Санаторий.Общее.Метаданные"
+  - "147696542_71168484 GS.Санаторий.МУ.Общие справочники"
+  - "147466800_809241643 GS.Санаторий.Обследования.Дополнительно.Исследователь"
+  - "147753062_69526485 GS.Общие.Хранилище"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 176960202_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "176960203_1767353537 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования\\Справочник для УЗИ ахилловых сухожилий"
+      DESCRIPTION: "USR$SAN_ACHILLESTENDON"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Справочник для УЗИ ахилловых сухожилий"
+      LSHORTNAME: "Справочник для УЗИ ахилловых сухожилий"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2021-10-27T17:29:58+03:00
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 176960219_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "USR$SAN_ADDACHILLESTENDON"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Доп. таблица для УЗИ хилловых сухожилий"
+      LSHORTNAME: "Доп. таблица для УЗИ хилловых сухожилий"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2021-10-27T18:14:14+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 176960354_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_ADDACHILLESTENDON"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-10-29T16:42:27+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON: Tgdc_dlgAttrUserDefined
+          Left = 433
+          Top = 101
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 632
+          ClientWidth = 664
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 608
+          end
+          object btnNew: TButton
+            Top = 608
+          end
+          object btnHelp: TButton
+            Top = 608
+          end
+          object btnOK: TButton
+            Left = 499
+            Top = 608
+          end
+          object btnCancel: TButton
+            Left = 573
+            Top = 608
+          end
+          object pnlMain: TPanel
+            Width = 664
+            Height = 597
+            Align = alNone
+            Anchors = [akLeft, akTop]
+            BorderStyle = bsSingle
+            object usrg_USR_SAN_ADDACHILLESTENDON_PageControl1: TPageControl
+              Tag = 0
+              Left = 0
+              Top = 0
+              Width = 660
+              Height = 593
+              Cursor = crDefault
+              Hint = ''
+              HelpContext = 0
+              ActivePage = usrg_USR_SAN_ADDACHILLESTENDON_TabSheet1
+              Align = alClient
+              Anchors = [akLeft, akTop, akRight, akBottom]
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DockSite = False
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              HotTrack = False
+              Images = nil
+              MultiLine = False
+              OwnerDraw = False
+              ParentBiDiMode = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              RaggedRight = False
+              ScrollOpposite = False
+              Style = tsTabs
+              TabHeight = 0
+              TabOrder = 0
+              TabPosition = tpTop
+              TabStop = True
+              TabWidth = 0
+              Visible = True
+              object usrg_USR_SAN_ADDACHILLESTENDON_TabSheet1: TTabSheet
+                Tag = 0
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                BorderWidth = 0
+                Caption = 'Основное'
+                DragMode = dmManual
+                Enabled = True
+                Highlighted = False
+                ImageIndex = 0
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabVisible = True
+                object usrg_USR_SAN_ADDACHILLESTENDON_Label1: TLabel
+                  Tag = 0
+                  Left = 72
+                  Top = -2
+                  Width = 533
+                  Height = 23
+                  Cursor = crDefault
+                  Hint = ''
+                  Align = alNone
+                  Alignment = taLeftJustify
+                  Anchors = [akLeft, akTop]
+                  AutoSize = True
+                  Caption = 'Ультразвуковое исследование ахилловых сухожилий'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FocusControl = nil
+                  Font.Charset = RUSSIAN_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -19
+                  Font.Name = 'Tahoma'
+                  Font.Pitch = fpDefault
+                  Font.Style = [fsBold]
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  ShowAccelChar = True
+                  Transparent = False
+                  Layout = tlTop
+                  Visible = True
+                  WordWrap = False
+                end
+                object usrat_DBEdit_USR_REPORT_Label: TLabel
+                  Left = 17
+                  Top = 481
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_Panel1: TPanel
+                  Tag = 0
+                  Left = 15
+                  Top = 25
+                  Width = 305
+                  Height = 29
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Alignment = taCenter
+                  Anchors = [akLeft, akTop]
+                  AutoSize = False
+                  BevelInner = bvNone
+                  BevelOuter = bvRaised
+                  BevelWidth = 1
+                  BorderWidth = 0
+                  BorderStyle = bsNone
+                  Caption = 'Правый'
+                  Color = clBtnFace
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  UseDockManager = True
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FullRepaint = True
+                  Font.Height = -16
+                  Locked = False
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 0
+                  TabStop = False
+                  Visible = True
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_Panel2: TPanel
+                  Tag = 0
+                  Left = 325
+                  Top = 25
+                  Width = 305
+                  Height = 29
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Alignment = taCenter
+                  Anchors = [akLeft, akTop]
+                  AutoSize = False
+                  BevelInner = bvNone
+                  BevelOuter = bvRaised
+                  BevelWidth = 1
+                  BorderWidth = 0
+                  BorderStyle = bsNone
+                  Caption = 'Левый'
+                  Color = clBtnFace
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  UseDockManager = True
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FullRepaint = True
+                  Font.Charset = RUSSIAN_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -16
+                  Font.Name = 'Tahoma'
+                  Font.Pitch = fpDefault
+                  Font.Style = []
+                  Locked = False
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 1
+                  TabStop = False
+                  Visible = True
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox1: TGroupBox
+                  Tag = 0
+                  Left = 14
+                  Top = 57
+                  Width = 617
+                  Height = 35
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Контур:'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 2
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_CONTR: TgsIBLookupComboBox
+                    Left = 377
+                    Top = 8
+                    Width = 100
+                    Condition = 'USR$TYPE = 1'
+                    ItemHeight = 13
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_P_CONTR: TgsIBLookupComboBox
+                    Left = 136
+                    Top = 9
+                    Width = 100
+                    Condition = 'USR$TYPE = 1'
+                    ItemHeight = 13
+                    TabOrder = 1
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox2: TGroupBox
+                  Tag = 0
+                  Left = 13
+                  Top = 93
+                  Width = 619
+                  Height = 35
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Структура:'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 3
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_STRUCT: TgsIBLookupComboBox
+                    Left = 378
+                    Top = 9
+                    Width = 100
+                    Condition = 'USR$TYPE=2'
+                    ItemHeight = 13
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_STRUCT: TgsIBLookupComboBox
+                    Left = 138
+                    Top = 9
+                    Width = 98
+                    Condition = 'USR$TYPE=2'
+                    ItemHeight = 13
+                    TabOrder = 1
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox3: TGroupBox
+                  Tag = 0
+                  Left = 13
+                  Top = 130
+                  Width = 619
+                  Height = 35
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Целостность'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 4
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_INTERGITY: TgsIBLookupComboBox
+                    Left = 377
+                    Top = 9
+                    Width = 100
+                    Condition = 'USR$TYPE=3'
+                    ItemHeight = 13
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_INTEGRITY: TgsIBLookupComboBox
+                    Left = 138
+                    Top = 9
+                    Width = 96
+                    Condition = 'USR$TYPE=3'
+                    ItemHeight = 13
+                    TabOrder = 1
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox4: TGroupBox
+                  Tag = 0
+                  Left = 13
+                  Top = 167
+                  Width = 621
+                  Height = 39
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Толщина'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 5
+                  TabStop = False
+                  Visible = True
+                  object usrat_DBEdit_USR_R_THICKNESS_Label: TLabel
+                    Left = 219
+                    Top = 14
+                    Width = 12
+                    Caption = 'мм'
+                  end
+                  object usrat_DBEdit_USR_L_THICKNESS_Label: TLabel
+                    Left = 446
+                    Top = 14
+                    Width = 12
+                    Caption = 'мм'
+                  end
+                  object usrat_DBEdit_USR_R_THICKNESS: TxDBCalculatorEdit
+                    Left = 139
+                    Top = 10
+                    Width = 74
+                    Cursor = crIBeam
+                    TabOrder = 0
+                  end
+                  object usrat_DBEdit_USR_L_THICKNESS: TxDBCalculatorEdit
+                    Left = 377
+                    Top = 10
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 1
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox5: TGroupBox
+                  Tag = 0
+                  Left = 14
+                  Top = 208
+                  Width = 620
+                  Height = 33
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Включения:'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 6
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_INCLUSION: TgsIBLookupComboBox
+                    Left = 375
+                    Top = 9
+                    Width = 103
+                    Condition = 'USR$TYPE=4'
+                    ItemHeight = 13
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_INCLUSION: TgsIBLookupComboBox
+                    Left = 138
+                    Top = 9
+                    Width = 97
+                    Condition = 'USR$TYPE=4'
+                    ItemHeight = 13
+                    TabOrder = 1
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox6: TGroupBox
+                  Tag = 0
+                  Left = 13
+                  Top = 242
+                  Width = 622
+                  Height = 37
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Локальное сужение:'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 7
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_LCONSTR: TgsIBLookupComboBox
+                    Left = 375
+                    Top = 8
+                    Width = 104
+                    Condition = 'USR$TYPE=5'
+                    ItemHeight = 13
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_LCONSTR: TgsIBLookupComboBox
+                    Left = 139
+                    Top = 10
+                    Width = 97
+                    Condition = 'USR$TYPE=5'
+                    ItemHeight = 13
+                    TabOrder = 1
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox7: TGroupBox
+                  Tag = 0
+                  Left = 13
+                  Top = 283
+                  Width = 625
+                  Height = 57
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Зона разрыва'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 8
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_R_ZBREAK_Label: TLabel
+                    Left = 130
+                    Top = 36
+                    Width = 12
+                    Caption = 'на'
+                  end
+                  object usrat_DBEdit_USR_R_ZBREAKYES_Label: TLabel
+                    Left = 221
+                    Top = 36
+                    Width = 114
+                    Caption = 'см от пяточного бугра'
+                  end
+                  object usrat_DBEdit_USR_L_ZBREAKYES_Label: TLabel
+                    Left = 466
+                    Top = 37
+                    Width = 114
+                    Caption = 'см от пяточного бугра'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_ZBREAK_Label: TLabel
+                    Left = 375
+                    Top = 36
+                    Width = 12
+                    Caption = 'на'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_ZBREAK: TgsIBLookupComboBox
+                    Left = 375
+                    Top = 9
+                    Width = 104
+                    Condition = 'USR$TYPE=6'
+                    ItemHeight = 13
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_ZBREAK: TgsIBLookupComboBox
+                    Left = 140
+                    Top = 9
+                    Width = 96
+                    Condition = 'USR$TYPE=6'
+                    ItemHeight = 13
+                    TabOrder = 1
+                  end
+                  object usrat_DBEdit_USR_R_ZBREAKYES: TxDBCalculatorEdit
+                    Left = 150
+                    Top = 32
+                    Width = 68
+                    Cursor = crIBeam
+                    TabOrder = 2
+                  end
+                  object usrat_DBEdit_USR_L_ZBREAKYES: TxDBCalculatorEdit
+                    Left = 400
+                    Top = 32
+                    Width = 62
+                    Cursor = crIBeam
+                    TabOrder = 3
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox8: TGroupBox
+                  Tag = 0
+                  Left = 13
+                  Top = 344
+                  Width = 625
+                  Height = 40
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Наличие адаптации'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 9
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_ADAPTATION: TgsIBLookupComboBox
+                    Left = 376
+                    Top = 11
+                    Width = 104
+                    Condition = 'USR$TYPE=7'
+                    ItemHeight = 13
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_ADAPTATION: TgsIBLookupComboBox
+                    Left = 140
+                    Top = 12
+                    Width = 94
+                    Condition = 'USR$TYPE=7'
+                    ItemHeight = 13
+                    TabOrder = 1
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_GroupBox9: TGroupBox
+                  Tag = 0
+                  Left = 15
+                  Top = 385
+                  Width = 625
+                  Height = 89
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Особенности'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 10
+                  TabStop = False
+                  Visible = True
+                  object usrg_USR_SAN_ADDACHILLESTENDON_DBMemo1: TDBMemo
+                    Tag = 0
+                    Left = 81
+                    Top = 13
+                    Width = 241
+                    Height = 71
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    TabStop = True
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoDisplay = True
+                    BorderStyle = bsSingle
+                    Color = clWindow
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DataField = 'USR$R_SINGULAR'
+                    DataSource = dsgdcBase
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    ImeMode = imDontCare
+                    ImeName = ''
+                    MaxLength = 0
+                    ParentBiDiMode = True
+                    ParentColor = False
+                    ParentCtl3D = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ReadOnly = False
+                    ScrollBars = ssVertical
+                    TabOrder = 0
+                    Visible = True
+                    WantTabs = False
+                    WordWrap = True
+                  end
+                  object usrg_USR_SAN_ADDACHILLESTENDON_DBMemo2: TDBMemo
+                    Tag = 0
+                    Left = 372
+                    Top = 12
+                    Width = 241
+                    Height = 72
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    TabStop = True
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoDisplay = True
+                    BorderStyle = bsSingle
+                    Color = clWindow
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DataField = 'USR$L_SINGULAR'
+                    DataSource = dsgdcBase
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    ImeMode = imDontCare
+                    ImeName = ''
+                    MaxLength = 0
+                    ParentBiDiMode = True
+                    ParentColor = False
+                    ParentCtl3D = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ReadOnly = False
+                    ScrollBars = ssVertical
+                    TabOrder = 1
+                    Visible = True
+                    WantTabs = False
+                    WordWrap = True
+                  end
+                end
+                object usrg_USR_SAN_ADDACHILLESTENDON_DBMemo3: TDBMemo
+                  Tag = 0
+                  Left = 95
+                  Top = 479
+                  Width = 534
+                  Height = 86
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  TabStop = True
+                  Align = alNone
+                  Alignment = taLeftJustify
+                  Anchors = [akLeft, akTop]
+                  AutoDisplay = True
+                  BorderStyle = bsSingle
+                  Color = clWindow
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DataField = 'USR$REPORT'
+                  DataSource = dsgdcBase
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ImeMode = imDontCare
+                  ImeName = ''
+                  MaxLength = 0
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  ReadOnly = False
+                  ScrollBars = ssVertical
+                  TabOrder = 11
+                  Visible = True
+                  WantTabs = False
+                  WordWrap = True
+                end
+              end
+              object usrg_USR_SAN_ADDACHILLESTENDON_TabSheet2: TTabSheet
+                Tag = 0
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                BorderWidth = 0
+                Caption = 'Дополнительно'
+                DragMode = dmManual
+                Enabled = True
+                Highlighted = False
+                ImageIndex = 0
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabVisible = True
+                object atAttributes: TatContainer
+                  Top = 0
+                  Width = 652
+                  Height = 565
+                  HorzScrollBar.Position = 87
+                  VertScrollBar.Position = 0
+                  TabOrder = 0
+                  Visible = False
+                  object usrat_gsIBLookupComboBox_USR_P_CONTR_Label: TLabel
+                    Left = 267
+                    Top = 54
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_CONTR_Label: TLabel
+                    Left = 258
+                    Top = 62
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_STRUCT_Label: TLabel
+                    Left = 437
+                    Top = 149
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_STRUCT_Label: TLabel
+                    Left = 325
+                    Top = 61
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_INTERGITY_Label: TLabel
+                    Left = 333
+                    Top = 139
+                    Width = 71
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_INTEGRITY_Label: TLabel
+                    Left = 189
+                    Top = 195
+                    Width = 77
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_INCLUSION_Label: TLabel
+                    Left = 276
+                    Top = 12
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_INCLUSION_Label: TLabel
+                    Left = 116
+                    Top = 60
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_LCONSTR_Label: TLabel
+                    Left = 301
+                    Top = 16
+                    Width = 62
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_LCONSTR_Label: TLabel
+                    Left = 277
+                    Top = 8
+                    Width = 79
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_ADAPTATION_Label: TLabel
+                    Left = 269
+                    Top = 20
+                    Visible = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_ADAPTATION_Label: TLabel
+                    Left = 269
+                    Top = 20
+                    Visible = False
+                  end
+                  object usrat_DBEdit_USR_L_SINGULAR_Label: TLabel
+                    Left = 472
+                    Top = 46
+                    Visible = False
+                  end
+                  object usrat_DBEdit_USR_R_SINGULAR_Label: TLabel
+                    Left = 488
+                    Top = 30
+                    Visible = False
+                  end
+                  object usrat_DBEdit_Z_USR_P_CONTR_USR_NAME_Label: TLabel
+                    Left = 54
+                    Top = 292
+                    Visible = False
+                  end
+                  object usrat_DBEdit_Z_USR_L_STRUCT_USR_NAME_Label: TLabel
+                    Left = 54
+                    Top = 315
+                  end
+                  object usrat_DBEdit_Z_USR_R_STRUCT_USR_NAME_Label: TLabel
+                    Left = 54
+                    Top = 338
+                    Visible = False
+                  end
+                  object usrat_DBEdit_Z_USR_L_CONTR_USR_NAME_Label: TLabel
+                    Left = 54
+                    Top = 361
+                  end
+                  object usrat_DBEdit_Z_USR_L_INTERGITY_USR_NAME_Label: TLabel
+                    Left = 54
+                    Top = 384
+                  end
+                  object usrat_DBEdit_Z_USR_R_ZBREAK_USR_NAME_Label: TLabel
+                    Left = 54
+                    Top = 407
+                  end
+                  object usrat_DBEdit_Z_USR_L_ZBREAK_USR_NAME_Label: TLabel
+                    Left = 478
+                    Top = 366
+                  end
+                  object usrat_DBEdit_Z_USR_R_ADAPTATION_USR_NAME_Label: TLabel
+                    Left = 478
+                    Top = 389
+                  end
+                  object usrat_DBEdit_Z_USR_L_ADAPTATION_USR_NAME_Label: TLabel
+                    Left = 478
+                    Top = 412
+                  end
+                  object usrat_DBEdit_Z_USR_R_LCONSTR_USR_NAME_Label: TLabel
+                    Left = 478
+                    Top = 435
+                  end
+                  object usrat_DBEdit_Z_USR_L_INCLUSION_USR_NAME_Label: TLabel
+                    Left = 478
+                    Top = 458
+                  end
+                  object usrat_DBEdit_Z_USR_R_INTEGRITY_USR_NAME_Label: TLabel
+                    Left = 478
+                    Top = 481
+                  end
+                  object usrat_DBEdit_Z_USR_L_LCONSTR_USR_NAME_Label: TLabel
+                    Left = 478
+                    Top = 504
+                  end
+                  object usrat_DBEdit_Z_USR_R_INCLUSION_USR_NAME_Label: TLabel
+                    Left = 438
+                    Top = 199
+                  end
+                  object usrat_DBEdit_USR_L_SINGULAR: TDBEdit
+                    Left = 362
+                    Top = 12
+                    Width = 244
+                    Height = 21
+                    TabOrder = 15
+                    Visible = False
+                  end
+                  object usrat_DBEdit_USR_R_SINGULAR: TDBEdit
+                    Left = 80
+                    Top = 44
+                    Width = 228
+                    Height = 21
+                    TabOrder = 14
+                    Visible = False
+                  end
+                  object usrat_DBEdit_USR_REPORT: TDBEdit
+                    Left = 149
+                    Top = 95
+                    Width = 540
+                    Height = 21
+                    TabOrder = 16
+                    Visible = False
+                  end
+                  object usrat_DBEdit_Z_USR_P_CONTR_USR_NAME: TDBEdit
+                    Left = 187
+                    Top = 288
+                    TabOrder = 0
+                    Visible = False
+                  end
+                  object usrat_DBEdit_Z_USR_L_STRUCT_USR_NAME: TDBEdit
+                    Left = 187
+                    Top = 311
+                    TabOrder = 1
+                    Visible = False
+                  end
+                  object usrat_DBEdit_Z_USR_R_STRUCT_USR_NAME: TDBEdit
+                    Left = 187
+                    Top = 334
+                    TabOrder = 2
+                    Visible = False
+                  end
+                  object usrat_DBEdit_Z_USR_L_CONTR_USR_NAME: TDBEdit
+                    Left = 187
+                    Top = 357
+                    TabOrder = 3
+                  end
+                  object usrat_DBEdit_Z_USR_L_INTERGITY_USR_NAME: TDBEdit
+                    Left = 187
+                    Top = 380
+                    TabOrder = 4
+                  end
+                  object usrat_DBEdit_Z_USR_R_ZBREAK_USR_NAME: TDBEdit
+                    Left = 187
+                    Top = 403
+                    TabOrder = 5
+                  end
+                  object usrat_DBEdit_Z_USR_L_ZBREAK_USR_NAME: TDBEdit
+                    Left = 611
+                    Top = 362
+                    TabOrder = 6
+                  end
+                  object usrat_DBEdit_Z_USR_R_ADAPTATION_USR_NAME: TDBEdit
+                    Left = 611
+                    Top = 385
+                    TabOrder = 7
+                  end
+                  object usrat_DBEdit_Z_USR_L_ADAPTATION_USR_NAME: TDBEdit
+                    Left = 611
+                    Top = 408
+                    TabOrder = 8
+                  end
+                  object usrat_DBEdit_Z_USR_R_LCONSTR_USR_NAME: TDBEdit
+                    Left = 611
+                    Top = 431
+                    TabOrder = 9
+                  end
+                  object usrat_DBEdit_Z_USR_L_INCLUSION_USR_NAME: TDBEdit
+                    Left = 611
+                    Top = 454
+                    TabOrder = 10
+                  end
+                  object usrat_DBEdit_Z_USR_R_INTEGRITY_USR_NAME: TDBEdit
+                    Left = 611
+                    Top = 477
+                    TabOrder = 11
+                  end
+                  object usrat_DBEdit_Z_USR_L_LCONSTR_USR_NAME: TDBEdit
+                    Left = 611
+                    Top = 500
+                    TabOrder = 12
+                  end
+                  object usrat_DBEdit_Z_USR_R_INCLUSION_USR_NAME: TDBEdit
+                    Left = 403
+                    Top = 219
+                    TabOrder = 13
+                  end
+                end
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 704
+            Top = 520
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 176960223_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "USR$SAN_D_ACHILESSTENDON"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_D_ACHILESSTENDON"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Узи ахилловых сухожилий"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Справочник для УЗИ ахилловых сухожилий"
+      REFTABLE: "USR$SAN_ACHILLESTENDON"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-06T16:09:15+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960205_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$TYPE"
+      FIELDNAME: "USR$TYPE"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип"
+      LSHORTNAME: "Целое число"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960202_1767353537 Справочник для УЗИ ахилловых сухожилий, USR$SAN_ACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-06T16:04:41+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960204_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$NAME"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DNAME"
+      FIELDSOURCEKEY: "153002063_17 Наименование (обязательное), DNAME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960202_1767353537 Справочник для УЗИ ахилловых сухожилий, USR$SAN_ACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-06T16:04:50+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960301_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 10
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Идентификатор"
+      FIELDNAME: "ID"
+      FIELDSOURCE: "DINTKEY"
+      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Идентификатор"
+      LSHORTNAME: "Идентификатор"
+      NULLFLAG: 1
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960202_1767353537 Справочник для УЗИ ахилловых сухожилий, USR$SAN_ACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2021-10-27T17:31:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960302_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дата модификации"
+      FIELDNAME: "EDITIONDATE"
+      FIELDSOURCE: "DEDITIONDATE"
+      FIELDSOURCEKEY: "147000184_31587988 Дата редактирования, DEDITIONDATE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дата модификации"
+      LSHORTNAME: "Дата модификации"
+      NULLFLAG: ~
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960202_1767353537 Справочник для УЗИ ахилловых сухожилий, USR$SAN_ACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2021-10-27T17:31:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960264_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_INCLUSION"
+      FIELDNAME: "USR$L_INCLUSION"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Включения лев."
+      LSHORTNAME: "Включения лев."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:48:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960265_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_INCLUSION"
+      FIELDNAME: "USR$R_INCLUSION"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Включения прав."
+      LSHORTNAME: "Включения прав."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:49:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960314_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дата модификации"
+      FIELDNAME: "EDITIONDATE"
+      FIELDSOURCE: "DEDITIONDATE"
+      FIELDSOURCEKEY: "147000184_31587988 Дата редактирования, DEDITIONDATE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дата модификации"
+      LSHORTNAME: "Дата модификации"
+      NULLFLAG: ~
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2021-10-27T18:15:22+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960278_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$REPORT"
+      FIELDNAME: "USR$REPORT"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T12:04:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960269_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_ZBREAK"
+      FIELDNAME: "USR$L_ZBREAK"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Зона разрыва л."
+      LSHORTNAME: "Зона разрыва л."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:54:55+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960270_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_ZBREAK"
+      FIELDNAME: "USR$R_ZBREAK"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Зона разрыва пр."
+      LSHORTNAME: "Зона разрыва пр."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:55:43+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960273_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_ZBREAKYES"
+      FIELDNAME: "USR$L_ZBREAKYES"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Зона разрыва см, л."
+      LSHORTNAME: "Зона разрыва см, л."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:57:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960272_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_ZBREAKYES"
+      FIELDNAME: "USR$R_ZBREAKYES"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Зона разрыва см, пр."
+      LSHORTNAME: "Зона разрыва см, пр."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:56:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960313_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 10
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Идентификатор"
+      FIELDNAME: "ID"
+      FIELDSOURCE: "DINTKEY"
+      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Идентификатор"
+      LSHORTNAME: "Идентификатор"
+      NULLFLAG: 1
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2021-10-27T18:15:22+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960257_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_CONTR"
+      FIELDNAME: "USR$L_CONTR"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Левый контур"
+      LSHORTNAME: "Левый контур"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:28:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960266_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_LCONSTR"
+      FIELDNAME: "USR$L_LCONSTR"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Локальное сужение л."
+      LSHORTNAME: "Локальное сужение л."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:52:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960268_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_LCONSTR"
+      FIELDNAME: "USR$R_LCONSTR"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Локальное сужение пр."
+      LSHORTNAME: "Локальное сужение п."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:52:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960274_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_ADAPTATION"
+      FIELDNAME: "USR$L_ADAPTATION"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Налич. адаптации л."
+      LSHORTNAME: "Налич. адаптации л."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:58:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960275_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_ADAPTATION"
+      FIELDNAME: "USR$R_ADAPTATION"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Налич. адаптации пр."
+      LSHORTNAME: "Налич. адаптации пр."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T12:01:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960276_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$L_SINGULAR"
+      FIELDNAME: "USR$L_SINGULAR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности л."
+      LSHORTNAME: "Особенности л."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T12:02:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960277_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$R_SINGULAR"
+      FIELDNAME: "USR$R_SINGULAR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности пр."
+      LSHORTNAME: "Особенности пр."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T12:03:38+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960222_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$P_CONTR"
+      FIELDNAME: "USR$P_CONTR"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правый контур"
+      LSHORTNAME: "SAN_D_ACHILLESTENDON"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-27T18:16:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960258_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_STRUCT"
+      FIELDNAME: "USR$L_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура (левый)"
+      LSHORTNAME: "Структура (левый)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:30:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960259_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_STRUCT"
+      FIELDNAME: "USR$R_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура (правый)"
+      LSHORTNAME: "Структура (правый)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:31:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960262_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$L_THICKNESS"
+      FIELDNAME: "USR$L_THICKNESS"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина (левый)"
+      LSHORTNAME: "Толщина (левый)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:34:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960263_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$R_THICKNESS"
+      FIELDNAME: "USR$R_THICKNESS"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина (правый)"
+      LSHORTNAME: "Толщина (правый)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:36:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960260_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_INTERGITY"
+      FIELDNAME: "USR$L_INTERGITY"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Целостность (левый)"
+      LSHORTNAME: "Целостность (левый)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:32:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176960261_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_INTEGRITY"
+      FIELDNAME: "USR$R_INTEGRITY"
+      FIELDSOURCE: "USR$SAN_D_ACHILESSTENDON"
+      FIELDSOURCEKEY: "176960223_1767353537 Узи ахилловых сухожилий, USR$SAN_D_ACHILESSTENDON"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Целостность (правый)"
+      LSHORTNAME: "Целостность (правый)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ACHILLESTENDON"
+      RELATIONKEY: "176960219_1767353537 Доп. таблица для УЗИ хилловых сухожилий, USR$SAN_ADDACHILLESTENDON"
+      RELATIONNAME: "USR$SAN_ADDACHILLESTENDON"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-10-29T11:33:21+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 176960203_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: "147466799_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования"
+      NAME: "Справочник для УЗИ ахилловых сухожилий"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: ~
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_ACHILLESTENDON"
+      EDITIONDATE: 2021-12-06T16:04:25+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 176960234_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_ADDACHILLESTENDON(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-10-27T18:20:23+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 176960435_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: "176960234_1767353537 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_ADDACHILLESTENDON(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-10-29T18:31:53+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 176960436_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: "176960435_1767353537 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_ADDACHILLESTENDON(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-10-29T18:31:53+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgJJRA1UaXRsZS5DYXB0aW9uBg3I5OXt
+        8uj06Org8u7wBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9O
+        REFURQ1UaXRsZS5DYXB0aW9uBhDE4PLgIOzu5Oj06Org9ujoBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBgtVU1IkUF9DT05UUghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYN
+        z/Dg4vvpIOru7fLz8AVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGFlpf
+        VVNSJFBfQ09OVFJfVVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g6Ozl7e7i4O3o
+        5QVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGC1VTUiRMX0NPTlRSCFJl
+        YWRPbmx5CA1UaXRsZS5DYXB0aW9uBgzL5eL76SDq7u3y8/AFV2lkdGgDggAHVmlzaWJsZQkAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBhZaX1VTUiRMX0NPTlRSX1VTUiROQU1FCFJlYWRPbmx5CA1UaXRs
+        ZS5DYXB0aW9uBjXN4Ojs5e3u4uDt6OUgKNHv8ODi7vft6Oog5Ov/INPHyCDg9ejr6+7i+/Ug8fP1
+        7ubo6+jpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDFVTUiRMX1NU
+        UlVDVAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYR0fLw8+ry8/DgICjr5eL76SkFV2lkdGgDggAH
+        VmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBhdaX1VTUiRMX1NUUlVDVF9VU1IkTkFNRQhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgY1zeDo7OXt7uLg7ejlICjR7/Dg4u737ejqIOTr/yDTx8gg
+        4PXo6+vu4vv1IPHz9e7m6Ovo6SkFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBgxVU1IkUl9TVFJVQ1QIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GEtHy8PPq8vPw4CAo7/Dg
+        4vvpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGF1pfVVNSJFJfU1RS
+        VUNUX1VTUiROQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBjXN4Ojs5e3u4uDt6OUgKNHv8ODi
+        7vft6Oog5Ov/INPHyCDg9ejr6+7i+/Ug8fP17ubo6+jpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGD1VTUiRMX0lOVEVSR0lUWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlv
+        bgYT1uXr7vHy7e7x8vwgKOvl4vvpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVs
+        ZE5hbWUGGlpfVVNSJExfSU5URVJHSVRZX1VTUiROQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9u
+        BjXN4Ojs5e3u4uDt6OUgKNHv8ODi7vft6Oog5Ov/INPHyCDg9ejr6+7i+/Ug8fP17ubo6+jpKQVX
+        aWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGD1VTUiRSX0lOVEVHUklUWQhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYU1uXr7vHy7e7x8vwgKO/w4OL76SkFV2lkdGgDggAHVmlz
+        aWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBhpaX1VTUiRSX0lOVEVHUklUWV9VU1IkTkFNRQhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgY1zeDo7OXt7uLg7ejlICjR7/Dg4u737ejqIOTr/yDTx8gg
+        4PXo6+vu4vv1IPHz9e7m6Ovo6SkFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBg9VU1IkTF9USElDS05FU1MIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD9Lu6/no7eAgKOvl
+        4vvpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGD1VTUiRSX1RISUNL
+        TkVTUwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQ0u7r+ejt4CAo7/Dg4vvpKQVXaWR0aAOCAAdW
+        aXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGD1VTUiRMX0lOQ0xVU0lPTghSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYOwurr/vfl7ej/IOvl4i4FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBhpaX1VTUiRMX0lOQ0xVU0lPTl9VU1IkTkFNRQhSZWFkT25seQgNVGl0bGUu
+        Q2FwdGlvbgY1zeDo7OXt7uLg7ejlICjR7/Dg4u737ejqIOTr/yDTx8gg4PXo6+vu4vv1IPHz9e7m
+        6Ovo6SkFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBg9VU1IkUl9JTkNM
+        VVNJT04IUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD8Lq6/735e3o/yDv8ODiLgVXaWR0aAOCAAdW
+        aXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGGlpfVVNSJFJfSU5DTFVTSU9OX1VTUiROQU1F
+        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBjXN4Ojs5e3u4uDt6OUgKNHv8ODi7vft6Oog5Ov/INPH
+        yCDg9ejr6+7i+/Ug8fP17ubo6+jpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVs
+        ZE5hbWUGDVVTUiRMX0xDT05TVFIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GFMvu6uDr/O3u5SDx
+        8+bl7ejlIOsuBVdpZHRoA4IAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYYWl9VU1Ik
+        TF9MQ09OU1RSX1VTUiROQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBjXN4Ojs5e3u4uDt6OUg
+        KNHv8ODi7vft6Oog5Ov/INPHyCDg9ejr6+7i+/Ug8fP17ubo6+jpKQVXaWR0aAOCAAdWaXNpYmxl
+        CQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDVVTUiRSX0xDT05TVFIIUmVhZE9ubHkIDVRpdGxlLkNh
+        cHRpb24GFcvu6uDr/O3u5SDx8+bl7ejlIO/wLgVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGGFpfVVNSJFJfTENPTlNUUl9VU1IkTkFNRQhSZWFkT25seQgNVGl0bGUuQ2Fw
+        dGlvbgY1zeDo7OXt7uLg7ejlICjR7/Dg4u737ejqIOTr/yDTx8gg4PXo6+vu4vv1IPHz9e7m6Ovo
+        6SkFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxVU1IkTF9aQlJFQUsI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD8fu7eAg8ODn8Pvi4CDrLgVXaWR0aAOCAAdWaXNpYmxl
+        CQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGF1pfVVNSJExfWkJSRUFLX1VTUiROQU1FCFJlYWRPbmx5
+        CA1UaXRsZS5DYXB0aW9uBjXN4Ojs5e3u4uDt6OUgKNHv8ODi7vft6Oog5Ov/INPHyCDg9ejr6+7i
+        +/Ug8fP17ubo6+jpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDFVT
+        UiRSX1pCUkVBSwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQx+7t4CDw4Ofw++LgIO/wLgVXaWR0
+        aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGF1pfVVNSJFJfWkJSRUFLX1VTUiRO
+        QU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBjXN4Ojs5e3u4uDt6OUgKNHv8ODi7vft6Oog5Ov/
+        INPHyCDg9ejr6+7i+/Ug8fP17ubo6+jpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlG
+        aWVsZE5hbWUGD1VTUiRSX1pCUkVBS1lFUwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYUx+7t4CDw
+        4Ofw++LgIPHsLCDv8C4FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBg9V
+        U1IkTF9aQlJFQUtZRVMIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GE8fu7eAg8ODn8Pvi4CDx7Cwg
+        6y4FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBhBVU1IkTF9BREFQVEFU
+        SU9OCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhPN4Ovo9y4g4OTg7/Lg9ujoIOsuBVdpZHRoA4IA
+        B1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYbWl9VU1IkTF9BREFQVEFUSU9OX1VTUiRO
+        QU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBjXN4Ojs5e3u4uDt6OUgKNHv8ODi7vft6Oog5Ov/
+        INPHyCDg9ejr6+7i+/Ug8fP17ubo6+jpKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlG
+        aWVsZE5hbWUGEFVTUiRSX0FEQVBUQVRJT04IUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GFM3g6+j3
+        LiDg5ODv8uD26Ogg7/AuBVdpZHRoA4IAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYb
+        Wl9VU1IkUl9BREFQVEFUSU9OX1VTUiROQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBjXN4Ojs
+        5e3u4uDt6OUgKNHv8ODi7vft6Oog5Ov/INPHyCDg9ejr6+7i+/Ug8fP17ubo6+jpKQVXaWR0aAOC
+        AAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlVTUiRMX1NJTkdVTEFSCFJlYWRPbmx5
+        CA1UaXRsZS5DYXB0aW9uBg7O8e7h5e3t7vHy6CDrLgVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGDlVTUiRSX1NJTkdVTEFSCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg/O
+        8e7h5e3t7vHy6CDv8C4FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpV
+        U1IkUkVQT1JUCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgrH4Orr/vfl7ejlBVdpZHRoA4IAB1Zp
+        c2libGUJAAAICLQeCQg=
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 176960353_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "176960353_1767353537"
+      EDITIONDATE: 2021-10-29T13:42:56+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 176960352_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-10-29T13:42:56+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 176960226_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "176960352_1767353537 Локальные макросы"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "176960353_1767353537 Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON)"
+      SUBTYPE: ""
+      EDITIONDATE: 2021-10-29T13:42:56+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 176960337_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_SAN_ADDACHILLESTENDON)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "176960337_1767353537"
+      EDITIONDATE: 2021-10-29T12:24:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 176960300_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-10-29T12:24:09+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 176960224_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "176960300_1767353537 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "176960337_1767353537 Отчеты(gdc_frmAttrUserDefinedUSR_SAN_ADDACHILLESTENDON)"
+      SUBTYPE: ""
+      EDITIONDATE: 2021-10-29T12:24:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 176960361_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      NAME: "usrat_gsIBLookupComboBox_USR_R_ZBREAKOnChange"
+      COMMENT: ~
+      EVENT: "ONCHANGE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "176960226_1767353537 gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-10-29T16:34:47+03:00
+      DISPLAYSCRIPT: | 
+        USRAT_GSIBLOOKUPCOMBOBOX_USR_R_ZBREAKONCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrat_gsIBLookupComboBox_USR_R_ZBREAKOnChange(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnChange", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim A
+          if Sender.OwnerForm.gdcObject.FieldByName("USR$R_ZBREAK").asVariant =  1 then
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 176960358_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      PARENT: "176960226_1767353537 gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      NAME: "usrat_gsIBLookupComboBox_USR_R_ZBREAK"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrat_gsIBLookupComboBox_USR_R_ZBREAK"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-10-29T16:34:47+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 176960359_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176960219_1767353537
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCHANGE"
+      FUNCTIONKEY: "176960361_1767353537 usrat_gsIBLookupComboBox_USR_R_ZBREAKOnChange"
+      OBJECTKEY: "176960358_1767353537 gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON\\usrat_gsIBLookupComboBox_USR_R_ZBREAK"
+      OBJECTNAME: "usrat_gsIBLookupComboBox_USR_R_ZBREAK"
+      PARENTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_ADDACHILLESTENDON"
+      EDITIONDATE: 2021-10-29T16:34:47+03:00
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 176960305_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SAN_P_ACHILLESTENDON"
+      EDITIONDATE: 2021-12-06T16:08:05+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SAN_P_ACHILLESTENDON 
+        RETURNS ( 
+            ID SMALLINT,
+            NAME VARCHAR(60))
+         AS
+        BEGIN
+          ID = 1;
+          NAME = 'Контур';
+          SUSPEND;
+        
+          ID = 2;
+          NAME = 'Структура';
+          SUSPEND;
+        
+          ID = 3;
+          NAME = 'Целостность';
+          SUSPEND;
+        
+          ID = 4;
+          NAME = 'Включения';
+          SUSPEND;
+        
+          ID = 5;
+          NAME = 'Локальное сужение';
+          SUSPEND;
+        
+          ID = 6;
+          NAME = 'Зона разрыва';
+          SUSPEND;
+        
+          ID = 7;
+          NAME = 'Наличие адаптации(при подошвенном сгибании)';
+          SUSPEND;
+        
+        
+        END
+      RDB$DESCRIPTION: ~
