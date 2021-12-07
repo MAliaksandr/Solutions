@@ -1,0 +1,100 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 176962233_1767353537
+  Name: "УЗИ плечевых суставов методы"
+  Caption: "УЗИ плечевых суставов методы"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 6F74C26EF2233CDCEECE6BAB60C1EBA9
+Uses: 
+  - "147697029_71168484 GS.Санаторий.МУ.ИБ.Документы"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 176962222_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCLICK"
+      FUNCTIONKEY: "176962224_1767353537 usrg_147020156_1818238909_BitBtn3OnClick"
+      OBJECTKEY: "176962221_1767353537 gdc_dlgUserDocumentLine147020156_1818238909\\usrg_147020156_1818238909_BitBtn3"
+      OBJECTNAME: "usrg_147020156_1818238909_BitBtn3"
+      PARENTNAME: "gdc_dlgUserDocumentLine147020156_1818238909"
+      EDITIONDATE: 2021-12-07T18:00:07+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 176962224_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_147020156_1818238909_BitBtn3OnClick"
+      COMMENT: ~
+      EVENT: "ONCLICK"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147032568_1868031010 gdc_dlgUserDocumentLine147020156_1818238909"
+      OBJECTNAME: "gdc_dlgUserDocumentLine147020156_1818238909"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-12-07T18:01:42+03:00
+      DISPLAYSCRIPT: | 
+        USRG_147020156_1818238909_BITBTN3ONCLICK
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_147020156_1818238909_BitBtn3OnClick(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnClick", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+        
+          dim gdcObject
+          set gdcObject = Sender.OwnerForm.GetComponent("usrg_ADDSHOULDERJOINT")
+        
+          call gdcObject.EditDialog("")
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 176962246_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "22. УЗИ плечевых суставов"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "176962247_1767353537 rp_Main176960375_1767353537176961332_176176962247_1767353537"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147020158_1818238909 Документы пользователя5\\История болезни"
+      SERVERKEY: ~
+      TEMPLATEKEY: "176962256_1767353537 20. УЗИ ахилловых сухожилий176961341_176176962256_1767353537"
+      EDITIONDATE: 2021-12-07T19:20:52+03:00
