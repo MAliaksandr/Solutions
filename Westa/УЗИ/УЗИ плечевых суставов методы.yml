@@ -5,12 +5,13 @@ Properties:
   RUID: 176962233_1767353537
   Name: "УЗИ плечевых суставов методы"
   Caption: "УЗИ плечевых суставов методы"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 6F74C26EF2233CDCEECE6BAB60C1EBA9
+  MD5: 61509D57E8F9A75929E4295B5C2E4991
 Uses: 
   - "147697029_71168484 GS.Санаторий.МУ.ИБ.Документы"
+  - "147698724_71168484 GS.Санаторий.Форма менеджера"
 Objects: 
   - 
     Properties: 
@@ -98,3 +99,86 @@ Objects:
       SERVERKEY: ~
       TEMPLATEKEY: "176962256_1767353537 20. УЗИ ахилловых сухожилий176961341_176176962256_1767353537"
       EDITIONDATE: 2021-12-07T19:20:52+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 176962913_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176962911_1767353537
+    Fields: 
+      NAME: "usrg_gstRepShedoulJointOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147016037_1683050467 usrf_ht_manager"
+      OBJECTNAME: "usrf_ht_manager"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-12-13T10:36:12+03:00
+      DISPLAYSCRIPT: | 
+        USRG_GSTREPSHEDOULJOINTONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_gstRepShedoulJointOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          call HT_Log.Add(null, "Узи плечевых суставов", Sender.Ownerform)
+          dim a(0)
+          set a(0) = Sender.OwnerForm
+        
+          ' Вызов печати отчета
+          call System.ReportSystem.BuildReportWithParam(_
+            gdcBaseManager.GetIDByRUIDString("176962246_1767353537"), a)
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 176962242_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 176962911_1767353537
+    Fields: 
+      PARENT: "147016037_1683050467 usrf_ht_manager"
+      NAME: "usrg_gstRepShedoulJoint"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_gstRepShedoulJoint"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2021-12-07T18:09:57+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 176962911_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "176962913_1767353537 usrg_gstRepShedoulJointOnExecute"
+      OBJECTKEY: "176962242_1767353537 usrf_ht_manager\\usrg_gstRepShedoulJoint"
+      OBJECTNAME: "usrg_gstRepShedoulJoint"
+      PARENTNAME: "usrf_ht_manager"
+      EDITIONDATE: 2021-12-13T10:36:12+03:00
