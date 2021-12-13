@@ -5,10 +5,10 @@ Properties:
   RUID: 176963066_1767353537
   Name: "Панфлебоэхография нижних конченостей методанные"
   Caption: "Панфлебоэхография нижних конченостей методанные"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: D9237E2E4DB7C30BD38CFF287DE540AA
+  MD5: 61A585D438F34E3ADCDC693644F34790
 Objects: 
   - 
     Properties: 
@@ -113,3 +113,51 @@ Objects:
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 176963134_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SAN_P_PANECHOGRAPHY"
+      EDITIONDATE: 2021-12-13T17:48:24+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SAN_P_PANECHOGRAPHY 
+        RETURNS ( 
+            ID SMALLINT,
+            NAME VARCHAR(120))
+         AS
+        BEGIN
+        
+          ID = 1;
+          NAME = 'Наружная подвздошная вена (дистальный отдел)';
+          SUSPEND;
+        
+          ID = 2;
+          NAME = 'Общая бедренная вена';
+          SUSPEND;
+        
+          ID = 3;
+          NAME = 'Поверхностная бедренная вена';
+          SUSPEND;
+        
+          ID = 4;
+          NAME = 'Подколенная вена';
+          SUSPEND;
+        
+          ID = 5;
+          NAME = 'Большая подкожная вена';
+          SUSPEND;
+        
+          ID = 6;
+          NAME = 'Малая подкожная вена';
+          SUSPEND;
+        
+          ID = 7;
+          NAME = 'Коммуникаты: деаметр, состоятельность';
+          SUSPEND;
+        
+        END
+      RDB$DESCRIPTION: ~
