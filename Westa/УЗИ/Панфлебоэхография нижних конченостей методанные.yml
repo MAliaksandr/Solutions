@@ -5,10 +5,10 @@ Properties:
   RUID: 176963066_1767353537
   Name: "Панфлебоэхография нижних конченостей методанные"
   Caption: "Панфлебоэхография нижних конченостей методанные"
-  Version: "1.0.0.2"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: 61A585D438F34E3ADCDC693644F34790
+  MD5: C4F73A0BE3BE82287447EFE636649D7E
 Objects: 
   - 
     Properties: 
@@ -122,7 +122,7 @@ Objects:
       IncludeSiblings: False
     Fields: 
       PROCEDURENAME: "USR$SAN_P_PANECHOGRAPHY"
-      EDITIONDATE: 2021-12-13T17:48:24+03:00
+      EDITIONDATE: 2021-12-15T16:49:33+03:00
       PROCEDURESOURCE: | 
         CREATE OR ALTER PROCEDURE USR$SAN_P_PANECHOGRAPHY 
         RETURNS ( 
@@ -158,6 +158,2498 @@ Objects:
           ID = 7;
           NAME = 'Коммуникаты: деаметр, состоятельность';
           SUSPEND;
+          
+          ID = 8;
+          NAME = 'Заключение';
+          SUSPEND;
+          
+          ID = 9;
+          NAME = 'Заключение БПВ';
+          SUSPEND;
+          
+          ID = 10;
+          NAME = 'Заключение МПВ';
+          SUSPEND;
+          
+          ID = 11;
+          NAME = 'Заключение грубокие вены';
+          SUSPEND;
+          
+          ID = 12;
+          NAME = 'Коммуниканты';
+          SUSPEND;
+        
         
         END
       RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 176963098_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_PANECHOGRAPHY"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-12-15T11:07:47+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_PANECHOGRAPHY: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 90
+          ClientWidth = 478
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 66
+          end
+          object btnNew: TButton
+            Top = 66
+          end
+          object btnHelp: TButton
+            Top = 66
+          end
+          object btnOK: TButton
+            Left = 330
+            Top = 66
+          end
+          object btnCancel: TButton
+            Left = 404
+            Top = 66
+          end
+          object pnlMain: TPanel
+            Width = 478
+            Height = 57
+            object atAttributes: TatContainer
+              Width = 478
+              Height = 57
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_TYPE_Label: TLabel
+              end
+              object usrg_USR_SAN_PANECHOGRAPHY_gsIBLookupComboBox1: TgsIBLookupComboBox
+                Tag = 0
+                Left = 95
+                Top = 28
+                Width = 241
+                Height = 21
+                Cursor = crDefault
+                HelpContext = 1
+                TabStop = True
+                Database = dmDatabase.ibdbGAdmin
+                Transaction = dmDatabase.ibtrGenUniqueID
+                DataSource = dsgdcBase
+                DataField = 'USR$TYPE'
+                Fields = ''
+                ListTable = 'USR$SAN_P_PANECHOGRAPHY'
+                ListField = 'NAME'
+                KeyField = 'ID'
+                SortOrder = soNone
+                SortField = ''
+                CheckUserRights = False
+                Condition = ''
+                gdClassName = ''
+                SubType = ''
+                ReadOnly = False
+                StrictOnExit = True
+                Distinct = False
+                FullSearchOnExit = False
+                ViewType = vtByClass
+                Style = csDropDown
+                Anchors = [akLeft, akTop]
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                DropDownCount = 16
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                ItemHeight = 13
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 2
+                Visible = True
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 332
+              end
+              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
+                Left = 350
+                Width = 76
+                Cursor = crArrow
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 176963186_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "USR$D_PANECHOGRAPHY"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$D_PANECHOGRAPHY"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Панфлебоэхография нижних конечностей"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Справочник для панфлебоэхографии нижних конечностей"
+      REFTABLE: "USR$SAN_PANECHOGRAPHY"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-15T11:28:27+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 176963314_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_ADDPANECHOGRAPH"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-12-15T16:01:08+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_ADDPANECHOGRAPH: Tgdc_dlgAttrUserDefined
+          Top = 81
+          Width = 772
+          Height = 918
+          ActiveControl = nil
+          PixelsPerInch = 96
+          TextHeight = 13
+          object usrat_gsIBLookupComboBox_USR_L_F1_Label: TLabel
+            Left = 389
+            Top = 23
+            Width = 41
+            Caption = 'Клапан:'
+          end
+          object btnAccess: TButton
+            Top = 855
+          end
+          object btnNew: TButton
+            Top = 855
+          end
+          object btnHelp: TButton
+            Top = 855
+          end
+          object btnOK: TButton
+            Left = 608
+            Top = 855
+          end
+          object btnCancel: TButton
+            Left = 682
+            Top = 855
+          end
+          object pnlMain: TPanel
+            Width = 756
+            Height = 846
+            object usrg_USR_SAN_ADDPANECHOGRAPH_PageControl1: TPageControl
+              Tag = 0
+              Left = 0
+              Top = 0
+              Width = 756
+              Height = 846
+              Cursor = crDefault
+              Hint = ''
+              HelpContext = 0
+              ActivePage = usrg_USR_SAN_ADDPANECHOGRAPH_TabSheet1
+              Align = alClient
+              Anchors = [akLeft, akTop, akRight, akBottom]
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DockSite = False
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              HotTrack = False
+              Images = nil
+              MultiLine = False
+              OwnerDraw = False
+              ParentBiDiMode = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              RaggedRight = False
+              ScrollOpposite = False
+              Style = tsTabs
+              TabHeight = 0
+              TabOrder = 0
+              TabPosition = tpTop
+              TabStop = True
+              TabWidth = 0
+              Visible = True
+              object usrg_USR_SAN_ADDPANECHOGRAPH_TabSheet1: TTabSheet
+                Tag = 0
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                BorderWidth = 0
+                Caption = 'Основное'
+                DragMode = dmManual
+                Enabled = True
+                Highlighted = False
+                ImageIndex = 0
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabVisible = True
+                object usrg_USR_SAN_ADDPANECHOGRAPH_Label10: TLabel
+                  Tag = 0
+                  Left = 159
+                  Top = 0
+                  Width = 452
+                  Height = 20
+                  Cursor = crDefault
+                  Hint = ''
+                  Align = alNone
+                  Alignment = taLeftJustify
+                  Anchors = [akLeft, akTop]
+                  AutoSize = True
+                  Caption = 'Протокол панфлебоэхографии нижних конечностей'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FocusControl = nil
+                  Font.Charset = RUSSIAN_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -16
+                  Font.Name = 'Tahoma'
+                  Font.Pitch = fpDefault
+                  Font.Style = [fsBold]
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  ShowAccelChar = True
+                  Transparent = False
+                  Layout = tlTop
+                  Visible = True
+                  WordWrap = False
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_Panel1: TPanel
+                  Tag = 0
+                  Left = 62
+                  Top = 22
+                  Width = 329
+                  Height = 25
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Alignment = taCenter
+                  Anchors = [akLeft, akTop]
+                  AutoSize = False
+                  BevelInner = bvNone
+                  BevelOuter = bvRaised
+                  BevelWidth = 1
+                  BorderWidth = 0
+                  BorderStyle = bsNone
+                  Caption = 'Правая н/к'
+                  Color = clBtnFace
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  UseDockManager = True
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FullRepaint = True
+                  Locked = False
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 0
+                  TabStop = False
+                  Visible = True
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_Panel2: TPanel
+                  Tag = 0
+                  Left = 398
+                  Top = 22
+                  Width = 329
+                  Height = 25
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Alignment = taCenter
+                  Anchors = [akLeft, akTop]
+                  AutoSize = False
+                  BevelInner = bvNone
+                  BevelOuter = bvRaised
+                  BevelWidth = 1
+                  BorderWidth = 0
+                  BorderStyle = bsNone
+                  Caption = 'Левая н/к'
+                  Color = clBtnFace
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  UseDockManager = True
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FullRepaint = True
+                  Locked = False
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 1
+                  TabStop = False
+                  Visible = True
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_GroupBox1: TGroupBox
+                  Tag = 0
+                  Left = 16
+                  Top = 47
+                  Width = 715
+                  Height = 43
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Наружная подвздошная вена (дистальный отдел)'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 2
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_R_F1_Label: TLabel
+                    Left = 37
+                    Top = 20
+                    Width = 41
+                    Caption = 'Клапан:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F1: TgsIBLookupComboBox
+                    Left = 420
+                    Top = 17
+                    Condition = 'usr$type=1 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F1: TgsIBLookupComboBox
+                    Left = 86
+                    Top = 17
+                    Width = 140
+                    Condition = 'usr$type=1 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK1: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 17
+                    Width = 140
+                    Condition = 'usr$type=1 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK1: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 17
+                    Condition = 'usr$type=1 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 3
+                  end
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_GroupBox2: TGroupBox
+                  Tag = 0
+                  Left = 16
+                  Top = 91
+                  Width = 715
+                  Height = 41
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Общая бедренная вена'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 3
+                  TabStop = False
+                  Visible = True
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label1: TLabel
+                    Tag = 0
+                    Left = 37
+                    Top = 17
+                    Width = 41
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'Клапан:'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK2: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 14
+                    Condition = ' usr$type=2 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK2: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 14
+                    Condition = 'usr$type=2 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F2: TgsIBLookupComboBox
+                    Left = 420
+                    Top = 14
+                    Condition = 'usr$type=2 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F2: TgsIBLookupComboBox
+                    Left = 86
+                    Top = 14
+                    Condition = 'usr$type=2 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 3
+                  end
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_GroupBox3: TGroupBox
+                  Tag = 0
+                  Left = 16
+                  Top = 133
+                  Width = 715
+                  Height = 56
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Поверхностная бедренная вена'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 4
+                  TabStop = False
+                  Visible = True
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label2: TLabel
+                    Tag = 0
+                    Left = 206
+                    Top = 12
+                    Width = 72
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'Диаметр в мм:'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label3: TLabel
+                    Tag = 0
+                    Left = 536
+                    Top = 12
+                    Width = 72
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'Диаметр в мм:'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrat_DBEdit_USR_L_F3V: TxDBCalculatorEdit
+                    Left = 617
+                    Top = 8
+                    Width = 85
+                    Cursor = crIBeam
+                    TabOrder = 0
+                  end
+                  object usrat_DBEdit_USR_R_F3V: TxDBCalculatorEdit
+                    Left = 285
+                    Top = 8
+                    Width = 85
+                    Cursor = crArrow
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK3: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 30
+                    Condition = ' usr$type=3 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK3: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 30
+                    Condition = ' usr$type=3 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 3
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F3: TgsIBLookupComboBox
+                    Left = 382
+                    Top = 30
+                    Width = 180
+                    Condition = 'usr$type=3 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 4
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F3: TgsIBLookupComboBox
+                    Left = 42
+                    Top = 30
+                    Width = 188
+                    Condition = 'usr$type=3 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 5
+                  end
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_GroupBox5: TGroupBox
+                  Tag = 0
+                  Left = 16
+                  Top = 292
+                  Width = 715
+                  Height = 56
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Большая подкожная вена'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 5
+                  TabStop = False
+                  Visible = True
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label4: TLabel
+                    Tag = 0
+                    Left = 449
+                    Top = 13
+                    Width = 106
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'Остиальный клапан:'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label5: TLabel
+                    Tag = 0
+                    Left = 444
+                    Top = 35
+                    Width = 113
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'Эктаназия сегментов:'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F51_Label: TLabel
+                    Left = 121
+                    Top = 13
+                    Width = 106
+                    Caption = 'Остиальный клапан:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F51_Label: TLabel
+                    Left = 114
+                    Top = 35
+                    Width = 113
+                    Caption = 'Эктаназия сегментов:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F5: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 10
+                    Condition = 'usr$type=5 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F5: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 9
+                    Condition = 'usr$type=5 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F51: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 31
+                    Condition = 'usr$type=5 and usr$name not like '#39'%состоятельн%'#39
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F51: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 32
+                    Condition = 'usr$type=5 and usr$name not like '#39'%состоятельн%'#39
+                    TabOrder = 3
+                  end
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_GroupBox6: TGroupBox
+                  Tag = 0
+                  Left = 16
+                  Top = 350
+                  Width = 715
+                  Height = 56
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Малая подкожная вена'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 6
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_F6_Label: TLabel
+                    Left = 122
+                    Top = 33
+                    Width = 101
+                    Caption = 'Клапаны I сегмента'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F6_Label: TLabel
+                    Left = 454
+                    Top = 34
+                    Width = 101
+                    Caption = 'Клапаны I сегмента'
+                  end
+                  object usrat_DBEdit_Z_USR_R_F73_USR_NAME: TDBEdit
+                    Top = -1286
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F61: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 32
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F61: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 31
+                    Condition = 'usr$type=6 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F6: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 9
+                    Condition = ' usr$type=6 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 3
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F6: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 9
+                    Condition = ' usr$type=6 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 4
+                  end
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_GroupBox7: TGroupBox
+                  Tag = 0
+                  Left = 16
+                  Top = 406
+                  Width = 715
+                  Height = 254
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = #39'Коммуникаты'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 7
+                  TabStop = False
+                  Visible = True
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label6: TLabel
+                    Tag = 0
+                    Left = 208
+                    Top = 8
+                    Width = 87
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'состоятельность'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label7: TLabel
+                    Tag = 0
+                    Left = 151
+                    Top = 8
+                    Width = 43
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'диаметр'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label8: TLabel
+                    Tag = 0
+                    Left = 473
+                    Top = 9
+                    Width = 43
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'диаметр'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrg_USR_SAN_ADDPANECHOGRAPH_Label9: TLabel
+                    Tag = 0
+                    Left = 536
+                    Top = 9
+                    Width = 87
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'состоятельность'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F71_Label: TLabel
+                    Left = 411
+                    Top = 29
+                    Width = 47
+                    Caption = 'Cockett-1'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F71_Label: TLabel
+                    Left = 86
+                    Top = 29
+                    Width = 47
+                    Caption = 'Cockett-1'
+                  end
+                  object usrat_DBEdit_USR_L_F72V_Label: TLabel
+                    Left = 86
+                    Top = 51
+                    Width = 47
+                    Caption = 'Cockett-2'
+                  end
+                  object usrat_DBEdit_USR_R_F72V_Label: TLabel
+                    Left = 411
+                    Top = 51
+                    Width = 47
+                    Caption = 'Cockett-2'
+                  end
+                  object usrat_DBEdit_USR_L_F73V_Label: TLabel
+                    Left = 86
+                    Top = 73
+                    Width = 47
+                    Caption = 'Cockett-3'
+                  end
+                  object usrat_DBEdit_USR_R_F73V_Label: TLabel
+                    Left = 411
+                    Top = 73
+                    Width = 47
+                    Caption = 'Cockett-3'
+                  end
+                  object usrat_DBEdit_USR_R_F74V_Label: TLabel
+                    Left = 86
+                    Top = 94
+                    Width = 27
+                    Caption = '24-см'
+                  end
+                  object usrat_DBEdit_USR_L_F74V_Label: TLabel
+                    Left = 411
+                    Top = 94
+                    Width = 27
+                    Caption = '24-см'
+                  end
+                  object usrat_DBEdit_USR_R_F75V_Label: TLabel
+                    Left = 411
+                    Top = 117
+                    Width = 31
+                    Caption = 'Soleus'
+                  end
+                  object usrat_DBEdit_USR_L_F75V_Label: TLabel
+                    Left = 86
+                    Top = 118
+                    Width = 31
+                    Caption = 'Soleus'
+                  end
+                  object usrat_DBEdit_USR_L_F76V_Label: TLabel
+                    Left = 411
+                    Top = 140
+                    Width = 40
+                    Caption = 'Lateralis'
+                  end
+                  object usrat_DBEdit_USR_R_F76V_Label: TLabel
+                    Left = 86
+                    Top = 139
+                    Width = 40
+                    Caption = 'Lateralis'
+                  end
+                  object usrat_DBEdit_USR_R_F77V_Label: TLabel
+                    Left = 86
+                    Top = 160
+                    Width = 24
+                    Caption = 'Boyd'
+                  end
+                  object usrat_DBEdit_USR_L_F77V_Label: TLabel
+                    Left = 411
+                    Top = 161
+                    Width = 24
+                    Caption = 'Boyd'
+                  end
+                  object usrat_DBEdit_USR_L_F78V_Label: TLabel
+                    Left = 86
+                    Top = 183
+                    Width = 20
+                    Caption = 'May'
+                  end
+                  object usrat_DBEdit_USR_R_F78V_Label: TLabel
+                    Left = 411
+                    Top = 184
+                    Width = 20
+                    Caption = 'May'
+                  end
+                  object usrat_DBEdit_USR_R_F79V_Label: TLabel
+                    Left = 86
+                    Top = 207
+                    Width = 25
+                    Caption = 'Dodd'
+                  end
+                  object usrat_DBEdit_USR_L_F79V_Label: TLabel
+                    Left = 411
+                    Top = 205
+                    Width = 25
+                    Caption = 'Dodd'
+                  end
+                  object usrat_DBEdit_USR_L_F799V_Label: TLabel
+                    Left = 411
+                    Top = 227
+                    Width = 37
+                    Caption = 'Другие'
+                  end
+                  object usrat_DBEdit_USR_R_F799V_Label: TLabel
+                    Left = 86
+                    Top = 229
+                    Width = 37
+                    Caption = 'Другие'
+                  end
+                  object usrat_DBEdit_USR_R_F71V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 24
+                    Width = 60
+                    Cursor = crArrow
+                    TabOrder = 0
+                  end
+                  object usrat_DBEdit_USR_L_F71V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 25
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F71: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 25
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F71: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 25
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 3
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F72: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 47
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 4
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F72: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 47
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 5
+                  end
+                  object usrat_DBEdit_USR_R_F72V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 47
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 6
+                  end
+                  object usrat_DBEdit_USR_L_F72V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 47
+                    Width = 60
+                    Cursor = crArrow
+                    TabOrder = 7
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F73: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 69
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 8
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F73: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 69
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 9
+                  end
+                  object usrat_DBEdit_USR_L_F73V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 69
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 10
+                  end
+                  object usrat_DBEdit_USR_R_F73V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 69
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 11
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F74: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 91
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 12
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F74: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 92
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 13
+                  end
+                  object usrat_DBEdit_USR_R_F74V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 91
+                    Width = 60
+                    Cursor = crArrow
+                    TabOrder = 14
+                  end
+                  object usrat_DBEdit_USR_L_F74V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 91
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 15
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F75: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 113
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 16
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F75: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 113
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 17
+                  end
+                  object usrat_DBEdit_USR_L_F75V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 113
+                    Width = 60
+                    Cursor = crArrow
+                    TabOrder = 18
+                  end
+                  object usrat_DBEdit_USR_R_F75V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 113
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 19
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F76: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 136
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 20
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F76: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 136
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 21
+                  end
+                  object usrat_DBEdit_USR_R_F76V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 136
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 22
+                  end
+                  object usrat_DBEdit_USR_L_F76V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 136
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 23
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F77: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 159
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 24
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F77: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 159
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 25
+                  end
+                  object usrat_DBEdit_USR_L_F77V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 157
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 26
+                  end
+                  object usrat_DBEdit_USR_R_F77V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 157
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 27
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F78: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 181
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 28
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F78: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 181
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 29
+                  end
+                  object usrat_DBEdit_USR_R_F78V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 179
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 30
+                  end
+                  object usrat_DBEdit_USR_L_F78V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 180
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 31
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F79: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 203
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 32
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F79: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 203
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 33
+                  end
+                  object usrat_DBEdit_USR_L_F79V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 203
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 34
+                  end
+                  object usrat_DBEdit_USR_R_F79V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 203
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 35
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F799: TgsIBLookupComboBox
+                    Left = 208
+                    Top = 225
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 36
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F799: TgsIBLookupComboBox
+                    Left = 536
+                    Top = 225
+                    Condition = 'usr$type=7 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 37
+                  end
+                  object usrat_DBEdit_USR_R_F799V: TxDBCalculatorEdit
+                    Left = 140
+                    Top = 225
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 38
+                  end
+                  object usrat_DBEdit_USR_L_F799V: TxDBCalculatorEdit
+                    Left = 468
+                    Top = 225
+                    Width = 60
+                    Cursor = crArrow
+                    TabOrder = 39
+                  end
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_GroupBox4: TGroupBox
+                  Tag = 0
+                  Left = 16
+                  Top = 190
+                  Width = 715
+                  Height = 100
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Подколенная вена'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 8
+                  TabStop = False
+                  Visible = True
+                  object usrat_DBEdit_USR_R_F4V_Label: TLabel
+                    Left = 536
+                    Top = 11
+                    Width = 72
+                    Caption = 'Диаметр в мм:'
+                  end
+                  object usrat_DBEdit_USR_L_F4V_Label: TLabel
+                    Left = 207
+                    Top = 11
+                    Width = 72
+                    Caption = 'Диаметр в мм:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK4_Label: TLabel
+                    Left = 37
+                    Top = 31
+                    Width = 41
+                    Caption = 'Клапан:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK42_Label: TLabel
+                    Left = 377
+                    Top = 55
+                    Caption = 'Задние большеберцовые вены:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK42_Label: TLabel
+                    Left = 37
+                    Top = 54
+                    Caption = 'Задние большеберцовые вены:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK43_Label: TLabel
+                    Left = 37
+                    Top = 76
+                    Width = 41
+                    Caption = 'Клапан:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK43_Label: TLabel
+                    Left = 377
+                    Top = 77
+                    Width = 41
+                    Caption = 'Клапан:'
+                  end
+                  object usrat_DBEdit_USR_L_F4V: TxDBCalculatorEdit
+                    Left = 616
+                    Top = 8
+                    Width = 85
+                    Cursor = crIBeam
+                    TabOrder = 0
+                  end
+                  object usrat_DBEdit_USR_R_F4V: TxDBCalculatorEdit
+                    Left = 286
+                    Top = 8
+                    Width = 85
+                    Cursor = crIBeam
+                    TabOrder = 1
+                  end
+                  object usrat_DBEdit_Z_USR_R_F72_USR_NAME: TDBEdit
+                    Left = 428
+                    Top = -1051
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK4: TgsIBLookupComboBox
+                    Left = 90
+                    Top = 28
+                    Condition = 'usr$type=4 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 3
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK4: TgsIBLookupComboBox
+                    Left = 420
+                    Top = 29
+                    Condition = 'usr$type=4 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 4
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK41: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 29
+                    Condition = ' usr$type=4 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 5
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK41: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 29
+                    Condition = ' usr$type=4 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 6
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK42: TgsIBLookupComboBox
+                    Left = 540
+                    Top = 51
+                    Width = 162
+                    Condition = ' usr$type=4 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 7
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK42: TgsIBLookupComboBox
+                    Left = 201
+                    Top = 51
+                    Width = 170
+                    Condition = ' usr$type=4 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 8
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK43: TgsIBLookupComboBox
+                    Left = 420
+                    Top = 73
+                    Condition = 'usr$type=4 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 9
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK43: TgsIBLookupComboBox
+                    Left = 90
+                    Top = 73
+                    Condition = 'usr$type=4 and usr$name like '#39'%состоятельн%'#39
+                    TabOrder = 10
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK44: TgsIBLookupComboBox
+                    Left = 231
+                    Top = 73
+                    Condition = ' usr$type=4 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 11
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK44: TgsIBLookupComboBox
+                    Left = 562
+                    Top = 73
+                    Condition = ' usr$type=4 and usr$name like '#39'%лоцирован%'#39
+                    TabOrder = 12
+                  end
+                end
+                object usrg_USR_SAN_ADDPANECHOGRAPH_GroupBox8: TGroupBox
+                  Tag = 0
+                  Left = 16
+                  Top = 660
+                  Width = 713
+                  Height = 137
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Заключение'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 9
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_FZ1_Label: TLabel
+                    Left = 413
+                    Top = 40
+                    Height = 14
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ1_Label: TLabel
+                    Left = 85
+                    Top = 39
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ2_Label: TLabel
+                    Left = 85
+                    Top = 60
+                    Width = 65
+                    Caption = 'Правая МПВ:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ2_Label: TLabel
+                    Left = 413
+                    Top = 63
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ3_Label: TLabel
+                    Left = 413
+                    Top = 88
+                    Width = 81
+                    Caption = 'Глубокие вены:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ3_Label: TLabel
+                    Left = 85
+                    Top = 89
+                    Width = 81
+                    Caption = 'Глубокие вены:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ4_Label: TLabel
+                    Left = 85
+                    Top = 112
+                    Width = 79
+                    Caption = 'Коммуниканты:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ4_Label: TLabel
+                    Left = 413
+                    Top = 111
+                    Width = 79
+                    Caption = 'Коммуниканты:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ: TgsIBLookupComboBox
+                    Left = 84
+                    Top = 12
+                    Width = 268
+                    Condition = 'usr$type=8'
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ: TgsIBLookupComboBox
+                    Left = 412
+                    Top = 12
+                    Width = 268
+                    Condition = 'usr$type=8'
+                    TabOrder = 1
+                  end
+                  object usrat_DBEdit_Z_USR_L_F74_USR_NAME: TDBEdit
+                    Top = -2431
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ1: TgsIBLookupComboBox
+                    Left = 156
+                    Top = 36
+                    Width = 196
+                    Condition = 'usr$type=9'
+                    TabOrder = 3
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ1: TgsIBLookupComboBox
+                    Left = 484
+                    Top = 36
+                    Width = 196
+                    Condition = 'usr$type=9'
+                    TabOrder = 4
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ2: TgsIBLookupComboBox
+                    Left = 484
+                    Top = 60
+                    Width = 196
+                    Condition = 'usr$type=10'
+                    TabOrder = 5
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ2: TgsIBLookupComboBox
+                    Left = 156
+                    Top = 60
+                    Width = 196
+                    Condition = 'usr$type=10'
+                    TabOrder = 6
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ3: TgsIBLookupComboBox
+                    Left = 181
+                    Top = 84
+                    Width = 170
+                    Condition = 'usr$type=11'
+                    TabOrder = 7
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ3: TgsIBLookupComboBox
+                    Left = 510
+                    Top = 84
+                    Width = 170
+                    Condition = 'usr$type=11'
+                    TabOrder = 8
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ4: TgsIBLookupComboBox
+                    Left = 510
+                    Top = 108
+                    Width = 170
+                    Condition = 'usr$type=12'
+                    TabOrder = 9
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ4: TgsIBLookupComboBox
+                    Left = 181
+                    Top = 108
+                    Width = 170
+                    Condition = 'usr$type=12'
+                    TabOrder = 10
+                  end
+                end
+              end
+              object usrg_USR_SAN_ADDPANECHOGRAPH_TabSheet2: TTabSheet
+                Tag = 0
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                BorderWidth = 0
+                Caption = 'Дополнительно'
+                DragMode = dmManual
+                Enabled = True
+                Highlighted = False
+                ImageIndex = 0
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabVisible = True
+                object atAttributes: TatContainer
+                  Left = 8
+                  Top = 6
+                  Width = 583
+                  Height = 603
+                  VertScrollBar.Position = 7
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Visible = False
+                  object usrat_DBEdit_Z_USR_R_F6_USR_NAME_Label: TLabel
+                    Top = 2
+                  end
+                  object usrat_DBEdit_Z_USR_L_F6_USR_NAME_Label: TLabel
+                    Top = 25
+                  end
+                  object usrat_DBEdit_Z_USR_R_F61_USR_NAME_Label: TLabel
+                    Top = 48
+                  end
+                  object usrat_DBEdit_Z_USR_L_F71_USR_NAME_Label: TLabel
+                    Top = 71
+                  end
+                  object usrat_DBEdit_Z_USR_L_F61_USR_NAME_Label: TLabel
+                    Top = 94
+                  end
+                  object usrat_DBEdit_Z_USR_R_F5_USR_NAME_Label: TLabel
+                    Top = 117
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK44_USR_NAME_Label: TLabel
+                    Top = 140
+                  end
+                  object usrat_DBEdit_Z_USR_L_F5_USR_NAME_Label: TLabel
+                    Top = 163
+                  end
+                  object usrat_DBEdit_Z_USR_L_F51_USR_NAME_Label: TLabel
+                    Top = 186
+                  end
+                  object usrat_DBEdit_Z_USR_R_F51_USR_NAME_Label: TLabel
+                    Top = 209
+                  end
+                  object usrat_DBEdit_Z_USR_R_F71_USR_NAME_Label: TLabel
+                    Top = 232
+                  end
+                  object usrat_DBEdit_Z_USR_L_F75_USR_NAME_Label: TLabel
+                    Top = 255
+                  end
+                  object usrat_DBEdit_Z_USR_L_F74_USR_NAME_Label: TLabel
+                    Top = 278
+                  end
+                  object usrat_DBEdit_Z_USR_R_F75_USR_NAME_Label: TLabel
+                    Top = 301
+                  end
+                  object usrat_DBEdit_Z_USR_L_F76_USR_NAME_Label: TLabel
+                    Top = 324
+                  end
+                  object usrat_DBEdit_Z_USR_R_F76_USR_NAME_Label: TLabel
+                    Top = 347
+                  end
+                  object usrat_DBEdit_Z_USR_L_F72_USR_NAME_Label: TLabel
+                    Top = 370
+                  end
+                  object usrat_DBEdit_Z_USR_R_F72_USR_NAME_Label: TLabel
+                    Top = 393
+                  end
+                  object usrat_DBEdit_Z_USR_L_F73_USR_NAME_Label: TLabel
+                    Left = 13
+                    Top = 16
+                  end
+                  object usrat_DBEdit_Z_USR_R_F74_USR_NAME_Label: TLabel
+                    Left = 13
+                    Top = 39
+                  end
+                  object usrat_DBEdit_Z_USR_R_F73_USR_NAME_Label: TLabel
+                    Left = 13
+                    Top = 62
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK2_USR_NAME_Label: TLabel
+                    Left = 13
+                    Top = 85
+                  end
+                  object usrat_DBEdit_Z_USR_L_F2_USR_NAME_Label: TLabel
+                    Left = 13
+                    Top = 108
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK2_USR_NAME_Label: TLabel
+                    Left = 13
+                    Top = 131
+                  end
+                  object usrat_DBEdit_Z_USR_L_F3_USR_NAME_Label: TLabel
+                    Left = 13
+                    Top = 154
+                  end
+                  object usrat_DBEdit_Z_USR_R_F3_USR_NAME_Label: TLabel
+                    Left = 13
+                    Top = 177
+                  end
+                  object usrat_DBEdit_Z_USR_L_F1_USR_NAME_Label: TLabel
+                    Left = 21
+                    Top = 208
+                  end
+                  object usrat_DBEdit_Z_USR_R_F1_USR_NAME_Label: TLabel
+                    Left = 21
+                    Top = 231
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK1_USR_NAME_Label: TLabel
+                    Left = 21
+                    Top = 254
+                  end
+                  object usrat_DBEdit_Z_USR_R_F2_USR_NAME_Label: TLabel
+                    Top = 669
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK1_USR_NAME_Label: TLabel
+                    Top = 692
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK3_USR_NAME_Label: TLabel
+                    Top = 715
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK42_USR_NAME_Label: TLabel
+                    Top = 738
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK42_USR_NAME_Label: TLabel
+                    Top = 761
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK43_USR_NAME_Label: TLabel
+                    Top = 784
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK44_USR_NAME_Label: TLabel
+                    Top = 807
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK43_USR_NAME_Label: TLabel
+                    Top = 830
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK4_USR_NAME_Label: TLabel
+                    Top = 853
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK3_USR_NAME_Label: TLabel
+                    Top = 876
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK4_USR_NAME_Label: TLabel
+                    Top = 899
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK41_USR_NAME_Label: TLabel
+                    Top = 922
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK41_USR_NAME_Label: TLabel
+                    Top = 945
+                  end
+                  object usrat_DBEdit_Z_USR_L_F77_USR_NAME_Label: TLabel
+                    Top = 968
+                  end
+                  object usrat_DBEdit_Z_USR_R_F78_USR_NAME_Label: TLabel
+                    Top = 991
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ2_USR_NAME_Label: TLabel
+                    Top = 1014
+                  end
+                  object usrat_DBEdit_Z_USR_R_F799_USR_NAME_Label: TLabel
+                    Top = 1037
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ4_USR_NAME_Label: TLabel
+                    Top = 1060
+                  end
+                  object usrat_DBEdit_Z_USR_L_F799_USR_NAME_Label: TLabel
+                    Top = 1083
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ4_USR_NAME_Label: TLabel
+                    Top = 1106
+                  end
+                  object usrat_DBEdit_Z_USR_R_F79_USR_NAME_Label: TLabel
+                    Top = 1129
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ1_USR_NAME_Label: TLabel
+                    Top = 1152
+                  end
+                  object usrat_DBEdit_Z_USR_L_F79_USR_NAME_Label: TLabel
+                    Top = 1175
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ1_USR_NAME_Label: TLabel
+                    Top = 1198
+                  end
+                  object usrat_DBEdit_Z_USR_L_F78_USR_NAME_Label: TLabel
+                    Top = 1221
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ2_USR_NAME_Label: TLabel
+                    Top = 1244
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ_USR_NAME_Label: TLabel
+                    Top = 1267
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ3_USR_NAME_Label: TLabel
+                    Top = 1290
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ_USR_NAME_Label: TLabel
+                    Top = 1313
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ3_USR_NAME_Label: TLabel
+                    Top = 1336
+                  end
+                  object usrat_DBEdit_Z_USR_R_F77_USR_NAME_Label: TLabel
+                    Top = 1359
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK1_Label: TLabel
+                    Top = 1428
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK1_Label: TLabel
+                    Top = 1451
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F2_Label: TLabel
+                    Top = 1474
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F2_Label: TLabel
+                    Top = 1497
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK2_Label: TLabel
+                    Top = 1520
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK2_Label: TLabel
+                    Top = 1543
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F3_Label: TLabel
+                    Top = 1566
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F3_Label: TLabel
+                    Top = 1589
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK3_Label: TLabel
+                    Top = 1612
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK3_Label: TLabel
+                    Top = 1635
+                  end
+                  object usrat_DBEdit_USR_R_F3V_Label: TLabel
+                    Top = 1658
+                  end
+                  object usrat_DBEdit_USR_L_F3V_Label: TLabel
+                    Top = 1681
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK4_Label: TLabel
+                    Left = 133
+                    Top = 86
+                    Width = 218
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK41_Label: TLabel
+                    Top = 1796
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK41_Label: TLabel
+                    Top = 1819
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FK44_Label: TLabel
+                    Top = 1934
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FK44_Label: TLabel
+                    Top = 1957
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F5_Label: TLabel
+                    Top = 1980
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F5_Label: TLabel
+                    Top = 2003
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F61_Label: TLabel
+                    Top = 2118
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F61_Label: TLabel
+                    Top = 2141
+                  end
+                  object usrat_DBEdit_USR_L_F71V_Label: TLabel
+                    Top = 2210
+                  end
+                  object usrat_DBEdit_USR_R_F71V_Label: TLabel
+                    Top = 2233
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F72_Label: TLabel
+                    Top = 2256
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F72_Label: TLabel
+                    Top = 2279
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F73_Label: TLabel
+                    Top = 2348
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F73_Label: TLabel
+                    Top = 2371
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F74_Label: TLabel
+                    Top = 2440
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F74_Label: TLabel
+                    Top = 2463
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F75_Label: TLabel
+                    Top = 2532
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F75_Label: TLabel
+                    Top = 2555
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F76_Label: TLabel
+                    Top = 2624
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F76_Label: TLabel
+                    Top = 2647
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F77_Label: TLabel
+                    Top = 2716
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F77_Label: TLabel
+                    Top = 2739
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F78_Label: TLabel
+                    Top = 2808
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F78_Label: TLabel
+                    Top = 2831
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F79_Label: TLabel
+                    Top = 2900
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F79_Label: TLabel
+                    Top = 2923
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F799_Label: TLabel
+                    Top = 2992
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F799_Label: TLabel
+                    Top = 3015
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_FZ_Label: TLabel
+                    Top = 3084
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_FZ_Label: TLabel
+                    Top = 3107
+                  end
+                  object usrat_DBEdit_Z_USR_R_F6_USR_NAME: TDBEdit
+                    Top = -2
+                  end
+                  object usrat_DBEdit_Z_USR_L_F6_USR_NAME: TDBEdit
+                    Top = 21
+                  end
+                  object usrat_DBEdit_Z_USR_R_F61_USR_NAME: TDBEdit
+                    Top = 44
+                  end
+                  object usrat_DBEdit_Z_USR_L_F71_USR_NAME: TDBEdit
+                    Top = 67
+                  end
+                  object usrat_DBEdit_Z_USR_L_F61_USR_NAME: TDBEdit
+                    Top = 90
+                  end
+                  object usrat_DBEdit_Z_USR_R_F5_USR_NAME: TDBEdit
+                    Top = 113
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK44_USR_NAME: TDBEdit
+                    Top = 136
+                  end
+                  object usrat_DBEdit_Z_USR_L_F5_USR_NAME: TDBEdit
+                    Top = 159
+                  end
+                  object usrat_DBEdit_Z_USR_L_F51_USR_NAME: TDBEdit
+                    Top = 182
+                  end
+                  object usrat_DBEdit_Z_USR_R_F51_USR_NAME: TDBEdit
+                    Top = 205
+                  end
+                  object usrat_DBEdit_Z_USR_R_F71_USR_NAME: TDBEdit
+                    Top = 228
+                  end
+                  object usrat_DBEdit_Z_USR_L_F75_USR_NAME: TDBEdit
+                    Top = 251
+                  end
+                  object usrat_DBEdit_Z_USR_R_F75_USR_NAME: TDBEdit
+                    Top = 297
+                    TabOrder = 12
+                  end
+                  object usrat_DBEdit_Z_USR_L_F76_USR_NAME: TDBEdit
+                    Top = 320
+                    TabOrder = 13
+                  end
+                  object usrat_DBEdit_Z_USR_R_F76_USR_NAME: TDBEdit
+                    Top = 343
+                    TabOrder = 14
+                  end
+                  object usrat_DBEdit_Z_USR_L_F72_USR_NAME: TDBEdit
+                    Top = 366
+                    TabOrder = 15
+                  end
+                  object usrat_DBEdit_Z_USR_L_F73_USR_NAME: TDBEdit
+                    Left = 228
+                    Top = 12
+                    TabOrder = 16
+                  end
+                  object usrat_DBEdit_Z_USR_R_F74_USR_NAME: TDBEdit
+                    Left = 228
+                    Top = 35
+                    TabOrder = 17
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK2_USR_NAME: TDBEdit
+                    Left = 228
+                    Top = 81
+                    TabOrder = 18
+                  end
+                  object usrat_DBEdit_Z_USR_L_F2_USR_NAME: TDBEdit
+                    Left = 228
+                    Top = 104
+                    TabOrder = 19
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK2_USR_NAME: TDBEdit
+                    Left = 228
+                    Top = 127
+                    TabOrder = 20
+                  end
+                  object usrat_DBEdit_Z_USR_L_F3_USR_NAME: TDBEdit
+                    Left = 228
+                    Top = 150
+                    TabOrder = 21
+                  end
+                  object usrat_DBEdit_Z_USR_R_F3_USR_NAME: TDBEdit
+                    Left = 228
+                    Top = 173
+                    TabOrder = 22
+                  end
+                  object usrat_DBEdit_Z_USR_L_F1_USR_NAME: TDBEdit
+                    Left = 228
+                    Top = 196
+                    TabOrder = 23
+                  end
+                  object usrat_DBEdit_Z_USR_R_F1_USR_NAME: TDBEdit
+                    Left = 236
+                    Top = 227
+                    TabOrder = 24
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK1_USR_NAME: TDBEdit
+                    Left = 236
+                    Top = 250
+                    TabOrder = 25
+                  end
+                  object usrat_DBEdit_Z_USR_R_F2_USR_NAME: TDBEdit
+                    Top = 665
+                    TabOrder = 26
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK1_USR_NAME: TDBEdit
+                    Top = 688
+                    TabOrder = 27
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK3_USR_NAME: TDBEdit
+                    Top = 711
+                    TabOrder = 28
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK42_USR_NAME: TDBEdit
+                    Top = 734
+                    TabOrder = 29
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK42_USR_NAME: TDBEdit
+                    Top = 757
+                    TabOrder = 30
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK43_USR_NAME: TDBEdit
+                    Top = 780
+                    TabOrder = 31
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK44_USR_NAME: TDBEdit
+                    Top = 803
+                    TabOrder = 32
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK43_USR_NAME: TDBEdit
+                    Top = 826
+                    TabOrder = 33
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK4_USR_NAME: TDBEdit
+                    Top = 849
+                    TabOrder = 34
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK3_USR_NAME: TDBEdit
+                    Top = 872
+                    TabOrder = 35
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK4_USR_NAME: TDBEdit
+                    Top = 895
+                    TabOrder = 36
+                  end
+                  object usrat_DBEdit_Z_USR_R_FK41_USR_NAME: TDBEdit
+                    Top = 918
+                    TabOrder = 37
+                  end
+                  object usrat_DBEdit_Z_USR_L_FK41_USR_NAME: TDBEdit
+                    Top = 941
+                    TabOrder = 38
+                  end
+                  object usrat_DBEdit_Z_USR_L_F77_USR_NAME: TDBEdit
+                    Top = 964
+                    TabOrder = 39
+                  end
+                  object usrat_DBEdit_Z_USR_R_F78_USR_NAME: TDBEdit
+                    Top = 987
+                    TabOrder = 40
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ2_USR_NAME: TDBEdit
+                    Top = 1010
+                    TabOrder = 41
+                  end
+                  object usrat_DBEdit_Z_USR_R_F799_USR_NAME: TDBEdit
+                    Top = 1033
+                    TabOrder = 42
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ4_USR_NAME: TDBEdit
+                    Top = 1056
+                    TabOrder = 43
+                  end
+                  object usrat_DBEdit_Z_USR_L_F799_USR_NAME: TDBEdit
+                    Top = 1079
+                    TabOrder = 44
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ4_USR_NAME: TDBEdit
+                    Top = 1102
+                    TabOrder = 45
+                  end
+                  object usrat_DBEdit_Z_USR_R_F79_USR_NAME: TDBEdit
+                    Top = 1125
+                    TabOrder = 46
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ1_USR_NAME: TDBEdit
+                    Top = 1148
+                    TabOrder = 47
+                  end
+                  object usrat_DBEdit_Z_USR_L_F79_USR_NAME: TDBEdit
+                    Top = 1171
+                    TabOrder = 48
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ1_USR_NAME: TDBEdit
+                    Top = 1194
+                    TabOrder = 49
+                  end
+                  object usrat_DBEdit_Z_USR_L_F78_USR_NAME: TDBEdit
+                    Top = 1217
+                    TabOrder = 50
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ2_USR_NAME: TDBEdit
+                    Top = 1240
+                    TabOrder = 51
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ_USR_NAME: TDBEdit
+                    Top = 1263
+                    TabOrder = 52
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ3_USR_NAME: TDBEdit
+                    Top = 1286
+                    TabOrder = 53
+                  end
+                  object usrat_DBEdit_Z_USR_L_FZ_USR_NAME: TDBEdit
+                    Top = 1309
+                    TabOrder = 54
+                  end
+                  object usrat_DBEdit_Z_USR_R_FZ3_USR_NAME: TDBEdit
+                    Top = 1332
+                    TabOrder = 55
+                  end
+                  object usrat_DBEdit_Z_USR_R_F77_USR_NAME: TDBEdit
+                    Top = 1355
+                    TabOrder = 56
+                  end
+                end
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 23
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 144
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 456
+            Top = 224
+          end
+        end
+        
