@@ -5,10 +5,10 @@ Properties:
   RUID: 176963609_1767353537
   Name: "Панфлебоэхография нижних конченостей методы"
   Caption: "Панфлебоэхография нижних конченостей методы"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 507230369D06CAB7F393EFBC93AB4581
+  MD5: 444F0B2CDD52C1776F1C5CBEBF383100
 Objects: 
   - 
     Properties: 
@@ -25,3 +25,137 @@ Objects:
       OBJECTNAME: "usrg_147020156_1818238909_BitBtn4"
       PARENTNAME: "gdc_dlgUserDocumentLine147020156_1818238909"
       EDITIONDATE: 2021-12-15T16:45:30+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 176963622_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_btn_EchographyOnClick"
+      COMMENT: ~
+      EVENT: "ONCLICK"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147032568_1868031010 gdc_dlgUserDocumentLine147020156_1818238909"
+      OBJECTNAME: "gdc_dlgUserDocumentLine147020156_1818238909"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-12-16T14:33:00+03:00
+      DISPLAYSCRIPT: | 
+        USRG_BTN_ECHOGRAPHYONCLICK
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_btn_EchographyOnClick(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnClick", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          dim gdcObject
+          set gdcObject = Sender.OwnerForm.GetComponent("usrg_gsEchograpdy")
+        
+          call gdcObject.EditDialog("")
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 176963337_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "24. Протокол панфлебоэхографии нижних конечностей"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "176963338_1767353537 rp_Main176960375_1767353537176961332_176176963338_1767353537"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147020158_1818238909 Документы пользователя5\\История болезни"
+      SERVERKEY: ~
+      TEMPLATEKEY: "176963347_1767353537 20. УЗИ ахилловых сухожилий176961341_176176963347_1767353537"
+      EDITIONDATE: 2021-12-16T16:56:23+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 176963819_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "176963821_1767353537 usrg_actReportEchographyOnExecute"
+      OBJECTKEY: "176963818_1767353537 usrf_ht_manager\\usrg_actReportEchography"
+      OBJECTNAME: "usrg_actReportEchography"
+      PARENTNAME: "usrf_ht_manager"
+      EDITIONDATE: 2021-12-16T17:01:03+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 176963821_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actReportEchographyOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147016037_1683050467 usrf_ht_manager"
+      OBJECTNAME: "usrf_ht_manager"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-12-16T17:01:03+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTREPORTECHOGRAPHYONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_actReportEchographyOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          call HT_Log.Add(null, "Протокол панфлебоэхографии н/к", Sender.Ownerform)
+          dim a(0)
+          set a(0) = Sender.OwnerForm
+        
+          ' Вызов печати отчета
+          call System.ReportSystem.BuildReportWithParam(_
+            gdcBaseManager.GetIDByRUIDString("176963337_1767353537"), a)
+          
+        End Sub
+        
