@@ -1,0 +1,155 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 275555695_1763235492
+  Name: "Сверка реализации"
+  Caption: "Сверка реализации"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 6E46D62B92058222A8BB97616B86BDD5
+Uses: 
+  - "148509668_396646306 Торговля - исследователь"
+  - "147978914_215642201 Торговля - evt_object"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 275531146_1763235492
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 275515472_1763235492
+    Fields: 
+      NAME: "Сверка реализации"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2021-12-16T11:58:08+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44546,4989051968" ReportOptions.Description.Text="" ReportOptions.LastChange="44546,4989051968" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D2251220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="34,01577" Left="0" Top="18,89765" Width="718,1107">
+              <TfrxMemoView Name="Memo1" Left="3,77953" Top="0" Width="714,33117" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="РЎРІРµСЂРєР° СЂРµР°Р»РёР·Р°С†РёРё Р·Р° РїРµСЂРёРѕРґ СЃ [PARAM0] РїРѕ [PARAM1]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="37,7953" Left="0" Top="113,3859" Width="718,1107">
+              <TfrxMemoView Name="Memo2" Left="37,7953" Top="0" Width="98,26778" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р”Р°С‚Р°"/>
+              <TfrxMemoView Name="Memo3" Left="136,06308" Top="0" Width="86,92919" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р РµР°Р»РёР·Р°С†РёСЏ РІ СЂРѕР·РЅРёС†Сѓ"/>
+              <TfrxMemoView Name="Memo4" Left="222,99227" Top="0" Width="86,92919" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљР°СЃСЃРѕРІС‹Р№ РѕС‚С‡РµС‚"/>
+              <TfrxMemoView Name="Memo5" Left="309,92146" Top="0" Width="86,92919" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р”РµР»СЊС‚Р°"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="22,67718" Left="0" Top="173,85838" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0">
+              <TfrxMemoView Name="Memo6" Left="37,7953" Top="0" Width="98,26778" Height="22,67718" ShowHint="False" DataField="DOCUMENTDATE" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;DOCUMENTDATE&#34;]"/>
+              <TfrxMemoView Name="Memo7" Left="136,06308" Top="0" Width="86,92919" Height="22,67718" ShowHint="False" DataField="SUMMSELL" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;SUMMSELL&#34;]"/>
+              <TfrxMemoView Name="Memo8" Left="222,99227" Top="0" Width="86,92919" Height="22,67718" ShowHint="False" DataField="SUMMCASH" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;SUMMCASH&#34;]"/>
+              <TfrxMemoView Name="Memo9" Left="309,92146" Top="0" Width="86,92919" Height="22,67718" ShowHint="False" DataField="DELTA" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;DELTA&#34;]"/>
+            </TfrxMasterData>
+            <TfrxFooter Name="Footer1" Height="22,67718" Left="0" Top="219,21274" Width="718,1107">
+              <TfrxMemoView Name="Memo10" Left="37,7953" Top="0" Width="98,26778" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РРўРћР“Рћ:"/>
+              <TfrxMemoView Name="Memo11" Left="136,06308" Top="0" Width="86,92919" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q.&#34;SUMMSELL&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo12" Left="222,99227" Top="0" Width="86,92919" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q.&#34;SUMMCASH&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo13" Left="309,92146" Top="0" Width="86,92919" Height="22,67718" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;Q.&#34;DELTA&#34;&#62;,MasterData1)]"/>
+            </TfrxFooter>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 275515473_1763235492
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 275515472_1763235492
+    Fields: 
+      NAME: "rp_Main275515473_1763235492"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-12-16T12:05:59+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN275515473_1763235492
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QCAAAAREILAAAAxODy4CDt4Pfg6+AAAAAAAAAAAAAAAAACAAAAAAAAAAACAAAAXlJG
+        TlNUUFJTVAIAAABERQ4AAADE4PLgIO7q7u334O3o/wAAAAAAAAAAAAAAAAIAAAAAAAAAAAIAAABe
+        UkZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main275515473_1763235492(db, de)
+          BaseQueryList.Clear
+        
+          Dim q
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = "SELECT " & _
+            "m.documentdate, " & _
+            "sum(m.SUMMSELL) as SUMMSELL, " & _
+            "sum(m.SUMMcash) as SUMMcash, " & _
+            "sum(m.SUMMcash) - sum(m.SUMMSELL) as DELTA " & _
+            "FROM ( " & _
+            "select " & _
+            "d.DOCUMENTDATE, " & _
+            "ROUND(SUM(rl.USR$SUMWITHSALETAX),2) as SUMMSELL, " & _
+            "0 as SUMMcash " & _
+            "from gd_document d " & _
+            "left join USR$INV_RETAILLINE rl on rl.MASTERKEY = d.ID " & _
+            "where " & _
+            "d.DOCUMENTDATE between :db and :de " & _
+            "group by 1,3 " & _
+            "union all " & _
+            "SELECT " & _
+            "d.DOCUMENTDATE, " & _
+            "0 as SUMMSELL, " & _
+            "ROUND(SUM(cl.USR$BN_SUMMA + CL.USR$BN_CARDSUMMA),2) as SUMMcash " & _
+            "FROM GD_DOCUMENT D " & _
+            "LEFT JOIN USR$BN_CASHREPORTLINE CL on CL.MASTERKEY = D.ID " & _
+            "WHERE D.DOCUMENTDATE between :db and :de " & _
+            "GROUP BY 1,2) m " & _
+            "group by 1 " & _
+            "ORDER BY m.documentdate "
+          q.ParamByName("db").asDateTime = db
+          q.ParamByName("de").asDateTime = de
+          q.Open
+        
+          Set rp_Main275515473_1763235492 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 275515472_1763235492
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Сверка реализации"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: "147246953_209232441 Исследователь\\Торговля\\Отчёты"
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "275515473_1763235492 rp_Main275515473_1763235492"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147011962_109092844 Торговля\\Отчеты по оптовому складу"
+      SERVERKEY: ~
+      TEMPLATEKEY: "275531146_1763235492 Сверка реализации"
+      EDITIONDATE: 2021-12-16T12:05:59+03:00
