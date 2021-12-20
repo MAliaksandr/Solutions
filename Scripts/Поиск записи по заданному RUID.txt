@@ -1,0 +1,41 @@
+EXECUTE BLOCK(XID INTEGER = :XID, DBID INTEGER = :DBID)
+  RETURNS(RN VARCHAR(64), ID dforeignkey)
+AS
+BEGIN
+  ID = NULL;
+ 
+  SELECT id FROM GD_RUID WHERE xid = :XID AND dbid = :DBID INTO :ID;
+ 
+  IF (:ID > 0) THEN
+  BEGIN
+    FOR
+      SELECT DISTINCT
+        r.rdb$relation_name
+      FROM
+        rdb$relation_fields rf JOIN rdb$relations r
+          ON r.rdb$relation_name = rf.rdb$relation_name
+        LEFT JOIN
+          (
+            SELECT relc.rdb$relation_name
+            FROM
+              rdb$relation_constraints relc JOIN rdb$ref_constraints refc
+                ON refc.rdb$constraint_name = relc.rdb$constraint_name
+              JOIN rdb$index_segments iseg
+                ON iseg.rdb$index_name = relc.rdb$index_name
+                  AND iseg.rdb$field_name = 'ID'
+          ) constr ON constr.rdb$relation_name = r.rdb$relation_name
+      WHERE
+        rf.rdb$field_name = 'ID' AND r.rdb$relation_name <> 'TEMP'
+          AND r.rdb$relation_name <> 'GD_RUID'
+          AND r.rdb$view_source IS NULL
+          AND constr.rdb$relation_name IS NULL
+      INTO :RN
+    DO BEGIN
+      FOR
+        EXECUTE STATEMENT 'SELECT id FROM ' || :RN || '  WHERE id > 32 AND id = ' || :ID
+        INTO :ID
+      DO
+        SUSPEND;
+    END
+  END
+END
