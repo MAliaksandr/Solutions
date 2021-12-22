@@ -1,0 +1,5516 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 176963845_1767353537
+  Name: "УЗИ коленных суставов методанные"
+  Caption: "УЗИ коленных суставов методанные"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: AFB48DBF7AA55DEA7FDE72A5BF18C836
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 176963828_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "176963829_1767353537 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования\\Справочник для УЗИ коленных суставов"
+      DESCRIPTION: "knee-joint"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Справочник для УЗИ коленных суставов"
+      LSHORTNAME: "Справочник для УЗИ коленных суставов"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2021-12-16T17:09:30+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176963843_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$TYPE"
+      FIELDNAME: "USR$TYPE"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип"
+      LSHORTNAME: "Тип"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176963828_1767353537 Справочник для УЗИ коленных суставов, USR$SAN_KNEEJOINT"
+      RELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T17:10:41+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176963842_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$NAME"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DNAME"
+      FIELDSOURCEKEY: "153002063_17 Наименование (обязательное), DNAME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176963828_1767353537 Справочник для УЗИ коленных суставов, USR$SAN_KNEEJOINT"
+      RELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T17:10:16+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176963840_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 10
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Идентификатор"
+      FIELDNAME: "ID"
+      FIELDSOURCE: "DINTKEY"
+      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Идентификатор"
+      LSHORTNAME: "Идентификатор"
+      NULLFLAG: 1
+      READONLY: 1
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176963828_1767353537 Справочник для УЗИ коленных суставов, USR$SAN_KNEEJOINT"
+      RELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2021-12-16T17:10:11+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 176963945_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SAN_P_KNEEJOINT"
+      EDITIONDATE: 2021-12-22T17:07:48+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SAN_P_KNEEJOINT 
+        RETURNS ( 
+            ID SMALLINT,
+            NAME VARCHAR(120))
+         AS
+        BEGIN
+        
+          ID = 1;
+          NAME = 'Надколенник';
+          SUSPEND;
+          ID = 2;
+          NAME = 'Собственная связка надколенника';
+          SUSPEND;
+          ID = 3;
+          NAME = 'Наличие выпота в верхнем завороте';
+          SUSPEND;
+          ID = 4;
+          NAME = 'Сухожилие прямой мышцы бедра';
+          SUSPEND;
+          ID = 5;
+          NAME = 'Боковые связки';
+          SUSPEND;
+          ID = 6;
+          NAME = 'Суставные поверхности бедренной и большеберцовой костей';
+          SUSPEND;
+          ID = 7;
+          NAME = 'Наружный мениск';
+          SUSPEND;
+          ID = 8;
+          NAME = 'Внутренний мениск';
+          SUSPEND;
+          ID = 9;
+          NAME = 'Наличие кисты Бейкера в подколенной области';
+          SUSPEND;
+        
+        
+        END
+      RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 176964018_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "176964019_1767353537 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования\\Доп.таблица для УЗИ коленных суставов"
+      DESCRIPTION: "USR$SAN_ADDKNEEJOINT"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Доп.таблица для УЗИ коленных суставов"
+      LSHORTNAME: "Доп.таблица для УЗИ коленных суставов"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2021-12-16T18:02:01+03:00
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 176964023_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "USR$D_KNEEJOINT"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$D_KNEEJOINT"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "УЗи коленных суставов"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Справочник для УЗИ коленных суставов"
+      REFTABLE: "USR$SAN_KNEEJOINT"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:06:28+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964160_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$REPORT"
+      FIELDNAME: "USR$REPORT"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T16:01:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964159_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F9V"
+      FIELDNAME: "USR$L_F9V"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наличие кисты, мм"
+      LSHORTNAME: "Наличие кисты, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T16:01:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964158_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F9V"
+      FIELDNAME: "USR$R_F9V"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наличие кисты, мм"
+      LSHORTNAME: "Наличие кисты, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T16:01:11+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964157_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F9"
+      FIELDNAME: "USR$R_F9"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наличие кисты"
+      LSHORTNAME: "Наличие кисты"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T16:01:04+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964156_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F9"
+      FIELDNAME: "USR$L_F9"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наличие кисты"
+      LSHORTNAME: "Наличие кисты"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T16:00:37+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964155_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F86"
+      FIELDNAME: "USR$R_F86"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T16:00:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964154_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F86"
+      FIELDNAME: "USR$L_F86"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T16:00:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964152_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F85"
+      FIELDNAME: "USR$L_F85"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Жидкость в паракапс. зоне"
+      LSHORTNAME: "Жидкость"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:59:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964151_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F85"
+      FIELDNAME: "USR$R_F85"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Жидкость в паракапс. зоне"
+      LSHORTNAME: "Жидкость"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:59:21+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964149_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F84"
+      FIELDNAME: "USR$L_F84"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Кальцинация"
+      LSHORTNAME: "Кальцинация"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:58:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964148_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F84"
+      FIELDNAME: "USR$R_F84"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Кальцинация"
+      LSHORTNAME: "Кальцинация"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:58:26+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964147_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F83"
+      FIELDNAME: "USR$R_F83"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:58:16+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964146_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F83"
+      FIELDNAME: "USR$L_F83"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:58:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964145_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F82"
+      FIELDNAME: "USR$R_F82"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура"
+      LSHORTNAME: "Структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:57:56+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964144_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F82"
+      FIELDNAME: "USR$L_F82"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура"
+      LSHORTNAME: "Структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:57:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964143_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F81"
+      FIELDNAME: "USR$L_F81"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма"
+      LSHORTNAME: "Форма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:57:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964142_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F81"
+      FIELDNAME: "USR$R_F81"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма"
+      LSHORTNAME: "Форма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:57:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964141_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F76"
+      FIELDNAME: "USR$R_F76"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:57:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964140_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F76"
+      FIELDNAME: "USR$L_F76"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:56:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964139_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F75"
+      FIELDNAME: "USR$L_F75"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Жидкость в паракапс. зоне"
+      LSHORTNAME: "Кальцинация"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:56:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964138_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F75"
+      FIELDNAME: "USR$R_F75"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Жидкость в паракапс. зоне"
+      LSHORTNAME: "Кальцинация"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:56:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964137_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F74"
+      FIELDNAME: "USR$L_F74"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Кальцинация"
+      LSHORTNAME: "Кальцинация"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:55:37+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964136_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F74"
+      FIELDNAME: "USR$R_F74"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Кальцинация"
+      LSHORTNAME: "Кальцинация"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:55:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964135_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F73"
+      FIELDNAME: "USR$R_F73"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:55:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964134_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F73"
+      FIELDNAME: "USR$L_F73"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:54:42+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964133_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F72"
+      FIELDNAME: "USR$R_F72"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура"
+      LSHORTNAME: "Структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:11:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964132_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F72"
+      FIELDNAME: "USR$L_F72"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура"
+      LSHORTNAME: "Структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:11:07+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964131_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F71"
+      FIELDNAME: "USR$L_F71"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма"
+      LSHORTNAME: "Форма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:10:54+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964130_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F71"
+      FIELDNAME: "USR$R_F71"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма"
+      LSHORTNAME: "Форма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:10:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964129_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F66"
+      FIELDNAME: "USR$R_F66"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина,мм"
+      LSHORTNAME: "Толщина,мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:10:06+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964128_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F66"
+      FIELDNAME: "USR$L_F66"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина,мм"
+      LSHORTNAME: "Толщина,мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:09:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964127_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F65"
+      FIELDNAME: "USR$L_F65"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина"
+      LSHORTNAME: "Толщина"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:09:36+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964126_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F65"
+      FIELDNAME: "USR$R_F65"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина"
+      LSHORTNAME: "Толщина"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:09:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964125_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F64"
+      FIELDNAME: "USR$R_F64"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:08:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964124_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F64"
+      FIELDNAME: "USR$L_F64"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:08:37+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964123_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F63"
+      FIELDNAME: "USR$R_F63"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разрастания, мм"
+      LSHORTNAME: "Разрастания, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:08:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964122_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F63"
+      FIELDNAME: "USR$L_F63"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разрастания, мм"
+      LSHORTNAME: "Разрастания, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:07:43+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964121_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$L_F62"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разрастания"
+      LSHORTNAME: "Разрастания"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:07:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964120_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F62"
+      FIELDNAME: "USR$R_F62"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разрастания"
+      LSHORTNAME: "Разрастания"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:07:06+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964119_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F61"
+      FIELDNAME: "USR$L_F61"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ровность"
+      LSHORTNAME: "Ровность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:06:48+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964118_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F61"
+      FIELDNAME: "USR$R_F61"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ровность"
+      LSHORTNAME: "Ровность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:06:22+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964117_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F53"
+      FIELDNAME: "USR$R_F53"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:06:03+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964116_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F53"
+      FIELDNAME: "USR$L_F53"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:05:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964114_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F52"
+      FIELDNAME: "USR$L_F52"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Диастаз"
+      LSHORTNAME: "Диастаз"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:05:09+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964113_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$R_F52"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Диастаз"
+      LSHORTNAME: "Диастаз"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:05:07+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964112_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F51"
+      FIELDNAME: "USR$L_F51"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура"
+      LSHORTNAME: "Структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:04:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964111_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F51"
+      FIELDNAME: "USR$R_F51"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура"
+      LSHORTNAME: "Структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T15:03:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964110_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F4"
+      FIELDNAME: "USR$R_F4"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Целостность"
+      LSHORTNAME: "Целостность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T14:46:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964109_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F4"
+      FIELDNAME: "USR$L_F4"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Целостность"
+      LSHORTNAME: "Целостность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T14:46:02+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964108_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F32"
+      FIELDNAME: "USR$L_F32"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура"
+      LSHORTNAME: "Эхоструктура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T14:45:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964107_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F32"
+      FIELDNAME: "USR$R_F32"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура"
+      LSHORTNAME: "Эхоструктура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-20T14:45:23+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964037_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F31"
+      FIELDNAME: "USR$L_F31"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "наличие"
+      LSHORTNAME: "наличие"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:10:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964035_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F31"
+      FIELDNAME: "USR$R_F31"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "наличие"
+      LSHORTNAME: "наличие"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:09:51+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964034_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F22"
+      FIELDNAME: "USR$R_F22"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "наличие бурсита"
+      LSHORTNAME: "наличие бурсита"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:09:25+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964033_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F22"
+      FIELDNAME: "USR$L_F22"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "наличие бурсита"
+      LSHORTNAME: "наличие бурсита"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:08:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964032_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F21"
+      FIELDNAME: "USR$L_F21"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "структура"
+      LSHORTNAME: "структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:08:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964031_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F21"
+      FIELDNAME: "USR$R_F21"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "структура"
+      LSHORTNAME: "структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:08:25+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964030_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F2"
+      FIELDNAME: "USR$R_F2"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "целостность"
+      LSHORTNAME: "целостность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:08:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964029_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F2"
+      FIELDNAME: "USR$L_F2"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "целостность"
+      LSHORTNAME: "целостность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:07:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964028_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$L_F1"
+      FIELDNAME: "USR$L_F1"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наличие бурсита"
+      LSHORTNAME: "Наличие бурсита"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:07:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964027_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_F1"
+      FIELDNAME: "USR$R_F1"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наличие бурсита"
+      LSHORTNAME: "Наличие бурсита"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:06:57+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964026_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_CONT"
+      FIELDNAME: "USR$L_CONT"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:06:38+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 176964022_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$R_CONT"
+      FIELDNAME: "USR$R_CONT"
+      FIELDSOURCE: "USR$D_KNEEJOINT"
+      FIELDSOURCEKEY: "176964023_1767353537 УЗи коленных суставов, USR$D_KNEEJOINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_KNEEJOINT"
+      RELATIONKEY: "176964018_1767353537 Доп.таблица для УЗИ коленных суставов, USR$SAN_ADDKNEEJOINT"
+      RELATIONNAME: "USR$SAN_ADDKNEEJOINT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-12-16T18:04:52+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 176964098_1767353537
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_ADDKNEEJOINT"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-12-22T12:45:10+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_ADDKNEEJOINT: Tgdc_dlgAttrUserDefined
+          Left = 544
+          Top = 56
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 938
+          ClientWidth = 825
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 914
+          end
+          object btnNew: TButton
+            Top = 914
+          end
+          object btnHelp: TButton
+            Top = 914
+          end
+          object btnOK: TButton
+            Left = 677
+            Top = 914
+          end
+          object btnCancel: TButton
+            Left = 751
+            Top = 914
+          end
+          object pnlMain: TPanel
+            Width = 825
+            Height = 905
+            object usrg_USR_SAN_ADDKNEEJOINT_PageControl1: TPageControl
+              Tag = 0
+              Left = 0
+              Top = 0
+              Width = 825
+              Height = 905
+              Cursor = crDefault
+              Hint = ''
+              HelpContext = 0
+              ActivePage = usrg_USR_SAN_ADDKNEEJOINT_TabSheet1
+              Align = alClient
+              Anchors = [akLeft, akTop, akRight, akBottom]
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DockSite = False
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              HotTrack = False
+              Images = nil
+              MultiLine = False
+              OwnerDraw = False
+              ParentBiDiMode = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              RaggedRight = False
+              ScrollOpposite = False
+              Style = tsTabs
+              TabHeight = 0
+              TabOrder = 0
+              TabPosition = tpTop
+              TabStop = True
+              TabWidth = 0
+              Visible = True
+              object usrg_USR_SAN_ADDKNEEJOINT_TabSheet1: TTabSheet
+                Tag = 0
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                BorderWidth = 0
+                Caption = 'Основное'
+                DragMode = dmManual
+                Enabled = True
+                Highlighted = False
+                ImageIndex = 0
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabVisible = True
+                object usrg_USR_SAN_ADDKNEEJOINT_Label1: TLabel
+                  Tag = 0
+                  Left = 196
+                  Top = 1
+                  Width = 445
+                  Height = 24
+                  Cursor = crDefault
+                  Hint = ''
+                  Align = alNone
+                  Alignment = taLeftJustify
+                  Anchors = [akLeft, akTop]
+                  AutoSize = True
+                  Caption = 'Ультразвуковое исследование коленных суставов'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FocusControl = nil
+                  Font.Charset = RUSSIAN_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -16
+                  Font.Name = 'Tahoma'
+                  Font.Pitch = fpDefault
+                  Font.Style = [fsBold]
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  ShowAccelChar = True
+                  Transparent = False
+                  Layout = tlTop
+                  Visible = True
+                  WordWrap = False
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_Label19: TLabel
+                  Tag = 0
+                  Left = 4
+                  Top = 802
+                  Width = 67
+                  Height = 13
+                  Cursor = crDefault
+                  Hint = ''
+                  Align = alNone
+                  Alignment = taLeftJustify
+                  Anchors = [akLeft, akTop]
+                  AutoSize = True
+                  Caption = 'Заключение:'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FocusControl = nil
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  ShowAccelChar = True
+                  Transparent = False
+                  Layout = tlTop
+                  Visible = True
+                  WordWrap = False
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_Panel1: TPanel
+                  Tag = 0
+                  Left = 3
+                  Top = 28
+                  Width = 400
+                  Height = 35
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Alignment = taCenter
+                  Anchors = [akLeft, akTop]
+                  AutoSize = False
+                  BevelInner = bvNone
+                  BevelOuter = bvRaised
+                  BevelWidth = 1
+                  BorderWidth = 0
+                  BorderStyle = bsNone
+                  Caption = 'Правый'
+                  Color = clBtnFace
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  UseDockManager = True
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FullRepaint = True
+                  Font.Charset = RUSSIAN_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -15
+                  Font.Name = 'Tahoma'
+                  Font.Pitch = fpDefault
+                  Font.Style = [fsBold]
+                  Locked = False
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 0
+                  TabStop = False
+                  Visible = True
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_Panel2: TPanel
+                  Tag = 0
+                  Left = 411
+                  Top = 28
+                  Width = 400
+                  Height = 35
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Alignment = taCenter
+                  Anchors = [akLeft, akTop]
+                  AutoSize = False
+                  BevelInner = bvNone
+                  BevelOuter = bvRaised
+                  BevelWidth = 1
+                  BorderWidth = 0
+                  BorderStyle = bsNone
+                  Caption = 'Левый'
+                  Color = clBtnFace
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  UseDockManager = True
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FullRepaint = True
+                  Font.Charset = RUSSIAN_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -15
+                  Font.Name = 'Tahoma'
+                  Font.Pitch = fpDefault
+                  Font.Style = [fsBold]
+                  Locked = False
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 1
+                  TabStop = False
+                  Visible = True
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_GroupBox1: TGroupBox
+                  Tag = 0
+                  Left = 3
+                  Top = 66
+                  Width = 809
+                  Height = 70
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Надколенник'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  Font.Charset = RUSSIAN_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -13
+                  Font.Name = 'Tahoma'
+                  Font.Pitch = fpDefault
+                  Font.Style = []
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 2
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_CONT_Label: TLabel
+                    Left = 411
+                    Top = 19
+                    Width = 54
+                    Height = 16
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_CONT_Label: TLabel
+                    Left = 9
+                    Top = 19
+                    Width = 52
+                    Height = 14
+                    Font.Height = -12
+                    ParentFont = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F1_Label: TLabel
+                    Left = 411
+                    Top = 45
+                    Width = 105
+                    Height = 16
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F1_Label: TLabel
+                    Left = 9
+                    Top = 45
+                    Width = 102
+                    Height = 14
+                    Font.Height = -12
+                    ParentFont = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_CONT: TgsIBLookupComboBox
+                    Left = 470
+                    Top = 15
+                    Width = 191
+                    Height = 24
+                    Condition = 'usr$type =1 and usr$name like '#39'%ровны%'#39
+                    ItemHeight = 16
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_CONT: TgsIBLookupComboBox
+                    Left = 65
+                    Top = 15
+                    Width = 227
+                    Height = 24
+                    Condition = 'usr$type =1 and usr$name like '#39'%ровны%'#39
+                    ItemHeight = 16
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F1: TgsIBLookupComboBox
+                    Left = 116
+                    Top = 41
+                    Width = 176
+                    Height = 24
+                    Condition = 'usr$type =1 and usr$name not like '#39'%ровны%'#39
+                    ItemHeight = 16
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F1: TgsIBLookupComboBox
+                    Left = 520
+                    Top = 42
+                    Height = 24
+                    Condition = 'usr$type =1 and usr$name not like '#39'%ровны%'#39
+                    ItemHeight = 16
+                    TabOrder = 3
+                  end
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_GroupBox2: TGroupBox
+                  Tag = 0
+                  Left = 3
+                  Top = 137
+                  Width = 809
+                  Height = 84
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Собственные связки надколенника'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 3
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_R_F22_Label: TLabel
+                    Left = 413
+                    Top = 61
+                    Width = 91
+                    Caption = 'Наличие бурсита:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F22_Label: TLabel
+                    Left = 9
+                    Top = 61
+                    Width = 91
+                    Caption = 'Наличие бурсита:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F21_Label: TLabel
+                    Left = 413
+                    Top = 40
+                    Width = 59
+                    Caption = 'Структура:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F21_Label: TLabel
+                    Left = 9
+                    Top = 40
+                    Width = 59
+                    Caption = 'Структура:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F2_Label: TLabel
+                    Left = 413
+                    Top = 19
+                    Width = 70
+                    Caption = 'Целостность:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F2_Label: TLabel
+                    Left = 9
+                    Top = 19
+                    Width = 70
+                    Caption = 'Целостность:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F22: TgsIBLookupComboBox
+                    Left = 120
+                    Top = 58
+                    Width = 229
+                    Condition = 
+                      'usr$type =2 and (usr$name like '#39'%ЕСТЬ%'#39' or usr$name like '#39'%НЕТ%'#39 +
+                      ')'
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F22: TgsIBLookupComboBox
+                    Left = 525
+                    Top = 58
+                    Width = 229
+                    Condition = 
+                      'usr$type =2 and (usr$name like '#39'%ЕСТЬ%'#39' or usr$name like '#39'%НЕТ%'#39 +
+                      ')'
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F21: TgsIBLookupComboBox
+                    Left = 492
+                    Top = 36
+                    Width = 205
+                    Condition = 'usr$type =2 and usr$name like '#39'%однород%'#39
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F21: TgsIBLookupComboBox
+                    Left = 88
+                    Top = 36
+                    Width = 205
+                    Condition = 'usr$type =2 and usr$name like '#39'%однород%'#39
+                    TabOrder = 3
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F2: TgsIBLookupComboBox
+                    Left = 88
+                    Top = 14
+                    Width = 205
+                    Condition = 'usr$type =2 and usr$name like '#39'%нарушен%'#39
+                    TabOrder = 4
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F2: TgsIBLookupComboBox
+                    Left = 492
+                    Top = 14
+                    Width = 205
+                    Condition = 'usr$type =2 and usr$name like '#39'%нарушен%'#39
+                    TabOrder = 5
+                  end
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_GroupBox3: TGroupBox
+                  Tag = 0
+                  Left = 3
+                  Top = 222
+                  Width = 809
+                  Height = 42
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Наличие выпота в верхнем завороте'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 4
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_R_F32_Label: TLabel
+                    Left = 87
+                    Top = 19
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F32_Label: TLabel
+                    Left = 493
+                    Top = 19
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F31: TgsIBLookupComboBox
+                    Left = 414
+                    Top = 16
+                    Width = 70
+                    Condition = 'usr$type =3 and usr$name not like '#39'%однородная%'#39' '
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F31: TgsIBLookupComboBox
+                    Left = 8
+                    Top = 16
+                    Width = 70
+                    Condition = 'usr$type =3 and usr$name not like '#39'%однородная%'#39' '
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F32: TgsIBLookupComboBox
+                    Left = 170
+                    Top = 16
+                    Width = 180
+                    Condition = 'usr$type =3 and usr$name like '#39'%однородная%'#39' '
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F32: TgsIBLookupComboBox
+                    Left = 574
+                    Top = 16
+                    Width = 180
+                    Condition = 'usr$type =3 and usr$name like '#39'%однородная%'#39' '
+                    TabOrder = 3
+                  end
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_GroupBox4: TGroupBox
+                  Tag = 0
+                  Left = 3
+                  Top = 264
+                  Width = 809
+                  Height = 45
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Сухожилие прямой мышцы бедра'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 5
+                  TabStop = False
+                  Visible = True
+                  object usrat_gsIBLookupComboBox_USR_L_F4: TgsIBLookupComboBox
+                    Left = 414
+                    Top = 17
+                    Width = 236
+                    Condition = 'usr$type =4'
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F4: TgsIBLookupComboBox
+                    Left = 8
+                    Top = 17
+                    Width = 236
+                    Condition = 'usr$type =4'
+                    TabOrder = 1
+                  end
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_GroupBox5: TGroupBox
+                  Tag = 0
+                  Left = 3
+                  Top = 310
+                  Width = 809
+                  Height = 135
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Боковые связки'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 6
+                  TabStop = False
+                  Visible = True
+                  object usrg_USR_SAN_ADDKNEEJOINT_Label2: TLabel
+                    Tag = 0
+                    Left = 413
+                    Top = 40
+                    Width = 276
+                    Height = 26
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'Диастаз сухожилий при проведении функциональных тестов:'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = True
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F52_Label: TLabel
+                    Top = 40
+                    Width = 292
+                    Height = 26
+                    Caption = 'Диастаз сухожилий при проведении функциональных тестов:'
+                    WordWrap = True
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F51_Label: TLabel
+                    Left = 413
+                    Top = 20
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F51_Label: TLabel
+                    Top = 20
+                  end
+                  object usrat_DBEdit_Z_USR_L_F61_USR_NAME_Label: TLabel
+                    Left = 413
+                    Top = 70
+                    Width = 70
+                    Caption = 'Особенности:'
+                  end
+                  object usrat_DBEdit_Z_USR_L_F52_USR_NAME_Label: TLabel
+                    Top = 70
+                    Width = 70
+                    Caption = 'Особенности:'
+                  end
+                  object usrg_USR_SAN_ADDKNEEJOINT_DBMemo1: TDBMemo
+                    Tag = 0
+                    Left = 7
+                    Top = 88
+                    Width = 377
+                    Height = 41
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    TabStop = True
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoDisplay = True
+                    BorderStyle = bsSingle
+                    Color = clWindow
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DataField = 'USR$R_F53'
+                    DataSource = dsgdcBase
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    ImeMode = imDontCare
+                    ImeName = ''
+                    MaxLength = 0
+                    ParentBiDiMode = True
+                    ParentColor = False
+                    ParentCtl3D = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ReadOnly = False
+                    ScrollBars = ssNone
+                    TabOrder = 4
+                    Visible = True
+                    WantTabs = False
+                    WordWrap = True
+                  end
+                  object usrg_USR_SAN_ADDKNEEJOINT_DBMemo2: TDBMemo
+                    Tag = 0
+                    Left = 415
+                    Top = 88
+                    Width = 377
+                    Height = 41
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    TabStop = True
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoDisplay = True
+                    BorderStyle = bsSingle
+                    Color = clWindow
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DataField = 'USR$L_F53'
+                    DataSource = dsgdcBase
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    ImeMode = imDontCare
+                    ImeName = ''
+                    MaxLength = 0
+                    ParentBiDiMode = True
+                    ParentColor = False
+                    ParentCtl3D = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ReadOnly = False
+                    ScrollBars = ssNone
+                    TabOrder = 5
+                    Visible = True
+                    WantTabs = False
+                    WordWrap = True
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F51: TgsIBLookupComboBox
+                    Left = 72
+                    Top = 16
+                    Width = 175
+                    Condition = 'usr$type =5 and usr$name like '#39'%изменена%'#39' '
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F51: TgsIBLookupComboBox
+                    Left = 480
+                    Top = 16
+                    Width = 175
+                    Condition = 'usr$type =5 and usr$name like '#39'%изменена%'#39' '
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F52: TgsIBLookupComboBox
+                    Left = 293
+                    Top = 45
+                    Width = 60
+                    DataField = 'USR$R_F52'
+                    Condition = 'usr$type =5 and usr$name not like '#39'%изменена%'#39' '
+                    ParentShowHint = False
+                    ShowHint = True
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F52: TgsIBLookupComboBox
+                    Left = 696
+                    Top = 45
+                    Width = 60
+                    Condition = 'usr$type =5 and usr$name not like '#39'%изменена%'#39' '
+                    TabOrder = 3
+                  end
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_GroupBox6: TGroupBox
+                  Tag = 0
+                  Left = 3
+                  Top = 444
+                  Width = 809
+                  Height = 108
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Суставные поверхности бедренной и большеберцовой костей:'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 7
+                  TabStop = False
+                  Visible = True
+                  object usrg_USR_SAN_ADDKNEEJOINT_Label3: TLabel
+                    Tag = 0
+                    Left = 310
+                    Top = 86
+                    Width = 12
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'мм'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrg_USR_SAN_ADDKNEEJOINT_Label4: TLabel
+                    Tag = 0
+                    Left = 717
+                    Top = 86
+                    Width = 12
+                    Height = 13
+                    Cursor = crDefault
+                    Hint = ''
+                    Align = alNone
+                    Alignment = taLeftJustify
+                    Anchors = [akLeft, akTop]
+                    AutoSize = True
+                    Caption = 'мм'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    FocusControl = nil
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ShowAccelChar = True
+                    Transparent = True
+                    Layout = tlTop
+                    Visible = True
+                    WordWrap = False
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F62_Label: TLabel
+                    Left = 415
+                    Top = 39
+                    Width = 115
+                    Caption = 'Костные разрастания:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F62_Label: TLabel
+                    Left = 7
+                    Top = 39
+                    Width = 115
+                    Caption = 'Костные разрастания:'
+                  end
+                  object usrat_DBEdit_USR_R_F63_Label: TLabel
+                    Left = 311
+                    Top = 39
+                    Width = 12
+                    Caption = 'мм'
+                  end
+                  object usrat_DBEdit_USR_L_F63_Label: TLabel
+                    Left = 718
+                    Top = 39
+                    Width = 12
+                    Caption = 'мм'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F64_Label: TLabel
+                    Left = 415
+                    Top = 63
+                    Width = 147
+                    Caption = 'Гиалиновый хрящ, контуры:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F64_Label: TLabel
+                    Left = 7
+                    Top = 63
+                    Width = 147
+                    Caption = 'Гиалиновый хрящ, контуры:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F65_Label: TLabel
+                    Left = 7
+                    Top = 84
+                    Caption = 'толщина:'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F65_Label: TLabel
+                    Left = 415
+                    Top = 84
+                    Caption = 'толщина:'
+                  end
+                  object usrat_DBEdit_USR_R_F66_Label: TLabel
+                    Left = 624
+                    Top = 86
+                    Width = 29
+                    Height = 21
+                    Caption = 'до'
+                  end
+                  object usrat_DBEdit_USR_L_F66_Label: TLabel
+                    Left = 222
+                    Top = 86
+                    Width = 19
+                    Height = 18
+                    Caption = 'до'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F61: TgsIBLookupComboBox
+                    Left = 7
+                    Top = 14
+                    Condition = 'usr$type =6 and usr$name like '#39'%ровные%'#39' '
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F61: TgsIBLookupComboBox
+                    Left = 415
+                    Top = 14
+                    Condition = 'usr$type =6 and usr$name like '#39'%ровные%'#39' '
+                    TabOrder = 1
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F62: TgsIBLookupComboBox
+                    Left = 125
+                    Top = 36
+                    Width = 70
+                    Condition = 
+                      'usr$type =6 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                      'usr$name) like upper('#39'%нет%'#39' ))'
+                    TabOrder = 2
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F62: TgsIBLookupComboBox
+                    Left = 537
+                    Top = 36
+                    Width = 70
+                    Condition = 
+                      'usr$type =6 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                      'usr$name) like upper('#39'%нет%'#39' ))'
+                    TabOrder = 3
+                  end
+                  object usrat_DBEdit_USR_L_F63: TxDBCalculatorEdit
+                    Left = 653
+                    Top = 36
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 4
+                  end
+                  object usrat_DBEdit_USR_R_F63: TxDBCalculatorEdit
+                    Left = 246
+                    Top = 36
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 5
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F64: TgsIBLookupComboBox
+                    Left = 161
+                    Top = 59
+                    Width = 220
+                    Condition = 'usr$type =6 and usr$name like '#39'%ровный%'#39' '
+                    TabOrder = 6
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F64: TgsIBLookupComboBox
+                    Left = 569
+                    Top = 58
+                    Width = 220
+                    Condition = 'usr$type =6 and usr$name like '#39'%ровный%'#39' '
+                    TabOrder = 7
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F65: TgsIBLookupComboBox
+                    Left = 65
+                    Top = 82
+                    Condition = 
+                      'usr$type =6 and (usr$name like '#39'%норм%'#39'  or usr$name like '#39'%исто' +
+                      'нчен%'#39' )'
+                    TabOrder = 8
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F65: TgsIBLookupComboBox
+                    Left = 477
+                    Top = 82
+                    Condition = 
+                      'usr$type =6 and (usr$name like '#39'%норм%'#39'  or usr$name like '#39'%исто' +
+                      'нчен%'#39' )'
+                    TabOrder = 9
+                  end
+                  object usrat_DBEdit_USR_R_F66: TxDBCalculatorEdit
+                    Left = 245
+                    Top = 82
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 10
+                  end
+                  object usrat_DBEdit_USR_L_F66: TxDBCalculatorEdit
+                    Left = 653
+                    Top = 82
+                    Width = 60
+                    Cursor = crArrow
+                    TabOrder = 11
+                  end
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_GroupBox7: TGroupBox
+                  Tag = 0
+                  Left = 3
+                  Top = 759
+                  Width = 809
+                  Height = 41
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Caption = 'Наличие кисты Бейкера в подколенной области'
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ParentBiDiMode = True
+                  ParentColor = True
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 8
+                  TabStop = False
+                  Visible = True
+                  object usrat_DBEdit_USR_L_F9V_Label: TLabel
+                    Left = 197
+                    Top = 20
+                    Width = 12
+                    Caption = 'мм'
+                  end
+                  object usrat_DBEdit_USR_R_F9V_Label: TLabel
+                    Left = 589
+                    Top = 20
+                    Width = 12
+                    Caption = 'мм'
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F9: TgsIBLookupComboBox
+                    Left = 416
+                    Top = 15
+                    Width = 80
+                    Condition = 
+                      'usr$type =9 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                      'usr$name) like upper('#39'%нет%'#39' ))'
+                    TabOrder = 0
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F9: TgsIBLookupComboBox
+                    Left = 8
+                    Top = 15
+                    Width = 80
+                    Condition = 
+                      'usr$type =9 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                      'usr$name) like upper('#39'%нет%'#39' ))'
+                    TabOrder = 1
+                  end
+                  object usrat_DBEdit_USR_R_F9V: TxDBCalculatorEdit
+                    Left = 136
+                    Top = 15
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 2
+                  end
+                  object usrat_DBEdit_USR_L_F9V: TxDBCalculatorEdit
+                    Left = 528
+                    Top = 15
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 3
+                  end
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_PageControl2: TPageControl
+                  Tag = 0
+                  Left = 2
+                  Top = 554
+                  Width = 809
+                  Height = 201
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  ActivePage = usrg_USR_SAN_ADDKNEEJOINT_TabSheet4
+                  Align = alNone
+                  Anchors = [akLeft, akTop]
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  HotTrack = False
+                  Images = nil
+                  MultiLine = False
+                  OwnerDraw = False
+                  ParentBiDiMode = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  RaggedRight = False
+                  ScrollOpposite = False
+                  Style = tsTabs
+                  TabHeight = 0
+                  TabOrder = 9
+                  TabPosition = tpTop
+                  TabStop = True
+                  TabWidth = 0
+                  Visible = True
+                  object usrg_USR_SAN_ADDKNEEJOINT_TabSheet3: TTabSheet
+                    Tag = 0
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    BorderWidth = 0
+                    Caption = 'Наружный мениск'
+                    DragMode = dmManual
+                    Enabled = True
+                    Highlighted = False
+                    ImageIndex = 0
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabVisible = True
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label5: TLabel
+                      Tag = 0
+                      Left = 5
+                      Top = 116
+                      Width = 70
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Особенности:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label6: TLabel
+                      Tag = 0
+                      Left = 413
+                      Top = 116
+                      Width = 70
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Особенности:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F71_Label: TLabel
+                      Left = 413
+                      Top = 5
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F71_Label: TLabel
+                      Top = 5
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F72_Label: TLabel
+                      Top = 27
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F72_Label: TLabel
+                      Left = 413
+                      Top = 26
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F73_Label: TLabel
+                      Top = 49
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F73_Label: TLabel
+                      Left = 413
+                      Top = 48
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F74_Label: TLabel
+                      Left = 413
+                      Top = 72
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F74_Label: TLabel
+                      Top = 72
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F75_Label: TLabel
+                      Top = 96
+                      Width = 207
+                      Caption = 'Жидкость в паракапсулярной зоне:'
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F75_Label: TLabel
+                      Left = 413
+                      Top = 96
+                      Width = 183
+                      Caption = 'Жидкость в паракапсулярной зоне:'
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_DBMemo3: TDBMemo
+                      Tag = 0
+                      Left = 6
+                      Top = 132
+                      Width = 370
+                      Height = 39
+                      Cursor = crDefault
+                      Hint = ''
+                      HelpContext = 0
+                      TabStop = True
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoDisplay = True
+                      BorderStyle = bsSingle
+                      Color = clWindow
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DataField = 'USR$R_F76'
+                      DataSource = dsgdcBase
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      ImeMode = imDontCare
+                      ImeName = ''
+                      MaxLength = 0
+                      ParentBiDiMode = True
+                      ParentColor = False
+                      ParentCtl3D = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ReadOnly = False
+                      ScrollBars = ssNone
+                      TabOrder = 10
+                      Visible = True
+                      WantTabs = False
+                      WordWrap = True
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_DBMemo4: TDBMemo
+                      Tag = 0
+                      Left = 414
+                      Top = 132
+                      Width = 370
+                      Height = 39
+                      Cursor = crDefault
+                      Hint = ''
+                      HelpContext = 0
+                      TabStop = True
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoDisplay = True
+                      BorderStyle = bsSingle
+                      Color = clWindow
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DataField = 'USR$L_F76'
+                      DataSource = dsgdcBase
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      ImeMode = imDontCare
+                      ImeName = ''
+                      MaxLength = 0
+                      ParentBiDiMode = True
+                      ParentColor = False
+                      ParentCtl3D = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ReadOnly = False
+                      ScrollBars = ssNone
+                      TabOrder = 11
+                      Visible = True
+                      WantTabs = False
+                      WordWrap = True
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F71: TgsIBLookupComboBox
+                      Left = 48
+                      Top = 1
+                      Condition = 'usr$type =7 and usr$name like '#39'%правильная%'#39
+                      TabOrder = 0
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F71: TgsIBLookupComboBox
+                      Left = 456
+                      Top = 1
+                      Condition = 'usr$type =7 and usr$name like '#39'%правильная%'#39
+                      TabOrder = 1
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F72: TgsIBLookupComboBox
+                      Left = 480
+                      Top = 24
+                      Condition = 'usr$type =7 and usr$name like '#39'%однородная%'#39
+                      TabOrder = 2
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F72: TgsIBLookupComboBox
+                      Left = 72
+                      Top = 24
+                      Condition = 'usr$type =7 and usr$name like '#39'%однородная%'#39
+                      TabOrder = 3
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F73: TgsIBLookupComboBox
+                      Left = 480
+                      Top = 47
+                      Condition = 'usr$type =7 and usr$name like '#39'%контуры%'#39
+                      TabOrder = 4
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F73: TgsIBLookupComboBox
+                      Left = 72
+                      Top = 47
+                      Condition = 'usr$type =7 and usr$name like '#39'%контуры%'#39
+                      TabOrder = 5
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F74: TgsIBLookupComboBox
+                      Left = 113
+                      Top = 69
+                      Width = 99
+                      Condition = 
+                        'usr$type =7 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                        'usr$name) like upper('#39'%нет%'#39' ))'
+                      TabOrder = 6
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F74: TgsIBLookupComboBox
+                      Left = 600
+                      Top = 92
+                      Width = 60
+                      Condition = 
+                        'usr$type =7 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                        'usr$name) like upper('#39'%нет%'#39' ))'
+                      TabOrder = 7
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F75: TgsIBLookupComboBox
+                      Left = 192
+                      Top = 92
+                      Width = 60
+                      Condition = 
+                        'usr$type =7 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                        'usr$name) like upper('#39'%нет%'#39' ))'
+                      TabOrder = 8
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F75: TgsIBLookupComboBox
+                      Left = 521
+                      Top = 69
+                      Width = 99
+                      Condition = 
+                        'usr$type =7 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                        'usr$name) like upper('#39'%нет%'#39' ))'
+                      TabOrder = 9
+                    end
+                  end
+                  object usrg_USR_SAN_ADDKNEEJOINT_TabSheet4: TTabSheet
+                    Tag = 0
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    BorderWidth = 0
+                    Caption = 'Внутренний мениск'
+                    DragMode = dmManual
+                    Enabled = True
+                    Highlighted = False
+                    ImageIndex = 0
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabVisible = True
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label7: TLabel
+                      Tag = 0
+                      Left = 5
+                      Top = 5
+                      Width = 36
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Форма:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label8: TLabel
+                      Tag = 0
+                      Left = 5
+                      Top = 27
+                      Width = 59
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Структура:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label9: TLabel
+                      Tag = 0
+                      Left = 5
+                      Top = 49
+                      Width = 49
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Контуры:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label10: TLabel
+                      Tag = 0
+                      Left = 5
+                      Top = 72
+                      Width = 71
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Кальцинация:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label11: TLabel
+                      Tag = 0
+                      Left = 5
+                      Top = 96
+                      Width = 183
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Жидкость в паракапсулярной зоне:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label12: TLabel
+                      Tag = 0
+                      Left = 5
+                      Top = 116
+                      Width = 70
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Особенности:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label13: TLabel
+                      Tag = 0
+                      Left = 413
+                      Top = 5
+                      Width = 36
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Форма:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label14: TLabel
+                      Tag = 0
+                      Left = 413
+                      Top = 26
+                      Width = 59
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Структура:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label15: TLabel
+                      Tag = 0
+                      Left = 413
+                      Top = 48
+                      Width = 49
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Контуры:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label16: TLabel
+                      Tag = 0
+                      Left = 413
+                      Top = 72
+                      Width = 71
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Кальцинация:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label17: TLabel
+                      Tag = 0
+                      Left = 413
+                      Top = 96
+                      Width = 183
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Жидкость в паракапсулярной зоне:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_Label18: TLabel
+                      Tag = 0
+                      Left = 413
+                      Top = 116
+                      Width = 70
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = 'Особенности:'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = True
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_DBMemo5: TDBMemo
+                      Tag = 0
+                      Left = 6
+                      Top = 132
+                      Width = 370
+                      Height = 39
+                      Cursor = crDefault
+                      Hint = ''
+                      HelpContext = 0
+                      TabStop = True
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoDisplay = True
+                      BorderStyle = bsSingle
+                      Color = clWindow
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DataField = 'USR$R_F86'
+                      DataSource = dsgdcBase
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      ImeMode = imDontCare
+                      ImeName = ''
+                      MaxLength = 0
+                      ParentBiDiMode = True
+                      ParentColor = False
+                      ParentCtl3D = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ReadOnly = False
+                      ScrollBars = ssNone
+                      TabOrder = 10
+                      Visible = True
+                      WantTabs = False
+                      WordWrap = True
+                    end
+                    object usrg_USR_SAN_ADDKNEEJOINT_DBMemo6: TDBMemo
+                      Tag = 0
+                      Left = 414
+                      Top = 132
+                      Width = 370
+                      Height = 39
+                      Cursor = crDefault
+                      Hint = ''
+                      HelpContext = 0
+                      TabStop = True
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoDisplay = True
+                      BorderStyle = bsSingle
+                      Color = clWindow
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DataField = 'USR$L_F86'
+                      DataSource = dsgdcBase
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      ImeMode = imDontCare
+                      ImeName = ''
+                      MaxLength = 0
+                      ParentBiDiMode = True
+                      ParentColor = False
+                      ParentCtl3D = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ReadOnly = False
+                      ScrollBars = ssNone
+                      TabOrder = 11
+                      Visible = True
+                      WantTabs = False
+                      WordWrap = True
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F81: TgsIBLookupComboBox
+                      Left = 48
+                      Top = 1
+                      Condition = 'usr$type =8 and usr$name like '#39'%правильная%'#39
+                      TabOrder = 0
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F81: TgsIBLookupComboBox
+                      Left = 456
+                      Top = 1
+                      Condition = 'usr$type =8 and usr$name like '#39'%правильная%'#39
+                      TabOrder = 1
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F82: TgsIBLookupComboBox
+                      Left = 480
+                      Top = 24
+                      Condition = 'usr$type =8 and usr$name like '#39'%однородная%'#39
+                      TabOrder = 2
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F82: TgsIBLookupComboBox
+                      Left = 72
+                      Top = 24
+                      Condition = 'usr$type =8 and usr$name like '#39'%однородная%'#39
+                      TabOrder = 3
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F83: TgsIBLookupComboBox
+                      Left = 480
+                      Top = 47
+                      Condition = 'usr$type =8 and usr$name like '#39'%контуры%'#39
+                      TabOrder = 4
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F83: TgsIBLookupComboBox
+                      Left = 72
+                      Top = 47
+                      Condition = 'usr$type =8 and usr$name like '#39'%контуры%'#39
+                      TabOrder = 5
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F84: TgsIBLookupComboBox
+                      Left = 113
+                      Top = 69
+                      Width = 99
+                      Condition = 
+                        'usr$type =8 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                        'usr$name) like upper('#39'%нет%'#39' ))'
+                      TabOrder = 6
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F84: TgsIBLookupComboBox
+                      Left = 521
+                      Top = 69
+                      Width = 99
+                      Condition = 
+                        'usr$type =8 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                        'usr$name) like upper('#39'%нет%'#39' ))'
+                      TabOrder = 7
+                    end
+                    object usrat_gsIBLookupComboBox_USR_R_F85: TgsIBLookupComboBox
+                      Left = 192
+                      Top = 92
+                      Width = 60
+                      Condition = 
+                        'usr$type =8 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                        'usr$name) like upper('#39'%нет%'#39' ))'
+                      TabOrder = 8
+                    end
+                    object usrat_gsIBLookupComboBox_USR_L_F85: TgsIBLookupComboBox
+                      Left = 600
+                      Top = 92
+                      Width = 60
+                      Condition = 
+                        'usr$type =8 and (upper(usr$name) like upper('#39'%есть%'#39')  or upper(' +
+                        'usr$name) like upper('#39'%нет%'#39' ))'
+                      TabOrder = 9
+                    end
+                  end
+                end
+                object usrg_USR_SAN_ADDKNEEJOINT_DBMemo7: TDBMemo
+                  Tag = 0
+                  Left = 3
+                  Top = 816
+                  Width = 809
+                  Height = 55
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  TabStop = True
+                  Align = alNone
+                  Alignment = taLeftJustify
+                  Anchors = [akLeft, akTop]
+                  AutoDisplay = True
+                  BorderStyle = bsSingle
+                  Color = clWindow
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DataField = 'USR$REPORT'
+                  DataSource = dsgdcBase
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ImeMode = imDontCare
+                  ImeName = ''
+                  MaxLength = 0
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  ReadOnly = False
+                  ScrollBars = ssNone
+                  TabOrder = 10
+                  Visible = True
+                  WantTabs = False
+                  WordWrap = True
+                end
+              end
+              object usrg_USR_SAN_ADDKNEEJOINT_TabSheet2: TTabSheet
+                Tag = 0
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                BorderWidth = 0
+                Caption = 'Дополнительно'
+                DragMode = dmManual
+                Enabled = True
+                Highlighted = False
+                ImageIndex = 0
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabVisible = True
+                object atAttributes: TatContainer
+                  Width = 817
+                  Height = 877
+                  HorzScrollBar.Range = 339
+                  VertScrollBar.Position = 99
+                  VertScrollBar.Range = 5000
+                  Align = alClient
+                  Anchors = [akLeft, akTop, akRight, akBottom]
+                  AutoScroll = False
+                  Visible = False
+                  object usrat_DBEdit_Z_USR_L_CONT_USR_NAME_Label: TLabel
+                    Top = 2
+                  end
+                  object usrat_DBEdit_Z_USR_L_F64_USR_NAME_Label: TLabel
+                    Top = -43
+                  end
+                  object usrat_DBEdit_Z_USR_R_CONT_USR_NAME_Label: TLabel
+                    Top = 25
+                  end
+                  object usrat_DBEdit_Z_USR_R_F64_USR_NAME_Label: TLabel
+                    Top = 3
+                  end
+                  object usrat_DBEdit_Z_USR_L_F2_USR_NAME_Label: TLabel
+                    Top = -67
+                  end
+                  object usrat_DBEdit_Z_USR_L_F62_USR_NAME_Label: TLabel
+                    Top = 49
+                  end
+                  object usrat_DBEdit_Z_USR_R_F1_USR_NAME_Label: TLabel
+                    Top = 71
+                  end
+                  object usrat_DBEdit_Z_USR_L_F1_USR_NAME_Label: TLabel
+                    Top = 48
+                  end
+                  object usrat_DBEdit_Z_USR_R_F65_USR_NAME_Label: TLabel
+                    Top = 118
+                  end
+                  object usrat_DBEdit_Z_USR_L_F73_USR_NAME_Label: TLabel
+                    Top = 141
+                  end
+                  object usrat_DBEdit_Z_USR_R_F72_USR_NAME_Label: TLabel
+                    Top = 164
+                  end
+                  object usrat_DBEdit_Z_USR_R_F74_USR_NAME_Label: TLabel
+                    Top = 187
+                  end
+                  object usrat_DBEdit_Z_USR_R_F73_USR_NAME_Label: TLabel
+                    Top = 210
+                  end
+                  object usrat_DBEdit_Z_USR_R_F71_USR_NAME_Label: TLabel
+                    Top = 233
+                  end
+                  object usrat_DBEdit_Z_USR_L_F65_USR_NAME_Label: TLabel
+                    Top = 256
+                  end
+                  object usrat_DBEdit_Z_USR_L_F72_USR_NAME_Label: TLabel
+                    Top = 279
+                  end
+                  object usrat_DBEdit_Z_USR_L_F71_USR_NAME_Label: TLabel
+                    Top = 302
+                  end
+                  object usrat_DBEdit_Z_USR_R_F2_USR_NAME_Label: TLabel
+                    Top = -90
+                  end
+                  object usrat_DBEdit_Z_USR_R_F32_USR_NAME_Label: TLabel
+                    Top = 348
+                  end
+                  object usrat_DBEdit_Z_USR_L_F51_USR_NAME_Label: TLabel
+                    Top = 371
+                  end
+                  object usrat_DBEdit_Z_USR_L_F31_USR_NAME_Label: TLabel
+                    Top = 163
+                  end
+                  object usrat_DBEdit_Z_USR_R_F52_USR_NAME_Label: TLabel
+                    Top = 417
+                  end
+                  object usrat_DBEdit_Z_USR_L_F4_USR_NAME_Label: TLabel
+                    Top = 440
+                  end
+                  object usrat_DBEdit_Z_USR_R_F4_USR_NAME_Label: TLabel
+                    Top = 463
+                  end
+                  object usrat_DBEdit_Z_USR_L_F32_USR_NAME_Label: TLabel
+                    Top = 486
+                  end
+                  object usrat_DBEdit_Z_USR_R_F51_USR_NAME_Label: TLabel
+                    Top = 509
+                  end
+                  object usrat_DBEdit_Z_USR_L_F21_USR_NAME_Label: TLabel
+                    Top = -44
+                  end
+                  object usrat_DBEdit_Z_USR_R_F62_USR_NAME_Label: TLabel
+                    Top = 601
+                  end
+                  object usrat_DBEdit_Z_USR_R_F21_USR_NAME_Label: TLabel
+                    Top = -21
+                  end
+                  object usrat_DBEdit_Z_USR_R_F22_USR_NAME_Label: TLabel
+                    Top = 117
+                  end
+                  object usrat_DBEdit_Z_USR_R_F31_USR_NAME_Label: TLabel
+                    Top = 94
+                  end
+                  object usrat_DBEdit_Z_USR_R_F61_USR_NAME_Label: TLabel
+                    Left = 445
+                    Top = 205
+                  end
+                  object usrat_DBEdit_Z_USR_L_F22_USR_NAME_Label: TLabel
+                    Top = 140
+                  end
+                  object usrat_DBEdit_Z_USR_L_F74_USR_NAME_Label: TLabel
+                    Left = 445
+                    Top = 251
+                  end
+                  object usrat_DBEdit_Z_USR_R_F81_USR_NAME_Label: TLabel
+                    Left = 445
+                    Top = 274
+                  end
+                  object usrat_DBEdit_Z_USR_R_F84_USR_NAME_Label: TLabel
+                    Left = 445
+                    Top = 297
+                  end
+                  object usrat_DBEdit_Z_USR_L_F84_USR_NAME_Label: TLabel
+                    Left = 445
+                    Top = 320
+                  end
+                  object usrat_DBEdit_Z_USR_L_F85_USR_NAME_Label: TLabel
+                    Left = 349
+                    Top = 375
+                  end
+                  object usrat_DBEdit_Z_USR_R_F85_USR_NAME_Label: TLabel
+                    Left = 349
+                    Top = 398
+                  end
+                  object usrat_DBEdit_Z_USR_R_F82_USR_NAME_Label: TLabel
+                    Top = 877
+                  end
+                  object usrat_DBEdit_Z_USR_L_F83_USR_NAME_Label: TLabel
+                    Top = 900
+                  end
+                  object usrat_DBEdit_Z_USR_L_F82_USR_NAME_Label: TLabel
+                    Top = 923
+                  end
+                  object usrat_DBEdit_Z_USR_L_F81_USR_NAME_Label: TLabel
+                    Top = 946
+                  end
+                  object usrat_DBEdit_Z_USR_R_F83_USR_NAME_Label: TLabel
+                    Top = 969
+                  end
+                  object usrat_DBEdit_Z_USR_R_F9_USR_NAME_Label: TLabel
+                    Top = 992
+                  end
+                  object usrat_DBEdit_Z_USR_L_F75_USR_NAME_Label: TLabel
+                    Top = 1015
+                  end
+                  object usrat_DBEdit_Z_USR_L_F9_USR_NAME_Label: TLabel
+                    Top = 1038
+                  end
+                  object usrat_DBEdit_Z_USR_R_F75_USR_NAME_Label: TLabel
+                    Top = 1061
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F31_Label: TLabel
+                    Left = 293
+                    Top = -48
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F31_Label: TLabel
+                    Left = 293
+                    Top = -64
+                    Height = 21
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F4_Label: TLabel
+                    Left = 269
+                    Top = 1158
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F4_Label: TLabel
+                    Left = 269
+                    Top = 1181
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F52_Label: TLabel
+                    Left = 373
+                    Top = 1180
+                  end
+                  object usrat_DBEdit_USR_L_F53_Label: TLabel
+                    Left = 389
+                    Top = 408
+                  end
+                  object usrat_DBEdit_USR_R_F53_Label: TLabel
+                    Left = 45
+                    Top = 887
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F61_Label: TLabel
+                    Left = 461
+                    Top = 1134
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F61_Label: TLabel
+                    Left = 461
+                    Top = 1157
+                  end
+                  object usrat_DBEdit_USR_L_F76_Label: TLabel
+                    Top = 2096
+                  end
+                  object usrat_DBEdit_USR_R_F76_Label: TLabel
+                    Top = 2119
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F81_Label: TLabel
+                    Top = 2142
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F81_Label: TLabel
+                    Top = 2165
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F82_Label: TLabel
+                    Top = 2188
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F82_Label: TLabel
+                    Top = 2211
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F83_Label: TLabel
+                    Top = 2234
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F83_Label: TLabel
+                    Top = 2257
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F84_Label: TLabel
+                    Top = 2280
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F84_Label: TLabel
+                    Top = 2303
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F85_Label: TLabel
+                    Top = 2326
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F85_Label: TLabel
+                    Top = 2349
+                  end
+                  object usrat_DBEdit_USR_L_F86_Label: TLabel
+                    Top = 2372
+                  end
+                  object usrat_DBEdit_USR_R_F86_Label: TLabel
+                    Top = 2395
+                  end
+                  object usrat_gsIBLookupComboBox_USR_L_F9_Label: TLabel
+                    Left = 693
+                    Top = 20
+                  end
+                  object usrat_gsIBLookupComboBox_USR_R_F9_Label: TLabel
+                    Left = 549
+                    Top = 20
+                  end
+                  object usrat_DBEdit_USR_REPORT_Label: TLabel
+                    Top = 2510
+                  end
+                  object usrat_DBEdit_Z_USR_L_CONT_USR_NAME: TDBEdit
+                    Top = -2
+                  end
+                  object usrat_DBEdit_Z_USR_L_F64_USR_NAME: TDBEdit
+                    Top = -47
+                  end
+                  object usrat_DBEdit_Z_USR_R_CONT_USR_NAME: TDBEdit
+                    Top = 21
+                  end
+                  object usrat_DBEdit_Z_USR_R_F64_USR_NAME: TDBEdit
+                    Top = -1
+                  end
+                  object usrat_DBEdit_Z_USR_L_F2_USR_NAME: TDBEdit
+                    Top = -71
+                  end
+                  object usrat_DBEdit_Z_USR_L_F62_USR_NAME: TDBEdit
+                    Top = 45
+                  end
+                  object usrat_DBEdit_Z_USR_R_F1_USR_NAME: TDBEdit
+                    Top = 67
+                  end
+                  object usrat_DBEdit_Z_USR_L_F1_USR_NAME: TDBEdit
+                    Top = 44
+                  end
+                  object usrat_DBEdit_Z_USR_R_F65_USR_NAME: TDBEdit
+                    Top = 114
+                  end
+                  object usrat_DBEdit_Z_USR_L_F73_USR_NAME: TDBEdit
+                    Top = 137
+                  end
+                  object usrat_DBEdit_Z_USR_R_F72_USR_NAME: TDBEdit
+                    Top = 160
+                  end
+                  object usrat_DBEdit_Z_USR_R_F74_USR_NAME: TDBEdit
+                    Top = 183
+                  end
+                  object usrat_DBEdit_Z_USR_R_F73_USR_NAME: TDBEdit
+                    Top = 206
+                  end
+                  object usrat_DBEdit_Z_USR_R_F71_USR_NAME: TDBEdit
+                    Top = 229
+                  end
+                  object usrat_DBEdit_Z_USR_L_F65_USR_NAME: TDBEdit
+                    Top = 252
+                  end
+                  object usrat_DBEdit_Z_USR_L_F72_USR_NAME: TDBEdit
+                    Top = 275
+                  end
+                  object usrat_DBEdit_Z_USR_L_F71_USR_NAME: TDBEdit
+                    Top = 298
+                  end
+                  object usrat_DBEdit_Z_USR_R_F2_USR_NAME: TDBEdit
+                    Top = -94
+                  end
+                  object usrat_DBEdit_Z_USR_R_F32_USR_NAME: TDBEdit
+                    Top = 344
+                  end
+                  object usrat_DBEdit_Z_USR_L_F51_USR_NAME: TDBEdit
+                    Top = 367
+                  end
+                  object usrat_DBEdit_Z_USR_L_F31_USR_NAME: TDBEdit
+                    Top = 159
+                  end
+                  object usrat_DBEdit_Z_USR_R_F52_USR_NAME: TDBEdit
+                    Top = 413
+                  end
+                  object usrat_DBEdit_Z_USR_L_F4_USR_NAME: TDBEdit
+                    Top = 436
+                  end
+                  object usrat_DBEdit_Z_USR_R_F4_USR_NAME: TDBEdit
+                    Top = 459
+                  end
+                  object usrat_DBEdit_Z_USR_L_F32_USR_NAME: TDBEdit
+                    Top = 482
+                  end
+                  object usrat_DBEdit_Z_USR_R_F51_USR_NAME: TDBEdit
+                    Top = 505
+                  end
+                  object usrat_DBEdit_Z_USR_L_F52_USR_NAME: TDBEdit
+                    Top = 528
+                  end
+                  object usrat_DBEdit_Z_USR_L_F61_USR_NAME: TDBEdit
+                    Top = 551
+                  end
+                  object usrat_DBEdit_Z_USR_L_F21_USR_NAME: TDBEdit
+                    Top = -48
+                  end
+                  object usrat_DBEdit_Z_USR_R_F62_USR_NAME: TDBEdit
+                    Top = 597
+                  end
+                  object usrat_DBEdit_Z_USR_R_F21_USR_NAME: TDBEdit
+                    Top = -25
+                  end
+                  object usrat_DBEdit_Z_USR_R_F22_USR_NAME: TDBEdit
+                    Top = 113
+                  end
+                  object usrat_DBEdit_Z_USR_R_F31_USR_NAME: TDBEdit
+                    Top = 90
+                  end
+                  object usrat_DBEdit_Z_USR_R_F61_USR_NAME: TDBEdit
+                    Left = 600
+                    Top = 201
+                  end
+                  object usrat_DBEdit_Z_USR_L_F22_USR_NAME: TDBEdit
+                    Top = 136
+                  end
+                  object usrat_DBEdit_Z_USR_L_F74_USR_NAME: TDBEdit
+                    Left = 600
+                    Top = 247
+                  end
+                  object usrat_DBEdit_Z_USR_R_F81_USR_NAME: TDBEdit
+                    Left = 600
+                    Top = 270
+                  end
+                  object usrat_DBEdit_Z_USR_R_F84_USR_NAME: TDBEdit
+                    Left = 600
+                    Top = 293
+                  end
+                  object usrat_DBEdit_Z_USR_L_F84_USR_NAME: TDBEdit
+                    Left = 600
+                    Top = 316
+                  end
+                  object usrat_DBEdit_Z_USR_L_F85_USR_NAME: TDBEdit
+                    Left = 504
+                    Top = 371
+                  end
+                  object usrat_DBEdit_Z_USR_R_F85_USR_NAME: TDBEdit
+                    Left = 504
+                    Top = 394
+                  end
+                  object usrat_DBEdit_Z_USR_R_F82_USR_NAME: TDBEdit
+                    Top = 873
+                  end
+                  object usrat_DBEdit_Z_USR_L_F83_USR_NAME: TDBEdit
+                    Top = 896
+                  end
+                  object usrat_DBEdit_Z_USR_L_F82_USR_NAME: TDBEdit
+                    Top = 919
+                  end
+                  object usrat_DBEdit_Z_USR_L_F81_USR_NAME: TDBEdit
+                    Top = 942
+                  end
+                  object usrat_DBEdit_Z_USR_R_F83_USR_NAME: TDBEdit
+                    Top = 965
+                  end
+                  object usrat_DBEdit_Z_USR_R_F9_USR_NAME: TDBEdit
+                    Top = 988
+                  end
+                  object usrat_DBEdit_Z_USR_L_F75_USR_NAME: TDBEdit
+                    Top = 1011
+                  end
+                  object usrat_DBEdit_Z_USR_L_F9_USR_NAME: TDBEdit
+                    Top = 1034
+                  end
+                  object usrat_DBEdit_Z_USR_R_F75_USR_NAME: TDBEdit
+                    Top = 1057
+                  end
+                  object usrat_DBEdit_USR_L_F53: TDBEdit
+                    Left = 544
+                    Top = 404
+                    TabOrder = 50
+                  end
+                  object usrat_DBEdit_USR_R_F53: TDBEdit
+                    Left = 200
+                    Top = 883
+                    TabOrder = 51
+                  end
+                  object usrat_DBEdit_USR_L_F76: TDBEdit
+                    Top = 2092
+                    TabOrder = 52
+                  end
+                  object usrat_DBEdit_USR_R_F76: TDBEdit
+                    Top = 2115
+                    TabOrder = 53
+                  end
+                  object usrat_DBEdit_USR_L_F86: TDBEdit
+                    Top = 2368
+                    TabOrder = 54
+                  end
+                  object usrat_DBEdit_USR_R_F86: TDBEdit
+                    Top = 2391
+                    TabOrder = 55
+                  end
+                  object usrat_DBEdit_USR_REPORT: TDBEdit
+                    Top = 2506
+                    TabOrder = 56
+                  end
+                end
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 15
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 88
+            Top = 165
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 229
+          end
+        end
+        
