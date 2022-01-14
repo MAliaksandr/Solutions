@@ -1,0 +1,163 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147472061_891604337
+  Name: "GS.Санаторий.Обследования.Дополнительно.УЗИ произвольное"
+  Caption: "GS.Санаторий.Обследования.Дополнительно.УЗИ произвольное"
+  Version: "1.0.0.6"
+  Optional: False
+  Internal: True
+  MD5: 44FE28C5DB6AD7BDA5E90B7446A50C9F
+Uses: 
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableToTable"
+      RUID: 147464117_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Доп.инфо для произвольного УЗИ"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Доп.инфо для произвольного УЗИ"
+      LSHORTNAME: "Доп.инфо для произвольного УЗИ"
+      REFERENCEKEY: "147000470_486813904 Документы, GD_DOCUMENT"
+      RELATIONNAME: "USR$SAN_ADDCOMMONECHO"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-09-20T16:22:30+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464122_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147464117_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Заключение"
+      FIELDNAME: "USR$REPORT"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147464117_809241643 Доп.инфо для произвольного УЗИ, USR$SAN_ADDCOMMONECHO"
+      RELATIONNAME: "USR$SAN_ADDCOMMONECHO"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-20T16:27:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464121_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147464117_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Описание"
+      FIELDNAME: "USR$COMMON_DESCR"
+      FIELDSOURCE: "DBLOBTEXT80_1251"
+      FIELDSOURCEKEY: "147000173_31587988 BLOBTEXT80_1251, DBLOBTEXT80_1251"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Описание"
+      LSHORTNAME: "Описание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147464117_809241643 Доп.инфо для произвольного УЗИ, USR$SAN_ADDCOMMONECHO"
+      RELATIONNAME: "USR$SAN_ADDCOMMONECHO"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-20T16:27:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464120_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147464117_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Тип УЗИ"
+      FIELDNAME: "USR$COMMON_TYPE"
+      FIELDSOURCE: "DNAME"
+      FIELDSOURCEKEY: "153002063_17 Наименование (обязательное), DNAME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип УЗИ"
+      LSHORTNAME: "Тип УЗИ"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147464117_809241643 Доп.инфо для произвольного УЗИ, USR$SAN_ADDCOMMONECHO"
+      RELATIONNAME: "USR$SAN_ADDCOMMONECHO"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: 60
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-20T16:27:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~

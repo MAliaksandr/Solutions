@@ -1,0 +1,5948 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147445354_809241643
+  Name: "GS.Санаторий.Обследования.Дополнительно.УЗИ органов брюшной полости"
+  Caption: "GS.Санаторий.Обследования.Дополнительно.УЗИ органов брюшной полости"
+  Version: "1.0.0.12"
+  Optional: False
+  Internal: True
+  MD5: 1BC4574B228F6EE281E1350DE1CAA05C
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+  - "147753062_69526485 GS.Общие.Хранилище"
+  - "147693015_71168484 GS.Санаторий.Общее.Метаданные"
+  - "147696542_71168484 GS.Санаторий.МУ.Общие справочники"
+  - "147466800_809241643 GS.Санаторий.Обследования.Дополнительно.Исследователь"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableToTable"
+      RUID: 147451300_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Доп. инф. для УЗИ брюшной полости"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Доп. инф. для УЗИ брюшной полости"
+      LSHORTNAME: "Доп. инф. для УЗИ брюшной полости"
+      REFERENCEKEY: "147000470_486813904 Документы, GD_DOCUMENT"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-10-06T16:24:03+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451436_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Внутрипросветное депонирование жидкости"
+      FIELDNAME: "USR$STOMACH_LIQUID"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Внутрипросветное депонирование жидкости"
+      LSHORTNAME: "Внутрипросветное деп"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:57:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451430_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Селезеночная вена в воротах, мм"
+      FIELDNAME: "USR$SPLEEN_VEIN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Селезеночная вена в воротах, мм"
+      LSHORTNAME: "Селезеночная вена в "
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:57:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451426_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Селезеночный индекс, см2"
+      FIELDNAME: "USR$SPLEEN_INDEX"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Селезеночный индекс, см2"
+      LSHORTNAME: "Селезеночный индекс,"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:57:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451424_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Ширина, мм"
+      FIELDNAME: "USR$SPLEEN_WIDTH"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ширина, мм"
+      LSHORTNAME: "Ширина, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:57:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451422_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Длина, мм"
+      FIELDNAME: "USR$SPLEEN_LEN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Длина, мм"
+      LSHORTNAME: "Длина, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:57:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451418_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Образования"
+      FIELDNAME: "USR$PANCREAS_FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Образования"
+      LSHORTNAME: "Образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451410_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Контур описание"
+      FIELDNAME: "USR$PANCREAS_CONTOUR_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контур описание"
+      LSHORTNAME: "Контур описание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451404_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Хвост, мм"
+      FIELDNAME: "USR$PANCREAS_TAIL"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Хвост, мм"
+      LSHORTNAME: "Хвост, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451402_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Тело, мм"
+      FIELDNAME: "USR$PANCREAS_BODY"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тело, мм"
+      LSHORTNAME: "Тело, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451400_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Головка, мм"
+      FIELDNAME: "USR$PANCREAS_HEAD"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Головка, мм"
+      LSHORTNAME: "Головка, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451398_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дополнительные образования описание"
+      FIELDNAME: "USR$BILEDUCT_FOCI_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дополнительные образования описание"
+      LSHORTNAME: "Дополнительные образ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451396_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дополнительные образования"
+      FIELDNAME: "USR$BILEDUCT_FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дополнительные образования"
+      LSHORTNAME: "Дополнительные образ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451392_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Общий ЖП, размер, мм"
+      FIELDNAME: "USR$BILEDUCT_COMMON_SIZE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Общий ЖП, размер, мм"
+      LSHORTNAME: "Общий ЖП, размер, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451388_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Смещение описание"
+      FIELDNAME: "USR$GALL_SHIFT_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Смещение описание"
+      LSHORTNAME: "Смещение описание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451386_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Смещаются"
+      FIELDNAME: "USR$GALL_INTRALUMINAL_SHIFT"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Смещаются"
+      LSHORTNAME: "Смещаются"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451384_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Имеют акустическую тень"
+      FIELDNAME: "USR$GALL_INTRALUMINAL_SHADOW"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Имеют акустическую тень"
+      LSHORTNAME: "Имеют акустическую т"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451382_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Внутрипросветные образования описание"
+      FIELDNAME: "USR$GALL_INTRALUMINAL_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Внутрипросветные образования описание"
+      LSHORTNAME: "Внутрипросветные обр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451380_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Внутрипросветные образования"
+      FIELDNAME: "USR$GALL_INTRALUMINAL"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Внутрипросветные образования"
+      LSHORTNAME: "Внутрипросветные обр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451378_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Стенки, мм"
+      FIELDNAME: "USR$GALL_WALLS_SIZE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Стенки, мм"
+      LSHORTNAME: "Стенки, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451374_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Ширина, мм"
+      FIELDNAME: "USR$GALL_WIDTH"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ширина, мм"
+      LSHORTNAME: "Ширина, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451372_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Длина, мм"
+      FIELDNAME: "USR$GALL_LEN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Длина, мм"
+      LSHORTNAME: "Длина, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451368_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Форма описание"
+      FIELDNAME: "USR$GALL_FORM_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма описание"
+      LSHORTNAME: "Форма описание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451364_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Нижняя полая вена"
+      FIELDNAME: "USR$LIVER_LOWER_VENA"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Нижняя полая вена"
+      LSHORTNAME: "Нижняя полая вена"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451362_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Сосудистый рисунок описание"
+      FIELDNAME: "USR$LIVER_VASCULAR_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Сосудистый рисунок описание"
+      LSHORTNAME: "Сосудистый рисунок о"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451358_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Печеночные вены 1го порядка, мм"
+      FIELDNAME: "USR$LIVER_HEPATIC_VEINS"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Печеночные вены 1го порядка, мм"
+      LSHORTNAME: "Печеночные вены 1го "
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451326_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Брюшная аорта, мм"
+      FIELDNAME: "USR$LIVER_ABDOMINAL_AORTA"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Брюшная аорта, мм"
+      LSHORTNAME: "Брюшная аорта, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451324_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Воротная вена, мм"
+      FIELDNAME: "USR$LIVER_PORTAL_VEIN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Воротная вена, мм"
+      LSHORTNAME: "Воротная вена, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451322_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования описание"
+      FIELDNAME: "USR$LIVER_FOCI_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования описание"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451320_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования"
+      FIELDNAME: "USR$LIVER_FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451310_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "КВР, мм"
+      FIELDNAME: "USR$LIVER_CWR"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "КВР, мм"
+      LSHORTNAME: "КВР, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451308_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Хвостатая доля, мм"
+      FIELDNAME: "USR$LIVER_LOBE_CAUDATE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Хвостатая доля, мм"
+      LSHORTNAME: "Хвостатая доля, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451306_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Левая доля, мм"
+      FIELDNAME: "USR$LIVER_LOBE_L"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Левая доля, мм"
+      LSHORTNAME: "Левая доля, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451304_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Правая доля, мм"
+      FIELDNAME: "USR$LIVER_LOBE_R"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правая доля, мм"
+      LSHORTNAME: "Правая доля, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451524_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Заключение"
+      FIELDNAME: "USR$REPORT"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-01T15:59:37+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147454452_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454453_877487646
+    Fields: 
+      PARENT: "147275685_124484738 TgdcBase\\TgdcAttrUserDefined"
+      NAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      CLASSNAME: "TgdcAttrUserDefined"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_ABDOMEN"
+      EDITIONDATE: 2017-09-04T03:00:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147454455_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454453_877487646
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMENCreateFields"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147454452_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-04T03:00:53+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_ABDOMENCREATEFIELDS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub TgdcAttrUserDefinedUSR_SAN_ABDOMENCreateFields(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "CreateFields", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          Self.FieldByName("USR$NAME").Required = true
+          Self.FieldByName("USR$TYPE").Required = true
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147454453_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CREATEFIELDS"
+      FUNCTIONKEY: "147454455_877487646 TgdcAttrUserDefinedUSR_SAN_ABDOMENCreateFields"
+      OBJECTKEY: "147454452_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-04T03:00:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147454461_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SAN_P_ABDOMEN"
+      EDITIONDATE: 2020-03-26T16:40:49+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SAN_P_ABDOMEN 
+        RETURNS ( 
+            ID SMALLINT,
+            NAME VARCHAR(80))
+         AS
+        BEGIN 
+          ID = 1;
+          NAME = 'Печень, размеры';
+          SUSPEND;
+          
+          ID = 2;
+          NAME = 'Печень, контуры';
+          SUSPEND;
+          
+          ID = 3;
+          NAME = 'Печень, капсула';
+          SUSPEND;
+          
+          ID = 4;
+          NAME = 'Эхоструктура';
+          SUSPEND;
+          
+          ID = 5;
+          NAME = 'Печень, эхогенность паренхимы';
+          SUSPEND;
+          
+          ID = 6;
+          NAME = 'Печень, сосудистый рисунок';
+          SUSPEND;
+          
+          ID = 7;
+          NAME = 'Желчный пузырь, форма';
+          SUSPEND;
+          
+          ID = 8;
+          NAME = 'Желчный пузырь, размеры';
+          SUSPEND;
+          
+          ID = 9;
+          NAME = 'Желчный пузырь, стенки';
+          SUSPEND;
+          
+          ID = 10;
+          NAME = 'Общий ЖП';
+          SUSPEND;
+          
+          ID = 11;
+          NAME = 'Внутрипеченочные ЖП';
+          SUSPEND;
+          
+          ID = 12;
+          NAME = 'Поджелудочная, размеры';
+          SUSPEND;
+          
+          ID = 13;
+          NAME = 'Поджелудочная, контур';
+          SUSPEND;
+          
+          ID = 14;
+          NAME = 'Поджелудочная, эхогенность';
+          SUSPEND;
+          
+          ID = 15;
+          NAME = 'Поджелудочная, вирсунгов проток';
+          SUSPEND;
+          
+          ID = 16;
+          NAME = 'Селезенка, размер';
+          SUSPEND;
+          
+          ID = 17;
+          NAME = 'Селезеночная вена в воротах';
+          SUSPEND;
+          
+          ID = 18;
+          NAME = 'Почки, контур';
+          SUSPEND;
+          
+          ID = 19;
+          NAME = 'Почки, положение';
+          SUSPEND;
+        
+          ID = 20;
+          NAME = 'Желчный пузырь, образования в полости';
+          SUSPEND;
+        
+          ID = 21;
+          NAME = 'Желчный пузырь, положение';
+          SUSPEND;
+          
+          ID = 22;
+          NAME = 'Поджелудочная железа, форма';
+          SUSPEND;
+          
+          ID = 23;
+          NAME = 'Поджелудочная железа, лоцируется частично';
+          SUSPEND;
+          
+          ID = 24;
+          NAME = 'Лимфоузлы';
+          SUSPEND;
+          
+          ID = 25;
+          NAME = 'Почки, размеры';
+          SUSPEND;
+          
+          ID = 26;
+          NAME = 'Почки, структура паренхимы';
+          SUSPEND;
+          
+          ID = 27;
+          NAME = 'Почки, толщина паренхимы';
+          SUSPEND;
+          
+          ID = 28;
+          NAME = 'Почки, ЧЛС';
+          SUSPEND;
+          
+          ID = 29;
+          NAME = 'Почки, эхогенность';
+          SUSPEND;
+          
+          ID = 30;
+          NAME = 'Печень, эластометрия, знак сравнения';
+          SUSPEND;
+          
+          ID = 31;
+          NAME = 'Печень, эластометрия, шкала METAVIR';
+          SUSPEND;
+        
+          ID = 32;
+          NAME = 'Печень, кровоток по воротной вене';
+          SUSPEND;
+        
+        END
+      RDB$DESCRIPTION: | 
+        УЗИ органов брюшной полости
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147454469_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454467_877487646
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMENGetFromClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147454452_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-04T03:26:14+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_ABDOMENGETFROMCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        CAAAAEFSRUZSRVNICAAAAEFSRUZSRVNIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_ABDOMENGetFromClause(Self, ARefresh)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_ABDOMENGetFromClause = _
+            Inherited(Self, "GetFromClause", Array(Self, ARefresh))  & _
+            " LEFT JOIN USR$SAN_P_ABDOMEN l ON l.ID = z.USR$TYPE "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147454467_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETFROMCLAUSE"
+      FUNCTIONKEY: "147454469_877487646 TgdcAttrUserDefinedUSR_SAN_ABDOMENGetFromClause"
+      OBJECTKEY: "147454452_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-04T03:26:14+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147454475_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454473_877487646
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMENGetSelectClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147454452_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-04T03:27:01+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_ABDOMENGETSELECTCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_ABDOMENGetSelectClause(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_ABDOMENGetSelectClause = _
+            Inherited(Self, "GetSelectClause", Array(Self)) & ", l.NAME AS TypeName "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147454473_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETSELECTCLAUSE"
+      FUNCTIONKEY: "147454475_877487646 TgdcAttrUserDefinedUSR_SAN_ABDOMENGetSelectClause"
+      OBJECTKEY: "147454452_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_ABDOMEN"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-04T03:27:01+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147454547_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Патологический синдром поражения полого органа"
+      FIELDNAME: "USR$STOMACH_DAMAGE"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Патологический синдром поражения полого органа"
+      LSHORTNAME: "Син. пор-я полого ор"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-04T03:45:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT '0'
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147454480_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_ABDOMEN"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2020-03-26T15:24:03+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_ABDOMEN: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsDialog
+          ClientHeight = 113
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 89
+          end
+          object btnNew: TButton
+            Top = 89
+          end
+          object btnHelp: TButton
+            Top = 89
+          end
+          object btnOK: TButton
+            Top = 89
+          end
+          object btnCancel: TButton
+            Top = 89
+          end
+          object pnlMain: TPanel
+            Height = 80
+            object atAttributes: TatContainer
+              Height = 80
+              object usrat_DBEdit_USR_TYPE_Label: TLabel
+                Top = 32
+              end
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Top = 6
+              end
+              object usrg_iblTypeName: TgsIBLookupComboBox
+                Tag = 0
+                Left = 94
+                Top = 28
+                Width = 217
+                Height = 21
+                Cursor = crDefault
+                HelpContext = 1
+                TabStop = True
+                Database = dmDatabase.ibdbGAdmin
+                Transaction = ibtrCommon
+                DataSource = dsgdcBase
+                DataField = 'USR$TYPE'
+                Fields = ''
+                ListTable = 'USR$SAN_P_ABDOMEN'
+                ListField = 'NAME'
+                KeyField = 'ID'
+                SortOrder = soNone
+                SortField = ''
+                CheckUserRights = False
+                Condition = ''
+                gdClassName = ''
+                SubType = ''
+                ReadOnly = False
+                StrictOnExit = True
+                Distinct = False
+                FullSearchOnExit = False
+                ViewType = vtByClass
+                Style = csDropDown
+                Anchors = [akLeft, akTop]
+                Color = 11141119
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                DropDownCount = 16
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                ItemHeight = 13
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 0
+                Visible = True
+              end
+              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
+                Left = 319
+                Top = 28
+                Width = 123
+                Cursor = crIBeam
+                TabOrder = 2
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Top = 2
+                Width = 348
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147454541_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454554_877487646
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_ABDOMEN(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-04T03:01:51+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147454553_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454554_877487646
+    Fields: 
+      PARENT: "147454541_877487646 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_ABDOMEN(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-04T03:49:04+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147454554_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147454553_877487646 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_ABDOMEN(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-10-27T17:59:30+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQlBbGlnbm1lbnQHDXRhTGVmdEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYIVFlQRU5BTUUNVGl0bGUuQ2FwdGlvbgYJ0ujvICjo7P8pBVdpZHRoA+QBB1Zpc2libGUJAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYIVVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g
+        6Ozl7e7i4O3o5QVXaWR0aAM+AQdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCFVTUiRU
+        WVBFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgPS6O8FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBgtFRElUSU9OREFURQ1UaXRsZS5DYXB0aW9uBhDE4PLgIOzu5Oj06Org
+        9ujoBVdpZHRoAnAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgJJRA1UaXRsZS5DYXB0
+        aW9uBg3I5OXt8uj06Org8u7wBVdpZHRoAv8HVmlzaWJsZQgAAAkItB4JCA==
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464320_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Брюшная аорта в инфраренальном отделе, мм"
+      FIELDNAME: "USR$LIVER_ABD_AORTA_INFRAR"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Брюшная аорта в инфраренальном отделе, мм"
+      LSHORTNAME: "Брюшная аорта в инфр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-21T13:47:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464318_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Брюшная аорта в супраренальном отделе, мм"
+      FIELDNAME: "USR$LIVER_ABD_AORTA_SUPRAR"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Брюшная аорта в супраренальном отделе, мм"
+      LSHORTNAME: "Брюшная аорта в супр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-21T13:44:26+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464326_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дополнительно"
+      FIELDNAME: "USR$LIVER_ABD_AORTA"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дополнительно"
+      LSHORTNAME: "Дополнительно"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-21T13:48:52+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464339_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Форма"
+      FIELDNAME: "USR$PANCREAS_FORM"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма"
+      LSHORTNAME: "Форма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-21T14:58:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147466805_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147466799_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования"
+      NAME: "Справочник для УЗИ органов брюшной полости"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "147445346_809241643"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_ABDOMEN"
+      EDITIONDATE: 2017-09-27T20:38:13+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147445346_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "147466805_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования\\Справочник для УЗИ органов брюшной полости"
+      DESCRIPTION: "Справочник для УЗИ органов брюшной полости"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Справочник для УЗИ органов брюшной полости"
+      LSHORTNAME: "Справочник для УЗИ органов брюшной полости"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-09-27T20:38:13+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445350_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147445346_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT40"
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147445346_809241643 Справочник для УЗИ органов брюшной полости, USR$SAN_ABDOMEN"
+      RELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-10T17:09:54+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147451267_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "Справочник для УЗИ брюшной полости"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_D_ABDOMEN"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Справочник для УЗИ брюшной полости"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Справочник для УЗИ органов брюшной полости"
+      REFTABLE: "USR$SAN_ABDOMEN"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-01T14:18:46+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464461_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Лимфоузлы"
+      FIELDNAME: "USR$LYMPHNODE"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Парааортальные лимфоузлы и лимфоузлы ворот печени"
+      LSHORTNAME: "Лимфоузлы"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-21T15:03:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464335_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Положение"
+      FIELDNAME: "USR$GALL_POSITION"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Положение"
+      LSHORTNAME: "Положение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-21T14:56:51+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464309_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Воротная вена"
+      FIELDNAME: "USR$LIVER_PORTAL_VEIN_ADD"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Воротная вена"
+      LSHORTNAME: "Воротная вена"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-21T13:03:55+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147464311_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Печеночные вены"
+      FIELDNAME: "USR$LIVER_HEPATIC_VEINS_DESCR"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Печеночные вены"
+      LSHORTNAME: "Печеночные вены"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-21T13:06:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451302_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Размеры"
+      FIELDNAME: "USR$LIVER_SIZE"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Размеры"
+      LSHORTNAME: "Размеры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451312_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Контуры"
+      FIELDNAME: "USR$LIVER_CONTOURS"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451314_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Капсула"
+      FIELDNAME: "USR$LIVER_CAPSULE"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Капсула"
+      LSHORTNAME: "Капсула"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451316_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Эхоструктура"
+      FIELDNAME: "USR$LIVER_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура"
+      LSHORTNAME: "Эхоструктура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451318_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Эхогенность паренхимы"
+      FIELDNAME: "USR$LIVER_ECHOGEN"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхогенность паренхимы"
+      LSHORTNAME: "Эхогенность паренхим"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451360_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Сосудистый рисунок"
+      FIELDNAME: "USR$LIVER_VASCULAR_PATTERN"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Сосудистый рисунок"
+      LSHORTNAME: "Сосудистый рисунок"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:01:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451366_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Форма"
+      FIELDNAME: "USR$GALL_FORM"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма"
+      LSHORTNAME: "Форма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451370_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Размеры"
+      FIELDNAME: "USR$GALL_SIZE"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Размеры"
+      LSHORTNAME: "Размеры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451376_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Стенки, состояние"
+      FIELDNAME: "USR$GALL_WALLS_STATE"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Стенки, состояние"
+      LSHORTNAME: "Стенки, состояние"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451390_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Общий ЖП"
+      FIELDNAME: "USR$BILEDUCT_COMMON"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Общий ЖП"
+      LSHORTNAME: "Общий ЖП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451394_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Внутрипочечные ЖП"
+      FIELDNAME: "USR$BILEDUCT_INTRARENAL"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Внутрипочечные ЖП"
+      LSHORTNAME: "Внутрипочечные ЖП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451406_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Размеры"
+      FIELDNAME: "USR$PANCREAS_SIZE"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Размеры"
+      LSHORTNAME: "Размеры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451408_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Контур"
+      FIELDNAME: "USR$PANCREAS_CONTOUR"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контур"
+      LSHORTNAME: "Контур"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451412_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Эхоструктура"
+      FIELDNAME: "USR$PANCREAS_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура"
+      LSHORTNAME: "Эхоструктура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451414_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Эхогенность"
+      FIELDNAME: "USR$PANCREAS_ECHOGEN"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхогенность"
+      LSHORTNAME: "Эхогенность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451416_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Вирсунгов проток"
+      FIELDNAME: "USR$PANCREAS_VIRSUNG"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Вирсунгов проток"
+      LSHORTNAME: "Вирсунгов проток"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:43:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451420_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Размеры"
+      FIELDNAME: "USR$SPLEEN_SIZE"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Размеры"
+      LSHORTNAME: "Размеры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:57:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451428_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Структура"
+      FIELDNAME: "USR$SPLEEN_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура"
+      LSHORTNAME: "Структура"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:57:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451432_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451300_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Селезеночная вена в воротах"
+      FIELDNAME: "USR$SPLEEN_VEIN_SIZE"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Селезеночная вена в воротах"
+      LSHORTNAME: "Селезеночная вена в "
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T15:57:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445351_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147445346_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$TYPE"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип"
+      LSHORTNAME: "Тип"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147445346_809241643 Справочник для УЗИ органов брюшной полости, USR$SAN_ABDOMEN"
+      RELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-10T17:10:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477229_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEYS_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение, почки"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T16:23:09+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477022_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_ADREN"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Надпочечники ЛП"
+      LSHORTNAME: "Надпочечники ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:30:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477021_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_ADREN"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Надпочечники ПП"
+      LSHORTNAME: "Надпочечники ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:29:51+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477020_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_CALICES_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности чашечек ЛП"
+      LSHORTNAME: "Особенности чашечек"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:26:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477019_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_CALICES_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности чашечек ПП"
+      LSHORTNAME: "Особенности чашечек"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:25:07+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477018_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_CALICES"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Чашечки ЛП"
+      LSHORTNAME: "Чашечки ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:24:02+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477017_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_CALICES"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Чашечки ПП"
+      LSHORTNAME: "Чашечки ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:23:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477016_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_PELVIS"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Лоханки ЛП"
+      LSHORTNAME: "Лоханки ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:13:25+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477015_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_PELVIS"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Лоханки ПП"
+      LSHORTNAME: "Лоханки ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:08:41+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477014_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_ECHOGEN"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхогенность ЛП"
+      LSHORTNAME: "Эхогенность ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:02:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477013_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_ECHOGEN"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхогенность ПП"
+      LSHORTNAME: "Эхогенность ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T14:01:34+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477012_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура ЛП"
+      LSHORTNAME: "Эхоструктура ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:55:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477011_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура ПП"
+      LSHORTNAME: "Эхоструктура ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:54:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477010_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_THICK"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина паренхимы ЛП"
+      LSHORTNAME: "Толщина паренхимы ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:51:23+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477009_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_THICK"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина паренхимы ПП"
+      LSHORTNAME: "Толщина паренхимы ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:50:26+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477007_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_CONTOUR"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Левая почка, контуры"
+      LSHORTNAME: "Контуры ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:48:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477006_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_CONTOUR"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правая почка, контуры"
+      LSHORTNAME: "Контуры ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:46:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477002_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_SIZE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Левая почка, размер, мм"
+      LSHORTNAME: "ЛП, размер, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:43:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477001_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_SIZE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правая почка, размер, мм"
+      LSHORTNAME: "ПП, размер, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:38:43+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147477000_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_L_POSITION"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Положение левой почки"
+      LSHORTNAME: "Положение ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:36:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147476999_894208473
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$KIDNEY_R_POSITION"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Положение правой почки"
+      LSHORTNAME: "Положение ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-06T13:34:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147476578_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$KIDNEY_LW_SIZE"
+      FIELDNAME: "USR$KIDNEY_LW_SIZE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Левая почка, ширина, мм"
+      LSHORTNAME: "ЛП, ширина, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-10T10:37:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147476577_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$KIDNEY_RW_SIZE"
+      FIELDNAME: "USR$KIDNEY_RW_SIZE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правая почка, ширина, мм"
+      LSHORTNAME: "ПП, ширина, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-10T10:36:52+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147484750_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Стенки протоков"
+      FIELDNAME: "USR$BILEDUCT_WALLS"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Стенки"
+      LSHORTNAME: "Стенки"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-26T17:58:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147484766_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дополнительно внутрепеченочные ЖП"
+      FIELDNAME: "USR$BILEDUCT_INTRAR_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дополнительно"
+      LSHORTNAME: "Дополнительно"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-26T18:08:41+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147484789_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Форма поджелудочной железы"
+      FIELDNAME: "USR$PANCREAS_FORMABD"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма"
+      LSHORTNAME: "Форма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-26T18:22:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147484843_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Лоцируется полностью"
+      FIELDNAME: "USR$PANCREAS_LOC"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Лоцируется полностью"
+      LSHORTNAME: "Лоцируется полностью"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-26T18:42:41+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147484844_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Лоцируется частично"
+      FIELDNAME: "USR$PANCREAS_LOCPART"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Частично"
+      LSHORTNAME: "Частично"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-26T18:43:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147484869_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Образования, дополнительно"
+      FIELDNAME: "USR$PANCREAS_FOCI_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дополнительно"
+      LSHORTNAME: "Дополнительно"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-26T18:57:02+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147484868_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Вирсунгов проток, дополнительно"
+      FIELDNAME: "USR$PANCREAS_VIRSUNG_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дополнительно"
+      LSHORTNAME: "Дополнительно"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-26T18:55:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485814_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Эхогенность паренхимы Л, дополнительно"
+      FIELDNAME: "USR$KIDNEY_L_ECHOGEN_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхогенность паренхимы Л, дополнительно"
+      LSHORTNAME: "Эхогенн паренхимы ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-31T12:14:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485813_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Эхогенность паренхимы П, дополнительно"
+      FIELDNAME: "USR$KIDNEY_R_ECHOGEN_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхогенность паренхимы П, дополнительно"
+      LSHORTNAME: "Эхогенн паренхимы ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-31T12:14:21+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485354_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Структура селезенки, дополнительно"
+      FIELDNAME: "USR$SPLEEN_STRUCT_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Структура селезенки, дополнительно"
+      LSHORTNAME: "Структура селезенки"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T10:44:28+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485339_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования селезенка, дополнительно"
+      FIELDNAME: "USR$SPLEEN_FOCI_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования селезенка, дополнительно"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T10:41:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485338_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования, селезенка"
+      FIELDNAME: "USR$SPLEEN_FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T10:40:42+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485281_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Положение ЛП, описание"
+      FIELDNAME: "USR$KIDNEY_L_POSITION_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Положение ЛП, описание"
+      LSHORTNAME: "Положение ЛП, описан"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:53:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485280_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "ЛП, размер"
+      FIELDNAME: "USR$KIDNEY_L_SIZEKEY"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ЛП, размер"
+      LSHORTNAME: "ЛП, размер"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:53:27+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485279_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "ЛП, размер, описание"
+      FIELDNAME: "USR$KIDNEY_L_SIZE_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ЛП, размер, описание"
+      LSHORTNAME: "ЛП, размер"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:53:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485278_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "ЛП, контуры, дополнительно"
+      FIELDNAME: "USR$KIDNEY_L_CONTOUR_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ЛП, контуры, дополнительно"
+      LSHORTNAME: "Контуры ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:52:51+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485277_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Толщина паренхимы ЛП"
+      FIELDNAME: "USR$KIDNEY_L_THICKKEY"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина паренхимы ЛП"
+      LSHORTNAME: "Толщина паренхимы ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:52:36+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485276_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Толщина паренхимы ЛП, дополнительно"
+      FIELDNAME: "USR$KIDNEY_L_THICK_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина паренхимы ЛП, дополнительно"
+      LSHORTNAME: "Толщина паренхимы ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:52:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485275_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Эхоструктура ЛП, дополнительно"
+      FIELDNAME: "USR$KIDNEY_L_STRUCT_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура ЛП, дополнительно"
+      LSHORTNAME: "Эхоструктура ЛП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:51:55+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485274_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "ЧЛС ЛП"
+      FIELDNAME: "USR$KIDNEY_L_CHLS"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ЧЛС ЛП"
+      LSHORTNAME: "ЧЛС"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:51:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485273_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "ЧЛС, ЛП дополнительно"
+      FIELDNAME: "USR$KIDNEY_L_CHLS_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ЧЛС, ЛП дополнительно"
+      LSHORTNAME: "ЧЛС"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:51:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485272_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования ЛП"
+      FIELDNAME: "USR$KIDNEY_L_FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования ЛП"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:50:57+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485271_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования ЛП, дополнительно"
+      FIELDNAME: "USR$KIDNEY_L_FOCI_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования ЛП, дополнительно"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:50:41+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485270_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования ПП, дополнительно"
+      FIELDNAME: "USR$KIDNEY_R_FOCI_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования ПП, дополнительно"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-30T09:50:25+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485111_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования ПП"
+      FIELDNAME: "USR$KIDNEY_R_FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования ПП"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T16:10:36+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485107_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KIDNEY_R_CHLS_DESCR"
+      FIELDNAME: "USR$KIDNEY_R_CHLS_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ЧЛС, дополнительно"
+      LSHORTNAME: "ЧЛС"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T16:04:23+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485106_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KIDNEY_R_CHLS"
+      FIELDNAME: "USR$KIDNEY_R_CHLS"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ЧЛС"
+      LSHORTNAME: "ЧЛС"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T16:03:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485105_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KIDNEY_R_STRUCT_DESCR"
+      FIELDNAME: "USR$KIDNEY_R_STRUCT_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура ПП, дополнительно"
+      LSHORTNAME: "Эхоструктура ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T16:03:22+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485104_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$KIDNEY_R_THICK_DESCR"
+      FIELDNAME: "USR$KIDNEY_R_THICK_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина паренхимы П, дополнительно"
+      LSHORTNAME: "Толщина паренхимы ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T15:54:03+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485103_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KIDNEY_R_THICKKEY"
+      FIELDNAME: "USR$KIDNEY_R_THICKKEY"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина паренхимы ПП"
+      LSHORTNAME: "Толщина паренхимы ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T15:53:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485101_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KIDNEY_R_CONTOUR_DESCR"
+      FIELDNAME: "USR$KIDNEY_R_CONTOUR_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правая почка, контуры, дополнительно"
+      LSHORTNAME: "Контуры ПП"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T15:52:12+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485100_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$KIDNEY_R_SIZE_DESCR"
+      FIELDNAME: "USR$KIDNEY_R_SIZE_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правая почка, размер, описание"
+      LSHORTNAME: "ПП, размер"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T15:51:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485099_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KIDNEY_R_SIZEKEY"
+      FIELDNAME: "USR$KIDNEY_R_SIZEKEY"
+      FIELDSOURCE: "USR$SAN_D_ABDOMEN"
+      FIELDSOURCEKEY: "147451267_875748955 Справочник для УЗИ брюшной полости, USR$SAN_D_ABDOMEN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правая почка, размер"
+      LSHORTNAME: "ПП, размер"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ABDOMEN"
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T15:50:50+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147485098_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KIDNEY_R_POSITION_DESCR"
+      FIELDNAME: "USR$KIDNEY_R_POSITION_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Положение правой почки, описание"
+      LSHORTNAME: "Положение ПП, описан"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T15:49:43+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147484959_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Размеры парааортальные лимфоузлы и лимфоузлы ворот печени"
+      FIELDNAME: "USR$LYMPHNODE_SIZE"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Размеры"
+      LSHORTNAME: "Размеры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-10-27T11:54:49+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147488788_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Особенности"
+      FIELDNAME: "USR$SPLEEN_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451300_875748955 Доп. инф. для УЗИ брюшной полости, USR$SAN_ADDABDOMEN"
+      RELATIONNAME: "USR$SAN_ADDABDOMEN"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-13T13:41:56+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~

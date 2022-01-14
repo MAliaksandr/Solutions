@@ -1,0 +1,133 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147403712_812279903
+  Name: "WESTA.Загрузить ТМЦ из EXCEL"
+  Caption: "WESTA.Загрузить ТМЦ из EXCEL"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: 77F078968D6C3A9063A0AE9AA7577FE5
+Uses: 
+  - "147728891_43451302 Общие данные"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147398397_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398395_809241643
+    Fields: 
+      NAME: "Macros147398397_809241643"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147003941_31587988 gdc_frmMainGood"
+      OBJECTNAME: "gdc_frmMainGood"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-05-30T10:26:48+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147398397_809241643
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAgAAABHUk9VUEtFWQoAAADD8PPv7+Ag0szWDAAAAEdEX0dPT0RHUk9VUAQAAABO
+        QU1FAgAAAElEBwAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros147398397_809241643(OwnerForm, GroupKey)
+        
+          dim Path, FileList, Creator, i, n, Str, Transaction, FileName
+        
+          set Creator = new TCreator
+          set Transaction = Creator.GetObject(null, "TIBTransaction", "")
+          Transaction.DefaultDatabase = gdcBaseManager.Database
+          Transaction.StartTransaction
+          dim gdcGood
+          set gdcGood = Creator.GetObject(nil, "TgdcGood", "")
+          gdcGood.Transaction = Transaction
+          gdcGood.Open
+          dim OpenDialog
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          OpenDialog.InitialDir = path
+          OpenDialog.Filter =  "*.xlsx|*.xlsx"
+          if OpenDialog.Execute then
+            FileName = OpenDialog.FileName
+          else
+            Exit Sub
+          end if
+        
+          Dim Exc, Sh, LineCount
+          Set Exc = CreateObject("Excel.Application")
+          call Exc.Workbooks.Open(FileName)
+          set Sh = Exc.Worksheets(1)
+        
+          LineCount = 0
+          i = 1
+          while not Sh.Cells(i,1).Value = ""
+           i = i + 1
+           LineCount = LineCount + 1
+          wend
+        
+          dim ibsql, value_id
+          set ibsql = Creator.GetObject(nil, "TIBSQL", "")
+          ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.SQL.Text = _
+            "select id from gd_value " & _
+            "WHERE name like '%' || :goodvalue || '%' "
+          for i = 1 to LineCount
+            Str = Trim(Exc.ActiveSheet.Cells(i,1).Value)
+            if Str <> "" then
+              ibsql.Close
+              ibsql.ParamByName("goodvalue").AsString = Trim(Exc.ActiveSheet.Cells(i,2).Value)
+              ibsql.ExecQuery
+              'если не найдена ед. измерения по названию, то берем шт.
+              if ibsql.eof then
+                value_id = gdcBasemanager.getIdByRuidString("3000001_17")
+              else
+                value_id = ibsql.FieldByName("id").AsInteger
+              end if
+              gdcGood.Insert
+              gdcGood.FieldByName("name").AsString = Trim(Exc.ActiveSheet.Cells(i,1).Value)
+              gdcGood.FieldByName("groupkey").AsInteger = GroupKey(0)
+              gdcGood.FieldByName("valuekey").AsInteger = value_id
+              gdcGood.Post
+            end if
+          next
+          call Exc.Workbooks.Close
+        
+          if Transaction.InTransaction then Transaction.Commit
+          call Application.MessageBox("Загрузка завершена!", "Внимание!" , mb_Ok or mb_IconInformation or mb_SystemModal)
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 147398395_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Загрузить ТМЦ из EXCEL"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "147398397_809241643 Macros147398397_809241643"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147006551_31587988 Локальные макросы"
+      OBJECTNAME: "gdc_frmMainGood"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2017-05-30T10:26:50+03:00

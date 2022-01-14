@@ -1,0 +1,2254 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147466822_809241643
+  Name: "GS.Санаторий.Обследования.Дополнительно.УЗИ вен нижних конечностей"
+  Caption: "GS.Санаторий.Обследования.Дополнительно.УЗИ вен нижних конечностей"
+  Version: "1.0.0.6"
+  Optional: False
+  Internal: True
+  MD5: E9DB85EF12FF743D8013F64C36AA8940
+Uses: 
+  - "147693015_71168484 GS.Санаторий.Общее.Метаданные"
+  - "147696542_71168484 GS.Санаторий.МУ.Общие справочники"
+  - "147466800_809241643 GS.Санаторий.Обследования.Дополнительно.Исследователь"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753062_69526485 GS.Общие.Хранилище"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147466823_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147466799_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования"
+      NAME: "Справочник для УЗИ вен нижних конечностей"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "147462738_809241643"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_LE_VEINS"
+      EDITIONDATE: 2017-09-27T20:42:16+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147466826_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SAN_P_LEVEINS"
+      EDITIONDATE: 2017-09-29T17:24:13+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SAN_P_LEVEINS 
+        RETURNS ( 
+            ID SMALLINT,
+            NAME VARCHAR(60))
+         AS
+        BEGIN
+          ID = 1;
+          NAME = 'Поверхность голени';
+          SUSPEND;
+        
+          ID = 2;
+          NAME = 'Поверхность бедра';
+          SUSPEND;
+        
+        END
+      RDB$DESCRIPTION: | 
+        УЗИ вен нижних конечностей
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147462738_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "147466823_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования\\Справочник для УЗИ вен нижних конечностей"
+      DESCRIPTION: "Справочник для УЗИ вен нижних конечностей"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Справочник для УЗИ вен нижних конечностей"
+      LSHORTNAME: "Справочник для УЗИ вен нижних конечностей"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-09-27T20:42:16+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147462742_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DNAME"
+      FIELDSOURCEKEY: "153002063_17 Наименование (обязательное), DNAME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462738_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_LE_VEINS"
+      RELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-19T22:21:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147462741_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Тип"
+      FIELDNAME: "USR$TYPE"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип"
+      LSHORTNAME: "Тип"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462738_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_LE_VEINS"
+      RELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-19T22:21:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147471084_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_LE_VEINS"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-27T21:05:37+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_LE_VEINS: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          BorderStyle = bsDialog
+          ClientHeight = 100
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 76
+          end
+          object btnNew: TButton
+            Top = 76
+          end
+          object btnHelp: TButton
+            Top = 76
+          end
+          object btnOK: TButton
+            Top = 76
+          end
+          object btnCancel: TButton
+            Top = 76
+          end
+          object pnlMain: TPanel
+            Height = 67
+            object atAttributes: TatContainer
+              Height = 67
+              object usrat_DBEdit_USR_TYPE_Label: TLabel
+                Top = 33
+              end
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Top = 8
+              end
+              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
+                Left = 318
+                Top = 29
+                Cursor = crIBeam
+                TabOrder = 2
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Top = 4
+                Width = 364
+                TabOrder = 0
+              end
+              object usrg_iblType: TgsIBLookupComboBox
+                Tag = 0
+                Left = 94
+                Top = 28
+                Width = 209
+                Height = 21
+                Cursor = crDefault
+                HelpContext = 1
+                TabStop = True
+                Database = dmDatabase.ibdbGAdmin
+                Transaction = ibtrCommon
+                DataSource = dsgdcBase
+                DataField = 'USR$TYPE'
+                Fields = ''
+                ListTable = 'USR$SAN_P_LEVEINS'
+                ListField = 'NAME'
+                KeyField = 'ID'
+                SortOrder = soNone
+                SortField = ''
+                CheckUserRights = False
+                Condition = ''
+                gdClassName = ''
+                SubType = ''
+                ReadOnly = False
+                StrictOnExit = True
+                Distinct = False
+                FullSearchOnExit = False
+                ViewType = vtByClass
+                Style = csDropDown
+                Anchors = [akLeft, akTop]
+                Color = 11141119
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                DropDownCount = 16
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                ItemHeight = 13
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 1
+                Visible = True
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 254
+            Top = 75
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 224
+            Top = 67
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147471057_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_LE_VEINS(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-27T20:59:15+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147471085_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: "147471057_809241643 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_LE_VEINS(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-27T21:03:30+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147471086_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: "147471085_809241643 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_LE_VEINS(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-27T21:03:30+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQlBbGlnbm1lbnQHDXRhTGVmdEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYIVFlQRU5BTUUNVGl0bGUuQ2FwdGlvbgYJ0ujvICjo7P8pBVdpZHRoA2wBB1Zpc2libGUJAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYIVVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g
+        6Ozl7e7i4O3o5QVXaWR0aAPzAQdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCFVTUiRU
+        WVBFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgPS6O8FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBgJJRA1UaXRsZS5DYXB0aW9uBg3I5OXt8uj06Org8u7wBVdpZHRoAv8H
+        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9OREFURQ1UaXRsZS5DYXB0aW9u
+        BhDE4PLgIOzu5Oj06Org9ujoBVdpZHRoAv8HVmlzaWJsZQgAAAkItB4JCA==
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147471079_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_LE_VEINS)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147471079_809241643"
+      EDITIONDATE: 2017-09-27T21:02:29+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147471078_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-09-27T21:02:29+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147471048_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_LE_VEINS"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147471078_809241643 Локальные макросы"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147471079_809241643 Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_LE_VEINS)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-09-27T21:02:30+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147471046_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_SAN_LE_VEINS)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147471046_809241643"
+      EDITIONDATE: 2017-09-27T20:57:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147471045_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-09-27T20:57:51+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147466829_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_LE_VEINS"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147471045_809241643 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147471046_809241643 Отчеты(gdc_frmAttrUserDefinedUSR_SAN_LE_VEINS)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-09-27T20:57:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147471050_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      PARENT: "147275685_124484738 TgdcBase\\TgdcAttrUserDefined"
+      NAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      CLASSNAME: "TgdcAttrUserDefined"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_LE_VEINS"
+      EDITIONDATE: 2017-09-27T20:58:27+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147471082_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINSCreateFields"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147471050_809241643 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-27T21:02:42+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_LE_VEINSCREATEFIELDS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub TgdcAttrUserDefinedUSR_SAN_LE_VEINSCreateFields(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "CreateFields", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          Self.FieldByName("USR$TYPE").Required = true
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147471080_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CREATEFIELDS"
+      FUNCTIONKEY: "147471082_809241643 TgdcAttrUserDefinedUSR_SAN_LE_VEINSCreateFields"
+      OBJECTKEY: "147471050_809241643 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-27T21:02:42+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147471056_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINSGetSelectClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147471050_809241643 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-27T20:59:01+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_LE_VEINSGETSELECTCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_LE_VEINSGetSelectClause(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_LE_VEINSGetSelectClause = _
+            Inherited(Self, "GetSelectClause", Array(Self)) & ", l.NAME AS TypeName "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147471054_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETSELECTCLAUSE"
+      FUNCTIONKEY: "147471056_809241643 TgdcAttrUserDefinedUSR_SAN_LE_VEINSGetSelectClause"
+      OBJECTKEY: "147471050_809241643 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-27T20:59:01+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147471053_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINSGetFromClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147471050_809241643 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-27T20:58:27+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_LE_VEINSGETFROMCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        CAAAAEFSRUZSRVNICAAAAEFSRUZSRVNIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_LE_VEINSGetFromClause(Self, ARefresh)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_LE_VEINSGetFromClause = _
+            Inherited(Self, "GetFromClause", Array(Self, ARefresh)) & _
+            " LEFT JOIN USR$SAN_P_LEVEINS l ON l.ID = z.USR$TYPE "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147471051_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462738_809241643
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETFROMCLAUSE"
+      FUNCTIONKEY: "147471053_809241643 TgdcAttrUserDefinedUSR_SAN_LE_VEINSGetFromClause"
+      OBJECTKEY: "147471050_809241643 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_LE_VEINS"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-27T20:58:27+03:00
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147462744_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "Справочник для УЗИ вен нижних конечностей"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_D_LE_VEINS"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Справочник для УЗИ вен нижних конечностей"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Справочник для УЗИ вен нижних конечностей"
+      REFTABLE: "USR$SAN_LE_VEINS"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-19T22:23:04+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableToTable"
+      RUID: 147462749_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Доп.инфо для УЗИ вен нижних конечностей"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Доп.инфо для УЗИ вен нижних конечностей"
+      LSHORTNAME: "Доп.инфо для УЗИ вен нижних конечностей"
+      REFERENCEKEY: "147000470_486813904 Документы, GD_DOCUMENT"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-09-27T21:28:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463364_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Заключение"
+      FIELDNAME: "USR$REPORT"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463362_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Суральные вены"
+      FIELDNAME: "USR$SUB_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Суральные вены"
+      LSHORTNAME: "Суральные вены"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463360_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Берцовые вены"
+      FIELDNAME: "USR$VERNUM_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Берцовые вены"
+      LSHORTNAME: "Берцовые вены"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463358_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Подколенные вены"
+      FIELDNAME: "USR$POPLITEAL_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Подколенные вены"
+      LSHORTNAME: "Подколенные вены"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463356_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Бедренные вены"
+      FIELDNAME: "USR$FEMORAL_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Бедренные вены"
+      LSHORTNAME: "Бедренные вены"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463354_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Подвздошные вены"
+      FIELDNAME: "USR$ILEAL_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Подвздошные вены"
+      LSHORTNAME: "Подвздошные вены"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463352_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Атипично расположенные перфоранты"
+      FIELDNAME: "USR$PV_L_ATYPICAL"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Атипично расположенные перфоранты"
+      LSHORTNAME: "Атипично расположенн"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463350_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в средней трети бедра"
+      FIELDNAME: "USR$PV_L_THIGH_MIDDLE"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в средней трети бедра"
+      LSHORTNAME: "в средней трети бедр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463348_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в нижней трети бедра"
+      FIELDNAME: "USR$PV_L_THIGH_LOWER"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в нижней трети бедра"
+      LSHORTNAME: "в нижней трети бедра"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463346_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в верхней трети голени"
+      FIELDNAME: "USR$PV_L_SHIN_UPPER"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в верхней трети голени"
+      LSHORTNAME: "в верхней трети голе"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463344_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в средней трети голени"
+      FIELDNAME: "USR$PV_L_SHIN_MIDDLE"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в средней трети голени"
+      LSHORTNAME: "в средней трети голе"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463342_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в нижней трети голени"
+      FIELDNAME: "USR$PV_L_SHIN_LOWER"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в нижней трети голени"
+      LSHORTNAME: "в нижней трети голен"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463340_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Несостоятельные перфорантные вены"
+      FIELDNAME: "USR$PV_L_INSOLVENT"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Несостоятельные перфорантные вены"
+      LSHORTNAME: "Несостоятельные перф"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463338_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Атипично расположенные перфоранты"
+      FIELDNAME: "USR$PV_R_ATYPICAL"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Атипично расположенные перфоранты"
+      LSHORTNAME: "Атипично расположенн"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463336_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в средней трети бедра"
+      FIELDNAME: "USR$PV_R_THIGH_MIDDLE"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в средней трети бедра"
+      LSHORTNAME: "в средней трети бедр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463334_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в нижней трети бедра"
+      FIELDNAME: "USR$PV_R_THIGH_LOWER"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в нижней трети бедра"
+      LSHORTNAME: "в нижней трети бедра"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463332_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в верхней трети голени"
+      FIELDNAME: "USR$PV_R_SHIN_UPPER"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в верхней трети голени"
+      LSHORTNAME: "в верхней трети голе"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463330_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в средней трети голени"
+      FIELDNAME: "USR$PV_R_SHIN_MIDDLE"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в средней трети голени"
+      LSHORTNAME: "в средней трети голе"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463328_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "в нижней трети голени"
+      FIELDNAME: "USR$PV_R_SHIN_LOWER"
+      FIELDSOURCE: "USR$SAN_D_LE_VEINS"
+      FIELDSOURCEKEY: "147462744_809241643 Справочник для УЗИ вен нижних конечностей, USR$SAN_D_LE_VEINS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "в нижней трети голени"
+      LSHORTNAME: "в нижней трети голен"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_LE_VEINS"
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463327_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Несостоятельные перфорантные вены"
+      FIELDNAME: "USR$PV_R_INSOLVENT"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Несостоятельные перфорантные вены"
+      LSHORTNAME: "Несостоятельные перф"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463326_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Анатомические особенности"
+      FIELDNAME: "USR$SV_L_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Анатомические особенности"
+      LSHORTNAME: "Анатомические особен"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463325_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Диаметр, мм"
+      FIELDNAME: "USR$SV_L_SIZE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Диаметр, мм"
+      LSHORTNAME: "Диаметр, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463324_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Рефлюкс"
+      FIELDNAME: "USR$SV_L_REFLUX"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рефлюкс"
+      LSHORTNAME: "Рефлюкс"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463323_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Остиальный клапан несостоятельный"
+      FIELDNAME: "USR$SV_L_OSTEAL_INSOLVENT"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Остиальный клапан несостоятельный"
+      LSHORTNAME: "Остиальный клапан не"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463322_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Анатомические особенности"
+      FIELDNAME: "USR$SV_R_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Анатомические особенности"
+      LSHORTNAME: "Анатомические особен"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463321_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Диаметр, мм"
+      FIELDNAME: "USR$SV_R_SIZE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Диаметр, мм"
+      LSHORTNAME: "Диаметр, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463320_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Рефлюкс"
+      FIELDNAME: "USR$SV_R_REFLUX"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рефлюкс"
+      LSHORTNAME: "Рефлюкс"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463319_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Остиальный клапан несостоятельный"
+      FIELDNAME: "USR$SV_R_OSTEAL_INSOLVENT"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Остиальный клапан несостоятельный"
+      LSHORTNAME: "Остиальный клапан не"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463318_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Анатомические особенности"
+      FIELDNAME: "USR$LSV_L_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Анатомические особенности"
+      LSHORTNAME: "Анатомические особен"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463317_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Рефлюкс по ходу ствола"
+      FIELDNAME: "USR$LSV_L_REFLUX"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рефлюкс по ходу ствола"
+      LSHORTNAME: "Рефлюкс по ходу ство"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463316_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Остиальный клапан несостоятельный"
+      FIELDNAME: "USR$LSV_L_OSTEAL_INSOLVENT"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Остиальный клапан несостоятельный"
+      LSHORTNAME: "Остиальный клапан не"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463315_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Анатомические особенности"
+      FIELDNAME: "USR$LSV_R_DESCRIPTION"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Анатомические особенности"
+      LSHORTNAME: "Анатомические особен"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463314_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Рефлюкс по ходу ствола"
+      FIELDNAME: "USR$LSV_R_REFLUX"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рефлюкс по ходу ствола"
+      LSHORTNAME: "Рефлюкс по ходу ство"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147462761_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147462749_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Остиальный клапан несостоятельный"
+      FIELDNAME: "USR$LSV_R_OSTEAL_INSOLVENT"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Остиальный клапан несостоятельный"
+      LSHORTNAME: "Остиальный клапан не"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147462749_809241643 Доп.инфо для УЗИ вен нижних конечностей, USR$SAN_ADDLEVEINS"
+      RELATIONNAME: "USR$SAN_ADDLEVEINS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-19T22:55:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~

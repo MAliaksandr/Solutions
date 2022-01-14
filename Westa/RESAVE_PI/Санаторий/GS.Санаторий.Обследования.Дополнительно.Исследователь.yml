@@ -1,0 +1,65 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147466800_809241643
+  Name: "GS.Санаторий.Обследования.Дополнительно.Исследователь"
+  Caption: "GS.Санаторий.Обследования.Дополнительно.Исследователь"
+  Version: "1.0.0.6"
+  Optional: False
+  Internal: True
+  MD5: D3AED5E6E0838D21906984C524D777B5
+Uses: 
+  - "147693015_71168484 GS.Санаторий.Общее.Метаданные"
+  - "147696542_71168484 GS.Санаторий.МУ.Общие справочники"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147466799_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147244414_1990766971 Исследователь\\1. Санаторий\\03. Медицинские справочники"
+      NAME: "УЗИ и другие обследования"
+      CLASSNAME: ~
+      CMD: "147466799_809241643"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 7
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2017-09-27T20:33:02+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147463940_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SAN_P_YNTYPE"
+      EDITIONDATE: 2017-09-29T17:36:37+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SAN_P_YNTYPE 
+        RETURNS ( 
+            ID INTEGER,
+            NAME VARCHAR(60))
+         AS
+        BEGIN
+          ID = null;
+          NAME = '-';
+          SUSPEND;
+        
+          ID = 0;
+          NAME = 'Нет';
+          SUSPEND;
+        
+          ID = 1;
+          NAME = 'Да';
+          SUSPEND;
+        END
+      RDB$DESCRIPTION: | 
+        Тип поля Да\Нет 

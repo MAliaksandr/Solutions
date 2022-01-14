@@ -1,0 +1,898 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147378627_789097196
+  Name: "WESTA.ОС.Амортизация на услугу"
+  Caption: "WESTA.ОС.Амортизация на услугу"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: C8D9797189267294DC3A978E207ACFD0
+Uses: 
+  - "147693016_71168484 GS.Санаторий.Общее.Справочники"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147065027_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Амортизация ОС на услугу"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Аморт на услугу"
+      LSHORTNAME: "Аморт на услугу"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2016-12-20T18:29:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065053_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Наименование ОС"
+      FIELDNAME: "USR$GOODKEY"
+      FIELDSOURCE: "USR$GS_DGOOD"
+      FIELDSOURCEKEY: "147035009_9802323 Товар, USR$GS_DGOOD"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcGood"
+      GDSUBTYPE: ~
+      LNAME: "Наименование ОС"
+      LSHORTNAME: "Наименование ОС"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_GOOD"
+      RELATIONKEY: "147065027_704999368 Аморт на услугу, USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONNAME: "USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T19:01:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065037_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Ссылка на таблицу калк"
+      FIELDNAME: "USR$MASTERKEY"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ссылка на таблицу калк"
+      LSHORTNAME: "Ссылка на таблицу ка"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065027_704999368 Аморт на услугу, USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONNAME: "USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T18:57:48+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065035_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Норма времени"
+      FIELDNAME: "USR$RATE_TIME"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Норма времени"
+      LSHORTNAME: "Норма времени"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065027_704999368 Аморт на услугу, USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONNAME: "USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T18:56:26+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065113_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Оплата на услугу"
+      FIELDNAME: "USR$PAYMENT_SERVICE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Оплата на услугу"
+      LSHORTNAME: "Оплата на услугу"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065027_704999368 Аморт на услугу, USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONNAME: "USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T19:23:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065032_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Стоимость аморт. в мин."
+      FIELDNAME: "USR$AMORT_FOR_MINUTE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Стоимость аморт. в мин."
+      LSHORTNAME: "Стоимость аморт. в м"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065027_704999368 Аморт на услугу, USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONNAME: "USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T18:52:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065030_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Услуга"
+      FIELDNAME: "USR$SERVICEKEY"
+      FIELDSOURCE: "USR$HT_D_SERVICEKEY"
+      FIELDSOURCEKEY: "147008681_1661751803 HT. Услуга, USR$HT_D_SERVICEKEY"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcAttrUserDefined"
+      GDSUBTYPE: ~
+      LNAME: "Услуга"
+      LSHORTNAME: "Услуга"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$HT_SERVICE"
+      RELATIONKEY: "147065027_704999368 Аморт на услугу, USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONNAME: "USR$SAN_AMORT_FOR_SERVICE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T18:46:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147065111_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_AMORT_FOR_SERVICE"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-04-04T15:48:14+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE: Tgdc_dlgAttrUserDefined
+          Left = 502
+          Top = 330
+          Width = 420
+          Height = 225
+          ActiveControl = nil
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 162
+          end
+          object btnNew: TButton
+            Top = 162
+          end
+          object btnHelp: TButton
+            Top = 162
+          end
+          object btnOK: TButton
+            Left = 256
+            Top = 162
+          end
+          object btnCancel: TButton
+            Left = 330
+            Top = 162
+          end
+          object pnlMain: TPanel
+            Width = 404
+            Height = 153
+            object atAttributes: TatContainer
+              Width = 404
+              Height = 153
+              object usrat_gsIBLookupComboBox_USR_SERVICEKEY_Label: TLabel
+              end
+              object usrat_DBEdit_USR_AMORT_FOR_MINUTE_Label: TLabel
+                Left = 157
+                Top = 71
+                Width = 129
+                Font.Style = []
+                ParentFont = False
+              end
+              object usrat_DBEdit_USR_RATE_TIME_Label: TLabel
+                Top = 71
+              end
+              object usrat_DBEdit_USR_MASTERKEY_Label: TLabel
+                Left = 309
+                Top = 116
+                Width = 33
+                Visible = False
+              end
+              object usrat_gsIBLookupComboBox_USR_GOODKEY_Label: TLabel
+                Top = 37
+              end
+              object usrat_DBEdit_USR_PAYMENT_SERVICE_Label: TLabel
+                Left = 141
+                Width = 106
+                Font.Style = [fsBold]
+                ParentFont = False
+              end
+              object usrat_DBEdit_Z_USR_SERVICEKEY_USR_NAME_Label: TLabel
+                Left = 309
+                Top = 36
+                Width = 21
+                Visible = False
+              end
+              object usrat_gsIBLookupComboBox_USR_SERVICEKEY: TgsIBLookupComboBox
+                Left = 107
+                Width = 290
+              end
+              object usrat_DBEdit_USR_AMORT_FOR_MINUTE: TxDBCalculatorEdit
+                Left = 289
+                Top = 67
+                Width = 108
+                Cursor = crIBeam
+              end
+              object usrat_DBEdit_USR_RATE_TIME: TxDBCalculatorEdit
+                Left = 97
+                Top = 67
+                Width = 52
+                Cursor = crIBeam
+              end
+              object usrat_DBEdit_USR_MASTERKEY: TxDBCalculatorEdit
+                Left = 345
+                Top = 114
+                Width = 28
+                Cursor = crIBeam
+                Visible = False
+              end
+              object usrat_gsIBLookupComboBox_USR_GOODKEY: TgsIBLookupComboBox
+                Left = 107
+                Top = 33
+                Width = 290
+                Condition = 'groupkey = 147064897'
+              end
+              object usrat_DBEdit_USR_PAYMENT_SERVICE: TxDBCalculatorEdit
+                Left = 257
+                Cursor = crIBeam
+              end
+              object usrat_DBEdit_Z_USR_SERVICEKEY_USR_NAME: TDBEdit
+                Left = 337
+                Top = 32
+                Width = 36
+                Visible = False
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 438
+            Top = 84
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 376
+            Top = 92
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147065055_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2016-12-20T19:01:10+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147065293_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: "147065055_789097196 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2016-12-23T23:10:12+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147065294_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: "147065293_789097196 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2016-12-26T18:15:37+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgJJRA1UaXRsZS5DYXB0aW9uBg3I5OXt
+        8uj06Org8u7wBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9O
+        REFURQ1UaXRsZS5DYXB0aW9uBhDE4PLgIOzu5Oj06Org9ujoBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBg5VU1IkU0VSVklDRUtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlv
+        bgYG0/Hr8+PgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhlaX1VTUiRT
+        RVJWSUNFS0VZX1VTUiROQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgzN4Ojs5e3u4uDt6OUF
+        V2lkdGgDRgEHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBhRVU1IkQU1PUlRfRk9SX01J
+        TlVURQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYX0fLu6Ozu8fL8IODs7vDyLiDiIOzo7S4FV2lk
+        dGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBg1VU1IkUkFURV9USU1FCFJlYWRP
+        bmx5CA1UaXRsZS5DYXB0aW9uBg3N7vDs4CDi8OXs5e3oBVdpZHRoAlUHVmlzaWJsZQkAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBg1VU1IkTUFTVEVSS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhbR
+        8fvr6uAg7eAg8uDh6+j28yDq4OvqBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBgtVU1IkR09PREtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYPzeDo7OXt7uLg7ejlIM7R
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhJaX1VTUiRHT09ES0VZX05B
+        TUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GHc3g6Ozl7e7i4O3o5SAo0e/w4OLu9+3o6iDSzNYp
+        BVdpZHRoA2oBB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYTVVNSJFBBWU1FTlRfU0VS
+        VklDRQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQzu/r4PLgIO3gIPPx6/Pj8wVXaWR0aAL/B1Zp
+        c2libGUIAAAICLQeCQg=
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147065107_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147065107_704999368"
+      EDITIONDATE: 2016-12-20T19:05:04+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147065106_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2016-12-20T19:05:04+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147065048_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147065106_704999368 Локальные макросы"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147065107_704999368 Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE)"
+      SUBTYPE: ""
+      EDITIONDATE: 2016-12-20T19:05:04+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147065110_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147065110_704999368"
+      EDITIONDATE: 2016-12-20T19:12:06+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147065109_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2016-12-20T19:12:06+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147065046_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147065109_704999368 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147065110_704999368 Отчеты(gdc_frmAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE)"
+      SUBTYPE: ""
+      EDITIONDATE: 2016-12-20T19:12:07+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147065069_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      PARENT: "147275685_124484738 TgdcBase\\TgdcAttrUserDefined"
+      NAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      CLASSNAME: "TgdcAttrUserDefined"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_AMORT_FOR_SERVICE"
+      EDITIONDATE: 2016-12-20T19:02:40+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147065105_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICEDoFieldChange"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147065069_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2016-12-20T19:51:18+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_AMORT_FOR_SERVICEDOFIELDCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        BQAAAEZJRUxEBQAAAEZJRUxEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICEDoFieldChange(Self, Field)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "DoFieldChange", Array(Self, Field))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          Dim Q, R(), Tr
+          Set Tr = Self.Transaction
+          select case UCase(Field.FieldName)
+            case "USR$SERVICEKEY"
+              Q = _
+                "SELECT SERV.USR$DURATION AS DURATION " & _
+                "FROM USR$HT_SERVICE SERV " & _
+                "WHERE SERV.ID = :SERVICEKEY "
+              gdcBaseManager.ExecSingleQueryResult Q, Array(Field.AsInteger), R, Tr
+              If not IsEmpty(R) then
+                Self.FieldByName("USR$RATE_TIME").AsCurrency = R(0, 0)
+              End If
+            case "USR$GOODKEY"
+              Q = _
+                "SELECT AOS.USR$AMORT_FOR_MINUTE " & _
+                "FROM USR$SAN_AMORT_OS AOS " & _
+                "WHERE AOS.USR$GOODKEY = :GOODKEY " & _
+                "      AND AOS.USR$MASTERKEY = :MASTERKEY "
+              gdcBaseManager.ExecSingleQueryResult Q, Array(Field.AsInteger, Self.FieldByName("USR$MASTERKEY").AsInteger), R, Tr
+              If not IsEmpty(R) then
+                Self.FieldByName("USR$AMORT_FOR_MINUTE").AsCurrency = R(0, 0)
+              End If
+            case "USR$AMORT_FOR_MINUTE"
+              Self.FieldByName("USR$PAYMENT_SERVICE").AsCurrency = _
+                GS.MulDiv(Field.AsCurrency, Self.FieldByName("USR$RATE_TIME").AsCurrency, 1, 1, 2)
+            case "USR$RATE_TIME"
+              Self.FieldByName("USR$PAYMENT_SERVICE").AsCurrency = _
+                GS.MulDiv(Self.FieldByName("USR$AMORT_FOR_MINUTE").AsCurrency, Field.AsCurrency, 1, 1, 2)
+          end select
+        
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147065103_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOFIELDCHANGE"
+      FUNCTIONKEY: "147065105_704999368 TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICEDoFieldChange"
+      OBJECTKEY: "147065069_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2016-12-20T19:51:18+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147065102_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICEGetWhereClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147065069_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2016-12-20T19:03:31+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_AMORT_FOR_SERVICEGETWHERECLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICEGetWhereClause(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          if Self.SubSet = "ByParent" then
+            TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICEGetWhereClause = _
+               " WHERE z.usr$MASTERKEY = :parent "
+          else
+           TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICEGetWhereClause = _
+            Inherited(Self, "GetWhereClause", Array(Self))
+          end if
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147065100_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETWHERECLAUSE"
+      FUNCTIONKEY: "147065102_704999368 TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICEGetWhereClause"
+      OBJECTKEY: "147065069_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2016-12-20T19:03:31+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147065099_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICECheckSubSet"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147065069_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2016-12-20T19:02:40+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_AMORT_FOR_SERVICECHECKSUBSET
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        BwAAAEFTVUJTRVQHAAAAQVNVQlNFVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICECheckSubSet(Self, ASubSet)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICECheckSubSet = _
+            Inherited(Self, "CheckSubSet", Array(Self, ASubSet)) or (ASubSet = "ByParent")
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147065070_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065027_704999368
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CHECKSUBSET"
+      FUNCTIONKEY: "147065099_704999368 TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICECheckSubSet"
+      OBJECTKEY: "147065069_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_AMORT_FOR_SERVICE"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2016-12-20T19:02:40+03:00

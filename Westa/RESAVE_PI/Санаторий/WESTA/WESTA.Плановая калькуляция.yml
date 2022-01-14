@@ -1,0 +1,1584 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147378653_789097196
+  Name: "WESTA.Плановая калькуляция"
+  Caption: "WESTA.Плановая калькуляция"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: 1449252C4651E468536489F21B691ABB
+Uses: 
+  - "147693016_71168484 GS.Санаторий.Общее.Справочники"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147065161_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Плановая калькуляция"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Плановая калькуляция"
+      LSHORTNAME: "Плановая калькуляция"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2016-12-20T20:20:25+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147067016_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Итого тариф(иностр)"
+      FIELDNAME: "USR$TOTAL_TARIFF_FOREIGN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Итого тариф(иностр)"
+      LSHORTNAME: "Итого тариф(иностр)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-01-21T14:06:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147067015_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Тариф без НДС(иностр)"
+      FIELDNAME: "USR$TARIFF_WVAT_FOREIGN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тариф без НДС(иностр)"
+      LSHORTNAME: "Тариф без НДС(иностр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-01-21T14:06:16+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147067014_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Прибыль иностр"
+      FIELDNAME: "USR$PROFIT_FOREIGN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Прибыль иностр"
+      LSHORTNAME: "Прибыль иностр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-01-21T14:04:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147067013_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Рентабельность иностр."
+      FIELDNAME: "USR$PROFITABILITY_FOREIGN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рентабельность иностр."
+      LSHORTNAME: "Рентабельность иност"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-01-21T14:00:55+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065225_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Ссылка на калк."
+      FIELDNAME: "USR$MASTERKEY"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ссылка на калк."
+      LSHORTNAME: "Ссылка на калк."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-21T12:38:06+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065196_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Услуга"
+      FIELDNAME: "USR$SERVICEKEY"
+      FIELDSOURCE: "USR$HT_D_SERVICEKEY"
+      FIELDSOURCEKEY: "147008681_1661751803 HT. Услуга, USR$HT_D_SERVICEKEY"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcAttrUserDefined"
+      GDSUBTYPE: ~
+      LNAME: "Услуга"
+      LSHORTNAME: "Услуга"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$HT_SERVICE"
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-21T12:37:43+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065176_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Амортизация мед. оборуд."
+      FIELDNAME: "USR$AMORT_FOR_MED"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Амортизация мед. оборуд."
+      LSHORTNAME: "Амортизация мед. об."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-21T12:32:26+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065175_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Накладные расходы"
+      FIELDNAME: "USR$OUTCASH"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Накладные расходы"
+      LSHORTNAME: "Накладные расходы"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-21T12:29:50+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065174_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Итого тариф"
+      FIELDNAME: "USR$TOTAL_TARIFF"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Итого тариф"
+      LSHORTNAME: "Итого тариф"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:32:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065173_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Тариф без НДС"
+      FIELDNAME: "USR$TARIFF_WVAT"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тариф без НДС"
+      LSHORTNAME: "Тариф без НДС"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:31:35+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065172_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Прибыль"
+      FIELDNAME: "USR$PROFIT"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Прибыль"
+      LSHORTNAME: "Прибыль"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:30:21+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065171_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Рентабельность"
+      FIELDNAME: "USR$PROFITABILITY"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рентабельность"
+      LSHORTNAME: "Рентабельность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:29:38+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065170_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Себестоимость услуги"
+      FIELDNAME: "USR$COST_OF_SERVICE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Себестоимость услуги"
+      LSHORTNAME: "Себестоимость услуги"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:28:37+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065167_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Страховой взнос"
+      FIELDNAME: "USR$INSURANCE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Страховой взнос"
+      LSHORTNAME: "Страховой взнос"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:25:52+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065166_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "ФЗСН"
+      FIELDNAME: "USR$FZSN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "ФЗСН"
+      LSHORTNAME: "ФЗСН"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:24:57+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065165_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Начисления на оплату труда"
+      FIELDNAME: "USR$ACCRUAL_FOR_SALARIES"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Начисления на оплату труда"
+      LSHORTNAME: "Начисления на опл.тр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:23:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147065164_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Основная з/п"
+      FIELDNAME: "USR$BASIC_WAGE"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Основная з/п"
+      LSHORTNAME: "Основная з/п"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147065161_704999368 Плановая калькуляция, USR$SAN_PLAN_CALC"
+      RELATIONNAME: "USR$SAN_PLAN_CALC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2016-12-20T20:23:07+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147065384_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_PLAN_CALC"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-01-26T13:44:30+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_PLAN_CALC: Tgdc_dlgAttrUserDefined
+          Left = 165
+          Top = 266
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 287
+          ClientWidth = 567
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 260
+          end
+          object btnNew: TButton
+            Top = 260
+          end
+          object btnHelp: TButton
+            Top = 260
+          end
+          object btnOK: TButton
+            Left = 417
+            Top = 260
+          end
+          object btnCancel: TButton
+            Left = 491
+            Top = 260
+          end
+          object pnlMain: TPanel
+            Width = 567
+            Height = 251
+            object atAttributes: TatContainer
+              Width = 567
+              Height = 251
+              object usrat_DBEdit_USR_TOTAL_TARIFF_Label: TLabel
+                Left = 369
+                Top = 166
+                Width = 77
+                Font.Style = [fsBold]
+                ParentFont = False
+              end
+              object usrat_gsIBLookupComboBox_USR_SERVICEKEY_Label: TLabel
+                Left = 21
+                Top = 14
+              end
+              object usrat_DBEdit_USR_MASTERKEY_Label: TLabel
+                Left = 37
+                Top = 165
+                Width = 48
+                Visible = False
+              end
+              object usrat_DBEdit_Z_USR_SERVICEKEY_USR_NAME_Label: TLabel
+                Left = 93
+                Top = 164
+                Width = 37
+                Visible = False
+              end
+              object usrg_USR_SAN_PLAN_CALC_GroupBox1: TGroupBox
+                Tag = 0
+                Left = 18
+                Top = 37
+                Width = 270
+                Height = 125
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                Align = alNone
+                Anchors = [akLeft, akTop]
+                Caption = ''
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DockSite = False
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 3
+                TabStop = False
+                Visible = True
+                object usrat_DBEdit_USR_BASIC_WAGE_Label: TLabel
+                  Left = 7
+                  Top = 13
+                end
+                object usrat_DBEdit_USR_ACCRUAL_FOR_SALARIES_Label: TLabel
+                  Left = 7
+                  Top = 34
+                end
+                object usrat_DBEdit_USR_FZSN_Label: TLabel
+                  Left = 7
+                end
+                object usrat_DBEdit_USR_INSURANCE_Label: TLabel
+                  Left = 7
+                  Top = 76
+                end
+                object usrat_DBEdit_USR_COST_OF_SERVICE_Label: TLabel
+                  Left = 7
+                  Top = 100
+                end
+                object usrat_DBEdit_USR_BASIC_WAGE: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 9
+                  Width = 100
+                  Cursor = crIBeam
+                end
+                object usrat_DBEdit_USR_ACCRUAL_FOR_SALARIES: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 31
+                  Width = 100
+                  Cursor = crIBeam
+                end
+                object usrat_DBEdit_USR_FZSN: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 53
+                  Width = 100
+                  Cursor = crIBeam
+                end
+                object usrat_DBEdit_USR_INSURANCE: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 75
+                  Width = 100
+                  Cursor = crArrow
+                end
+                object usrat_DBEdit_USR_COST_OF_SERVICE: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 96
+                  Width = 100
+                  Cursor = crIBeam
+                end
+              end
+              object usrg_USR_SAN_PLAN_CALC_GroupBox2: TGroupBox
+                Tag = 0
+                Left = 292
+                Top = 37
+                Width = 270
+                Height = 125
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                Align = alNone
+                Anchors = [akLeft, akTop]
+                Caption = ''
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DockSite = False
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 4
+                TabStop = False
+                Visible = True
+                object usrat_DBEdit_USR_PROFITABILITY_Label: TLabel
+                  Left = 7
+                  Top = 13
+                end
+                object usrat_DBEdit_USR_PROFIT_Label: TLabel
+                  Left = 7
+                  Top = 34
+                end
+                object usrat_DBEdit_USR_TARIFF_WVAT_Label: TLabel
+                  Left = 7
+                  Top = 55
+                end
+                object usrat_DBEdit_USR_OUTCASH_Label: TLabel
+                  Left = 7
+                  Top = 76
+                end
+                object usrat_DBEdit_USR_AMORT_FOR_MED_Label: TLabel
+                  Left = 7
+                  Top = 100
+                end
+                object usrat_DBEdit_USR_PROFITABILITY: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 9
+                  Width = 100
+                  Cursor = crIBeam
+                  TabOrder = 0
+                end
+                object usrat_DBEdit_USR_PROFIT: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 31
+                  Width = 100
+                  Cursor = crIBeam
+                  TabOrder = 1
+                end
+                object usrat_DBEdit_USR_TARIFF_WVAT: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 53
+                  Width = 100
+                  Cursor = crArrow
+                  TabOrder = 2
+                end
+                object usrat_DBEdit_USR_OUTCASH: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 75
+                  Width = 100
+                  Cursor = crArrow
+                  TabOrder = 3
+                end
+                object usrat_DBEdit_USR_AMORT_FOR_MED: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 96
+                  Width = 100
+                  Cursor = crIBeam
+                  TabOrder = 4
+                end
+              end
+              object usrg_USR_SAN_PLAN_CALC_GroupBox3: TGroupBox
+                Tag = 0
+                Left = 18
+                Top = 188
+                Width = 544
+                Height = 60
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                Align = alNone
+                Anchors = [akLeft, akTop]
+                Caption = 'Для иностранцев'
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DockSite = False
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                Font.Charset = RUSSIAN_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Pitch = fpDefault
+                Font.Style = []
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentCtl3D = True
+                ParentFont = False
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 6
+                TabStop = False
+                Visible = True
+                object usrat_DBEdit_USR_PROFITABILITY_FOREIGN_Label: TLabel
+                  Left = 7
+                  Top = 13
+                end
+                object usrat_DBEdit_USR_PROFIT_FOREIGN_Label: TLabel
+                  Left = 7
+                  Top = 34
+                end
+                object usrat_DBEdit_USR_TARIFF_WVAT_FOREIGN_Label: TLabel
+                  Left = 280
+                  Top = 13
+                end
+                object usrat_DBEdit_USR_TOTAL_TARIFF_FOREIGN_Label: TLabel
+                  Left = 280
+                  Top = 34
+                  Width = 127
+                  Font.Style = [fsBold]
+                  ParentFont = False
+                end
+                object usrat_DBEdit_USR_PROFITABILITY_FOREIGN: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 9
+                  Width = 100
+                  Cursor = crIBeam
+                  TabOrder = 0
+                end
+                object usrat_DBEdit_USR_PROFIT_FOREIGN: TxDBCalculatorEdit
+                  Left = 165
+                  Top = 31
+                  Width = 100
+                  Cursor = crIBeam
+                  TabOrder = 1
+                end
+                object usrat_DBEdit_USR_TARIFF_WVAT_FOREIGN: TxDBCalculatorEdit
+                  Left = 438
+                  Top = 9
+                  Width = 100
+                  Cursor = crIBeam
+                  TabOrder = 2
+                end
+                object usrat_DBEdit_USR_TOTAL_TARIFF_FOREIGN: TxDBCalculatorEdit
+                  Left = 438
+                  Top = 31
+                  Width = 100
+                  Cursor = crIBeam
+                  Font.Style = [fsBold]
+                  ParentFont = False
+                  TabOrder = 3
+                end
+              end
+              object usrat_DBEdit_USR_TOTAL_TARIFF: TxDBCalculatorEdit
+                Left = 457
+                Top = 164
+                Width = 100
+                Cursor = crIBeam
+                Font.Style = [fsBold]
+                ParentFont = False
+                TabOrder = 5
+              end
+              object usrat_gsIBLookupComboBox_USR_SERVICEKEY: TgsIBLookupComboBox
+                Left = 178
+                Top = 10
+                Width = 324
+                TabOrder = 0
+              end
+              object usrat_DBEdit_USR_MASTERKEY: TxDBCalculatorEdit
+                Left = 130
+                Top = 161
+                Width = 60
+                Cursor = crIBeam
+                TabOrder = 1
+                Visible = False
+              end
+              object usrat_DBEdit_Z_USR_SERVICEKEY_USR_NAME: TDBEdit
+                Left = 194
+                Top = 160
+                Width = 44
+                TabOrder = 2
+                Visible = False
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 686
+            Top = 63
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 632
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147065183_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_PLAN_CALC)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147065183_704999368"
+      EDITIONDATE: 2016-12-21T12:34:38+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147065182_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2016-12-21T12:34:38+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147065179_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_PLAN_CALC"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147065182_704999368 Локальные макросы"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147065183_704999368 Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_PLAN_CALC)"
+      SUBTYPE: ""
+      EDITIONDATE: 2016-12-21T12:34:38+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147065185_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_SAN_PLAN_CALC)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147065185_704999368"
+      EDITIONDATE: 2016-12-21T12:34:38+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147065184_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2016-12-21T12:34:38+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147065177_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_PLAN_CALC"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147065184_704999368 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147065185_704999368 Отчеты(gdc_frmAttrUserDefinedUSR_SAN_PLAN_CALC)"
+      SUBTYPE: ""
+      EDITIONDATE: 2016-12-21T12:34:38+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147065189_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      PARENT: "147275685_124484738 TgdcBase\\TgdcAttrUserDefined"
+      NAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      CLASSNAME: "TgdcAttrUserDefined"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_PLAN_CALC"
+      EDITIONDATE: 2016-12-21T12:34:48+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147065195_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALCGetWhereClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147065189_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2016-12-21T12:36:51+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_PLAN_CALCGETWHERECLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_PLAN_CALCGetWhereClause(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          if Self.SubSet = "ByParent" then
+            TgdcAttrUserDefinedUSR_SAN_PLAN_CALCGetWhereClause = _
+               " WHERE z.usr$MASTERKEY = :parent "
+          else
+           TgdcAttrUserDefinedUSR_SAN_PLAN_CALCGetWhereClause = _
+            Inherited(Self, "GetWhereClause", Array(Self))
+          end if
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147065193_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETWHERECLAUSE"
+      FUNCTIONKEY: "147065195_704999368 TgdcAttrUserDefinedUSR_SAN_PLAN_CALCGetWhereClause"
+      OBJECTKEY: "147065189_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2016-12-21T12:36:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147065192_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALCCheckSubSet"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147065189_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2016-12-21T12:34:48+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_PLAN_CALCCHECKSUBSET
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        BwAAAEFTVUJTRVQHAAAAQVNVQlNFVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_PLAN_CALCCheckSubSet(Self, ASubSet)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_PLAN_CALCCheckSubSet = _
+            Inherited(Self, "CheckSubSet", Array(Self, ASubSet)) or (ASubSet = "ByParent")
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147065190_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CHECKSUBSET"
+      FUNCTIONKEY: "147065192_704999368 TgdcAttrUserDefinedUSR_SAN_PLAN_CALCCheckSubSet"
+      OBJECTKEY: "147065189_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2016-12-21T12:34:48+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147065267_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALCDoFieldChange"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147065189_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-01-26T12:20:34+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_PLAN_CALCDOFIELDCHANGE
+        COSTOFSERVICE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        BQAAAEZJRUxEBQAAAEZJRUxEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub TgdcAttrUserDefinedUSR_SAN_PLAN_CALCDoFieldChange(Self, Field)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "DoFieldChange", Array(Self, Field))
+        '***               Конец кода поддержки gdc-класса.                  ***
+        
+          select case UCase(Field.FieldName)
+            case "USR$SERVICEKEY"
+              dim Tr, Q, R(), Pay, Amort
+              set Tr = Self.Transaction
+              Q = "SELECT SUM(SWFS.USR$PAYMENT_SPECIALIST) " & _
+                  "FROM USR$SAN_WAGE_FOR_SERVICE SWFS " & _
+                  "WHERE SWFS.USR$SERVICEKEY = :ID " & _
+                  "      AND SWFS.USR$MASTERKEY = :MASTERKEY "
+              gdcBaseManager.ExecSingleQueryResult Q, Array(Field.AsInteger, Field.OwnerForm.gdcObject.ID), R, Tr
+              If IsEmpty(R) then
+                call Application.MessageBox("Для данной услуги нет данных по зарплате!","Внимание!", vbInformation)
+                exit sub
+              Else
+                Pay = R(0, 0)
+              End If
+              Q = "SELECT SUM(SAFS.USR$PAYMENT_SERVICE) " & _
+                  "FROM USR$SAN_AMORT_FOR_SERVICE SAFS " & _
+                  "WHERE SAFS.USR$SERVICEKEY = :ID "
+              gdcBaseManager.ExecSingleQueryResult Q, Array(Field.AsInteger), R, Tr
+              If IsEmpty(R) then
+                call Application.MessageBox("Для данной услуги нет данных по амортизации!","Внимание!", vbInformation)
+                exit sub
+              Else
+                Amort = R(0, 0)
+              End If
+              if IsNull(Pay) Then Pay = 0
+              Self.FieldByName("USR$BASIC_WAGE").AsCurrency = Pay
+              if IsNull(Amort) then
+                Amort = 0
+              end if
+              Self.FieldByName("USR$AMORT_FOR_MED").AsCurrency = Amort
+            case "USR$BASIC_WAGE"
+              Dim Insurance, Fzsn, Outcash
+              Insurance = 0
+              Fzsn = 0
+              Outcash = 0
+        
+              Dim gdcObject : Set gdcObject = self.ownerform.gdcObject
+              Insurance = gdcObject.FieldByName("USR$INSURANCE_RATE").AsCurrency
+              Fzsn = gdcObject.FieldByName("USR$FZSN_RATE").AsCurrency
+              Outcash = gdcObject.FieldByName("USR$OUTCASH_RATE").AsCurrency
+        
+              Self.FieldByName("USR$INSURANCE").AsCurrency = GS.MulDiv(Field.AsCurrency, Insurance/100, 1, 1, 2)
+              Self.FieldByName("USR$FZSN").AsCurrency = GS.MulDiv(Field.AsCurrency, Fzsn/100, 1, 1, 2)
+              Self.FieldByName("USR$OUTCASH").AsCurrency = GS.MulDiv(Field.AsCurrency, Outcash/100, 1, 1, 2)
+              Self.FieldByName("USR$COST_OF_SERVICE").AsCurrency = CostOfService(Self)
+            case "USR$FZSN"
+              Self.FieldByName("USR$ACCRUAL_FOR_SALARIES").AsCurrency = Field.AsCurrency + Self.FieldByName("USR$INSURANCE").AsCurrency
+            case "USR$INSURANCE"
+              Self.FieldByName("USR$ACCRUAL_FOR_SALARIES").AsCurrency = Self.FieldByName("USR$FZSN").AsCurrency + Field.AsCurrency
+            case "USR$ACCRUAL_FOR_SALARIES"
+              Self.FieldByName("USR$COST_OF_SERVICE").AsCurrency = CostOfService(Self)
+            case "USR$OUTCASH"
+              Self.FieldByName("USR$COST_OF_SERVICE").AsCurrency = CostOfService(Self)
+            case "USR$AMORT_FOR_MED"
+              Self.FieldByName("USR$COST_OF_SERVICE").AsCurrency = CostOfService(Self)
+            case "USR$COST_OF_SERVICE"
+              Self.FieldByName("USR$PROFIT").AsCurrency = GS.MulDiv(Field.AsCurrency, Self.FieldByName("USR$PROFITABILITY").AsCurrency/100, 1, 1, 2)
+            case "USR$PROFITABILITY"
+              Self.FieldByName("USR$PROFIT").AsCurrency = GS.MulDiv(Self.FieldByName("USR$COST_OF_SERVICE").AsCurrency, Field.AsCurrency/100, 1, 1, 2)
+            case "USR$PROFIT"
+              Self.FieldByName("USR$TARIFF_WVAT").AsCurrency = Self.FieldByName("USR$COST_OF_SERVICE").AsCurrency + Field.AsCurrency
+            case "USR$TARIFF_WVAT"
+              Self.FieldByName("USR$TOTAL_TARIFF").AsCurrency = GS.MulDiv(Field.AsCurrency, 1, 1, 1, 2)
+              
+            case "USR$PROFITABILITY_FOREIGN"
+              Self.FieldByName("USR$PROFIT_FOREIGN").AsCurrency = GS.MulDiv(Self.FieldByName("USR$COST_OF_SERVICE").AsCurrency, Field.AsCurrency/100, 1, 1, 2)
+            case "USR$PROFIT_FOREIGN"
+              Self.FieldByName("USR$TARIFF_WVAT_FOREIGN").AsCurrency = Self.FieldByName("USR$COST_OF_SERVICE").AsCurrency + Field.AsCurrency
+            case "USR$TARIFF_WVAT_FOREIGN"
+              Self.FieldByName("USR$TOTAL_TARIFF_FOREIGN").AsCurrency = GS.MulDiv(Field.AsCurrency, 1, 1, 1, 2)
+          end select
+        
+        End Sub
+        
+        function CostOfService(ByRef Self)
+          CostOfService = Self.FieldByName("USR$BASIC_WAGE").AsCurrency + _
+                Self.FieldByName("USR$OUTCASH").AsCurrency + _
+                Self.FieldByName("USR$ACCRUAL_FOR_SALARIES").AsCurrency + _
+                Self.FieldByName("USR$AMORT_FOR_MED").AsCurrency
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147065265_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147065161_704999368
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOFIELDCHANGE"
+      FUNCTIONKEY: "147065267_704999368 TgdcAttrUserDefinedUSR_SAN_PLAN_CALCDoFieldChange"
+      OBJECTKEY: "147065189_704999368 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PLAN_CALC"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-01-26T12:20:34+03:00

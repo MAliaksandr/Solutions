@@ -1,0 +1,1734 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147697026_71168484
+  Name: "GS.Санаторий.МУ.ИБ.Справочники.Диагнозы"
+  Caption: "Санаторий.МУ.ИБ.Справочники.Диагнозы"
+  Version: "1.0.0.21"
+  Optional: False
+  Internal: True
+  MD5: 8E8E089791C9163320AE10EF91144D75
+Uses: 
+  - "147696542_71168484 GS.Санаторий.МУ.Общие справочники"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147410866_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147410771_2049605826
+    Fields: 
+      PARENT: "147244414_1990766971 Исследователь\\1. Санаторий\\03. Медицинские справочники"
+      NAME: "Гинекологический анамнез"
+      CLASSNAME: "TgdcAttrUserDefinedLBRBTree"
+      CMD: ~
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_GYNECOANAMNESIS"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcLBRBTreeTable"
+      RUID: 147410771_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "147410866_2049605826 Исследователь\\1. Санаторий\\03. Медицинские справочники\\Гинекологический анамнез"
+      DESCRIPTION: "Гинекологический анамнез"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Гинекологический анамнез"
+      LSHORTNAME: "Гинекологический анамнез"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_GYNECOANAMNESIS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2013-02-22T20:24:04+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147410865_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "USR$HT_D_NAME"
+      FIELDSOURCEKEY: "147007525_1661751803 HT. Наименование, USR$HT_D_NAME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "HT. Наименование"
+      LSHORTNAME: "HT. Наименование"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147410771_2049605826 Гинекологический анамнез, USR$SAN_GYNECOANAMNESIS"
+      RELATIONNAME: "USR$SAN_GYNECOANAMNESIS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2013-02-22T20:25:22+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147416351_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147416352_2049605826
+    Fields: 
+      PARENT: "147016631_119619099 TgdcBase\\TgdcTree\\TgdcLBRBTree\\TgdcAttrUserDefinedLBRBTree"
+      NAME: "TgdcAttrUserDefinedLBRBTreeUSR_SAN_GYNECOANAMNESIS"
+      CLASSNAME: "TgdcAttrUserDefinedLBRBTree"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_GYNECOANAMNESIS"
+      EDITIONDATE: 2013-02-27T17:39:36+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147416354_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147416352_2049605826
+    Fields: 
+      NAME: "TgdcAttrUserDefinedLBRBTreeUSR_SAN_GYNECOANAMNESISCreateFields"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147416351_2049605826 TgdcBase\\TgdcTree\\TgdcLBRBTree\\TgdcAttrUserDefinedLBRBTree\\TgdcAttrUserDefinedLBRBTreeUSR_SAN_GYNECOANAMNESIS"
+      OBJECTNAME: "TgdcAttrUserDefinedLBRBTreeUSR_SAN_GYNECOANAMNESIS"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2013-02-27T17:39:36+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDLBRBTREEUSR_SAN_GYNECOANAMNESISCREATEFIELDS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        sub TgdcAttrUserDefinedLBRBTreeUSR_SAN_GYNECOANAMNESISCreateFields(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "CreateFields", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          Self.FieldByName("USR$NAME").Required = True
+        End sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147416352_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CREATEFIELDS"
+      FUNCTIONKEY: "147416354_2049605826 TgdcAttrUserDefinedLBRBTreeUSR_SAN_GYNECOANAMNESISCreateFields"
+      OBJECTKEY: "147416351_2049605826 TgdcBase\\TgdcTree\\TgdcLBRBTree\\TgdcAttrUserDefinedLBRBTree\\TgdcAttrUserDefinedLBRBTreeUSR_SAN_GYNECOANAMNESIS"
+      OBJECTNAME: "TgdcAttrUserDefinedLBRBTreeUSR_SAN_GYNECOANAMNESIS"
+      PARENTNAME: "TgdcAttrUserDefinedLBRBTree"
+      EDITIONDATE: 2013-02-27T17:39:36+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147416344_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147037361_1439110857 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefinedTree"
+      NAME: "USR$SAN_GYNECOANAMNESIS"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2013-02-27T17:44:54+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedTreeUSR_SAN_GYNECOANAMNESIS: Tgdc_dlgAttrUserDefinedTree
+          Left = 447
+          Top = 329
+          ActiveControl = nil
+          BorderStyle = bsDialog
+          ClientHeight = 91
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 66
+          end
+          object btnNew: TButton
+            Top = 66
+          end
+          object btnHelp: TButton
+            Top = 66
+          end
+          object btnOK: TButton
+            Left = 328
+            Top = 66
+          end
+          object btnCancel: TButton
+            Left = 402
+            Top = 66
+          end
+          object pnlMain: TPanel
+            Width = 475
+            Height = 61
+            object lblParent: TLabel
+            end
+            object atAttributes: TatContainer
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Width = 77
+                Caption = 'Наименование:'
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Left = 95
+                Width = 364
+              end
+            end
+            object gsiblkupParent: TgsIBLookupComboBox
+              Width = 391
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 71
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 63
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+          object ibtrParent: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 256
+            Top = 16
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcAttrUserDefinedLBRBTree"
+      SubType: "USR$SAN_GYNECOANAMNESIS"
+      RUID: 147438381_74018697
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: ~
+      USR$NAME: "здорова"
+      EDITIONDATE: 2019-08-29T12:23:34+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147410880_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "SAN. Гинекологический анамнез (кросс)"
+      FCHARLENGTH: 1024
+      FFIELDTYPE: 37
+      FIELDNAME: "USR$SAN_D_GYNECOANAMNESISKEY"
+      FLAG: ~
+      FLENGTH: 1024
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "SAN. Гинекологический анамнез (кросс)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: "USR$NAME"
+      SETLISTFIELDKEY: "147410865_2049605826 HT. Наименование, USR$SAN_GYNECOANAMNESIS.USR$NAME"
+      SETLISTLNAME: "Гинекологический анамнез"
+      SETTABLE: "USR$SAN_GYNECOANAMNESIS"
+      SETTABLEKEY: "147410771_2049605826 Гинекологический анамнез, USR$SAN_GYNECOANAMNESIS"
+      VISIBLE: 1
+      EDITIONDATE: 2013-02-22T20:36:30+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTreeTable"
+      RUID: 147183774_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Заболевания"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Заболевания"
+      LSHORTNAME: "Заболевания"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_DISEASE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2012-11-01T14:43:33+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147183820_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147183774_1979158522 Заболевания, USR$SAN_DISEASE"
+      RELATIONNAME: "USR$SAN_DISEASE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 1
+      EDITIONDATE: 2012-11-01T14:47:08+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147183834_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147183835_1979158522
+    Fields: 
+      PARENT: "147574341_119619099 TgdcBase\\TgdcTree\\TgdcAttrUserDefinedTree"
+      NAME: "TgdcAttrUserDefinedTreeUSR_SAN_DISEASE"
+      CLASSNAME: "TgdcAttrUserDefinedTree"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_DISEASE"
+      EDITIONDATE: 2012-11-01T14:49:34+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147183837_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147183835_1979158522
+    Fields: 
+      NAME: "TgdcAttrUserDefinedTreeUSR_SAN_DISEASECreateFields"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147183834_1979158522 TgdcBase\\TgdcTree\\TgdcAttrUserDefinedTree\\TgdcAttrUserDefinedTreeUSR_SAN_DISEASE"
+      OBJECTNAME: "TgdcAttrUserDefinedTreeUSR_SAN_DISEASE"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2012-11-01T14:49:34+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDTREEUSR_SAN_DISEASECREATEFIELDS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        sub TgdcAttrUserDefinedTreeUSR_SAN_DISEASECreateFields(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "CreateFields", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          Self.FieldByName("USR$NAME").Required = True
+        End sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147183835_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CREATEFIELDS"
+      FUNCTIONKEY: "147183837_1979158522 TgdcAttrUserDefinedTreeUSR_SAN_DISEASECreateFields"
+      OBJECTKEY: "147183834_1979158522 TgdcBase\\TgdcTree\\TgdcAttrUserDefinedTree\\TgdcAttrUserDefinedTreeUSR_SAN_DISEASE"
+      OBJECTNAME: "TgdcAttrUserDefinedTreeUSR_SAN_DISEASE"
+      PARENTNAME: "TgdcAttrUserDefinedTree"
+      EDITIONDATE: 2012-11-01T14:49:34+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147183832_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147037361_1439110857 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefinedTree"
+      NAME: "USR$SAN_DISEASE"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2012-11-01T14:49:27+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedTreeUSR_SAN_DISEASE: Tgdc_dlgAttrUserDefinedTree
+          Left = 274
+          Top = 179
+          ActiveControl = nil
+          BorderStyle = bsDialog
+          ClientHeight = 94
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 69
+          end
+          object btnNew: TButton
+            Top = 69
+          end
+          object btnHelp: TButton
+            Top = 69
+          end
+          object btnOK: TButton
+            Top = 69
+          end
+          object btnCancel: TButton
+            Top = 69
+          end
+          object pnlMain: TPanel
+            Height = 64
+            object lblParent: TLabel
+            end
+            object atAttributes: TatContainer
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 372
+              end
+            end
+            object gsiblkupParent: TgsIBLookupComboBox
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 71
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 63
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+          object ibtrParent: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 256
+            Top = 16
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147183888_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "SAN. Заболевания (кросс)"
+      FCHARLENGTH: 1024
+      FFIELDTYPE: 37
+      FIELDNAME: "USR$SAN_D_DISEASEKEY"
+      FLAG: ~
+      FLENGTH: 1024
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "SAN. Заболевания (кросс)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: "USR$NAME"
+      SETLISTFIELDKEY: "147183820_1979158522 Наименование, USR$SAN_DISEASE.USR$NAME"
+      SETLISTLNAME: "Заболевания"
+      SETTABLE: "USR$SAN_DISEASE"
+      SETTABLEKEY: "147183774_1979158522 Заболевания, USR$SAN_DISEASE"
+      VISIBLE: 1
+      EDITIONDATE: 2012-11-01T14:54:52+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcLBRBTreeTable"
+      RUID: 147022314_1818238909
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Медицинский диагноз (справочник)"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Медицинский диагноз"
+      LSHORTNAME: "Медицинский диагноз"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_DIAGNOSIS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2012-03-06T20:09:27+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147022320_1818238909
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Наименование"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT80"
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147022314_1818238909 Медицинский диагноз, USR$SAN_DIAGNOSIS"
+      RELATIONNAME: "USR$SAN_DIAGNOSIS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 1
+      EDITIONDATE: 2012-03-06T19:16:55+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147489862_71168484
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147037361_1439110857 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefinedTree"
+      NAME: "USR$SAN_DIAGNOSIS"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2013-04-04T13:30:30+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedTreeUSR_SAN_DIAGNOSIS: Tgdc_dlgAttrUserDefinedTree
+          Left = 400
+          Top = 362
+          ActiveControl = nil
+          ClientHeight = 128
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 103
+          end
+          object btnNew: TButton
+            Top = 103
+          end
+          object btnHelp: TButton
+            Top = 103
+          end
+          object btnOK: TButton
+            Top = 103
+          end
+          object btnCancel: TButton
+            Top = 103
+          end
+          object pnlMain: TPanel
+            Height = 98
+            object lblParent: TLabel
+            end
+            object atAttributes: TatContainer
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Top = 41
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Left = 86
+                Top = 37
+                Width = 372
+              end
+            end
+            object gsiblkupParent: TgsIBLookupComboBox
+              Width = 391
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 71
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 63
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+          object ibtrParent: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 256
+            Top = 16
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147093365_1786429137
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "Диагнозы (кросс)"
+      FCHARLENGTH: 1024
+      FFIELDTYPE: 37
+      FIELDNAME: "USR$SAN_D_DIAGNOSISKEY"
+      FLAG: ~
+      FLENGTH: 1024
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Диагнозы (кросс)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: "USR$NAME"
+      SETLISTFIELDKEY: "147022320_1818238909 Наименование, USR$SAN_DIAGNOSIS.USR$NAME"
+      SETLISTLNAME: "Медицинский диагноз"
+      SETTABLE: "USR$SAN_DIAGNOSIS"
+      SETTABLEKEY: "147022314_1818238909 Медицинский диагноз, USR$SAN_DIAGNOSIS"
+      VISIBLE: 1
+      EDITIONDATE: 2012-03-22T19:36:59+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147028600_1818238909
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "SAN. Диагноз"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_D_DIAGNOSKEY"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "SAN. Диагноз"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Медицинский диагноз"
+      REFTABLE: "USR$SAN_DIAGNOSIS"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2012-03-22T19:35:42+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147410768_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147410759_2049605826
+    Fields: 
+      PARENT: "147244414_1990766971 Исследователь\\1. Санаторий\\03. Медицинские справочники"
+      NAME: "Онкологический анамнез"
+      CLASSNAME: "TgdcAttrUserDefinedLBRBTree"
+      CMD: ~
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_ONCOANAMNESIS"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcLBRBTreeTable"
+      RUID: 147410759_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "147410768_2049605826 Исследователь\\1. Санаторий\\03. Медицинские справочники\\Онкологический анамнез"
+      DESCRIPTION: "Онкологический анамнез"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Онкологический анамнез"
+      LSHORTNAME: "Онкологический анамнез"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_ONCOANAMNESIS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2013-02-22T20:21:01+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147410767_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "USR$HT_D_NAME"
+      FIELDSOURCEKEY: "147007525_1661751803 HT. Наименование, USR$HT_D_NAME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "HT. Наименование"
+      LSHORTNAME: "HT. Наименование"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147410759_2049605826 Онкологический анамнез, USR$SAN_ONCOANAMNESIS"
+      RELATIONNAME: "USR$SAN_ONCOANAMNESIS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2013-02-22T20:21:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147416377_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147416378_2049605826
+    Fields: 
+      PARENT: "147016631_119619099 TgdcBase\\TgdcTree\\TgdcLBRBTree\\TgdcAttrUserDefinedLBRBTree"
+      NAME: "TgdcAttrUserDefinedLBRBTreeUSR_SAN_ONCOANAMNESIS"
+      CLASSNAME: "TgdcAttrUserDefinedLBRBTree"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_ONCOANAMNESIS"
+      EDITIONDATE: 2013-02-27T17:45:23+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147416380_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147416378_2049605826
+    Fields: 
+      NAME: "TgdcAttrUserDefinedLBRBTreeUSR_SAN_ONCOANAMNESISCreateFields"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147416377_2049605826 TgdcBase\\TgdcTree\\TgdcLBRBTree\\TgdcAttrUserDefinedLBRBTree\\TgdcAttrUserDefinedLBRBTreeUSR_SAN_ONCOANAMNESIS"
+      OBJECTNAME: "TgdcAttrUserDefinedLBRBTreeUSR_SAN_ONCOANAMNESIS"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2013-02-27T17:45:23+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDLBRBTREEUSR_SAN_ONCOANAMNESISCREATEFIELDS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        sub TgdcAttrUserDefinedLBRBTreeUSR_SAN_ONCOANAMNESISCreateFields(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "CreateFields", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          Self.FieldByName("USR$NAME").Required = True
+        End sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147416378_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CREATEFIELDS"
+      FUNCTIONKEY: "147416380_2049605826 TgdcAttrUserDefinedLBRBTreeUSR_SAN_ONCOANAMNESISCreateFields"
+      OBJECTKEY: "147416377_2049605826 TgdcBase\\TgdcTree\\TgdcLBRBTree\\TgdcAttrUserDefinedLBRBTree\\TgdcAttrUserDefinedLBRBTreeUSR_SAN_ONCOANAMNESIS"
+      OBJECTNAME: "TgdcAttrUserDefinedLBRBTreeUSR_SAN_ONCOANAMNESIS"
+      PARENTNAME: "TgdcAttrUserDefinedLBRBTree"
+      EDITIONDATE: 2013-02-27T17:45:23+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147416364_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147037361_1439110857 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefinedTree"
+      NAME: "USR$SAN_ONCOANAMNESIS"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2013-02-27T17:45:15+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedTreeUSR_SAN_ONCOANAMNESIS: Tgdc_dlgAttrUserDefinedTree
+          Left = 452
+          Top = 334
+          ActiveControl = nil
+          BorderStyle = bsDialog
+          ClientHeight = 91
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 66
+          end
+          object btnNew: TButton
+            Top = 66
+          end
+          object btnHelp: TButton
+            Top = 66
+          end
+          object btnOK: TButton
+            Left = 328
+            Top = 66
+          end
+          object btnCancel: TButton
+            Left = 402
+            Top = 66
+          end
+          object pnlMain: TPanel
+            Width = 475
+            Height = 61
+            object lblParent: TLabel
+            end
+            object atAttributes: TatContainer
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Width = 77
+                Caption = 'Наименование:'
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Left = 95
+                Width = 364
+              end
+            end
+            object gsiblkupParent: TgsIBLookupComboBox
+              Width = 391
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 71
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 63
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+          object ibtrParent: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 256
+            Top = 16
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcAttrUserDefinedLBRBTree"
+      SubType: "USR$SAN_ONCOANAMNESIS"
+      RUID: 147413642_74018697
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "148329243_27111457 узловой зоб\\резекция ЩЖ"
+      USR$NAME: "без особенности"
+      EDITIONDATE: 2017-07-19T11:53:18+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147410879_2049605826
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "SAN. Онкологический анамнез (кросс)"
+      FCHARLENGTH: 1024
+      FFIELDTYPE: 37
+      FIELDNAME: "USR$SAN_D_ONCOANAMNESISKEY"
+      FLAG: ~
+      FLENGTH: 1024
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "SAN. Онкологический анамнез (кросс)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: "USR$NAME"
+      SETLISTFIELDKEY: "147410767_2049605826 HT. Наименование, USR$SAN_ONCOANAMNESIS.USR$NAME"
+      SETLISTLNAME: "Онкологический анамнез"
+      SETTABLE: "USR$SAN_ONCOANAMNESIS"
+      SETTABLEKEY: "147410759_2049605826 Онкологический анамнез, USR$SAN_ONCOANAMNESIS"
+      VISIBLE: 1
+      EDITIONDATE: 2013-02-22T20:34:45+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTreeTable"
+      RUID: 147183782_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Травма"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Травма"
+      LSHORTNAME: "Травма"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_INJURY"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2012-11-01T14:44:18+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147183823_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "USR$HT_D_NAME"
+      FIELDSOURCEKEY: "147007525_1661751803 HT. Наименование, USR$HT_D_NAME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147183782_1979158522 Травма, USR$SAN_INJURY"
+      RELATIONNAME: "USR$SAN_INJURY"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2012-11-01T14:48:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147183847_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147183848_1979158522
+    Fields: 
+      PARENT: "147574341_119619099 TgdcBase\\TgdcTree\\TgdcAttrUserDefinedTree"
+      NAME: "TgdcAttrUserDefinedTreeUSR_SAN_INJURY"
+      CLASSNAME: "TgdcAttrUserDefinedTree"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_INJURY"
+      EDITIONDATE: 2012-11-01T14:50:43+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147183850_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147183848_1979158522
+    Fields: 
+      NAME: "TgdcAttrUserDefinedTreeUSR_SAN_INJURYCreateFields"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147183847_1979158522 TgdcBase\\TgdcTree\\TgdcAttrUserDefinedTree\\TgdcAttrUserDefinedTreeUSR_SAN_INJURY"
+      OBJECTNAME: "TgdcAttrUserDefinedTreeUSR_SAN_INJURY"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2012-11-01T14:50:43+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDTREEUSR_SAN_INJURYCREATEFIELDS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        sub TgdcAttrUserDefinedTreeUSR_SAN_INJURYCreateFields(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "CreateFields", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          Self.FieldByName("USR$NAME").Required = True
+        End sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147183848_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CREATEFIELDS"
+      FUNCTIONKEY: "147183850_1979158522 TgdcAttrUserDefinedTreeUSR_SAN_INJURYCreateFields"
+      OBJECTKEY: "147183847_1979158522 TgdcBase\\TgdcTree\\TgdcAttrUserDefinedTree\\TgdcAttrUserDefinedTreeUSR_SAN_INJURY"
+      OBJECTNAME: "TgdcAttrUserDefinedTreeUSR_SAN_INJURY"
+      PARENTNAME: "TgdcAttrUserDefinedTree"
+      EDITIONDATE: 2012-11-01T14:50:43+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147183845_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147037361_1439110857 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefinedTree"
+      NAME: "USR$SAN_INJURY"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2012-11-01T14:50:36+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedTreeUSR_SAN_INJURY: Tgdc_dlgAttrUserDefinedTree
+          Left = 82
+          Top = 126
+          ActiveControl = nil
+          BorderStyle = bsDialog
+          ClientHeight = 94
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 69
+          end
+          object btnNew: TButton
+            Top = 69
+          end
+          object btnHelp: TButton
+            Top = 69
+          end
+          object btnOK: TButton
+            Top = 69
+          end
+          object btnCancel: TButton
+            Top = 69
+          end
+          object pnlMain: TPanel
+            Height = 64
+            object lblParent: TLabel
+            end
+            object atAttributes: TatContainer
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 372
+              end
+            end
+            object gsiblkupParent: TgsIBLookupComboBox
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 71
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 63
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+          object ibtrParent: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 256
+            Top = 16
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147183893_1979158522
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "SAN. Травмы (кросс)"
+      FCHARLENGTH: 1024
+      FFIELDTYPE: 37
+      FIELDNAME: "USR$SAN_D_INJURYKEY"
+      FLAG: ~
+      FLENGTH: 1024
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "SAN. Травмы (кросс)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: "USR$NAME"
+      SETLISTFIELDKEY: "147183823_1979158522 Наименование, USR$SAN_INJURY.USR$NAME"
+      SETLISTLNAME: "Травма"
+      SETTABLE: "USR$SAN_INJURY"
+      SETTABLEKEY: "147183782_1979158522 Травма, USR$SAN_INJURY"
+      VISIBLE: 1
+      EDITIONDATE: 2012-11-01T15:00:51+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147022322_1818238909
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147244414_1990766971 Исследователь\\1. Санаторий\\03. Медицинские справочники"
+      NAME: "Медицинский диагноз"
+      CLASSNAME: "TgdcAttrUserDefinedLBRBTree"
+      CMD: "147022314_1818238909"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_DIAGNOSIS"
+      EDITIONDATE: 2014-08-08T16:37:10+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147402260_2043745750
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147244414_1990766971 Исследователь\\1. Санаторий\\03. Медицинские справочники"
+      NAME: "Травма"
+      CLASSNAME: "TgdcAttrUserDefinedTree"
+      CMD: "147183782_1979158522"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_INJURY"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0

@@ -1,0 +1,2767 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147451669_875748955
+  Name: "GS.Санаторий.Обследования.Дополнительно.УЗИ малого таза"
+  Caption: "GS.Санаторий.Обследования.Дополнительно.УЗИ малого таза"
+  Version: "1.0.0.9"
+  Optional: False
+  Internal: True
+  MD5: C8BFF8C224CD1387A950AC7B0FDA263E
+Uses: 
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+  - "147753062_69526485 GS.Общие.Хранилище"
+  - "147693015_71168484 GS.Санаторий.Общее.Метаданные"
+  - "147696542_71168484 GS.Санаторий.МУ.Общие справочники"
+  - "147466800_809241643 GS.Санаторий.Обследования.Дополнительно.Исследователь"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableToTable"
+      RUID: 147451673_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Доп. инф. для УЗИ малого таза"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Доп. инф. для УЗИ малого таза"
+      LSHORTNAME: "Доп. инф. для УЗИ малого таза"
+      REFERENCEKEY: "147000470_486813904 Документы, GD_DOCUMENT"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-09-01T16:57:50+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451739_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Заключение"
+      FIELDNAME: "USR$POSTERIOR_REPORT"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:25+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451738_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Позадиматочное пространство"
+      FIELDNAME: "USR$POSTERIOR_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Позадиматочное пространство"
+      LSHORTNAME: "Позадиматочное прост"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:25+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451737_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Вены малого таза извитые"
+      FIELDNAME: "USR$VEINS_TWISTED"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Вены малого таза извитые"
+      LSHORTNAME: "Вены малого таза изв"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:25+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451736_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Вены малого таза расширены слева до, мм"
+      FIELDNAME: "USR$VEINS_WIDENED_L"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Вены малого таза расширены слева до, мм"
+      LSHORTNAME: "Вены малого таза рас"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451735_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Вены малого таза расширены справа до, мм"
+      FIELDNAME: "USR$VEINS_WIDENED_R"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Вены малого таза расширены справа до, мм"
+      LSHORTNAME: "Вены малого таза рас"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451734_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Вены малого таза расширены"
+      FIELDNAME: "USR$VEINS_WIDENED"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Вены малого таза расширены"
+      LSHORTNAME: "Вены малого таза рас"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451733_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Свободная жидкость, объем, см3"
+      FIELDNAME: "USR$ANTERIOR_LIQUID_VOL"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Свободная жидкость, объем, см3"
+      LSHORTNAME: "Свободная жидкость, "
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451732_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Свободная жидкость в позадиматочном пространстве"
+      FIELDNAME: "USR$ANTERIOR_LIQUID"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Свободная жидкость в позадиматочном пространстве"
+      LSHORTNAME: "Свободная жидкость в"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451731_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Описание"
+      FIELDNAME: "USR$OVARY_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Описание"
+      LSHORTNAME: "Описание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451730_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Объемные образования"
+      FIELDNAME: "USR$OVARY_FOCI_L"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Объемные образования"
+      LSHORTNAME: "Объемные образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451729_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Объемные образования"
+      FIELDNAME: "USR$OVARY_FOCI_R"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Объемные образования"
+      LSHORTNAME: "Объемные образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451728_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Доминантный фолликул, мм"
+      FIELDNAME: "USR$OVARY_DOMINATE_SIZE_L"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Доминантный фолликул, мм"
+      LSHORTNAME: "Доминантный фолликул"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451727_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Доминантный фолликул, мм"
+      FIELDNAME: "USR$OVARY_DOMINATE_SIZE_R"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Доминантный фолликул, мм"
+      LSHORTNAME: "Доминантный фолликул"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451726_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Доминантный фолликул"
+      FIELDNAME: "USR$OVARY_DOMINATE_L"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Доминантный фолликул"
+      LSHORTNAME: "Доминантный фолликул"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451725_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Доминантный фолликул"
+      FIELDNAME: "USR$OVARY_DOMINATE_R"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Доминантный фолликул"
+      LSHORTNAME: "Доминантный фолликул"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451724_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Фолликулярный аппарат дифференцируется"
+      FIELDNAME: "USR$OVARY_DIFF_L"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Фолликулярный аппарат дифференцируется"
+      LSHORTNAME: "Фолликулярный аппара"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451723_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Фолликулярный аппарат дифференцируется"
+      FIELDNAME: "USR$OVARY_DIFF_R"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Фолликулярный аппарат дифференцируется"
+      LSHORTNAME: "Фолликулярный аппара"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451722_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Левый яичник, мм"
+      FIELDNAME: "USR$OVARY_SIZE_L"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Левый яичник, мм"
+      LSHORTNAME: "Левый яичник, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451721_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Правый яичник, мм"
+      FIELDNAME: "USR$OVARY_SIZE_R"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правый яичник, мм"
+      LSHORTNAME: "Правый яичник, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:40:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451719_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Шейка матки"
+      FIELDNAME: "USR$WOMB_CERVIX_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Шейка матки"
+      LSHORTNAME: "Шейка матки"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451715_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Образования в полости матки описание"
+      FIELDNAME: "USR$WOMB_FOCI_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Образования в полости матки описание"
+      LSHORTNAME: "Образования в полост"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451713_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Образования в полости матки"
+      FIELDNAME: "USR$WOMB_FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Образования в полости матки"
+      LSHORTNAME: "Образования в полост"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451702_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Эндометрий, толщина, мм"
+      FIELDNAME: "USR$WOMB_ENDO_THICK"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эндометрий, толщина, мм"
+      LSHORTNAME: "Эндометрий, толщина,"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451700_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Описание миометрия"
+      FIELDNAME: "USR$WOMB_MYO_DESCR"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Описание миометрия"
+      LSHORTNAME: "Описание миометрия"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451698_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Образования миометрия"
+      FIELDNAME: "USR$WOMB_MYO_FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Образования миометрия"
+      LSHORTNAME: "Образования миометри"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451690_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Переднезадний, мм"
+      FIELDNAME: "USR$WOMB_SIZE_FR"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Переднезадний, мм"
+      LSHORTNAME: "Переднезадний, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:20:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451688_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Ширина, мм"
+      FIELDNAME: "USR$WOMB_SIZE_WIDTH"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ширина, мм"
+      LSHORTNAME: "Ширина, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:20:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451686_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Длина, мм"
+      FIELDNAME: "USR$WOMB_SIZE_LEN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Длина, мм"
+      LSHORTNAME: "Длина, мм"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:20:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451679_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "День менструального цикла"
+      FIELDNAME: "USR$MENSTRUAL_DAY"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "День менструального цикла"
+      LSHORTNAME: "День менструального "
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147454747_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SAN_P_PELVIC"
+      EDITIONDATE: 2017-11-15T12:53:36+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SAN_P_PELVIC 
+        RETURNS ( 
+            ID SMALLINT,
+            NAME VARCHAR(60))
+         AS
+        BEGIN 
+          ID = 11;
+          NAME = 'Метод';
+          SUSPEND;
+          
+          ID = 1;
+          NAME = 'Матка, положение';
+          SUSPEND;
+          
+          ID = 2;
+          NAME = 'Матка, форма';
+          SUSPEND;
+          
+          ID = 3;
+          NAME = 'Матка, размеры';
+          SUSPEND;
+          
+          ID = 4;
+          NAME = 'Матка, контуры';
+          SUSPEND;
+          
+          ID = 5;
+          NAME = 'Эхоструктура миометрия';
+          SUSPEND;
+          
+          ID = 6;
+          NAME = 'Эхоструктура эндометрия';
+          SUSPEND;
+          
+          ID = 7;
+          NAME = 'Дифферициация с миометрием';
+          SUSPEND;
+          
+          ID = 8;
+          NAME = 'Полость матки';
+          SUSPEND;
+          
+          ID = 9;
+          NAME = 'Шейка матки';
+          SUSPEND;
+          
+          ID = 10;
+          NAME = 'Подвздошные лимфатические узлы';
+          SUSPEND;
+          
+          ID = 12;
+          NAME = 'Вены матки';
+          SUSPEND;
+        END
+      RDB$DESCRIPTION: | 
+        УЗИ малого таза
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147454756_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454757_877487646
+    Fields: 
+      PARENT: "147275685_124484738 TgdcBase\\TgdcAttrUserDefined"
+      NAME: "TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      CLASSNAME: "TgdcAttrUserDefined"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_PELVIC"
+      EDITIONDATE: 2017-09-04T05:02:03+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147454759_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454757_877487646
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_PELVICGetFromClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147454756_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-04T05:07:09+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_PELVICGETFROMCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        CAAAAEFSRUZSRVNICAAAAEFSRUZSRVNIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_PELVICGetFromClause(Self, ARefresh)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_PELVICGetFromClause = _
+            Inherited(Self, "GetFromClause", Array(Self, ARefresh))  & _
+            " LEFT JOIN USR$SAN_P_PELVIC l ON l.ID = z.USR$TYPE "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147454757_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETFROMCLAUSE"
+      FUNCTIONKEY: "147454759_877487646 TgdcAttrUserDefinedUSR_SAN_PELVICGetFromClause"
+      OBJECTKEY: "147454756_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-04T05:07:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147454766_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454764_877487646
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_PELVICGetSelectClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147454756_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-04T05:02:44+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_PELVICGETSELECTCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_PELVICGetSelectClause(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_PELVICGetSelectClause = _
+            Inherited(Self, "GetSelectClause", Array(Self))  & ", l.NAME AS TypeName "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147454764_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETSELECTCLAUSE"
+      FUNCTIONKEY: "147454766_877487646 TgdcAttrUserDefinedUSR_SAN_PELVICGetSelectClause"
+      OBJECTKEY: "147454756_877487646 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_PELVIC"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-04T05:02:44+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147454773_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_PELVIC"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-04T05:07:36+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_PELVIC: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsDialog
+          ClientHeight = 108
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 84
+          end
+          object btnNew: TButton
+            Top = 84
+          end
+          object btnHelp: TButton
+            Top = 84
+          end
+          object btnOK: TButton
+            Top = 84
+          end
+          object btnCancel: TButton
+            Top = 84
+          end
+          object pnlMain: TPanel
+            Height = 75
+            object atAttributes: TatContainer
+              Height = 75
+              object usrat_DBEdit_USR_TYPE_Label: TLabel
+                Top = 38
+              end
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Top = 13
+              end
+              object usrg_cbTypeName: TgsIBLookupComboBox
+                Tag = 0
+                Left = 94
+                Top = 34
+                Width = 242
+                Height = 21
+                Cursor = crDefault
+                HelpContext = 1
+                TabStop = True
+                Database = dmDatabase.ibdbGAdmin
+                Transaction = ibtrCommon
+                DataSource = dsgdcBase
+                DataField = 'USR$TYPE'
+                Fields = ''
+                ListTable = 'USR$SAN_P_PELVIC'
+                ListField = 'NAME'
+                KeyField = 'ID'
+                SortOrder = soNone
+                SortField = ''
+                CheckUserRights = False
+                Condition = ''
+                gdClassName = ''
+                SubType = ''
+                ReadOnly = False
+                StrictOnExit = True
+                Distinct = False
+                FullSearchOnExit = False
+                ViewType = vtByClass
+                Style = csDropDown
+                Anchors = [akLeft, akTop]
+                Color = 11141119
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                DropDownCount = 16
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                ItemHeight = 13
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = False
+                PopupMenu = nil
+                ShowHint = True
+                TabOrder = 1
+                Visible = True
+              end
+              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
+                Left = 344
+                Top = 34
+                Width = 108
+                TabOrder = 2
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Top = 9
+                Width = 356
+                TabOrder = 0
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147454782_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454791_877487646
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_PELVIC(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-04T05:06:05+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147454790_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147454791_877487646
+    Fields: 
+      PARENT: "147454782_877487646 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_PELVIC(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-04T05:08:07+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147454791_877487646
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147454790_877487646 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_PELVIC(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-20T13:14:02+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQlBbGlnbm1lbnQHDXRhTGVmdEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYIVFlQRU5BTUUNVGl0bGUuQ2FwdGlvbgYJ0ujvICjo7P8pBVdpZHRoA2wBB1Zpc2libGUJAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYIVVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g
+        6Ozl7e7i4O3o5QVXaWR0aAO2AQdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCFVTUiRU
+        WVBFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgPS6O8FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBgtFRElUSU9OREFURQ1UaXRsZS5DYXB0aW9uBhDE4PLgIOzu5Oj06Org
+        9ujoBVdpZHRoAnAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgJJRA1UaXRsZS5DYXB0
+        aW9uBg3I5OXt8uj06Org8u7wBVdpZHRoAv8HVmlzaWJsZQgAAAkItB4JCA==
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451780_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Заключение"
+      FIELDNAME: "USR$REPORT"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-03T21:16:28+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147462998_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$MENSTRUAL_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Описание"
+      LSHORTNAME: "Описание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-20T10:44:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463951_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LYMPHNODES_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Описание"
+      LSHORTNAME: "Описание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-20T14:33:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147466807_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147466799_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования"
+      NAME: "Справочник для УЗИ органов малого таза"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "147451662_875748955"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_PELVIC"
+      EDITIONDATE: 2017-09-27T20:38:39+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147451662_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "147466807_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования\\Справочник для УЗИ органов малого таза"
+      DESCRIPTION: "Справочник для УЗИ органов малого таза"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Справочник для УЗИ органов малого таза"
+      LSHORTNAME: "Справочник для УЗИ органов малого таза"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-09-27T20:38:39+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451665_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451662_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Наименование"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT180"
+      FIELDSOURCEKEY: "147000116_31587988 Текст (180), DTEXT180"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451662_875748955 Справочник для УЗИ органов малого таза, USR$SAN_PELVIC"
+      RELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 180
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-01T16:54:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147451675_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "Справочник для УЗИ органов малого таза"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_D_PELVIC"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Справочник для УЗИ органов малого таза"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Справочник для УЗИ органов малого таза"
+      REFTABLE: "USR$SAN_PELVIC"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-01T16:59:17+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463029_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Шейка матки"
+      FIELDNAME: "USR$WOMB_CERVIX"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Шейка матки"
+      LSHORTNAME: "Шейка матки"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-20T12:42:03+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147463943_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LYMPHNODES"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Подвздошные лимфатические узлы"
+      LSHORTNAME: "Подвзд. лимф. узлы"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-20T14:26:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147459361_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$PELVICTYPE"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Метод"
+      LSHORTNAME: "Метод"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-06T18:10:51+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451680_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Положение"
+      FIELDNAME: "USR$WOMB_POSITION"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Положение"
+      LSHORTNAME: "Положение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:20:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451682_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Форма"
+      FIELDNAME: "USR$WOMB_FORM"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Форма"
+      LSHORTNAME: "Форма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:20:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451684_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Размеры"
+      FIELDNAME: "USR$WOMB_SIZE"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Размеры"
+      LSHORTNAME: "Размеры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:20:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451694_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Контуры"
+      FIELDNAME: "USR$WOMB_CONTUOR"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контуры"
+      LSHORTNAME: "Контуры"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451696_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Эхоструктура миометрия"
+      FIELDNAME: "USR$WOMB_MYO_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура миометрия"
+      LSHORTNAME: "Эхоструктура миометр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451704_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дифференциация с миометрием"
+      FIELDNAME: "USR$WOMB_ENDO_DIFF"
+      FIELDSOURCE: "USR$SAN_D_PELVIC               "
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дифференциация с миометрием"
+      LSHORTNAME: "Дифференциация с мио"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451706_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Эхоструктура эндометрия"
+      FIELDNAME: "USR$WOMB_ENDO_STRUCT"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура эндометрия"
+      LSHORTNAME: "Эхоструктура эндомет"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451717_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451673_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Полость матки расширена"
+      FIELDNAME: "USR$WOMB_WIDECAV"
+      FIELDSOURCE: "USR$SAN_D_PELVIC               "
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Полость матки расширена"
+      LSHORTNAME: "Полость матки расшир"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-01T18:21:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451666_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451662_875748955
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Тип"
+      FIELDNAME: "USR$TYPE"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип"
+      LSHORTNAME: "Тип"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451662_875748955 Справочник для УЗИ органов малого таза, USR$SAN_PELVIC"
+      RELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-01T16:54:46+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147488800_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$MENOPAUSE"
+      FIELDNAME: "USR$MENOPAUSE"
+      FIELDSOURCE: "DCURRENCY                      "
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Менопауза"
+      LSHORTNAME: "Менопауза"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-14T11:06:56+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147488804_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Полость матки, дополнительно"
+      FIELDNAME: "USR$WOMB_WIDECAV_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Полость матки, дополнительно"
+      LSHORTNAME: "Полость матки, допол"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-14T11:11:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147488812_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Вены матки, дополнительно"
+      FIELDNAME: "USR$VEINS_WOMB_DESCR"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Вены матки, дополнительно"
+      LSHORTNAME: "Вены матки, дополнит"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-14T11:37:55+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147489588_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$VEINS_WOMB"
+      FIELDNAME: "USR$VEINS_WOMB"
+      FIELDSOURCE: "USR$SAN_D_PELVIC"
+      FIELDSOURCEKEY: "147451675_875748955 Справочник для УЗИ органов малого таза, USR$SAN_D_PELVIC"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Вены матки"
+      LSHORTNAME: "Вены матки"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_PELVIC"
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-14T16:27:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147489600_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Левый яичник, объем"
+      FIELDNAME: "USR$OVARY_VOLUME_L"
+      FIELDSOURCE: "DTEXT40"
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Левый яичник, объем"
+      LSHORTNAME: "Левый яичник, объем"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-14T16:39:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147489599_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Правый яичник, объем"
+      FIELDNAME: "USR$OVARY_VOLUME_R"
+      FIELDSOURCE: "DTEXT40"
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Правый яичник, объем"
+      LSHORTNAME: "Правый яичник, объем"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147451673_875748955 Доп. инф. для УЗИ малого таза, USR$SAN_ADDPELVIC"
+      RELATIONNAME: "USR$SAN_ADDPELVIC"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-14T16:38:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~

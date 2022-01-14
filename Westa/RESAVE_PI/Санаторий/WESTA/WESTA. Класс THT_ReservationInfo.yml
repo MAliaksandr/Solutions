@@ -1,0 +1,536 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147394001_806401964
+  Name: "WESTA. Класс THT_ReservationInfo"
+  Caption: "WESTA. Класс THT_ReservationInfo"
+  Version: "1.0.0.17"
+  Optional: False
+  Internal: True
+  MD5: 2BEB2BCBFE929B5E7D62DADFE6C88321
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147363030_795827580
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "THT_ReservationInfo"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "VBCLASSES"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-07-05T13:26:43+03:00
+      DISPLAYSCRIPT: ~
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Option Explicit
+        ' информация о резервировании
+        Class THT_ReservationInfo
+          ' данные из документов
+          public  ID         ' ИД
+          public  Number     ' номер заявки
+          public  QuotaName  ' гость (полное имя)
+          public  Surname    ' гость (фамилия)
+          public  Firstname  ' гость ( имя)
+          public  Middlename ' гость (отчество)
+          public  Sex        ' гость (пол)
+          public  DB         ' дата заезда
+          public  DE         ' дата выезда
+          public  AllCost    ' сумма
+          public  StateName  ' состояние (имя)
+          public  StateKey   ' состояние (ид)
+          public  NumberStateName  ' состояние номера(имя)
+          public  NumberStateKey   ' состояние номера (ид)
+          public  DocDescr   ' описание из заявки
+          public  RoomName   ' номер
+          public  RoomType   ' тип номера
+          public  HouseName  ' тип дома
+          public  FloorName  ' этаж
+          public  IsEarly    ' ранний заезд
+          public  IsLately   ' поздний выезд
+          public  Description' описание
+          public  PrevID     ' заявка, которая заканчивается в день начала текущей
+          public  IsReq      ' true - заявка, false - путёвка
+        
+          public  RequestKey ' ид заявки
+          public  ReservationKey  ' ид бронирования
+          public  RoomKey  ' ид номера
+          public  PlaceKey  ' ид номера
+          public  ResourceID
+          public  Tails
+          public  ContactKey
+          public  BlockRoom  ' номер блокирован   (зависит от состояния заявки\бронирования)
+          public  IsQuota    ' квота   (зависит от состояния заявки\бронирования)
+          public  CreatorName
+        
+          public FirstCol
+          public LastCol
+          public LineNum
+        
+          public cLeft
+          public cRight
+          public cTop
+          public cBottom
+        
+          ' рисование
+          public BrushColor
+          public FontColor
+        
+          ' выходят за пределы диапазона ячеек
+          public ExtendedLeft
+          public ExtendedRight
+        
+          public RedTail  ' признак, что это фейковый интервальчик для блокировки дня при позднем выезде или раннем заезде
+        
+          public IntervalID
+          ' ' запрос для получения информации о заявке по ИД
+          public property get SQL
+            SQL = _
+              "SELECT " & VBCR & _
+              "   RES.IsReq, " & VBCR & _
+              "   RES.ID, " & VBCR & _
+              "   RES.NUMBER, " & VBCR & _
+              "   C.NAME AS QUOTANAME, " & VBCR & _
+              "   c.ID AS ContactKey, " & VBCR & _
+              "   P.SURNAME, " & VBCR & _
+              "   P.FIRSTNAME, " & VBCR & _
+              "   P.MIDDLENAME, " & VBCR & _
+              "   P.SEX, " & VBCR & _
+              "   RES.DATEBEGIN, " & VBCR & _
+              "   RES.DATEEND, " & VBCR & _
+              "   RES.ALLCOST, " & VBCR & _
+              "   RESSTATE.USR$NAME AS STATENAME, " & VBCR & _
+              "   RESSTATE.ID AS STATEKEY, " & VBCR & _
+              "   NUM.USR$NAME AS ROOMNAME, " & VBCR & _
+              "   NUMT.USR$SHORTNAME AS ROOMTYPE, " & VBCR & _
+              "   HOUSE.USR$NAME AS HOUSENAME, " & VBCR & _
+              "   FLOOR.USR$NAME AS FLOORNAME, " & VBCR & _
+              "   RES.ISEARLY, " & VBCR & _
+              "   RES.ISLATELY, " & VBCR & _
+              "   RES.ROOMKEY, " & VBCR & _
+              "   COALESCE(RESSTATE.USR$BLOCKROOM, 0) AS BLOCKROOM, " & VBCR & _
+              "   RES.PLACEKEY, " & VBCR & _
+              "   RES.DOCDESCR, " & VBCR & _
+              "   cr.NICKNAME AS CREATORNAME, " & VBCR & _
+              "   RES.NUMBERSTATENAME " & VBCR & _
+              "FROM  ( " & VBCR & _
+              "  SELECT " & VBCR & _
+              "    0 AS IsReq, " & VBCR & _
+              "    res.ID, " & VBCR & _
+              "    res.USR$CONTACTKEY AS ContactKey, " & VBCR & _
+              "    res.USR$STATEKEY AS StateKey, " & VBCR & _
+              "    res.USR$NUMBER AS Number, " & VBCR & _
+              "    res.USR$DATEBEGIN AS DateBegin, " & VBCR & _
+              "    res.USR$DATEEND AS DateEnd, " & VBCR & _
+              "    res.USR$ISEARLY AS IsEarly, " & VBCR & _
+              "    res.USR$ISLATELY AS IsLately, " & VBCR & _
+              "    res.USR$TOTALPARTSUM AS AllCost, " & VBCR & _
+              "    res.USR$NUMBERKEY AS RoomKey, " & VBCR & _
+              "    reql.USR$PLACEKEY AS PlaceKey, " & VBCR & _
+              "    '' AS DocDescr, " & VBCR & _
+              "    d.CREATORKEY, " & VBCR & _
+              "    dd.USR$NAME AS NUMBERSTATENAME " & _
+              "  FROM USR$HT_RESERVATION res " & VBCR & _
+              "  LEFT JOIN USR$SAN_REQUESTLINE  reql ON res.ID = reql.USR$RESERVATIONKEY " & _
+              "  LEFT JOIN GD_DOCUMENT d ON d.ID = reql.MASTERKEY " & VBCR & _
+              "  LEFT JOIN USR$HT_NUMBERSTATEDICT dd ON dd.ID = res.USR$STATENUMBERKEY " & VBCR & _
+              "  WHERE res.ID = :PERMITKEY " & VBCR & _
+              "  UNION ALL " & VBCR & _
+              "  SELECT " & VBCR & _
+              "    1 AS IsReq, "  & VBCR & _
+              "    req.DOCUMENTKEY AS ID, " & VBCR & _
+              "    req.USR$CONTACTKEY AS ContactKey, " & VBCR & _
+              "    req.USR$STATEKEY AS StateKey , " & VBCR & _
+              "    d.NUMBER, " & VBCR & _
+              "    req.USR$DATEBEGIN AS DateBegin, " & VBCR & _
+              "    req.USR$DATEEND AS DateEnd, " & VBCR & _
+              "    req.USR$ISEARLY AS IsEarly, " & VBCR & _
+              "    req.USR$ISLATELY AS IsLately, " & VBCR & _
+              "    req.USR$COSTNCU AS AllCost, " & VBCR & _
+              "    req.USR$ROOMKEY AS RoomKey , " & VBCR & _
+              "    0 AS PlaceKey, " & VBCR & _
+              "    d.DESCRIPTION AS DocDescr, " & VBCR & _
+              "    d.CREATORKEY, " & VBCR & _
+              "  (SELECT LIST(DISTINCT dd.USR$NAME) " & VBCR & _
+              "   FROM USR$SAN_REQUEST req "  & VBCR & _
+              "     LEFT JOIN USR$HT_RESERVATION res ON req.DOCUMENTKEY = res.USR$REQUESTKEY " & VBCR & _
+              "     LEFT JOIN USR$HT_NUMBERSTATEDICT dd ON dd.ID = res.USR$STATENUMBERKEY " & VBCR & _
+              "   WHERE req.DOCUMENTKEY = :PERMITKEY) AS NUMBERSTATENAME "  & VBCR & _
+              "  FROM USR$SAN_REQUEST  req " & VBCR & _
+              "  LEFT JOIN GD_DOCUMENT d ON d.ID = req.DOCUMENTKEY " & VBCR & _
+              "  WHERE req.DOCUMENTKEY = :PERMITKEY  " &  VBCR & _
+              "  UNION ALL " & VBCR & _
+              "  SELECT " & VBCR & _
+              "    1 AS IsReq, "  & VBCR & _
+              "    req.DOCUMENTKEY AS ID, " & VBCR & _
+              "    req.USR$CONTACTKEY AS ContactKey, " & VBCR & _
+              "    req.USR$STATEKEY AS StateKey , " & VBCR & _
+              "    d.NUMBER, " & VBCR & _
+              "    req.USR$DATEBEGIN AS DateBegin, " & VBCR & _
+              "    req.USR$DATEEND AS DateEnd, " & VBCR & _
+              "    req.USR$ISEARLY AS IsEarly, " & VBCR & _
+              "    req.USR$ISLATELY AS IsLately, " & VBCR & _
+              "    req.USR$COSTNCU AS AllCost, " & VBCR & _
+              "    reql.USR$ROOMKEY AS RoomKey, " & VBCR & _
+              "    reql.USR$PLACEKEY AS PlaceKey, " & VBCR & _
+              "    d.DESCRIPTION AS DocDescr, " & VBCR & _
+              "    d.CREATORKEY, " & VBCR & _
+              "    '' AS NUMBERSTATENAME " & VBCR & _
+              "  FROM USR$SAN_REQUESTLINE  reql " & VBCR & _
+              "  LEFT JOIN USR$SAN_REQUEST  req ON reql.MASTERKEY = req.DOCUMENTKEY" & VBCR & _
+              "  LEFT JOIN GD_DOCUMENT d ON d.ID = req.DOCUMENTKEY " & VBCR & _
+              "  WHERE reql.DOCUMENTKEY = :PERMITKEY ) res " & VBCR & _
+              "LEFT JOIN GD_CONTACT C ON RES.CONTACTKEY = C.ID " & VBCR & _
+              "LEFT JOIN USR$HT_RES_STATEDICT RESSTATE ON RES.STATEKEY = RESSTATE.ID " & VBCR & _
+              "LEFT JOIN GD_PEOPLE P ON RES.CONTACTKEY = P.CONTACTKEY " & VBCR & _
+              "LEFT JOIN USR$HT_NUMBER NUM ON  NUM.ID = RES.ROOMKEY " & VBCR & _
+              "LEFT JOIN USR$HT_NUMBERTYPE NUMT ON NUM.USR$TYPEKEY = NUMT.ID " & VBCR & _
+              "LEFT JOIN USR$HT_HOUSING HOUSE ON NUM.USR$HOUSINGKEY = HOUSE.ID " & VBCR & _
+              "LEFT JOIN USR$HT_FLOOR FLOOR ON NUM.USR$FLOORKEY = FLOOR.ID "  & VBCR & _
+              "LEFT JOIN GD_PEOPLE cr ON cr.CONTACTKEY = res.CREATORKEY "
+        
+          end property
+        
+          public property get Days
+            Days  = DE - DB
+          end property
+        
+          ' скопировать из FromORI всё, кроме ИД
+          public sub Copy (FromORI, NewIntervalID)
+        
+            IntervalID = NewIntervalID
+            Number = FromORI.Number
+            QuotaName = FromORI.QuotaName
+            Surname = FromORI.Surname
+            Firstname = FromORI.Firstname
+            Middlename = FromORI.Middlename
+            Sex = FromORI.Sex
+            DB = FromORI.DB
+            DE = FromORI.DE
+            AllCost = FromORI.AllCost
+            StateName = FromORI.StateName
+            StateKey = FromORI.StateKey
+            NumberStateName = FromORI.NumberStateName
+            NumberStateKey = FromORI.NumberStateKey
+            DocDescr = FromORI.DocDescr
+            RoomName = FromORI.RoomName
+            RoomType = FromORI.RoomType
+            HouseName = FromORI.HouseName
+            FloorName = FromORI.FloorName
+            IsEarly = FromORI.IsEarly
+            IsLately = FromORI.IsLately
+            Description = FromORI.Description
+            PrevID = FromORI.PrevID
+            IsReq = FromORI.IsReq
+            RequestKey = FromORI.RequestKey
+            ReservationKey = FromORI.ReservationKey
+            RoomKey = FromORI.RoomKey
+            PlaceKey = FromORI.PlaceKey
+            ResourceID = FromORI.ResourceID
+            Tails = FromORI.Tails
+            ContactKey = FromORI.ContactKey
+            BlockRoom = FromORI.BlockRoom
+            IsQuota = FromORI.IsQuota
+            FirstCol = FromORI.FirstCol
+            LastCol = FromORI.LastCol
+            LineNum = FromORI.LineNum
+            cLeft = FromORI.cLeft
+            cRight = FromORI.cRight
+            cTop = FromORI.cTop
+            cBottom = FromORI.cBottom
+            BrushColor = FromORI.BrushColor
+            FontColor = FromORI.FontColor
+            ExtendedLeft = FromORI.ExtendedLeft
+            ExtendedRight = FromORI.ExtendedRight
+            RedTail = FromORI.RedTail
+        
+          end sub
+        
+        
+          public function ReadFromSQL(q)
+            ID         = q.FieldByName("ID").AsInteger ' ИД
+            Number     = q.FieldByName("Number").AsString ' номер заявки
+            QuotaName  = q.FieldByName("QuotaName").AsString ' гость (полное имя)
+            Surname    = q.FieldByName("Surname").AsString ' гость (фамилия)
+            Firstname  = q.FieldByName("Firstname").AsString 'гость ( имя)
+            Middlename = q.FieldByName("Middlename").AsString 'гость (отчество)
+            Sex        = q.FieldByName("Sex").AsString 'гость (пол)
+            DB         = q.FieldByName("DateBegin").AsDateTime 'дата заезда
+            DE         = q.FieldByName("DateEnd").AsDateTime 'дата выезда
+            AllCost    = q.FieldByName("AllCost").AsCurrency 'сумма
+            StateName  = q.FieldByName("StateName").AsString 'состояние (имя)
+            StateKey   = q.FieldByName("StateKey").AsInteger 'состояние (ид)
+            NumberStateName  = q.FieldByName("NumberStateName").AsString 'состояние (имя)
+            NumberStateKey   = 0 'q.FieldByName("NumberStateKey").AsInteger 'состояние (ид)
+            DocDescr   = q.FieldByName("DocDescr").AsString 'описание из заявки
+            RoomName   = q.FieldByName("RoomName").AsString 'номер
+            RoomType   = q.FieldByName("RoomType").AsString 'тип номера
+            HouseName  = q.FieldByName("HouseName").AsString 'тип дома
+            FloorName  = q.FieldByName("FloorName").AsString 'этаж
+            IsEarly    = (q.FieldByName("IsEarly").AsInteger = 1) 'ранний заезд
+            IsLately   = (q.FieldByName("IsLately").AsInteger = 1) 'поздний выезд
+            ContactKey = q.FieldByName("ContactKey").AsInteger
+            PlaceKey   = q.FieldByName("PlaceKey").AsInteger
+            BlockRoom  = (q.FieldByName("BlockRoom").AsInteger = 1) 'номер заблокирован
+            IsQuota    = (StateKey = HT_ReservationStateDict.GetQuotaState.Key)
+            CreatorName  = q.FieldByName("CreatorName").AsString 'админ
+        
+            dim NumName, ContactName, DateNames
+            if BlockRoom then
+              NumName = ""
+              ContactName = ""
+            else
+              if IsQuota then
+                NumName = "Номер квоты: " &  Number & VBCR
+                ContactName = "Заказчик: "  & QuotaName & VBCR
+              elseif q.FieldByName("IsReq").AsInteger = 1 then
+                NumName = "Номер заявки: " &  Number & VBCR
+                ContactName = "Заказчик: "  & QuotaName & VBCR
+              else
+                NumName = "Номер бронирования: "  &  Number & VBCR
+                ContactName = "Гость: " & QuotaName & VBCR
+              end if
+            end if
+            if BlockRoom or IsQuota then
+              DateNames = _
+                "С даты: " &  CStr(DB)  & VBCR & _
+                "По дату: " &  CStr(DE)
+            else
+              DateNames = _
+                "Дата заезда: " &  CStr(DB)  & VBCR & _
+                "Дата отъезда: " &  CStr(DE)
+            end if
+            Description = _
+                      NumName & _
+                      "Корпус: " &  HouseName  & VBCR & _
+                      "Этаж: " &  FloorName & VBCR & _
+                      "Категория: " &  RoomType  & VBCR & _
+                      "Номер: " &  RoomName  & VBCR & _
+                      DateNames & VBCR & _
+                      "Кол-во дней: " & Days & VBCR & _
+                      ContactName & _
+                      "Статус: " &  StateName & VBCR & _
+                      "Создал: " & CreatorName
+            '              "Состояние: " &  NumberStateName & VBCR & _
+        
+            if DocDescr <> "" then
+              Description = Description & VBCR & _
+                "Комментарий: " &  DocDescr
+            end if
+        
+            SetColors
+        
+          end function
+        
+        
+          private sub SetColors
+            FontColor = vbBlack
+            BrushColor = vbWhite
+            if StateKey > 0 then
+              dim Creator
+              set Creator = new TCreator
+        
+              dim q
+              set q = Creator.GetObject(nil, "TIBSQL", "")
+              set q.Transaction = gdcBaseManager.ReadTransaction
+              q.SQL.Text = _
+                " SELECT USR$BRUSHCOLOR AS BC, " & _
+                "        USR$FONTCOLOR AS FC " & _
+                " FROM USR$SAN_RES_STATECOLOR " & _
+                " WHERE USR$RES_STATE = " & StateKey
+              q.ExecQuery
+              if not q.FieldByName("BC").IsNull then
+                BrushColor = q.FieldByName("BC").AsInteger
+              end if
+              if not q.FieldByName("FC").IsNull then
+                FontColor = q.FieldByName("FC").AsInteger
+              end if
+              q.Close
+        
+              ' если квота, то у каждого клиента она может быть своей
+              if IsQuota and ContactKey > 0 then
+                q.SQL.Text = " SELECT USR$COLOR AS C FROM USR$SAN_QUOTACOLOR WHERE USR$CONTACTKEY = " & ContactKey
+                q.ExecQuery
+                if not q.FieldByName("C").IsNull then
+                  BrushColor = q.FieldByName("C").AsInteger
+                end if
+                q.Close
+              end if
+            end if
+          end sub
+        
+          ' устарело. Для совместимости с предыдущей версией
+          public function GetCellByDate(FixedCols, PeriodDB, PeriodDE, D)
+            if D > PeriodDE then
+              D = PeriodDE
+              ExtendedRight = True
+            end if
+            if D < PeriodDB then
+              D = PeriodDB
+              ExtendedLeft = True
+            end if
+            GetCellByDate = DateDiff("d", PeriodDB, D) + FixedCols
+          end function
+        
+          ' устарело. Для совместимости с предыдущей версией
+          ' перерисовать заявку поверх грида
+          public sub Draw(Grid, Canv, ACol, ARow, Rect)
+            dim aLeft, aRight
+            aLeft = cLeft +( ACol - FirstCol )  * ht_gr_CellWidth
+            aRight = aLeft + ht_gr_CellWidth
+            call Grid.Canvas.CopyRect (Rect.Left, Rect.Top, Rect.Right + 1, Rect.Bottom + 1, Canv, aLeft, cTop, aRight + 1, cBottom + 1)
+          end sub
+        
+          ' устарело. Для совместимости с предыдущей версией
+          ' перерисовать "хвостик" (последний день) заявки
+          public sub DrawTail(Grid, ACol, ARow, Rect)
+          end sub
+        
+          ' устарело. Для совместимости с предыдущей версией
+          ' нарисовать заявку в image
+          public sub CreateImage (ByRef Canv)
+            cLeft =  ht_gr_FixedWidth + (FirstCol  - 3) * ht_gr_CellWidth
+            cRight = (LastCol - FirstCol + 1) * ht_gr_CellWidth + cLeft
+            cTop = LineNum * ht_gr_CellHeight
+            cBottom = cTop + ht_gr_CellHeight
+        
+            Canv.Brush.Style = 0
+            Canv.Brush.Color = BrushColor
+            Canv.Pen.Color = BrushColor
+        
+            ' день начинается и заканчивается не в начале ячейки, а в середине
+            ' (кроме случаев, когда заявка начинается\заканчивается за пределами диапазона ячеек)
+            ' Отдельно смотрим, если вселение и выселение происходит в один и тот же день
+            '
+            dim aLeft, aRight, aShiftLeft, aShiftRight
+            if LastCol <> FirstCol then
+              if IsEarly then
+                aShiftLeft = 25
+              else
+                aShiftLeft = 20
+              end if
+        
+              if IsLately then
+                aShiftRight = 25
+              else
+                aShiftRight = 20
+              end if
+        
+            else
+              if IsEarly then
+                aShiftLeft = 15
+              else
+                aShiftLeft = 10
+              end if
+        
+              if IsLately then
+                aShiftRight = 15
+              else
+                aShiftRight = 10
+              end if
+            end if
+        
+            if ExtendedLeft then aShiftLeft = 0
+            if ExtendedRight then aShiftRight = 0
+        
+            aLeft = cLeft + aShiftLeft
+            aRight = cRight - aShiftRight
+        
+            Call Canv.FillRect(aLeft, cTop, aRight, cBottom)
+        
+        
+            ' треугольники для раннего заезда \ позднего выезда
+            if IsEarly and aShiftLeft > 0 then
+              dim ArrPointsL (2, 1)
+              ArrPointsL(0,0) = aLeft
+              ArrPointsL(0,1) = cTop
+              ArrPointsL(1,0) = aLeft
+              ArrPointsL(1,1) = cBottom
+              ArrPointsL(2,0) = aLeft - 5
+              ArrPointsL(2,1) = cTop +  CInt(ht_gr_Cellheight / 2 )
+              call Canv.Polygon( ArrPointsL)
+            end if
+        
+            if IsLately and aShiftRight > 0 then
+              dim ArrPointsR (2, 1)
+              ArrPointsR(0,0) = aRight
+              ArrPointsR(0,1) = cTop
+              ArrPointsR(1,0) = aRight
+              ArrPointsR(1,1) = cBottom
+              ArrPointsR(2,0) = aRight + 5
+              ArrPointsR(2,1) = cTop +  CInt(ht_gr_Cellheight / 2 )
+              call Canv.Polygon( ArrPointsR)
+            end if
+        
+        
+            Canv.Font.Color = FontColor
+        
+            Call Canv.TextRect(aLeft, cTop, aRight, cBottom, aLeft + 3, cTop, QuotaName)
+        
+          end sub
+        
+          Private Sub Class_Initialize
+            ID         = 1 ' ИД
+            Number     = "" ' номер заявки
+            QuotaName   = "" ' гость (полное имя)
+            Surname    = "" ' гость (фамилия)
+            Firstname  = "" 'гость ( имя)
+            Middlename = "" 'гость (отчество)
+            Sex        = "" 'гость (пол)
+            DB         = DateSerial(1900, 1, 1) 'дата заезда
+            DE         = DateSerial(1900, 1, 1) 'дата выезда
+            AllCost    = 0.00 'сумма
+            StateName  = "" 'состояние (имя)
+            StateKey   = - 1 'состояние (ид)
+            NumberStateName  = "" 'состояние номера (имя)
+            NumberStateKey   = - 1 'состояние номера (ид)
+            RoomName   = "" 'номер
+            RoomType   = "" 'тип номера
+            HouseName  = "" 'тип дома
+            FloorName  = "" 'этаж
+            IsEarly    = "" 'ранний заезд
+            IsLately   = "" 'поздний выезд
+            Description= "" 'описание
+            ContactKey = 0
+            BlockRoom = false ' номер заблокирован
+        
+            RequestKey = 0
+            ReservationKey = 0
+        
+            IsReq = false
+        
+            PrevID     = 0
+            FirstCol   = 0
+            LastCol    = 0
+            BrushColor = vbGreen
+            FontColor = vbBlack
+        
+        
+            cLeft = 0
+            cRight = 0
+            cTop = 0
+            cBottom = 0
+        
+            ExtendedLeft = False
+            ExtendedRight = False
+        
+            RedTail = False
+            IntervalID = -1
+          End Sub
+        End Class
+        

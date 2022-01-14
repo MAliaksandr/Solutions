@@ -1,0 +1,443 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147390379_801911094
+  Name: "GS.Санаторий.МУ.НП.Документы.Дополнительные поля"
+  Caption: "GS.Санаторий.МУ.НП.Документы.Дополнительные поля"
+  Version: "1.0.0.13"
+  Optional: False
+  Internal: True
+  MD5: ED067F3F8FD35AE4EB9369C29D71E3D4
+Uses: 
+  - "147022838_800897192 GS.Санаторий.П.Документы.Бронирование"
+  - "147698265_71168484 GS.Санаторий.МУ.Санаторная книжка"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147488663_809241643 Vesta. Типы реализации"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147418995_821701312
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "По время"
+      FIELDNAME: "USR$TIMEEND"
+      FIELDSOURCE: "USR$HT_D_TIME"
+      FIELDSOURCEKEY: "147011422_1661751803 HT. Время, USR$HT_D_TIME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "По время"
+      LSHORTNAME: "По время"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-06-01T04:11:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147387155_801911094
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Клиент"
+      FIELDNAME: "USR$CONTACTKEY"
+      FIELDSOURCE: "USR$DCONTACT"
+      FIELDSOURCEKEY: "147021794_15581101 dcontact, USR$DCONTACT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Клиент"
+      LSHORTNAME: "Клиент"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_CONTACT"
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-03T12:58:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147387161_801911094
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Бронь"
+      FIELDNAME: "USR$RESERVATIONKEY"
+      FIELDSOURCE: "USR$HT_D_RESERVATIONKEY"
+      FIELDSOURCEKEY: "147015737_1683050467 Hotel. Документ бронирования, USR$HT_D_RESERVATIONKEY"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcAttrUserDefined"
+      GDSUBTYPE: "USR$HT_RESERVATION"
+      LNAME: "Бронь"
+      LSHORTNAME: "Бронь"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NUMBER"
+      REFRELATIONNAME: "USR$HT_RESERVATION"
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-03T13:07:21+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTrigger"
+      RUID: 147387167_801911094
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      RDB$FLAGS: 1
+      RDB$TRIGGER_INACTIVE: 0
+      RDB$TRIGGER_NAME: "USR$SAN_BIU_PROCAPPOINTMENTLINE"
+      RDB$TRIGGER_SEQUENCE: 0
+      RDB$TRIGGER_TYPE: 17
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      TRIGGERNAME: "USR$SAN_BIU_PROCAPPOINTMENTLINE"
+      TRIGGER_INACTIVE: 0
+      EDITIONDATE: 2017-06-01T04:16:49+03:00
+      RDB$DESCRIPTION: ~
+      RDB$TRIGGER_SOURCE: | 
+        AS
+        DECLARE DATEIN DATE;
+        BEGIN
+          IF ((new.USR$RESERVATIONKEY IS NULL) AND (NOT new.USR$MEDHISTORYKEY IS NULL )) THEN
+            SELECT FIRST 1
+              sancard.USR$PERMITKEY,
+              sancard.USR$DATEIN
+            FROM USR$SAN_SANATORIUMCARD sancard
+            WHERE sancard.USR$MEDHISTORYKEY = new.USR$MEDHISTORYKEY
+            ORDER BY sancard.USR$DATEIN DESC
+            INTO new.USR$RESERVATIONKEY, :DATEIN ;
+            
+          IF ((new.USR$CONTACTKEY IS NULL) AND (NOT new.USR$RESERVATIONKEY IS NULL)) THEN
+            SELECT res.USR$CONTACTKEY
+            FROM USR$HT_RESERVATION res
+            WHERE res.ID = new.USR$RESERVATIONKEY
+            INTO new.USR$CONTACTKEY;
+        
+          IF ((new.USR$TIMEEND IS NULL) AND (NOT new.USR$TIME IS NULL) AND (NOT new.USR$DURATION IS NULL) ) THEN
+            new.USR$TIMEEND = DATEADD(minute, new.USR$DURATION, new.USR$TIME);
+        END
+          
+         
+          
+  - 
+    Properties: 
+      Class: "TgdcIndex"
+      RUID: 147419002_821701312
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      FIELDSLIST: "USR$TIME"
+      INDEXNAME: "USR$SAN_X_PROCAPPOINTMENTL_TB"
+      INDEX_INACTIVE: 0
+      RDB$FOREIGN_KEY: ~
+      RDB$INDEX_NAME: "USR$SAN_X_PROCAPPOINTMENTL_TB  "
+      RDB$INDEX_TYPE: 0
+      RDB$RELATION_NAME: "USR$SAN_PROCAPPOINTMENTLINE    "
+      RDB$SEGMENT_COUNT: 1
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      UNIQUE_FLAG: 0
+      EDITIONDATE: 2017-06-01T04:20:31+03:00
+      RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcIndex"
+      RUID: 147419003_821701312
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      FIELDSLIST: "USR$TIMEEND"
+      INDEXNAME: "USR$SAN_X_PROCAPPOINTMENTL_TE"
+      INDEX_INACTIVE: 0
+      RDB$FOREIGN_KEY: ~
+      RDB$INDEX_NAME: "USR$SAN_X_PROCAPPOINTMENTL_TE  "
+      RDB$INDEX_TYPE: 0
+      RDB$RELATION_NAME: "USR$SAN_PROCAPPOINTMENTLINE    "
+      RDB$SEGMENT_COUNT: 1
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      UNIQUE_FLAG: 0
+      EDITIONDATE: 2017-06-01T04:20:42+03:00
+      RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147430835_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Процедурный кабинет"
+      FIELDNAME: "USR$CABINET"
+      FIELDSOURCE: "USR$SAN_D_CABINETKEY"
+      FIELDSOURCEKEY: "147022341_1818238909 SAN. Мед. кабинет, USR$SAN_D_CABINETKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Процедурный кабинет"
+      LSHORTNAME: "Процедурный кабинет"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_CABINET"
+      RELATIONKEY: "147090453_1786429137 Назначения и прохождения процедур, USR$SAN_PROCAPPOINTMENT"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENT"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-07-20T23:20:43+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147488240_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147488239_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "USR$SAN_SELLTYPE"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_SELLTYPE"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип реализации"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Типы реализации"
+      REFTABLE: "USR$SAN_SELLTYPE"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-03T13:00:53+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147488239_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$SELLTYPEKEY"
+      FIELDNAME: "USR$SELLTYPEKEY"
+      FIELDSOURCE: "USR$SAN_SELLTYPE"
+      FIELDSOURCEKEY: "147488240_809241643 Тип реализации, USR$SAN_SELLTYPE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип реализации"
+      LSHORTNAME: "Тип реализации"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_SELLTYPE"
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-10T10:37:50+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 156402178_913738567
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$DOCSELLKEY"
+      FIELDNAME: "USR$DOCSELLKEY"
+      FIELDSOURCE: "USR$GS_DDOCUMENT"
+      FIELDSOURCEKEY: "147035010_9802323 Документ, USR$GS_DDOCUMENT"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcDocument"
+      GDSUBTYPE: ~
+      LNAME: "Документ реализации"
+      LSHORTNAME: "Документ реализации"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NUMBER"
+      REFRELATIONNAME: "GD_DOCUMENT"
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-10T10:37:36+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147498273_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "SET NULL"
+      DESCRIPTION: "USR$SPENDKEY"
+      FIELDNAME: "USR$SPENDKEY"
+      FIELDSOURCE: "USR$GS_DDOCUMENT"
+      FIELDSOURCEKEY: "147035010_9802323 Документ, USR$GS_DDOCUMENT"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcDocument"
+      GDSUBTYPE: ~
+      LNAME: "Списание"
+      LSHORTNAME: "Списание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NUMBER"
+      REFRELATIONNAME: "GD_DOCUMENT"
+      RELATIONKEY: "147090463_1786429137 Назначения и прохождения процедур(позиция), USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONNAME: "USR$SAN_PROCAPPOINTMENTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-12-26T11:29:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~

@@ -1,0 +1,2466 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147378365_789097196
+  Name: "WESTA.Тип путёвки"
+  Caption: "WESTA.Тип путёвки"
+  Version: "1.0.0.15"
+  Optional: False
+  Internal: True
+  MD5: 3096EC2B0C67BCF7A8FF61E9809989EC
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147423316_809241643 VESTA.Группа тарифа"
+  - "147364159_796152036 GS.Санаторий.Отдел продаж.Исследователь"
+  - "147376588_789097196 VESTA.Заявка"
+  - "147403724_812279903 VESTA.Тариф.Интерфейс"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147068329_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147006462_486813904 Документы пользователя"
+      NAME: "05. Тип путевки"
+      DESCRIPTION: "05. Тип путевки"
+      USERGROUPNAME: "147068329_704999368"
+      EDITIONDATE: 2017-01-27T13:27:44+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147188525_779589892
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дата окончания"
+      FIELDNAME: "USR$DATEEND"
+      FIELDSOURCE: "USR$HT_D_DATE"
+      FIELDSOURCEKEY: "147008533_1661751803 HT. Дата, USR$HT_D_DATE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дата окончания"
+      LSHORTNAME: "Дата окончания"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-04-04T15:57:54+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147188524_779589892
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Дата начала"
+      FIELDNAME: "USR$DATEBEGIN"
+      FIELDSOURCE: "USR$HT_D_DATE"
+      FIELDSOURCEKEY: "147008533_1661751803 HT. Дата, USR$HT_D_DATE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Дата начала"
+      LSHORTNAME: "Дата начала"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-04-04T15:57:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147068331_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Длительность проживания"
+      FIELDNAME: "USR$PERIOD"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Длительность"
+      LSHORTNAME: "Длительность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-01-27T13:31:43+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDocumentLineTable"
+      RUID: 147068325_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "17. Тип путевки(позиция)"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "17. Тип путевки(позиция)"
+      LSHORTNAME: "17. Тип путевки(позиция)"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_PERMIT_TYPELINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-01-27T13:27:38+03:00
+  - 
+    Properties: 
+      Class: "TgdcDocumentTable"
+      RUID: 147078773_765078212
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "18. Одна из услуг"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "18. Одна из услуг"
+      LSHORTNAME: "18. Одна из услуг"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_ONESERVISES"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-02-27T11:10:03+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147078786_765078212
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Наименование услуги"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT180"
+      FIELDSOURCEKEY: "147000116_31587988 Текст (180), DTEXT180"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование услуги"
+      LSHORTNAME: "Наименование услуги"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147078773_765078212 18. Одна из услуг, USR$SAN_ONESERVISES"
+      RELATIONNAME: "USR$SAN_ONESERVISES"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 180
+      VISIBLE: 1
+      EDITIONDATE: 2017-02-27T11:11:04+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147078825_765078212
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "Услуга на выбор"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_D_SERVICETOCHOOSE"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Услуга на выбор"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование услуги"
+      REFLNAME: "18. Одна из услуг"
+      REFTABLE: "USR$SAN_ONESERVISES"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-02-28T10:08:31+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147078824_765078212
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$SERVICETOCHOOSE"
+      FIELDSOURCE: "USR$SAN_D_SERVICETOCHOOSE"
+      FIELDSOURCEKEY: "147078825_765078212 Услуга на выбор, USR$SAN_D_SERVICETOCHOOSE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Услуга на выбор"
+      LSHORTNAME: "Услуга на выбор"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_ONESERVISES"
+      RELATIONKEY: "147068325_704999368 17. Тип путевки(позиция), USR$SAN_PERMIT_TYPELINE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPELINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-02-27T11:18:07+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147068334_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Количество"
+      FIELDNAME: "USR$NUMBER"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Количество"
+      LSHORTNAME: "Количество"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147068325_704999368 17. Тип путевки(позиция), USR$SAN_PERMIT_TYPELINE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPELINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-01-27T13:41:32+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147068332_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Услуга"
+      FIELDNAME: "USR$SERVICEKEY"
+      FIELDSOURCE: "USR$HT_D_SERVICEKEY"
+      FIELDSOURCEKEY: "147008681_1661751803 HT. Услуга, USR$HT_D_SERVICEKEY"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcAttrUserDefinedLBRBTree"
+      GDSUBTYPE: "USR$HT_SERVICE"
+      LNAME: "Услуга"
+      LSHORTNAME: "Услуга"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$HT_SERVICE"
+      RELATIONKEY: "147068325_704999368 17. Тип путевки(позиция), USR$SAN_PERMIT_TYPELINE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPELINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2021-03-18T10:56:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcUserDocumentType"
+      RUID: 147068321_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147012663_1780606072 Санаторий"
+      NAME: "05. Тип путевки"
+      ADDNUMBER: 1
+      BRANCHKEY: ~
+      CLASSNAME: "TgdcUserDocumentType"
+      DESCRIPTION: ~
+      DOCUMENTTYPE: "D"
+      FIXLENGTH: ~
+      HEADERFUNCTIONKEY: ~
+      HEADERRELKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      ISCHECKNUMBER: 0
+      ISCOMMON: 0
+      LINEFUNCTIONKEY: ~
+      LINERELKEY: "147068325_704999368 17. Тип путевки(позиция), USR$SAN_PERMIT_TYPELINE"
+      MASK: "\"NUMBER\""
+      REPORTGROUPKEY: "147068329_704999368 Документы пользователя\\05. Тип путевки"
+      RUID: "147068321_704999368"
+      EDITIONDATE: 2017-11-16T11:56:46+03:00
+      DISABLED: 0
+      HEADERFUNCTIONTEMPLATE: ~
+      LINEFUNCTIONTEMPLATE: ~
+      OPTIONS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147076525_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_dlgUserComplexDocument147068321_704999368(Tgdc_dlgUserComplexDocument)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-03-01T08:04:49+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147188526_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147076525_789097196 USER - Administrator\\gdc_dlgUserComplexDocument147068321_704999368(Tgdc_dlgUserComplexDocument)"
+      NAME: "ibgrDetail(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-04-04T16:25:43+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147188527_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147188526_789097196 USER - Administrator\\gdc_dlgUserComplexDocument147068321_704999368(Tgdc_dlgUserComplexDocument)\\ibgrDetail(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-11-16T11:16:48+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAA8wAAAYIY2xX
+        aW5kb3cBBgZUYWhvbWEGD2NsSGlnaGxpZ2h0VGV4dAL1AAIIAAPMAAAGC2NsSGlnaGxpZ2h0AQYG
+        VGFob21hBgxjbFdpbmRvd1RleHQC9QACCAADzAAABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQw
+        MEQ2RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBh5VX1VTUiRTRVJWSUNFVE9DSE9P
+        U0VfVVNSJE5BTUUNVGl0bGUuQ2FwdGlvbgYP0/Hr8+PoIO3gIOL74e7wBVdpZHRoA9QAB1Zpc2li
+        bGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYZVV9VU1IkU0VSVklDRUtFWV9VU1IkTkFNRQ1UaXRs
+        ZS5DYXB0aW9uBgbT8evz4+gFV2lkdGgD6QEHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        BgpVU1IkTlVNQkVSDVRpdGxlLkNhcHRpb24GCsru6+j35fHy4u4FV2lkdGgCUQdWaXNpYmxlCQAB
+        CEV4cGFuZGVkCAlGaWVsZE5hbWUGE1VTUiRTRVJWSUNFVE9DSE9PU0UNVGl0bGUuQ2FwdGlvbgYP
+        0/Hr8+PgIO3gIOL74e7wBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5V
+        U1IkU09SVE5VTUJFUghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYUze7s5fAg5Ov/IPHu8PLo8O7i
+        6ugFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlVTUiRTRVJWSUNFS0VZ
+        DVRpdGxlLkNhcHRpb24GBtPx6/Pj4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxk
+        TmFtZQYCSUQNVGl0bGUuQ2FwdGlvbgYEyuv+9wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
+        CUZpZWxkTmFtZQYGUEFSRU5UDVRpdGxlLkNhcHRpb24GCNDu5Ojy5ev8BVdpZHRoAv8HVmlzaWJs
+        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg9ET0NVTUVOVFRZUEVLRVkNVGl0bGUuQ2FwdGlvbgYN
+        0ujvIOTu6vPs5e3y4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJVFJU
+        WVBFS0VZDVRpdGxlLkNhcHRpb24GDtLo7yDy8ODt5+Dq9ujoBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBg5UUkFOU0FDVElPTktFWQ1UaXRsZS5DYXB0aW9uBgrS8ODt5+Dq
+        9uj/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgZOVU1CRVINVGl0bGUu
+        Q2FwdGlvbgYFze7s5fAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDERP
+        Q1VNRU5UREFURQ1UaXRsZS5DYXB0aW9uBgTE4PLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgtERVNDUklQVElPTg1UaXRsZS5DYXB0aW9uBgjO7+jx4O3o5QVXaWR0aAL/
+        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYGU1VNTkNVDVRpdGxlLkNhcHRpb24GC9Hz
+        7OzgIOIgzcTFBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdTVU1DVVJS
+        DVRpdGxlLkNhcHRpb24GDtHz7OzgIOIg4uDr/vLlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgVTVU1FUQ1UaXRsZS5DYXB0aW9uBhPR8+zs4CDiIP3q4uji4Ovl7fLlBVdp
+        ZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdERUxBWUVEDVRpdGxlLkNhcHRp
+        b24GCs7y6+7m5e3t++kFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB0NV
+        UlJLRVkNVGl0bGUuQ2FwdGlvbgYGwuDr/vLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBgpDT01QQU5ZS0VZDVRpdGxlLkNhcHRpb24GCMru7O/g7ej/BVdpZHRoAv8HVmlz
+        aWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpDUkVBVE9SS0VZDVRpdGxlLkNhcHRpb24GCsry
+        7iDx7ufk4OsFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDENSRUFUSU9O
+        REFURQ1UaXRsZS5DYXB0aW9uBg3E4PLgIPHu5+Tg7ej/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBglFRElUT1JLRVkNVGl0bGUuQ2FwdGlvbgYMyvLuIOjx7/Dg4ujrBVdp
+        ZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9OREFURQ1UaXRsZS5D
+        YXB0aW9uBg7E4PLgIOjn7OXt5e3o/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxk
+        TmFtZQYJUFJJTlREQVRFDVRpdGxlLkNhcHRpb24GC8Tg8uAg7+X34PLoBVdpZHRoAv8HVmlzaWJs
+        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghESVNBQkxFRA1UaXRsZS5DYXB0aW9uBgnO8urr/vfl
+        7e4FV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCFJFU0VSVkVEDVRpdGxl
+        LkNhcHRpb24GD8fg8OXn5fDi6PDu4uDt7gVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZp
+        ZWxkTmFtZQYLRE9DVU1FTlRLRVkIUmVhZE9ubHkJDVRpdGxlLkNhcHRpb24GDsrr/vcg5O7q8+zl
+        7fLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglNQVNURVJLRVkIUmVh
+        ZE9ubHkJDVRpdGxlLkNhcHRpb24GI9Du5Ojy5ev8ICgxNy4g0ujvIO/z8uXi6ugo7+7n6Pbo/ykp
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglSRVNFUlZFRDEIUmVhZE9u
+        bHkJDVRpdGxlLkNhcHRpb24GKsfg8OXn5fDi6PDu4uDt7iAoMTcuINLo7yDv8/Ll4uroKO/u5+j2
+        6P8pKQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKVVNSJEVRUkFURQ1U
+        aXRsZS5DYXB0aW9uBhDK8/DxIP3q4uji4Ovl7fLgBVdpZHRoAv8HVmlzaWJsZQgAAQlBbGlnbm1l
+        bnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGBUFGVUxMDVRpdGxlLkNhcHRp
+        b24GDc/u6+376SDk7vHy8+8FV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdodEp1
+        c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUNIQUcNVGl0bGUuQ2FwdGlvbgYZz/Du8ezu8vAg
+        6CDw5eTg6vLo8O7i4O3o5QVXaWR0aAL/B1Zpc2libGUIAAEJQWxpZ25tZW50Bw50YVJpZ2h0SnVz
+        dGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgVBVklFVw1UaXRsZS5DYXB0aW9uBg/S7uv86u4g7/Du
+        8ezu8vAFV2lkdGgC/wdWaXNpYmxlCAAACAj9HAkI
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147076508_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmUserComplexDocument147068321_704999368(Tgdc_frmUserComplexDocument)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-03-01T08:07:09+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147100976_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147076508_789097196 USER - Administrator\\gdc_frmUserComplexDocument147068321_704999368(Tgdc_frmUserComplexDocument)"
+      NAME: "ibgrDetail(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-03-10T18:00:58+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147100977_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147100976_789097196 USER - Administrator\\gdc_frmUserComplexDocument147068321_704999368(Tgdc_frmUserComplexDocument)\\ibgrDetail(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-03-19T12:13:47+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBh5VX1VTUiRTRVJWSUNFVE9DSE9PU0Vf
+        VVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD9Px6/Pj4CDt4CDi++Hu8AVXaWR0aAPG
+        AAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGGVVfVVNSJFNFUlZJQ0VLRVlfVVNSJE5B
+        TUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBtPx6/Pj4AVXaWR0aANlAQdWaXNpYmxlCQABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGClVTUiROVU1CRVIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCsru
+        6+j35fHy4u4FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgJJRAhSZWFk
+        T25seQgNVGl0bGUuQ2FwdGlvbgYEyuv+9wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZp
+        ZWxkTmFtZQYGUEFSRU5UCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgjQ7uTo8uXr/AVXaWR0aAL/
+        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYPRE9DVU1FTlRUWVBFS0VZCFJlYWRPbmx5
+        CA1UaXRsZS5DYXB0aW9uBg3S6O8g5O7q8+zl7fLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBglUUlRZUEVLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDtLo7yDy8ODt
+        5+Dq9ujoBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5UUkFOU0FDVElP
+        TktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYK0vDg7efg6vbo/wVXaWR0aAL/B1Zpc2libGUI
+        AAEIRXhwYW5kZWQICUZpZWxkTmFtZQYGTlVNQkVSCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgXN
+        7uzl8AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMRE9DVU1FTlREQVRF
+        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgTE4PLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgtERVNDUklQVElPTghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYIzu/o8eDt
+        6OUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBlNVTU5DVQhSZWFkT25s
+        eQgNVGl0bGUuQ2FwdGlvbgYL0fPs7OAg4iDNxMUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGB1NVTUNVUlIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDtHz7OzgIOIg4uDr
+        /vLlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgVTVU1FUQhSZWFkT25s
+        eQgNVGl0bGUuQ2FwdGlvbgYT0fPs7OAg4iD96uLo4uDr5e3y5QVXaWR0aAL/B1Zpc2libGUIAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYHREVMQVlFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYKzvLr
+        7ubl7e376QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHQ1VSUktFWQhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYGwuDr/vLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgpDT01QQU5ZS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgjK7uzv4O3o
+        /wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKQ1JFQVRPUktFWQhSZWFk
+        T25seQgNVGl0bGUuQ2FwdGlvbgYKyvLuIPHu5+Tg6wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5k
+        ZWQICUZpZWxkTmFtZQYMQ1JFQVRJT05EQVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg3E4PLg
+        IPHu5+Tg7ej/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglFRElUT1JL
+        RVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDMry7iDo8e/w4OLo6wVXaWR0aAL/B1Zpc2libGUI
+        AAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLRURJVElPTkRBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRp
+        b24GDsTg8uAg6Ofs5e3l7ej/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        BglQUklOVERBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GC8Tg8uAg7+X34PLoBVdpZHRoAv8H
+        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghESVNBQkxFRAhSZWFkT25seQgNVGl0bGUu
+        Q2FwdGlvbgYJzvLq6/735e3uBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        BghSRVNFUlZFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYPx+Dw5efl8OLo8O7i4O3uBVdpZHRo
+        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtET0NVTUVOVEtFWQ1UaXRsZS5DYXB0
+        aW9uBg7K6/73IOTu6vPs5e3y4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYJTUFTVEVSS0VZDVRpdGxlLkNhcHRpb24GI9Du5Ojy5ev8ICgxNy4g0ujvIO/z8uXi6ugo7+7n
+        6Pbo/ykpBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglSRVNFUlZFRDEN
+        VGl0bGUuQ2FwdGlvbgYqx+Dw5efl8OLo8O7i4O3uICgxNy4g0ujvIO/z8uXi6ugo7+7n6Pbo/ykp
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5VU1IkU0VSVklDRUtFWQhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYG0/Hr8+PgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBhNVU1IkU0VSVklDRVRPQ0hPT1NFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9u
+        Bg/T8evz4+Ag7eAg4vvh7vAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUG
+        DlVTUiRTT1JUTlVNQkVSCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhTN7uzl8CDk6/8g8e7w8ujw
+        7uLq6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKVVNSJEVRUkFURQhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQyvPw8SD96uLo4uDr5e3y4AVXaWR0aAL/B1Zpc2libGUI
+        AAEJQWxpZ25tZW50Bw50YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgVBRlVMTAhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYNz+7r7fvpIOTu8fLz7wVXaWR0aAL/B1Zpc2libGUIAAEJ
+        QWxpZ25tZW50Bw50YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgVBQ0hBRwhSZWFk
+        T25seQgNVGl0bGUuQ2FwdGlvbgYZz/Du8ezu8vAg6CDw5eTg6vLo8O7i4O3o5QVXaWR0aAL/B1Zp
+        c2libGUIAAEJQWxpZ25tZW50Bw50YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgVB
+        VklFVwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYP0u7r/OruIO/w7vHs7vLwBVdpZHRoAv8HVmlz
+        aWJsZQgAAAgItB4JCA==
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147100974_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147076508_789097196 USER - Administrator\\gdc_frmUserComplexDocument147068321_704999368(Tgdc_frmUserComplexDocument)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-03-10T18:00:58+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147100975_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147100974_789097196 USER - Administrator\\gdc_frmUserComplexDocument147068321_704999368(Tgdc_frmUserComplexDocument)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-08-27T11:57:55+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgxET0NVTUVOVERBVEUIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GBMTg8uAFV2lkdGgCQAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGCFVTUiROQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgzN4Ojs5e3u4uDt6OUFV2lkdGgD
+        SAEHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpVU1IkUEVSSU9ECFJlYWRPbmx5CA1U
+        aXRsZS5DYXB0aW9uBgzE6+jy5ev87e7x8vwFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBgtVU1IkU09SVE5VTQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQze7s5fAg8e7w
+        8ujw7uLq6AVXaWR0aAJhB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYdVV9VU1IkVEFS
+        UklGR1JPVVBLRVlfVVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDcPw8+/v4CDy4PDo
+        9OAFV2lkdGgDbAEHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgJJRAhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYEyuv+9wVXaWR0aAJAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYOVVNSJFNPUlROVU1CRVIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GFM3u7OXwIOTr/yDx7vDy
+        6PDu4uroBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgZQQVJFTlQIUmVh
+        ZE9ubHkIDVRpdGxlLkNhcHRpb24GCNDu5Ojy5ev8BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBg9ET0NVTUVOVFRZUEVLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDdLo
+        7yDk7urz7OXt8uAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCVRSVFlQ
+        RUtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYO0ujvIPLw4O3n4Or26OgFV2lkdGgC/wdWaXNp
+        YmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlRSQU5TQUNUSU9OS0VZCFJlYWRPbmx5CA1UaXRs
+        ZS5DYXB0aW9uBgrS8ODt5+Dq9uj/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBgZOVU1CRVIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBc3u7OXwBVdpZHRoAv8HVmlzaWJs
+        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtERVNDUklQVElPTghSZWFkT25seQgNVGl0bGUuQ2Fw
+        dGlvbgYIzu/o8eDt6OUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBlNV
+        TU5DVQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYL0fPs7OAg4iDNxMUFV2lkdGgC/wdWaXNpYmxl
+        CAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB1NVTUNVUlIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24G
+        DtHz7OzgIOIg4uDr/vLlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgVT
+        VU1FUQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYT0fPs7OAg4iD96uLo4uDr5e3y5QVXaWR0aAL/
+        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHREVMQVlFRAhSZWFkT25seQgNVGl0bGUu
+        Q2FwdGlvbgYKzvLr7ubl7e376QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYHQ1VSUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYGwuDr/vLgBVdpZHRoAv8HVmlzaWJs
+        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpDT01QQU5ZS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0
+        aW9uBgjK7uzv4O3o/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKQ1JF
+        QVRPUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYKyvLuIPHu5+Tg6wVXaWR0aAL/B1Zpc2li
+        bGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMQ1JFQVRJT05EQVRFCFJlYWRPbmx5CA1UaXRsZS5D
+        YXB0aW9uBg3E4PLgIPHu5+Tg7ej/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBglFRElUT1JLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDMry7iDo8e/w4OLo6wVXaWR0
+        aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLRURJVElPTkRBVEUIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GDsTg8uAg6Ofs5e3l7ej/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBglQUklOVERBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GC8Tg8uAg7+X3
+        4PLoBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghESVNBQkxFRAhSZWFk
+        T25seQgNVGl0bGUuQ2FwdGlvbgYJzvLq6/735e3uBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBghSRVNFUlZFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYPx+Dw5efl8OLo
+        8O7i4O3uBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtET0NVTUVOVEtF
+        WQ1UaXRsZS5DYXB0aW9uBg7K6/73IOTu6vPs5e3y4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5k
+        ZWQICUZpZWxkTmFtZQYJUkVTRVJWRUQxDVRpdGxlLkNhcHRpb24GIcfg8OXn5fDi6PDu4uDt7iAo
+        MTcuINLo7yDv8/Ll4uroKQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYK
+        VVNSJEVRUkFURQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQyvPw8SD96uLo4uDr5e3y4AVXaWR0
+        aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYNVVNSJERBVEVCRUdJTghSZWFkT25s
+        eQgNVGl0bGUuQ2FwdGlvbgYLxODy4CDt4Pfg6+AFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGC1VTUiREQVRFRU5ECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg7E4PLgIO7q
+        7u334O3o/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYIVVNSJENPREUI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDsru5CDk6/8g7/Dg6fHgBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBhJVU1IkUFJJQ0VGT1JQRVJNSVQIUmVhZE9ubHkIDVRpdGxl
+        LkNhcHRpb24GE9bl7eAg5+Ag4vH+IO/z8uXi6vMFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGElVTUiRUQVJSSUZHUk9VUEtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYN
+        w/Dz7+/gIPLg8Oj04AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYQVVNS
+        JFRZUEVQUklDRUtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYI0ujvIPbl7fsFV2lkdGgC/wdW
+        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGG1VfVVNSJFRZUEVQUklDRUtFWV9VU1IkTkFN
+        RQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYT0ujvIPbl7fsg5Ov/IPLg8Oj04AVXaWR0aAL/B1Zp
+        c2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYPVVNSJExPWUFMVFlfRVhDCFJlYWRPbmx5CA1U
+        aXRsZS5DYXB0aW9uBgnI8err/vfo8vwFV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVudAcOdGFS
+        aWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUZVTEwIUmVhZE9ubHkIDVRpdGxlLkNh
+        cHRpb24GDc/u6+376SDk7vHy8+8FV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdo
+        dEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUNIQUcIUmVhZE9ubHkIDVRpdGxlLkNhcHRp
+        b24GGc/w7vHs7vLwIOgg8OXk4Ory6PDu4uDt6OUFV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVu
+        dAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQVZJRVcIUmVhZE9ubHkIDVRp
+        dGxlLkNhcHRpb24GD9Lu6/zq7iDv8O7x7O7y8AVXaWR0aAL/B1Zpc2libGUIAAAICLQeCQg=
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147078679_765078212
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147240190_1234867257 GLOBAL\\DFM\\Tgdc_dlgUserDocumentLine"
+      NAME: "147068321_704999368"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-03-18T10:56:58+03:00
+      BLOB_DATA: | 
+        object gdc_dlgUserDocumentLine147068321_704999368: Tgdc_dlgUserDocumentLine
+          Left = 696
+          Top = 467
+          ActiveControl = nil
+          ClientHeight = 121
+          ClientWidth = 522
+          PixelsPerInch = 96
+          TextHeight = 13
+          object Bevel1: TBevel
+            Top = 89
+            Width = 522
+          end
+          object btnAccess: TButton
+            Top = 95
+          end
+          object btnNew: TButton
+            Top = 95
+          end
+          object btnHelp: TButton
+            Top = 95
+          end
+          object btnOK: TButton
+            Left = 377
+            Top = 95
+          end
+          object btnCancel: TButton
+            Left = 449
+            Top = 95
+          end
+          object pnlAttributes: TPanel
+            Width = 522
+            Height = 89
+            object atAttributes: TatContainer
+              Width = 514
+              Height = 81
+              object usrat_gsIBLookupComboBox_USR_SERVICEKEY_Label: TLabel
+              end
+              object usrat_DBEdit_USR_NUMBER_Label: TLabel
+                Top = 56
+              end
+              object usrat_gsIBLookupComboBox_USR_SERVICETOCHOOSE_Label: TLabel
+                Top = 32
+              end
+              object usrat_DBEdit_U_USR_SERVICETOCHOOSE_USR_NAME_Label: TLabel
+                Left = 389
+                Top = 54
+                Width = 26
+                Visible = False
+              end
+              object usrat_DBEdit_U_USR_SERVICEKEY_USR_NAME_Label: TLabel
+                Left = 461
+                Top = 7
+                Width = 20
+                Visible = False
+              end
+              object usrat_DBEdit_USR_SORTNUMBER_Label: TLabel
+                Left = 245
+                Top = 32
+                Width = 124
+                Visible = False
+              end
+              object usrat_DBEdit_USR_EQRATE_Label: TLabel
+                Left = 461
+                Top = 13
+                Width = 20
+                Visible = False
+              end
+              object usrat_gsIBLookupComboBox_USR_SERVICEKEY: TgsIBLookupComboBox
+                Left = 103
+                Width = 350
+                ListTable = 'USR$HT_SERVICE'
+                ListField = 'USR$NAME'
+                gdClassName = 'TgdcAttrUserDefinedLBRBTree'
+                SubType = 'USR$HT_SERVICE'
+              end
+              object usrat_DBEdit_USR_NUMBER: TxDBCalculatorEdit
+                Left = 103
+                Top = 52
+                Width = 70
+                Cursor = crIBeam
+              end
+              object usrat_gsIBLookupComboBox_USR_SERVICETOCHOOSE: TgsIBLookupComboBox
+                Left = 103
+                Top = 28
+                Width = 350
+              end
+              object usrat_DBEdit_U_USR_SERVICETOCHOOSE_USR_NAME: TDBEdit
+                Left = 439
+                Top = 50
+                Width = 52
+                Visible = False
+              end
+              object usrat_DBEdit_U_USR_SERVICEKEY_USR_NAME: TDBEdit
+                Left = 487
+                Top = 3
+                Width = 20
+                Visible = False
+              end
+              object usrat_DBEdit_USR_SORTNUMBER: TxDBCalculatorEdit
+                Left = 389
+                Top = 28
+                Width = 70
+                Cursor = crIBeam
+                Visible = False
+              end
+              object usrat_DBEdit_USR_EQRATE: TxDBCalculatorEdit
+                Left = 487
+                Top = 9
+                Width = 20
+                Cursor = crArrow
+                Visible = False
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 214
+            Top = 32
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 48
+            Top = 215
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 336
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147068411_704999368
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: "147240236_1234867257 GLOBAL\\DFM\\Tgdc_dlgUserComplexDocument"
+      NAME: "147068321_704999368"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2021-04-16T17:05:17+03:00
+      BLOB_DATA: | 
+        object gdc_dlgUserComplexDocument147068321_704999368: Tgdc_dlgUserComplexDocument
+          Left = 491
+          Top = 184
+          Width = 1366
+          Height = 667
+          ActiveControl = nil
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 603
+          end
+          object btnNew: TButton
+            Top = 603
+          end
+          object btnHelp: TButton
+            Top = 603
+          end
+          object btnOK: TButton
+            Left = 1201
+            Top = 603
+          end
+          object btnCancel: TButton
+            Left = 1275
+            Top = 603
+          end
+          object pnlMain: TPanel
+            Width = 1358
+            Height = 602
+            object splMain: TSplitter
+              Top = 270
+              Width = 1358
+            end
+            object pnlDetail: TPanel
+              Top = 274
+              Width = 1358
+              Height = 328
+              object ibgrDetail: TgsIBGrid
+                Left = 9
+                Width = 1340
+                Height = 302
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$HT_SERVICE'
+                    Lookup.gdClassName = 'TgdcAttrUserDefinedLBRBTree'
+                    Lookup.SubType = 'USR$HT_SERVICE'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$SERVICEKEY'
+                    DisplayField = 'U_USR$SERVICEKEY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'DOCUMENTKEY'
+                    Lookup.LookupTable = 'USR$SAN_ONESERVISES'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$SERVICETOCHOOSE'
+                    DisplayField = 'U_USR$SERVICETOCHOOSE_USR$NAME'
+                    DropDownCount = 8
+                  end>
+                Aliases = <>
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$SERVICETOCHOOSE_USR$NAME'
+                    Title.Caption = 'Услуги на выбор'
+                    Width = 212
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$SERVICEKEY_USR$NAME'
+                    Title.Caption = 'Услуги'
+                    Width = 489
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$NUMBER'
+                    Title.Caption = 'Количество'
+                    Width = 81
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SERVICETOCHOOSE'
+                    Title.Caption = 'Услуга на выбор'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SORTNUMBER'
+                    ReadOnly = False
+                    Title.Caption = 'Номер для сортировки'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SERVICEKEY'
+                    Title.Caption = 'Услуга'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID'
+                    Title.Caption = 'Ключ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PARENT'
+                    Title.Caption = 'Родитель'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTTYPEKEY'
+                    Title.Caption = 'Тип документа'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRTYPEKEY'
+                    Title.Caption = 'Тип транзакции'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRANSACTIONKEY'
+                    Title.Caption = 'Транзакция'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'NUMBER'
+                    Title.Caption = 'Номер'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTDATE'
+                    Title.Caption = 'Дата'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCRIPTION'
+                    Title.Caption = 'Описание'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMNCU'
+                    Title.Caption = 'Сумма в НДЕ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMCURR'
+                    Title.Caption = 'Сумма в валюте'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMEQ'
+                    Title.Caption = 'Сумма в эквиваленте'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DELAYED'
+                    Title.Caption = 'Отложенный'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CURRKEY'
+                    Title.Caption = 'Валюта'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'COMPANYKEY'
+                    Title.Caption = 'Компания'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATORKEY'
+                    Title.Caption = 'Кто создал'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATIONDATE'
+                    Title.Caption = 'Дата создания'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITORKEY'
+                    Title.Caption = 'Кто исправил'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITIONDATE'
+                    Title.Caption = 'Дата изменения'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PRINTDATE'
+                    Title.Caption = 'Дата печати'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DISABLED'
+                    Title.Caption = 'Отключено'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED'
+                    Title.Caption = 'Зарезервировано'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTKEY'
+                    ReadOnly = True
+                    Title.Caption = 'Ключ документа'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'MASTERKEY'
+                    ReadOnly = True
+                    Title.Caption = 'Родитель (17. Тип путевки(позиция))'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED1'
+                    ReadOnly = True
+                    Title.Caption = 'Зарезервировано (17. Тип путевки(позиция))'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EQRATE'
+                    Title.Caption = 'Курс эквивалента'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AFULL'
+                    Title.Caption = 'Полный доступ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'ACHAG'
+                    Title.Caption = 'Просмотр и редактирование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AVIEW'
+                    Title.Caption = 'Только просмотр'
+                    Width = -1
+                    Visible = False
+                  end>
+              end
+              object tbdTop: TTBDock
+                Width = 1358
+                object tbDetail: TTBToolbar
+                  SavedAtRunTime = True
+                  object tbNew: TTBItem
+                  end
+                  object tbEdit: TTBItem
+                  end
+                  object tbDelete: TTBItem
+                  end
+                  object tbDuplicate: TTBItem
+                  end
+                  object tbiDetailProperties: TTBItem
+                  end
+                  object TBSeparatorItem1: TTBSeparatorItem
+                  end
+                  object tbCopy: TTBItem
+                  end
+                  object tbCut: TTBItem
+                  end
+                  object tbPaste: TTBItem
+                  end
+                  object TBSeparatorItem2: TTBSeparatorItem
+                  end
+                  object tbMacro: TTBItem
+                  end
+                end
+              end
+              object tbdLeft: TTBDock
+                Width = 9
+                Height = 302
+              end
+              object tbdRight: TTBDock
+                Left = 1349
+                Width = 9
+                Height = 302
+              end
+              object tbdBottom: TTBDock
+                Top = 328
+                Width = 1358
+                Height = 0
+              end
+            end
+            object pnlMaster: TPanel
+              Width = 1358
+              Height = 270
+              object pnlHolding: TPanel
+                Width = 1358
+                object lblCompany: TLabel
+                end
+                object iblkCompany: TgsIBLookupComboBox
+                end
+              end
+              object usrg_147068321_704999368_PageControl1: TPageControl
+                Tag = 0
+                Left = 0
+                Top = 0
+                Width = 1358
+                Height = 270
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                ActivePage = usrg_147068321_704999368_TabSheet1
+                Align = alClient
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DockSite = False
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                HotTrack = False
+                Images = nil
+                MultiLine = False
+                OwnerDraw = False
+                ParentBiDiMode = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                RaggedRight = False
+                ScrollOpposite = False
+                Style = tsTabs
+                TabHeight = 0
+                TabOrder = 1
+                TabPosition = tpTop
+                TabStop = True
+                TabWidth = 0
+                Visible = True
+                object usrg_147068321_704999368_TabSheet1: TTabSheet
+                  Tag = 0
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  BorderWidth = 0
+                  Caption = 'Основные'
+                  DragMode = dmManual
+                  Enabled = True
+                  Highlighted = False
+                  ImageIndex = 0
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabVisible = True
+                  object usrg_147068321_704999368_GroupBox2: TGroupBox
+                    Tag = 0
+                    Left = 10
+                    Top = 2
+                    Width = 298
+                    Height = 72
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    Align = alNone
+                    Anchors = [akLeft, akTop]
+                    Caption = 'Документ'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DockSite = False
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentCtl3D = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabOrder = 0
+                    TabStop = False
+                    Visible = True
+                    object usrat_DBEdit_NUMBER_Label: TLabel
+                      Left = 6
+                      Top = 23
+                    end
+                    object usrat_xDateDBEdit_DOCUMENTDATE_Label: TLabel
+                      Left = 6
+                      Top = 46
+                    end
+                    object usrat_DBEdit_USR_CODE_Label: TLabel
+                      Left = 131
+                      Top = 46
+                    end
+                    object usrat_DBEdit_USR_SORTNUM_Label: TLabel
+                      Left = 131
+                      Top = 22
+                    end
+                    object usrat_DBEdit_NUMBER: TDBEdit
+                      Left = 53
+                      Top = 19
+                      Width = 70
+                      TabOrder = 0
+                    end
+                    object usrat_xDateDBEdit_DOCUMENTDATE: TxDateDBEdit
+                      Left = 53
+                      Top = 42
+                      TabOrder = 1
+                    end
+                    object usrat_DBEdit_USR_SORTNUM: TxDBCalculatorEdit
+                      Left = 238
+                      Top = 18
+                      Width = 52
+                      Cursor = crIBeam
+                      TabOrder = 2
+                    end
+                    object usrat_DBEdit_USR_CODE: TxDBCalculatorEdit
+                      Left = 238
+                      Top = 42
+                      Width = 52
+                      Cursor = crArrow
+                      TabOrder = 3
+                    end
+                  end
+                  object usrg_147068321_704999368_GroupBox1: TGroupBox
+                    Tag = 0
+                    Left = 313
+                    Top = 2
+                    Width = 178
+                    Height = 72
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    Align = alNone
+                    Anchors = [akLeft, akTop]
+                    Caption = 'Период действия'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DockSite = False
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentCtl3D = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabOrder = 1
+                    TabStop = False
+                    Visible = True
+                    object usrat_xDateDBEdit_USR_DATEBEGIN_Label: TLabel
+                      Left = 6
+                      Top = 23
+                    end
+                    object usrat_xDateDBEdit_USR_DATEEND_Label: TLabel
+                      Left = 6
+                      Top = 46
+                    end
+                    object usrat_xDateDBEdit_USR_DATEBEGIN: TxDateDBEdit
+                      Left = 95
+                      Top = 19
+                      Width = 70
+                      TabOrder = 0
+                    end
+                    object usrat_xDateDBEdit_USR_DATEEND: TxDateDBEdit
+                      Left = 95
+                      Top = 42
+                      Width = 70
+                      TabOrder = 1
+                    end
+                  end
+                  object usrg_147068321_704999368_GroupBox3: TGroupBox
+                    Tag = 0
+                    Left = 10
+                    Top = 79
+                    Width = 481
+                    Height = 104
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    Align = alNone
+                    Anchors = [akLeft, akTop]
+                    Caption = 'Основное'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DockSite = False
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentCtl3D = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    TabOrder = 2
+                    TabStop = False
+                    Visible = True
+                    object usrg_147068321_704999368_Label1: TLabel
+                      Tag = 0
+                      Left = 374
+                      Top = 48
+                      Width = 33
+                      Height = 13
+                      Cursor = crDefault
+                      Hint = ''
+                      Align = alNone
+                      Alignment = taLeftJustify
+                      Anchors = [akLeft, akTop]
+                      AutoSize = True
+                      Caption = '(дней)'
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      DragCursor = crDrag
+                      DragKind = dkDrag
+                      DragMode = dmManual
+                      Enabled = True
+                      FocusControl = nil
+                      ParentBiDiMode = True
+                      ParentColor = True
+                      ParentFont = True
+                      ParentShowHint = True
+                      PopupMenu = nil
+                      ShowAccelChar = True
+                      Transparent = False
+                      Layout = tlTop
+                      Visible = True
+                      WordWrap = False
+                    end
+                    object usrat_DBEdit_USR_NAME_Label: TLabel
+                      Left = 6
+                      Top = 24
+                    end
+                    object usrat_DBEdit_USR_PERIOD_Label: TLabel
+                      Left = 238
+                      Top = 48
+                    end
+                    object usrat_gsIBLookupComboBox_USR_TYPEPRICEKEY_Label: TLabel
+                      Left = 6
+                      Top = 48
+                    end
+                    object usrat_gsIBLookupComboBox_USR_TARRIFGROUPKEY_Label: TLabel
+                      Left = 6
+                      Top = 72
+                    end
+                    object usrat_DBEdit_USR_NAME: TDBEdit
+                      Left = 91
+                      Top = 20
+                      Width = 330
+                    end
+                    object usrat_DBEdit_USR_PERIOD: TxDBCalculatorEdit
+                      Left = 319
+                      Top = 44
+                      Width = 52
+                      Cursor = crIBeam
+                    end
+                    object usrat_gsIBLookupComboBox_USR_TYPEPRICEKEY: TgsIBLookupComboBox
+                      Left = 91
+                      Top = 44
+                      Width = 143
+                      TabOrder = 2
+                    end
+                    object usrat_gsIBLookupComboBox_USR_TARRIFGROUPKEY: TgsIBLookupComboBox
+                      Left = 91
+                      Top = 69
+                      Width = 143
+                      TabOrder = 3
+                    end
+                    object usrat_DBCheckBox_USR_LOYALTY_EXC: TDBCheckBox
+                      Left = 238
+                      Top = 71
+                      Width = 233
+                    end
+                  end
+                  object usrg_147068321_704999368_DBCheckBox1: TDBCheckBox
+                    Tag = 0
+                    Left = 349
+                    Top = 187
+                    Width = 145
+                    Height = 17
+                    Cursor = crDefault
+                    Hint = ''
+                    HelpContext = 0
+                    TabStop = True
+                    Action = nil
+                    Alignment = taRightJustify
+                    AllowGrayed = False
+                    Anchors = [akLeft, akTop]
+                    Caption = 'Тип путевки не активен'
+                    Constraints.MaxHeight = 0
+                    Constraints.MaxWidth = 0
+                    Constraints.MinHeight = 0
+                    Constraints.MinWidth = 0
+                    DataField = 'DISABLED'
+                    DataSource = dsgdcBase
+                    DragCursor = crDrag
+                    DragKind = dkDrag
+                    DragMode = dmManual
+                    Enabled = True
+                    ParentBiDiMode = True
+                    ParentColor = True
+                    ParentCtl3D = True
+                    ParentFont = True
+                    ParentShowHint = True
+                    PopupMenu = nil
+                    ReadOnly = False
+                    TabOrder = 3
+                    ValueChecked = '1'
+                    ValueUnchecked = '0'
+                    Visible = True
+                  end
+                end
+                object usrg_147068321_704999368_TabSheet2: TTabSheet
+                  Tag = 0
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  BorderWidth = 0
+                  Caption = 'Атрибуты'
+                  DragMode = dmManual
+                  Enabled = True
+                  Highlighted = False
+                  ImageIndex = 0
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabVisible = True
+                  object atContainer: TatContainer
+                    Top = 0
+                    Width = 1350
+                    Height = 217
+                    TabOrder = 0
+                    Visible = False
+                    object usrat_DBEdit_USR_SORTNUMBER_Label: TLabel
+                      Left = 226
+                      Top = 48
+                      Width = 121
+                      Visible = True
+                    end
+                    object usrat_DBEdit_USR_EQRATE_Label: TLabel
+                      Left = 301
+                      Top = 35
+                      Width = 24
+                      Visible = False
+                    end
+                    object usrat_DBCheckBox_USR_PRICEFORPERMIT: TDBCheckBox
+                      Left = 30
+                      Top = 48
+                      TabOrder = 2
+                    end
+                    object usrat_DBEdit_USR_SORTNUMBER: TxDBCalculatorEdit
+                      Left = 350
+                      Top = 44
+                      Width = 68
+                      Cursor = crIBeam
+                      TabOrder = 1
+                      Visible = True
+                    end
+                    object usrat_DBEdit_USR_EQRATE: TxDBCalculatorEdit
+                      Left = 351
+                      Top = 49
+                      Width = 68
+                      Cursor = crIBeam
+                      TabOrder = 0
+                      Visible = False
+                    end
+                  end
+                end
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 388
+            Top = 8
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+            object actDetailNew: TAction
+            end
+            object actDetailEdit: TAction
+            end
+            object actDetailDelete: TAction
+            end
+            object actDetailDuplicate: TAction
+            end
+            object actDetailPrint: TAction
+            end
+            object actDetailCut: TAction
+            end
+            object actDetailCopy: TAction
+            end
+            object actDetailPaste: TAction
+            end
+            object actDetailMacro: TAction
+            end
+            object actDetailProp: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 421
+            Top = 7
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+          object dsDetail: TDataSource
+            Left = 421
+            Top = 38
+          end
+          object gdMacrosMenu: TgdMacrosMenu
+            Left = 249
+            Top = 111
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147076481_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgUserDocumentLine147068321_704999368"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgUserDocumentLine147068321_704999368"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-03-01T08:02:13+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147091739_754415017
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmUserComplexDocument147068321_704999368)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147091739_754415017"
+      EDITIONDATE: 2017-03-09T11:46:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147091738_754415017
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmUserComplexDocument147068321_704999368"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-03-09T11:46:53+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147076472_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmUserComplexDocument147068321_704999368"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147091738_754415017 Локальные макросы"
+      OBJECTNAME: "gdc_frmUserComplexDocument147068321_704999368"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147091739_754415017 Отчеты(gdc_frmUserComplexDocument147068321_704999368)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-03-09T11:46:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147076470_754415017
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147140057_779589892 Исследователь\\3. Бронирование"
+      NAME: "05. Типы путевок"
+      CLASSNAME: "TgdcUserDocument"
+      CMD: "147068321_704999368"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "147068321_704999368"
+      EDITIONDATE: 2017-06-01T19:29:26+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147393772_801911094
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$SORTNUM"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Номер сортировки"
+      LSHORTNAME: "Номер сортировки"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-06T12:13:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147395369_807215242
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$PRICEFORPERMIT"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Цена за всю путевку"
+      LSHORTNAME: "Цена за всю путевку"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-10T02:04:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT '0'
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147401774_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$CODE"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Код для прайса"
+      LSHORTNAME: "Код для прайса"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-15T12:55:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147393759_801911094
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ~
+      ISGLOBAL: 0
+      OBJECTNAME: ~
+      OBJECTPARENT: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2017-05-06T11:29:33+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147393760_801911094
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgUserComplexDocument147068321_704999368)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147393760_801911094"
+      EDITIONDATE: 2017-05-06T11:29:33+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147076478_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147068321_704999368
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgUserComplexDocument147068321_704999368"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147437373_805992690 Локальные макросы"
+      OBJECTNAME: "gdc_dlgUserComplexDocument147068321_704999368"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147437374_805992690 Отчеты(gdc_dlgUserComplexDocument147068321_704999368_1)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-17T13:44:21+03:00
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147405894_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "147405900_809241643 Исследователь\\3. Бронирование\\15. Тип цены для тарифа"
+      DESCRIPTION: "Тип цены для тарифа"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Тип цены для тарифа"
+      LSHORTNAME: "Тип цены для тарифа"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_TYPEPRICEFORTARIFF"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-05-17T10:45:25+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147405897_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147405894_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип цены для тарифа"
+      LSHORTNAME: "Тип цены для тарифа"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147405894_809241643 Тип цены для тарифа, USR$SAN_TYPEPRICEFORTARIFF"
+      RELATIONNAME: "USR$SAN_TYPEPRICEFORTARIFF"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-17T10:40:04+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147405904_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147405894_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_TYPEPRICEFORTARIFF"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_TYPEPRICEFORTARIFF"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-17T10:44:16+03:00
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147405909_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147405908_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "Тип цены для тарифа"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_TYPEPRICEFORTARIFF"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип цены для тарифа"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Тип цены для тарифа"
+      REFLNAME: "Тип цены для тарифа"
+      REFTABLE: "USR$SAN_TYPEPRICEFORTARIFF"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-17T10:49:42+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147405908_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$TYPEPRICEKEY"
+      FIELDSOURCE: "USR$SAN_TYPEPRICEFORTARIFF"
+      FIELDSOURCEKEY: "147405909_809241643 Тип цены для тарифа, USR$SAN_TYPEPRICEFORTARIFF"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип цены"
+      LSHORTNAME: "Тип цены"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_TYPEPRICEFORTARIFF"
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-17T10:47:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcAttrUserDefined"
+      SubType: "USR$SAN_TYPEPRICEFORTARIFF"
+      RUID: 147405905_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      USR$NAME: "Цена за проживание"
+      EDITIONDATE: 2017-05-17T10:46:40+03:00
+  - 
+    Properties: 
+      Class: "TgdcAttrUserDefined"
+      SubType: "USR$SAN_TYPEPRICEFORTARIFF"
+      RUID: 147405907_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      USR$NAME: "Цена за всю путевку"
+      EDITIONDATE: 2017-05-17T10:46:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147405939_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ~
+      ISGLOBAL: 0
+      OBJECTNAME: ~
+      OBJECTPARENT: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2017-05-17T10:55:10+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147405940_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_SAN_TYPEPRICEFORTARIFF)1"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147405940_809241643"
+      EDITIONDATE: 2017-05-17T10:55:10+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147405902_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147405894_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_TYPEPRICEFORTARIFF"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147437375_805992690 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_TYPEPRICEFORTARIFF"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147437376_805992690 Отчеты(gdc_frmAttrUserDefinedUSR_SAN_TYPEPRICEFORTARIFF)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-17T13:44:21+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147423414_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$TARRIFGROUPKEY"
+      FIELDSOURCE: "USR$TARRIFGROUPTYPE"
+      FIELDSOURCEKEY: "147423322_809241643 Группа тарифа, USR$TARRIFGROUPTYPE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Группа тарифа"
+      LSHORTNAME: "Группа тарифа"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$HT_TARRIFGROUP"
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-06-26T12:13:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147447845_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LOYALTY_EXC"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Исключить из программы лояльности"
+      LSHORTNAME: "Исключить"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147068322_704999368 17. Тип путевки, USR$SAN_PERMIT_TYPE"
+      RELATIONNAME: "USR$SAN_PERMIT_TYPE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-17T15:03:51+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT '0'
+      OBJECTS: ~

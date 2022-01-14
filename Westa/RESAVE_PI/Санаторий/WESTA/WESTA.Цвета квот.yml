@@ -1,0 +1,1069 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147398951_809241643
+  Name: "WESTA.Цвета квот"
+  Caption: "WESTA.Цвета квот"
+  Version: "1.0.0.4"
+  Optional: False
+  Internal: True
+  MD5: D5369410653BBCF2978556820BDD1711
+Uses: 
+  - "147693015_71168484 GS.Санаторий.Общее.Метаданные"
+  - "147696542_71168484 GS.Санаторий.МУ.Общие справочники"
+  - "147378534_789097196 VESTA.Цветовая схема состояний путёвок"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147398884_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: "147399335_809926503 Исследователь\\3. Бронирование\\14. Настройки цвета"
+      NAME: "Цвета квот"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: ~
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_QUOTACOLOR"
+      EDITIONDATE: 2017-05-12T01:30:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147398881_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "147398884_809241643 Исследователь\\3. Бронирование\\14. Настройки цвета\\Цвета квот"
+      DESCRIPTION: "Цвета квот"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Цвета квот"
+      LSHORTNAME: "Цвета квот"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_QUOTACOLOR"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-05-11T20:38:26+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147398887_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Цвет"
+      FIELDNAME: "USR$COLOR"
+      FIELDSOURCE: "DINTEGER"
+      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Цвет"
+      LSHORTNAME: "Цвет"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147398881_809241643 Цвета квот, USR$SAN_QUOTACOLOR"
+      RELATIONNAME: "USR$SAN_QUOTACOLOR"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-11T20:41:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147398885_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Клиент"
+      FIELDNAME: "USR$CONTACTKEY"
+      FIELDSOURCE: "USR$INV_DCONT"
+      FIELDSOURCEKEY: "147012439_486813904 Контакт, USR$INV_DCONT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Клиент"
+      LSHORTNAME: "Клиент"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_CONTACT"
+      RELATIONKEY: "147398881_809241643 Цвета квот, USR$SAN_QUOTACOLOR"
+      RELATIONNAME: "USR$SAN_QUOTACOLOR"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-05-11T20:40:16+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147398896_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_QUOTACOLOR"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-05-12T04:35:08+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR: Tgdc_dlgAttrUserDefined
+          Height = 190
+          ActiveControl = nil
+          PixelsPerInch = 96
+          TextHeight = 13
+          object pnlMain: TPanel
+            Height = 110
+            Align = alClient
+            BevelOuter = bvRaised
+            object atAttributes: TatContainer
+              Left = 1
+              Top = 1
+              Width = 473
+              Height = 108
+              BorderStyle = bsSingle
+              object usrat_gsIBLookupComboBox_USR_CONTACTKEY_Label: TLabel
+              end
+              object usrat_DBEdit_USR_COLOR_Label: TLabel
+              end
+              object usrg_pnlColor: TPanel
+                Tag = 0
+                Left = 54
+                Top = 56
+                Width = 140
+                Height = 41
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                Align = alNone
+                Alignment = taCenter
+                Anchors = [akLeft, akTop]
+                AutoSize = False
+                BevelInner = bvNone
+                BevelOuter = bvRaised
+                BevelWidth = 1
+                BorderWidth = 0
+                BorderStyle = bsNone
+                Caption = ''
+                Color = clBlack
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                UseDockManager = True
+                DockSite = False
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FullRepaint = True
+                Locked = False
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 2
+                TabStop = False
+                Visible = True
+              end
+              object usrat_gsIBLookupComboBox_USR_CONTACTKEY: TgsIBLookupComboBox
+                Width = 348
+              end
+              object usrat_DBEdit_USR_COLOR: TxDBCalculatorEdit
+                Cursor = crIBeam
+              end
+            end
+          end
+          object usrg_pnlButtons: TPanel
+            Tag = 0
+            Left = 0
+            Top = 110
+            Width = 475
+            Height = 41
+            Cursor = crDefault
+            Hint = ''
+            HelpContext = 0
+            Align = alBottom
+            Alignment = taCenter
+            Anchors = [akLeft, akRight, akBottom]
+            AutoSize = False
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelWidth = 1
+            BorderWidth = 0
+            BorderStyle = bsNone
+            Caption = ''
+            Color = clBtnFace
+            Constraints.MaxHeight = 0
+            Constraints.MaxWidth = 0
+            Constraints.MinHeight = 0
+            Constraints.MinWidth = 0
+            UseDockManager = True
+            DockSite = False
+            DragCursor = crDrag
+            DragKind = dkDrag
+            DragMode = dmManual
+            Enabled = True
+            FullRepaint = True
+            Locked = False
+            ParentBiDiMode = True
+            ParentColor = False
+            ParentCtl3D = True
+            ParentFont = True
+            ParentShowHint = True
+            PopupMenu = nil
+            TabOrder = 2
+            TabStop = False
+            Visible = True
+            object btnAccess: TButton
+              Top = 11
+              TabOrder = 0
+            end
+            object btnNew: TButton
+              Top = 11
+              TabOrder = 1
+            end
+            object btnHelp: TButton
+              Top = 11
+              TabOrder = 2
+            end
+            object btnOK: TButton
+              Left = 329
+              Top = 11
+            end
+            object btnCancel: TButton
+              Left = 403
+              Top = 11
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147398920_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-05-11T20:57:40+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147398921_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: "147398920_809241643 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-05-11T20:57:40+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147398922_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: "147398921_809241643 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-05-12T20:00:09+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvMAAgoBAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvQAAgkBAgEABgkkMDBBOEZGRkYBBgZUYWhv
+        bWEGDGNsV2luZG93VGV4dAL1AAIIAAIBAAYJY2xCdG5GYWNlCQYJJDAwRTdGM0Y3BgkkMDBENkU3
+        RTcOAAgIDgENQ29uZGl0aW9uTmFtZQYOQ29sb3IgMTEwNzU1ODMNRGlzcGxheUZpZWxkcwZXSUQ7
+        RURJVElPTkRBVEU7VVNSJENPTlRBQ1RLRVk7Wl9VU1IkQ09OVEFDVEtFWV9OQU1FO1pfVVNSJENP
+        TlRBQ1RLRVlfQUREUkVTUztVU1IkQ09MT1I7CUZpZWxkTmFtZQYJVVNSJENPTE9SDEZvbnQuQ2hh
+        cnNldAcPREVGQVVMVF9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdo
+        dAL1CUZvbnQuTmFtZQYNTVMgU2FucyBTZXJpZgpGb250LlN0eWxlCwAFQ29sb3IE//+oAAtFeHBy
+        ZXNzaW9uMQYIMTEwNzU1ODMNQ29uZGl0aW9uS2luZAcHY2tFcXVhbA5EaXNwbGF5T3B0aW9ucwsH
+        ZG9Db2xvcgAPRXZhbHVhdGVGb3JtdWxhCA1Vc2VyQ29uZGl0aW9uCAAACQ4BCEV4cGFuZGVkCAlG
+        aWVsZE5hbWUGFVpfVVNSJENPTlRBQ1RLRVlfTkFNRQxGb250LkNoYXJzZXQHD0RFRkFVTFRfQ0hB
+        UlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC8wlGb250Lk5hbWUGBlRh
+        aG9tYQpGb250LlN0eWxlCwZmc0JvbGQACFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgbK6+jl7fIS
+        VGl0bGUuRm9udC5DaGFyc2V0Bw9ERUZBVUxUX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xX
+        aW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvUPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0
+        bGUuRm9udC5TdHlsZQsABVdpZHRoA50BB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJ
+        VVNSJENPTE9SDEZvbnQuQ2hhcnNldAcPREVGQVVMVF9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2lu
+        ZG93VGV4dAtGb250LkhlaWdodALzCUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULBmZzQm9s
+        ZAAIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBNbi5fISVGl0bGUuRm9udC5DaGFyc2V0Bw9ERUZB
+        VUxUX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVp
+        Z2h0AvUPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAlQH
+        VmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5VU1IkQ09OVEFDVEtFWQxGb250LkNoYXJz
+        ZXQHD0RFRkFVTFRfQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC
+        8wlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwZmc0JvbGQACFJlYWRPbmx5CA1UaXRsZS5D
+        YXB0aW9uBgbK6+jl7fISVGl0bGUuRm9udC5DaGFyc2V0Bw9ERUZBVUxUX0NIQVJTRVQQVGl0bGUu
+        Rm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvUPVGl0bGUuRm9udC5O
+        YW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgJJRAxGb250LkNoYXJzZXQHD0RFRkFVTFRfQ0hBUlNFVApGb250LkNvbG9y
+        BwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC8wlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxl
+        CwZmc0JvbGQADVRpdGxlLkNhcHRpb24GDcjk5e3y6PTo6uDy7vASVGl0bGUuRm9udC5DaGFyc2V0
+        Bw9ERUZBVUxUX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZv
+        bnQuSGVpZ2h0AvUPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdp
+        ZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9OREFURQxGb250LkNo
+        YXJzZXQHD0RFRkFVTFRfQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWln
+        aHQC8wlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwZmc0JvbGQADVRpdGxlLkNhcHRpb24G
+        EMTg8uAg7O7k6PTo6uD26OgSVGl0bGUuRm9udC5DaGFyc2V0Bw9ERUZBVUxUX0NIQVJTRVQQVGl0
+        bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvUPVGl0bGUuRm9u
+        dC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBhhaX1VTUiRDT05UQUNUS0VZX0FERFJFU1MMRm9udC5DaGFyc2V0Bw9E
+        RUZBVUxUX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvMJRm9u
+        dC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsGZnNCb2xkAAhSZWFkT25seQgNVGl0bGUuQ2FwdGlv
+        bgYFwOTw5fESVGl0bGUuRm9udC5DaGFyc2V0Bw9ERUZBVUxUX0NIQVJTRVQQVGl0bGUuRm9udC5D
+        b2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvUPVGl0bGUuRm9udC5OYW1lBgZU
+        YWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAAgI9B4ICA==
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147398894_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147398894_809241643"
+      EDITIONDATE: 2017-05-11T20:44:38+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147398893_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-11T20:44:37+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147398891_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147398893_809241643 Локальные макросы"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147398894_809241643 Отчеты(gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-11T20:44:38+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147398932_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147398932_809241643"
+      EDITIONDATE: 2017-05-11T20:59:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147398931_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-11T20:59:52+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147398889_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147398931_809241643 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147398932_809241643 Отчеты(gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-11T20:59:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147398930_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      NAME: "usrg_pnlColorOnClick"
+      COMMENT: ~
+      EVENT: "ONCLICK"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147398891_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-05-11T21:12:34+03:00
+      DISPLAYSCRIPT: | 
+        USRG_PNLCOLORONCLICK
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_pnlColorOnClick(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnClick", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim gdcO
+          set gdcO = Sender.OwnerForm.gdcObject
+        
+          dim Creator
+          set Creator = new TCreator
+          
+          dim C
+          set C = Creator.GetObject(nil, "TColorDialog", "")
+          C.Color = gdcO.FieldByName("USR$COLOR").AsInteger
+          C.Options = "cdFullOpen cdAnyColor"
+          If C.Execute Then
+            Sender.Color = C.Color
+            if gdcO.State <> dsEdit and gdcO.State <> dsInsert then
+              gdcO.Edit
+            end if
+            gdcO.FieldByName("USR$COLOR").AsInteger = C.Color
+          End If
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147398910_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: "147398891_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      NAME: "usrg_pnlColor"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_pnlColor"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-11T20:54:23+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147398928_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCLICK"
+      FUNCTIONKEY: "147398930_809241643 usrg_pnlColorOnClick"
+      OBJECTKEY: "147398910_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR\\usrg_pnlColor"
+      OBJECTNAME: "usrg_pnlColor"
+      PARENTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      EDITIONDATE: 2017-05-11T21:12:35+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147398942_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      NAME: "ColoredConditions"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "147398889_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-05-11T21:39:16+03:00
+      DISPLAYSCRIPT: | 
+        COLOREDCONDITIONS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function ColoredConditions(Sender)
+          dim gr
+          set gr = Sender.GetComponent("ibgrMain")
+          gr.ConditionsActive = true
+          gr.Conditions.Clear
+        
+          dim Creator
+          set Creator = new TCreator
+        
+          dim q
+          set q = Creator.GetObject(nil, "TIBSQL", "")
+          set q.Transaction = gdcBaseManager.ReadTransaction
+          q.SQL.Text = " SELECT DISTINCT USR$COLOR AS C FROM USR$SAN_QUOTACOLOR WHERE NOT USR$COLOR IS NULL"
+          q.ExecQuery
+        
+        
+          dim Cond
+          while not q.EoF
+            set Cond = gr.Conditions.Add
+            Cond.Color = q.FieldByName("C").AsInteger
+            Cond.Expression1 = q.FieldByName("C").AsInteger
+            Cond.ConditionKind = 0
+            Cond.DisplayOptions = "doColor"
+            Cond.EvaluateFormula = false
+            Cond.ConditionName = "Color " & q.FieldByName("C").AsInteger
+            Cond.FieldName = "USR$COLOR"
+            Cond.DisplayFields = "ID;EDITIONDATE;USR$CONTACTKEY;Z_USR$CONTACTKEY_NAME;Z_USR$CONTACTKEY_ADDRESS;USR$COLOR;"
+            q.Next
+          wend
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147398946_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      NAME: "gdcAttrUserDefinedAfterShowDialog"
+      COMMENT: ~
+      EVENT: "AFTERSHOWDIALOG"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147398889_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-05-11T21:39:50+03:00
+      DISPLAYSCRIPT: | 
+        GDCATTRUSERDEFINEDAFTERSHOWDIALOG
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        UFJTVAcAAABETEdGT1JNBwAAAERMR0ZPUk0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
+        U1QEAAAASVNPSwQAAABJU09LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include COLOREDCONDITIONS
+        Option Explicit
+        Sub gdcAttrUserDefinedAfterShowDialog(ByVal Sender, ByVal DlgForm, ByVal IsOk)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "AfterShowDialog", Array(Sender, DlgForm, IsOk))
+        '*** конец кода поддержки встроенного обработчика            ***
+          if IsOk then
+            call ColoredConditions(Sender.OwnerForm)
+          end if
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147398942_809241643 ColoredConditions"
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147398943_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      PARENT: "147398889_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      NAME: "gdcAttrUserDefined"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdcAttrUserDefined"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-05-11T21:38:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147398944_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398881_809241643
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "AFTERSHOWDIALOG"
+      FUNCTIONKEY: "147398946_809241643 gdcAttrUserDefinedAfterShowDialog"
+      OBJECTKEY: "147398943_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR\\gdcAttrUserDefined"
+      OBJECTNAME: "gdcAttrUserDefined"
+      PARENTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      EDITIONDATE: 2017-05-11T21:39:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147398939_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398937_809241643
+    Fields: 
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOROnLoadSettingsAfterCreate"
+      COMMENT: ~
+      EVENT: "ONLOADSETTINGSAFTERCREATE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147398889_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-05-11T21:39:17+03:00
+      DISPLAYSCRIPT: | 
+        GDC_FRMATTRUSERDEFINEDUSR_SAN_QUOTACOLORONLOADSETTINGSAFTERCREATE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include COLOREDCONDITIONS
+        Option Explicit
+        Sub gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOROnLoadSettingsAfterCreate(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnLoadSettingsAfterCreate", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+         call ColoredConditions (Sender)
+        
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147398942_809241643 ColoredConditions"
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147398937_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONLOADSETTINGSAFTERCREATE"
+      FUNCTIONKEY: "147398939_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOROnLoadSettingsAfterCreate"
+      OBJECTKEY: "147398889_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      PARENTNAME: ~
+      EDITIONDATE: 2017-05-11T21:39:17+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147398909_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398907_809241643
+    Fields: 
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOROnSetupRecord"
+      COMMENT: ~
+      EVENT: "ONSETUPRECORD"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147398891_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-05-11T20:54:02+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGATTRUSERDEFINEDUSR_SAN_QUOTACOLORONSETUPRECORD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOROnSetupRecord(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnSetupRecord", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          if not Sender.gdcObject.FieldByName("USR$COLOR").IsNull then
+            Sender.GetComponent("usrg_pnlColor").Color = _
+              Sender.gdcObject.FieldByName("USR$COLOR").AsInteger
+          else
+            Sender.GetComponent("usrg_pnlColor").Color = vbWhite
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147398907_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONSETUPRECORD"
+      FUNCTIONKEY: "147398909_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOROnSetupRecord"
+      OBJECTKEY: "147398891_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      PARENTNAME: ~
+      EDITIONDATE: 2017-05-11T20:54:02+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147398935_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147398933_809241643
+    Fields: 
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOROnSyncField"
+      COMMENT: ~
+      EVENT: "ONSYNCFIELD"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147398891_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-05-11T21:13:41+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGATTRUSERDEFINEDUSR_SAN_QUOTACOLORONSYNCFIELD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        UFJTVAUAAABGSUVMRAUAAABGSUVMRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNUUFJTVAgA
+        AABTWU5DTElTVAgAAABTWU5DTElTVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOROnSyncField(ByVal Sender, ByVal Field, ByVal SyncList)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnSyncField", Array(Sender, Field, SyncList))
+        '*** конец кода поддержки встроенного обработчика            ***
+          if Field.FieldName = "USR$COLOR" then
+            Sender.GetComponent("usrg_pnlColor").Color = Field.AsInteger
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147398933_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONSYNCFIELD"
+      FUNCTIONKEY: "147398935_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOROnSyncField"
+      OBJECTKEY: "147398891_809241643 gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      PARENTNAME: ~
+      EDITIONDATE: 2017-05-11T21:13:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147399549_809926503
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147399547_809926503
+    Fields: 
+      NAME: "gdcAttrUserDefinedAfterScroll"
+      COMMENT: ~
+      EVENT: "AFTERSCROLL"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147398889_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-05-12T04:31:01+03:00
+      DISPLAYSCRIPT: | 
+        GDCATTRUSERDEFINEDAFTERSCROLL
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAAREFUQVNFVAcAAABEQVRBU0VUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub gdcAttrUserDefinedAfterScroll(ByVal DataSet)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(DataSet, "AfterScroll", Array(DataSet))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim g
+          set g = DataSet.OwnerForm.GetComponent("ibgrMain")
+        
+          if (not DataSet.FieldByName("USR$COLOR").IsNull) then
+            g.SelectedColor =  DataSet.FieldByName("USR$COLOR").AsInteger
+          else
+            g.SelectedColor = &H00D4D4D4
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147399547_809926503
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "AFTERSCROLL"
+      FUNCTIONKEY: "147399549_809926503 gdcAttrUserDefinedAfterScroll"
+      OBJECTKEY: "147398943_809241643 gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR\\gdcAttrUserDefined"
+      OBJECTNAME: "gdcAttrUserDefined"
+      PARENTNAME: "gdc_frmAttrUserDefinedUSR_SAN_QUOTACOLOR"
+      EDITIONDATE: 2017-05-12T04:31:01+03:00

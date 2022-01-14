@@ -1,0 +1,4548 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147443829_809241643
+  Name: "GS.Санаторий.Обследования.Дополнительно.УЗИ молочных желез"
+  Caption: "GS.Санаторий.Обследования.Дополнительно.УЗИ молочных желез"
+  Version: "1.0.0.11"
+  Optional: False
+  Internal: True
+  MD5: B83025749C17023B71261D90D4835E11
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+  - "147753062_69526485 GS.Общие.Хранилище"
+  - "147693015_71168484 GS.Санаторий.Общее.Метаданные"
+  - "147696542_71168484 GS.Санаторий.МУ.Общие справочники"
+  - "147466800_809241643 GS.Санаторий.Обследования.Дополнительно.Исследователь"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableToTable"
+      RUID: 147443834_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Доп. инф. для УЗИ молочной железы"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Доп. инф. для УЗИ молочной железы"
+      LSHORTNAME: "Доп. инф. для УЗИ молочной железы"
+      REFERENCEKEY: "147000470_486813904 Документы, GD_DOCUMENT"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-09-01T14:06:03+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445194_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$REPORT"
+      FIELDSOURCE: "DTEXT1024                      "
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение"
+      LSHORTNAME: "Заключение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:59:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445192_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$PROPERTIES2"
+      FIELDSOURCE: "DTEXT1024                      "
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:59:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445185_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_PARAST_S_R"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы парастернальные размер справа"
+      LSHORTNAME: "Параст. размер справ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:57:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445183_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_PARAST_S_L"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы парастернальные размер слева"
+      LSHORTNAME: "Параст. размер слева"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:56:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445181_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_CLAVIC_S_L"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы ключичные размер слева"
+      LSHORTNAME: "Ключич. размер слева"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:56:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445179_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_CLAVIC_S_R"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы ключичные размер справа"
+      LSHORTNAME: "Ключич. размер справ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:55:50+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445169_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_AXILL_S_R"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы подмышечные размеры справа"
+      LSHORTNAME: "Подмыш. размер справ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:52:35+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445167_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_AXILL_S_L"
+      FIELDSOURCE: "DTEXT80                        "
+      FIELDSOURCEKEY: "147000114_31587988 DTEXT80"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы подмышечные размеры слева"
+      LSHORTNAME: "Подмыш. размер слева"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 80
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:51:23+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445165_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_L"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Региональные лимфоузлы слева"
+      LSHORTNAME: "Рег. лимфоузлы слева"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:50:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445163_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_R"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Региональные лимфоузлы справа"
+      LSHORTNAME: "Рег. лимфоузлы справ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:49:50+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445161_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Региональные лимфоузлы"
+      LSHORTNAME: "Региональные лимфоуз"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:48:32+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT '0'
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445139_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_SIZE2"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования размеры №2"
+      LSHORTNAME: "Очаговые образ. р.2"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:39:03+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445137_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_SIZE1"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования размеры №1"
+      LSHORTNAME: "Очаговые образ. р.1"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:38:14+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445135_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_QUANT"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования количество"
+      LSHORTNAME: "Очаговые образ. кол."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:37:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445133_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:36:21+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT '0'
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445131_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$PROPERTIES1"
+      FIELDSOURCE: "DTEXT1024                      "
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:35:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443858_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$PROPERTIES"
+      FIELDSOURCE: "DTEXT1024                      "
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:30:59+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443856_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$MILKDUCTS_R"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Млечные протоки справа"
+      LSHORTNAME: "Млечные протоки спр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:30:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443854_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$MILKDUCTS_L"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Млечные протоки слева"
+      LSHORTNAME: "Млечные протоки слв"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:28:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443852_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$THICK_L"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина железистого слоя слева"
+      LSHORTNAME: "Толщ. жел. слоя слв"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:27:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443850_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$THICK_R"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Толщина железистого слоя справа"
+      LSHORTNAME: "Толщ. жел. слоя спр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:26:35+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147451104_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$SAN_P_UZIMAMM"
+      EDITIONDATE: 2017-11-15T12:53:31+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$SAN_P_UZIMAMM 
+        RETURNS ( 
+            ID SMALLINT,
+            NAME VARCHAR(60))
+         AS
+        BEGIN 
+          ID = 1;
+          NAME = 'Эхоструктура молочных желез';
+          SUSPEND;
+          
+          ID = 2;
+          NAME = 'Эхогенность';
+          SUSPEND;
+          
+          ID = 3;
+          NAME = 'Тип строения';
+          SUSPEND;
+          
+          ID = 4;
+          NAME = 'Разрастание ткани, степень';
+          SUSPEND;
+          
+          ID = 5;
+          NAME = 'Разрастание ткани, тип';
+          SUSPEND;
+          
+          ID = 6;
+          NAME = 'Разрастание ткани, с какой стороны';
+          SUSPEND;
+          
+          ID = 7;
+          NAME = 'Локализация';
+          SUSPEND;
+          
+          ID = 8;
+          NAME = 'Очаговые образования, форма';
+          SUSPEND;
+          
+          ID = 9;
+          NAME = 'Очаговые образования, контуры';
+          SUSPEND;
+          
+          
+          ID = 10;
+          NAME = 'Структура';
+          SUSPEND;
+          
+          ID = 11;
+          NAME = 'Региональные лимфоузлы';
+          SUSPEND;
+          
+        END
+      RDB$DESCRIPTION: | 
+        Список для УЗИ молочных желез
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147451109_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451110_875748955
+    Fields: 
+      PARENT: "147275685_124484738 TgdcBase\\TgdcAttrUserDefined"
+      NAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      CLASSNAME: "TgdcAttrUserDefined"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "USR_SAN_UZIMAMM"
+      EDITIONDATE: 2017-09-01T04:02:40+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147451112_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451110_875748955
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMMCreateFields"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147451109_875748955 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-01T04:02:40+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_UZIMAMMCREATEFIELDS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub TgdcAttrUserDefinedUSR_SAN_UZIMAMMCreateFields(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "CreateFields", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          Self.FieldByName("USR$NAME").Required = true
+          Self.FieldByName("USR$TYPE").Required = true
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147451110_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "CREATEFIELDS"
+      FUNCTIONKEY: "147451112_875748955 TgdcAttrUserDefinedUSR_SAN_UZIMAMMCreateFields"
+      OBJECTKEY: "147451109_875748955 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-01T04:02:40+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147451122_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451120_875748955
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMMGetSelectClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147451109_875748955 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-01T04:04:49+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_UZIMAMMGETSELECTCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_UZIMAMMGetSelectClause(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_UZIMAMMGetSelectClause = _
+            Inherited(Self, "GetSelectClause", Array(Self)) & ", l.NAME AS TypeName "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147451120_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETSELECTCLAUSE"
+      FUNCTIONKEY: "147451122_875748955 TgdcAttrUserDefinedUSR_SAN_UZIMAMMGetSelectClause"
+      OBJECTKEY: "147451109_875748955 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-01T04:04:49+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147451119_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451117_875748955
+    Fields: 
+      NAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMMGetFromClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147451109_875748955 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-09-01T04:04:12+03:00
+      DISPLAYSCRIPT: | 
+        TGDCATTRUSERDEFINEDUSR_SAN_UZIMAMMGETFROMCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        CAAAAEFSRUZSRVNICAAAAEFSRUZSRVNIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcAttrUserDefinedUSR_SAN_UZIMAMMGetFromClause(Self, ARefresh)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcAttrUserDefinedUSR_SAN_UZIMAMMGetFromClause = _
+            Inherited(Self, "GetFromClause", Array(Self, ARefresh))  & _
+            " LEFT JOIN USR$SAN_P_UZIMAMM l ON l.ID = z.USR$TYPE "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147451117_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETFROMCLAUSE"
+      FUNCTIONKEY: "147451119_875748955 TgdcAttrUserDefinedUSR_SAN_UZIMAMMGetFromClause"
+      OBJECTKEY: "147451109_875748955 TgdcBase\\TgdcAttrUserDefined\\TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      OBJECTNAME: "TgdcAttrUserDefinedUSR_SAN_UZIMAMM"
+      PARENTNAME: "TgdcAttrUserDefined"
+      EDITIONDATE: 2017-09-01T04:04:12+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147451138_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451227_875748955
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_UZIMAMM(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-01T04:00:48+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147451226_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147451227_875748955
+    Fields: 
+      PARENT: "147451138_875748955 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_UZIMAMM(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-01T04:30:48+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147451227_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147451226_875748955 USER - Administrator\\gdc_frmAttrUserDefinedUSR_SAN_UZIMAMM(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-01T04:30:48+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQlBbGlnbm1lbnQHDXRhTGVmdEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYIVFlQRU5BTUUNVGl0bGUuQ2FwdGlvbgYJ0ujvICjo7P8pBVdpZHRoA2wBB1Zpc2libGUJAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYIVVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g
+        6Ozl7e7i4O3o5QVXaWR0aAPiAQdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCFVTUiRU
+        WVBFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgPS6O8FV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBgJJRA1UaXRsZS5DYXB0aW9uBg3I5OXt8uj06Org8u7wBVdpZHRoAv8H
+        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9OREFURQ1UaXRsZS5DYXB0aW9u
+        BhDE4PLgIOzu5Oj06Org9ujoBVdpZHRoAv8HVmlzaWJsZQgAAAkItB4JCA==
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147451147_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$SAN_UZIMAMM"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-09-01T04:13:03+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_SAN_UZIMAMM: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsDialog
+          ClientHeight = 118
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 94
+          end
+          object btnNew: TButton
+            Top = 94
+          end
+          object btnHelp: TButton
+            Top = 94
+          end
+          object btnOK: TButton
+            Top = 94
+          end
+          object btnCancel: TButton
+            Top = 94
+          end
+          object pnlMain: TPanel
+            Height = 85
+            object atAttributes: TatContainer
+              Height = 85
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_TYPE_Label: TLabel
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 332
+              end
+              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
+                Left = 286
+                TabOrder = 2
+              end
+              object usrg_iblType: TgsIBLookupComboBox
+                Tag = 0
+                Left = 94
+                Top = 28
+                Width = 177
+                Height = 21
+                Cursor = crDefault
+                HelpContext = 1
+                TabStop = True
+                Database = dmDatabase.ibdbGAdmin
+                Transaction = ibtrCommon
+                DataSource = dsgdcBase
+                DataField = 'USR$TYPE'
+                Fields = ''
+                ListTable = 'USR$SAN_P_UZIMAMM'
+                ListField = 'NAME'
+                KeyField = 'ID'
+                SortOrder = soNone
+                SortField = ''
+                CheckUserRights = True
+                Condition = ''
+                gdClassName = ''
+                SubType = ''
+                ReadOnly = False
+                StrictOnExit = True
+                Distinct = False
+                FullSearchOnExit = False
+                ViewType = vtByClass
+                Style = csDropDown
+                Anchors = [akLeft, akTop]
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                DropDownCount = 16
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                ItemHeight = 13
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 1
+                Visible = True
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147451247_875748955
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$PROPERTIES3"
+      FIELDSOURCE: "DTEXT1024                      "
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-01T06:03:22+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147466804_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147466799_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования"
+      NAME: "Справочник для УЗИ молочных желез"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "147443821_809241643"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$SAN_UZIMAMM"
+      EDITIONDATE: 2017-09-27T20:38:03+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147443821_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "147466804_809241643 Исследователь\\1. Санаторий\\03. Медицинские справочники\\УЗИ и другие обследования\\Справочник для УЗИ молочных желез"
+      DESCRIPTION: "Справочник для УЗИ молочных желез"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Справочник для УЗИ молочных желез"
+      LSHORTNAME: "Справочник для УЗИ молочных желез"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-09-27T20:38:03+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443824_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443821_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT40"
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443821_809241643 Справочник для УЗИ молочных желез, USR$SAN_UZIMAMM"
+      RELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T14:30:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147443839_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "Ссылка на справочник для УЗИ мол. желез"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$SAN_UZIMAMM"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ссылка на справочник для УЗИ мол. желез"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Справочник для УЗИ молочных желез"
+      REFTABLE: "USR$SAN_UZIMAMM"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:20:36+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443838_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$MASTECTOMY_R"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура мол. желез справа"
+      LSHORTNAME: "Эхостр.мол.желез спр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:20:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443843_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$MASTECTOMY_L"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхоструктура мол. желез слева"
+      LSHORTNAME: "Эхостр.мол.желез слв"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:23:21+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443846_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$ECHOGEN_L"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхогенность железистой ткани слева"
+      LSHORTNAME: "Эхоген.жел.ткани слв"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:24:23+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443848_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$ECHOGEN_R"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Эхогенность железистой ткани справа"
+      LSHORTNAME: "Эхоген.жел.ткани спр"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:25:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443860_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$STRUCTTYPE"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип строения молочных желез"
+      LSHORTNAME: "Тип строения мол.жел"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:32:51+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443862_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$ACCREMENT"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разрастание ткани"
+      LSHORTNAME: "Разрастание ткани"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:34:19+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443864_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$ACCREMENT1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разрастание ткани"
+      LSHORTNAME: "Разрастание ткани"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:35:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443866_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$ACCREMENT2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разрастание ткани"
+      LSHORTNAME: "Разрастание ткани"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:35:28+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443868_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$ACCREMENT3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разрастание ткани"
+      LSHORTNAME: "Разрастание ткани"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:35:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445141_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_LOC2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования локализация №2"
+      LSHORTNAME: "Локализация 2"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:39:27+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445143_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_LOC1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования локализация №1"
+      LSHORTNAME: "Локализация 1"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:40:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445145_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_FORM1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования форма №1"
+      LSHORTNAME: "Форма 1"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:41:02+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445147_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_FORM2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования форма №2"
+      LSHORTNAME: "Форма 2"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:41:23+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445149_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_CONT2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования контуры №2"
+      LSHORTNAME: "Контуры 2"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:41:32+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445151_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_CONT1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования контуры №1"
+      LSHORTNAME: "Контуры 1"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:42:12+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445153_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_ECHOGEN1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования эхогенность №1"
+      LSHORTNAME: "Эхогенность 1"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:44:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445155_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_ECHOGEN2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования эхогенность №2"
+      LSHORTNAME: "Эхогенность 2"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:45:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445157_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_STRUCT2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования структура №2"
+      LSHORTNAME: "Структура 2"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:45:54+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445159_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$FOCI_STRUCT1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования структура №1"
+      LSHORTNAME: "Структура 1"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:46:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445171_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_AXILL_E_R"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы подмышечные эхоструктура справа"
+      LSHORTNAME: "Подмыш. эхостр справ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:52:57+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445173_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_AXILL_E_L"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы подмышечные эхоструктура слева"
+      LSHORTNAME: "Подмыш. эхостр слева"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:53:37+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445175_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_CLAVIC_E_L"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы ключичные эхоструктура слева"
+      LSHORTNAME: "Ключич. эхостр слева"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:54:27+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445177_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_CLAVIC_E_R"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы ключичные эхоструктура справа"
+      LSHORTNAME: "Ключич. эхостр справ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:55:03+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445187_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_PARAST_E_R"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы парастернальные эхоструктура справа"
+      LSHORTNAME: "Параст. эхостр справ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:59:11+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147445189_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443834_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: ~
+      FIELDNAME: "USR$LIMPH_PARAST_E_L"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Рег. лимфоузлы парастернальные эхоструктура слева"
+      LSHORTNAME: "Параст. эхостр слева"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T17:58:24+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147443825_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147443821_809241643
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$TYPE"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип"
+      LSHORTNAME: "Тип"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443821_809241643 Справочник для УЗИ молочных желез, USR$SAN_UZIMAMM"
+      RELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-08-09T14:31:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472272_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования"
+      FIELDNAME: "USR$FOCI_R"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472273_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования количество"
+      FIELDNAME: "USR$FOCI_R_QUANT"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования количество"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472274_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования контуры №1"
+      FIELDNAME: "USR$FOCI_R_CONT1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования контуры №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472276_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования контуры №2"
+      FIELDNAME: "USR$FOCI_R_CONT2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования контуры №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472278_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования контуры №3"
+      FIELDNAME: "USR$FOCI_R_CONT3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования контуры №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472280_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования локализация №1"
+      FIELDNAME: "USR$FOCI_R_LOC1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования локализация №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472282_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования локализация №2"
+      FIELDNAME: "USR$FOCI_R_LOC2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования локализация №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472284_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования локализация №3"
+      FIELDNAME: "USR$FOCI_R_LOC3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования локализация №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472286_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования размеры №1"
+      FIELDNAME: "USR$FOCI_R_SIZE1"
+      FIELDSOURCE: "DTEXT40                        "
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования размеры №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472288_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования размеры №2"
+      FIELDNAME: "USR$FOCI_R_SIZE2"
+      FIELDSOURCE: "DTEXT40                        "
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования размеры №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472290_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования размеры №3"
+      FIELDNAME: "USR$FOCI_R_SIZE3"
+      FIELDSOURCE: "DTEXT40                        "
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования размеры №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472292_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования структура №1"
+      FIELDNAME: "USR$FOCI_R_STRUCT1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования структура №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472294_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования структура №2"
+      FIELDNAME: "USR$FOCI_R_STRUCT2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования структура №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472296_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования структура №3"
+      FIELDNAME: "USR$FOCI_R_STRUCT3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования структура №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472298_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования форма №1"
+      FIELDNAME: "USR$FOCI_R_FORM1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования форма №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:20:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472300_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования форма №2"
+      FIELDNAME: "USR$FOCI_R_FORM2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования форма №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472302_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования форма №3"
+      FIELDNAME: "USR$FOCI_R_FORM3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования форма №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472304_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования эхогенность №1"
+      FIELDNAME: "USR$FOCI_R_ECHOGEN1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования эхогенность №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472306_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования эхогенность №2"
+      FIELDNAME: "USR$FOCI_R_ECHOGEN2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования эхогенность №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472308_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования эхогенность №3"
+      FIELDNAME: "USR$FOCI_R_ECHOGEN3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования эхогенность №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472310_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования"
+      FIELDNAME: "USR$FOCI_L"
+      FIELDSOURCE: "DSMALLINT                      "
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472312_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования количество"
+      FIELDNAME: "USR$FOCI_L_QUANT"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования количество"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472314_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования контуры №1"
+      FIELDNAME: "USR$FOCI_L_CONT1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования контуры №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472316_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования контуры №2"
+      FIELDNAME: "USR$FOCI_L_CONT2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования контуры №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472318_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования контуры №3"
+      FIELDNAME: "USR$FOCI_L_CONT3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования контуры №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472320_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования локализация №1"
+      FIELDNAME: "USR$FOCI_L_LOC1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования локализация №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472322_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования локализация №2"
+      FIELDNAME: "USR$FOCI_L_LOC2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования локализация №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472324_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования локализация №3"
+      FIELDNAME: "USR$FOCI_L_LOC3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования локализация №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472326_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования размеры №1"
+      FIELDNAME: "USR$FOCI_L_SIZE1"
+      FIELDSOURCE: "DTEXT40                        "
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования размеры №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472328_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования размеры №2"
+      FIELDNAME: "USR$FOCI_L_SIZE2"
+      FIELDSOURCE: "DTEXT40                        "
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования размеры №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472330_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Очаговые образования размеры №3"
+      FIELDNAME: "USR$FOCI_L_SIZE3"
+      FIELDSOURCE: "DTEXT40                        "
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования размеры №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472332_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования структура №1"
+      FIELDNAME: "USR$FOCI_L_STRUCT1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования структура №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472334_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования структура №2"
+      FIELDNAME: "USR$FOCI_L_STRUCT2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования структура №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472336_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования структура №3"
+      FIELDNAME: "USR$FOCI_L_STRUCT3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования структура №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472338_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования форма №1"
+      FIELDNAME: "USR$FOCI_L_FORM1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования форма №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472340_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования форма №2"
+      FIELDNAME: "USR$FOCI_L_FORM2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования форма №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472342_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования форма №3"
+      FIELDNAME: "USR$FOCI_L_FORM3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования форма №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472344_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования эхогенность №1"
+      FIELDNAME: "USR$FOCI_L_ECHOGEN1"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования эхогенность №1"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472346_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования эхогенность №2"
+      FIELDNAME: "USR$FOCI_L_ECHOGEN2"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования эхогенность №2"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472348_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "Очаговые образования эхогенность №3"
+      FIELDNAME: "USR$FOCI_L_ECHOGEN3"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Очаговые образования эхогенность №3"
+      LSHORTNAME: "Очаговые образования"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 0
+      EDITIONDATE: 2017-09-29T18:21:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472407_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$PROPERTIES2_L"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-29T18:49:44+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147472406_891604337
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$PROPERTIES2_R"
+      FIELDSOURCE: "DTEXT1024"
+      FIELDSOURCEKEY: "147000119_31587988 Текст (1024), DTEXT1024"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Особенности"
+      LSHORTNAME: "Особенности"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 1024
+      VISIBLE: 1
+      EDITIONDATE: 2017-09-29T18:49:36+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147488816_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$LIMPHKEY"
+      FIELDNAME: "USR$LIMPHKEY"
+      FIELDSOURCE: "USR$SAN_UZIMAMM"
+      FIELDSOURCEKEY: "147443839_809241643 Ссылка на справочник для УЗИ мол. желез, USR$SAN_UZIMAMM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Региональные лимфоузлы"
+      LSHORTNAME: "Региональные лимфоуз"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$SAN_UZIMAMM"
+      RELATIONKEY: "147443834_809241643 Доп. инф. для УЗИ молочной железы, USR$SAN_ADDUZIMAMM"
+      RELATIONNAME: "USR$SAN_ADDUZIMAMM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-11-14T11:47:32+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~

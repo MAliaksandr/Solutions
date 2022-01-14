@@ -1,0 +1,159 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147378514_789097196
+  Name: "WESTA.Заявка.Количество мест"
+  Caption: "WESTA.Заявка.Количество мест"
+  Version: "1.0.0.4"
+  Optional: False
+  Internal: True
+  MD5: 7F88FFF182D08C4AB36BBCD133519B52
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147693015_71168484 GS.Санаторий.Общее.Метаданные"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147223177_779589892
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Количество мест в номере"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Количество мест"
+      LSHORTNAME: "Количество мест"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$SAN_COUNTPLACE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2017-04-06T08:33:40+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147223189_779589892
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147223177_779589892
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Количество"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT20"
+      FIELDSOURCEKEY: "147000108_486813904 Текст (20), DTEXT20"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Количество"
+      LSHORTNAME: "Количество"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147223177_779589892 Количество мест, USR$SAN_COUNTPLACE"
+      RELATIONNAME: "USR$SAN_COUNTPLACE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 20
+      VISIBLE: 1
+      EDITIONDATE: 2017-04-06T08:36:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147223181_779589892
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147223177_779589892
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Количество (nubmer)"
+      FIELDNAME: "USR$COUNT"
+      FIELDSOURCE: "USR$HT_D_INTEGER_POSITIVE"
+      FIELDSOURCEKEY: "147008955_1661751803 HT. Целое положительное число, USR$HT_D_INTEGER_POSITIVE"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Количество (number)"
+      LSHORTNAME: "Количество (nubmer)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147223177_779589892 Количество мест, USR$SAN_COUNTPLACE"
+      RELATIONNAME: "USR$SAN_COUNTPLACE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2017-04-06T08:34:54+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT '0'
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147223184_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147223177_779589892
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_COUNTPLACE"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_COUNTPLACE"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-04-06T08:36:18+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147223182_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147223177_779589892
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_SAN_COUNTPLACE"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "156936013_858116376 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_SAN_COUNTPLACE"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "156936014_858116376 Отчеты(gdc_frmAttrUserDefinedUSR_SAN_COUNTPLACE)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-08T13:30:19+03:00

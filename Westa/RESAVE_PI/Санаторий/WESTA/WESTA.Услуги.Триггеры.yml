@@ -1,0 +1,92 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147378957_801110591
+  Name: "WESTA.Услуги.Триггеры"
+  Caption: "WESTA.Услуги.Триггеры"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: 025EDBA2080FE769B0268858CAE4D498
+Uses: 
+  - "147693016_71168484 GS.Санаторий.Общее.Справочники"
+  - "148070622_215642201 GS.Общие данные.Справочник ТМЦ.Группа ВСЕ ТМЦ"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTrigger"
+      RUID: 147077450_754415017
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      RDB$FLAGS: 1
+      RDB$TRIGGER_INACTIVE: 1
+      RDB$TRIGGER_NAME: "USR$HT_AU_SERVICE2             "
+      RDB$TRIGGER_SEQUENCE: 2
+      RDB$TRIGGER_TYPE: 4
+      RELATIONKEY: "147008297_1661751803 Услуги, USR$HT_SERVICE"
+      RELATIONNAME: "USR$HT_SERVICE"
+      TRIGGERNAME: "USR$HT_AU_SERVICE2"
+      TRIGGER_INACTIVE: 1
+      EDITIONDATE: 2017-08-02T00:44:46+03:00
+      RDB$DESCRIPTION: ~
+      RDB$TRIGGER_SOURCE: | 
+        AS
+        BEGIN
+        IF (NOT EXISTS(SELECT *
+                       FROM GD_GOOD
+                       WHERE ALIAS = NEW.ID)) THEN
+          INSERT INTO GD_GOOD (
+              NAME,
+              ALIAS,
+              VALUEKEY, groupkey)
+          VALUES (
+              NEW.USR$NAME,
+              NEW.ID,
+              3000001, (SELECT r.ID FROM gd_ruid r WHERE r.XID = 147005904 and r.DBID = 63934951));
+        ELSE
+          UPDATE GD_GOOD
+          SET ID = ID, NAME = NEW.USR$NAME
+          WHERE ALIAS = NEW.ID;
+        END
+  - 
+    Properties: 
+      Class: "TgdcTrigger"
+      RUID: 147077449_754415017
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      RDB$FLAGS: 1
+      RDB$TRIGGER_INACTIVE: 1
+      RDB$TRIGGER_NAME: "USR$HT_AI_SERVICE              "
+      RDB$TRIGGER_SEQUENCE: 0
+      RDB$TRIGGER_TYPE: 2
+      RELATIONKEY: "147008297_1661751803 Услуги, USR$HT_SERVICE"
+      RELATIONNAME: "USR$HT_SERVICE"
+      TRIGGERNAME: "USR$HT_AI_SERVICE"
+      TRIGGER_INACTIVE: 1
+      EDITIONDATE: 2017-08-02T00:44:40+03:00
+      RDB$DESCRIPTION: ~
+      RDB$TRIGGER_SOURCE: | 
+        AS
+        BEGIN
+        /*Тело триггера*/
+        IF (NOT EXISTS(SELECT *
+                       FROM GD_GOOD
+                       WHERE ALIAS = NEW.ID)) THEN
+          INSERT INTO GD_GOOD (
+              NAME,
+              ALIAS,
+              VALUEKEY, groupkey)
+          VALUES (
+              NEW.USR$NAME,
+              NEW.ID,
+              3000001, (SELECT r.ID FROM gd_ruid r WHERE r.XID = 147005904 and r.DBID = 63934951));
+        ELSE
+          UPDATE GD_GOOD
+          SET ID = ID, NAME = NEW.USR$NAME
+          WHERE ALIAS = NEW.ID;
+        END

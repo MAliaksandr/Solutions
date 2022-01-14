@@ -1,0 +1,2417 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147430120_809241643
+  Name: "WESTA.Процедуры без времени"
+  Caption: "WESTA.Процедуры без времени"
+  Version: "1.0.0.16"
+  Optional: False
+  Internal: True
+  MD5: DA1AAEA3F90F713C393E150342E86FBB
+Uses: 
+  - "147697029_71168484 GS.Санаторий.МУ.ИБ.Документы"
+  - "147753062_69526485 GS.Общие.Хранилище"
+  - "147698431_71168484 GS.Санаторий.МУ.НП.Документы"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147430117_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147430115_809241643
+    Fields: 
+      NAME: "usrg_gdcTimelessProceduresBeforePost"
+      COMMENT: ~
+      EVENT: "BEFOREPOST"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147028280_1818238909 gdc_dlgUserComplexDocument147020156_1818238909"
+      OBJECTNAME: "gdc_dlgUserComplexDocument147020156_1818238909"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-06-05T18:16:22+03:00
+      DISPLAYSCRIPT: | 
+        USRG_GDCTIMELESSPROCEDURESBEFOREPOST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAAREFUQVNFVAcAAABEQVRBU0VUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_gdcTimelessProceduresBeforePost(ByVal DataSet)
+          dim ProcID
+          ProcID = DataSet.FieldByName("USR$PROCEDUREKEY").AsInteger
+          if ProcID <= 0 then exit sub
+        
+          dim Quant, CharQuant, Diff
+          Quant = DataSet.FieldByName("USR$AMOUNT").AsInteger
+          CharQuant = DataSet.FieldByName("USR$CHARGEABLE_AMOUNT").AsInteger
+        
+          if Quant <= 0 then exit sub
+        
+          ' все процедуры платные
+          Diff = Quant - CharQuant
+        '  if Diff <= 0 then
+        '    call Exception.Raise("Exception", "Кол-во платных процедур не может превышать общее кол-во процедур!")
+        '  end if
+          
+          dim ID , LineID
+          ID = DataSet.FieldByName("USR$MEDHISTORYKEY").AsInteger
+          LineID = DataSet.FieldByName("ID").AsInteger
+        
+          dim Creator
+          set Creator = new TCreator
+        
+          dim q
+          set q = Creator.GetObject(nil, "TIBSQL", "")
+          if DataSet.Transaction.InTransaction then
+            set q.Transaction = DataSet.Transaction
+          else
+            set q.Transaction = DataSet.ReadTransaction
+          end if
+          q.SQL.Text = _
+            "SELECT " & _
+            "  MIN(res.USR$DATEBEGIN) AS DB, " & _
+            "  MAX(res.USR$DATEEND) AS DE " & _
+            "FROM usr$san_medical_history medh " & _
+            "LEFT JOIN usr$san_sanatoriumcard sancard ON sancard.usr$medhistorykey = medh.documentkey " & _
+            "LEFT JOIN usr$ht_reservation res ON sancard.usr$permitkey = res.id " & _
+            "WHERE medh.documentkey = :ID "
+          q.ParamByName("ID").AsInteger = ID
+          q.ExecQuery
+        
+          dim DB, DE
+          DB = q.FieldByName("DB").AsDateTime
+          DE = q.FieldByName("DE").AsDateTime
+        
+          if DB = 0 then exit sub
+          q.Close
+          q.SQL.Text = _
+            "SELECT DISTINCT " & _
+            "  bs.COUNTLEFT AS COUNTLEFT " & _
+            "FROM usr$ht_service s " & _
+            "LEFT JOIN USR$SAN_P_BOARD_SERV_INFO_LINE (:ID, :DB, :DE ) bs ON COALESCE(bs.AddServiceKey, bs.IDSERV) = s.ID " & _
+            "WHERE s.ID = :ProcID "
+          q.ParamByName("ID").AsInteger = ID
+          q.ParamByName("ProcID").AsInteger = ProcID
+          q.ParamByName("DB").AsDateTime = DB
+          q.ParamByName("DE").AsDateTime = DE
+          q.ExecQuery
+        
+          dim CountLeft
+          CountLeft = q.FieldByName("COUNTLEFT").AsInteger
+        
+          ' если мы редактируем, то SAN_P_BOARD_SERV_INFO_LINE не видит изменений.
+          ' Надо найти старые значения и прибавить их к CountLeft
+          if DataSet.State = dsEdit then
+            q.Close
+            q.SQL.Text = _
+              "  SELECT (COALESCE(proc.USR$AMOUNT, 0) - COALESCE(proc.USR$CHARGEABLE_AMOUNT, 0) ) AS S " & _
+              "  FROM USR$SAN_TIMELESSPROCEDURES proc " & _
+              "  WHERE proc.ID = :LineID "
+            q.ParamByName("LineID").AsInteger = LineID
+            q.ExecQuery
+        
+            if  q.FieldByName("S").AsInteger > 0 then CountLeft = CountLeft + q.FieldByName("S").AsInteger
+          end if
+        
+          dim AllowProcServ
+          AllowProcServ =  CountLeft - Diff
+        
+          if AllowProcServ < 0 then
+            if Application.MessageBox(_
+               "Количество услуг для назначения превышает допустимое! Если продолжите, то ваши действия будут записаны в журнал!", _
+               "Внимание!", vbYesNo + vbQuestion + vbSystemModal) = vbYes then
+              dim ReasonForm
+              set ReasonForm = Creator.GetObject(Application, "usrf_ht_reason_comment", "")
+              ReasonForm.Variables("CancelType") = "CheckReason"
+              if ReasonForm.ShowModal = mrOk then
+                'Лог причины назначения услуги(процедуры) сверх нормы
+                call SAN_ServiceReason.AddWithCancelReason(ReasonForm.Variables("CancelReasonKey"), _
+                    ProcId, ID, "Назначено сеансов сверх нормы: " & abs(AllowProcServ) & VBCR & ReasonForm.Variables("CancelComment"), 1, _
+                    DataSet.FieldByName("USR$DATE").AsString)
+                DataSet.FieldByName("USR$CHARGEABLE_AMOUNT").AsInteger = DataSet.FieldByName("USR$CHARGEABLE_AMOUNT").AsInteger - AllowProcServ
+              else
+                call Exception.Raise("EAbort", "")
+              end if
+            else
+              call Exception.Raise("EAbort", "")
+            end if
+        end if
+        
+        
+        
+        
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(DataSet, "BeforePost", Array(DataSet))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+        
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147430114_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147430115_809241643
+    Fields: 
+      PARENT: "147028280_1818238909 gdc_dlgUserComplexDocument147020156_1818238909"
+      NAME: "usrg_gdcTimelessProcedures"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_gdcTimelessProcedures"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-07-12T21:21:20+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147430115_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "BEFOREPOST"
+      FUNCTIONKEY: "147430117_809241643 usrg_gdcTimelessProceduresBeforePost"
+      OBJECTKEY: "147430114_809241643 gdc_dlgUserComplexDocument147020156_1818238909\\usrg_gdcTimelessProcedures"
+      OBJECTNAME: "usrg_gdcTimelessProcedures"
+      PARENTNAME: "gdc_dlgUserComplexDocument147020156_1818238909"
+      EDITIONDATE: 2021-06-05T16:35:52+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147494722_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494736_939084064
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(usrf_san_timelessproc)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147494722_939084064"
+      EDITIONDATE: 2017-12-17T23:59:54+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147494721_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494736_939084064
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "usrf_san_timelessproc"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-17T23:59:54+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494717_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494736_939084064
+    Fields: 
+      PARENT: ~
+      NAME: "usrf_san_timelessproc"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147494721_939084064 Локальные макросы"
+      OBJECTNAME: "usrf_san_timelessproc"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147494722_939084064 Отчеты(usrf_san_timelessproc)"
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-17T23:59:54+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147494738_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494736_939084064
+    Fields: 
+      NAME: "usrg_actCancelOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147494717_939084064 usrf_san_timelessproc"
+      OBJECTNAME: "usrf_san_timelessproc"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-12-18T00:33:10+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTCANCELONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_actCancelOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          Sender.Owner.Close
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494735_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494736_939084064
+    Fields: 
+      PARENT: "147494717_939084064 usrf_san_timelessproc"
+      NAME: "usrg_actCancel"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_actCancel"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-18T00:33:10+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147494736_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "147494738_939084064 usrg_actCancelOnExecute"
+      OBJECTKEY: "147494735_939084064 usrf_san_timelessproc\\usrg_actCancel"
+      OBJECTNAME: "usrg_actCancel"
+      PARENTNAME: "usrf_san_timelessproc"
+      EDITIONDATE: 2017-12-18T00:33:10+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147494729_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494727_939084064
+    Fields: 
+      NAME: "usrg_actCreateTimeLessProcOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147028280_1818238909 gdc_dlgUserComplexDocument147020156_1818238909"
+      OBJECTNAME: "gdc_dlgUserComplexDocument147020156_1818238909"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-18T11:08:30+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTCREATETIMELESSPROCONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_actCreateTimeLessProcOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim frm, Creator
+          set Creator = new TCreator
+          Set frm = Sender.OwnerForm.FindComponent("usrf_san_timelessproc")
+          if not Assigned(frm) then
+            Set frm = Creator.GetObject(Sender.OwnerForm, "usrf_san_timelessproc", "usrf_san_timelessproc")
+          end if
+          frm.GetComponent("usrg_lcProcKey").CurrentKeyInt = -1
+          frm.GetComponent("usrg_lcApparatuskey").CurrentKeyInt = -1
+          frm.GetComponent("usrg_lcToDoctorKey").CurrentKeyInt = -1
+          frm.GetComponent("usrg_lcFromDoctorKey").CurrentKeyInt = IBLogin.ContactKey
+          frm.GetComponent("usrg_deDate").Text = Date
+          frm.GetComponent("usrg_ceQuantAll").Value = 0
+          frm.GetComponent("usrg_ceQuant").Value = 0
+          frm.GetComponent("usrg_ceQuantPay").Value = 0
+          frm.GetComponent("usrg_lbQuant").Caption = ""
+          frm.GetComponent("usrg_lbQuantMax").Caption = ""
+          if frm.ShowModal = mrOK then
+            dim QPermit, QPay, FromDoctorKey, ToDoctorKey, AppKey, pDate, ProcKey, MedHKey
+            QPermit = frm.GetComponent("usrg_ceQuant").Value
+            pDate = frm.GetComponent("usrg_deDate").Text
+            QPay = frm.GetComponent("usrg_ceQuantPay").Value
+            FromDoctorKey = frm.GetComponent("usrg_lcFromDoctorkey").CurrentKeyInt
+            ToDoctorKey = frm.GetComponent("usrg_lcToDoctorkey").CurrentKeyInt
+            ProcKey = frm.GetComponent("usrg_lcProcKey").CurrentKeyInt
+            AppKey = frm.GetComponent("usrg_lcApparatuskey").CurrentKeyInt
+            MedHKey = Sender.OwnerForm.gdcObject.ID
+        
+            dim T, gdcTimeLessProc
+            set gdcTimeLessProc = Sender.OwnerForm.GetComponent("usrg_gdcTimelessProcedures")
+            set T = Sender.OwnerForm.gdcObject.Transaction
+            gdcTimeLessProc.First
+            
+            dim q, QPermitOld, QPayOld, i, ProcPassPermit, ProcPassPay, DocSell
+            set q = Creator.GetObject(nil, "TIBSQL", "")
+            set q.Transaction = T
+            q.SQL.Text = _
+              "SELECT SUM(IIF(COALESCE(t.USR$ISPAID_SESSION, 0) = 0, 1, 0)) AS QPermit,  " & _
+              "  SUM(IIF(COALESCE(t.USR$ISPAID_SESSION, 0) = 1, 1, 0)) AS QPay, " & _
+              "  SUM(IIF((COALESCE(t.USR$PROCEDUREPASS, 0) = 1 OR COALESCE(t.USR$DOCSELLKEY, 0) > 0) AND COALESCE(t.USR$ISPAID_SESSION, 0) = 0, 1, 0)) AS ProcPassPermit, " & _
+              "  SUM(IIF((COALESCE(t.USR$PROCEDUREPASS, 0) = 1 OR COALESCE(t.USR$DOCSELLKEY, 0) > 0) AND COALESCE(t.USR$ISPAID_SESSION, 0) = 1, 1, 0)) AS ProcPassPay " & _
+              "FROM USR$SAN_TIMELESSPROCEDURES t " & _
+              "WHERE t.USR$MEDHISTORYKEY = :MedHKey " & _
+              "  AND t.USR$PROCEDUREKEY = :ProcKey "
+            q.ParamByName("MedHKey").AsInteger = MedHKey
+            q.ParamByName("ProcKey").AsInteger = ProcKey
+            q.ExecQuery
+            QPermitOld = q.FieldByName("QPermit").AsInteger
+            QPayOld = q.FieldByName("QPay").AsInteger
+            ProcPassPermit = q.FieldByName("ProcPassPermit").AsInteger
+            ProcPassPay = q.FieldByName("ProcPassPay").AsInteger
+            'Бесплатные сеансы
+            'Если новое кол-во больше, чем кол-во оплаченных или пройденных процедур
+            if QPermit >= ProcPassPermit then
+              'Если новое кол-во больше, чем общее старое кол-во, то добавляем
+              if QPermit > QPermitOld then
+                for i = 1 to (QPermit - QPermitOld)
+                  gdcTimeLessProc.Append
+                  gdcTimeLessProc.FieldByName("USR$PROCEDUREKEY").AsInteger = ProcKey
+                  if FromDoctorKey > 0 then gdcTimeLessProc.FieldByName("USR$FROMDOCTORKEY").AsVariant = FromDoctorKey
+                  if ToDoctorKey > 0 then gdcTimeLessProc.FieldByName("USR$TODOCTORKEY").AsVariant = ToDoctorKey
+                  if AppKey > 0 then gdcTimeLessProc.FieldByName("USR$PROCAPPARATUS").AsVariant = AppKey
+                  gdcTimeLessProc.FieldByName("USR$ISPAID_SESSION").AsInteger = 0
+                  gdcTimeLessProc.FieldByName("USR$AMOUNT").AsInteger = 1
+                  gdcTimeLessProc.FieldByName("USR$DATE").AsDateTime = pDate
+                  gdcTimeLessProc.FieldByName("USR$MEDHISTORYKEY").AsInteger = MedHKey
+                  gdcTimeLessProc.Post
+                next
+              else
+                i = QPermitOld - QPermit
+                while gdcTimeLessProc.Locate("USR$PROCEDUREKEY;USR$ISPAID_SESSION;USR$DOCSELLKEY;USR$PROCEDUREPASS", Array(ProcKey, 0, null,0), false) and i > 0
+                  i = i - 1
+                  gdcTimeLessProc.Delete
+                wend
+              end if
+            elseif QPermit <> ProcPassPermit then
+              call Application.MessageBox(_
+               "Нельзя уменьшить количество процедур, так как имеются процедуры по путевке (" & ProcPassPermit & "), которые пройдены или имееют оплату!", _
+               "Внимание!", vbOkOnly or vbExclamation or vbSystemModal)
+               exit sub
+            end if
+            
+            'Платные сеансы
+            'Если новое кол-во больше, чем кол-во оплаченных или пройденных процедур
+            if QPay >= ProcPassPay then
+              'Если новое кол-во больше, чем общее старое кол-во, то добавляем
+              if QPay > QPayOld then
+                for i = 1 to (QPay - QPayOld)
+                  gdcTimeLessProc.Append
+                  gdcTimeLessProc.FieldByName("USR$PROCEDUREKEY").AsInteger = ProcKey
+                  if FromDoctorKey > 0 then gdcTimeLessProc.FieldByName("USR$FROMDOCTORKEY").AsVariant = FromDoctorKey
+                  if ToDoctorKey > 0 then gdcTimeLessProc.FieldByName("USR$TODOCTORKEY").AsVariant = ToDoctorKey
+                  if AppKey > 0 then gdcTimeLessProc.FieldByName("USR$PROCAPPARATUS").AsVariant = AppKey
+                  gdcTimeLessProc.FieldByName("USR$ISPAID_SESSION").AsInteger = 1
+                  gdcTimeLessProc.FieldByName("USR$AMOUNT").AsInteger = 1
+                  gdcTimeLessProc.FieldByName("USR$DATE").AsDateTime = pDate
+                  gdcTimeLessProc.FieldByName("USR$CHARGEABLE_AMOUNT").AsInteger = 1
+                  gdcTimeLessProc.FieldByName("USR$MEDHISTORYKEY").AsInteger = MedHKey
+                  gdcTimeLessProc.Post
+                next
+              else
+                i = QPayOld - QPay
+                while gdcTimeLessProc.Locate("USR$PROCEDUREKEY;USR$ISPAID_SESSION;USR$DOCSELLKEY;USR$PROCEDUREPASS", Array(ProcKey, 1, null,0), false) and i > 0
+                  i = i - 1
+                  gdcTimeLessProc.Delete
+                wend
+              end if
+            elseif QPay <> ProcPassPay then
+              call Application.MessageBox(_
+               "Нельзя уменьшить количество процедур, так как имеются платные процедуры (" & ProcPassPay & "), которые пройдены или имееют оплату!", _
+               "Внимание!", vbOkOnly or vbExclamation or vbSystemModal)
+               exit sub
+            end if
+        
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494593_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494727_939084064
+    Fields: 
+      PARENT: "147028280_1818238909 gdc_dlgUserComplexDocument147020156_1818238909"
+      NAME: "usrg_actCreateTimeLessProc"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_actCreateTimeLessProc"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-15T17:37:14+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147494727_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "147494729_939084064 usrg_actCreateTimeLessProcOnExecute"
+      OBJECTKEY: "147494593_809241643 gdc_dlgUserComplexDocument147020156_1818238909\\usrg_actCreateTimeLessProc"
+      OBJECTNAME: "usrg_actCreateTimeLessProc"
+      PARENTNAME: "gdc_dlgUserComplexDocument147020156_1818238909"
+      EDITIONDATE: 2021-03-18T11:08:30+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147494742_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494740_939084064
+    Fields: 
+      NAME: "usrg_lcApparatuskeyOnChange"
+      COMMENT: ~
+      EVENT: "ONCHANGE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147494717_939084064 usrf_san_timelessproc"
+      OBJECTNAME: "usrf_san_timelessproc"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-12-18T00:48:57+03:00
+      DISPLAYSCRIPT: | 
+        USRG_LCAPPARATUSKEYONCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_lcApparatuskeyOnChange(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnChange", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim Creator, q
+          set Creator = new TCreator
+          set q = Creator.GetObject(nil, "TIBSQL", "")
+          set q.Transaction = gdcBaseManager.ReadTransaction
+          q.SQL.Text = _
+            "SELECT p.USR$DOCTORKEY " & _
+            "FROM USR$SAN_PROCAPPARATUS p " & _
+            "WHERE p.ID = :ID "
+          q.ParamByName("ID").AsInteger = Sender.CurrentKeyInt
+          q.ExecQuery
+          if q.FieldByName("USR$DOCTORKEY").AsInteger > 0 then
+            Sender.OwnerForm.GetComponent("usrg_lcToDoctorKey").CurrentKeyInt = q.FieldByName("USR$DOCTORKEY").AsInteger
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494739_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494740_939084064
+    Fields: 
+      PARENT: "147494717_939084064 usrf_san_timelessproc"
+      NAME: "usrg_lcApparatuskey"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_lcApparatuskey"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-18T00:48:57+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147494740_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCHANGE"
+      FUNCTIONKEY: "147494742_939084064 usrg_lcApparatuskeyOnChange"
+      OBJECTKEY: "147494739_939084064 usrf_san_timelessproc\\usrg_lcApparatuskey"
+      OBJECTNAME: "usrg_lcApparatuskey"
+      PARENTNAME: "usrf_san_timelessproc"
+      EDITIONDATE: 2017-12-18T00:48:57+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147494726_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494724_939084064
+    Fields: 
+      NAME: "usrg_lcProcKeyOnChange"
+      COMMENT: ~
+      EVENT: "ONCHANGE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147494717_939084064 usrf_san_timelessproc"
+      OBJECTNAME: "usrf_san_timelessproc"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-12-29T12:34:32+03:00
+      DISPLAYSCRIPT: | 
+        USRG_LCPROCKEYONCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_lcProcKeyOnChange(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnChange", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim lcApp, ProcID
+          set lcApp = Sender.OwnerForm.GetComponent("usrg_lcApparatuskey")
+          ProcID =  Sender.CurrentKeyInt
+          Sender.OwnerForm.GetComponent("usrg_ceQuant").Value = 0
+          Sender.OwnerForm.GetComponent("usrg_ceQuantPay").Value = 0
+          Sender.OwnerForm.GetComponent("usrg_lbQuantMax").Text = ""
+          Sender.OwnerForm.GetComponent("usrg_lcToDoctorKey").CurrentKeyInt = -1
+          Sender.OwnerForm.GetComponent("usrg_lbQuant").Text = ""
+          lcApp.CurrentKeyInt = -1
+          if ProcID > 0 then
+            lcApp.Enabled = true
+            lcApp.Condition = "procapp.USR$PROCEDURE = " & ProcID
+          else
+            lcApp.Enabled = false
+            lcApp.Condition = ""
+            exit sub
+          end if
+          
+          dim Creator, q, MedHistoryKey, gdcTimeLessProc, gdcMedHistory, T
+          set T = Sender.OwnerForm.Owner.gdcObject.Transaction
+          set Creator = new TCreator
+          set gdcMedHistory = Sender.OwnerForm.Owner.gdcObject
+          MedHistoryKey = gdcMedHistory.ID
+          set q = Creator.GetObject(nil, "TIBSQL", "")
+          set q.Transaction = T
+          q.SQL.Text = _
+            "SELECT " & _
+            "  MIN(res.USR$DATEBEGIN) AS DB, " & _
+            "  MAX(res.USR$DATEEND) AS DE " & _
+            "FROM usr$san_medical_history medh " & _
+            "LEFT JOIN usr$san_sanatoriumcard sancard ON sancard.usr$medhistorykey = medh.documentkey " & _
+            "LEFT JOIN usr$ht_reservation res ON sancard.usr$permitkey = res.id " & _
+            "WHERE medh.documentkey = :ID "
+          q.ParamByName("ID").AsInteger = MedHistoryKey
+          q.ExecQuery
+        
+          dim DB, DE
+          DB = q.FieldByName("DB").AsDateTime
+          DE = q.FieldByName("DE").AsDateTime
+        
+          'if DB = 0 then exit sub
+          q.Close
+          q.SQL.Text = _
+            "SELECT DISTINCT " & _
+            "  bs.COUNTLEFT AS COUNTLEFT " & _
+            "FROM usr$ht_service s " & _
+            "LEFT JOIN USR$SAN_P_BOARD_SERV_INFO_LINE (:ID, :DB, :DE ) bs ON COALESCE(bs.AddServiceKey, bs.IDSERV) = s.ID " & _
+            "WHERE s.ID = :ProcID "
+          q.ParamByName("ID").AsInteger = MedHistoryKey
+          q.ParamByName("ProcID").AsInteger = ProcID
+          q.ParamByName("DB").AsDateTime = DB
+          q.ParamByName("DE").AsDateTime = DE
+          q.ExecQuery
+        
+          dim CountLeft, QPermit, QPay, qDoc
+          CountLeft = q.FieldByName("COUNTLEFT").AsInteger
+          
+        
+          set qDoc = Creator.GetObject(nil, "TIBSQL", "")
+          set qDoc.Transaction = T
+          qDoc.SQL.Text = _
+            "SELECT SUM(IIF(COALESCE(t.USR$ISPAID_SESSION, 0) = 0, 1, 0)) AS QPermit,  " & _
+            "  SUM(IIF(COALESCE(t.USR$ISPAID_SESSION, 0) = 1, 1, 0)) AS QPay " & _
+            "FROM USR$SAN_TIMELESSPROCEDURES t " & _
+            "WHERE t.USR$MEDHISTORYKEY = :MedHKey " & _
+            "  AND t.USR$PROCEDUREKEY = :ProcKey "
+          qDoc.ParamByName("MedHKey").AsInteger = MedHistoryKey
+          qDoc.ParamByName("ProcKey").AsInteger = ProcID
+          qDoc.ExecQuery
+          QPermit = qDoc.FieldByName("QPermit").AsInteger
+          QPay = qDoc.FieldByName("QPay").AsInteger
+        
+          ' если мы редактируем, то SAN_P_BOARD_SERV_INFO_LINE не видит изменений.
+          ' Надо найти старые значения и прибавить их к CountLeft
+          if QPermit + QPay > 0 then
+            q.Close
+            q.SQL.Text = _
+              "  SELECT SUM(COALESCE(proc.USR$AMOUNT, 0) - COALESCE(proc.USR$CHARGEABLE_AMOUNT, 0) ) AS S " & _
+              "  FROM USR$SAN_TIMELESSPROCEDURES proc " & _
+              "  WHERE proc.USR$MEDHISTORYKEY = :MedHKey " & _
+              "  AND proc.USR$PROCEDUREKEY = :ProcKey "
+            q.ParamByName("ProcKey").AsInteger = ProcID
+            q.ParamByName("MedHKey").AsInteger = MedHistoryKey
+            q.ExecQuery
+        
+            if  q.FieldByName("S").AsInteger > 0 then CountLeft = CountLeft + q.FieldByName("S").AsInteger
+          end if
+          
+          
+          if CountLeft > 0 then
+            Sender.OwnerForm.GetComponent("usrg_lbQuantMax").Text = "не более"
+            Sender.OwnerForm.GetComponent("usrg_lbQuant").Text = CountLeft
+            Sender.OwnerForm.GetComponent("usrg_ceQuant").Value = CountLeft
+          else
+            Sender.OwnerForm.GetComponent("usrg_lbQuantMax").Text = "нет сеансов"
+            Sender.OwnerForm.GetComponent("usrg_lbQuant").Text = ""
+          end if
+          if QPermit > 0 then
+            Sender.OwnerForm.GetComponent("usrg_ceQuant").Value = QPermit
+          end if
+          if QPay > 0 then
+            Sender.OwnerForm.GetComponent("usrg_ceQuantPay").Value = QPay
+          end if
+          if QPermit + QPay > 0 then
+            Sender.OwnerForm.GetComponent("usrg_btnOk").Caption = "Редактировать"
+          else
+            Sender.OwnerForm.GetComponent("usrg_btnOk").Caption = "Создать"
+          end if
+        
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494723_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494724_939084064
+    Fields: 
+      PARENT: "147494717_939084064 usrf_san_timelessproc"
+      NAME: "usrg_lcProcKey"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_lcProcKey"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-17T23:59:54+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147494724_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCHANGE"
+      FUNCTIONKEY: "147494726_939084064 usrg_lcProcKeyOnChange"
+      OBJECTKEY: "147494723_939084064 usrf_san_timelessproc\\usrg_lcProcKey"
+      OBJECTNAME: "usrg_lcProcKey"
+      PARENTNAME: "usrf_san_timelessproc"
+      EDITIONDATE: 2017-12-29T12:34:33+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147494713_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494714_939084064
+    Fields: 
+      PARENT: "147015466_1522056380 GLOBAL\\NewForm"
+      NAME: "usrf_san_timelessproc"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-12-17T23:32:06+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147494714_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147494713_939084064 GLOBAL\\NewForm\\usrf_san_timelessproc"
+      NAME: "dfm"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2017-12-29T12:31:38+03:00
+      BLOB_DATA: | 
+        object usrf_san_timelessproc: TgdcCreateableForm
+          Tag = 0
+          Left = 371
+          Top = 385
+          Cursor = crDefault
+          Hint = ''
+          HelpContext = 0
+          HorzScrollBar.ButtonSize = 0
+          HorzScrollBar.Color = clBtnHighlight
+          HorzScrollBar.Increment = 8
+          HorzScrollBar.Margin = 0
+          HorzScrollBar.ParentColor = True
+          HorzScrollBar.Position = 0
+          HorzScrollBar.Range = 0
+          HorzScrollBar.Smooth = False
+          HorzScrollBar.Size = 0
+          HorzScrollBar.Style = ssRegular
+          HorzScrollBar.ThumbSize = 0
+          HorzScrollBar.Tracking = False
+          HorzScrollBar.Visible = True
+          VertScrollBar.ButtonSize = 0
+          VertScrollBar.Color = clBtnHighlight
+          VertScrollBar.Increment = 8
+          VertScrollBar.Margin = 0
+          VertScrollBar.ParentColor = True
+          VertScrollBar.Position = 0
+          VertScrollBar.Range = 0
+          VertScrollBar.Smooth = False
+          VertScrollBar.Size = 0
+          VertScrollBar.Style = ssRegular
+          VertScrollBar.ThumbSize = 0
+          VertScrollBar.Tracking = False
+          VertScrollBar.Visible = True
+          Action = nil
+          ActiveControl = nil
+          Align = alNone
+          Anchors = [akLeft, akTop]
+          AutoSize = False
+          BorderIcons = [biSystemMenu, biMinimize, biMaximize]
+          BorderStyle = bsDialog
+          BorderWidth = 0
+          Caption = 'Процедуры без времени'
+          ClientHeight = 224
+          ClientWidth = 531
+          Color = clBtnFace
+          Constraints.MaxHeight = 0
+          Constraints.MaxWidth = 0
+          Constraints.MinHeight = 0
+          Constraints.MinWidth = 0
+          Ctl3D = True
+          UseDockManager = False
+          DefaultMonitor = dmActiveForm
+          DockSite = False
+          DragKind = dkDrag
+          DragMode = dmManual
+          Enabled = True
+          ParentFont = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Pitch = fpDefault
+          Font.Style = []
+          FormStyle = fsNormal
+          HelpFile = ''
+          KeyPreview = False
+          Menu = nil
+          OldCreateOrder = False
+          ObjectMenuItem = nil
+          ParentBiDiMode = True
+          PopupMenu = nil
+          Position = poDesigned
+          PrintScale = poProportional
+          Scaled = True
+          Visible = False
+          WindowState = wsNormal
+          WindowMenu = nil
+          ShowSpeedButton = False
+          PixelsPerInch = 96
+          TextHeight = 13
+          object usrg_Panel1: TPanel
+            Tag = 0
+            Left = 0
+            Top = 0
+            Width = 531
+            Height = 191
+            Cursor = crDefault
+            Hint = ''
+            HelpContext = 0
+            Align = alClient
+            Alignment = taCenter
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            AutoSize = False
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelWidth = 1
+            BorderWidth = 0
+            BorderStyle = bsNone
+            Caption = ''
+            Color = clBtnFace
+            Constraints.MaxHeight = 0
+            Constraints.MaxWidth = 0
+            Constraints.MinHeight = 0
+            Constraints.MinWidth = 0
+            UseDockManager = True
+            DockSite = False
+            DragCursor = crDrag
+            DragKind = dkDrag
+            DragMode = dmManual
+            Enabled = True
+            FullRepaint = True
+            Locked = False
+            ParentBiDiMode = True
+            ParentColor = False
+            ParentCtl3D = True
+            ParentFont = True
+            ParentShowHint = True
+            PopupMenu = nil
+            TabOrder = 1
+            TabStop = False
+            Visible = True
+            object usrg_Label1: TLabel
+              Tag = 0
+              Left = 6
+              Top = 14
+              Width = 29
+              Height = 13
+              Cursor = crDefault
+              Hint = ''
+              Align = alNone
+              Alignment = taLeftJustify
+              Anchors = [akLeft, akTop]
+              AutoSize = True
+              Caption = 'Дата:'
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              FocusControl = nil
+              ParentBiDiMode = True
+              ParentColor = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              ShowAccelChar = True
+              Transparent = False
+              Layout = tlTop
+              Visible = True
+              WordWrap = False
+            end
+            object usrg_Label2: TLabel
+              Tag = 0
+              Left = 6
+              Top = 67
+              Width = 48
+              Height = 13
+              Cursor = crDefault
+              Hint = ''
+              Align = alNone
+              Alignment = taLeftJustify
+              Anchors = [akLeft, akTop]
+              AutoSize = True
+              Caption = 'От врача:'
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              FocusControl = nil
+              ParentBiDiMode = True
+              ParentColor = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              ShowAccelChar = True
+              Transparent = False
+              Layout = tlTop
+              Visible = True
+              WordWrap = False
+            end
+            object usrg_Label3: TLabel
+              Tag = 0
+              Left = 277
+              Top = 67
+              Width = 41
+              Height = 13
+              Cursor = crDefault
+              Hint = ''
+              Align = alNone
+              Alignment = taLeftJustify
+              Anchors = [akLeft, akTop]
+              AutoSize = True
+              Caption = 'К врачу:'
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              FocusControl = nil
+              ParentBiDiMode = True
+              ParentColor = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              ShowAccelChar = True
+              Transparent = False
+              Layout = tlTop
+              Visible = True
+              WordWrap = False
+            end
+            object usrg_Label4: TLabel
+              Tag = 0
+              Left = 6
+              Top = 41
+              Width = 58
+              Height = 13
+              Cursor = crDefault
+              Hint = ''
+              Align = alNone
+              Alignment = taLeftJustify
+              Anchors = [akLeft, akTop]
+              AutoSize = True
+              Caption = 'Процедура:'
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              FocusControl = nil
+              ParentBiDiMode = True
+              ParentColor = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              ShowAccelChar = True
+              Transparent = False
+              Layout = tlTop
+              Visible = True
+              WordWrap = False
+            end
+            object usrg_Label5: TLabel
+              Tag = 0
+              Left = 277
+              Top = 41
+              Width = 45
+              Height = 13
+              Cursor = crDefault
+              Hint = ''
+              Align = alNone
+              Alignment = taLeftJustify
+              Anchors = [akLeft, akTop]
+              AutoSize = True
+              Caption = 'Аппарат:'
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              FocusControl = nil
+              ParentBiDiMode = True
+              ParentColor = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              ShowAccelChar = True
+              Transparent = False
+              Layout = tlTop
+              Visible = True
+              WordWrap = False
+            end
+            object usrg_deDate: TxDateEdit
+              Tag = 0
+              Left = 75
+              Top = 10
+              Width = 65
+              Height = 21
+              Cursor = crDefault
+              Hint = ''
+              HelpContext = 0
+              TabStop = True
+              Kind = kDate
+              CurrentDateTimeAtStart = False
+              EmptyAtStart = False
+              Anchors = [akLeft, akTop]
+              AutoSelect = True
+              AutoSize = True
+              BorderStyle = bsSingle
+              CharCase = ecNormal
+              Color = clWindow
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              EditMask = '!99\.99\.9999;'
+              ImeMode = imDontCare
+              ImeName = ''
+              MaxLength = 10
+              ParentBiDiMode = True
+              ParentColor = False
+              ParentCtl3D = True
+              ParentFont = True
+              ParentShowHint = True
+              PasswordChar = #0
+              PopupMenu = nil
+              ReadOnly = False
+              TabOrder = 0
+              Text = '29.12.  17'
+              Visible = True
+            end
+            object usrg_lcFromDoctorkey: TgsIBLookupComboBox
+              Tag = 0
+              Left = 75
+              Top = 63
+              Width = 193
+              Height = 21
+              Cursor = crDefault
+              HelpContext = 1
+              TabStop = True
+              Database = dmDatabase.ibdbGAdmin
+              Transaction = dmDatabase.ibtrGenUniqueID
+              DataSource = nil
+              DataField = ''
+              Fields = ''
+              ListTable = 
+                'gd_contact c left join gd_contact cc on cc.lb<= c.lb and cc.rb >' +
+                '= c.rb and cc.id = <companykey/>'
+              ListField = 'c.name'
+              KeyField = 'c.ID'
+              SortOrder = soNone
+              SortField = ''
+              CheckUserRights = True
+              Condition = 'c.contacttype = 2'
+              gdClassName = 'TgdcContact'
+              SubType = 'HT_GUEST'
+              ReadOnly = False
+              StrictOnExit = True
+              Distinct = False
+              FullSearchOnExit = False
+              ViewType = vtByClass
+              Style = csDropDown
+              Anchors = [akLeft, akTop]
+              Color = clWindow
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              DropDownCount = 16
+              Enabled = True
+              ImeMode = imDontCare
+              ImeName = ''
+              ItemHeight = 13
+              MaxLength = 0
+              ParentBiDiMode = True
+              ParentColor = False
+              ParentCtl3D = True
+              ParentFont = True
+              ParentShowHint = False
+              PopupMenu = nil
+              ShowHint = True
+              TabOrder = 3
+              Visible = True
+            end
+            object usrg_lcToDoctorKey: TgsIBLookupComboBox
+              Tag = 0
+              Left = 333
+              Top = 63
+              Width = 193
+              Height = 21
+              Cursor = crDefault
+              HelpContext = 1
+              TabStop = True
+              Database = dmDatabase.ibdbGAdmin
+              Transaction = dmDatabase.ibtrGenUniqueID
+              DataSource = nil
+              DataField = ''
+              Fields = ''
+              ListTable = 
+                'gd_contact c left join gd_contact cc on cc.lb<= c.lb and cc.rb >' +
+                '= c.rb and cc.id = <companykey/>'
+              ListField = 'c.name'
+              KeyField = 'c.ID'
+              SortOrder = soNone
+              SortField = ''
+              CheckUserRights = True
+              Condition = 'c.contacttype = 2'
+              gdClassName = 'TgdcContact'
+              SubType = 'HT_GUEST'
+              ReadOnly = False
+              StrictOnExit = True
+              Distinct = False
+              FullSearchOnExit = False
+              ViewType = vtByClass
+              Style = csDropDown
+              Anchors = [akLeft, akTop]
+              Color = clWindow
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              DropDownCount = 16
+              Enabled = True
+              ImeMode = imDontCare
+              ImeName = ''
+              ItemHeight = 13
+              MaxLength = 0
+              ParentBiDiMode = True
+              ParentColor = False
+              ParentCtl3D = True
+              ParentFont = True
+              ParentShowHint = False
+              PopupMenu = nil
+              ShowHint = True
+              TabOrder = 4
+              Visible = True
+            end
+            object usrg_lcProcKey: TgsIBLookupComboBox
+              Tag = 0
+              Left = 75
+              Top = 37
+              Width = 193
+              Height = 21
+              Cursor = crDefault
+              HelpContext = 1
+              TabStop = True
+              Database = dmDatabase.ibdbGAdmin
+              Transaction = dmDatabase.ibtrGenUniqueID
+              DataSource = nil
+              DataField = ''
+              Fields = ''
+              ListTable = 'USR$HT_SERVICE'
+              ListField = 'USR$NAME'
+              KeyField = 'ID'
+              SortOrder = soNone
+              SortField = ''
+              CheckUserRights = False
+              Condition = ''
+              gdClassName = 'TgdcAttrUserDefinedLBRBTree'
+              SubType = ''
+              ReadOnly = False
+              StrictOnExit = True
+              Distinct = False
+              FullSearchOnExit = False
+              ViewType = vtByClass
+              Style = csDropDown
+              Anchors = [akLeft, akTop]
+              Color = clWindow
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              DropDownCount = 16
+              Enabled = True
+              ImeMode = imDontCare
+              ImeName = ''
+              ItemHeight = 13
+              MaxLength = 0
+              ParentBiDiMode = True
+              ParentColor = False
+              ParentCtl3D = True
+              ParentFont = True
+              ParentShowHint = False
+              PopupMenu = nil
+              ShowHint = True
+              TabOrder = 1
+              Visible = True
+            end
+            object usrg_lcApparatuskey: TgsIBLookupComboBox
+              Tag = 0
+              Left = 333
+              Top = 37
+              Width = 193
+              Height = 21
+              Cursor = crDefault
+              HelpContext = 1
+              TabStop = True
+              Database = dmDatabase.ibdbGAdmin
+              Transaction = dmDatabase.ibtrGenUniqueID
+              DataSource = nil
+              DataField = ''
+              Fields = ''
+              ListTable = 
+                'usr$san_procapparatus app join USR$PROC_TO_PROCAPP procapp ON pr' +
+                'ocapp.USR$PROCAPP = app.ID'
+              ListField = 'app.USR$NAME'
+              KeyField = 'app.id'
+              SortOrder = soNone
+              SortField = ''
+              CheckUserRights = False
+              Condition = 'procapp.USR$PROCEDURE = 147110343'
+              gdClassName = 'TgdcAttrUserDefined'
+              SubType = ''
+              ReadOnly = False
+              StrictOnExit = True
+              Distinct = False
+              FullSearchOnExit = False
+              ViewType = vtByClass
+              Style = csDropDown
+              Anchors = [akLeft, akTop]
+              Color = clWindow
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              DropDownCount = 16
+              Enabled = True
+              ImeMode = imDontCare
+              ImeName = ''
+              ItemHeight = 13
+              MaxLength = 0
+              ParentBiDiMode = True
+              ParentColor = False
+              ParentCtl3D = True
+              ParentFont = True
+              ParentShowHint = False
+              PopupMenu = nil
+              ShowHint = True
+              TabOrder = 2
+              Visible = True
+            end
+            object usrg_GroupBox1: TGroupBox
+              Tag = 0
+              Left = 5
+              Top = 97
+              Width = 521
+              Height = 79
+              Cursor = crDefault
+              Hint = ''
+              HelpContext = 0
+              Align = alNone
+              Anchors = [akLeft, akTop]
+              Caption = 'Количество процедур'
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              DockSite = False
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              Enabled = True
+              ParentBiDiMode = True
+              ParentColor = True
+              ParentCtl3D = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              TabOrder = 5
+              TabStop = False
+              Visible = True
+              object usrg_Label8: TLabel
+                Tag = 0
+                Left = 6
+                Top = 22
+                Width = 33
+                Height = 13
+                Cursor = crDefault
+                Hint = ''
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoSize = True
+                Caption = 'Всего:'
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FocusControl = nil
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ShowAccelChar = True
+                Transparent = False
+                Layout = tlTop
+                Visible = True
+                WordWrap = False
+              end
+              object usrg_Label6: TLabel
+                Tag = 0
+                Left = 218
+                Top = 21
+                Width = 95
+                Height = 13
+                Cursor = crDefault
+                Hint = ''
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoSize = True
+                Caption = 'Из них по путевке:'
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FocusControl = nil
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ShowAccelChar = True
+                Transparent = False
+                Layout = tlTop
+                Visible = True
+                WordWrap = False
+              end
+              object usrg_lbQuantMax: TLabel
+                Tag = 0
+                Left = 398
+                Top = 20
+                Width = 3
+                Height = 13
+                Cursor = crDefault
+                Hint = ''
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoSize = True
+                Caption = ''
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FocusControl = nil
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ShowAccelChar = True
+                Transparent = False
+                Layout = tlTop
+                Visible = True
+                WordWrap = False
+              end
+              object usrg_lbQuant: TLabel
+                Tag = 0
+                Left = 460
+                Top = 21
+                Width = 3
+                Height = 13
+                Cursor = crDefault
+                Hint = ''
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoSize = True
+                Caption = ''
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FocusControl = nil
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ShowAccelChar = True
+                Transparent = False
+                Layout = tlTop
+                Visible = True
+                WordWrap = False
+              end
+              object usrg_Label7: TLabel
+                Tag = 0
+                Left = 275
+                Top = 48
+                Width = 38
+                Height = 13
+                Cursor = crDefault
+                Hint = ''
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoSize = True
+                Caption = 'платно:'
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FocusControl = nil
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ShowAccelChar = True
+                Transparent = False
+                Layout = tlTop
+                Visible = True
+                WordWrap = False
+              end
+              object usrg_ceQuantAll: TxCalculatorEdit
+                Tag = 0
+                Left = 70
+                Top = 18
+                Width = 65
+                Height = 21
+                Cursor = crIBeam
+                Hint = ''
+                HelpContext = 0
+                TabStop = True
+                Anchors = [akLeft, akTop]
+                AutoSelect = True
+                AutoSize = True
+                BorderStyle = bsSingle
+                CharCase = ecNormal
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                HideSelection = True
+                ImeMode = imDontCare
+                ImeName = ''
+                MaxLength = 0
+                OEMConvert = False
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PasswordChar = #0
+                PopupMenu = nil
+                ReadOnly = False
+                TabOrder = 0
+                Text = '0'
+                Visible = True
+                Value = 0
+                DecDigits = -1
+              end
+              object usrg_ceQuant: TxCalculatorEdit
+                Tag = 0
+                Left = 328
+                Top = 17
+                Width = 65
+                Height = 21
+                Cursor = crArrow
+                Hint = ''
+                HelpContext = 0
+                TabStop = True
+                Anchors = [akLeft, akTop]
+                AutoSelect = True
+                AutoSize = True
+                BorderStyle = bsSingle
+                CharCase = ecNormal
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                HideSelection = True
+                ImeMode = imDontCare
+                ImeName = ''
+                MaxLength = 0
+                OEMConvert = False
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PasswordChar = #0
+                PopupMenu = nil
+                ReadOnly = False
+                TabOrder = 1
+                Text = '0'
+                Visible = True
+                Value = 0
+                DecDigits = -1
+              end
+              object usrg_ceQuantPay: TxCalculatorEdit
+                Tag = 0
+                Left = 328
+                Top = 44
+                Width = 65
+                Height = 21
+                Cursor = crIBeam
+                Hint = ''
+                HelpContext = 0
+                TabStop = True
+                Anchors = [akLeft, akTop]
+                AutoSelect = True
+                AutoSize = True
+                BorderStyle = bsSingle
+                CharCase = ecNormal
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                HideSelection = True
+                ImeMode = imDontCare
+                ImeName = ''
+                MaxLength = 0
+                OEMConvert = False
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PasswordChar = #0
+                PopupMenu = nil
+                ReadOnly = False
+                TabOrder = 2
+                Text = '0'
+                Visible = True
+                Value = 0
+                DecDigits = -1
+              end
+            end
+          end
+          object usrg_Panel2: TPanel
+            Tag = 0
+            Left = 0
+            Top = 191
+            Width = 531
+            Height = 33
+            Cursor = crDefault
+            Hint = ''
+            HelpContext = 0
+            Align = alBottom
+            Alignment = taCenter
+            Anchors = [akLeft, akRight, akBottom]
+            AutoSize = False
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelWidth = 1
+            BorderWidth = 0
+            BorderStyle = bsNone
+            Caption = ''
+            Color = clBtnFace
+            Constraints.MaxHeight = 0
+            Constraints.MaxWidth = 0
+            Constraints.MinHeight = 0
+            Constraints.MinWidth = 0
+            UseDockManager = True
+            DockSite = False
+            DragCursor = crDrag
+            DragKind = dkDrag
+            DragMode = dmManual
+            Enabled = True
+            FullRepaint = True
+            Locked = False
+            ParentBiDiMode = True
+            ParentColor = False
+            ParentCtl3D = True
+            ParentFont = True
+            ParentShowHint = True
+            PopupMenu = nil
+            TabOrder = 0
+            TabStop = False
+            Visible = True
+            object usrg_btnOk: TButton
+              Tag = 0
+              Left = 349
+              Top = 4
+              Width = 91
+              Height = 25
+              Cursor = crDefault
+              Action = usrg_actOk
+              Anchors = [akLeft, akTop]
+              Cancel = False
+              Caption = 'Редактировать'
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              Default = True
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              ModalResult = 1
+              ParentBiDiMode = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              TabOrder = 0
+              TabStop = True
+            end
+            object usrg_btnCancel: TButton
+              Tag = 0
+              Left = 447
+              Top = 4
+              Width = 75
+              Height = 25
+              Cursor = crDefault
+              Action = usrg_actCancel
+              Anchors = [akLeft, akTop]
+              Cancel = True
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              Default = False
+              DragCursor = crDrag
+              DragKind = dkDrag
+              DragMode = dmManual
+              ModalResult = 0
+              ParentBiDiMode = True
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              TabOrder = 1
+              TabStop = True
+            end
+          end
+          object usrg_ActionList1: TActionList
+            Tag = 0
+            Images = nil
+            Left = 191
+            Top = 15
+            object usrg_actOk: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Создать'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = -1
+              ShortCut = 0
+              Visible = True
+            end
+            object usrg_actCancel: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Отмена'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = -1
+              ShortCut = 0
+              Visible = True
+            end
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147494715_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147494713_939084064 GLOBAL\\NewForm\\usrf_san_timelessproc"
+      NAME: "Class"
+      CURR_DATA: ~
+      DATA_TYPE: "S"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: "TgdcCreateableForm"
+      EDITIONDATE: 2017-12-17T23:32:06+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147494716_939084064
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147494713_939084064 GLOBAL\\NewForm\\usrf_san_timelessproc"
+      NAME: "InternalType"
+      CURR_DATA: ~
+      DATA_TYPE: "I"
+      DATETIME_DATA: ~
+      INT_DATA: 1
+      STR_DATA: ~
+      EDITIONDATE: 2017-12-17T23:32:06+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147494819_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494817_809241643
+    Fields: 
+      NAME: "usrg_actOkOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147494717_939084064 usrf_san_timelessproc"
+      OBJECTNAME: "usrf_san_timelessproc"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-12-18T21:48:41+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTOKONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_actOkOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***\
+          if Sender.OwnerForm.GetComponent("usrg_lcProcKey").CurrentKeyInt <= 0 then
+            Sender.OwnerForm.ModalResult = 0
+            call Exception.Raise("Exception", "Выберите процедуру!")
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494816_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494817_809241643
+    Fields: 
+      PARENT: "147494717_939084064 usrf_san_timelessproc"
+      NAME: "usrg_actOk"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_actOk"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-18T13:37:34+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147494817_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "147494819_809241643 usrg_actOkOnExecute"
+      OBJECTKEY: "147494816_809241643 usrf_san_timelessproc\\usrg_actOk"
+      OBJECTNAME: "usrg_actOk"
+      PARENTNAME: "usrf_san_timelessproc"
+      EDITIONDATE: 2017-12-18T21:48:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147495101_939674359
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147495099_939674359
+    Fields: 
+      NAME: "gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURESOnSetupRecord"
+      COMMENT: ~
+      EVENT: "ONSETUPRECORD"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147680969_2141903886 gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-03T18:05:24+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGATTRUSERDEFINEDUSR_SAN_TIMELESSPROCEDURESONSETUPRECORD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURESOnSetupRecord(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnSetupRecord", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim lcDocSell
+          set lcDocSell = Sender.GetComponent("usrat_gsIBLookupComboBox_USR_DOCSELLKEY")
+          lcDocSell.Params.Clear
+          lcDocSell.Params.Add("DOCLINEKEY=" & Sender.gdcObject.ID)
+          lcDocSell.CurrentKeyInt = Sender.gdcObject.FieldByName("USR$DOCSELLKEY").AsInteger
+          if Sender.gdcObject.FieldByName("USR$PROCEDUREKEY").AsInteger > 0 then
+            Sender.OwnerForm.GetComponent("usrat_gsIBLookupComboBox_USR_PROCAPPARATUS").Condition = "procapp.USR$PROCEDURE = " & _
+              Sender.gdcObject.FieldByName("USR$PROCEDUREKEY").AsInteger
+          else
+            Sender.OwnerForm.GetComponent("usrat_gsIBLookupComboBox_USR_PROCAPPARATUS").Condition = ""
+          end if
+        
+          set lcDocSell.Transaction = Sender.gdcObject.Transaction
+          lcDocSell.ListTable = "USR$SAN_SELECTDOCSELL(:doclinekey) sel"
+          lcDocSell.ListField = "sel.DOCNUMBER"
+          lcDocSell.KeyField = "sel.DOCUMENTKEY"
+          lcDocSell.Fields = "sel.DOCUMENTDATE, sel.QUANT, sel.DOCTORNAME"
+          lcDocSell.Condition = "sel.QUANT > 0"
+          
+          dim lcContact
+          set lcContact = Sender.FindComponent("usrat_gsIBLookupComboBox_USR_CL_CONTACTKEY")
+          if Sender.gdcObject.FieldByName("USR$CL_CONTACTKEY").AsInteger > 0 then
+            dim q, Creator
+            set Creator = new TCreator
+            set q = Creator.GetObject(nil, "TIBSQL", "")
+            set q.Transaction = gdcBaseManager.ReadTransaction
+            q.SQL.Text = _
+              "SELECT CONTACTTYPE FROM GD_CONTACT WHERE ID = " & _
+                Sender.gdcObject.FieldByName("USR$CL_CONTACTKEY").AsString
+            q.ExecQuery
+            if q.FieldByName("CONTACTTYPE").AsInteger = 2 then
+              Sender.GetComponent("usrg_RadioButton2").Checked = true
+              lcContact.Condition = "contacttype = 2 "
+              lcContact.gdClassName = "TgdcContact"
+            else
+              Sender.GetComponent("usrg_RadioButton1").Checked = true
+              lcContact.Condition = "contacttype = 3 "
+              lcContact.gdClassName = "TgdcCompany"
+            end if
+          else
+            Sender.GetComponent("usrg_RadioButton1").Checked = true
+            lcContact.Condition = "contacttype = 3 "
+            lcContact.gdClassName = "TgdcCompany"
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147495099_939674359
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONSETUPRECORD"
+      FUNCTIONKEY: "147495101_939674359 gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURESOnSetupRecord"
+      OBJECTKEY: "147680969_2141903886 gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES"
+      PARENTNAME: ~
+      EDITIONDATE: 2021-03-03T18:05:24+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147494812_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494810_809241643
+    Fields: 
+      NAME: "usrg_ceQuantPayOnChange"
+      COMMENT: ~
+      EVENT: "ONCHANGE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147494717_939084064 usrf_san_timelessproc"
+      OBJECTNAME: "usrf_san_timelessproc"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-12-18T13:30:21+03:00
+      DISPLAYSCRIPT: | 
+        USRG_CEQUANTPAYONCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_ceQuantPayOnChange(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnChange", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          if not Sender.OwnerForm.VariableExists("IsQuantAll") then
+            Sender.OwnerForm.AddVariableItem("IsQuantAll")
+            Sender.OwnerForm.Variables("IsQuantAll") = false
+          end if
+          if not Sender.OwnerForm.Variables("IsQuantAll") then
+            if not Sender.OwnerForm.VariableExists("IsQuant") then
+              Sender.OwnerForm.AddVariableItem("IsQuant")
+            end if
+            Sender.OwnerForm.Variables("IsQuant") = true
+            Sender.OwnerForm.GetComponent("usrg_ceQuantAll").Value = _
+              Sender.Value + Sender.OwnerForm.GetComponent("usrg_ceQuant").Value
+            Sender.OwnerForm.Variables("IsQuant") = false
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494809_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494810_809241643
+    Fields: 
+      PARENT: "147494717_939084064 usrf_san_timelessproc"
+      NAME: "usrg_ceQuantPay"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_ceQuantPay"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-18T13:14:33+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147494810_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCHANGE"
+      FUNCTIONKEY: "147494812_809241643 usrg_ceQuantPayOnChange"
+      OBJECTKEY: "147494809_809241643 usrf_san_timelessproc\\usrg_ceQuantPay"
+      OBJECTNAME: "usrg_ceQuantPay"
+      PARENTNAME: "usrf_san_timelessproc"
+      EDITIONDATE: 2017-12-18T13:30:21+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147494663_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494661_809241643
+    Fields: 
+      NAME: "usrg_ceQuantAllOnChange"
+      COMMENT: ~
+      EVENT: "ONCHANGE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147494717_939084064 usrf_san_timelessproc"
+      OBJECTNAME: "usrf_san_timelessproc"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-12-18T13:29:57+03:00
+      DISPLAYSCRIPT: | 
+        USRG_CEQUANTALLONCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_ceQuantAllOnChange(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnChange", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          if not Sender.OwnerForm.VariableExists("IsQuant") then
+            Sender.OwnerForm.AddVariableItem("IsQuant")
+            Sender.OwnerForm.Variables("IsQuant") = false
+          end if
+          if not Sender.OwnerForm.VariableExists("IsQuantAll") then
+            Sender.OwnerForm.AddVariableItem("IsQuantAll")
+          end if
+          Sender.OwnerForm.Variables("IsQuantAll") = true
+          if not Sender.OwnerForm.Variables("IsQuant") then
+            dim Q, QPermit
+            if Sender.OwnerForm.GetComponent("usrg_lbQuant").Caption = "" then
+              Q = 0
+            else
+              Q = CInt(Sender.OwnerForm.GetComponent("usrg_lbQuant").Caption)
+            end if
+            if Q > Sender.Value then
+              QPermit = Sender.Value
+            else
+              QPermit = Q
+            end if
+            Sender.OwnerForm.GetComponent("usrg_ceQuant").Value = QPermit
+            Sender.OwnerForm.GetComponent("usrg_ceQuantPay").Value = Sender.Value - QPermit
+          end if
+          Sender.OwnerForm.Variables("IsQuantAll") = false
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494660_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494661_809241643
+    Fields: 
+      PARENT: "147494717_939084064 usrf_san_timelessproc"
+      NAME: "usrg_ceQuantAll"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_ceQuantAll"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-18T12:58:33+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147494661_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCHANGE"
+      FUNCTIONKEY: "147494663_809241643 usrg_ceQuantAllOnChange"
+      OBJECTKEY: "147494660_809241643 usrf_san_timelessproc\\usrg_ceQuantAll"
+      OBJECTNAME: "usrg_ceQuantAll"
+      PARENTNAME: "usrf_san_timelessproc"
+      EDITIONDATE: 2017-12-18T13:29:57+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147494808_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494806_809241643
+    Fields: 
+      NAME: "usrg_ceQuantOnChange"
+      COMMENT: ~
+      EVENT: "ONCHANGE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147494717_939084064 usrf_san_timelessproc"
+      OBJECTNAME: "usrf_san_timelessproc"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-12-18T13:30:24+03:00
+      DISPLAYSCRIPT: | 
+        USRG_CEQUANTONCHANGE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_ceQuantOnChange(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnChange", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          if not Sender.OwnerForm.VariableExists("IsQuantAll") then
+            Sender.OwnerForm.AddVariableItem("IsQuantAll")
+            Sender.OwnerForm.Variables("IsQuantAll") = false
+          end if
+          if not Sender.OwnerForm.Variables("IsQuantAll") then
+            if not Sender.OwnerForm.VariableExists("IsQuant") then
+              Sender.OwnerForm.AddVariableItem("IsQuant")
+            end if
+            Sender.OwnerForm.Variables("IsQuant") = true
+            Sender.OwnerForm.GetComponent("usrg_ceQuantAll").Value = _
+              Sender.Value + Sender.OwnerForm.GetComponent("usrg_ceQuantPay").Value
+            Sender.OwnerForm.Variables("IsQuant") = false
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147494664_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147494806_809241643
+    Fields: 
+      PARENT: "147494717_939084064 usrf_san_timelessproc"
+      NAME: "usrg_ceQuant"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_ceQuant"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-18T13:09:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147494806_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONCHANGE"
+      FUNCTIONKEY: "147494808_809241643 usrg_ceQuantOnChange"
+      OBJECTKEY: "147494664_809241643 usrf_san_timelessproc\\usrg_ceQuant"
+      OBJECTNAME: "usrg_ceQuant"
+      PARENTNAME: "usrf_san_timelessproc"
+      EDITIONDATE: 2017-12-18T13:30:24+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147499325_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147499323_809241643
+    Fields: 
+      NAME: "usrg_actSelectPayOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147680969_2141903886 gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-12-29T12:42:51+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTSELECTPAYONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_actSelectPayOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim Creator, gdcOrder, gdcOrderLine, ibsql, GoodKey
+          set Creator = new TCreator
+          set gdcOrderLine = Creator.GetObject(NULL, "TgdcUserDocumentLine", "")
+          gdcOrderLine.SubType = "147014509_9263644"
+          dim gdcOBject, lcDocSell
+          set gdcObject = Sender.OwnerForm.gdcObject
+          set lcDocSell = Sender.OwnerForm.GetComponent("usrat_gsIBLookupComboBox_USR_DOCSELLKEY")
+        
+          set ibsql = Creator.GetObject(null, "TIBSQl", "")
+          ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.SQl.Text = _
+            " SELECT s.USR$GOODKEYLINK " &_
+            " FROM USR$HT_SERVICE s  " & _
+            " WHERE s.ID = :servkey "
+          ibsql.ParamByName("servkey").AsInteger = gdcObject.FieldByName("USR$PROCEDUREKEY").AsInteger
+          ibsql.ExecQuery
+        
+          GoodKey = ibsql.FieldByName("USR$GOODKEYLINK").AsInteger
+        
+          if GoodKey > 0 then
+            if gdcOrderLine.ChooseOrderItemsSelf(Sender.OwnerForm, "", "", "USR$GOODKEY = " & GoodKey) then
+              if gdcOrderLine.SelectedID.Count > 0 then
+                lcDocSell.ListTable = "GD_DOCUMENT"
+                lcDocSell.ListField = "NUMBER"
+                lcDocSell.KeyField = "ID"
+                lcDocSell.Fields = "DOCUMENTDATE"
+                lcDocSell.Condition = "ID = " & gdcOrderLine.SelectedID.Keys(0)
+                gdcObject.FieldByName("USR$DOCSELLKEY").AsInteger = gdcOrderLine.SelectedID.Keys(0)
+              end if
+            end if
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147499322_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147499323_809241643
+    Fields: 
+      PARENT: "147680969_2141903886 gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES"
+      NAME: "usrg_actSelectPay"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_actSelectPay"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2017-12-29T12:36:44+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147499323_809241643
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "147499325_809241643 usrg_actSelectPayOnExecute"
+      OBJECTKEY: "147499322_809241643 gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES\\usrg_actSelectPay"
+      OBJECTNAME: "usrg_actSelectPay"
+      PARENTNAME: "gdc_dlgAttrUserDefinedUSR_SAN_TIMELESSPROCEDURES"
+      EDITIONDATE: 2017-12-29T12:42:51+03:00
