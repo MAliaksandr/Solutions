@@ -1,0 +1,820 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147102710_1618110428
+  Name: "Добавление инф-и в gd_joirnal по удаленным позициям из накопителя"
+  Caption: "Добавление инф-и в gd_joirnal по удаленным позициям из накопителя"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 72CC31F874F5FBFB421D7ACAAC9E2861
+Uses: 
+  - "147176379_805512226 GS new. Общепит бэк. Накопитель"
+  - "147753062_69526485 GS.Общие.Хранилище"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147101181_1618110428
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147101134_1618110428
+    Fields: 
+      NAME: "gs_addToJournal"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-10T19:54:57+03:00
+      DISPLAYSCRIPT: | 
+        GS_ADDTOJOURNAL
+        GS_ADDTOJOURNAL_EXCEPTION
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU09VUkNFBgAAAFNPVVJDRQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        UFJTVAQAAABJTkZPBAAAAElORk8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Function gs_addToJournal(SOURCE,INFO)
+        
+          dim Creator, Transaction , Obj
+          set Creator = new TCreator
+          set Transaction = Creator.GetObject(nil, "TIBTransaction", "")
+          Transaction.DefaultDataBase = gdcBaseManager.Database
+          Transaction.StartTransaction
+          
+          Except gs_addToJournal_exception(Transaction)
+           call gdcBaseManager.ExecSingleQueryParam( _
+             "INSERT INTO GD_JOURNAL(CONTACTKEY,OPERATIONDATE,SOURCE,DATA) VALUES(:CONTACTKEY, current_date || ' ' || current_time,:SOURCE,:info )", _
+             Array(IBLogin.ContactKey,SOURCE,INFO), Transaction)
+        
+          if Transaction.inTransaction then Transaction.Commit
+        End Function
+        
+        sub gs_addToJournal_exception(Transaction)
+          if Transaction.InTransaction then Transaction.RollBack
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147101134_1618110428
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "add_to_journal"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147054396_1065632896 gdc_frmAttrUserDefinedUSR_MN_ACCUMULATOR"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_ACCUMULATOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-10T23:34:43+03:00
+      DISPLAYSCRIPT: | 
+        ADD_TO_JOURNAL
+        ADD_TO_JOURNAL_EXCEPTION
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_ADDTOJOURNAL
+        Option Explicit
+        Sub add_to_journal(OwnerForm)
+        
+          dim Arr, ID
+          Arr = OwnerForm.SelectedKey
+          if IsArray(Arr) then
+            ID = Join(Arr, ",")
+          else
+            ID = Arr(0)
+          end if
+          
+          if ID = "()" then
+            call Exception.Raise("Exception", "Пустой набор данных")
+            exit Sub
+          end if
+          
+        
+          
+          dim Creator, Transaction , Obj, ibSQL
+          set Obj = OwnerForm.gdcObject
+          set Creator = new TCreator
+          set Transaction = Creator.GetObject(nil, "TIBTransaction", "")
+          Transaction.DefaultDataBase = gdcBaseManager.Database
+          Transaction.StartTransaction
+          
+          Except add_to_journal_Exception(Transaction)
+          
+          set ibSQL = Creator.GetObject(null, "TIBSQL","")
+          ibSQL.Transaction = Transaction
+          ibSQL.Sql.Text = _
+          "SELECT " & _
+          "  Z.EDITIONDATE, " & _
+          "  Z.USR$GOODKEY, " & _
+          "  g.NAME as GOODNAME, " & _
+          "  Z.USR$DATE, " & _
+          "  Z.USR$QUANTITY, " & _
+          "  Dep.NAme as DepName, "  & _
+          "  Z.USR$PROCESSED " & _
+          " " & _
+          "FROM USR$MN_ACCUMULATOR Z " & _
+          "LEFT JOIN GD_GOOD G ON G.ID  =  Z.USR$GOODKEY " & _
+          "LEFT JOIN GD_CONTACT Dep ON DEP.ID  =  Z.USR$DEPOTKEY " & _
+          "where z.ID in (" & ID & ") "
+          ibSQL.ExecQuery
+        
+          ' дата/дата модиф/goodkey/товар/кол-во/подразделение/обработано
+          dim descr, i, INFO
+          descr = ""
+          while not ibSQL.eof
+        
+           descr = descr & vbLf &_
+           CSTR(ibSQL.FieldByName("USR$DATE").asVariant) & "|" & _
+           CSTR(ibSQL.FieldByName("EDITIONDATE").asVariant) & "|" & _
+           CSTR(ibSQL.FieldByName("USR$GOODKEY").asVariant) & "|" & _
+           CSTR(ibSQL.FieldByName("GOODNAME").asVariant) & "|" & _
+           CSTR(ibSQL.FieldByName("USR$QUANTITY").asVariant) & "|" & _
+           CSTR(ibSQL.FieldByName("DepName").asVariant)  & "|" & _
+           CSTR(ibSQL.FieldByName("USR$PROCESSED").asVariant)
+        
+            i=i+1
+            ibSQL.next
+          wend
+          INFO = "дата/дата модиф/goodkey/товар/кол-во/подразделение/обработано:" & descr
+          call gs_addToJournal("mn_accumulator",INFO)
+        
+          ibSQL.Close
+          ibSQL.Sql.Text = _
+          "DELETE FROM USR$MN_ACCUMULATOR WHERE ID IN (" & ID & ") "
+          ibSQL.ExecQuery
+          
+          if Transaction.InTransaction then Transaction.Commit
+        
+          
+          Obj.CloseOpen
+          
+        End Sub
+        sub add_to_journal_Exception(Transaction)
+          if Transaction.InTransaction then Transaction.RollBack
+        end sub
+        
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147101181_1618110428 gs_addToJournal"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147102708_1618110428
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_delFromAccumulatorOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147054396_1065632896 gdc_frmAttrUserDefinedUSR_MN_ACCUMULATOR"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_ACCUMULATOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-02T23:44:03+03:00
+      DISPLAYSCRIPT: | 
+        USRG_DELFROMACCUMULATORONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include ADD_TO_JOURNAL
+        Option Explicit
+        Sub usrg_delFromAccumulatorOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+         if Application.MessageBox("Выбранные записи будут безвозвратно удалены. Подтверждаете?","Внимание",vbExclamation+vbSystemModal+vbYesNo)=vbYes Then
+           call add_to_journal(Sender.OwnerForm)
+         end if
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147101134_1618110428 add_to_journal"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147101196_1618110428
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_USR_MN_ACCUMULATOR_gsAction1OnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147054396_1065632896 gdc_frmAttrUserDefinedUSR_MN_ACCUMULATOR"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_ACCUMULATOR"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-10T23:53:32+03:00
+      DISPLAYSCRIPT: | 
+        USRG_USR_MN_ACCUMULATOR_GSACTION1ONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include ADD_TO_JOURNAL
+        Option Explicit
+        Sub usrg_USR_MN_ACCUMULATOR_gsAction1OnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+         if Application.MessageBox("Выбранные записи будут безвозвратно удалены. Подтверждаете?","Внимание",vbExclamation+vbSystemModal+vbYesNo)=vbYes Then
+           call add_to_journal(Sender.OwnerForm)
+         end if
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147101134_1618110428 add_to_journal"
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147101197_1618110428
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "396903548_1523996594 GLOBAL\\DFM\\Tgdc_frmAttrUserDefined"
+      NAME: "USR$MN_ACCUMULATOR"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-02-02T23:48:01+03:00
+      BLOB_DATA: | 
+        object gdc_frmAttrUserDefinedUSR_MN_ACCUMULATOR: Tgdc_frmAttrUserDefined
+          ActiveControl = nil
+          PixelsPerInch = 96
+          TextHeight = 13
+          object sbMain: TStatusBar
+            Panels = <
+              item
+                Text = 'Нет фильтрации'
+                Width = 1390
+              end
+              item
+                Width = 160
+              end>
+          end
+          object TBDockTop: TTBDock
+            object tbMainToolbar: TTBToolbar
+              SavedAtRunTime = True
+              object tbiNew: TTBItem
+              end
+              object tbiEdit: TTBItem
+              end
+              object tbiDelete: TTBItem
+              end
+              object tbiDuplicate: TTBItem
+              end
+              object tbiReduction: TTBItem
+              end
+              object tbsiMainOne: TTBSeparatorItem
+              end
+              object tbiEditInGrid: TTBItem
+              end
+              object tbiCopy: TTBItem
+              end
+              object tbiCut: TTBItem
+              end
+              object tbiPaste: TTBItem
+              end
+              object tbsiMainOneAndHalf: TTBSeparatorItem
+              end
+              object tbiLoadFromFile: TTBItem
+              end
+              object tbiSaveToFile: TTBItem
+              end
+              object tbsiMainTwo: TTBSeparatorItem
+              end
+              object tbiFind: TTBItem
+              end
+              object tbiFilter: TTBItem
+              end
+              object tbiPrint: TTBItem
+              end
+              object tbiOnlySelected: TTBItem
+              end
+              object tbiLinkObject: TTBItem
+              end
+              object tbsiMainThreeAndAHalf: TTBSeparatorItem
+              end
+              object tbiHelp: TTBItem
+              end
+            end
+            object tbMainCustom: TTBToolbar
+              Left = 535
+              SavedAtRunTime = True
+            end
+            object tbMainMenu: TTBToolbar
+              SavedAtRunTime = True
+              object tbsiMainMenuObject: TTBSubmenuItem
+                object tbi_mm_New: TTBItem
+                end
+                object tbi_mm_Edit: TTBItem
+                end
+                object tbi_mm_Delete: TTBItem
+                end
+                object tbi_mm_Duplicate: TTBItem
+                end
+                object tbi_mm_Reduction: TTBItem
+                end
+                object tbi_mm_sep1_1: TTBSeparatorItem
+                end
+                object tbi_mm_Copy: TTBItem
+                end
+                object tbi_mm_Cut: TTBItem
+                end
+                object tbi_mm_Paste: TTBItem
+                end
+                object tbi_mm_sep2_2_: TTBSeparatorItem
+                end
+                object tbi_mm_AddToSelected: TTBItem
+                end
+                object tbi_mm_RemoveFromSelected: TTBItem
+                end
+                object tbi_mm_sep2_1: TTBSeparatorItem
+                end
+                object tbi_mm_Load: TTBItem
+                end
+                object tbi_mm_Save: TTBItem
+                end
+                object tbi_mm_sep3_1: TTBSeparatorItem
+                end
+                object tbi_mm_Commit: TTBItem
+                end
+                object tbi_mm_Rollback: TTBItem
+                end
+                object tbi_mm_sep4_1: TTBSeparatorItem
+                end
+                object tbi_mm_Find: TTBItem
+                end
+                object tbi_mm_Filter: TTBItem
+                end
+                object tbi_mm_Print: TTBItem
+                end
+                object tbi_mm_Macro: TTBItem
+                end
+                object tbi_mm_OnlySelected: TTBItem
+                end
+                object tbi_mm_LinkObject: TTBItem
+                end
+                object tbi_mm_sep5_1: TTBSeparatorItem
+                end
+                object tbi_mm_MainToSetting: TTBItem
+                end
+                object tbi_mm_sep5_2_: TTBSeparatorItem
+                end
+                object tbi_mm_CopySettings: TTBItem
+                end
+                object tbiDistributeSettings: TTBItem
+                end
+                object tbiDontSaveSettings: TTBItem
+                end
+              end
+              object tbsiMainMenuHelp: TTBSubmenuItem
+                object tbiMainMenuHelp: TTBItem
+                end
+              end
+            end
+            object tbMainInvariant: TTBToolbar
+              SavedAtRunTime = True
+              object tbiCommit: TTBItem
+              end
+              object tbiRollback: TTBItem
+              end
+              object tbsiMainThree: TTBSeparatorItem
+              end
+              object tbiMacros: TTBItem
+              end
+              object usrg_USR_MN_ACCUMULATOR_TBItem1: TTBItem
+                Tag = 0
+                Action = usrg_delFromAccumulator
+                AutoCheck = False
+                DisplayMode = nbdmImageAndText
+                GroupIndex = 0
+                Images = dmImages.il16x16
+                InheritOptions = True
+                MaskOptions = []
+                Options = []
+                RadioItem = False
+              end
+            end
+            object tbChooseMain: TTBToolbar
+              Left = 502
+              SavedAtRunTime = True
+              object tbiSelectAll: TTBItem
+              end
+              object tbiUnSelectAll: TTBItem
+              end
+              object tbiClearSelection: TTBItem
+              end
+            end
+          end
+          object TBDockLeft: TTBDock
+          end
+          object TBDockRight: TTBDock
+          end
+          object TBDockBottom: TTBDock
+          end
+          object pnlWorkArea: TPanel
+            object spChoose: TSplitter
+              Top = 627
+              Width = 1550
+            end
+            object pnlMain: TPanel
+              object pnlSearchMain: TPanel
+                Height = 532
+                object sbSearchMain: TScrollBox
+                  Height = 505
+                end
+                object pnlSearchMainButton: TPanel
+                  object btnSearchMain: TButton
+                  end
+                  object btnSearchMainClose: TButton
+                  end
+                  object chbxFuzzyMatch: TCheckBox
+                  end
+                end
+              end
+              object ibgrMain: TgsIBGrid
+                Expands = <>
+                Conditions = <
+                  item
+                    ConditionName = 'обработанные'
+                    DisplayFields = 
+                      'ID;DISABLED;EDITIONDATE;EDITORKEY;USR$QUANTITY;USR$DEPOTKEY;Z_US' +
+                      'R$DEPOTKEY_NAME;Z_USR$DEPOTKEY_ADDRESS;USR$GOODKEY;Z_USR$GOODKEY' +
+                      '_NAME;Z_USR$GOODKEY_ALIAS;USR$DATE;USR$PROCESSED;'
+                    FieldName = 'USR$PROCESSED'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clGray
+                    Font.Height = -11
+                    Font.Name = 'MS Sans Serif'
+                    Font.Style = [fsStrikeOut]
+                    Color = clWhite
+                    Expression1 = '1'
+                    ConditionKind = ckEqual
+                    DisplayOptions = [doFont]
+                    EvaluateFormula = False
+                    UserCondition = False
+                  end>
+                ColumnEditors = <>
+                Aliases = <>
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'USR$PROCESSED'
+                    ReadOnly = False
+                    Title.Caption = 'Обработано'
+                    Width = 46
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$DATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата'
+                    Title.Color = 8454143
+                    Width = 104
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITIONDATE'
+                    Title.Caption = 'Дата модификации'
+                    Title.Color = 8454143
+                    Width = 108
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$GOODKEY_NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Товар'
+                    Title.Color = 8454143
+                    Width = 248
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$QUANTITY'
+                    ReadOnly = False
+                    Title.Caption = 'Количество'
+                    Title.Color = 8454143
+                    Width = 130
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$DEPOTKEY_NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Подразделение'
+                    Width = 364
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GOODKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Товар'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$DEPOTKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Подразделение'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID'
+                    Title.Caption = 'Идентификатор'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DISABLED'
+                    Title.Caption = 'Не активно'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITORKEY'
+                    Title.Caption = 'Кто модифицировал'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$DEPOTKEY_ADDRESS'
+                    ReadOnly = False
+                    Title.Caption = 'Адрес'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$GOODKEY_ALIAS'
+                    ReadOnly = False
+                    Title.Caption = 'Шифр ТМЦ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$GOODKEY_BARCODE'
+                    ReadOnly = False
+                    Title.Caption = 'Штрих код'
+                    Width = -1
+                    Visible = False
+                  end>
+              end
+            end
+            object pnChoose: TPanel
+              Top = 532
+              Width = 1550
+              object pnButtonChoose: TPanel
+                Left = 1445
+                object btnCancelChoose: TButton
+                end
+                object btnOkChoose: TButton
+                end
+                object btnDeleteChoose: TButton
+                end
+              end
+              object ibgrChoose: TgsIBGrid
+                Width = 1445
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <>
+                Aliases = <>
+              end
+              object pnlChooseCaption: TPanel
+                Width = 1550
+              end
+            end
+          end
+          object alMain: TActionList
+            Left = 92
+            Top = 79
+            object actNew: TAction
+            end
+            object actEdit: TAction
+            end
+            object actDelete: TAction
+            end
+            object actDuplicate: TAction
+            end
+            object actHlp: TAction
+            end
+            object actPrint: TAction
+            end
+            object actCut: TAction
+            end
+            object actCopy: TAction
+            end
+            object actPaste: TAction
+            end
+            object actCommit: TAction
+            end
+            object actRollback: TAction
+            end
+            object actMacros: TAction
+            end
+            object actFind: TAction
+            end
+            object actMainReduction: TAction
+            end
+            object actFilter: TAction
+            end
+            object actProperties: TAction
+            end
+            object actLoadFromFile: TAction
+            end
+            object actSaveToFile: TAction
+            end
+            object actSearchMain: TAction
+            end
+            object actSearchMainClose: TAction
+            end
+            object actOnlySelected: TAction
+            end
+            object actAddToSelected: TAction
+            end
+            object actRemoveFromSelected: TAction
+            end
+            object actQExport: TAction
+            end
+            object actMainToSetting: TAction
+            end
+            object actChooseOk: TAction
+            end
+            object actDeleteChoose: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actSelectAll: TAction
+            end
+            object actUnSelectAll: TAction
+            end
+            object actClearSelection: TAction
+            end
+            object actEditInGrid: TAction
+            end
+            object actLinkObject: TAction
+            end
+            object actDistributeSettings: TAction
+            end
+            object actDontSaveSettings: TAction
+            end
+            object actAddToSelectedFromClipboard: TAction
+            end
+            object usrg_delFromAccumulator: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Удалить запись'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = 2
+              ShortCut = 0
+              Visible = True
+            end
+          end
+          object pmMain: TPopupMenu
+            Left = 130
+            Top = 204
+            object nNew_OLD: TMenuItem
+            end
+            object nEdit_OLD: TMenuItem
+            end
+            object nDel_OLD: TMenuItem
+            end
+            object nDublicate_OLD: TMenuItem
+            end
+            object nProperties_OLD: TMenuItem
+            end
+            object nQExport_OLD: TMenuItem
+            end
+            object nSeparator1_OLD: TMenuItem
+            end
+            object actCopy1_OLD: TMenuItem
+            end
+            object actCut1_OLD: TMenuItem
+            end
+            object actPaste1_OLD: TMenuItem
+            end
+            object nSepartor2_OLD: TMenuItem
+            end
+            object nFind_OLD: TMenuItem
+            end
+            object nReduction_OLD: TMenuItem
+            end
+            object nSeparator3_OLD: TMenuItem
+            end
+            object actAddToSelected1: TMenuItem
+            end
+            object actAddToSelectedFromClipboard1: TMenuItem
+            end
+            object actRemoveFromSelected1: TMenuItem
+            end
+            object sprSetting: TMenuItem
+            end
+            object miMainToSetting: TMenuItem
+            end
+          end
+          object dsMain: TDataSource
+            Left = 92
+            Top = 204
+          end
+          object gdMacrosMenu: TgdMacrosMenu
+            Left = 249
+            Top = 111
+          end
+          object dsChoose: TDataSource
+            Left = 153
+            Top = 306
+          end
+          object pmFind: TPopupMenu
+            Left = 17
+            Top = 78
+            object miRemoveFromSearch: TMenuItem
+            end
+          end
+          object gdcAttrUserDefined: TgdcAttrUserDefined
+            Left = 122
+            Top = 79
+          end
+        end
+        
