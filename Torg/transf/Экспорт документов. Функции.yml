@@ -1,0 +1,372 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 169438068_637556225
+  Name: "Экспорт документов. Функции"
+  Caption: "Экспорт документов. Функции"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: B86CB08DC206775AB3CE59438C5657F3
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147005747_818830148
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169438038_637556225
+    Fields: 
+      NAME: "bri_Sync_AddRuid"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2008-06-27T15:07:26+03:00
+      DISPLAYSCRIPT: | 
+        BRI_SYNC_ADDRUID
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QFAAAASUJTUUwFAAAASUJTUUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
+        U1QMAAAASUJTUUxERUxSVUlEDAAAAElCU1FMREVMUlVJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNUUFJTVAIAAABJRAIAAABJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNUUFJTVAMA
+        AABYSUQDAAAAWElEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNUBAAAAERCSUQEAAAA
+        REJJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        option explicit
+        function bri_Sync_AddRuid(ibsql, ibsqlDelRUID, id, xID, dbId)
+          ibsqlDelRUID.Close
+          ibsqlDelRUID.ParamByName("xID").AsInteger = xid
+          ibsqlDelRUID.ParamByName("dbID").AsInteger = dbid
+          ibsqlDelRUID.ExecQuery
+        
+          ibsql.Close
+          ibsql.ParamByName("id").AsInteger = id
+          ibsql.ParamByName("xid").AsInteger = xid
+          ibsql.ParamByName("dbid").AsInteger = dbid
+          ibsql.ExecQuery
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169438038_637556225
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "trsf_gd_value"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-16T11:51:48+03:00
+      DISPLAYSCRIPT: | 
+        TRSF_GD_VALUE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include BRI_SYNC_ADDRUID
+        Function trsf_gd_value(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          set ibsqlValue = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlValue.Transaction = OurTr
+          ibsqlValue.SQL.Text = _
+            "select * " & _
+            "from " & _
+            "  gd_value v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 " & _
+            " where p.dbid <> 17 "
+        
+          set ibsqlGetValue = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetValue.Transaction = Transaction
+          ibsqlGetValue.SQL.Text = _
+            "select v.id FROM gd_value v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          dim qGenID
+          set qGenID = Creator.GetObject(nil, "TIBSQL", "")
+          qGenID.Transaction = Transaction
+          qGenID.SQL.Text = _
+            "SELECT " & _
+            "GEN_ID(gd_g_unique, 1) + GEN_ID(gd_g_offset, 0) AS NewID " & _
+            "FROM RDB$DATABASE "
+        
+          dim qIns
+          set qIns = Creator.GetObject(nil, "TIBSQL", "")
+          qIns.Transaction = Transaction
+          qIns.SQL.Text = _
+            " INSERT INTO GD_VALUE (ID, NAME) VALUES (:ID, :NAME) "
+        
+          dim qUpd
+          set qUpd = Creator.GetObject(nil, "TIBSQL", "")
+          qUpd.Transaction = Transaction
+          qUpd.SQL.Text = _
+            " UPDATE GD_VALUE SET NAME = :NAME WHERE ID = :ID "
+        
+          ibsqlValue.ExecQuery
+          while not ibsqlValue.EOF
+            ibsqlGetValue.Close
+            ibsqlGetValue.ParamBYName("xid").AsInteger = ibsqlValue.FieldBYName("xid").ASInteger
+            ibsqlGetValue.ParamBYName("dbid").AsInteger = ibsqlValue.FieldBYName("dbid").ASInteger
+            ibsqlGetValue.ExecQuery
+            if ibsqlGetValue.EOF then
+              qGenID.Close
+              qGenID.ExecQuery
+              NewId = qGenID.FieldByName("NewID").AsInteger
+              qIns.Close
+              qIns.ParamBYName("ID").AsInteger = NewId
+              qIns.ParamBYName("Name").AsString = ibsqlValue.FieldByName("Name").AsString
+              qIns.ExecQuery
+        
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsqlValue.FieldBYName("xid").ASInteger, ibsqlValue.FieldBYName("dbid").ASInteger)
+            else
+              qUpd.Close
+              qUpd.ParamBYName("ID").AsInteger = ibsqlGetValue.FieldByName("id").AsInteger
+              qUpd.ParamBYName("Name").AsString = ibsqlValue.FieldByName("Name").AsString
+              qUpd.ExecQuery
+            end if
+            ibsqlValue.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147005747_818830148 bri_Sync_AddRuid"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169438025_637556225
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "trsf_baseconnection"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-16T12:06:01+03:00
+      DISPLAYSCRIPT: | 
+        TRSF_BASECONNECTION
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAAREVQVEtFWQcAAABERVBUS0VZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RGTFBS
+      SCRIPT: | 
+        '#include TRSF_GD_VALUE
+        Option Explicit
+        sub trsf_baseconnection(deptkey)
+        
+          Dim Database, Creator, Transaction, TrLine, OurTr, ibsqlInsRUID, ibsqlDelRUID, FrontID
+          set Creator = New TCreator
+          set Database = Creator.GetObject(null, "TIBDatabase", "")
+          Database.Close
+          err.clear
+          on error resume next
+          Database.SQLDialect = 3
+          Database.Params.Add("user_name=SYSDBA")
+          Database.Params.Add("password=masterkey")
+          Database.Params.Add("lc_ctype=WIN1251")
+          Database.LoginPrompt = False
+        
+          dim ribsql, ibsql
+          set ribsql = New TReadIBSQL
+          set ibsql = ribsql.IBSQL
+          ibsql.SQL.Text = _
+            "select " & _
+            "l.USR$PATH as dbpath, l.ID " & _
+            "from USR$TRANSFERLIST l " & _
+            "where l.ID = :depkey "
+          ibsql.ParamByName("depkey").AsInteger = deptkey
+          ibsql.ExecQuery
+          
+          FrontID = ibsql.FieldByName("ID").asInteger
+          if ibsql.eof then
+            call Application.MessageBox("Не указаны параметры подключения для указанного подразделения!", "Внимание", mb_IconInformation + vBSystemModal)
+            exit sub
+          end if
+          
+          set OurTr = Creator.GetObject(Null, "TIBTransaction", "")
+          OurTr.DefaultDatabase = gdcBaseManager.Database
+          OurTr.Params.Add("nowait")
+          OurTr.Params.Add("rec_version")
+          OurTr.Params.Add("read_committed")
+        
+        
+          while not ibsql.eof
+        
+            Database.Close
+            err.clear
+            on error resume next
+            Database.DatabaseName = ibsql.FieldByName("dbpath").AsString
+            Database.Connected = True
+        
+            set Transaction = Creator.GetObject(Null, "TIBTransaction", "")
+            Transaction.DefaultDatabase = Database
+            Transaction.Params.Add("nowait")
+            Transaction.Params.Add("rec_version")
+            Transaction.Params.Add("read_committed")
+            Transaction.StartTransaction
+        
+            if err.Number <> 0 then
+              call Application.MessageBox("Невозможно подключиться к базе!", "Внимание", mb_IconInformation + vBSystemModal)
+              FrontID = 0
+             ' ExpSuccess = False
+            end if
+            on error goto 0
+            
+            IF FrontID <> 0 THEN
+              OurTr.StartTransaction
+              
+              set ibsqlInsRUID = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsqlInsRUID.Transaction = OurTr
+              ibsqlInsRUID.SQL.Text = _
+                "EXECUTE BLOCK(ID DFOREIGNKEY = :ID, XID DFOREIGNKEY = :XID, DBID DFOREIGNKEY = :DBID) " & _
+                "AS " & _
+                "BEGIN " & _
+                "  IF (EXISTS(SELECT * FROM GD_RUID WHERE ID = :ID))  THEN " & _
+                "    UPDATE GD_RUID " & _
+                "    SET XID = :XID, " & _
+                "        DBID = :DBID " & _
+                "    WHERE ID = :ID; " & _
+                "  ELSE " & _
+                "    INSERT INTO gd_ruid(id, xid, dbid, modified, editorkey) VALUES (:ID, :XID, :DBID, 'now', 650002); " & _
+                "END "
+        
+              set ibsqlDelRUID = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsqlDelRUID.Transaction = OurTr
+              ibsqlDelRUID.SQL.Text = "DELETE FROM gd_ruid r where xid = :xid and dbid = :dbid"
+        
+        
+              call trsf_gd_value(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+              if not Transaction.InTransaction then Transaction.StartTransaction
+              if not OurTr.InTransaction then OurTr.StartTransaction
+        
+              Transaction.Commit
+              OurTr.Commit
+            END IF
+            ibsql.next
+          wend
+            call Application.MessageBox ("Выгрузка завершена!","Выгрузка!",vbOkOnly + vbInformation)
+        End sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "169438038_637556225 trsf_gd_value"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169438021_637556225
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "trsf_testconnection"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-16T11:05:24+03:00
+      DISPLAYSCRIPT: | 
+        TRSF_TESTCONNECTION
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QDAAAAT0JKAwAAAE9CSgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function trsf_testconnection(Obj)
+        
+          if Obj.FieldByName("USR$PATH").asString = "" then
+            call Application.MessageBox("Не указаны параметры подключения!", "Внимание", mb_IconInformation + vBSystemModal)
+            exit function
+          end if
+        
+          dim Creator, IBDatabase, errNumber
+          set Creator = new TCreator
+        
+          set IBDatabase = Creator.GetObject(NULL, "TIBDatabase", "")
+          IBDatabase.databaseName = Obj.FieldByName("USR$PATH").AsString
+          IBDatabase.Params.Add("user_name=SYSDBA")
+          IBDatabase.Params.Add("password=masterkey")
+          IBDatabase.Params.Add("lc_ctype=WIN1251")
+          IBDatabase.LoginPrompt = False
+          on error resume next
+          IBDatabase.Connected = True
+          errNumber = err.number
+          on error goto 0
+        
+          if errNumber <> 0 then
+            call Application.MessageBox(_
+              "Ошибка при подключении к базе данных '" & Obj.FieldByName("USR$NAME").AsString & "'!", _
+              "Внимание", mb_IconInformation + mb_SystemModal)
+          else
+            call Application.MessageBox(_
+              "Подключение к базе '" & Obj.FieldByName("USR$NAME").AsString & "' пройдено успешно!", _
+              "Внимание", mb_IconInformation + mb_SystemModal)
+          end if
+          
+          
+        End Function
+        
