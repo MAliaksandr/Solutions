@@ -1,0 +1,220 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 235081011_1833050115
+  Name: "Проводки по документу. Отчет"
+  Caption: "Проводки по документу. Отчет"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 832E71C23B7CC111CE6AA81B758939D3
+Uses: 
+  - "217517392_985027797 товарнный отчет по проводкам. Карт-чеки"
+  - "235080889_1833050115 Реестр по документам отпуска на сторону. 2022"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 235080916_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gsEntryBYDoc"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-17T10:33:57+03:00
+      DISPLAYSCRIPT: | 
+        GSENTRYBYDOC
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function gsEntryBYDoc(OwnerForm)
+        
+          BaseQueryList.Clear
+          dim doc, id
+          doc = OwnerForm.SelectedKey
+          id = "(" + join(doc(0), ",") + ")"
+          if id = "()" then
+            call Exception.Raise("Exception", "Пустой набор данных")
+            set gsEntryBYDoc = BaseQueryList
+            exit function
+          end if
+          
+          dim qDoc
+          set qDoc = BaseQueryList.Query(BaseQueryList.Add("Document", 0))
+          qDoc.SQL = _
+          "Select number, documentdate from gd_document where id in " & id
+          qDoc.Open
+          
+          dim qEntry
+          set qEntry = BaseQueryList.Query(BaseQueryList.Add("Entry", 0))
+          qEntry.SQL = _
+          " SELECT " & _
+          " C.ALIAS As Debit, " & _
+          " C1.alias as Credit, " & _
+          " SUM(IIF(R1.id IS NULL, R.DEBITNCU, iif (R1.issimple = 1, iif(r.id is null, R1.creditncu, R.DEBITNCU), R1.creditncu))) as SUMNCU, " & _
+          " SUM(IIF(r1.ID IS NULL, R.DEBITCURR, iif (R1.issimple = 1, iif(r.id is null, R1.creditcurr, R.DEBITCURR), R1.creditcurr))) as SUMCURR, " & _
+          " iif(CUR.SHORTNAME is null, cur1.shortname, cur.shortname) Shortname  FROM " & _
+          " GD_DOCUMENT DOC " & _
+          " JOIN AC_RECORD Z ON Z.DOCUMENTKEY = DOC.ID AND doc.parent IN " & id & _
+          " LEFT JOIN AC_ENTRY R ON Z.ID = R.RECORDKEY AND r.debitncu <> 0 " & _
+          " LEFT JOIN AC_ACCOUNT C ON R.ACCOUNTKEY = C.ID " & _
+          " LEFT JOIN GD_CURR CUR ON R.CURRKEY = CUR.ID " & _
+          " LEFT JOIN AC_ENTRY R1 ON Z.ID = R1.RECORDKEY AND r1.creditncu <> 0 " & _
+          " LEFT JOIN AC_ACCOUNT C1 ON R1.ACCOUNTKEY = C1.ID " & _
+          " LEFT JOIN GD_CURR CUR1 ON R1.CURRKEY = CUR1.ID " & _
+          " GROUP BY " & _
+          " C.ALIAS, C1.alias, CUR.SHORTNAME, cur1.shortname " & _
+          " UNION ALL " & _
+          " SELECT " & _
+          " C.ALIAS As Debit, " & _
+          " C1.alias as Credit, " & _
+          " SUM(IIF(R1.id IS NULL, R.DEBITNCU, iif (R1.issimple = 1, iif(r.id is null, R1.creditncu, R.DEBITNCU), R1.creditncu))) as SUMNCU, " & _
+          " SUM(IIF(r1.ID IS NULL, R.DEBITCURR, iif (R1.issimple = 1, iif(r.id is null, R1.creditcurr, R.DEBITCURR), R1.creditcurr))) as SUMCURR, " & _
+          " iif(CUR.SHORTNAME is null, cur1.shortname, cur.shortname) Shortname  FROM " & _
+          " GD_DOCUMENT DOC " & _
+          " JOIN AC_RECORD Z ON Z.DOCUMENTKEY = DOC.ID AND doc.id IN " & id & _
+          " LEFT JOIN AC_ENTRY R ON Z.ID = R.RECORDKEY AND r.debitncu <> 0 " & _
+          " LEFT JOIN AC_ACCOUNT C ON R.ACCOUNTKEY = C.ID " & _
+          " LEFT JOIN GD_CURR CUR ON R.CURRKEY = CUR.ID " & _
+          " LEFT JOIN AC_ENTRY R1 ON Z.ID = R1.RECORDKEY AND r1.creditncu <> 0 " & _
+          " LEFT JOIN AC_ACCOUNT C1 ON R1.ACCOUNTKEY = C1.ID " & _
+          " LEFT JOIN GD_CURR CUR1 ON R1.CURRKEY = CUR1.ID " & _
+          " GROUP BY " & _
+          " C.ALIAS, C1.alias, CUR.SHORTNAME, cur1.shortname "
+          qEntry.Open
+          
+          set gsEntryBYDoc = BaseQueryList
+        
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 235080924_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 235080895_1833050115
+    Fields: 
+      NAME: "Проводки по документу.Торговля"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2022-02-17T10:36:56+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44609,4350296991" ReportOptions.Description.Text="" ReportOptions.LastChange="44609,4350296991" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2A00000020446174615365743D22444F43554D454E542220446174615365744E616D653D22444F43554D454E542200010C2400000020446174615365743D22454E5452592220446174615365744E616D653D22454E545259220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="41,57483" Left="0" Top="18,89765" Width="718,1107">
+              <TfrxMemoView Name="Memo1" Left="37,7953" Top="7,55906" Width="204,09462" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="РџСЂРѕРІРѕРґРєРё РїРѕ"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="71,81107" Left="0" Top="211,65368" Width="718,1107">
+              <TfrxMemoView Name="Memo2" Left="37,7953" Top="41,57483" Width="94,48825" Height="30,23624" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р”РµР±РµС‚"/>
+              <TfrxMemoView Name="Memo3" Left="132,28355" Top="41,57483" Width="94,48825" Height="30,23624" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РљСЂРµРґРёС‚"/>
+              <TfrxMemoView Name="Memo4" Left="226,7718" Top="41,57483" Width="94,48825" Height="30,23624" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎСѓРјРјР°"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="18,89765" Left="0" Top="306,14193" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="ENTRY" DataSetName="ENTRY" RowCount="0">
+              <TfrxMemoView Name="Memo5" Left="37,7953" Top="0" Width="94,48825" Height="18,89765" ShowHint="False" DataField="DEBIT" DataSet="ENTRY" DataSetName="ENTRY" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[ENTRY.&#34;DEBIT&#34;]"/>
+              <TfrxMemoView Name="Memo6" Left="132,28355" Top="0" Width="94,48825" Height="18,89765" ShowHint="False" DataField="CREDIT" DataSet="ENTRY" DataSetName="ENTRY" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[ENTRY.&#34;CREDIT&#34;]"/>
+              <TfrxMemoView Name="Memo7" Left="226,7718" Top="0" Width="94,48825" Height="18,89765" ShowHint="False" DataField="SUMNCU" DataSet="ENTRY" DataSetName="ENTRY" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[ENTRY.&#34;SUMNCU&#34;]"/>
+            </TfrxMasterData>
+            <TfrxMasterData Name="MasterData2" Height="18,89765" Left="0" Top="170,07885" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="DOCUMENT" DataSetName="DOCUMENT" RowCount="0">
+              <TfrxMemoView Name="Memo10" Left="37,7953" Top="0" Width="132,28355" Height="18,89765" ShowHint="False" DataField="NUMBER" DataSet="DOCUMENT" DataSetName="DOCUMENT" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[DOCUMENT.&#34;NUMBER&#34;]"/>
+              <TfrxMemoView Name="Memo11" Left="170,07885" Top="0" Width="132,28355" Height="18,89765" ShowHint="False" DataField="DOCUMENTDATE" DataSet="DOCUMENT" DataSetName="DOCUMENT" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[DOCUMENT.&#34;DOCUMENTDATE&#34;]"/>
+            </TfrxMasterData>
+            <TfrxHeader Name="Header2" Height="26,45671" Left="0" Top="120,94496" Width="718,1107">
+              <TfrxMemoView Name="Memo8" Left="37,7953" Top="7,55906" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЅРѕРјРµСЂ РґРѕРєСѓРјРµРЅС‚Р°"/>
+              <TfrxMemoView Name="Memo9" Left="170,07885" Top="7,55906" Width="132,28355" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РґР°С‚Р° РґРѕРєСѓРјРµРЅС‚Р°"/>
+            </TfrxHeader>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 235080896_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 235080895_1833050115
+    Fields: 
+      NAME: "rp_Main235080896_1833050115"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-17T10:36:57+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN235080896_1833050115
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GSENTRYBYDOC
+        Option Explicit
+        Function rp_Main235080896_1833050115(OwnerForm)
+          Set rp_Main235080896_1833050115 = gsEntryBYDoc(OwnerForm)
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "235080916_1833050115 gsEntryBYDoc"
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 235080895_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Проводки по документу"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "235080896_1833050115 rp_Main235080896_1833050115"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147022445_63934951 Складской учет\\03. Отпуск товара на сторону с розничной торговли"
+      SERVERKEY: ~
+      TEMPLATEKEY: "235080924_1833050115 Проводки по документу.Торговля"
+      EDITIONDATE: 2022-02-17T10:36:57+03:00
