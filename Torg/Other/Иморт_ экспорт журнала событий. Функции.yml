@@ -5,10 +5,10 @@ Properties:
   RUID: 147065772_1787831325
   Name: "Иморт/ экспорт журнала событий. Функции"
   Caption: "Иморт/ экспорт журнала событий. Функции"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 99CF5521E52B724E0D50BB43CFDD661B
+  MD5: 7AC439D104AD2E97FCE3E21EA2963578
 Objects: 
   - 
     Properties: 
@@ -372,3 +372,75 @@ Objects:
           correctSimbal = j
         end function
         
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147071134_1787831325
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gs_ExportImportJournal"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-23T11:41:47+03:00
+      DISPLAYSCRIPT: | 
+        GS_EXPORTIMPORTJOURNAL
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include GS_EXPORTJOURNAL
+        '#include GS_IMPORTJOURNAL
+        
+        'процедура выбора операции над gd_journal
+        'ее можно вызывать из любого места
+        Option Explicit
+        sub gs_ExportImportJournal
+        
+          dim ParamList, ParamWindow, ParamIndex, Result, tempParam
+         ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+          ' Присвоим список параметров отдельной переменной
+          set ParamList = ParamWindow.ParamList
+          ' Добавление параметра через объект-диалог
+        
+          call ParamWindow.AddParam("Тип операции", "prmList", "Выбор операции")
+          ParamList.Params(0).Valueslist = "Импорт=1, Экспорт=2"
+          ParamList.Params(0).Required = true
+          
+         ' Отображение диалога и получение результата
+          Result = ParamWindow.ExecuteWithParamList(ParamList)
+          if IsEmpty(Result) then
+            exit sub
+          end if
+          
+          select case Result(0)
+            case 1:
+               call gs_ImportJournal
+            case 2:
+               call gs_ExportJournal
+          end select
+          
+        End sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147061107_1787831325 gs_ExportJournal"
+          - 
+            ADDFUNCTIONKEY: "147065770_1787831325 gs_ImportJournal"
