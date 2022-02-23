@@ -5,10 +5,10 @@ Properties:
   RUID: 160950163_1836100572
   Name: "Меню. Отчеты. Шаблоны ММПЗ"
   Caption: "Меню. Отчеты. Шаблоны ММПЗ"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: CD2D1BBEC46F6A902537B6CEDFD78F55
+  MD5: 874123675FFC6796E3B604D4EDCF247B
 Uses: 
   - "147070091_311980179 GS new. Общепит бэк. Документы. Меню"
 Objects: 
@@ -735,3 +735,170 @@ Objects:
       SERVERKEY: ~
       TEMPLATEKEY: "147099863_1616313806 План-меню \"ММПЗ-групп\""
       EDITIONDATE: 2022-02-21T16:37:30+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147100112_1616313806
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147100111_1616313806
+    Fields: 
+      NAME: "rp_Main147416974_629495083147594579_6330147100112_1616313806"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147103191_546801707 gdc_frmUserComplexDocument147103186_546801707"
+      OBJECTNAME: "gdc_frmUserComplexDocument147103186_546801707"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-21T16:59:18+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147416974_629495083147594579_6330147100112_1616313806
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAQAAABRRElSCQAAANPy4uXw5uTg/goAAABnZF9jb250YWN0BAAAAG5hbWUCAAAA
+        aWQHDwAAAGNvbnRhY3R0eXBlID0gMgAAAAACAAAAXkFGTlNUUFJTVAMAAABNT0wMAAAA0PPq7uLu
+        5Ojy5ev8CgAAAGdkX2NvbnRhY3QEAAAAbmFtZQIAAABpZAcPAAAAY29udGFjdHR5cGUgPSAyAAAA
+        AAIAAABeQUZOU1RQUlNUAwAAAFpBVg0AAADO8uLl8vHy4uXt7fvpCgAAAGdkX2NvbnRhY3QEAAAA
+        bmFtZQIAAABpZAcPAAAAY29udGFjdHR5cGUgPSAyAAAAAAIAAABeQUZOU1RGTFBS
+      SCRIPT: | 
+        function rp_Main147416974_629495083147594579_6330147100112_1616313806(OwnerForm, qDir, Mol, Zav)
+        
+          doc = OwnerForm.SelectedKey
+          id = "(" + join(doc(0), ",") + ")"
+        
+          BaseQueryList.Clear
+        
+          if id = "" then
+            set rp_Main154019548_320055258 = BaseQueryList
+            exit function
+          end if
+          
+          set Contact2 = BaseQueryList.Query(BaseQueryList.Add("Responsible2", 0))
+          Contact2.SQL = _
+            "SELECT " & _
+            "con.name , " & _
+            "p.NICKNAME, ps.NAME as rank " & _
+            "FROM gd_contact con " & _
+            "JOIN gd_people p on p.contactkey = con.id " & _
+            "LEFT JOIN WG_POSITION ps on ps.ID = p.WPOSITIONKEY " & _
+            "WHERE con.id = :id "
+          Contact2.ParamByName("id").AsInteger = Zav(0)
+          Contact2.Open
+        
+          set qMol = BaseQueryList.Query(BaseQueryList.Add("Mol", 0))
+          qMol.SQL = _
+          "SELECT " & _
+          "con.name , " & _
+          "p.NICKNAME, ps.NAME as rank " & _
+          "FROM gd_contact con " & _
+          "JOIN gd_people p on p.contactkey = con.id " & _
+          "LEFT JOIN WG_POSITION ps on ps.ID = p.WPOSITIONKEY " & _
+          "WHERE con.id = :id "
+          qMol.ParamByName("id").AsInteger = Mol(0)
+          qMol.Open
+        
+          set aDir = BaseQueryList.Query(BaseQueryList.Add("qDir", 0))
+          aDir.SQL = _
+          "SELECT " & _
+          "con.name , " & _
+          "p.NICKNAME, ps.NAME as rank " & _
+          "FROM gd_contact con " & _
+          "JOIN gd_people p on p.contactkey = con.id " & _
+          "LEFT JOIN WG_POSITION ps on ps.ID = p.WPOSITIONKEY " & _
+          "WHERE con.id = :id "
+          aDir.ParamByName("id").AsInteger = qDir(0)
+          aDir.Open
+        
+        
+          set q = BaseQueryList.Query(BaseQueryList.Add("MENU", 0))
+          q.SQL =  _
+              " SELECT " & _
+              " mn.usr$name, " & _
+              " mm.usr$todate, " & _
+              " con.name depotname, " & _
+              " doc.documentdate,doc.NUMBER, " & _
+              " mm.documentkey " & _
+              " FROM GD_DOCUMENT doc " & _
+              " left JOIN usr$mn_menu mm ON doc.id = mm.documentkey " & _
+              " left JOIN usr$mn_menuname mn on mm.usr$menunamekey = mn.id " & _
+              " LEFT JOIN USR$MN_PILOT p ON p.DOCUMENTKEY  =  doc.ID " & _
+              " left JOIN gd_contact con on COALESCE(mm.usr$depotkey,p.USR$DEPOTKEY) = con.id "  & _
+              " WHERE doc.id IN " + ID
+          q.Open
+          q.IsResult = 1
+        
+          set S = BaseQueryList.Query(BaseQueryList.Add("Menuline", 0))
+          S.SQl = _
+            " select " & _
+            "   gg.name as name, " & _
+            "   gg.alias as goodalias, " & _
+            "   coalesce(rec.usr$output, '1шт.') as usr$outputstr, " & _
+            "   gd.documentdate, " & _
+            "   gd.number, rec.USR$COLLECTIONNUM, " & _
+            "   dep.name as departname, " & _
+            "   ROUND(c.usr$costcource,2) as usr$cost, " & _
+            "   pl.usr$quantity, " & _
+            "   round( ROUND(c.usr$costcource,2) * pl.usr$quantity, 2) as sumncu " & _
+            " from " & _
+            "   usr$mn_pilot p " & _
+            "   left JOIN usr$mn_pilotline pl on pl.masterkey = p.documentkey " & _
+            "   left JOIN usr$mn_receipt rec on rec.documentkey = pl.usr$receiptkey " & _
+            "   left join gd_document gd on gd.id = p.documentkey " & _
+            "   left join gd_good gg on gg.id = rec.usr$goodkey " & _
+            "   left join gd_contact gc on gc.id = gd.companykey   " & _
+            "   LEFT JOIN gd_contact dep on dep.id = p.USR$DEPOTKEY " & _
+            "   Left join usr$mn_calccard c on c.USR$PILOTLINEKEY = pl.documentkey " & _
+            " where p.documentkey in  " & ID & _
+            " ORDER BY gg.Name "
+          s.Open
+          
+          set qcon = BaseQueryList.Query(BaseQueryList.Add("comp",0))
+          qcon.SQL = "SELECT * FROM gd_contact WHERE id = :id "
+          qcon.ParamByName("id").AsInteger = IBLogin.CompanyKey
+          qcon.Open
+          
+          set qcon1 = BaseQueryList.Query(BaseQueryList.Add("comp1",0))
+          qcon1.SQL = "SELECT c.name FROM usr$mn_pilot p " & _
+          "left join gd_contact c on c.id = p.usr$contactkey " & _
+          " where p.documentkey in  " & ID
+          qcon1.Open
+          
+          set rp_Main147416974_629495083147594579_6330147100112_1616313806 = BaseQueryList
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147100111_1616313806
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "План-меню \"ММПЗ-групп\""
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147100112_1616313806 rp_Main147416974_629495083147594579_6330147100112_1616313806"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147103195_557262679 Отчеты(gdc_frmUserComplexDocument147103186_546801707)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147099863_1616313806 План-меню \"ММПЗ-групп\""
+      EDITIONDATE: 2022-02-21T16:59:18+03:00
