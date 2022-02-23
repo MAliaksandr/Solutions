@@ -5,10 +5,10 @@ Properties:
   RUID: 154581548_1631104572
   Name: "Импорт из Excell по шаблону. Экспорт в DBF. Функции"
   Caption: "Импорт из Excell по шаблону. Экспорт в DBF. Функции"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 882A663D21209674F024FD3340B2A679
+  MD5: 2A5B1456F219FA35FD7D0D1CD63726A3
 Uses: 
   - "154577947_1631104572 Импорт из Excell по шаблону. Функции"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-24T16:45:08+03:00
+      EDITIONDATE: 2021-08-24T17:55:12+03:00
       DISPLAYSCRIPT: | 
         F_EXCHANGE_SELL
         EXCEPT_F_EXCHANGE_SELL
@@ -106,6 +106,7 @@ Objects:
             "v.NAME as valuename, " & _
             "l.DOCUMENTKEY, " & _
             "l.QUANTITY, " & _
+            "c.USR$INV_SELLNDS, " & _
             "c.USR$INV_COSTNCU as COST, " & _
             "l.USR$SUMNCU, " & _
             "l.USR$SUMNDSNCU, " & _
@@ -142,6 +143,9 @@ Objects:
              i = i + 1
           wend
         
+         ' objCommandWares.CommandText = _
+        '    " Drop table " & tablename
+        '  objCommandWares.Execute
         
           objCommandWares.CommandText = _
             " create table " & tablename & " (" & _
@@ -152,16 +156,24 @@ Objects:
           while not ibsql.EOF
         
             InsertSQL = " insert into " & tablename & " (" & _
-            " a" & CSTR(pDocDate) & ", "  & _
-            " a" & CSTR(pDocNumb) & ", " & _
-            " a" & CSTR(pQuant) & ", " & _
-            " a" & CSTR(pCOSTBYNCU) & " " & _
+             "a" & CSTR(pDocDate) & ", " & _
+             "a" & CSTR(pDocNumb) & ", " & _
+             "a" & CSTR(pQuant)   & ", " & _
+             "a" & CSTR(pSellCost) & ", " & _
+             "a" & CSTR(pGNAME) & ", " & _
+             "a" & CSTR(pVATPERC) & ", " & _
+             "a" & CSTR(pDept) & ", " & _
+             "a" & CSTR(pClient) & " " & _
             " ) values " & _
               " (" & _
               "'" & F_correctValueDBF(ibsql.FieldByName("DOCUMENTDATE").AsDAteTime, 3) & "'" &  ", " & _
               "'" & F_correctValueDBF(ibsql.FieldByName("NUMBER").AsString, 2) & "'" &  ", " & _
               F_correctValueDBF(ibsql.FieldByName("QUANTITY").AsCurrency,1 ) &  ", " & _
-              F_correctValueDBF(ibsql.FieldByName("COST").AsCurrency,1) &  " " & _
+              F_correctValueDBF(ibsql.FieldByName("COST").AsCurrency,1) &  ", " & _
+              F_correctValueDBF(ibsql.FieldByName("Goodname").AsCurrency,2) &  ", " & _
+              F_correctValueDBF(ibsql.FieldByName("USR$INV_SELLNDS").AsCurrency,2) &  ",  " & _
+              F_correctValueDBF(ibsql.FieldByName("DEPNAME").AsCurrency,2) &  ", " & _
+              F_correctValueDBF(ibsql.FieldByName("CONTNAME").AsCurrency,2) &  "" & _
               ") "
             objCommandWares.CommandText = InsertSQL
             objCommandWares.Execute
