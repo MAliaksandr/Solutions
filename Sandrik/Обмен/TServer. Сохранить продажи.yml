@@ -1,0 +1,168 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 223170016_1838344811
+  Name: "TServer. Сохранить продажи"
+  Caption: "TServer. Сохранить продажи"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 628BE40360AC334A460BDB488EF3C602
+Uses: 
+  - "219968016_1398647910 Сандрик-Лог.тракт.Сохранить продажи. ADO"
+  - "223169950_1838344811 TEServer. Параметры обмена"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 223170010_1838344811
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "SaveSellsADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-25T16:48:47+03:00
+      DISPLAYSCRIPT: | 
+        SAVESELLSADO
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include ECR_ZSERVER_CREATETABLE_ADO
+        '#include ECR_ZSERVER_SETPARAMS
+        Option Explicit
+        sub SaveSellsADO
+          ' Сохранить продажи (TEServer)
+        
+          dim ParamList, ParamWindow, ParamIndex, Result, tempParam
+           ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+           ' Присвоим список параметров отдельной переменной
+          set ParamList = ParamWindow.ParamList
+           ' Добавление параметра через объект-диалог
+        
+          call ParamWindow.AddParam("Последние продажи", "prmBoolean", "Последние (необработанные) продажи")
+          call ParamWindow.AddParam("Дата", "prmPeriod", "Выбор периода формирования")
+          ParamList.Params(1).Required = True
+          ' Отображение диалога и получение результата
+          Result = ParamWindow.ExecuteWithParamList(ParamList)
+        
+          if IsEmpty(Result) then
+             exit sub
+          end if
+                  
+          dim isLast, Period
+          
+          isLast = Result(0)
+          Period = Result(1)
+        
+          
+          ecr_ZServer_SetParams(ecr_TEServer_ttFromCass)
+        
+          dim ErrorCount, ecr_CriticalError
+          ErrorCount = 0
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+        
+          dim ObjCon
+          set ObjCon = CreateObject("ADODB.Connection")
+          ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjCon.Properties("Data Source") = ecr_TEServer_workpath
+          ObjCon.Properties("Jet OLEDB:Engine Type") = 18
+          ObjCon.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.Command")
+          objADOQuery.ActiveConnection = ObjCon
+        
+        
+        '  FullCommandFileName = "'" + ecr_TEServer_commandpath + "\command.dbf'"
+        
+          ' +++ прием данных из кассы +++
+           dim FullFileName , InsertSQL, FSO
+          if isLast then   ' последние (необработанные) продажи
+            FullFileName = "'" + ecr_TEServer_workpath + ecr_TEServer_Sell_Filename + "'"
+        
+            InsertSQL = _
+           "INSERT INTO command" + _
+            " (ROWID, SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(9," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocGetSells) + ", " + _
+            FullFileName + ", 0) "
+          objADOQuery.CommandText = InsertSQL
+          objADOQuery.Execute
+          else             ' продажи за период
+        
+            FullFileName = ecr_TEServer_workpath + ecr_TEServer_Sell_Filename
+            set FSO = CreateObject("Scripting.FileSystemObject")
+        
+            if FSO.FileExists(FullFileName) then
+              FSO.DeleteFile(FullFileName)     ' файл может иметь др. стр-ру, поэтому - удаляем
+            end if
+            call ecr_ZServer_CreateTable_ADO(1, objADOQuery)
+        
+            'Split(FullFileName,".")(0) + _
+            InsertSQL = _
+            "INSERT INTO " + _
+            ecr_TEServer_Sell_Filename & _
+            " (FROMDATE, TODATE) " & _
+            " VALUES(" & _
+            "'" & CSTR(Period(0)) & "'," & _
+            "'" & CSTR(Period(1)) & "') "
+            objADOQuery.CommandText = InsertSQL
+            objADOQuery.Execute
+        
+            FullFileName = "'" + FullFileName + "'"
+        
+            InsertSQL = _
+            "INSERT INTO command" + _
+            " (ROWID, SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(10," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocGetCondSells) + ", " + _
+            FullFileName + ", 0) "
+            objADOQuery.CommandText = InsertSQL
+            objADOQuery.Execute
+          end if
+        
+          dim ceDescr
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting_ADO(ObjCon, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+        
+        '   ' удаляем запись из command.dbf
+        '    qryDoc.SQL = "DELETE FROM " + FullCommandFileName
+        '    qryDoc.ExecSQL
+        
+            call Application.MessageBox("Данные сохранены.", "Внимание", vbOkOnly+vbInformation+vbSystemMOdal)
+          else
+            call Application.MessageBox("При сохранении продаж возникла ошибка! - " + ceDescr, "Внимание", vbOkOnly +vbExclamation+SystemModal)
+          end if
+        
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219967989_1398647910 ecr_ZServer_CreateTable_ADO"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
