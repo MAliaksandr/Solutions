@@ -3,12 +3,12 @@
 StructureVersion: "1.0"
 Properties: 
   RUID: 209316035_2119495691
-  Name: "TEServer. Экспорт товаров в КС"
-  Caption: "TEServer. Экспорт товаров в КС"
-  Version: "1.0.0.14"
+  Name: "TEServer. Экспорт остатков  в КС"
+  Caption: "TEServer. Экспорт остатков  в КС"
+  Version: "1.0.0.15"
   Optional: False
   Internal: True
-  MD5: 303B4761A1C44E064829906AEB26E8F9
+  MD5: CC81B61CC922CD5C87613140D4C44202
 Uses: 
   - "148919179_537677461 GS.Общее.Деноминация 2016"
   - "199348208_2100852545 переоценка_2015"
@@ -219,7 +219,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-02-25T15:55:55+03:00
+      EDITIONDATE: 2022-02-25T18:01:03+03:00
       DISPLAYSCRIPT: | 
         EXPORT_REMAINS_AT_TSERVER_ADO
         TM_WORK
@@ -231,10 +231,7 @@ Objects:
         COPY_DBF_TEMP
         PROGRESSFORMREM
         
-      ENTEREDPARAMS: !!binary > 
-        U0xQUlBSU1QGAAAAREVQQVJUDQAAAM/u5PDg5+Tl6+Xt6OUKAAAAZ2RfY29udGFjdAQAAABuYW1l
-        AgAAAGlkBykAAABjb250YWN0dHlwZSA9NCBhbmQgcGFyZW50ID0gPENvbXBhbnlrZXkvPgAAAAAA
-        AAAARk5TVEZMUFI=
+      ENTEREDPARAMS: ~
       SCRIPT: | 
         '#include TWG_PROGRESSFORM
         '#include ECR_TESERVER_WAITING_ADO
@@ -244,7 +241,27 @@ Objects:
         '#include ecr_TEServer_Waiting
         '#include ecr_ZServer_CreateTable
         
-        sub Export_Remains_at_Tserver_ADO(depart)
+        sub Export_Remains_at_Tserver_ADO
+        
+          dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam
+           ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+           ' Присвоим список параметров отдельной переменной
+          set ParamList = ParamWindow.ParamList
+           ' Добавление параметра через объект-диалог
+        
+          call ParamWindow.AddLinkParam("Подразделение", "prmLinkElement", "GD_CONTACT gg1", "id", "name", "gg1.contacttype =4 and EXISTS (SELECT con.id FROM gd_contact con where con.lb <= gg1.lb and con.rb >=gg1.rb and con.id = "+CStr(IBLogin.CompanyKey)+")" , "", "Выбор типа лимита")
+          ParamList.Params(0).Required = false
+        
+          ' Отображение диалога и получение результата
+          result = ParamWindow.ExecuteWithParamList(ParamList)
+        
+          if IsEmpty(result) then
+             exit sub
+          end if
+        
+           depart = result(0)
+        
         
         ' Передать товары в кассу (TEServer) из остатков
           set Creator = New TCreator
@@ -337,6 +354,8 @@ Objects:
           prForm.Max = prCount
           prForm.Note = "Идет передача данных. Ожидайте..."
           prForm.Show
+          
+          Except ProgressFormRem(prForm)
         
           DBFnumb = 0
           gdcDocLine.First
@@ -556,7 +575,7 @@ Objects:
         sub insert_into_FFN_1(objADOQuery,FullFileName,DBFnumb,SECTIONID,PLU,PLUNAME,PRICE,DEPT,QUANT)
          DIM FullName
          FFName = Split(FullFileName,".")
-         IF DBFnumb > 0 Then
+         IF DBFnumb > 1 Then
           FullName =FFName(0) & CSTR(DBFnumb)
          else
           FullName =FFName(0)

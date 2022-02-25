@@ -1,0 +1,216 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 223170029_1838344811
+  Name: "TEServer. Передать товары в кассу"
+  Caption: "TEServer. Передать товары в кассу"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: CF583DF882FFB78C952FDC0D42D11F5A
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 219968025_1398647910
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ecr_ZServer_SendGoodsInfoToCassADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2020-03-26T14:22:21+03:00
+      DISPLAYSCRIPT: | 
+        ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QKAAAAR0RDRE9DSEVBRAoAAABHRENET0NIRUFEAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAEZOU1RQUlNUCgAAAEdEQ0RPQ0xJTkUKAAAAR0RDRE9DTElORQAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVAkAAABERVBURklFTEQJAAAAREVQVEZJRUxEAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include ECR_ZSERVER_CREATETABLE_ADO
+        '#include ECR_TESERVER_WAITING_ADO
+        '#include ECR_ZSERVER_CREATETABLE_ADO
+        '#include GS_DNMNTODIVIDE
+        ' #include ecr_ZServer_SetParams
+        ' #include ecr_DeptList
+        function ecr_ZServer_SendGoodsInfoToCassADO(ByRef gdcDocHead, ByRef gdcDocLine, ByRef DeptField)
+        ' передает информацию о товарах в кассу
+        ' gdcDocHead -  шапка документа (объект)
+        ' gdcDocLine - позиция документа  (объект)
+        ' DeptField - поле, в кот. хранится код подразделения (объект)
+        
+        '  fPref - префикс поля карточки (to/from)
+        '  QSign  - знак для количества (+/-)
+          select case gdcDocHead.SubType
+            case "147010993_109092844" ' приход
+              fPref = "TO"
+              QSign  = 1
+            case "147022442_63934951" ' отпуск из розничной
+              fPref = "FROM"
+              QSign  = -1
+            case "147004788_45137928" ' возврат от покупателей
+              fPref = "FROM"
+              QSign  = 1
+            case "147005934_63934951" ' выдача в торг. подразделение
+              fPref = "TO"
+              QSign  = 1
+            case "147033442_420473850" ' Укомплектование
+              fPref = "TO"
+              QSign  = 1
+            case "147013026_109092844" ' Внутреннее перемещение
+              fPref = "from"
+              QSign  = 1
+        
+            case "147013038_109092844" ' возврат поставщику
+              fPref = "FROM"
+              QSign  = -1
+            case "147013048_109092844" ' переоценка
+              fPref = "TO"
+              QSign  = 0
+            case else
+              call Application.MessageBox("Неизвестный тип документа!", "Внимание", mb_OK or mb_IconStop or vbSystemModal)
+              exit function
+          end select
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          dim ToDivide
+          ToDivide =  gs_DnmnToDivide
+        
+          ' номер отдела
+          DeptNp = ecr_DeptList.GetNpByID(DeptField.AsInteger)
+        
+          if DeptNp < 0 then
+            call Application.MessageBox("Для подразделения """ + _
+              gdcDocHead.FieldByName("INVDOC_" + DeptField.FieldName + "_NAME").AsString + _
+              """ не установлен номер отдела!", "Внимание", mb_OK or mb_IconStop or vbSystemModal)
+            ecr_CriticalError = ecr_TEServer_ceDept
+            exit function
+          end if
+        
+          ' номер секции
+          Section = ""
+          SectionID = ecr_DeptList.GetSectionByID(DeptField.AsInteger)
+          if SectionID > -1 then
+            Section = CStr(SectionID)
+          end if
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+        
+          dim ObjCon
+          set ObjCon = CreateObject("ADODB.Connection")
+          ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjCon.Properties("Data Source") = ecr_TEServer_workpath
+          ObjCon.Properties("Jet OLEDB:Engine Type") = 18
+          ObjCon.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.Command")
+          objADOQuery.ActiveConnection = ObjCon
+        
+        
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          if FSO.FileExists(FullFileName) then
+            InsertSQL = _
+            "DELETE FROM " + _
+            Split(ecr_TEServer_Ref_Filename,".")(0)
+            objADOQuery.Commandtext = InsertSQL
+            objADOQuery.Execute
+          else
+           call ecr_ZServer_CreateTable_ADO(0, objADOQuery)
+          end if
+        
+          FullFileName = "'" + FullFileName + "'"
+        
+          ' формируем список
+          gdcDocLine.First
+          while not gdcDocLine.EOF 'and not isCriticalError
+          
+            if gdcDocLine.FieldByName("BARCODE").AsString = "" then
+              plucode = gdcDocLine.FieldByName("USR$SDR_ECRCODE").AsString + _
+                gdcDocLine.FieldByName(fpref + "_USR$SDR_ECRCODE").AsString
+            else
+              ' Yuri: только если перекрыт GetSelectClause...
+              plucode = gdcDocLine.FieldByName("BARCODE").AsString
+            end if
+        
+            dim PRICE, QUANT
+            PRICE = gdcDocLine.FieldByName(fPref + "_USR$INV_COSTRETAILNCU").AsVariant
+            QUANT = QSign * gdcDocLine.FieldByName("QUANTITY").AsCurrency
+        
+            InsertSQL = _
+            "INSERT INTO " + _
+            Split(ecr_TEServer_Ref_Filename,".")(0) + _
+            " (SECTIONID, " & _
+            " PLU," & _
+            " PLUNAME, " & _
+            " PRICE," & _
+            " DEPARTMENT, Q) " & _
+            " VALUES(" & _
+            "" & Section & "," & _
+            "'" & plucode & "'," & _
+            "'" & gdcDocLine.FieldByName("GOODNAME").AsString & "'," & _
+            "" & Replace(PRICE,",",".") & "," & _
+            "" & DeptNp & "," & _
+            "" & Replace(QUANT,",",".") & ") "
+        
+            objADOQuery.CommandText = InsertSQL
+            objADOQuery.Execute
+            gdcDocLine.Next
+          wend
+          gdcDocLine.First
+        
+          InsertSQL = _
+           "INSERT INTO command" + _
+            " (ROWID, SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(1," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocSetPLU) + ", " + _
+            FullFileName + ", 0) "
+          objADOQuery.CommandText = InsertSQL
+          objADOQuery.Execute
+          
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting_ADO(ObjCon, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+            call Application.MessageBox("Данные успешно переданы.", "Внимание", mb_OK or mb_IconInformation or vbSystemModal)
+          else
+            call Application.MessageBox("При передаче данных возникла ошибка! - " + ceDescr, "Внимание", mb_OK or mb_IconExclamation or vbSystemModal)
+          end if
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "219967989_1398647910 ecr_ZServer_CreateTable_ADO"
+          - 
+            ADDFUNCTIONKEY: "215165918_639165248 ecr_TEServer_Waiting_ADO"
+          - 
+            ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
