@@ -5,10 +5,10 @@ Properties:
   RUID: 219968030_1398647910
   Name: "Сандрик-Лог.тракт.Передать товары в кассу. ADO"
   Caption: "Сандрик-Лог.тракт.Передать товары в кассу. ADO"
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: 240E7A6D742BD71F3679EBFB691D45FE
+  MD5: D8AA88E867B59EC733F44D298271F5A5
 Uses: 
   - "219968016_1398647910 Сандрик-Лог.тракт.Сохранить продажи. ADO"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2020-03-17T12:31:58+03:00
+      EDITIONDATE: 2020-03-26T14:26:13+03:00
       DISPLAYSCRIPT: | 
         ECR_ZSERVER_CREATETABLE_ADO
         
@@ -65,7 +65,7 @@ Objects:
               "  Q NUMERIC(13, 3), " + _
               "  SQ NUMERIC(5, 3), " + _
               "  DQ NUMERIC(6, 3), " + _
-              "  LOCK BOOLEAN) "
+              "  LOCK INTEGER) "
         
             case 1    ' условие для выборки "истории продаж с выборкой по условию"
         
@@ -112,7 +112,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2020-03-17T13:59:04+03:00
+      EDITIONDATE: 2020-03-26T14:22:21+03:00
       DISPLAYSCRIPT: | 
         ECR_ZSERVER_SENDGOODSINFOTOCASSADO
         
@@ -122,6 +122,7 @@ Objects:
         AAAAAAAAAABGTlNUUFJTVAkAAABERVBURklFTEQJAAAAREVQVEZJRUxEAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAEZOU1RGTFBS
       SCRIPT: | 
+        '#include ECR_ZSERVER_CREATETABLE_ADO
         '#include ECR_TESERVER_WAITING_ADO
         '#include ECR_ZSERVER_CREATETABLE_ADO
         '#include GS_DNMNTODIVIDE
@@ -282,9 +283,9 @@ Objects:
         Table: "RP_ADDITIONALFUNCTION"
         Items: 
           - 
-            ADDFUNCTIONKEY: "215165918_639165248 ecr_TEServer_Waiting_ADO"
-          - 
             ADDFUNCTIONKEY: "219967989_1398647910 ecr_ZServer_CreateTable_ADO"
+          - 
+            ADDFUNCTIONKEY: "215165918_639165248 ecr_TEServer_Waiting_ADO"
           - 
             ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
           - 
@@ -1015,25 +1016,6 @@ Objects:
       SERVERKEY: ~
       SHORTCUT: 0
       EDITIONDATE: 2020-03-17T14:06:48+03:00
-  - 
-    Properties: 
-      Class: "TgdcMacros"
-      RUID: 219967986_1398647910
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      NAME: "Сохранить продажи (TEServer) 2020"
-      DISPLAYINMENU: 1
-      EXECUTEDATE: ~
-      FUNCTIONKEY: "219967988_1398647910 SaveSellsADO"
-      ISLOCALEXECUTE: 0
-      ISREBUILD: 0
-      MACROSGROUPKEY: "147014573_23783130 Локальные макросы"
-      OBJECTNAME: "gdc_frmInvDocument147006557_63934951"
-      SERVERKEY: ~
-      SHORTCUT: 0
-      EDITIONDATE: 2020-03-17T14:17:42+03:00
   - 
     Properties: 
       Class: "TgdcReportGroup"
