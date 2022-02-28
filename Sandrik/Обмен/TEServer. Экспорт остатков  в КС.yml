@@ -5,10 +5,10 @@ Properties:
   RUID: 209316035_2119495691
   Name: "TEServer. Экспорт остатков  в КС"
   Caption: "TEServer. Экспорт остатков  в КС"
-  Version: "1.0.0.15"
+  Version: "1.0.0.16"
   Optional: False
   Internal: True
-  MD5: CC81B61CC922CD5C87613140D4C44202
+  MD5: 23C169FCCD4F942392A0B1FD2C327FC5
 Uses: 
   - "148919179_537677461 GS.Общее.Деноминация 2016"
   - "199348208_2100852545 переоценка_2015"
@@ -219,7 +219,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-02-25T18:01:03+03:00
+      EDITIONDATE: 2022-02-28T17:28:29+03:00
       DISPLAYSCRIPT: | 
         EXPORT_REMAINS_AT_TSERVER_ADO
         TM_WORK
@@ -229,6 +229,7 @@ Objects:
         INSERT_INTO_FFN_1
         GET_REMAINS_SQL
         COPY_DBF_TEMP
+        COPY_DBF_LOCAL
         PROGRESSFORMREM
         
       ENTEREDPARAMS: ~
@@ -250,7 +251,7 @@ Objects:
           set ParamList = ParamWindow.ParamList
            ' Добавление параметра через объект-диалог
         
-          call ParamWindow.AddLinkParam("Подразделение", "prmLinkElement", "GD_CONTACT gg1", "id", "name", "gg1.contacttype =4 and EXISTS (SELECT con.id FROM gd_contact con where con.lb <= gg1.lb and con.rb >=gg1.rb and con.id = "+CStr(IBLogin.CompanyKey)+")" , "", "Выбор типа лимита")
+          call ParamWindow.AddLinkParam("Подразделение", "prmLinkElement", "GD_CONTACT gg1", "id", "name", "gg1.contacttype =4 and EXISTS (SELECT con.id FROM gd_contact con where con.lb <= gg1.lb and con.rb >=gg1.rb and con.id = "+CStr(IBLogin.CompanyKey)+")" , "", "Если не указать подразделение - будут переданы ШК")
           ParamList.Params(0).Required = false
         
           ' Отображение диалога и получение результата
@@ -439,6 +440,8 @@ Objects:
           PrForm.SubNote = "............."
           Application.ProcessMessages
           
+          'скопируем из лок. папки в папку где command.dbf
+          call copy_dbf_Local(FSO)
           ' количество - перезаписывается!
           dim plname, idN , Fname
           plname = ""
@@ -452,7 +455,7 @@ Objects:
           ' внесем в него данные для файлов
         
           for j=1 to ecr_TEServer_QuantityPLU
-            idN = ecr_TEServer_QuantityPLU - 1
+            idN = 1
             if j=1 then
              plname = "'" & FFName(0) & "'"
             else
@@ -650,7 +653,7 @@ Objects:
               " and CON.id = " & depart(0)
             ELSE
              get_remains_SQL = get_remains_SQL & _
-              " and CON.id in (147042927, 147042928, 147042930, 147042929) and (not G.BARCODE is NULL) "
+              " and CON.id in (<RUID xID=""149536551"" dbid=""295952074""/>, <RUID xID=""152387414"" dbid=""564276098""/>,<RUID xID=""147037129"" dbid=""638291160""/>,<RUID xID=""150666894"" dbid=""338790988""/>,<RUID xID=""151470177"" dbid=""638291160""/>) and (not G.BARCODE is NULL) "
             END IF
             get_remains_SQL = get_remains_SQL & _
             " GROUP BY " & _
@@ -691,6 +694,23 @@ Objects:
          ' else
            FSO.CopyFile ecr_TEServer_workpath_local + file_name + ".dbf", ecr_TEServer_commandpath + file_name + ".dbf" , True
         '  end if
+          on error goto 0
+        end sub
+        
+        
+        ' делаем копию файла в сетевую папку
+        sub copy_dbf_Local(FSO)
+          dim Fname
+          Fname = ecr_TEServer_Ref_Filename
+          on error resume next
+          dim OwerWriteExisting
+          if not FSO.FolderExists(ecr_TEServer_workpath) then
+            Call Application.MessageBox("Отсутствует папка для хранения лог-файлов", "Внимание!", vbSystemModal+vbInformation+vbOkOnly)
+            exit sub
+          end if
+          OwerWriteExisting = True
+          ' копируем
+          FSO.CopyFile ecr_TEServer_workpath_local + Fname, ecr_TEServer_workpath + Fname , OwerWriteExisting
           on error goto 0
         end sub
         

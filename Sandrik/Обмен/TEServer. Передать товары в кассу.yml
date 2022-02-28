@@ -5,10 +5,10 @@ Properties:
   RUID: 223170029_1838344811
   Name: "TEServer. Передать товары в кассу"
   Caption: "TEServer. Передать товары в кассу"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: CF583DF882FFB78C952FDC0D42D11F5A
+  MD5: 7A4BBF1A1F571DFFFFA37EAFD1DECD65
 Objects: 
   - 
     Properties: 
@@ -34,9 +34,10 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2020-03-26T14:22:21+03:00
+      EDITIONDATE: 2022-02-28T18:04:00+03:00
       DISPLAYSCRIPT: | 
         ECR_ZSERVER_SENDGOODSINFOTOCASSADO
+        INSERT_INTO_FFN_1
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QKAAAAR0RDRE9DSEVBRAoAAABHRENET0NIRUFEAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -44,6 +45,7 @@ Objects:
         AAAAAAAAAABGTlNUUFJTVAkAAABERVBURklFTEQJAAAAREVQVEZJRUxEAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAEZOU1RGTFBS
       SCRIPT: | 
+        '#include ECR_TESERVER_COPYFILEADO
         '#include ECR_ZSERVER_CREATETABLE_ADO
         '#include ECR_TESERVER_WAITING_ADO
         '#include ECR_ZSERVER_CREATETABLE_ADO
@@ -114,8 +116,8 @@ Objects:
         
           ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
         
-          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
-        
+          FullFileName = ecr_TEServer_workpath_Local + ecr_TEServer_Ref_Filename
+             ' для работы с сетевыми ДБФ
           dim ObjCon
           set ObjCon = CreateObject("ADODB.Connection")
           ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
@@ -127,16 +129,28 @@ Objects:
           set objADOQuery = CreateObject("ADODB.Command")
           objADOQuery.ActiveConnection = ObjCon
         
+           ' для работы с локальными ДБФ
+          dim ObjConLoc
+          set ObjConLoc = CreateObject("ADODB.Connection")
+          ObjConLoc.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjConLoc.Properties("Data Source") = ecr_TEServer_workpath_local
+          ObjConLoc.Properties("Jet OLEDB:Engine Type") = 18
+          ObjConLoc.Open
+        
+          dim objADOQueryLoc
+          set objADOQueryLoc = CreateObject("ADODB.Command")
+          objADOQueryLoc.ActiveConnection = ObjConLoc
+        
         
           set FSO = CreateObject("Scripting.FileSystemObject")
           if FSO.FileExists(FullFileName) then
             InsertSQL = _
             "DELETE FROM " + _
             Split(ecr_TEServer_Ref_Filename,".")(0)
-            objADOQuery.Commandtext = InsertSQL
-            objADOQuery.Execute
+            objADOQueryLoc.Commandtext = InsertSQL
+            objADOQueryLoc.Execute
           else
-           call ecr_ZServer_CreateTable_ADO(0, objADOQuery)
+           call ecr_ZServer_CreateTable_ADO(0, objADOQueryLoc)
           end if
         
           FullFileName = "'" + FullFileName + "'"
@@ -157,27 +171,32 @@ Objects:
             PRICE = gdcDocLine.FieldByName(fPref + "_USR$INV_COSTRETAILNCU").AsVariant
             QUANT = QSign * gdcDocLine.FieldByName("QUANTITY").AsCurrency
         
-            InsertSQL = _
-            "INSERT INTO " + _
-            Split(ecr_TEServer_Ref_Filename,".")(0) + _
-            " (SECTIONID, " & _
-            " PLU," & _
-            " PLUNAME, " & _
-            " PRICE," & _
-            " DEPARTMENT, Q) " & _
-            " VALUES(" & _
-            "" & Section & "," & _
-            "'" & plucode & "'," & _
-            "'" & gdcDocLine.FieldByName("GOODNAME").AsString & "'," & _
-            "" & Replace(PRICE,",",".") & "," & _
-            "" & DeptNp & "," & _
-            "" & Replace(QUANT,",",".") & ") "
         
-            objADOQuery.CommandText = InsertSQL
-            objADOQuery.Execute
-            gdcDocLine.Next
+           call insert_into_FFN_1(objADOQueryLoc,ecr_TEServer_Ref_Filename,1,SECTIONID,plucode,gdcDocLine.FieldByName("GOODNAME").AsString,PRICE,DeptNp,QUANT)
+        '    InsertSQL = _
+        '    "INSERT INTO " + _
+        '    Split(ecr_TEServer_Ref_Filename,".")(0) + _
+        '    " (SECTIONID, " & _
+        '    " PLU," & _
+        '    " PLUNAME, " & _
+        '    " PRICE," & _
+        '    " DEPARTMENT, Q) " & _
+        '    " VALUES(" & _
+        '    "" & Section & "," & _
+        '    "'" & plucode & "'," & _
+        '    "'" & gdcDocLine.FieldByName("GOODNAME").AsString & "'," & _
+        '    "" & Replace(PRICE,",",".") & "," & _
+        '    "" & DeptNp & "," & _
+        '    "" & Replace(QUANT,",",".") & ") "
+        '
+        '    objADOQueryLoc.CommandText = InsertSQL
+        '    objADOQueryLoc.Execute
+          '  objADOQueryLoc.Next
+           gdcDocLine.next
           wend
           gdcDocLine.First
+          'копіруем рабочій файл в папку
+          call ecr_TEServer_CopyFileADO(FSO)
         
           InsertSQL = _
            "INSERT INTO command" + _
@@ -200,10 +219,40 @@ Objects:
         
         end function
         
+        sub insert_into_FFN_1(objADOQuery,FullFileName,DBFnumb,SECTIONID,PLU,PLUNAME,PRICE,DEPT,QUANT)
+         DIM FullName
+         FFName = Split(FullFileName,".")
+         IF DBFnumb > 1 Then
+          FullName =FFName(0) & CSTR(DBFnumb)
+         else
+          FullName =FFName(0)
+         end if
+        
+          objADOQuery.Cancel
+          InsertSQL = "INSERT INTO " & FullName & _
+          "(SECTIONID," & _
+          "PLU," & _
+          "PLUNAME," & _
+          "PRICE," & _
+          "DEPARTMENT," & _
+          "Q) " & _
+          " VALUES(" & _
+              "'" & SECTIONID & "'," & _
+              "'" & PLU & "'," & _
+              "'" & replace(PLUNAME,"'","") & "'," & _
+              Replace(PRICE,",",".") & "," &  _
+              DEPT & "," & _
+              Replace(QUANT,",",".") & ") "
+          objADOQuery.CommandText = InsertSQL
+          objADOQuery.Execute
+        end sub
+        
     Set: 
       - 
         Table: "RP_ADDITIONALFUNCTION"
         Items: 
+          - 
+            ADDFUNCTIONKEY: "223197832_1087481319 ecr_TEServer_CopyFileADO"
           - 
             ADDFUNCTIONKEY: "219967989_1398647910 ecr_ZServer_CreateTable_ADO"
           - 
@@ -214,3 +263,51 @@ Objects:
             ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
           - 
             ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 223197832_1087481319
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ecr_TEServer_CopyFileADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-02-28T17:43:21+03:00
+      DISPLAYSCRIPT: | 
+        ECR_TESERVER_COPYFILEADO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QDAAAARlNPAwAAAEZTTwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        ' копирует файл с данными в сетевую папку
+        sub ecr_TEServer_CopyFileADO(FSO)
+          dim Fname
+          Fname = ecr_TEServer_Ref_Filename
+          on error resume next
+          dim OwerWriteExisting
+          if not FSO.FolderExists(ecr_TEServer_workpath) then
+            Call Application.MessageBox("Отсутствует папка для хранения лог-файлов", "Внимание!", vbSystemModal+vbInformation+vbOkOnly)
+            exit sub
+          end if
+          OwerWriteExisting = True
+          ' копируем
+          FSO.CopyFile ecr_TEServer_workpath_local + Fname, ecr_TEServer_workpath + Fname , OwerWriteExisting
+          on error goto 0
+        End sub
+        
