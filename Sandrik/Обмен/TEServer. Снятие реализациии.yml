@@ -1,0 +1,551 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 222929655_1816166686
+  Name: "TEServer. Снятие реализациии"
+  Caption: "TEServer. Снятие реализациии"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: C697C10FBA1273089EE313F70AF337D2
+Uses: 
+  - "223169950_1838344811 TEServer. Параметры обмена"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147047410_281066798
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 222928188_1816166686
+    Fields: 
+      NAME: "ecr_TEServer_DoCreateErrLog"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2005-08-11T15:59:43+03:00
+      DISPLAYSCRIPT: | 
+        ECR_TESERVER_DOCREATEERRLOG
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAARVJSTElTVAcAAABFUlJMSVNUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RGTFBS
+      SCRIPT: | 
+        option explicit
+        function ecr_TEServer_DoCreateErrLog(ByRef ErrList)
+        
+          dim NameErrLog
+          dim FSO, FSOL
+        
+          if ecr_TEServer_SaveErrLog then
+             ' задан режим сохранения перечня ошибок в файле отчета
+            if ecr_TEServer_SaveErrLogM then
+              ' задан режим сохранения перечня ошибок в одном файле
+              set FSO = CreateObject("Scripting.FileSystemObject")
+              ' проверяем наличие файла со списком ошибок
+              if FSO.FileExists(ecr_TEServer_ErrLogPath) then
+                 ' файл существует, загружаем его в объект ErrList
+                ErrList.LoadFromFile(ecr_TEServer_ErrLogPath)
+              else
+                ' проверяется, что в строке - каталог или файл
+                if FSO.FolderExists(ecr_TEServer_ErrLogPath) then
+                  ' в параметре ecr_TEServer_ErrLogPath задана папка, задаем имя файла
+                  ' + "tes_err_" + CStr(Date) + "_" + CStr(Hour(Time)) + "-" + CStr(Minute(Time)) + ".csv"
+                  NameErrLog=ecr_TEServer_getbuildPath(ecr_TEServer_ErrLogPath, "ErrLog.csv")
+                  set FSOL = CreateObject("Scripting.FileSystemObject")
+                  ' проверяется, существует ли файл с именем по умолчанию
+                  if FSOL.FileExists(nameerrlog) then
+                    ' файл существует, загружаем его в объект ErrList
+                    ErrList.LoadFromFile(nameerrlog)
+                  end if
+                end if
+              end if
+            end if
+          end if
+        ' запоминаем количество загруженных записей
+          ecr_TEServer_ErrCount = ErrList.count
+          ' разделитель
+          ErrList.Add("***   ***   ***")
+          ErrList.Add("Дата;Подразделение;Наименование;Код;Цена;Описание")
+        
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147023762_281066798
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 222928188_1816166686
+    Fields: 
+      NAME: "ecr_TEServer_DoSaveErrLog"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2012-09-26T18:15:30+03:00
+      DISPLAYSCRIPT: | 
+        ECR_TESERVER_DOSAVEERRLOG
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAARVJSTElTVAcAAABFUlJMSVNUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RGTFBS
+      SCRIPT: | 
+        '#include ecr_TEServer_GetBuildPath
+        function ecr_TEServer_DoSaveErrLog(ByRef ErrList)
+        
+          if ErrList.Count = 0 then
+            call MsgBox("Данные приняты. Количество ошибок - 0.", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+            exit function
+          end if
+        
+          on error resume next
+        
+        '  call ErrList.Insert(0, "Наименование;Код;Описание;Дата")
+        
+        ' Сохранять ли список ошибок в одном файле
+          if ecr_TEServer_SaveErrLogM then
+        ' проверка наличия имени для файла регистрации ошибок
+             set FSO = CreateObject("Scripting.FileSystemObject")
+        ' Проверка, что задано в строке - файл или папка
+             if FSO.GetFileName(ecr_TEServer_ErrLogPath) <> FSO.GetBaseName(ecr_TEServer_ErrLogPath) then
+        ' задан файл
+                FName=ecr_TEServer_ErrLogPath
+              else
+        ' эадана папка или файл
+        ' повторная проверка, существует ли такая папка
+                if fso.FolderExists(ecr_TEServer_ErrLogPath) then
+        ' в параметре ecr_TEServer_ErrLogPath задана папка, задаем имя файла
+                  FName = ecr_TEServer_GetBuildPath(ecr_TEServer_ErrLogPath, "ErrLog.csv") ' + "tes_err_" + CStr(Date) + "_" + CStr(Hour(Time)) + "-" + CStr(Minute(Time)) + ".csv"
+                 else
+        ' в параметре ecr_TEServer_ErrLogPath задан файл
+                   FName = ecr_TEServer_ErrLogPath
+                end if
+             end if
+          else
+        ' Список ошибок будет сохранен в новом файле. Синтезируем имя файла.
+             FName = ecr_TEServer_GetBuildPath(ecr_TEServer_ErrLogPath, "tes_err_" + CStr(Date) + "_" + Right("0"+CStr(Hour(Time)),2) + "-" + Right("0"+CStr(Minute(Time)),2) + ".csv")
+          end if
+        ' Сохраняем список ошибок
+          ErrList.SaveToFile(FName)
+          if Err.Number <> 0 then
+            call MsgBox("Данные приняты. Количество ошибок - " + _
+              CStr(ErrList.Count-2-ecr_TEServer_ErrCount) + "." + VbCr + _
+              "Не удалось сохранить журнал: " + Err.Description, _
+              mb_OK or mb_IconExclamation or mb_TaskModal, "Внимание")
+          else
+            call MsgBox("Данные приняты. Количество ошибок - " + _
+              CStr(ErrList.Count-2-ecr_TEServer_ErrCount) + "." + VbCr + _
+              "Просмотрите записи в файле " + FName, _
+              mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          end if
+          on error goto 0
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147045020_281066798 ecr_TEServer_GetBuildPath"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 222928188_1816166686
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "erc_TEServer_GetSales_ADO"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-03-01T18:26:20+03:00
+      DISPLAYSCRIPT: | 
+        ERC_TESERVER_GETSALES_ADO
+        ERC_TESERVER_GETSALES_ADO_EXCEPT
+        ERC_TESERVER_GETSALES_ADO_ADDHEADERN
+        ERC_TESERVER_GETSALES_ADO_ADDLINEN
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include ECR_TESERVER_DOSAVEERRLOG
+        '#include ECR_DEPTLIST
+        '#include ECR_TESERVER_DOCREATEERRLOG
+        '#include ECR_ZSERVER_SETPARAMS
+        Option Explicit
+        Function erc_TEServer_GetSales_ADO
+        
+           dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam
+           ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+           ' Присвоим список параметров отдельной переменной
+          set ParamList = ParamWindow.ParamList
+           ' Добавление параметра через объект-диалог
+        
+          call ParamWindow.AddLinkParam("Подразделение", "prmLinkElement", "GD_CONTACT gg1", "id", "name", "gg1.contacttype =4 and EXISTS (SELECT con.id FROM gd_contact con where con.lb <= gg1.lb and con.rb >=gg1.rb and con.id = "+CStr(IBLogin.CompanyKey)+")" , "", "Выбор типа лимита")
+          ParamList.Params(0).Required = false
+        
+          ' Отображение диалога и получение результата
+          result = ParamWindow.ExecuteWithParamList(ParamList)
+        
+          if IsEmpty(result) then
+             exit Function
+          end if
+        
+           depart = result(0)
+        
+        
+          Dim Creator
+          Set Creator = New TCreator
+        
+          Dim OurTransaction
+          Set OurTransaction = Creator.GetObject(nil, "TIBTransaction", "")
+          OurTransaction.Params.Add("nowait")
+          OurTransaction.DefaultDatabase = gdcBaseManager.Database
+          OurTransaction.StartTransaction
+        
+          except erc_TEServer_GetSales_ADO_Except(OurTransaction)
+          
+          ' ініцыялізацыя пошука тавару
+          dim qFindGood
+          set qFindGood = Creator.GetObject(nil, "TIBSQL", "")
+          qFindGood.Transaction = OurTransaction
+         ' qFindGood.SQL.Add("SELECT NAME, " + ecr_TEServer_CodeField + ", ID FROM gd_good " + _
+        '    " WHERE " + ecr_TEServer_CodeField + " = :BarCode")
+          qFindGood.SQL.Text = _
+          "EXECUTE BLOCK( " & _
+          "CCODE VARCHAR(20) =:CCODE " & _
+          ") " & _
+          "RETURNS( " & _
+          "ID INTEGER, " & _
+          "NAME VARCHAR(60), " & _
+          "ECRCODE VARCHAR(60)) " & _
+          "AS " & _
+          "BEGIN " & _
+          " " & _
+          "  SELECT FIRST(1) " & _
+          "    ID, NAME, USR$SDR_ECRCODE " & _
+          "  FROM GD_GOOD " & _
+          "  WHERE USR$SDR_ECRCODE =:CCODE " & _
+          "  INTO :ID, :NAME, :ECRCODE; " & _
+          " " & _
+          "  IF (ID IS NULL) THEN " & _
+          "   BEGIN " & _
+          "     SELECT FIRST(1) " & _
+          "       ID, NAME, USR$SDR_ECRCODE " & _
+          "     FROM GD_GOOD " & _
+          "     WHERE BARCODE =:CCODE " & _
+          "     INTO :ID, :NAME, :ECRCODE; " & _
+          "   END " & _
+          "  SUSPEND; " & _
+          "END "
+        
+           'Прогресс бар
+          dim prForm, TmS, TmE, TmSum
+          TmS = Time
+          set prForm = New Twg_ProgressForm
+          call prForm.Init(prForm, Null)
+          prForm.Caption = "Снятие реализации: "
+          prForm.Note = "Идет подготовка данных..."
+          prForm.Show
+          ' вызначаем пераменныя і канстанты
+          ecr_ZServer_SetParams(ecr_TEServer_ttFromCass)
+          
+          dim ObjCon
+          set ObjCon = CreateObject("ADODB.Connection")
+          ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjCon.Properties("Data Source") = ecr_TEServer_workpath
+          ObjCon.Properties("Jet OLEDB:Engine Type") = 18
+          ObjCon.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.Command")
+          objADOQuery.ActiveConnection = ObjCon
+        
+          dim AdoQuery
+          set AdoQuery = CreateObject("ADODB.RecordSet")
+          AdoQuery.ActiveConnection = ObjCon
+          AdoQuery.Open "SELECT PLU, PLUNAME, FACTNUM, SUM(Q) AS SUMM, PRICE, HDATE FROM PLU_SELL.DBF " & _
+                        "WHERE PLU IS NOT NULL AND PLUNAME IS NOT NULL " & _
+                        "GROUP BY PLU, PLUNAME, FACTNUM, PRICE, HDATE " & _
+                        "ORDER BY FACTNUM, HDATE " , ObjCon
+          if AdoQuery.State = 0 then
+            AdoQuery.Open
+          end if
+          
+          dim prCount : prCount = 0
+          AdoQuery.MoveFirst
+          While Not AdoQuery.EoF
+            prCount = prCount + 1
+            AdoQuery.Movenext
+          wend
+          
+          prForm.Max = prCount
+          prForm.Note = "Идет импорт продаж. Ожидайте..."
+          prForm.Show
+          AdoQuery.MoveFirst
+        
+          dim FullFileName, ErrList
+          FullFileName = "'" + ecr_TEServer_GetBuildPath(ecr_TEServer_workpath, ecr_TEServer_Sell_Filename) + "'"
+          
+          set ErrList = Creator.GetObject(nil, "TStringList", "")
+          ' праверка на наяўнасць файлу памылак, стварэнне
+          ecr_TEServer_DoCreateErrLog(ErrList)
+          
+          
+          ' 11. рэалізація тавару ўраздроб
+          dim gdcSale, gdcSaleLine, dsMasterSale, gdcRemainsSale
+          Set gdcSale = Creator.GetObject(nil, "TgdcInvDocument", "")
+          gdcSale.SubType = "147006557_63934951"
+          gdcSale.Transaction = OurTransaction
+        
+          Set gdcSaleLine = Creator.GetObject(nil, "TgdcInvDocumentLine", "")
+          gdcSaleLine.SubType = "147006557_63934951"
+          gdcSaleLine.Transaction = gdcSale.Transaction
+        
+          Set dsMasterSale = Creator.GetObject(nil, "TDataSource", "")
+          dsMasterSale.DataSet = gdcSale
+        
+          gdcSaleLine.MasterSource = dsMasterSale
+          gdcSaleLine.MasterField = "ID"
+          gdcSaleLine.DetailField = "PARENT"
+          gdcSaleLine.SubSet = "ByParent"
+          gdcSale.Open
+          gdcSaleLine.Open
+          
+          Set gdcRemainsSale = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
+          gdcRemainsSale.gdcDocumentLine = gdcSaleLine
+          gdcRemainsSale.Transaction = gdcSaleLine.Transaction
+        
+          ' адразу абазначу, потым - прыбяру
+          dim DepKey, CurrentDepKey , CurrentDocDate, IsRet
+          DepKey = ecr_DeptList.GetNpByID(depart(0))
+        
+          ' Падразьдзел. Кали ён змяняецца, патрэбна стварать новый дакумент
+          CurrentDepKey = depart(0)
+          ' Дата продажу...
+          CurrentDocDate = AdoQuery.Fields.Item("HDATE").Value
+          if CurrentDocDate<now Then
+            CurrentDocDate = DateSerial(2022,03,01)
+          end if
+          'ствараем шапку першага дакумента
+          Call erc_TEServer_GetSales_ADO_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, IsRet)
+            
+          gdcRemainsSale.gdcDocumentLine = nil
+          gdcRemainsSale.gdcDocumentLine = gdcSaleLine
+        
+          dim LCount :LCount =0
+          AdoQuery.MoveFirst
+          While Not AdoQuery.EoF
+            LCount = LCount + 1
+            IF AdoQuery.Fields.Item("SUMM").Value<0 THEN
+              IsRet = 1
+            ELSE
+              IsRet = 0
+            END IF
+            
+            Call erc_TEServer_GetSales_ADO_AddLineN(gdcSaleLine, AdoQuery, gdcRemainsSale, qFindGood, ErrList, IsRet)
+            AdoQuery.MoveNext
+            PrForm.SubNote = "Принято: " & CSTR(LCount) & " из " & CSTR(prCount)
+            prForm.Position = prForm.Position + 1
+          Wend
+        
+        
+          if ecr_TEServer_SaveErrLog then
+            ecr_TEServer_DoSaveErrLog(ErrList)
+          else
+            call Application.MessageBox("Данные приняты. Количество ошибок - " + CStr(ErrList.Count-1) + ".", _
+              "Внимание", mb_OK or mb_IconInformation or vbSystemModal)
+          end if
+          
+          If OurTransaction.InTransaction Then OurTransaction.Commit
+          prForm.Close
+          set prForm = nothing
+        End Function
+        
+        SUB erc_TEServer_GetSales_ADO_Except(Tr)
+          IF Tr.InTransaction Then Tr.RollBack
+        END SUB
+        
+        Function erc_TEServer_GetSales_ADO_AddHeaderN(gdcObject, CurrentDepKey, CurrentDocDate, IsRet)
+          If IsRet = 1 Then ' зварот: Адкуль - псеўдакліент, Куды - падразьдзел
+            If gdcObject.Locate("USR$PSEVDOCONTACT;DOCUMENTDATE ", Array(CurrentDepKey, CurrentDocDate), False) Then Exit Function
+            gdcObject.Insert
+            gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = _
+              gdcBaseManager.GetIDByRUIDString("147004309_31587988")
+            gdcObject.FieldByName("USR$PSEVDOCONTACT").AsInteger = CurrentDepKey
+          Else  ' продаж: Адкуль - падразьдзел, Куды - псеўдакліент
+            If gdcObject.Locate("USR$CONTACTKEY;DOCUMENTDATE ", Array(CurrentDepKey, CurrentDocDate), False) Then Exit Function
+            gdcObject.Insert
+            gdcObject.FieldByName("USR$PSEVDOCONTACT").AsInteger = _
+              gdcBaseManager.GetIDByRUIDString("147004309_31587988")
+            gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = CurrentDepKey
+          End If
+          gdcObject.FieldByName("DOCUMENTDATE").AsDateTime = CurrentDocDate
+          gdcObject.Post
+        end function
+        
+        Function erc_TEServer_GetSales_ADO_AddLineN(gdcDetailObject, AdoQuery, gdcRemains, qFindGood, ErrorList, IsRet)
+          Dim GoodKey, errFullName
+          qFindGood.Close
+          qFindGood.ParamByName("CCODE").AsVariant = AdoQuery.Fields.Item("PLU").Value
+          qFindGood.ExecQuery
+          GoodKey = qFindGood.FieldByName("ID").AsInteger
+          qFindGood.Close
+          errFullName = AdoQuery.Fields.Item("PLU").Value + " " + AdoQuery.Fields.Item("PLUNAME").Value
+        
+          If GoodKey = 0 Then
+            'пашукаем яшчэ по ШК
+            ErrorList.Add(errFullName + "не найден в справочнике " + ", количество=" + CSTR(AdoQuery.Fields.Item("SUMM").Value))
+            exit Function
+          End If
+        
+          gdcRemains.Close
+          gdcRemains.ParamByName("GoodKey").AsInteger = GoodKey
+          gdcRemains.ExtraConditions.CLEAR
+          gdcRemains.ExtraConditions.Add(" C.USR$INV_COSTRETAILNCU = :cost ")
+        
+          dim PRICE
+          PRICE =  replace(AdoQuery.Fields.Item("PRICE").Value, ",", ".")
+          gdcRemains.ParamByName("cost").AsVariant = PRICE
+        
+          if Len(AdoQuery.Fields.Item("PLU").Value) < 13 then      ' с учетом цены
+            gdcRemains.ExtraConditions.Add("C.USR$SDR_ECRCODE = :card_code")
+            gdcRemains.ParamByName("card_code").AsString = card_code
+          end if
+        
+         ' ON ERROR RESUME NEXT
+        
+         ' ON ERROR GOTO 0
+          gdcRemains.CurrentRemains = false
+          gdcRemains.ParamByName("remainsdate").AsVariant = gdcDetailObject.MasterSource.DataSet.FieldByName("documentdate").AsVariant
+        
+          'Сортировка по дате поступления
+          If InStr(gdcRemains.SelectSQL.Text, "ORDER") > 0 Then
+            gdcRemains.SelectSQL.Text  = _
+              Mid(gdcRemains.SelectSQL.Text, 1, InStr(gdcRemains.SelectSQL.Text, "ORDER") - 1)
+          End If
+        
+        '  If IsRet = 1 Then
+        '    gdcRemains.SelectSQL.Text = _
+        '      gdcRemains.SelectSQL.Text & vbCrLf & _
+        '      "ORDER BY C.USR$INV_DATERECEIVE desc "
+        '  Else
+        '    gdcRemains.SelectSQL.Text = _
+        '      gdcRemains.SelectSQL.Text & vbCrLf & _
+        '      "ORDER BY C.USR$INV_DATERECEIVE "
+        '  End If
+        
+          gdcRemains.Open
+        
+        
+          Dim Quant, aQuantity
+          ' столько надо списать
+          aQuantity = AdoQuery.Fields.Item("SUMM").Value
+          
+          If IsRet = 1 Then aQuantity = - aQuantity
+        
+          If Not gdcRemains.EoF Then    ' есть остатки
+            Dim WasError : WasError = False
+            ' перебираем позиции остатков, закрывая все количество
+            While Not gdcRemains.EOF And aQuantity > 0
+        
+              Quant = aQuantity
+              If Quant > gdcRemains.FieldByName("REMAINS").AsCurrency Then
+                Quant = gdcRemains.FieldByName("REMAINS").AsCurrency
+              End If
+        
+              on error resume next
+              Err.Clear
+              gdcDetailObject.isSetFeaturesFromRemains = True
+              gdcDetailObject.Insert             ' добавляем позицию
+              gdcDetailObject.FieldByName("FROMCARDKEY").AsInteger = _
+                gdcRemains.FieldByName("ID").AsInteger
+              gdcDetailObject.FieldByName("GOODKEY").AsInteger = GoodKey
+              gdcDetailObject.FieldByName("QUANTITY").AsVariant = Quant
+              Call gdcDetailObject.SetFeatures(True, True)
+             ' gdcDetailObject.FieldByName("TO_USR$INV_TAXSALE").AsCurrency = 0
+              gdcDetailObject.FieldByName("TO_USR$INV_COSTFULLNCU").AsCurrency = _
+                AdoQuery.Fields.Item("PRICE").Value
+              gdcDetailObject.Post
+        
+              If Err.Number <> 0 Then  ' ошибка при сохранении позиции
+                ErrorList.Add("при сохранении товара:" +CSTR(GoodKey)+ "," + AdoQuery.Fields.Item("PLUNAME").Value + "произошла ошибка: " +Err.Description +", количество=" + AdoQuery.Fields.Item("SUMM").Value)
+                If (gdcDetailObject.State = 2) or (gdcDetailObject.State = 3) Then gdcDetailObject.Cancel
+                WasError = True
+                Err.Clear
+              Else
+                aQuantity = aQuantity - Quant
+              End If
+              on error goto 0
+              gdcRemains.Next
+            wEnd
+        
+            If Not WasError Then
+              If aQuantity > 0 Then
+                ErrorList.Add(CSTR(GoodKey)+ ";" + AdoQuery.Fields.Item("PLUNAME").Value + "По товару недостаточно остатков на подразделении! Кол-во = " + CStr(aQuantity))
+              ElseIf aQuantity < 0 Then
+                ErrorList.Add(CSTR(GoodKey)+ ";" + CSTR(AdoQuery.Fields.Item("PLUNAME").Value) + "По товару реализовано отрицательное количество (возврат)! Кол-во = "+ CStr(AdoQuery.Fields.Item("SUMM").Value))
+              End If
+            End If
+          Else ' нет остатков
+            ErrorList.Add(CSTR(GoodKey)+ ";" + AdoQuery.Fields.Item("PLUNAME").Value + "По товару нет остатков! Кол-во = " + CStr(aQuantity))
+          End If
+          gdcRemains.Close
+        
+        
+        end function
+        
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147023762_281066798 ecr_TEServer_DoSaveErrLog"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147047410_281066798 ecr_TEServer_DoCreateErrLog"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
