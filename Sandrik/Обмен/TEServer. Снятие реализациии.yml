@@ -5,10 +5,10 @@ Properties:
   RUID: 222929655_1816166686
   Name: "TEServer. Снятие реализациии"
   Caption: "TEServer. Снятие реализациии"
-  Version: "1.0.0.1"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: C697C10FBA1273089EE313F70AF337D2
+  MD5: 04934032BC63F38FE21497207F36CDF8
 Uses: 
   - "223169950_1838344811 TEServer. Параметры обмена"
 Objects: 
@@ -199,12 +199,13 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-01T18:26:20+03:00
+      EDITIONDATE: 2022-03-03T12:38:29+03:00
       DISPLAYSCRIPT: | 
         ERC_TESERVER_GETSALES_ADO
         ERC_TESERVER_GETSALES_ADO_EXCEPT
         ERC_TESERVER_GETSALES_ADO_ADDHEADERN
         ERC_TESERVER_GETSALES_ADO_ADDLINEN
+        ERC_TESERVER_GETSALESFORM
         
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -223,8 +224,10 @@ Objects:
            ' Добавление параметра через объект-диалог
         
           call ParamWindow.AddLinkParam("Подразделение", "prmLinkElement", "GD_CONTACT gg1", "id", "name", "gg1.contacttype =4 and EXISTS (SELECT con.id FROM gd_contact con where con.lb <= gg1.lb and con.rb >=gg1.rb and con.id = "+CStr(IBLogin.CompanyKey)+")" , "", "Выбор типа лимита")
+          call ParamWindow.AddParam("Дата", "prmDate", "Выбор даты формирования")
+          
           ParamList.Params(0).Required = false
-        
+          ParamList.Params(1).Required = True
           ' Отображение диалога и получение результата
           result = ParamWindow.ExecuteWithParamList(ParamList)
         
@@ -232,7 +235,16 @@ Objects:
              exit Function
           end if
         
-           depart = result(0)
+          depart = result(0)
+          
+          ' адразу абазначу, потым - прыбяру
+          dim DepKey, CurrentDepKey , CurrentDocDate, IsRet
+          DepKey = ecr_DeptList.GetNpByID(depart(0))
+        
+          ' Падразьдзел. Кали ён змяняецца, патрэбна стварать новый дакумент
+          CurrentDepKey = depart(0)
+          ' Дата продажу...
+          CurrentDocDate = result(1)
         
         
           Dim Creator
@@ -288,6 +300,9 @@ Objects:
           prForm.Caption = "Снятие реализации: "
           prForm.Note = "Идет подготовка данных..."
           prForm.Show
+        
+          Except erc_TEServer_GetSalesForm(prForm)
+          
           ' вызначаем пераменныя і канстанты
           ecr_ZServer_SetParams(ecr_TEServer_ttFromCass)
           
@@ -305,14 +320,14 @@ Objects:
           dim AdoQuery
           set AdoQuery = CreateObject("ADODB.RecordSet")
           AdoQuery.ActiveConnection = ObjCon
-          AdoQuery.Open "SELECT PLU, PLUNAME, FACTNUM, SUM(Q) AS SUMM, PRICE, HDATE FROM PLU_SELL.DBF " & _
-                        "WHERE PLU IS NOT NULL AND PLUNAME IS NOT NULL " & _
-                        "GROUP BY PLU, PLUNAME, FACTNUM, PRICE, HDATE " & _
-                        "ORDER BY FACTNUM, HDATE " , ObjCon
+          AdoQuery.Open " SELECT PLU, SECTIONID, PLUNAME, FACTNUM, SUM(Q) AS SUMM, PRICE, HDATE FROM PLU_SELL.DBF " & _
+                        " WHERE PLU IS NOT NULL AND PLUNAME IS NOT NULL AND SECTIONID='" & CSTR(DepKey) & "'" & _
+                        " GROUP BY PLU, SECTIONID, PLUNAME, FACTNUM, PRICE, HDATE " & _
+                        " ORDER BY FACTNUM, HDATE " , ObjCon
           if AdoQuery.State = 0 then
             AdoQuery.Open
           end if
-          
+        
           dim prCount : prCount = 0
           AdoQuery.MoveFirst
           While Not AdoQuery.EoF
@@ -357,17 +372,9 @@ Objects:
           gdcRemainsSale.gdcDocumentLine = gdcSaleLine
           gdcRemainsSale.Transaction = gdcSaleLine.Transaction
         
-          ' адразу абазначу, потым - прыбяру
-          dim DepKey, CurrentDepKey , CurrentDocDate, IsRet
-          DepKey = ecr_DeptList.GetNpByID(depart(0))
-        
-          ' Падразьдзел. Кали ён змяняецца, патрэбна стварать новый дакумент
-          CurrentDepKey = depart(0)
-          ' Дата продажу...
-          CurrentDocDate = AdoQuery.Fields.Item("HDATE").Value
-          if CurrentDocDate<now Then
-            CurrentDocDate = DateSerial(2022,03,01)
-          end if
+          'if CurrentDocDate<now Then
+        '    CurrentDocDate = DateSerial(2022,03,01)
+        '  end if
           'ствараем шапку першага дакумента
           Call erc_TEServer_GetSales_ADO_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, IsRet)
             
@@ -376,7 +383,7 @@ Objects:
         
           dim LCount :LCount =0
           AdoQuery.MoveFirst
-          While Not AdoQuery.EoF
+          While Not AdoQuery.EoF and (not prForm.Canceled)
             LCount = LCount + 1
             IF AdoQuery.Fields.Item("SUMM").Value<0 THEN
               IsRet = 1
@@ -384,12 +391,22 @@ Objects:
               IsRet = 0
             END IF
             
+            Call erc_TEServer_GetSales_ADO_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, IsRet)
+            gdcRemainsSale.Close
+            gdcRemainsSale.gdcDocumentLine = nil
+            gdcRemainsSale.gdcDocumentLine = gdcSaleLine
+        
             Call erc_TEServer_GetSales_ADO_AddLineN(gdcSaleLine, AdoQuery, gdcRemainsSale, qFindGood, ErrList, IsRet)
             AdoQuery.MoveNext
             PrForm.SubNote = "Принято: " & CSTR(LCount) & " из " & CSTR(prCount)
             prForm.Position = prForm.Position + 1
+            Application.ProcessMessages
+            
           Wend
         
+          If OurTransaction.InTransaction Then OurTransaction.Commit
+          prForm.Close
+          set prForm = nothing
         
           if ecr_TEServer_SaveErrLog then
             ecr_TEServer_DoSaveErrLog(ErrList)
@@ -397,10 +414,6 @@ Objects:
             call Application.MessageBox("Данные приняты. Количество ошибок - " + CStr(ErrList.Count-1) + ".", _
               "Внимание", mb_OK or mb_IconInformation or vbSystemModal)
           end if
-          
-          If OurTransaction.InTransaction Then OurTransaction.Commit
-          prForm.Close
-          set prForm = nothing
         End Function
         
         SUB erc_TEServer_GetSales_ADO_Except(Tr)
@@ -426,9 +439,17 @@ Objects:
         end function
         
         Function erc_TEServer_GetSales_ADO_AddLineN(gdcDetailObject, AdoQuery, gdcRemains, qFindGood, ErrorList, IsRet)
-          Dim GoodKey, errFullName
+           Dim GoodKey, errFullName, Plu, good_code, card_code
+           plu = AdoQuery.Fields.Item("PLU").Value
+           if (Len(plu) < 12) then      ' с учетом цены
+             good_code = Left(plu, Len(plu)-ecr_DeptList.CostCodeLength)
+             card_code = Right(plu, ecr_DeptList.CostCodeLength)
+           else
+             good_code = AdoQuery.Fields.Item("PLU").Value
+           end if
+        
           qFindGood.Close
-          qFindGood.ParamByName("CCODE").AsVariant = AdoQuery.Fields.Item("PLU").Value
+          qFindGood.ParamByName("CCODE").AsVariant = good_code
           qFindGood.ExecQuery
           GoodKey = qFindGood.FieldByName("ID").AsInteger
           qFindGood.Close
@@ -466,16 +487,6 @@ Objects:
               Mid(gdcRemains.SelectSQL.Text, 1, InStr(gdcRemains.SelectSQL.Text, "ORDER") - 1)
           End If
         
-        '  If IsRet = 1 Then
-        '    gdcRemains.SelectSQL.Text = _
-        '      gdcRemains.SelectSQL.Text & vbCrLf & _
-        '      "ORDER BY C.USR$INV_DATERECEIVE desc "
-        '  Else
-        '    gdcRemains.SelectSQL.Text = _
-        '      gdcRemains.SelectSQL.Text & vbCrLf & _
-        '      "ORDER BY C.USR$INV_DATERECEIVE "
-        '  End If
-        
           gdcRemains.Open
         
         
@@ -504,7 +515,6 @@ Objects:
               gdcDetailObject.FieldByName("GOODKEY").AsInteger = GoodKey
               gdcDetailObject.FieldByName("QUANTITY").AsVariant = Quant
               Call gdcDetailObject.SetFeatures(True, True)
-             ' gdcDetailObject.FieldByName("TO_USR$INV_TAXSALE").AsCurrency = 0
               gdcDetailObject.FieldByName("TO_USR$INV_COSTFULLNCU").AsCurrency = _
                 AdoQuery.Fields.Item("PRICE").Value
               gdcDetailObject.Post
@@ -532,9 +542,12 @@ Objects:
             ErrorList.Add(CSTR(GoodKey)+ ";" + AdoQuery.Fields.Item("PLUNAME").Value + "По товару нет остатков! Кол-во = " + CStr(aQuantity))
           End If
           gdcRemains.Close
-        
-        
         end function
+        
+        sub erc_TEServer_GetSalesForm(frm)
+          frm.Close
+          set frm = nothing
+        end sub
         
         
     Set: 

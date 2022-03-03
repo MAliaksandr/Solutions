@@ -5,10 +5,10 @@ Properties:
   RUID: 209316035_2119495691
   Name: "TEServer. Экспорт остатков  в КС"
   Caption: "TEServer. Экспорт остатков  в КС"
-  Version: "1.0.0.16"
+  Version: "1.0.0.19"
   Optional: False
   Internal: True
-  MD5: 23C169FCCD4F942392A0B1FD2C327FC5
+  MD5: B564921DBFB58142D2944E356799D04C
 Uses: 
   - "148919179_537677461 GS.Общее.Деноминация 2016"
   - "199348208_2100852545 переоценка_2015"
@@ -219,7 +219,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-02-28T17:28:29+03:00
+      EDITIONDATE: 2022-03-03T10:48:19+03:00
       DISPLAYSCRIPT: | 
         EXPORT_REMAINS_AT_TSERVER_ADO
         TM_WORK
@@ -356,11 +356,11 @@ Objects:
           prForm.Note = "Идет передача данных. Ожидайте..."
           prForm.Show
           
-          Except ProgressFormRem(prForm)
+         ' Except ProgressFormRem(prForm)
         
           DBFnumb = 0
           gdcDocLine.First
-          while not gdcDocLine.EOF
+          while not gdcDocLine.EOF and (not prForm.Canceled)
             select case linecounter
            '   case 2500
         '        DBFnumb = 1
