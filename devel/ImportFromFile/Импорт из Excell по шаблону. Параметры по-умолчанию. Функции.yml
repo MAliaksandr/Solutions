@@ -5,10 +5,10 @@ Properties:
   RUID: 154581535_1631104572
   Name: "Импорт из Excell по шаблону. Параметры по-умолчанию. Функции"
   Caption: "Импорт из Excell по шаблону. Параметры по-умолчанию. Функции"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: FBFA77050D25A8E60291F71DCC7841C5
+  MD5: A2E40350FDEF581974AC0C7EB4786115
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-24T16:47:07+03:00
+      EDITIONDATE: 2022-03-04T10:09:52+03:00
       DISPLAYSCRIPT: | 
         DEFAULT_SETPARAMS
         EXCEPT_DEFAULT_SETPARAMS
@@ -47,8 +47,10 @@ Objects:
           ' задает параметры шаблона по-умолчанию
           
           if Obj.State = dsInsert Then
-           call Application.MessageBox("Необходимо сохранить шаблон.", "Внимание", vbokOnly+vbSysytemMOdal+vbCritical)
-           exit function
+          ' call Application.MessageBox("Необходимо сохранить шаблон.", "Внимание", vbokOnly+vbSystemMOdal+vbCritical)
+            Obj.Post
+            Obj.Edit
+         '  exit function
           end if
         
           IF Application.MessageBox("Будут утановлены параметры по-умолчанию. Продолжить?",  _
@@ -68,7 +70,7 @@ Objects:
             "UPDATE USR$IMPORTTEMPLATE " & _
             "SET " & _
             "  USR$DOCDATE = 1, " & _
-            "  USR$DOCNUMBER	= 2, " & _
+            "  USR$DOCNUMBER = 2, " & _
             "  USR$DEPARTMENT = 3, " & _
             "  USR$DEPRUID = 0, " & _
             "  USR$CONTACT = 6, " & _
@@ -173,7 +175,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-24T16:13:58+03:00
+      EDITIONDATE: 2022-03-04T10:07:18+03:00
       DISPLAYSCRIPT: | 
         USRG_USR_IMPORTTEMPLATE_BITBTN1ONCLICK
         
@@ -188,7 +190,7 @@ Objects:
         '*** В случае его удаления возможно нарушение работы системы ***
           Call   Inherited(Sender, "OnClick", Array(Sender))
         '*** конец кода поддержки встроенного обработчика            ***
-          call Default_setParams(Sender.OwnerForm.gdcObject)
+           call Default_setParams(Sender.OwnerForm.gdcObject)
         End Sub
         
     Set: 

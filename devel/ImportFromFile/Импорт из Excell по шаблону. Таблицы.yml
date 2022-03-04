@@ -5,11 +5,13 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: 3A9BCEB1E8007E8EE7D7BDA4F8E74F97
+  MD5: DC448A553ED8645F44F0D62C8F6DAFC3
 Uses: 
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+  - "220391971_1646796305 Основание для БЕЗ НДС"
   - "148509668_396646306 Торговля - исследователь"
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "147753062_69526485 GS.Общие.Хранилище"
@@ -23,7 +25,7 @@ Objects:
       IncludeSiblings: False
       HeadObject: 154479290_1631104572
     Fields: 
-      PARENT: "147013028_109092844 Исследователь\\Торговля"
+      PARENT: "147013028_109092844 Исследователь\\01.Торговля"
       NAME: "Шаблоны для импорта"
       CLASSNAME: "TgdcAttrUserDefined"
       CMD: ~
@@ -43,7 +45,7 @@ Objects:
       IncludeSiblings: False
       HeadObject: 154479290_1631104572
     Fields: 
-      BRANCHKEY: "154479191_1631104572 Исследователь\\Торговля\\Шаблоны для импорта"
+      BRANCHKEY: "154479191_1631104572 Исследователь\\01.Торговля\\Шаблоны для импорта"
       DESCRIPTION: "USR$IMPORTTEMPLATE"
       EXTENDEDFIELDS: ~
       LISTFIELD: ~
@@ -658,12 +660,12 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-08-24T16:13:58+03:00
+      EDITIONDATE: 2022-03-04T13:04:06+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
           HorzScrollBar.Range = 0
           VertScrollBar.Range = 0
-          ActiveControl = usrg_USR_IMPORTTEMPLATE_PageControl1
+          ActiveControl = nil
           BorderStyle = bsSingle
           ClientHeight = 330
           ClientWidth = 481
@@ -802,7 +804,7 @@ Objects:
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
-                  ActivePage = usrg_TBSheetMain
+                  ActivePage = usrg_TBSheetGood
                   Align = alNone
                   Anchors = [akLeft, akTop]
                   Constraints.MaxHeight = 0
@@ -896,26 +898,6 @@ Objects:
                         Left = 5
                         Top = 113
                       end
-                      object usrat_DBEdit_USR_STARTLINE: TxDBCalculatorEdit
-                        Left = 9
-                        Top = 16
-                        Width = 52
-                        Cursor = crIBeam
-                        TabOrder = 0
-                      end
-                      object usrat_DBEdit_USR_QFREELINE: TxDBCalculatorEdit
-                        Left = 10
-                        Top = 38
-                        Width = 51
-                        Cursor = crArrow
-                        TabOrder = 1
-                      end
-                      object usrat_DBEdit_USR_PATH: TDBEdit
-                        Left = 119
-                        Top = 109
-                        Width = 319
-                        TabOrder = 2
-                      end
                       object usrg_USR_IMPORTTEMPLATE_BitBtn1: TBitBtn
                         Tag = 0
                         Left = 349
@@ -952,6 +934,26 @@ Objects:
                         NumGlyphs = 1
                         Style = bsAutoDetect
                         Spacing = 4
+                      end
+                      object usrat_DBEdit_USR_STARTLINE: TxDBCalculatorEdit
+                        Left = 9
+                        Top = 16
+                        Width = 52
+                        Cursor = crIBeam
+                        TabOrder = 0
+                      end
+                      object usrat_DBEdit_USR_QFREELINE: TxDBCalculatorEdit
+                        Left = 10
+                        Top = 38
+                        Width = 51
+                        Cursor = crArrow
+                        TabOrder = 1
+                      end
+                      object usrat_DBEdit_USR_PATH: TDBEdit
+                        Left = 119
+                        Top = 109
+                        Width = 319
+                        TabOrder = 2
                       end
                     end
                   end
@@ -1106,22 +1108,38 @@ Objects:
                         Left = 60
                         Top = 40
                       end
+                      object usrat_gsIBLookupComboBox_USR_GOODGROUP_Label: TLabel
+                        Left = 205
+                        Top = 16
+                        Hint = 
+                          'Товарная группа, которая будет использована по умолчанию при вст' +
+                          'авке нового товара'
+                      end
+                      object usrat_DBEdit_USR_VALUENAME_Label: TLabel
+                        Left = 61
+                        Top = 107
+                        Width = 38
+                        Caption = 'Ед.изм.'
+                      end
                       object usrat_DBEdit_USR_GOODNAME: TxDBCalculatorEdit
                         Left = 5
                         Top = 13
                         Width = 52
+                        Cursor = crArrow
                         TabOrder = 0
                       end
                       object usrat_DBEdit_USR_ALIAS: TxDBCalculatorEdit
                         Left = 5
                         Top = 36
                         Width = 52
+                        Cursor = crIBeam
                         TabOrder = 1
                       end
                       object usrat_DBEdit_USR_BARCODE: TxDBCalculatorEdit
                         Left = 5
                         Top = 59
                         Width = 52
+                        Cursor = crIBeam
                         TabOrder = 2
                       end
                       object usrat_DBEdit_USR_DESCRIPTION: TxDBCalculatorEdit
@@ -1130,6 +1148,19 @@ Objects:
                         Width = 52
                         Cursor = crArrow
                         TabOrder = 3
+                      end
+                      object usrat_gsIBLookupComboBox_USR_GOODGROUP: TgsIBLookupComboBox
+                        Left = 302
+                        Top = 13
+                        Width = 145
+                        TabOrder = 4
+                      end
+                      object usrat_DBEdit_USR_VALUENAME: TxDBCalculatorEdit
+                        Left = 5
+                        Top = 104
+                        Width = 52
+                        Cursor = crIBeam
+                        TabOrder = 5
                       end
                     end
                   end
@@ -1680,6 +1711,136 @@ Objects:
       STRINGLENGTH: ~
       VISIBLE: 1
       EDITIONDATE: 2021-08-24T12:46:27+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 186802456_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 235081247_1833050115
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "Группа товара"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$GOODGROUP"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Группа товара"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "NAME"
+      REFLISTLNAME: "Группа ТМЦ"
+      REFLNAME: "Группы ТМЦ"
+      REFTABLE: "GD_GOODGROUP"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-04T11:43:25+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235081247_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$VALUENAME"
+      FIELDNAME: "USR$VALUENAME"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ед.изм."
+      LSHORTNAME: "Ед.изм."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-04T13:01:59+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235081144_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$GOODGROUP"
+      FIELDNAME: "USR$GOODGROUP"
+      FIELDSOURCE: "USR$GOODGROUP"
+      FIELDSOURCEKEY: "186802456_1833050115 Группа товара, USR$GOODGROUP"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Товарная группа"
+      LSHORTNAME: "Товарная группа"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_GOODGROUP"
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-04T11:42:35+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~

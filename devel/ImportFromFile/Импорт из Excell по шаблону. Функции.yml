@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.4"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 38E1CB030C123F41EA167A4A411B5480
+  MD5: 018C2E73793D9B7CD6C5261956CDEF2D
 Objects: 
   - 
     Properties: 
@@ -34,12 +34,13 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-24T13:24:45+03:00
+      EDITIONDATE: 2022-03-04T12:19:29+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
         'Переменные для импорта из Excell на основании шаблонов
         public pGNAME
+        public pVNAME      'ед.изм
         public pStartLine  'номер строки, с которой начинаем работу
         
         public pCOSTBYNCU
@@ -59,6 +60,8 @@ Objects:
         public pPath       ' рабочая директория
         public pDept       ' подразделение
         public pClient     ' клиент
+        
+        public pGroupKey   ' товарная группа, кот. будет использоваться по умолчанию при вставке нового товара
         
         
   - 
@@ -85,7 +88,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-24T15:03:51+03:00
+      EDITIONDATE: 2022-03-04T12:19:30+03:00
       DISPLAYSCRIPT: | 
         IMFF_SETPARAMS
         
@@ -107,7 +110,7 @@ Objects:
           set Creator = New TCreator
           set gdcTemplParam = Creator.GetObject(nil, "TgdcAttrUserDefined", "")
           gdcTemplParam.SubType = "USR$IMPORTTEMPLATE"
-          gdcTemplParam.ExtraConditions.Add("ID = :ID")
+          gdcTemplParam.ExtraConditions.Add("z.ID = :ID")
           gdcTemplParam.ParamByName("ID").AsInteger = templ(0)
           gdcTemplParam.Open
           gdcTemplParam.Last
@@ -115,6 +118,8 @@ Objects:
           IF gdcTemplParam.RecordCount > 0 then
             'наименование ТМЦ
             pGNAME = gdcTemplParam.FieldByName("USR$GOODNAME").AsInteger
+            'ед.изм
+            pVNAME = gdcTemplParam.FieldByName("USR$VALUENAME").AsInteger
             'розн.цена
             pSELLCOST = gdcTemplParam.FieldByName("USR$SELLCOST").AsInteger
             'ШК
@@ -136,7 +141,8 @@ Objects:
             pQfreeLine = gdcTemplParam.FieldByName("USR$QFREELINE").AsInteger
             ' количество ТМЦ в позиции документа
             pQuant = gdcTemplParam.FieldByName("USR$QUANTITY").AsInteger
-            
+            ' товарная группа, кот. будет использоваться по умолчанию при вставке нового товара
+            pGroupKey = gdcTemplParam.FieldByName("USR$GOODGROUP").AsInteger
             
             pDocDate = gdcTemplParam.FieldByName("USR$DOCDATE").AsInteger      ' дата документа
             pDocNumb = gdcTemplParam.FieldByName("USR$DOCNUMBER").AsInteger    ' номер документа
@@ -179,7 +185,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-11T18:29:38+03:00
+      EDITIONDATE: 2022-03-04T14:04:50+03:00
       DISPLAYSCRIPT: | 
         IMFF_FINDGOOD
         
@@ -187,59 +193,84 @@ Objects:
         U0xQUlBSU1QFAAAASUJTUUwFAAAASUJTUUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
         U1QCAAAAU0gCAAAAU0gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVEZMUFI=
       SCRIPT: | 
-        'ф-я ищет ТМЦ в БД по разным критериям. последовательность поиска будет обозначена позже
-        ' долно венуть GOODKEY или найденного или вновь вставленного
+        'ф-я шукае ТМЦ у БД па розным крытэрыям.
+        'паслядоўнасть пошуку будзе абазначана пазней
+        'яна(ф-я) павінна венуць GOODKEY альбо знойдзенага альбо зноў устаўленнага
+        'правяраем шаблён на ненулявые значенні
         Function Imff_findgood(ibSQL, Sh)
           Imff_findgood = -1
         
-          ibsql.Close
-          ibsql.SQL.Text = _
-          "SELECT " & _
-          "  ID " & _
-          "FROM GD_GOOD " & _
-          "WHERE ALIAS =:ALIAS "
-          ibsql.ParamByNAme("ALIAS").asString = Sh.Cells(pStartLine, pAlias).Value
-          ibsql.ExecQuery
+          if pAlias<>0 and not isNull(pAlias) Then
+            ibsql.Close
+            ibsql.SQL.Text = _
+            "SELECT " & _
+            "  ID " & _
+            "FROM GD_GOOD " & _
+            "WHERE ALIAS =:ALIAS "
+            ibsql.ParamByNAme("ALIAS").asString = Sh.Cells(pStartLine, pAlias).Value
+            ibsql.ExecQuery
         
-          if not ibsql.EOF Then
-            Imff_findgood = ibsql.FieldByName("ID").asInteger
-            exit function
+            if not ibsql.EOF Then
+              Imff_findgood = ibsql.FieldByName("ID").asInteger
+              exit function
+            end if
           end if
         
-          ByBarCode = Sh.Cells(pStartLine, pBarCode).Value
+          IF pBarCode<>0 and not isNull(pBarCode) THEN
+            ByBarCode = Sh.Cells(pStartLine, pBarCode).Value
         
-          If Len(ByBarCode) = 12 Then
-           ibsql.SQL.Text = _
-           "select g.id from gd_good g " & _
-           " /*LEFT JOIN CALC_EAN13(:cod) ean13 ON 1=1*/ " & _
-           "WHERE Left(g.BARCODE,12) = :cod " & _
-           "   /*OR EAN13.BARCODE_EAN13 = g.BARCODE*/ "
-           ibsql.Close
-           ibsql.ParamByName("cod").AsString = ByBarCode
-           ibsql.ExecQuery
+            If Len(ByBarCode) = 12 Then
+              ibsql.SQL.Text = _
+              "select g.id from gd_good g " & _
+              " /*LEFT JOIN CALC_EAN13(:cod) ean13 ON 1=1*/ " & _
+              "WHERE Left(g.BARCODE,12) = :cod " & _
+              "   /*OR EAN13.BARCODE_EAN13 = g.BARCODE*/ "
+              ibsql.Close
+              ibsql.ParamByName("cod").AsString = ByBarCode
+              ibsql.ExecQuery
         
-           if not ibsql.eof then
-            Imff_findgood = ibsql.FieldByName("ID").AsInteger
-            Exit Function
-           End If
-          End If
-        
-          If Len(ByBarCode) = 7 Then
-           ibsql.SQL.Text = _
-           "select g.id from gd_good g " & _
-           "LEFT JOIN CALC_EAN8(:cod) ean13 ON 1=1 " & _
-           "WHERE Left(g.BARCODE,7) = :cod " & _
-           "   OR EAN13.BARCODE_EAN8 = g.BARCODE "
-           ibsql.Close
-           ibsql.ParamByName("cod").AsString = ByBarCode
-           ibsql.ExecQuery
-           if not ibsql.eof then
-             Imff_findgood = ibsql.FieldByName("ID").AsInteger
-             Exit Function
-           end If
-          END IF
+              if not ibsql.eof then
+               Imff_findgood = ibsql.FieldByName("ID").AsInteger
+               Exit Function
+              End If
+            End If
         
           
+            If Len(ByBarCode) = 7 Then
+             ibsql.SQL.Text = _
+             "select g.id from gd_good g " & _
+             "LEFT JOIN CALC_EAN8(:cod) ean13 ON 1=1 " & _
+             "WHERE Left(g.BARCODE,7) = :cod " & _
+             "   OR EAN13.BARCODE_EAN8 = g.BARCODE "
+             ibsql.Close
+             ibsql.ParamByName("cod").AsString = ByBarCode
+             ibsql.ExecQuery
+             if not ibsql.eof then
+               Imff_findgood = ibsql.FieldByName("ID").AsInteger
+               Exit Function
+             end If
+            END IF
+            
+             ibsql.SQL.Text = _
+             "select g.id from gd_good g " & _
+             "LEFT JOIN CALC_EAN8(:cod) ean13 ON 1=1 " & _
+             "WHERE Left(g.BARCODE,7) = :cod " & _
+             "   OR EAN13.BARCODE_EAN8 = g.BARCODE "
+             ibsql.Close
+             ibsql.ParamByName("cod").AsString = ByBarCode
+             ibsql.ExecQuery
+          END IF
+        
+             ibsql.SQL.Text = _
+             "select g.id from gd_good g " & _
+             "WHERE g.name = :gname "
+             ibsql.Close
+             ibsql.ParamByName("gname").AsString = Sh.Cells(pStartLine, pGNAME).Value
+             ibsql.ExecQuery
+        
+             if not ibsql.eof then
+               Imff_findgood = ibsql.FieldByName("ID").AsInteger
+             end If
         End Function
         
   - 
@@ -266,25 +297,42 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-08-18T14:17:50+03:00
+      EDITIONDATE: 2022-03-04T14:29:23+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         IMFF_EXCELL_ROLLBACK
         ANDRECORDS
         CORRECTLINE
-        ADDLINE
+        ADDLINE2
+        LEGALTYPEVALUE
         FINDGOOD
         ARR_GOODINFO
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
-        AABGTlNUUFJTVAUAAABURU1QTAYAAADYwMHLzs0SAAAAVVNSJElNUE9SVFRFTVBMQVRFCAAAAHVz
-        ciROQU1FAgAAAElEBwAAAAAAAAAAAAAAAEZOU1RGTFBS
+        AABGTlNURkxQUg==
       SCRIPT: | 
         '#include IMFF_FINDGOOD
         '#include IMFF_SETPARAMS
         'Option Explicit
-        Function Imff_Excell(OwnerForm, templ)
+        Function Imff_Excell(OwnerForm)
+          dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam, templ
+           ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+           ' Присвоим список параметров отдельной переменной
+          set ParamList = ParamWindow.ParamList
+           ' Добавление параметра через объект-диалог
+        
+          call ParamWindow.AddLinkParam("Шаблон", "prmLinkElement", "USR$IMPORTTEMPLATE", "id", "usr$NAME", "COALESCE(DISABLED,0)=0" , "", "Выбор типа лимита")
+          ParamList.Params(0).Required = True
+        
+           ' Отображение диалога и получение результата
+          result = ParamWindow.ExecuteWithParamList(ParamList)
+          templ = result(0)
+          
+          if IsEmpty(result) then
+             exit Function
+          end if
         
           dim Creator, OpenDialog, FileName
           set Creator = new TCreator
@@ -343,7 +391,7 @@ Objects:
             r = pStartLine
            WHILE NOT andRecords(Sh, pStartLine)
              IF CorrectLine(Sh, pStartLine) THEN
-               call addLine(ibSQL, Creator, gdcObject.Transaction, gdcDetailobject, Sh)
+               call addLine2(ibSQL, Creator, gdcObject.Transaction, gdcDetailobject, Sh)
              END IF
              pStartLine = pStartLine + 1
            WEND
@@ -401,8 +449,8 @@ Objects:
         ' здесь же проверим корректность данных, на случай если в файле лишь бы что идет
         function CorrectLine(Sh, r)
            CorrectLine = true
-             ' розничная цена не строка и не 0 (в параметрах шаблона указана)
-             IF pCostByNCU <> 0 AND (Sh.Cells(r, pCostByNCU).Value = "" or TypeName(Sh.Cells(pStartLine, pSELLCOST).Value) = "String") THEN
+             ' покупная цена не строка и не 0 (в параметрах шаблона указана)
+             IF pCostByNCU <> 0 AND (Sh.Cells(r, pCostByNCU).Value = "" or TypeName(Sh.Cells(pStartLine, pCostByNCU).Value) = "String") THEN
                CorrectLine = false
              END IF
            '
@@ -419,11 +467,11 @@ Objects:
         
         
         ' функция вставки позиций
-        sub addLine(ibSQL, Creator, tr, gdcDetailobject, Sh)
+        sub addLine2(ibSQL, Creator, tr, gdcDetailobject, Sh)
         
           goodname = Sh.Cells(pStartLine, pGNAME).Value
           quantity = cstr(Sh.Cells(pStartLine, 2).Value)
-          price =  Replace(Sh.Cells(pStartLine, pSELLCOST).Value, "'", "")
+          price =  Replace(Sh.Cells(pStartLine, pCostByNCU).Value, "'", "")
         
           dim gdcGood
           set gdcGood = Creator.GetObject(nil, "TgdcGood", "")
@@ -441,43 +489,80 @@ Objects:
           
           goodkey = Imff_findgood(ibSQL, Sh)
           
+          Dim stAlias: stAlias =""
+          Dim stBarcode: stBarcode =""
+          Dim stDescr: stDescr = ""
+        
+          ibSQL.Close
+          ibSQL.SQL.Text = _
+            "SELECT FIRST(1) " & _
+            " ID " & _
+            "FROM GD_VALUE V " & _
+            "WHERE UPPER(V.NAME) LIKE UPPER(:VNAME) || '%' "
+          
           if goodkey<0 then
-           gdcGood.Insert
-           gdcGood.FieldByName("alias").AsString = Trim(Sh.Cells(pStartLine, pAlias).Value)
+            if pAlias<>0 and not isNull(pAlias) Then
+              stAlias = Trim(Sh.Cells(pStartLine, pAlias).Value)
+            end if
+            if pBarcode<>0 and not isNull(pBarcode) Then
+              stBarcode = Trim(Sh.Cells(pStartLine, pBarcode).Value)
+            end if
+            if pDescr<>0 and not isNull(pDescr) Then
+              stDescr = Trim(Sh.Cells(pStartLine, pDescr).Value)
+            end if
+        
+           ibSQL.Close
+           ibSQL.ParamBYName("VNAME").asString  = Sh.Cells(pStartLine, pVNAME).Value
+           ibSQL.ExecQuery
+           if not ibSQL.EOF Then
+             valuekey = ibSQL.FieldBYName("ID").asInteger
+           end if
+          
+           gdcGood.Append
+           gdcGood.FieldByName("alias").AsString = stAlias
            gdcGood.FieldByName("name").AsString = Trim(Sh.Cells(pStartLine, pGNAME).Value)
-           gdcGood.FieldByName("BARCODE").AsString = Trim(Sh.Cells(pStartLine, pBarcode).Value)
-           gdcGood.FieldByName("groupkey").AsString =  gdcBaseManager.GetIDByRUID(147064209, 725379940) ''''''''''
-           gdcGood.FieldByName("valuekey").AsString = gdcBaseManager.GetIDByRUID(3000001, 17)           '''''''''''
-           gdcGood.FieldByName("description").AsString = Trim(Sh.Cells(pStartLine, pDescr).Value)
+           gdcGood.FieldByName("BARCODE").AsString = stBarcode
+           gdcGood.FieldByName("groupkey").AsString =  pGroupKey  ''''''''''
+           gdcGood.FieldByName("valuekey").AsString = valuekey           '''''''''''
+           gdcGood.FieldByName("description").AsString = stDescr
            gdcGood.Post
            gdcDetailObject.Transaction.CommitRetaining
            goodkey = gdcGood.Id
          '  tf.WriteLine("Добавлен товар: " & Trim(Exc.ActiveSheet.Cells(i,4).Value) & "")
-         else
-           goodkey = ibsql.FieldByName("ID").AsInteger
+         'else
+        '   goodkey = ibsql.FieldByName("ID").AsInteger
          end if
           
           gdcDetailObject.DisableControls
           BookMark = gdcDetailObject.GetBookMark
           gdcDetailobject.Append
           gdcDetailObject.FieldbyName("goodkey").AsInteger = goodkey
-        
-          gdcDetailObject.FieldbyName("groupkey").asinteger = gdcBaseManager.GetIDByRUID(147064209, 725379940)
-          gdcDetailObject.FieldbyName("valuekey").asinteger = gdcBaseManager.GetIDByRUID(3000001, 17)
           gdcDetailObject.FieldbyName("quantity").asCurrency = Sh.Cells(pStartLine, pQuant).Value
         
           gdcDetailObject.FieldbyName("TO_USR$INV_COSTPROVIDER").asCurrency  = Sh.Cells(pStartLine, pCostByNCU).Value
           gdcDetailObject.FieldbyName("TO_USR$INV_COSTBUYNCU").asCurrency  = Sh.Cells(pStartLine, pCostByNCU).Value
-          gdcDetailObject.FieldbyName("TO_USR$INV_ADDNDS").asCurrency  = Sh.Cells(pStartLine, pVatPerc).Value
+          gdcDetailObject.FieldbyName("TO_USR$INV_ADDNDS").asCurrency  = CINT(Left(Sh.Cells(pStartLine, pVatPerc).Value,2))
           'если организация НЕ ПЛАТЕЛЬЩИК НДС
           if not InvOptions.NDSDodger Then
-            gdcDetailObject.FieldbyName("TO_USR$INV_SELLNDS").asCurrency  = Sh.Cells(pStartLine, pVatPerc).Value
+            gdcDetailObject.FieldbyName("TO_USR$INV_SELLNDS").asCurrency  = CINT(Left(Sh.Cells(pStartLine, pVatPerc).Value,2))
           end if
-          gdcDetailObject.FieldbyName("TO_USR$INV_COSTRETAILNCU").asCurrency  = Sh.Cells(pStartLine, pSellCost).Value
+         ' gdcDetailObject.FieldbyName("TO_USR$INV_COSTRETAILNCU").asCurrency  = Sh.Cells(pStartLine, pSellCost).Value
           gdcDetailObject.Post
           gdcDetailObject.GotoBookMark(BookMark)
           gdcDetailObject.EnableControls
+          gdcDetailObject.cLOSEoPEN
         end sub
+        
+        function LegalTypeValue(vl,vType)
+          select case vType
+            case 1
+              vl = Replace(vl, "'","")
+            case else
+              vl = Replace(vl, ",",".")
+          end select
+            
+          LegalTypeValue =vl
+        end function
         
         function findGood(Creator, tr, goodname)
           findGood = null
