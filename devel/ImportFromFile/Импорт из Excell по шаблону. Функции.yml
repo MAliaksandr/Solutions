@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.5"
+  Version: "1.0.0.6"
   Optional: False
   Internal: True
-  MD5: 018C2E73793D9B7CD6C5261956CDEF2D
+  MD5: F2A9DDEA8ED25B5916387CAF13F37134
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-04T12:19:29+03:00
+      EDITIONDATE: 2022-03-04T15:32:04+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -44,11 +44,14 @@ Objects:
         public pStartLine  'номер строки, с которой начинаем работу
         
         public pCOSTBYNCU
-        public pVATPERC
-        public pDESCR
-        public pBARCODE
+        public pVATPERC     ' ставка НДС
+        public pDESCR       ' Описание
+        public pBARCODE     ' ШК
         
-        public pALIAS
+        public pALIAS_end   ' определяет расположение ALIAS в строке
+        public pBARCODE_end ' определяет расположение BARCODE в строке
+        
+        public pALIAS       '
         public pSELLCOST
         
         public pAndRecL    ' номер колонки, по которой будет проверяться конец файла
@@ -88,7 +91,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-04T12:19:30+03:00
+      EDITIONDATE: 2022-03-04T17:21:17+03:00
       DISPLAYSCRIPT: | 
         IMFF_SETPARAMS
         
@@ -124,8 +127,12 @@ Objects:
             pSELLCOST = gdcTemplParam.FieldByName("USR$SELLCOST").AsInteger
             'ШК
             pBARCODE = gdcTemplParam.FieldByName("USR$BARCODE").AsInteger
+            '
+            pBARCODE_end = gdcTemplParam.FieldByName("USR$BARCODE_END").AsInteger
             'код товара
             pALIAS = gdcTemplParam.FieldByName("USR$ALIAS").AsInteger
+            
+            pALIAS_end = gdcTemplParam.FieldByName("USR$ALIAS_END").AsInteger
             'покупная цена
             pCOSTBYNCU = gdcTemplParam.FieldByName("USR$COSTBYNCU").AsInteger
             'ставка НДС
@@ -185,9 +192,10 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-04T14:04:50+03:00
+      EDITIONDATE: 2022-03-04T17:54:37+03:00
       DISPLAYSCRIPT: | 
         IMFF_FINDGOOD
+        FINDBARCODE
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QFAAAASUJTUUwFAAAASUJTUUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
@@ -272,6 +280,16 @@ Objects:
                Imff_findgood = ibsql.FieldByName("ID").AsInteger
              end If
         End Function
+        
+        function findBarCode(vl)
+          dim arr
+          arr = Split(vl)
+          ' проверим наличие ШК
+          for i = LBound(arr) to UBound(arr)
+        
+          next
+        
+        end function
         
   - 
     Properties: 

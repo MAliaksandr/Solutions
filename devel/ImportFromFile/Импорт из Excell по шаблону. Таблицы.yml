@@ -5,10 +5,10 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.4"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: DC448A553ED8645F44F0D62C8F6DAFC3
+  MD5: CB85CB6A571A4546BD106B94A60FA664
 Uses: 
   - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
   - "220391971_1646796305 Основание для БЕЗ НДС"
@@ -660,7 +660,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2022-03-04T13:04:06+03:00
+      EDITIONDATE: 2022-03-04T15:03:56+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
           HorzScrollBar.Range = 0
@@ -1125,7 +1125,7 @@ Objects:
                         Left = 5
                         Top = 13
                         Width = 52
-                        Cursor = crArrow
+                        Cursor = crIBeam
                         TabOrder = 0
                       end
                       object usrat_DBEdit_USR_ALIAS: TxDBCalculatorEdit
@@ -1161,6 +1161,23 @@ Objects:
                         Width = 52
                         Cursor = crIBeam
                         TabOrder = 5
+                      end
+                      object usrat_DBCheckBox_USR_ALIAS_END: TDBCheckBox
+                        Left = 145
+                        Top = 41
+                        Width = 155
+                        Hint = 
+                          'Указывает в какой части строки расположен. Если, к примеру,  в о' +
+                          'дной ячейке и название и артикул '
+                        TabOrder = 6
+                      end
+                      object usrat_DBCheckBox_USR_BARCODE_END: TDBCheckBox
+                        Left = 146
+                        Top = 63
+                        Hint = 
+                          'Указывает в какой части строки расположен. Если, к примеру,  в о' +
+                          'дной ячейке и название и артикул '
+                        TabOrder = 7
                       end
                     end
                   end
@@ -1843,4 +1860,90 @@ Objects:
       EDITIONDATE: 2022-03-04T11:42:35+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235081611_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$ALIAS_END"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Артикул в конце строки"
+      LSHORTNAME: "Артикул в конце стро"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-04T14:58:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235081612_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$BARCODE_END"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Штрих код в конце строки"
+      LSHORTNAME: "Штрих код в конце ст"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-04T14:57:56+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
       OBJECTS: ~
