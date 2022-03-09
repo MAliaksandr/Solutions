@@ -1,0 +1,1054 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 161093871_1845531803
+  Name: "Продлить дату формирования лимитов"
+  Caption: "Продлить дату формирования лимитов"
+  Version: "1.0.0.7"
+  Optional: False
+  Internal: True
+  MD5: 333D2A6C4D9C926E1496AE8A3439B8BF
+Uses: 
+  - "147013803_377987845 GS.PositiveCheck.Лимиты.Функции"
+  - "147070860_311980179 GS new. Общепит бэк. Обмен с кассовым сервером"
+  - "149233306_1638717063 Sf_export_mn_staffcard"
+  - "149234016_1638717063 ExportStaffCard"
+  - "147753062_69526485 GS.Общие.Хранилище"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 161093864_1845531803
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 161093869_1845531803
+    Fields: 
+      NAME: "mi_ExtendLimit"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-03-09T17:39:29+03:00
+      DISPLAYSCRIPT: | 
+        MI_EXTENDLIMIT
+        MI_EXTENDLIMIT_EXCEPT
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        ' продляет срок действия формирования лимитов
+        sub mi_ExtendLimit
+           dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam, templ
+           set ParamWindow = System.GetNewParamWindow(0)
+           set ParamList = ParamWindow.ParamList
+           call ParamWindow.AddParam("Дата окончания", "prmDate", "Дата окончания перода формирования лимитов")
+           ParamList.Params(0).Required = True
+        
+           result = ParamWindow.ExecuteWithParamList(ParamList)
+           if IsEmpty(result) then
+             exit sub
+           end if
+           
+           dim Creator, Tr, ibSQL
+           set Creator = new TCreator
+           set Tr = Creator.GetObject(nil, "TIBTransaction", "")
+           Tr.DefaultDataBase = gdcBaseManager.DataBase
+           Tr.StartTransaction
+           Except mi_ExtendLimit_Except(Tr)
+           
+           set ibSQL = Creator.GetObject(null, "TIBSQL", "")
+           ibSQL.Transaction = Tr
+           ibSQL.SQL.Text = _
+           "UPDATE USR$MN_FORMATION_LIMIT SET USR$DATEEND = :ENDDATE " & _
+           "WHERE COALESCE(USR$DISABLED,0)=0 "
+           ibSQL.ParamByName("ENDDATE").asDateTime = result(0)
+           ibSQL.ExecQuery
+           
+           if Tr.InTransAction then Tr.Commit
+           
+           Call Application.MessageBox("Обновление завершено! Для отображения, возможно, необходимо нажать клавишу F5","Внимание",vbOkOnly+vbSysTemModal+vbInformation)
+        
+           
+        End sub
+        sub mi_ExtendLimit_Except(Tr)
+          if Tr.InTransaction then Tr.Rollback
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147088026_355551483
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "396903548_1523996594 GLOBAL\\DFM\\Tgdc_frmAttrUserDefined"
+      NAME: "USR$MN_FORMATION_LIMIT"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-03-09T18:18:06+03:00
+      BLOB_DATA: | 
+        object gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT: Tgdc_frmAttrUserDefined
+          ActiveControl = nil
+          PixelsPerInch = 96
+          TextHeight = 13
+          object sbMain: TStatusBar
+            Panels = <
+              item
+                Text = 'Нет фильтрации'
+                Width = 1396
+              end
+              item
+                Width = 160
+              end>
+          end
+          object TBDockTop: TTBDock
+            object tbMainToolbar: TTBToolbar
+              DockPos = 0
+              SavedAtRunTime = True
+              object tbiNew: TTBItem
+              end
+              object tbiEdit: TTBItem
+              end
+              object tbiDelete: TTBItem
+              end
+              object tbiDuplicate: TTBItem
+              end
+              object tbiReduction: TTBItem
+              end
+              object tbsiMainOne: TTBSeparatorItem
+              end
+              object tbiEditInGrid: TTBItem
+              end
+              object tbiCopy: TTBItem
+              end
+              object tbiCut: TTBItem
+              end
+              object tbiPaste: TTBItem
+              end
+              object tbsiMainOneAndHalf: TTBSeparatorItem
+              end
+              object tbiLoadFromFile: TTBItem
+              end
+              object tbiSaveToFile: TTBItem
+              end
+              object tbsiMainTwo: TTBSeparatorItem
+              end
+              object tbiFind: TTBItem
+              end
+              object tbiFilter: TTBItem
+              end
+              object tbiPrint: TTBItem
+              end
+              object tbiOnlySelected: TTBItem
+              end
+              object tbiLinkObject: TTBItem
+              end
+              object tbsiMainThreeAndAHalf: TTBSeparatorItem
+              end
+              object tbiHelp: TTBItem
+              end
+            end
+            object tbMainCustom: TTBToolbar
+              Left = 392
+              Top = 25
+              DockPos = 392
+              Visible = True
+              SavedAtRunTime = True
+              object usrg_USR_MN_FORMATION_LIMIT_TBItem2: TTBItem
+                Tag = 0
+                Action = usrg_actAddEmplToList
+                AutoCheck = False
+                DisplayMode = nbdmImageAndText
+                GroupIndex = 0
+                Images = nil
+                InheritOptions = True
+                MaskOptions = []
+                Options = []
+                RadioItem = False
+              end
+              object usrg_USR_MN_FORMATION_LIMIT_TBItem1: TTBItem
+                Tag = 0
+                Action = usrg_actCreateLimit
+                AutoCheck = False
+                DisplayMode = nbdmImageAndText
+                GroupIndex = 0
+                Images = dmImages.il16x16
+                InheritOptions = True
+                MaskOptions = []
+                Options = []
+                RadioItem = False
+              end
+              object usrg_USR_MN_FORMATION_LIMIT_TBItem3: TTBItem
+                Tag = 0
+                Action = usrg_extendlimit
+                AutoCheck = False
+                DisplayMode = nbdmImageAndText
+                GroupIndex = 0
+                Images = nil
+                InheritOptions = True
+                MaskOptions = []
+                Options = []
+                RadioItem = False
+              end
+            end
+            object tbMainMenu: TTBToolbar
+              DockPos = 0
+              DockRow = 1
+              SavedAtRunTime = True
+              object tbsiMainMenuObject: TTBSubmenuItem
+                object tbi_mm_New: TTBItem
+                end
+                object tbi_mm_Edit: TTBItem
+                end
+                object tbi_mm_Delete: TTBItem
+                end
+                object tbi_mm_Duplicate: TTBItem
+                end
+                object tbi_mm_Reduction: TTBItem
+                end
+                object tbi_mm_sep1_1: TTBSeparatorItem
+                end
+                object tbi_mm_Copy: TTBItem
+                end
+                object tbi_mm_Cut: TTBItem
+                end
+                object tbi_mm_Paste: TTBItem
+                end
+                object tbi_mm_sep2_2_: TTBSeparatorItem
+                end
+                object tbi_mm_AddToSelected: TTBItem
+                end
+                object tbi_mm_RemoveFromSelected: TTBItem
+                end
+                object tbi_mm_sep2_1: TTBSeparatorItem
+                end
+                object tbi_mm_Load: TTBItem
+                end
+                object tbi_mm_Save: TTBItem
+                end
+                object tbi_mm_sep3_1: TTBSeparatorItem
+                end
+                object tbi_mm_Commit: TTBItem
+                end
+                object tbi_mm_Rollback: TTBItem
+                end
+                object tbi_mm_sep4_1: TTBSeparatorItem
+                end
+                object tbi_mm_Find: TTBItem
+                end
+                object tbi_mm_Filter: TTBItem
+                end
+                object tbi_mm_Print: TTBItem
+                end
+                object tbi_mm_Macro: TTBItem
+                end
+                object tbi_mm_OnlySelected: TTBItem
+                end
+                object tbi_mm_LinkObject: TTBItem
+                end
+                object tbi_mm_sep5_1: TTBSeparatorItem
+                end
+                object tbi_mm_MainToSetting: TTBItem
+                end
+                object tbi_mm_sep5_2_: TTBSeparatorItem
+                end
+                object tbi_mm_CopySettings: TTBItem
+                end
+                object tbiDistributeSettings: TTBItem
+                end
+                object tbiDontSaveSettings: TTBItem
+                end
+              end
+              object tbsiMainMenuHelp: TTBSubmenuItem
+                object tbiMainMenuHelp: TTBItem
+                end
+              end
+            end
+            object tbMainInvariant: TTBToolbar
+              DockPos = 327
+              SavedAtRunTime = True
+              object tbiCommit: TTBItem
+              end
+              object tbiRollback: TTBItem
+              end
+              object tbsiMainThree: TTBSeparatorItem
+              end
+              object tbiMacros: TTBItem
+              end
+            end
+            object tbChooseMain: TTBToolbar
+              Left = 957
+              Top = 25
+              DockPos = 957
+              SavedAtRunTime = True
+              object tbiSelectAll: TTBItem
+              end
+              object tbiUnSelectAll: TTBItem
+              end
+              object tbiClearSelection: TTBItem
+              end
+            end
+          end
+          object TBDockLeft: TTBDock
+          end
+          object TBDockRight: TTBDock
+          end
+          object TBDockBottom: TTBDock
+          end
+          object pnlWorkArea: TPanel
+            object spChoose: TSplitter
+              Top = 842
+              Width = 1556
+            end
+            object pnlMain: TPanel
+              object pnlSearchMain: TPanel
+                Height = 747
+                object sbSearchMain: TScrollBox
+                  Height = 720
+                end
+                object pnlSearchMainButton: TPanel
+                  Top = 0
+                  object btnSearchMain: TButton
+                  end
+                  object btnSearchMainClose: TButton
+                  end
+                  object chbxFuzzyMatch: TCheckBox
+                  end
+                end
+              end
+              object ibgrMain: TgsIBGrid
+                Expands = <>
+                Conditions = <
+                  item
+                    ConditionName = 'Отключено'
+                    DisplayFields = 
+                      'ID;EDITIONDATE;USR$CONTACTKEY;Z_USR$CONTACTKEY_NAME;USR$CREATION' +
+                      'DATE;USR$EDITIONDATE;USR$DATEBEGIN;USR$DATEEND;USR$DISABLED;USR$' +
+                      'SUMMA;USR$DEPARTMENTTYPEKEY;Z_USR$DEPARTMENTTYPEK1782790204;'
+                    FieldName = 'USR$DISABLED'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'MS Sans Serif'
+                    Font.Style = []
+                    Color = 8421631
+                    Expression1 = '1'
+                    ConditionKind = ckEqual
+                    DisplayOptions = [doColor]
+                    EvaluateFormula = False
+                    UserCondition = False
+                  end>
+                ColumnEditors = <>
+                Aliases = <>
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$CONTACTKEY_NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Сотрудник'
+                    Width = 345
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$DEPARTMENTTYPEK1782790204'
+                    ReadOnly = False
+                    Title.Caption = 'Тип лимита'
+                    Width = 287
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$DATEBEGIN'
+                    ReadOnly = False
+                    Title.Caption = 'Дата начала действия'
+                    Width = 169
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$DATEEND'
+                    ReadOnly = False
+                    Title.Caption = 'Дата окончания'
+                    Width = 130
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SUMMA'
+                    ReadOnly = False
+                    Title.Caption = 'Сумма'
+                    Width = 146
+                    Visible = True
+                    DisplayFormat = '#,##0.##'
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$ISUNLIMITED'
+                    ReadOnly = False
+                    Title.Caption = 'Без лимита'
+                    Width = 64
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$CREATIONDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата создания'
+                    Width = 112
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EDITIONDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата редактирования'
+                    Width = 118
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID'
+                    Title.Caption = 'Идентификатор'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$CONTACTKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Сотрудник'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$DISABLED'
+                    ReadOnly = False
+                    Title.Caption = 'Отключено'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$DEPARTMENTTYPEKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Тип подразделения'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITIONDATE'
+                    ReadOnly = False
+                    Title.Caption = '"EDITIONDATE"'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$CONTACTKEY_ADDRESS'
+                    ReadOnly = False
+                    Title.Caption = 'Адрес'
+                    Width = -1
+                    Visible = False
+                  end>
+              end
+            end
+            object pnChoose: TPanel
+              Top = 747
+              Width = 1556
+              object pnButtonChoose: TPanel
+                Left = 1451
+                object btnCancelChoose: TButton
+                end
+                object btnOkChoose: TButton
+                end
+                object btnDeleteChoose: TButton
+                end
+              end
+              object ibgrChoose: TgsIBGrid
+                Width = 1451
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <>
+                Aliases = <>
+              end
+              object pnlChooseCaption: TPanel
+                Width = 1556
+              end
+            end
+          end
+          object alMain: TActionList
+            Left = 92
+            Top = 79
+            object actNew: TAction
+            end
+            object actEdit: TAction
+            end
+            object actDelete: TAction
+            end
+            object actDuplicate: TAction
+            end
+            object actHlp: TAction
+            end
+            object actPrint: TAction
+            end
+            object actCut: TAction
+            end
+            object actCopy: TAction
+            end
+            object actPaste: TAction
+            end
+            object actCommit: TAction
+            end
+            object actRollback: TAction
+            end
+            object actMacros: TAction
+            end
+            object actFind: TAction
+            end
+            object actMainReduction: TAction
+            end
+            object actFilter: TAction
+            end
+            object actProperties: TAction
+            end
+            object actLoadFromFile: TAction
+            end
+            object actSaveToFile: TAction
+            end
+            object actSearchMain: TAction
+            end
+            object actSearchMainClose: TAction
+            end
+            object actOnlySelected: TAction
+            end
+            object actAddToSelected: TAction
+            end
+            object actRemoveFromSelected: TAction
+            end
+            object actQExport: TAction
+            end
+            object actMainToSetting: TAction
+            end
+            object actChooseOk: TAction
+            end
+            object actDeleteChoose: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actSelectAll: TAction
+            end
+            object actUnSelectAll: TAction
+            end
+            object actClearSelection: TAction
+            end
+            object actEditInGrid: TAction
+            end
+            object actLinkObject: TAction
+            end
+            object actDistributeSettings: TAction
+            end
+            object actDontSaveSettings: TAction
+            end
+            object actAddToSelectedFromClipboard: TAction
+            end
+            object usrg_actCreateLimit: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Сформировать лимиты'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = 90
+              ShortCut = 0
+              Visible = True
+            end
+            object usrg_actAddEmplToList: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Добавить сотрудников'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = 35
+              ShortCut = 0
+              Visible = True
+            end
+            object usrg_extendlimit: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Продлить дату формирования лимита'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = 7
+              ShortCut = 0
+              Visible = True
+            end
+          end
+          object pmMain: TPopupMenu
+            Left = 130
+            Top = 204
+            object nNew_OLD: TMenuItem
+            end
+            object nEdit_OLD: TMenuItem
+            end
+            object nDel_OLD: TMenuItem
+            end
+            object nDublicate_OLD: TMenuItem
+            end
+            object nProperties_OLD: TMenuItem
+            end
+            object nQExport_OLD: TMenuItem
+            end
+            object nSeparator1_OLD: TMenuItem
+            end
+            object actCopy1_OLD: TMenuItem
+            end
+            object actCut1_OLD: TMenuItem
+            end
+            object actPaste1_OLD: TMenuItem
+            end
+            object nSepartor2_OLD: TMenuItem
+            end
+            object nFind_OLD: TMenuItem
+            end
+            object nReduction_OLD: TMenuItem
+            end
+            object nSeparator3_OLD: TMenuItem
+            end
+            object actAddToSelected1: TMenuItem
+            end
+            object actAddToSelectedFromClipboard1: TMenuItem
+            end
+            object actRemoveFromSelected1: TMenuItem
+            end
+            object sprSetting: TMenuItem
+            end
+            object miMainToSetting: TMenuItem
+            end
+          end
+          object dsMain: TDataSource
+            Left = 92
+            Top = 204
+          end
+          object gdMacrosMenu: TgdMacrosMenu
+            Left = 249
+            Top = 111
+          end
+          object dsChoose: TDataSource
+            Left = 153
+            Top = 306
+          end
+          object pmFind: TPopupMenu
+            Left = 17
+            Top = 78
+            object miRemoveFromSearch: TMenuItem
+            end
+          end
+          object gdcAttrUserDefined: TgdcAttrUserDefined
+            Left = 122
+            Top = 79
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147088021_355551483
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 161093869_1845531803
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147088021_355551483"
+      EDITIONDATE: 2015-10-26T22:41:34+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147088020_355551483
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 161093869_1845531803
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2015-10-26T22:41:34+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147087993_355551483
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 161093869_1845531803
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147088020_355551483 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147088021_355551483 Отчеты(gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT)"
+      SUBTYPE: ""
+      EDITIONDATE: 2015-10-26T22:41:35+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 161093869_1845531803
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_USR_MN_FORMATION_LIMIT_gsAction1OnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147087993_355551483 gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-03-09T18:12:14+03:00
+      DISPLAYSCRIPT: | 
+        USRG_USR_MN_FORMATION_LIMIT_GSACTION1ONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include MI_EXTENDLIMIT
+        Option Explicit
+        Sub usrg_USR_MN_FORMATION_LIMIT_gsAction1OnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+           call mi_ExtendLimit
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "161093864_1845531803 mi_ExtendLimit"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147088030_355551483
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "usrg_actCreateLimitOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147087993_355551483 gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-03-09T17:51:17+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTCREATELIMITONEXECUTE
+        USRG_ACTCREATELIMIT_EXCEPT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include EXPORTSTAFFCARD
+        Option Explicit
+        Sub usrg_actCreateLimitOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          dim ParamWindow, ParamList, Result
+         ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+          ' Присвоим список параметров отдельной переменной
+          set ParamList = ParamWindow.ParamList
+        
+          call ParamWindow.AddParam("Дата", "prmPeriod", "Выбор месяца формирования")
+          ParamList.Params(0).Required = True
+        ' Отображение диалога и получение результата
+          Result = ParamWindow.ExecuteWithParamList(ParamList)
+        
+          if IsEmpty(Result) then
+            exit sub
+          end if
+        
+          dim ADate
+          ADate = Result(0)(0)
+          
+          Dim Transaction, Creator
+          Set Creator = New TCreator
+        
+          Set Transaction = Creator.GetObject(null, "TIBTransaction", "")
+          Transaction.DefaultDatabase = gdcBaseManager.Database
+          Transaction.StartTransaction
+        
+          Except usrg_actCreateLimit_except(Transaction)
+        
+          Dim q
+          Set q = Creator.GetObject(Null, "TIBSQL", "")
+          q.Transaction = Transaction
+          q.SQL.Text = _
+            "SELECT " & _
+            "  * " & _
+            "FROM " & _
+            "  USR$MN_LIMIT L " & _
+            "WHERE " & _
+            "  not ((coalesce(L.USR$SUM_DATEEND, :de)-cast(:db as Date))*(cast(:de as date)-coalesce(L.USR$SUM_DATEBEGIN, :db)) < 0) "
+          q.ParamByName("db").AsDateTime = DateSerial(Year(Adate), Month(Adate), 1)
+          q.ParamByName("de").AsDateTime = DateSerial(Year(Adate), Month(Adate)+1, 1)-1
+          q.ExecQuery
+          
+          if not q.eof then
+            if Application.MessageBox("На заданный прериод времени уже созданы кредитные лимиты. Пересоздать?", "Внимание", vbYesNo + vbQuestion + vbSystemModal) = vbNo Then
+              Exit Sub
+            end if
+          end if
+          
+          q.Close
+        
+          q.SQL.Text = _
+            "SELECT * FROM RDB$RELATIONS " & _
+            "WHERE RDB$RELATION_NAME = 'TEMP_LIMIT' "
+          q.ExecQuery
+        
+          If q.Eof Then
+            q.Close
+            q.SQL.Text = _
+              "  CREATE GLOBAL TEMPORARY TABLE TEMP_LIMIT( " & _
+              "    LIMITKEY INTEGER NOT NULL " & _
+              "  ) " & _
+              "  ON COMMIT DELETE ROWS "
+            q.ExecQuery
+        
+            Transaction.Commit
+            Transaction.StartTransaction
+          End If
+        
+          q.Close
+          q.SQL.Text = _
+            "EXECUTE BLOCK (DATE_BEGIN DATE = :db, DATE_END DATE = :de) " & _
+            "AS " & _
+            "DECLARE VARIABLE CONTACTKEY INTEGER; " & _
+            "DECLARE VARIABLE SUMMA DECIMAL(18, 4); " & _
+            "DECLARE VARIABLE LIM_ID INTEGER; " & _
+            "DECLARE VARIABLE LIMIT_TYPEKEY INTEGER; " & _
+            "DECLARE VARIABLE ISUNLIMITED INTEGER; " & _
+            "BEGIN " & _
+            "  FOR " & _
+            "    SELECT " & _
+            "      L.USR$CONTACTKEY, L.USR$SUMMA, USR$DEPARTMENTTYPEKEY, USR$ISUNLIMITED " & _
+            "    FROM " & _
+            "      USR$MN_FORMATION_LIMIT L " & _
+            "    WHERE " & _
+            "      CURRENT_DATE BETWEEN L.USR$DATEBEGIN - 2 AND L.USR$DATEEND " & _
+            "      AND coalesce(L.USR$DISABLED, 0) = 0 " &_
+            "    INTO :CONTACTKEY, :SUMMA, :LIMIT_TYPEKEY, :ISUNLIMITED " & _
+            "  DO " & _
+            "  BEGIN " & _
+            "    UPDATE OR INSERT INTO USR$MN_LIMIT(USR$SUMMA, USR$ISUNLIMITED, USR$BALANCE, USR$SUM_DISABLED, USR$CONTACTKEY, USR$SUM_DATEBEGIN, USR$SUM_DATEEND, USR$DEPARTMENTTYPEKEY) " & _
+            "    VALUES(:SUMMA, :ISUNLIMITED, :SUMMA, 0, :CONTACTKEY, :DATE_BEGIN, :DATE_END, :LIMIT_TYPEKEY) " & _
+            "    MATCHING(USR$CONTACTKEY, USR$DEPARTMENTTYPEKEY) " & _
+            "    RETURNING ID INTO :LIM_ID; " & _
+            "     " & _
+            "    INSERT INTO TEMP_LIMIT(LIMITKEY) " & _
+            "    VALUES(:LIM_ID); " & _
+            "  END " & _
+            "   " & _
+            "  UPDATE USR$MN_LIMIT l SET l.USR$SUM_DISABLED = 1 " & _
+            "  WHERE COALESCE(l.USR$SUM_DISABLED, 0) = 0 AND NOT EXISTS(SELECT * FROM TEMP_LIMIT tl WHERE tl.LIMITKEY = l.ID); " & _
+            "END "
+          q.ParamByName("db").AsDateTime = DateSerial(Year(Adate), Month(Adate), 1)
+          q.ParamByName("de").AsDateTime = DateSerial(Year(Adate), Month(Adate)+1, 1)-1
+          q.ExecQuery
+        
+          Transaction.Commit
+        
+          IF Application.MessageBox("Формирование лимитов успешно завершено." & vbLF  & _
+          "Передать данные по картам в кассовую часть?", "Внимание", vbYesNo + vbSystemModal + vbQuestion) = vbYes Then
+            call ExportStaffCard
+          End if
+        End Sub
+        
+        Sub usrg_actCreateLimit_except(Transaction)
+          If Transaction.InTransaction Then Transaction.Rollback
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "149234014_1638717063 ExportStaffCard"
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 161093866_1845531803
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 161093867_1845531803
+    Fields: 
+      PARENT: "147087993_355551483 gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      NAME: "usrg_USR_MN_FORMATION_LIMIT_gsAction1"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_USR_MN_FORMATION_LIMIT_gsAction1"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-03-09T17:41:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 161093867_1845531803
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "161093869_1845531803 usrg_USR_MN_FORMATION_LIMIT_gsAction1OnExecute"
+      OBJECTKEY: "161093866_1845531803 gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT\\usrg_USR_MN_FORMATION_LIMIT_gsAction1"
+      OBJECTNAME: "usrg_USR_MN_FORMATION_LIMIT_gsAction1"
+      PARENTNAME: "gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      EDITIONDATE: 2022-03-09T18:12:14+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 161093918_1845531803
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 161093916_1845531803
+    Fields: 
+      NAME: "usrg_extendlimitOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147087993_355551483 gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-03-09T18:17:38+03:00
+      DISPLAYSCRIPT: | 
+        USRG_EXTENDLIMITONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include MI_EXTENDLIMIT
+        Option Explicit
+        Sub usrg_extendlimitOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          call mi_ExtendLimit
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "161093864_1845531803 mi_ExtendLimit"
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 161093915_1845531803
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 161093916_1845531803
+    Fields: 
+      PARENT: "147087993_355551483 gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      NAME: "usrg_extendlimit"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_extendlimit"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-03-09T18:16:31+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 161093916_1845531803
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "161093918_1845531803 usrg_extendlimitOnExecute"
+      OBJECTKEY: "161093915_1845531803 gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT\\usrg_extendlimit"
+      OBJECTNAME: "usrg_extendlimit"
+      PARENTNAME: "gdc_frmAttrUserDefinedUSR_MN_FORMATION_LIMIT"
+      EDITIONDATE: 2022-03-09T18:17:38+03:00
