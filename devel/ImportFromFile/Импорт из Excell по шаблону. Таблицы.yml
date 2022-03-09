@@ -5,13 +5,14 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.5"
+  Version: "1.0.0.6"
   Optional: False
   Internal: True
-  MD5: CB85CB6A571A4546BD106B94A60FA664
+  MD5: 920EBCD922FB233E2D39222132F5C1F6
 Uses: 
   - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
   - "220391971_1646796305 Основание для БЕЗ НДС"
+  - "147728891_43451302 Общие данные"
   - "148509668_396646306 Торговля - исследователь"
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "147753062_69526485 GS.Общие.Хранилище"
@@ -660,7 +661,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2022-03-04T15:03:56+03:00
+      EDITIONDATE: 2022-03-09T14:41:33+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
           HorzScrollBar.Range = 0
@@ -804,7 +805,7 @@ Objects:
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
-                  ActivePage = usrg_TBSheetGood
+                  ActivePage = usrg_DocInf
                   Align = alNone
                   Anchors = [akLeft, akTop]
                   Constraints.MaxHeight = 0
@@ -976,14 +977,6 @@ Objects:
                     ParentShowHint = True
                     PopupMenu = nil
                     TabVisible = True
-                    object usrat_DBEdit_USR_CONTACT_Label: TLabel
-                      Left = 120
-                      Top = 72
-                    end
-                    object usrat_DBEdit_USR_DEPARTMENT_Label: TLabel
-                      Left = 77
-                      Top = 51
-                    end
                     object usrat_DBEdit_USR_DOCNUMBER_Label: TLabel
                       Left = 68
                       Top = 29
@@ -992,13 +985,13 @@ Objects:
                       Left = 73
                       Top = 8
                     end
-                    object usrat_DBEdit_USR_DEPRUID_Label: TLabel
-                      Left = 114
-                      Top = 163
+                    object usrat_gsIBLookupComboBox_USR_DEPARTMENT_Label: TLabel
+                      Left = 145
+                      Top = 143
                     end
-                    object usrat_DBEdit_USR_CONTACTRUID_Label: TLabel
-                      Left = 300
-                      Top = 161
+                    object usrat_gsIBLookupComboBox_USR_CONTACT_Label: TLabel
+                      Left = 143
+                      Top = 167
                     end
                     object usrat_DBEdit_USR_DOCDATE: TxDBCalculatorEdit
                       Left = 4
@@ -1014,33 +1007,16 @@ Objects:
                       Cursor = crIBeam
                       TabOrder = 1
                     end
-                    object usrat_DBEdit_USR_DEPARTMENT: TxDBCalculatorEdit
-                      Left = 4
-                      Top = 48
-                      Width = 60
-                      Cursor = crIBeam
+                    object usrat_gsIBLookupComboBox_USR_CONTACT: TgsIBLookupComboBox
+                      Left = 194
+                      Top = 164
+                      Width = 252
                       TabOrder = 2
                     end
-                    object usrat_DBEdit_USR_CONTACT: TxDBCalculatorEdit
-                      Left = 4
-                      Top = 70
-                      Width = 60
-                      Cursor = crIBeam
+                    object usrat_gsIBLookupComboBox_USR_DEPARTMENT: TgsIBLookupComboBox
+                      Left = 306
+                      Top = 140
                       TabOrder = 3
-                    end
-                    object usrat_DBEdit_USR_DEPRUID: TxDBCalculatorEdit
-                      Left = 235
-                      Top = 158
-                      Width = 60
-                      Cursor = crIBeam
-                      TabOrder = 4
-                    end
-                    object usrat_DBEdit_USR_CONTACTRUID: TxDBCalculatorEdit
-                      Left = 379
-                      Top = 158
-                      Width = 60
-                      Cursor = crIBeam
-                      TabOrder = 5
                     end
                   end
                   object usrg_TBSheetGood: TTabSheet
@@ -1248,6 +1224,14 @@ Objects:
                         Width = 60
                         Caption = 'Количество'
                       end
+                      object usrat_gsIBLookupComboBox_USR_DEFCOUNTRY_Label: TLabel
+                        Left = 150
+                        Top = 160
+                      end
+                      object usrat_DBEdit_USR_COUNTRY_Label: TLabel
+                        Left = 225
+                        Top = 136
+                      end
                       object usrat_DBEdit_USR_COSTBYNCU: TxDBCalculatorEdit
                         Left = 8
                         Top = 18
@@ -1275,6 +1259,18 @@ Objects:
                         Width = 52
                         Cursor = crIBeam
                         TabOrder = 3
+                      end
+                      object usrat_DBEdit_USR_COUNTRY: TxDBCalculatorEdit
+                        Left = 351
+                        Top = 133
+                        Width = 60
+                        TabOrder = 4
+                      end
+                      object usrat_gsIBLookupComboBox_USR_DEFCOUNTRY: TgsIBLookupComboBox
+                        Left = 351
+                        Top = 156
+                        Width = 92
+                        TabOrder = 5
                       end
                     end
                   end
@@ -1309,6 +1305,28 @@ Objects:
                   Width = 473
                   Height = 269
                   VertScrollBar.Position = 0
+                  object usrat_DBEdit_USR_DEPRUID_Label: TLabel
+                    Left = 66
+                    Top = 35
+                  end
+                  object usrat_DBEdit_USR_CONTACTRUID_Label: TLabel
+                    Left = 252
+                    Top = 33
+                  end
+                  object usrat_DBEdit_USR_DEPRUID: TxDBCalculatorEdit
+                    Left = 187
+                    Top = 30
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 0
+                  end
+                  object usrat_DBEdit_USR_CONTACTRUID: TxDBCalculatorEdit
+                    Left = 331
+                    Top = 30
+                    Width = 60
+                    Cursor = crIBeam
+                    TabOrder = 1
+                  end
                 end
               end
             end
@@ -1524,48 +1542,6 @@ Objects:
   - 
     Properties: 
       Class: "TgdcTableField"
-      RUID: 154581436_1631104572
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: ~
-      DESCRIPTION: "USR$CONTACT"
-      FIELDNAME: "USR$CONTACT"
-      FIELDSOURCE: "DINTEGER"
-      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Клиент"
-      LSHORTNAME: "Клиент"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
-      RELATIONNAME: "USR$IMPORTTEMPLATE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2021-08-24T12:51:12+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
       RUID: 154581435_1631104572
       AlwaysOverwrite: False
       DontRemove: False
@@ -1602,48 +1578,6 @@ Objects:
       STRINGLENGTH: ~
       VISIBLE: 1
       EDITIONDATE: 2021-08-24T13:22:02+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 154581434_1631104572
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: ~
-      DESCRIPTION: "USR$DEPARTMENT"
-      FIELDNAME: "USR$DEPARTMENT"
-      FIELDSOURCE: "DINTEGER"
-      FIELDSOURCEKEY: "147000096_486813904 Целое число, DINTEGER"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Подразделение"
-      LSHORTNAME: "Подразделение"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
-      RELATIONNAME: "USR$IMPORTTEMPLATE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2021-08-24T12:49:09+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -1946,4 +1880,218 @@ Objects:
       COMPUTED_VALUE: ~
       DEFSOURCE: | 
         DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 235081819_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 235081824_1833050115
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "USR$DCOUNTRY"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$DCOUNTRY"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Страна (адм.террит.ед)"
+      READONLY: 0
+      REFCONDITION: "PLACETYPE = 'Страна'"
+      REFLISTFIELD: "NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Административно-территориальные единицы"
+      REFTABLE: "GD_PLACE"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-09T11:36:44+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235081824_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "Страна происхождения по умолчанию"
+      FIELDNAME: "USR$DEFCOUNTRY"
+      FIELDSOURCE: "USR$DCOUNTRY"
+      FIELDSOURCEKEY: "235081819_1833050115 Страна (адм.террит.ед), USR$DCOUNTRY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Страна происхождения по умолчанию"
+      LSHORTNAME: "Страна по умолчанию"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_PLACE"
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-09T11:51:56+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235081815_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Страна происхождения"
+      FIELDNAME: "USR$COUNTRY"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Страна происхождения"
+      LSHORTNAME: "Страна происхождения"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-09T11:02:30+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235082286_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$DEPARTMENT"
+      FIELDNAME: "USR$DEPARTMENT"
+      FIELDSOURCE: "USR$GS_DDEPARTMENT"
+      FIELDSOURCEKEY: "147034863_9802323 Подразделение, USR$GS_DDEPARTMENT"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcDepartment"
+      GDSUBTYPE: ~
+      LNAME: "Подразделение по умолчанию"
+      LSHORTNAME: "Подр-е по умолчанию"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_CONTACT"
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-09T14:38:03+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235082285_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$CONTACT"
+      FIELDNAME: "USR$CONTACT"
+      FIELDSOURCE: "USR$GS_DCUSTOMER"
+      FIELDSOURCEKEY: "147034836_9802323 Клиент, USR$GS_DCUSTOMER"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcBaseContact"
+      GDSUBTYPE: ~
+      LNAME: "Клиент"
+      LSHORTNAME: "Клиент"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_CONTACT"
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-09T14:36:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
       OBJECTS: ~
