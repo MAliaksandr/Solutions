@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.9"
+  Version: "1.0.0.10"
   Optional: False
   Internal: True
-  MD5: 07EEFF33449575254927FD37659A3036
+  MD5: C6A42AA4C81FC1801EA5A1BB45DC1B81
 Objects: 
   - 
     Properties: 
@@ -355,7 +355,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-12T16:07:46+03:00
+      EDITIONDATE: 2022-03-12T16:34:40+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         IMFF_EXCELL_ROLLBACK
@@ -721,14 +721,22 @@ Objects:
         
         function findCountry(ibSQL, Sh)
          findCountry = null
-         ibSQL.Close
-         ibSQL.SQL.Text = _
-         "SELECT FIRST(1) ID FROM GD_PLACE WHERE PLACETYPE = 'Страна' AND UPPER(NAME) = UPPER(:COUNTRY)"
-         ibSQL.ParamByName("COUNTRY").asString = Trim(Sh.Cells(pStartLine, pCountry).Value)
-         ibSQL.ExecQuery
-         if not ibSQL.EOF Then
-            findCountry = ibSQL.FieldByName("ID").asInteger
+         
+         IF pCountry <> 0 Then
+           ibSQL.Close
+           ibSQL.SQL.Text = _
+           "SELECT FIRST(1) ID FROM GD_PLACE WHERE PLACETYPE = 'Страна' AND UPPER(NAME) = UPPER(:COUNTRY)"
+           ibSQL.ParamByName("COUNTRY").asString = Trim(Sh.Cells(pStartLine, pCountry).Value)
+           ibSQL.ExecQuery
+           if not ibSQL.EOF Then
+             findCountry = ibSQL.FieldByName("ID").asInteger
+           end if
+         else
+           if not isNull(pDefCountry) Then
+             findCountry = pDefCountry
+           end if
          end if
+         
         end function
         
         function findGood(Creator, tr, goodname, barcode, alias, descr)
