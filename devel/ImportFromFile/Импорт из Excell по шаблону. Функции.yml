@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.7"
+  Version: "1.0.0.9"
   Optional: False
   Internal: True
-  MD5: 7A0877E9DAADB7F992C0C29FC7EABED2
+  MD5: 07EEFF33449575254927FD37659A3036
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-09T13:19:50+03:00
+      EDITIONDATE: 2022-03-12T13:36:45+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -53,6 +53,9 @@ Objects:
         
         public pALIAS       '
         public pSELLCOST
+        
+        public pWorkSh     ' нумар ліста з дадзенымі
+        public pWorkShN    ' назва ліста з дадзенымі
         
         public pCountry    ' страна происхождения
         public pDefCountry ' страна происхождения по умолчанию
@@ -94,7 +97,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-09T13:24:22+03:00
+      EDITIONDATE: 2022-03-12T13:32:58+03:00
       DISPLAYSCRIPT: | 
         IMFF_SETPARAMS
         
@@ -145,12 +148,20 @@ Objects:
             
             'номер строки, с которой начинаем работу
             pStartLine = gdcTemplParam.FieldByName("USR$STARTLINE").AsInteger
-            ' номер колонки, по которой будет проверяться конец файла
-            pAndRecL = gdcTemplParam.FieldByName("USR$STARTLINE").AsInteger
+            ' номер колонки, по которой будет проверяться конец файла  = наименованию  ТМЦ
+            pAndRecL = gdcTemplParam.FieldByName("USR$GOODNAME").AsInteger
             ' количество последовательно идущих пустых строк
             pQfreeLine = gdcTemplParam.FieldByName("USR$QFREELINE").AsInteger
             ' количество ТМЦ в позиции документа
             pQuant = gdcTemplParam.FieldByName("USR$QUANTITY").AsInteger
+        
+            
+            'нумар ліста з дадзенымі, якія патрэбна апрацаваць
+            pWorkSh = gdcTemplParam.FieldByName("USR$WKSHEETLIST").AsInteger
+            
+            'назва ліста з дадзенымі, якія патрэбна апрацаваць
+            pWorkShN= gdcTemplParam.FieldByName("USR$WKSHEETLISTNAME").AsString
+            
             ' товарная группа, кот. будет использоваться по умолчанию при вставке нового товара
             pGroupKey = gdcTemplParam.FieldByName("USR$GOODGROUP").AsInteger
             
@@ -199,7 +210,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-09T14:21:22+03:00
+      EDITIONDATE: 2022-03-10T18:19:22+03:00
       DISPLAYSCRIPT: | 
         IMFF_FINDGOOD
         FINDBARCODE
@@ -233,7 +244,12 @@ Objects:
           end if
         
           IF pBarCode<>0 and not isNull(pBarCode) THEN
-            ByBarCode = Sh.Cells(pStartLine, pBarCode).Value
+            'магчыма ШК будзе знаходзіцца у пачатку, або сярэдзіне, тады патрэна разкладаць увесь радок
+            if pBARCODE_end =0 Then
+              ByBarCode = Sh.Cells(pStartLine, pBarCode).Value
+            else
+              ByBarCode = findBarCode(Sh.Cells(pStartLine, pBarCode).Value, true)
+            end if
         
             if templ(0)= gdcBaseManager.GetIDByRUIDString("235081136_1833050115") Then
               ByBarCode = Sh.Cells(pStartLine+2, pBarCode).Value
@@ -298,14 +314,21 @@ Objects:
              end If
         End Function
         
-        function findBarCode(vl)
+        function findBarCode(vl, InEnd)
+          vl = Trim(vl)
           dim arr
           arr = Split(vl)
+          'калі ШК знаходзіцца ў прыканцы
+          if InEnd Then
+            vl = arr(UBound(arr))
+          else
+            vl = arr(LBound(arr))
+          end if
           ' проверим наличие ШК
-          for i = LBound(arr) to UBound(arr)
-        
-          next
-        
+        '  for i = LBound(arr) to UBound(arr)
+        '
+        '  next
+          findBarCode = vl
         end function
         
   - 
@@ -332,7 +355,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-09T15:04:15+03:00
+      EDITIONDATE: 2022-03-12T16:07:46+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         IMFF_EXCELL_ROLLBACK
@@ -341,6 +364,7 @@ Objects:
         CORRECTVALUE
         RETTYPEVALUE
         ADDLINE2
+        GETVATBYGOOD
         LEGALTYPEVALUE
         FINDCOUNTRY
         FINDGOOD
@@ -422,7 +446,18 @@ Objects:
           ' проверка на непустые лісты в кніге
           for  i =1 to  Exc.Worksheets.count
             set Sh1 = Exc.Worksheets(i)
-            '' проверка на ПУСТОЙ лист
+            '' праверка на патрэны ліст
+            if pWorkShN<>"" Then
+              IF UCase(Sh1.Name)=UCase(pWorkShN) Then
+               c = i
+               exit for
+              end if
+            else
+              if pWorkSh<>0 Then
+                c = pWorkSh
+                exit for
+              end if
+            end if
             ''if ((Sh1.Cells(1, 1).Value <> "") and (Sh1.Cells(1, 2).Value = "")) then
               c = i
             ''  exit for
@@ -453,7 +488,7 @@ Objects:
             set Exc = nothing
           end if
           
-          gdcObject.CloseOpen
+          gdcDetailObject.CloseOpen
           
         End Function
         
@@ -615,7 +650,7 @@ Objects:
          'else
         '   goodkey = ibsql.FieldByName("ID").AsInteger
          end if
-          
+         
           gdcDetailObject.DisableControls
           BookMark = gdcDetailObject.GetBookMark
           gdcDetailobject.Append
@@ -624,7 +659,9 @@ Objects:
         
           gdcDetailObject.FieldbyName("TO_USR$INV_COSTPROVIDER").asCurrency  = RetTypeValue(Sh.Cells(pStartLine, pCostByNCU).Value, 1)
           gdcDetailObject.FieldbyName("TO_USR$INV_COSTBUYNCU").asCurrency  = RetTypeValue(Sh.Cells(pStartLine, pCostByNCU).Value, 1)
-          gdcDetailObject.FieldbyName("TO_USR$INV_ADDNDS").asCurrency  = CINT(Left(Sh.Cells(pStartLine, pVatPerc).Value,2))
+        
+          Vat = getVatByGood(ibSQL,Sh, goodkey)
+          gdcDetailObject.FieldbyName("TO_USR$INV_ADDNDS").asVariant  = Vat
         
           ' краіна паходжання
           if not isNull(pCountry) and (pCountry<>0) then
@@ -637,7 +674,7 @@ Objects:
           
           'если организация НЕ ПЛАТЕЛЬЩИК НДС
           if not InvOptions.NDSDodger Then
-            gdcDetailObject.FieldbyName("TO_USR$INV_SELLNDS").asCurrency  = CINT(Left(Sh.Cells(pStartLine, pVatPerc).Value,2))
+            gdcDetailObject.FieldbyName("TO_USR$INV_SELLNDS").asVariant  = Vat
           end if
          ' gdcDetailObject.FieldbyName("TO_USR$INV_COSTRETAILNCU").asCurrency  = Sh.Cells(pStartLine, pSellCost).Value
           gdcDetailObject.Post
@@ -645,6 +682,31 @@ Objects:
           gdcDetailObject.EnableControls
           gdcDetailObject.cLOSEoPEN
         end sub
+        
+        'вяртае лічбу НДС
+        function getVatByGood(ibSQL,Sh, gk)
+          Vat = null
+          ' спачатку глядзім у ліст з дадзенымі
+          if pVatPerc<>0 Then
+            Vat = CINT(Left(Sh.Cells(pStartLine, pVatPerc).Value,2))
+          else
+            ibSQL.Close
+            ibSQL.SQL.Text = _
+            "Select first(1) " & _
+            "gt.RATE " & _
+            "from GD_GOODTAX gt " & _
+            "left join GD_TAX t on t.ID = gt.TAXKEY " & _
+            "where gt.TAXKEY = <RUID xID=""147065078"" DBID=""486813904""/> and " & _
+            "gt.GOODKEY = :gk " & _
+            "order by gt.DATETAX desc "
+            ibSQL.ParamByName("gk").asInteger = gk
+            ibSQL.ExecQuery
+            if not ibSQL.EOF then
+              Vat = ibSQL.FieldByName("RATE").asVariant
+            end if
+          end if
+          getVatByGood = Vat
+        end function
         
         function LegalTypeValue(vl,vType)
           select case vType

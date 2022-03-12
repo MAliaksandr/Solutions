@@ -5,10 +5,10 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.6"
+  Version: "1.0.0.7"
   Optional: False
   Internal: True
-  MD5: 920EBCD922FB233E2D39222132F5C1F6
+  MD5: E012249C6016EC68E133D4BB031B3FE3
 Uses: 
   - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
   - "220391971_1646796305 Основание для БЕЗ НДС"
@@ -661,7 +661,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2022-03-09T14:41:33+03:00
+      EDITIONDATE: 2022-03-12T13:27:47+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
           HorzScrollBar.Range = 0
@@ -805,7 +805,7 @@ Objects:
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
-                  ActivePage = usrg_DocInf
+                  ActivePage = usrg_TBSheetMain
                   Align = alNone
                   Anchors = [akLeft, akTop]
                   Constraints.MaxHeight = 0
@@ -899,6 +899,16 @@ Objects:
                         Left = 5
                         Top = 113
                       end
+                      object usrat_DBEdit_USR_WKSHEETLISTNAME_Label: TLabel
+                        Left = 174
+                        Top = 68
+                      end
+                      object usrat_DBEdit_USR_WKSHEETLIST_Label: TLabel
+                        Left = 65
+                        Top = 68
+                        Width = 85
+                        Caption = 'Номер раб.листа'
+                      end
                       object usrg_USR_IMPORTTEMPLATE_BitBtn1: TBitBtn
                         Tag = 0
                         Left = 349
@@ -955,6 +965,24 @@ Objects:
                         Top = 109
                         Width = 319
                         TabOrder = 2
+                      end
+                      object usrat_DBEdit_USR_WKSHEETLIST: TxDBCalculatorEdit
+                        Left = 10
+                        Top = 64
+                        Width = 50
+                        Hint = 
+                          'Порядковый номер листа, который хранит информацию о загружаемых ' +
+                          'данных'
+                        TabOrder = 4
+                      end
+                      object usrat_DBEdit_USR_WKSHEETLISTNAME: TDBEdit
+                        Left = 254
+                        Top = 64
+                        Width = 188
+                        Hint = 
+                          'Название листа(в книге), который хранит информацию о загружаемых' +
+                          ' данных'
+                        TabOrder = 5
                       end
                     end
                   end
@@ -1305,20 +1333,13 @@ Objects:
                   Width = 473
                   Height = 269
                   VertScrollBar.Position = 0
-                  object usrat_DBEdit_USR_DEPRUID_Label: TLabel
-                    Left = 66
-                    Top = 35
-                  end
                   object usrat_DBEdit_USR_CONTACTRUID_Label: TLabel
                     Left = 252
                     Top = 33
                   end
-                  object usrat_DBEdit_USR_DEPRUID: TxDBCalculatorEdit
-                    Left = 187
-                    Top = 30
-                    Width = 60
-                    Cursor = crIBeam
-                    TabOrder = 0
+                  object usrat_DBEdit_USR_DEPRUID_Label: TLabel
+                    Left = 66
+                    Top = 35
                   end
                   object usrat_DBEdit_USR_CONTACTRUID: TxDBCalculatorEdit
                     Left = 331
@@ -1326,6 +1347,13 @@ Objects:
                     Width = 60
                     Cursor = crIBeam
                     TabOrder = 1
+                  end
+                  object usrat_DBEdit_USR_DEPRUID: TxDBCalculatorEdit
+                    Left = 187
+                    Top = 30
+                    Width = 60
+                    Cursor = crArrow
+                    TabOrder = 0
                   end
                 end
               end
@@ -2092,6 +2120,90 @@ Objects:
       STRINGLENGTH: ~
       VISIBLE: 1
       EDITIONDATE: 2022-03-09T14:36:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235082911_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$WKSHEETLIST"
+      FIELDNAME: "USR$WKSHEETLIST"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Номер раб.листа"
+      LSHORTNAME: "Номер раб.листа"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-12T13:21:18+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235082912_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Имя раб.листа"
+      FIELDNAME: "USR$WKSHEETLISTNAME"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Имя раб.листа"
+      LSHORTNAME: "Имя раб.листа"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-12T13:22:18+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
