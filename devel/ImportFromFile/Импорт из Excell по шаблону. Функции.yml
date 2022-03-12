@@ -8,7 +8,7 @@ Properties:
   Version: "1.0.0.10"
   Optional: False
   Internal: True
-  MD5: C6A42AA4C81FC1801EA5A1BB45DC1B81
+  MD5: A551796897FFE053E602F2968573999E
 Objects: 
   - 
     Properties: 
@@ -355,7 +355,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-12T16:34:40+03:00
+      EDITIONDATE: 2022-03-12T18:21:18+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         IMFF_EXCELL_ROLLBACK
@@ -403,21 +403,51 @@ Objects:
           set Creator = new TCreator
           set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
           Dim gdcObject, gdcDetailObject, DS
+        
+          dim DateGoodHead, DateGoodLine, isCrDocument :isCrDocument =false
+          set DateGoodHead = OwnerForm.FindComponent("gdcInvDocument")
+          set DateGoodLine = OwnerForm.FindComponent("gdcInvDocumentLine")
+        
           set gdcObject = OwnerForm.gdcObject
-          set gdcDetailObject = OwnerForm.Documentline
+          if Assigned(DateGoodHead) Then
+            set gdcDetailObject = OwnerForm.gdcDetailObject
+            isCrDocument = true
+          else
+            set gdcDetailObject = OwnerForm.Documentline
+          end if
           
-          IF (not isNull(pDept) and pDept<>0)  and (not isNull(pClient) and pClient<>0) then
-            if (gdcObject.FieldByname("usr$deptkey").asInteger <> pDept) or (gdcObject.FieldByname("usr$contactkey").asInteger <> pClient) then
-              if Application.MessageBox("Один или несколько параметров в шапке документа не соответсвует параметрам шаблона. Подставить данные из шаблона?", "Внимание", vbYesNo+vbSystemModal+vbExclamation) = vbYes then
-                if (gdcObject.State<>dsEdit) or (gdcObject.State<>dsInsert) then
-                  gdcObject.Edit
-                  gdcObject.FieldByname("usr$deptkey").asInteger = pDept
-                  gdcObject.FieldByname("usr$contactkey").asInteger = pClient
-                  gdcObject.Post
+          ' калі ствараем новы дакумент
+          IF isCrDocument Then
+            IF (isNull(pDept) or pDept=0)  and (isNull(pClient) or pClient=0) then
+               call Application.MessageBox("Не заданы параметры Клиент/Подразделение в указанном шаблоне. Выполнение остановлено.", "Внимание", vOkOnly+vbSystemModal+vbCritical)
+               exit Function
+            end if
+        
+            if gdcObject.Transaction.Active then
+               gdcObject.Transaction.Commit
+            end if
+            gdcObject.Transaction.StartTransaction
+            gdcObject.Append
+            gdcObject.FieldByname("DOCUMENTDATE").asDateTime = DateSerial(2022,03,12)
+            gdcObject.FieldByname("NUMBER").asString = "*******"
+            gdcObject.FieldByname("usr$deptkey").asInteger = pDept
+            gdcObject.FieldByname("usr$contactkey").asInteger = pClient
+            gdcObject.Post
+            
+          ELSE
+            IF (not isNull(pDept) and pDept<>0)  and (not isNull(pClient) and pClient<>0) then
+              if (gdcObject.FieldByname("usr$deptkey").asInteger <> pDept) or (gdcObject.FieldByname("usr$contactkey").asInteger <> pClient) then
+                if Application.MessageBox("Один или несколько параметров в шапке документа не соответсвует параметрам шаблона. Подставить данные из шаблона?", "Внимание", vbYesNo+vbSystemModal+vbExclamation) = vbYes then
+                  if (gdcObject.State<>dsEdit) or (gdcObject.State<>dsInsert) then
+                    gdcObject.Edit
+                    gdcObject.FieldByname("usr$deptkey").asInteger = pDept
+                    gdcObject.FieldByname("usr$contactkey").asInteger = pClient
+                    gdcObject.Post
+                  end if
                 end if
               end if
             end if
-          end if
+          END IF
           
           if ((gdcObject.FieldByname("usr$deptkey").isNull) or (gdcObject.FieldByname("usr$contactkey").isNull)) then
             call Application.MessageBox("Не заполнены обязательные поля в шапке документа", "Внимание", vbOkOnly+vbSystemModal+vbCritical)
@@ -482,13 +512,18 @@ Objects:
            WEND
           end if
         
-          
+          if gdcObject.Transaction.Active then
+             gdcObject.Transaction.Commit
+          end if
+        
+           
           if Assigned(Exc) then
             Exc.Workbooks.Close
             set Exc = nothing
           end if
           
-          gdcDetailObject.CloseOpen
+          if assigned(gdcObject) then gdcObject.CloseOpen
+         ' gdcDetailObject.CloseOpen
           
         End Function
         
@@ -721,8 +756,7 @@ Objects:
         
         function findCountry(ibSQL, Sh)
          findCountry = null
-         
-         IF pCountry <> 0 Then
+          IF pCountry <> 0 Then
            ibSQL.Close
            ibSQL.SQL.Text = _
            "SELECT FIRST(1) ID FROM GD_PLACE WHERE PLACETYPE = 'Страна' AND UPPER(NAME) = UPPER(:COUNTRY)"
@@ -735,8 +769,7 @@ Objects:
            if not isNull(pDefCountry) Then
              findCountry = pDefCountry
            end if
-         end if
-         
+         End if
         end function
         
         function findGood(Creator, tr, goodname, barcode, alias, descr)
