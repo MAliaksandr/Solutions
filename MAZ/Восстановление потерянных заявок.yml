@@ -1,0 +1,110 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 232064256_1770925768
+  Name: "Восстановление потерянных заявок"
+  Caption: "Восстановление потерянных заявок"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: A2F52EEE710E9A41584914D5B589836B
+Uses: 
+  - "147038757_1492943039 GS.Торговля.Доставка товаров.Документы.Счет-заявка"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 232060337_1770925768
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros232060337_1770925768"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147038406_1492943039 gdc_frmInvDocument147038403_1492943039"
+      OBJECTNAME: "gdc_frmInvDocument147038403_1492943039"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-03-14T12:09:44+03:00
+      DISPLAYSCRIPT: | 
+        MACROS232060337_1770925768
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAIAAABGTgkAAADRIO3u7OXw4CAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAXlJG
+        TlNUUFJTVAIAAABMTggAAADP7iDt7uzl8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAABeUkZOU1RG
+        TFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros232060337_1770925768(OwnerForm,FN,LN)
+        
+         IF LN<FN THEN
+           CALL Application.MessageBox("Неверно указаны номера заявок. Выполнение остановлено.","Внимание",vbOkOnly+vbSysTemModal+vbCritical)
+           exit sub
+         END IF
+        
+         dim Creator, Tr, ibSQL
+         set Creator = new TCreator
+         set Tr = Creator.GetObject(nil, "TIBTransaction", "")
+         set Tr.DefaultDatabase = gdcBaseManager.DataBase
+         call Tr.Params.Add("read_committed")
+         call Tr.Params.Add("rec_version")
+         call Tr.Params.Add("nowait")
+         Tr.StartTransaction
+        
+        Except Macros232060337_1770925768Except(Tr)
+         
+         set ibSQL = Creator.GetObject(null, "TIBSQL", "")
+         ibSQL.Transaction = Tr
+         ibSQL.SQL.Text =_
+         "EXECUTE BLOCK( " & _
+         "FN VARCHAR(30) = :FN, " & _
+         "LN VARCHAR(30) = :LN) " & _
+         "RETURNS( " & _
+         "ST INTEGER) " & _
+         "AS " & _
+         "DECLARE VARIABLE DOCTYPE INTEGER; " & _
+         "DECLARE VARIABLE DOCID INTEGER; " & _
+         "BEGIN " & _
+         "  EXECUTE PROCEDURE GD_P_GETID (147038403, 1492943039) " & _
+         "  RETURNING_VALUES :DOCTYPE; " & _
+         "DOCID = NULL; " & _
+         "  FOR " & _
+         "    SELECT " & _
+         "    ID " & _
+         "    FROM GD_DOCUMENT D " & _
+         "    WHERE D.DOCUMENTTYPEKEY = :DOCTYPE " & _
+         "    AND D.PARENT + 0 IS NULL " & _
+         "    and D.NUMBER between :fn and :ln " & _
+         "    INTO :DOCID " & _
+         "  DO " & _
+         "  BEGIN " & _
+         "    UPDATE USR$INV_BILL SET USR$DEL_STATUS = NULL where DOCUMENTKEY = :DOCID; " & _
+         "  END " & _
+         "END "
+         ibSQL.ParamBYName("fn").asString = CSTR(FN)
+         ibSQL.ParamBYName("ln").asString = CSTR(LN)
+         ibSQL.ExecQuery
+         
+         if Tr.InTransaction then Tr.Commit
+         
+         CALL Application.MessageBox("Восстановление завершено.","Внимание",vbOkOnly+vbSysTemModal+vbInformation)
+         
+         
+        End Sub
+        
+        sub Macros232060337_1770925768Except(Tr)
+         if Tr.InTransaction then Tr.Rollback
+        end sub
+        
