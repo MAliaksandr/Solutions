@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.10"
+  Version: "1.0.0.11"
   Optional: False
   Internal: True
-  MD5: A551796897FFE053E602F2968573999E
+  MD5: 1E2613A56259DB2DED595FA81936028C
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-12T13:36:45+03:00
+      EDITIONDATE: 2022-03-15T13:16:14+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -66,6 +66,7 @@ Objects:
         
         public pDocDate    ' дата документа
         public pDocNumb    ' номер документа
+        public pDocNumbFile ' номер документа в имени файлв
         public pPath       ' рабочая директория
         public pDept       ' подразделение
         public pClient     ' клиент
@@ -97,7 +98,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-12T13:32:58+03:00
+      EDITIONDATE: 2022-03-15T13:15:16+03:00
       DISPLAYSCRIPT: | 
         IMFF_SETPARAMS
         
@@ -169,11 +170,14 @@ Objects:
             pCountry = gdcTemplParam.FieldByName("USR$COUNTRY").AsInteger
             pDefCountry = gdcTemplParam.FieldByName("USR$DEFCOUNTRY").AsInteger
             
-            pDocDate = gdcTemplParam.FieldByName("USR$DOCDATE").AsInteger      ' дата документа
-            pDocNumb = gdcTemplParam.FieldByName("USR$DOCNUMBER").AsInteger    ' номер документа
-            pPath = gdcTemplParam.FieldByName("USR$PATH").AsString             ' рабочая директория
-            pDept = gdcTemplParam.FieldByName("USR$DEPARTMENT").AsInteger      ' подразделение
-            pClient = gdcTemplParam.FieldByName("USR$CONTACT").AsInteger       ' клиент
+            pDocDate = gdcTemplParam.FieldByName("USR$DOCDATE").AsInteger          ' дата документа
+            pDocNumb = gdcTemplParam.FieldByName("USR$DOCNUMBER").AsInteger        ' номер документа
+            
+            pDocNumbFile = gdcTemplParam.FieldByName("USR$DOCNUMFILE").AsInteger    ' номер документа в имени файла
+            
+            pPath = gdcTemplParam.FieldByName("USR$PATH").AsString                 ' рабочая директория
+            pDept = gdcTemplParam.FieldByName("USR$DEPARTMENT").AsInteger          ' подразделение
+            pClient = gdcTemplParam.FieldByName("USR$CONTACT").AsInteger           ' клиент
             
             if pQuant = 0 Then
               call Application.MessageBox("В шаблоне не задано поле для 'количества'" & vbCrLf & _
@@ -355,9 +359,12 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-12T18:21:18+03:00
+      EDITIONDATE: 2022-03-15T17:07:47+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
+        ADDDOCHEADER
+        GETDOCDATENUMBER
+        MOVEFILE
         IMFF_EXCELL_ROLLBACK
         ANDRECORDS
         CORRECTLINE
@@ -404,6 +411,16 @@ Objects:
           set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
           Dim gdcObject, gdcDetailObject, DS
         
+          OpenDialog.Filter = "*.xls|*.xls"
+          OpenDialog.DefaultExt = "xls"
+        
+          if OpenDialog.Execute then
+            FileName = OpenDialog.FileName
+          else
+            Exit function
+          end if
+        
+        
           dim DateGoodHead, DateGoodLine, isCrDocument :isCrDocument =false
           set DateGoodHead = OwnerForm.FindComponent("gdcInvDocument")
           set DateGoodLine = OwnerForm.FindComponent("gdcInvDocumentLine")
@@ -416,11 +433,99 @@ Objects:
             set gdcDetailObject = OwnerForm.Documentline
           end if
           
-          ' калі ствараем новы дакумент
+          Dim Exc, Sh, Sh1
+          Set Exc = CreateObject("Excel.Application")
+          if not Assigned(Exc) then Exit function
+          except Imff_Excell_Rollback(Exc)
+        
+          call Exc.Workbooks.Open(FileName)
+        
+          dim i, c  ,goodname,quantity,price
+          c = 0
+          ' проверка на непустые лісты в кніге
+          for  i =1 to  Exc.Worksheets.count
+            set Sh1 = Exc.Worksheets(i)
+            '' праверка на патрэбны ліст
+            if pWorkShN<>"" Then
+              IF UCase(Sh1.Name)=UCase(pWorkShN) Then
+               c = i
+               exit for
+              end if
+            else
+              if pWorkSh<>0 Then
+                c = pWorkSh
+                exit for
+              end if
+            end if
+            c = i
+          next
+          if (c <> 0 ) then
+            set  Sh = Exc.Worksheets(c)
+        
+            Dim prForm
+            Set prForm = New Twg_ProgressForm
+            Call prForm.Init(prForm, Null)
+            prForm.Caption = "Импорт"
+            prForm.Note = "Идет импорт накладной. Пожалуйста, подождите..."
+            prForm.SubNote = ""
+            prForm.Max = 30
+            prForm.Show
+        
+        
+            ' ствараем шапку дакумента
+            if not AddDocHeader(gdcObject, Sh, FileName, isCrDocument) then exit function
+            
+            dim ibSQL,  gdcGood
+            set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+            ibSQL.Transaction = gdcObject.Transaction
+            
+            set gdcGood = Creator.GetObject(nil, "TgdcGood", "")
+            DIM description
+            description = ""
+            r = pStartLine
+           WHILE NOT andRecords(Sh, pStartLine)
+             IF CorrectLine(Sh, pStartLine) and (Not prForm.Canceled) THEN
+               Application.ProcessMessages
+               call addLine2(ibSQL, Creator, gdcObject.Transaction, gdcDetailobject, Sh, templ)
+               prForm.Position = prForm.Position + 1
+             END IF
+             pStartLine = pStartLine + 1
+           WEND
+          end if
+        
+          if gdcObject.Transaction.Active then
+             gdcObject.Transaction.Commit
+          end if
+        
+          if Assigned(Exc) then
+            Exc.Workbooks.Close
+            set Exc = nothing
+          end if
+          
+          prForm.Close
+          Set prForm = Nothing
+          
+           ' перенесем обработанный файл в папку processed
+          call movefile(FileName)
+          
+          if assigned(gdcObject) then gdcObject.CloseOpen
+         ' gdcDetailObject.CloseOpen
+          
+        End Function
+        
+        function AddDocHeader(gdcObject, ByVal Sh, ByVal FileName, isCrDocument)
+           AddDocHeader = True
+        
+           dim DocDate, DocNumber, Res
+           Res = GetDocDateNumber(FileName, Sh)
+           DocDate =Res(1)
+           DocNumber = Res(0)
+        
+            ' калі ствараем новы дакумент
           IF isCrDocument Then
             IF (isNull(pDept) or pDept=0)  and (isNull(pClient) or pClient=0) then
                call Application.MessageBox("Не заданы параметры Клиент/Подразделение в указанном шаблоне. Выполнение остановлено.", "Внимание", vOkOnly+vbSystemModal+vbCritical)
-               exit Function
+               AddDocHeader = false
             end if
         
             if gdcObject.Transaction.Active then
@@ -428,12 +533,12 @@ Objects:
             end if
             gdcObject.Transaction.StartTransaction
             gdcObject.Append
-            gdcObject.FieldByname("DOCUMENTDATE").asDateTime = DateSerial(2022,03,12)
-            gdcObject.FieldByname("NUMBER").asString = "*******"
+            gdcObject.FieldByname("DOCUMENTDATE").asDateTime = DocDate
+            gdcObject.FieldByname("NUMBER").asString = DocNumber
             gdcObject.FieldByname("usr$deptkey").asInteger = pDept
             gdcObject.FieldByname("usr$contactkey").asInteger = pClient
             gdcObject.Post
-            
+        
           ELSE
             IF (not isNull(pDept) and pDept<>0)  and (not isNull(pClient) and pClient<>0) then
               if (gdcObject.FieldByname("usr$deptkey").asInteger <> pDept) or (gdcObject.FieldByname("usr$contactkey").asInteger <> pClient) then
@@ -448,84 +553,68 @@ Objects:
               end if
             end if
           END IF
-          
+        
           if ((gdcObject.FieldByname("usr$deptkey").isNull) or (gdcObject.FieldByname("usr$contactkey").isNull)) then
             call Application.MessageBox("Не заполнены обязательные поля в шапке документа", "Внимание", vbOkOnly+vbSystemModal+vbCritical)
-            exit function
+              AddDocHeader = false
           end if
+        end function
         
-          OpenDialog.Filter = "*.xls|*.xls"
-          OpenDialog.DefaultExt = "xls"
+        function GetDocDateNumber(FName, Sh)
+          dim result(1)
+          ' нумар ў назвве файлу
+          dim FSO, v, vl, fnumb, i
+          if pDocNumbFile Then
         
-          if OpenDialog.Execute then
-            FileName = OpenDialog.FileName
-          else
-            Exit function
-          end if
-        
-          Dim Exc, Sh, Sh1
-          Set Exc = CreateObject("Excel.Application")
-          if not Assigned(Exc) then Exit function
-          except Imff_Excell_Rollback(Exc)
-        
-          set Creator = New TCreator
-          call Exc.Workbooks.Open(FileName)
-        
-          dim i, c  ,goodname,quantity,price
-          c = 0
-          ' проверка на непустые лісты в кніге
-          for  i =1 to  Exc.Worksheets.count
-            set Sh1 = Exc.Worksheets(i)
-            '' праверка на патрэны ліст
-            if pWorkShN<>"" Then
-              IF UCase(Sh1.Name)=UCase(pWorkShN) Then
-               c = i
-               exit for
-              end if
-            else
-              if pWorkSh<>0 Then
-                c = pWorkSh
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            v = CSTR(fso.GetFileName(FName))
+            vl = SPlit(v)
+            for i = lBound(vl) to UBound(vl)
+              if len(vl(i))>5 then
+                fnumb = vl(i)
                 exit for
               end if
-            end if
-            ''if ((Sh1.Cells(1, 1).Value <> "") and (Sh1.Cells(1, 2).Value = "")) then
-              c = i
-            ''  exit for
-            '' end if
-          next
-          if (c <> 0 ) then
-            set  Sh = Exc.Worksheets(c)
-        
-            dim ibSQL,  gdcGood
-            set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
-            ibSQL.Transaction = gdcObject.Transaction
-            
-            set gdcGood = Creator.GetObject(nil, "TgdcGood", "")
-            DIM description
-            description = ""
-            r = pStartLine
-           WHILE NOT andRecords(Sh, pStartLine)
-             IF CorrectLine(Sh, pStartLine) THEN
-               call addLine2(ibSQL, Creator, gdcObject.Transaction, gdcDetailobject, Sh, templ)
-             END IF
-             pStartLine = pStartLine + 1
-           WEND
+            next
+          else
+          ' інакш нумар шукаем нумар у радку
+           if pDocNumb<>0 Then
+             for i=1 to 20
+               v = Sh.Cells(pDocNumb, i).Value
+               i=i+1
+               if len(v)>5 Then
+                 vl = SPlit(v)
+                  for j = lBound(vl) to UBound(vl)
+                    if len(vl(j))>5 then
+                      fnumb = vl(j)
+                      exit for
+                    end if
+                  next
+               end if
+             next
+           end if
           end if
+          Result(0) =  fnumb
+          Result(1)  = FormatDateTime(now,vbShortDate)
+          GetDocDateNumber = Result
+        end function
         
-          if gdcObject.Transaction.Active then
-             gdcObject.Transaction.Commit
-          end if
-        
-           
-          if Assigned(Exc) then
-            Exc.Workbooks.Close
-            set Exc = nothing
-          end if
-          
-          if assigned(gdcObject) then gdcObject.CloseOpen
-         ' gdcDetailObject.CloseOpen
-          
-        End Function
+        sub movefile(FileName)
+         dim F
+         set F = CreateObject("Scripting.FileSystemObject")
+         '
+         dim FolderName
+         FolderName = f.GetParentFolderName(FileName) + "\processed\"
+         ''on error resume next
+         if f.FolderExists(FolderName) then
+           call f.MoveFile(FileName, FolderName + f.GetFileName(FileName))
+         else
+           f.CreateFolder(FolderName)
+           call f.MoveFile(FileName, FolderName + f.GetFileName(FileName))
+         end if
+        '' on error goto 0
+         set f = nothing
+         
+        end sub
         
         ' откат при ошибке
         Sub Imff_Excell_Rollback(Exc)

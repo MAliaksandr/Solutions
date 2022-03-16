@@ -5,10 +5,10 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.7"
+  Version: "1.0.0.8"
   Optional: False
   Internal: True
-  MD5: E012249C6016EC68E133D4BB031B3FE3
+  MD5: BCEDE7CE1770167A1C985B7148750AB7
 Uses: 
   - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
   - "220391971_1646796305 Основание для БЕЗ НДС"
@@ -661,7 +661,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2022-03-12T13:27:47+03:00
+      EDITIONDATE: 2022-03-15T13:13:05+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
           HorzScrollBar.Range = 0
@@ -805,7 +805,7 @@ Objects:
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
-                  ActivePage = usrg_TBSheetMain
+                  ActivePage = usrg_DocInf
                   Align = alNone
                   Anchors = [akLeft, akTop]
                   Constraints.MaxHeight = 0
@@ -950,7 +950,7 @@ Objects:
                         Left = 9
                         Top = 16
                         Width = 52
-                        Cursor = crIBeam
+                        Cursor = crArrow
                         TabOrder = 0
                       end
                       object usrat_DBEdit_USR_QFREELINE: TxDBCalculatorEdit
@@ -979,9 +979,7 @@ Objects:
                         Left = 254
                         Top = 64
                         Width = 188
-                        Hint = 
-                          'Название листа(в книге), который хранит информацию о загружаемых' +
-                          ' данных'
+                        Hint = 'Имя раб.листа'
                         TabOrder = 5
                       end
                     end
@@ -1045,6 +1043,12 @@ Objects:
                       Left = 306
                       Top = 140
                       TabOrder = 3
+                    end
+                    object usrat_DBCheckBox_USR_DOCNUMFILE: TDBCheckBox
+                      Left = 45
+                      Top = 53
+                      Caption = 'Номер документа в имени файла'
+                      TabOrder = 4
                     end
                   end
                   object usrg_TBSheetGood: TTabSheet
@@ -1352,7 +1356,7 @@ Objects:
                     Left = 187
                     Top = 30
                     Width = 60
-                    Cursor = crArrow
+                    Cursor = crIBeam
                     TabOrder = 0
                   end
                 end
@@ -2206,4 +2210,47 @@ Objects:
       EDITIONDATE: 2022-03-12T13:22:18+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235084848_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DOCNUMFILE"
+      FIELDNAME: "USR$DOCNUMFILE"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Номер документа в імені файла"
+      LSHORTNAME: "Номер документа в ім"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-03-15T13:10:36+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
       OBJECTS: ~
