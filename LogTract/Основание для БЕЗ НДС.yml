@@ -5,10 +5,10 @@ Properties:
   RUID: 220391971_1646796305
   Name: "Основание для БЕЗ НДС"
   Caption: "Основание для БЕЗ НДС"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: AA28A64D9DD7D15F40AD720C3DE9C175
+  MD5: EC79FFB86ADD12520DF038D4785160BF
 Uses: 
   - "147753062_69526485 GS.Общие.Хранилище"
 Objects: 
@@ -22,7 +22,7 @@ Objects:
       HeadObject: 220391939_1646796305
     Fields: 
       PARENT: "710000_17 Исследователь"
-      NAME: "Торговля"
+      NAME: "01.Торговля"
       CLASSNAME: ~
       CMD: "147013028_109092844"
       CMDTYPE: 0
@@ -30,7 +30,7 @@ Objects:
       IMGINDEX: 0
       ORDR: ~
       SUBTYPE: ~
-      EDITIONDATE: 2016-02-08T12:58:55+03:00
+      EDITIONDATE: 2021-09-07T10:34:18+03:00
       DISABLED: 0
   - 
     Properties: 
@@ -41,7 +41,7 @@ Objects:
       IncludeSiblings: False
       HeadObject: 220391939_1646796305
     Fields: 
-      PARENT: "147013028_109092844 Исследователь\\Торговля"
+      PARENT: "147013028_109092844 Исследователь\\01.Торговля"
       NAME: "Основания"
       CLASSNAME: "TgdcAttrUserDefined"
       CMD: ~
@@ -60,7 +60,7 @@ Objects:
       DontRemove: False
       IncludeSiblings: False
     Fields: 
-      BRANCHKEY: "220391940_1646796305 Исследователь\\Торговля\\Основания"
+      BRANCHKEY: "220391940_1646796305 Исследователь\\01.Торговля\\Основания"
       DESCRIPTION: "USR$INFBASE"
       EXTENDEDFIELDS: ~
       LISTFIELD: ~
@@ -265,10 +265,10 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2021-08-04T11:00:16+03:00
+      EDITIONDATE: 2021-08-04T11:16:53+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_INFBASE: Tgdc_dlgAttrUserDefined
-          Left = 719
+          Left = 442
           HorzScrollBar.Range = 0
           VertScrollBar.Range = 0
           ActiveControl = nil
@@ -296,9 +296,11 @@ Objects:
             Height = 172
             object atAttributes: TatContainer
               Height = 172
-              object usrat_DBEdit_USR_BASENAME_Label: TLabel
-              end
               object usrat_DBEdit_USR_INFOBASE_Label: TLabel
+                Top = 32
+              end
+              object usrat_DBEdit_USR_BASENAME_Label: TLabel
+                Top = 8
               end
               object usrg_USR_INFBASE: TDBMemo
                 Tag = 0
@@ -342,13 +344,15 @@ Objects:
                 WantTabs = False
                 WordWrap = True
               end
-              object usrat_DBEdit_USR_BASENAME: TDBEdit
-                Width = 313
-              end
               object usrat_DBEdit_USR_INFOBASE: TDBEdit
                 Left = 79
                 Top = 140
                 Visible = False
+              end
+              object usrat_DBEdit_USR_BASENAME: TDBEdit
+                Left = 150
+                Top = 4
+                Width = 313
               end
             end
           end
@@ -429,8 +433,8 @@ Objects:
               'read_committed'
               'rec_version'
               'nowait')
-            Left = 440
-            Top = 216
+            Left = 232
+            Top = 136
           end
         end
         
@@ -466,12 +470,12 @@ Objects:
       NAME: "gdc_frmAttrUserDefinedUSR_INFBASE"
       CLASSNAME: ""
       DESCRIPTION: ~
-      MACROSGROUPKEY: ~
+      MACROSGROUPKEY: "232893182_639165248 Локальные макросы"
       OBJECTNAME: "gdc_frmAttrUserDefinedUSR_INFBASE"
       OBJECTTYPE: 0
-      REPORTGROUPKEY: ~
+      REPORTGROUPKEY: "232893183_639165248 Отчеты(gdc_frmAttrUserDefinedUSR_INFBASE)"
       SUBTYPE: ""
-      EDITIONDATE: 2021-08-04T10:47:33+03:00
+      EDITIONDATE: 2021-08-04T11:27:36+03:00
   - 
     Properties: 
       Class: "TgdcField"

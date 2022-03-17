@@ -5,10 +5,10 @@ Properties:
   RUID: 231038008_1631069888
   Name: "Принять продажи по подразделению 2020"
   Caption: "Принять продажи по подразделению 2020"
-  Version: "1.0.0.1"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 981016977F312D92A01285BD39914E19
+  MD5: 7C8F9D3037D1FC35B2C2A8A9D5B92806
 Uses: 
   - "215174259_639165248 импорт_скидок_ADO"
 Objects: 
@@ -87,7 +87,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-03-11T11:30:42+03:00
+      EDITIONDATE: 2021-03-11T11:53:33+03:00
       DISPLAYSCRIPT: | 
         IMPORTSELLSADO
         
@@ -96,8 +96,8 @@ Objects:
         AABGTlNUUFJTVBAAAABJU0NVUlJFTlRSRU1BSU5THwAAAM3lIOjx7+7r/Ofu4uDy/CDy5erz+ejl
         IO7x8uDy6ugAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAARk5TVEZMUFI=
       SCRIPT: | 
+        '#include ECR_TESERVER_MAKESELL_DBF
         ' #include ecr_ZServer_SetParams
-        ' #include ecr_TEServer_MakeSell
         ' #include ecr_TEServer_DoSaveErrLog
         ' #include ecr_DeptList
         ' #include ecr_TEServer_GetBuildPath
@@ -123,7 +123,7 @@ Objects:
           ObjCon.Open
         
           dim objADOQuery
-          set objADOQuery = CreateObject("ADODB.Command")
+          set objADOQuery = CreateObject("ADODB.RecordSet")
           objADOQuery.ActiveConnection = ObjCon
         
           FullFileName = "'" + ecr_TEServer_GetBuildPath(ecr_TEServer_workpath, ecr_TEServer_Sell_Filename) + "'"
@@ -160,23 +160,27 @@ Objects:
         
           DeptNp = ecr_DeptList.GetNpByID(DateGoodHead.FieldByName("USR$CONTACTKEY").AsInteger)
         ' FullFileName = "c:\plu_sell.dbf"
-        
-          SelectSQL = _
-            " SELECT sells.PLU, SUM(Q) as SUMM, SUM(summa) as s_umma,  PRICE, HDATE " + _
+        'AND (ssumma <> 0)
+          objADOQuery.Open " SELECT sells.PLU, PRICE, HDATE, SUM(Q) as SUMM, SUM(summa) as ssumma   " + _
             " FROM plu_sell" +  _
             " sells " + _
-            " WHERE not (PLU is NULL) and DEPARTMENT = 1  " & _
-            " AND s_umma <> 0 " & _
-            " GROUP BY PLU, PRICE, HDATE "
-          objADOQuery.CommandText = SelectSQL
-          objADOQuery.Execute
+            " WHERE not (PLU is NULL) " & _
+            " and DEPARTMENT = " & DeptNp & _
+            "   " & _
+            " GROUP BY PLU, PRICE, HDATE " & _
+            " HAVING  SUM(summa) <> 0", ObjCon
         
+          objADOQuery.MoveFirst
+          if objADOQuery.EOF then
+            objADOQuery.Close
+            exit sub
+          end if
           
           while not objADOQuery.EOF
-            if not IsNull(qryDoc.FieldByName("SUMM").AsVariant) then _
-              call ecr_TEServer_MakeSell(DateGoodLine, gdcRemains, qryDoc, sqlGoods, ErrList)
+            if not IsNull(objADOQuery.Fields("SUMM").Value) then _
+              call ecr_TEServer_MakeSell_dbf(DateGoodLine, gdcRemains, objADOQuery, sqlGoods, ErrList)
         
-            objADOQuery.Next
+            objADOQuery.MoveNext
           wend
           ObjCon.Close
         
@@ -196,9 +200,9 @@ Objects:
         Table: "RP_ADDITIONALFUNCTION"
         Items: 
           - 
-            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+            ADDFUNCTIONKEY: "214964125_639165248 ecr_TEServer_MakeSell_dbf"
           - 
-            ADDFUNCTIONKEY: "147020218_281066798 ecr_TEServer_MakeSell"
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
           - 
             ADDFUNCTIONKEY: "147023762_281066798 ecr_TEServer_DoSaveErrLog"
           - 
@@ -207,3 +211,250 @@ Objects:
             ADDFUNCTIONKEY: "147045020_281066798 ecr_TEServer_GetBuildPath"
           - 
             ADDFUNCTIONKEY: "147047410_281066798 ecr_TEServer_DoCreateErrLog"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 214964125_639165248
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 231209549_639165248
+    Fields: 
+      NAME: "ecr_TEServer_MakeSell_dbf"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2017-07-31T18:17:48+03:00
+      DISPLAYSCRIPT: | 
+        ECR_TESERVER_MAKESELL_DBF
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QMAAAAREFURUdPT0RMSU5FDAAAAERBVEVHT09ETElORQAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVAoAAABHRENSRU1BSU5TCgAAAEdEQ1JFTUFJTlMAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAARk5TVFBSU1QGAAAAUVJZRE9DBgAAAFFSWURPQwAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVAgAAABTUUxHT09EUwgAAABTUUxHT09EUwAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVAcAAABFUlJMSVNUBwAAAEVSUkxJU1QAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        '#include GS_DNMNTODIVIDE
+        '#include ecr_DeptList
+        option explicit
+        function ecr_TEServer_MakeSell_dbf(ByRef DateGoodLine, ByRef gdcRemains, ByRef qryDoc, ByRef sqlGoods, ByRef ErrList)
+        
+        'DateGoodLine.Mastersource.dataset.fieldbyname("INVDOC_USR$CONTACTKEY_NAME").AsString
+          dim ToDivide
+          ToDivide =  gs_DnmnToDivide
+          
+          dim t, aQuantity, Quant, FullName, errFullName, errmsg
+          dim plu, good_code, card_code, DateIzm, k
+          dim departamentName
+        
+        '  if ecr_DeptList.CodeByCost then      ' с учетом цены
+          plu = qryDoc.Fields("PLU").value
+          if Len(plu) < 13 then      ' с учетом цены
+            plu = qryDoc.Fields("PLU").value
+            good_code = Left(plu, Len(plu)-ecr_DeptList.CostCodeLength)
+            card_code = Right(plu, ecr_DeptList.CostCodeLength)
+            ecr_TEServer_CodeField = "USR$SDR_ECRCODE"
+          else
+            plu = qryDoc.Fields("PLU").value
+            good_code = qryDoc.Fields("PLU").value
+            ecr_TEServer_CodeField = "BARCODE"
+          end if
+        
+        
+          aQuantity = qryDoc.Fields("SUMM").value
+        '  errFullName = ";"+good_code
+        
+          DateIzm = CStr(qryDoc.Fields("HDATE").value)
+        '  departamentname = DateGoodLine.MasterSource.Dataset.FieldByName("INVDOC_USR$CONTACTKEY_NAME").AsString
+          departamentname = ecr_DeptList.Depts(DateGoodLine.MasterSource.Dataset.FieldByName("USR$CONTACTKEY").AsInteger).DeptName
+        
+          sqlGoods.SQL.Text = "SELECT NAME, USR$SDR_ECRCODE, ID FROM gd_good " + _
+            " WHERE "+ecr_TEServer_CodeField+" = :BarCode"
+        
+          sqlGoods.ParamByName("BarCode").AsString = good_code
+          sqlGoods.ExecQuery
+        
+           dim PRICEstr
+              PRICEstr = CSTR(qryDoc.Fields("Price").value)
+        
+          errFullName = DateIzm+";"+departamentname + ";;"+good_code+";" + PRICEstr
+        
+          if sqlGoods.RecordCount > 0 then
+        
+            FullName = sqlGoods.FieldByName("Name").AsString + " (код " + plu + ")"
+        '      sqlGoods.FieldByName(ecr_TEServer_CodeField).AsString + ")"
+        '    errFullName = errFullName + ";" + sqlGoods.FieldByName("Name").AsString + ";" + plu
+            errFullName = DateIzm+";"+departamentname + ";" + sqlGoods.FieldByname("Name").asString + ";" + plu + ";" + CSTR(qryDoc.Fields("Price").value)
+        '      sqlGoods.FieldByName(ecr_TEServer_CodeField).AsString
+        
+            gdcRemains.Close
+            gdcRemains.GoodKey = sqlGoods.FieldByname("Id").asInteger
+        '    if ecr_DeptList.CodeByCost then _
+            gdcRemains.ExtraConditions.CLEAR
+            if Len(plu) < 13 then      ' с учетом цены
+              gdcRemains.ExtraConditions.Add("C.USR$SDR_ECRCODE = :card_code")
+              gdcRemains.ParamByName("card_code").AsString = card_code
+            else
+              gdcRemains.ExtraConditions.CLEAR
+        
+        '      gdcRemains.ParamByName("barcode").AsString = ""' card_code
+            end if
+        
+            if sqlGoods.FieldByName("Id").AsInteger = 155532591 then
+              k = 1
+            end if
+        
+            gdcRemains.Open
+        
+            if not gdcRemains.IsEmpty then    ' есть остатки
+        
+              ' перебираем позиции остатков, закрывая все количество
+              while not gdcRemains.EOF and aQuantity > 0
+                Quant = aQuantity
+                if Quant > gdcRemains.FieldByName("REMAINS").AsVariant then
+                  Quant = gdcRemains.FieldByName("REMAINS").AsVariant
+                end if
+        
+                DateGoodLine.Insert             ' добавляем позицию
+                DateGoodLine.FieldByName("GOODKEY").AsInteger = _
+                  sqlGoods.FieldByName("ID").AsInteger
+                DateGoodLine.FieldByName("QUANTITY").AsVariant = Quant
+                DateGoodLine.FieldByName("FROMCARDKEY").AsInteger = _
+                  gdcRemains.FieldByName("ID").AsInteger
+                call DateGoodLine.SetFeatures(True, True)
+        
+                on error resume next
+                DateGoodLine.Post
+        
+                if err.Number <> 0 then  ' ошибка при сохранении позиции
+                  ' не должно быть!
+                  if DateGoodLine.FieldByName("QUANTITY").AsVariant > gdcRemains.FieldByName("REMAINS").AsVariant then
+                    if MsgBox ("По товару " + FullName + _
+                      " недостаточно остатков на подразделении! " + VbCrLf + _
+                      " Реализовано: " + DateGoodLine.FieldByName("QUANTITY").AsString + _
+                      ". Остаток = " + gdcRemains.FieldByName("REMAINS").AsString  + _
+                      ". Установить количество товара, равное остатку? ", mb_YesNo or mb_IconExclamation or mb_TaskModal, "Внимание") = vbYes then
+                      
+                      ErrList.Add(errFullName + ";недостаточно остатков, позиция сохранена. Кол-во = " + _
+                        DateGoodLine.FieldByName("QUANTITY").AsString + ", остаток = " + gdcRemains.FieldByName("REMAINS").AsString)
+                      DateGoodLine.FieldByName("QUANTITY").AsVariant = gdcRemains.FieldByName("REMAINS").AsVariant
+                      DateGoodLine.Post
+                    else
+                      ErrList.Add(errFullName + ";недостаточно остатков, позиция не сохранена. Кол-во = " + _
+                        DateGoodLine.FieldByName("QUANTITY").AsString + ", остаток = " + gdcRemains.FieldByName("REMAINS").AsString)
+                      DateGoodLine.Cancel
+                    end if
+                  else ' ошибка не связана с кол-ом
+                    call MsgBox("Ошибка при сохранении позиции!", mb_OK or mb_IconExclamation or mb_TaskModal, "Ошибка!")
+                    ErrList.Add(errFullName + ";ошибка, не связанная с кол-ом: " + Err.Description + ", позиция не сохранена.")
+                    DateGoodLine.Cancel
+                  end if  ' Quantity > Remains
+                  err.clear
+                end if
+                on error goto 0
+        
+                aQuantity = aQuantity - Quant
+                if aQuantity > 0 then gdcRemains.Next
+              wend
+              if aQuantity > 0 then
+                if ecr_DeptList.ShowErrorMsg then
+                  errmsg = "По товару " + FullName + " недостаточно остатков на подразделении! "
+                  call MsgBox(errmsg, mb_OK or mb_IconExclamation or mb_TaskModal, "Ошибка!")
+                end if
+                ErrList.Add(errFullName + ";недостаточно остатков. Кол-во = " + CStr(aQuantity))
+              elseif aQuantity < 0 then
+                ' забавно, но вдруг...
+                if ecr_DeptList.ShowErrorMsg then
+                  errmsg = "По товару " + FullName + " реализовано отрицательное количество (возврат)! "
+                  call MsgBox(errmsg, mb_OK or mb_IconExclamation or mb_TaskModal, "Ошибка!")
+                end if
+                ErrList.Add(errFullName + ";отрицательное количество. Кол-во = " + CStr(aQuantity))
+              end if
+            else ' нет остатков
+              if ecr_DeptList.ShowErrorMsg then
+                errmsg = "По товару " + FullName + " нет остатков! Кол-во = " + CStr(aQuantity)
+                call MsgBox(errmsg, mb_OK or mb_IconExclamation or mb_TaskModal, "Ошибка!")
+              end if
+              ErrList.Add(errFullName + ";нет остатков! Кол-во = " + CStr(aQuantity))
+            end if
+            gdcRemains.Close
+        
+          else
+            if ecr_DeptList.ShowErrorMsg then
+              errmsg = "Товар с кодом " + good_code + " не найден в справочнике! Кол-во = " + CStr(aQuantity)
+              call MsgBox(errmsg, mb_OK or mb_IconExclamation or mb_TaskModal, "Ошибка!")
+            end if
+            ErrList.Add(errFullName + ";не найден в справочнике. Кол-во = " + CStr(aQuantity))
+          end if
+          sqlGoods.Close
+        
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 231209549_639165248
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros231209549_639165248"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147006996_63934951 dlgInvDocument147006557_63934951"
+      OBJECTNAME: "dlgInvDocument147006557_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2021-03-11T11:34:13+03:00
+      DISPLAYSCRIPT: | 
+        MACROS231209549_639165248
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVBAAAABJU0NVUlJFTlRSRU1BSU5THwAAAM3lIOjx7+7r/Ofu4uDy/CDy5erz+ejl
+        IO7x8uDy6ugAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        '#include IMPORTSELLSADO
+        Option Explicit
+        Sub Macros231209549_639165248(OwnerForm, IsCurrentRemains)
+         call ImportSellsADO(OwnerForm, IsCurrentRemains)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "231038000_1631069888 ImportSellsADO"

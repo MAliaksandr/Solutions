@@ -5,10 +5,10 @@ Properties:
   RUID: 231037992_1631069888
   Name: "Сохранить продажи ADO"
   Caption: "Сохранить продажи ADO"
-  Version: "1.0.0.1"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: BF14098127528287ADA1A43D23648117
+  MD5: 1975E48F14197B1CED06889109091026
 Uses: 
   - "209316035_2119495691 экспорт товаров в КС ADO"
   - "219968030_1398647910 Сандрик-Лог.тракт.Передать товары в кассу. ADO"
@@ -88,7 +88,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-03-10T11:12:42+03:00
+      EDITIONDATE: 2021-03-11T11:01:57+03:00
       DISPLAYSCRIPT: | 
         SAVESELLSADO
         
@@ -101,7 +101,6 @@ Objects:
       SCRIPT: | 
         '#include ECR_TESERVER_WAITING_ADO
         '#include ECR_ZSERVER_CREATETABLE_ADO
-        '#include ECR_TESERVER_WAITING
         '#include ECR_ZSERVER_SETPARAMS
         Option Explicit
         Sub SaveSellsADO(OwnerForm, isLast, DateBegin, DateEnd)
@@ -152,10 +151,10 @@ Objects:
             end if
             call ecr_ZServer_CreateTable_ADO(1, objADOQuery)
         
-        
+            'Split(FullFileName,".")(0) + _
             InsertSQL = _
             "INSERT INTO " + _
-            Split(FullFileName,".")(0) + _
+            ecr_TEServer_Sell_Filename & _
             " (FROMDATE, TODATE) " & _
             " VALUES(" & _
             "'" & CSTR(DateBegin) & "'," & _
@@ -201,7 +200,5 @@ Objects:
             ADDFUNCTIONKEY: "215165918_639165248 ecr_TEServer_Waiting_ADO"
           - 
             ADDFUNCTIONKEY: "219967989_1398647910 ecr_ZServer_CreateTable_ADO"
-          - 
-            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"
           - 
             ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"

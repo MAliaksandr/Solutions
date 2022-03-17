@@ -5,10 +5,10 @@ Properties:
   RUID: 209316035_2119495691
   Name: "экспорт товаров в КС ADO"
   Caption: "экспорт товаров в КС ADO"
-  Version: "1.0.0.14"
+  Version: "1.0.0.13"
   Optional: False
   Internal: True
-  MD5: C5A473C1CA70D99D797DADA70FD32DB7
+  MD5: DDB0BEF01490A7E07177F3D572C89943
 Uses: 
   - "148919179_537677461 GS.Общее.Деноминация 2016"
   - "199348208_2100852545 переоценка_2015"
@@ -38,7 +38,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: ~
-      EDITIONDATE: 2011-09-13T10:52:18+03:00
+      EDITIONDATE: 2019-01-04T11:50:11+03:00
       DISPLAYSCRIPT: | 
         ECR_TESERVER_WAITING
         
@@ -64,7 +64,7 @@ Objects:
           on error goto 0
           if ecr_TEServer_Waiting <> ecr_TEServer_ceOK then exit function
         
-          WinAPI.Sleep(2500)         ' ждем опроса TEServer'а
+          WinAPI.Sleep(1500)         ' ждем опроса TEServer'а
         
           qryDoc.SQL = "SELECT * FROM " + ecr_TEServer_FullCommandFileName
           do while True
@@ -421,7 +421,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2018-06-04T11:12:55+03:00
+      EDITIONDATE: 2019-01-31T11:01:47+03:00
       DISPLAYSCRIPT: | 
         EXPORT_REMAINS_AT_TSERVER_ADO
         TM_WORK
@@ -522,7 +522,7 @@ Objects:
           set FSO = CreateObject("Scripting.FileSystemObject")
           
           ' функция обработки файлов в системе
-          call create_or_delete_dbf(objADOQueryLoc, FSO, 6)
+          call create_or_delete_dbf(objADOQueryLoc, FSO, 3)
         
           ' linecounter -  для подсчета позиций
           linecounter = 0
@@ -544,18 +544,26 @@ Objects:
           gdcDocLine.First
           while not gdcDocLine.EOF
             select case linecounter
-              case 2500
-                DBFnumb = 1
-              case 5000
-                DBFnumb = 2
+           '   case 2500
+        '        DBFnumb = 1
+        '      case 5000
+        '        DBFnumb = 2
               case 7500
-                DBFnumb = 3
-              case 10000
-                DBFnumb = 4
-              case 12500
-                DBFnumb = 5
+                DBFnumb = 1
+           '   case 10000
+        '        DBFnumb = 4
+        '      case 12500
+        '        DBFnumb = 5
               case 15000
-                DBFnumb = 6
+                DBFnumb = 2
+         '     case 17500
+        '        DBFnumb = 7
+        '      case 20000
+        '        DBFnumb = 8
+              case 22500
+                DBFnumb = 3
+            '  case 25000
+        '        DBFnumb = 10
             end select
             set DeptField = gdcDocLine.FieldByName("CONTACTKEY")
         
@@ -626,8 +634,8 @@ Objects:
         
           ' внесем в него данные для файлов
         
-          for j=0 to 6
-            idN = 5
+          for j=0 to 3
+            idN = 2
             if j=0 then
              plname = "'" & FFName(0) & "'"
             else
@@ -779,7 +787,7 @@ Objects:
         ' остатки
         function get_remains_SQL(depart)
           get_remains_SQL = _
-            "SELECT " & _
+            "SELECT  " & _
             "  MIN ( M.CARDKEY ) AS ID,  " & _
             "  G.ID AS GOODKEY,  " & _
             "  G.NAME AS NAMEGOOD,  " & _
@@ -918,7 +926,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2017-10-24T09:34:53+03:00
+      EDITIONDATE: 2019-02-07T09:46:08+03:00
       DISPLAYSCRIPT: | 
         ECR_TESERVER_WAITING_ADO
         
@@ -944,39 +952,39 @@ Objects:
           
           if ecr_TEServer_Waiting_ADO <> ecr_TEServer_ceOK then exit function
         
-          WinAPI.Sleep(3500)         ' ждем опроса TEServer'а
+          WinAPI.Sleep(2500)         ' ждем опроса TEServer'а
         
           dim AdoQuery, AdoQ
           set AdoQuery = CreateObject("ADODB.RecordSet")
-          set AdoQ = CreateObject("ADODB.RecordSet")
+         set AdoQ = CreateObject("ADODB.RecordSet")
           AdoQuery.ActiveConnection = ObjCon
-          AdoQ.ActiveConnection = ObjCon
+         AdoQ.ActiveConnection = ObjCon
           AdoQuery.Open "SELECT * FROM COMMAND.DBF ORDER BY ROWID DESC" , ObjCon
-          AdoQ.Open "SELECT * FROM COMMAND.DBF ORDER BY ROWID ASC" , ObjCon
+         AdoQ.Open "SELECT * FROM COMMAND.DBF ORDER BY ROWID ASC" , ObjCon
           ' ПРОВЕРКА ПОЛЯ FLAG
            on error resume next
           dim Val, Val0
           DO WHILE TRUE
-           if AdoQ.State = 0 then
-             AdoQ.Open
-           end if
-            if AdoQuery.State = 0 then
+         if AdoQ.State = 0 then
+            AdoQ.Open
+         end if
+           if AdoQuery.State = 0 then
              AdoQuery.Open
            end if
            
            ' проверяем последнюю ORDER BY ROWID DESC
            Val = AdoQuery.Fields.Item(6).Value
-           Val0 = AdoQ.Fields.Item(6).Value
+          Val0 = AdoQ.Fields.Item(6).Value
         
-           if not IsNull(Val) and not IsNull(Val0) then
-            IF (Val0<>0) THEN
-              while (AdoQ.Fields.Item(6).Value<>AdoQuery.Fields.Item(6).Value)
-                WinAPI.Sleep(1000)
-                AdoQ.reQuery
-                AdoQuery.reQuery
+           if not IsNull(Val)  then   ' and not IsNull(Val0)
+           IF (Val0<>0) THEN
+            while (AdoQ.Fields.Item(6).Value<>AdoQuery.Fields.Item(6).Value)
+               WinAPI.Sleep(1500)
+               AdoQ.reQuery
+               AdoQuery.reQuery
               wend
               Val = AdoQuery.Fields.Item(6).Value
-            END IF
+           END IF
         
            
             ' все успешно обработалось - выходим
@@ -987,7 +995,7 @@ Objects:
             ' обработка в процессе - ждем дальше
             elseif Val = 2 then
               AdoQuery.Close
-              WinAPI.Sleep(2000)      ' ждем дальше
+              WinAPI.Sleep(1000)      ' ждем дальше
         
             ' предполагаем, что не запущен сервер
             elseif Val = 0 then
