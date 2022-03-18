@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.11"
+  Version: "1.0.0.15"
   Optional: False
   Internal: True
-  MD5: 1E2613A56259DB2DED595FA81936028C
+  MD5: CDD8FA50031E6483033179E8BBD9B45E
 Objects: 
   - 
     Properties: 
@@ -214,16 +214,16 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-10T18:19:22+03:00
+      EDITIONDATE: 2022-03-18T13:29:04+03:00
       DISPLAYSCRIPT: | 
         IMFF_FINDGOOD
-        FINDBARCODE
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QFAAAASUJTUUwFAAAASUJTUUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
         U1QCAAAAU0gCAAAAU0gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QFAAAAVEVNUEwF
         AAAAVEVNUEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVEZMUFI=
       SCRIPT: | 
+        '#include IMFF_GETBARECODE
         'ф-я шукае ТМЦ у БД па розным крытэрыям.
         'паслядоўнасть пошуку будзе абазначана пазней
         'яна(ф-я) павінна венуць GOODKEY альбо знойдзенага альбо зноў устаўленнага
@@ -238,7 +238,7 @@ Objects:
             "  ID " & _
             "FROM GD_GOOD " & _
             "WHERE ALIAS =:ALIAS "
-            ibsql.ParamByNAme("ALIAS").asString = Sh.Cells(pStartLine, pAlias).Value
+            ibsql.ParamByNAme("ALIAS").asString = LEFT(TRIM(Sh.Cells(pStartLine, pAlias).Value),16)
             ibsql.ExecQuery
         
             if not ibsql.EOF Then
@@ -252,7 +252,7 @@ Objects:
             if pBARCODE_end =0 Then
               ByBarCode = Sh.Cells(pStartLine, pBarCode).Value
             else
-              ByBarCode = findBarCode(Sh.Cells(pStartLine, pBarCode).Value, true)
+              ByBarCode = imff_GetBareCode(Sh.Cells(pStartLine, pBarCode).Value)
             end if
         
             if templ(0)= gdcBaseManager.GetIDByRUIDString("235081136_1833050115") Then
@@ -318,23 +318,13 @@ Objects:
              end If
         End Function
         
-        function findBarCode(vl, InEnd)
-          vl = Trim(vl)
-          dim arr
-          arr = Split(vl)
-          'калі ШК знаходзіцца ў прыканцы
-          if InEnd Then
-            vl = arr(UBound(arr))
-          else
-            vl = arr(LBound(arr))
-          end if
-          ' проверим наличие ШК
-        '  for i = LBound(arr) to UBound(arr)
-        '
-        '  next
-          findBarCode = vl
-        end function
         
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "235086826_1833050115 Imff_GetBareCode"
   - 
     Properties: 
       Class: "TgdcFunction"
@@ -359,7 +349,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-15T17:07:47+03:00
+      EDITIONDATE: 2022-03-18T17:40:41+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         ADDDOCHEADER
@@ -374,8 +364,6 @@ Objects:
         GETVATBYGOOD
         LEGALTYPEVALUE
         FINDCOUNTRY
-        FINDGOOD
-        ARR_GOODINFO
         
       ENTEREDPARAMS: !!binary > 
         U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
@@ -420,7 +408,9 @@ Objects:
             Exit function
           end if
         
-        
+         ''' выклікалася тут каб не чакаць апрацоўкі усіх дадзеных
+         ''' call movefile(FileName)
+          
           dim DateGoodHead, DateGoodLine, isCrDocument :isCrDocument =false
           set DateGoodHead = OwnerForm.FindComponent("gdcInvDocument")
           set DateGoodLine = OwnerForm.FindComponent("gdcInvDocumentLine")
@@ -593,26 +583,34 @@ Objects:
              next
            end if
           end if
+          if isEmpty(fnumb) then fnumb = "****"
           Result(0) =  fnumb
           Result(1)  = FormatDateTime(now,vbShortDate)
           GetDocDateNumber = Result
         end function
         
         sub movefile(FileName)
-         dim F
-         set F = CreateObject("Scripting.FileSystemObject")
-         '
-         dim FolderName
-         FolderName = f.GetParentFolderName(FileName) + "\processed\"
-         ''on error resume next
-         if f.FolderExists(FolderName) then
-           call f.MoveFile(FileName, FolderName + f.GetFileName(FileName))
-         else
-           f.CreateFolder(FolderName)
-           call f.MoveFile(FileName, FolderName + f.GetFileName(FileName))
-         end if
-        '' on error goto 0
-         set f = nothing
+           dim F
+           set F = CreateObject("Scripting.FileSystemObject")
+           '
+           dim ParFolder
+           ParFolder = f.GetParentFolderName(FileName) + "\processed\"
+           dim FolderName
+           FolderName = ParFolder + replace(formatdatetime(now,2),".","") + "\"
+           ''on error resume next
+        
+            if not f.FolderExists(FolderName) then
+              f.CreateFolder(ParFolder)
+              f.CreateFolder(FolderName)
+            else
+              if not f.FolderExists(FolderName) Then
+                f.CreateFolder(FolderName)
+              end if
+            end if
+        
+            call f.MoveFile(FileName, FolderName + f.GetFileName(FileName))
+           '' on error goto 0
+           set f = nothing
          
         end sub
         
@@ -704,7 +702,7 @@ Objects:
         ' функция вставки позиций
         sub addLine2(ibSQL, Creator, tr, gdcDetailobject, Sh, templ)
         
-          goodname = Sh.Cells(pStartLine, pGNAME).Value
+          goodname = Trim(Sh.Cells(pStartLine, pGNAME).Value)
           quantity = cstr(Sh.Cells(pStartLine, 2).Value)
           price =  Replace(Sh.Cells(pStartLine, pCostByNCU).Value, "'", "")
         
@@ -735,12 +733,19 @@ Objects:
             "FROM GD_VALUE V " & _
             "WHERE UPPER(V.NAME) LIKE UPPER(:VNAME) || '%' "
           
-          if goodkey<0 then
-            if pAlias<>0 and not isNull(pAlias) Then
-              stAlias = Trim(Sh.Cells(pStartLine, pAlias).Value)
+          ' калі не знайшлі, патрэбна стварыць
+          if goodkey < 0 then
+            if pAlias<>0 Then
+              stAlias = LegalTypeValue(Sh.Cells(pStartLine, pAlias).Value, 2)
             end if
-            if pBarcode<>0 and not isNull(pBarcode) Then
-              stBarcode = Trim(Sh.Cells(pStartLine, pBarcode).Value)
+            if pBarcode<>0 Then
+              if pBARCODE_end = 0 then
+                stBarcode = LegalTypeValue(Sh.Cells(pStartLine, pBarcode).Value,2)
+              else
+                stBarcode = Imff_GetBareCode(Sh.Cells(pStartLine, pBarcode).Value)
+                goodname = Replace(goodname,stBarcode,"")
+              end if
+              
               if templ(0)= gdcBaseManager.GetIDByRUIDString("235081136_1833050115") Then
                 stBarcode = Sh.Cells(pStartLine+2, pBarCode).Value
                 dim arr
@@ -750,30 +755,36 @@ Objects:
         
             end if
             if pDescr<>0 and not isNull(pDescr) Then
-              stDescr = Trim(Sh.Cells(pStartLine, pDescr).Value)
+              stDescr = LegalTypeValue(Sh.Cells(pStartLine, pDescr).Value, 1)
+            else
+              stDescr = Trim(Sh.Cells(pStartLine, pGNAME).Value)
             end if
         
            ibSQL.Close
-           ibSQL.ParamBYName("VNAME").asString  = Sh.Cells(pStartLine, pVNAME).Value
+           ibSQL.ParamBYName("VNAME").asString  =  LegalTypeValue(Sh.Cells(pStartLine, pVNAME).Value), 2)
            ibSQL.ExecQuery
            if not ibSQL.EOF Then
              valuekey = ibSQL.FieldBYName("ID").asInteger
            end if
+           
+           if stDescr = 0 Then
+        
+           end if
           
            gdcGood.Insert
            gdcGood.FieldByName("alias").AsString = stAlias
-           gdcGood.FieldByName("name").AsString = Trim(Sh.Cells(pStartLine, pGNAME).Value)
+           gdcGood.FieldByName("name").AsString = goodname        'Trim(Sh.Cells(pStartLine, pGNAME).Value)
            gdcGood.FieldByName("BARCODE").AsString = stBarcode
            gdcGood.FieldByName("groupkey").AsString =  pGroupKey  ''''''''''
-           gdcGood.FieldByName("valuekey").AsString = valuekey           '''''''''''
+           gdcGood.FieldByName("valuekey").AsString = valuekey    '''''''''''
            gdcGood.FieldByName("description").AsString = stDescr
            gdcGood.Post
            gdcDetailObject.Transaction.CommitRetaining
            goodkey = gdcGood.Id
-         '  tf.WriteLine("Добавлен товар: " & Trim(Exc.ActiveSheet.Cells(i,4).Value) & "")
-         'else
-        '   goodkey = ibsql.FieldByName("ID").AsInteger
-         end if
+           '  tf.WriteLine("Добавлен товар: " & Trim(Exc.ActiveSheet.Cells(i,4).Value) & "")
+           'else
+           '  goodkey = ibsql.FieldByName("ID").AsInteger
+          end if
          
           gdcDetailObject.DisableControls
           BookMark = gdcDetailObject.GetBookMark
@@ -788,10 +799,10 @@ Objects:
           gdcDetailObject.FieldbyName("TO_USR$INV_ADDNDS").asVariant  = Vat
         
           ' краіна паходжання
-          if not isNull(pCountry) and (pCountry<>0) then
+          if pCountry<>0 then
             gdcDetailObject.FieldbyName("TO_USR$INV_ORIGINCOUNTRYKEY").asVariant = findCountry(ibSQL, Sh)
           else
-            if not isNull(pDefCountry) then
+            if pDefCountry<>0 then
               gdcDetailObject.FieldbyName("TO_USR$INV_ORIGINCOUNTRYKEY").asVariant = pDefCountry
             end if
           end if
@@ -832,19 +843,26 @@ Objects:
           getVatByGood = Vat
         end function
         
+        ' прымае некае значэнне і вяртае яго з улікам абпрацоўкі
+        ' 0 - лічба
+        ' 1 - радок
+        ' 2 - радок з аксутнічючымі ".", "," , ":", ";"
         function LegalTypeValue(vl,vType)
           select case vType
-            case 1
+            case 0
               vl = Replace(vl, "'","")
             case else
-              vl = Replace(vl, ",",".")
+              vl = Trim(vl)
+              vl = Replace(vl, ",","")
+              vl = Replace(vl, ".","")
+              vl = Replace(vl, ":","")
+              vl = Replace(vl, ";","")
           end select
-            
           LegalTypeValue =vl
         end function
         
         function findCountry(ibSQL, Sh)
-         findCountry = null
+          findCountry = null
           IF pCountry <> 0 Then
            ibSQL.Close
            ibSQL.SQL.Text = _
@@ -861,72 +879,6 @@ Objects:
          End if
         end function
         
-        function findGood(Creator, tr, goodname, barcode, alias, descr)
-          findGood = null
-          ' долно венуть GOODKEY или найденного или вновь вставленного
-        
-            if len(goodname)>60 Then
-        
-              dim arrG, Gname
-              arrG = Split(goodname,",")
-              Gname = arrG(0)
-            else
-              Gname = goodname
-            end if
-        
-        
-            dim gGood,  gdcGood
-            set gGood = Creator.GetObject(nil, "TIBSQL", "")
-            gGood.Transaction = tr
-            gGood.SQL.TExt = _
-            "EXECUTE BLOCK( " & _
-            "GNAME VARCHAR(60) =:GNAME, " & _
-            "GBARCODE VARCHAR(24) =:GBARCODE, " & _
-            "GALIAS VARCHAR(16) =:GALIAS, " & _
-            "GDESCRIPTION VARCHAR(180)=:GDESCRIPTION) " & _
-            "RETURNS( " & _
-            "GOODKEY INTEGER) " & _
-            "      as " & _
-            "DECLARE VARIABLE GKEY INTEGER; " & _
-            "DECLARE VARIABLE NewID INTEGER; " & _
-            "BEGIN " & _
-            "GKEY = null; " & _
-            "NewID = null; " & _
-            "  SELECT " & _
-            "  g.ID " & _
-            "  FROM GD_GOOD g " & _
-            "  where  UPPER(g.NAME) like '%' || :GNAME || '%' " & _
-            "  INTO :GKEY; " & _
-            "  GOODKEY = GKEY; " & _
-            "  IF (:GKEY is NUll) THEN " & _
-            "   BEGIN " & _
-            "    SELECT " & _
-            "       GEN_ID(gd_g_unique, 1) + GEN_ID(gd_g_offset, 0) " & _
-            "    FROM RDB$DATABASE " & _
-            "    INTO :NewID; " & _
-            "    " & _
-            "    INSERT INTO GD_GOOD(id, NAME,VALUEKEY, GROUPKEY/*,BARCODE,DESCRIPTION,ALIAS*/) " & _
-            "       VALUES(:NewID,:GNAME,3000001, 154479276/*,:GBARCODE,:GDESCRIPTION,:GALIAS*/); " & _
-            "        " & _
-            "    GOODKEY = NewID; " & _
-            "   END " & _
-            "  SUSPEND; " & _
-            "END "
-           gGood.ParamByName("GNAME").asString = Gname
-           gGood.ParamByName("GBARCODE").asString =""
-           gGood.ParamByName("GALIAS").asString = ""
-           gGood.ParamByName("GDESCRIPTION").asString =LEFT(RIGHT(goodname, LEN(goodname)-LEN(Gname)),180)
-           gGood.ExecQuery
-        
-          findGood = gGood.FieldBYName("GOODKEY").asInteger
-        end function
-        
-        sub arr_goodinfo(goodname)
-           arr_goodinfo
-           dim arrG
-           set arrG = Split(goodname,",")
-           
-        end sub
         
         
         
@@ -938,3 +890,59 @@ Objects:
             ADDFUNCTIONKEY: "154577838_1631104572 Imff_findgood"
           - 
             ADDFUNCTIONKEY: "154566984_1631104572 Imff_setParams"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 235086826_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Imff_GetBareCode"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-03-18T17:33:06+03:00
+      DISPLAYSCRIPT: | 
+        IMFF_GETBARECODE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QCAAAAVkwCAAAAVkwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        ' вылучае з радку BarCode
+        Function Imff_GetBareCode(vl)
+          imff_GetBareCode = ""
+          ' пазбаўляемся ад іншых сымболаў
+          vl = Trim(vl)
+          vl = replace(vl,",","")
+          vl = replace(vl,"/","")
+          vl = replace(vl,";","")
+          dim arr, i
+          arr = Split(vl)
+          'калі ШК знаходзіцца разам з назвай матэрыяльная каштоўнасці
+          if pBARCODE_end = 1 Then
+            for i=0 to UBound(arr)
+              if len(arr(i)) = 13 and IsNumeric(arr(i)) Then
+                 Imff_GetBareCode = arr(i)
+                 exit for
+              end if
+            next
+          else
+           ' лічам, што нама чаго шукаць
+          Imff_GetBareCode = vl
+          end if
+        End Function
+        
