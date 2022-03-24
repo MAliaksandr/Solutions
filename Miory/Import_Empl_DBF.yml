@@ -5,10 +5,10 @@ Properties:
   RUID: 149234579_1638717063
   Name: "Import_Empl_DBF"
   Caption: "Import_Empl_DBF"
-  Version: "1.0.0.4"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 1334B0F249629018737C71E7731E7320
+  MD5: A2BE69BED1BD50EFC7BB3C1425E4B2D2
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-07-21T19:00:02+03:00
+      EDITIONDATE: 2022-03-24T11:04:37+03:00
       DISPLAYSCRIPT: | 
         IMPORT_EMPL_DBF
         EXCEPTION_IMPORT_EMPL_DBF
@@ -57,7 +57,7 @@ Objects:
         
           dim Path
         '  Path = FSO.GetParentFolderName(FileName)
-          Path = "d:\Gedemin\Base\MIORI\base\"
+          Path = "\\folders\FOLDERS\23 Обмен (очистка каждое воскренье)\гедемин\"
           
           set objConnection = CreateObject("ADODB.Connection")
           objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
@@ -104,12 +104,13 @@ Objects:
           gdcDiscount.SubType = "USR$PF_STAFFCARD"
           gdcDiscount.Open
           
-          'патрэбна рабіць адразу і фаміраванне лімітаў
+           'патрэбна рабіць адразу і фаміраванне лімітаў
           Dim FormLimit
           set FormLimit = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
           FormLimit.Transaction = T
           FormLimit.SubType = "USR$MN_FORMATION_LIMIT"
           FormLimit.Open
+          
             
           objADOQuery.MoveFirst
           
@@ -137,7 +138,6 @@ Objects:
                 gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
                 gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
                 gdcDiscount.Post
-                
               else
              '   msgbox "Няма звестак па гэтаму табельнаму нумару:" & CSTR(TabNumber)
                 gdcContact.Append
@@ -147,6 +147,7 @@ Objects:
                 gdcContact.FieldByName("NICKNAME").asString = Left(TRIM(NAME),1) & "." & Left(TRIM(MIDNAME),1) & "." & Trim(LASTNAME)
                 gdcContact.FieldByName("NAME").asString = Trim(LASTNAME) & " " & Trim(NAME) & " " & Trim(MIDNAME)
                 gdcContact.FieldByName("USR$TABNUM").asString = CSTR(int(TabNum))
+                gdcContact.FieldByName("PARENT").asVariant = gdcBaseManager.GetIDByRUIDString("149256615_1606276715")
                 gdcContact.Post
                 ConID = gdcContact.ID
                 gdcDiscount.Append
@@ -156,15 +157,15 @@ Objects:
                 gdcDiscount.Post
               end if
               
-             IF NOT FormLimit.Locate("USR$CONTACTKEY", ConID, "") Then
-               FormLimit.Append
-               FormLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asInteger = gdcBaseManager.GetIDBYRuidString("149812188_1606276715")
-               FormLimit.FieldByName("USR$SUMMA").asVariant = 333
-               FormLimit.FieldByName("USR$DATEBEGIN").asDateTime= DateSerial(year(now),01,01)
-               FormLimit.FieldByName("USR$DATEEND").asDateTime= DateSerial(year(now),12,31)
-               FormLimit.FieldByName("USR$CONTACTKEY").asInteger =ConID
-               FormLimit.Post
-             END IF
+              IF NOT FormLimit.Locate("USR$CONTACTKEY", ConID, "") Then
+                FormLimit.Append
+                FormLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asInteger = gdcBaseManager.GetIDBYRuidString("149812188_1606276715")
+                FormLimit.FieldByName("USR$SUMMA").asVariant = 300
+                FormLimit.FieldByName("USR$DATEBEGIN").asDateTime= DateSerial(year(now),01,01)
+                FormLimit.FieldByName("USR$DATEEND").asDateTime= DateSerial(year(now),12,31)
+                FormLimit.FieldByName("USR$CONTACTKEY").asInteger =ConID
+                FormLimit.Post
+              END IF
         
               DiscID = gdcDiscount.FieldByName("ID").asInteger
             ELSE
@@ -177,10 +178,13 @@ Objects:
             END IF
           objADOQuery.MoveNext
           wend
-        
           IF T.InTransaction Then T.Commit
+          
+          objConnection.Close
+          Set objConnection = Nothing
+          Set objADOQuery = Nothing
           ' передадим на кассу
-          call ExportStaffCard
+          call ExportStaffCard(true)
         End Sub
         
         sub Exception_Import_Empl_DBF(T)
