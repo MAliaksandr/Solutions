@@ -5,10 +5,10 @@ Properties:
   RUID: 149234579_1638717063
   Name: "Import_Empl_DBF"
   Caption: "Import_Empl_DBF"
-  Version: "1.0.0.5"
+  Version: "1.0.0.6"
   Optional: False
   Internal: True
-  MD5: A2BE69BED1BD50EFC7BB3C1425E4B2D2
+  MD5: 03980D06452DECF9D9CBA6CCE767C279
 Objects: 
   - 
     Properties: 
@@ -34,13 +34,14 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-24T11:04:37+03:00
+      EDITIONDATE: 2022-03-30T16:24:20+03:00
       DISPLAYSCRIPT: | 
         IMPORT_EMPL_DBF
         EXCEPTION_IMPORT_EMPL_DBF
         
       ENTEREDPARAMS: ~
       SCRIPT: | 
+        '#include GS_GETCONSTBYIDANDDATE
         '#include EXPORTSTAFFCARD
         Option Explicit
         Sub Import_Empl_DBF
@@ -85,7 +86,9 @@ Objects:
           Except Exception_Import_Empl_DBF(T)
         
           dim TabNum,LASTNAME, NAME, MIDNAME, DPRI,DUVOL, NUMPROPUSK
-          Dim WgPos, gdcContact
+          Dim WgPos, gdcContact , LimitSum
+          
+          LimitSum = gs_GetConstByIDAndDate(gdcBaseManager.GetidByRUIDString("161474500_1655689185"), FormatDateTime(now, vbShortDate))
           
           set WgPos = Creator.GetObject(NULL, "TgdcWgPosition", "")
           WgPos.ReadTransaction = T
@@ -111,6 +114,12 @@ Objects:
           FormLimit.SubType = "USR$MN_FORMATION_LIMIT"
           FormLimit.Open
           
+          Dim MnLimit
+          set MnLimit = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
+          MnLimit.Transaction = T
+          MnLimit.SubType = "USR$MN_LIMIT"
+          MnLimit.Open
+          
             
           objADOQuery.MoveFirst
           
@@ -129,7 +138,6 @@ Objects:
             
             ' не знайшлі картку по ТАБ.НУМАРУ = НУМАРУ КАРТКІ => ТРЭБА СТВАРЫЦЬ
             IF not gdcDiscount.Locate("USR$NUMBER", Array(TabNum), "") Then
-        
               ' адразу знойдзем супрацоўніка
               If gdcContact.Locate("usr$tabnum", Array(TabNum), "") Then
                 ConID = gdcContact.ID
@@ -138,6 +146,7 @@ Objects:
                 gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
                 gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
                 gdcDiscount.Post
+                
               else
              '   msgbox "Няма звестак па гэтаму табельнаму нумару:" & CSTR(TabNumber)
                 gdcContact.Append
@@ -160,13 +169,22 @@ Objects:
               IF NOT FormLimit.Locate("USR$CONTACTKEY", ConID, "") Then
                 FormLimit.Append
                 FormLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asInteger = gdcBaseManager.GetIDBYRuidString("149812188_1606276715")
-                FormLimit.FieldByName("USR$SUMMA").asVariant = 300
+                FormLimit.FieldByName("USR$SUMMA").asVariant = LimitSum
                 FormLimit.FieldByName("USR$DATEBEGIN").asDateTime= DateSerial(year(now),01,01)
                 FormLimit.FieldByName("USR$DATEEND").asDateTime= DateSerial(year(now),12,31)
                 FormLimit.FieldByName("USR$CONTACTKEY").asInteger =ConID
                 FormLimit.Post
               END IF
         
+              IF NOT MnLimit.Locate("USR$CONTACTKEY", ConID, "") Then
+                MnLimit.Append
+                MnLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asInteger = gdcBaseManager.GetIDBYRuidString("149812188_1606276715")
+                MnLimit.FieldByName("USR$SUMMA").asVariant = LimitSum
+                MnLimit.FieldByName("USR$SUM_DATEBEGIN").asDateTime= DateSerial(year(now),MONTH(now),01)
+                MnLimit.FieldByName("USR$SUM_DATEEND").asDateTime= DateSerial(year(now),MONTH(now)+1,01)-1
+                MnLimit.FieldByName("USR$CONTACTKEY").asInteger =ConID
+                MnLimit.Post
+              END IF
               DiscID = gdcDiscount.FieldByName("ID").asInteger
             ELSE
               ' знайшлі карту - трэба праверыць тэрмін дзеяння
@@ -174,6 +192,18 @@ Objects:
                 gdcDiscount.Edit
                 gdcDiscount.FieldByName("USR$DISABLED").asInteger = 1
                 gdcDiscount.Post
+              END IF
+              ' таксама на наяўнасць ліміту
+        
+              IF NOT MnLimit.Locate("USR$CONTACTKEY", gdcDiscount.FieldByName("USR$CONTACTKEY").AsInteger, "") Then
+                MnLimit.Append
+                MnLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asInteger = gdcBaseManager.GetIDBYRuidString("149812188_1606276715")
+                MnLimit.FieldByName("USR$SUMMA").asVariant = LimitSum
+                MnLimit.FieldByName("USR$BALANCE").asVariant = LimitSum
+                MnLimit.FieldByName("USR$SUM_DATEBEGIN").asDateTime= DateSerial(year(now),MONTH(now),DAY(now))
+                MnLimit.FieldByName("USR$SUM_DATEEND").asDateTime= DateSerial(year(now),MONTH(now)+1,01)-1
+                MnLimit.FieldByName("USR$CONTACTKEY").asInteger =gdcDiscount.FieldByName("USR$CONTACTKEY").AsInteger
+                MnLimit.Post
               END IF
             END IF
           objADOQuery.MoveNext
@@ -195,5 +225,7 @@ Objects:
       - 
         Table: "RP_ADDITIONALFUNCTION"
         Items: 
+          - 
+            ADDFUNCTIONKEY: "147141414_141998543 gs_GetConstByIDAndDate"
           - 
             ADDFUNCTIONKEY: "149234014_1638717063 ExportStaffCard"
