@@ -1,0 +1,1711 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147615229_1537676299
+  Name: "GS.Терминал Inventory.Класс"
+  Caption: "GS.Терминал Inventory.Класс"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 102D86633939D05263CA4D4FF226E992
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149629998_1183151662
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "T_sluckun_Inventory"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "VBCLASSES"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-04-04T13:22:44+03:00
+      DISPLAYSCRIPT: | 
+        GETBARCODE
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        option explicit
+        Class T_sluckun_Inventory
+        '#### Переменные ###############################################################
+          private FVBErr
+          private FErrHead
+          private FErrLine
+          
+          Public function ProgressBar
+          
+          end function
+          
+        '#### Путь к каталогу обмена с терминалом ######################################
+          private function GetTerminalPath
+            dim Path
+            Path = _
+              UserStorage.ReadString("SluckUn\Inventory", "TerminalPath", "C:\Program Files\Inv-tec\Bases\")
+              'GlobalStorage.ReadString("SluckUn\Inventory", "TerminalPath", "C:\Program Files\Inv-tec\Bases\")
+            GetTerminalPath = Path
+            if Trim(Path) = ""  then
+              GetTerminalPath = "C:\Program Files\Inv-tec\Bases\"
+            else
+              dim LastS
+              LastS = Right(Path, 1)
+              if LastS <> "\" and LastS <> "/" then  GetTerminalPath = GetTerminalPath & "\"
+            end if
+          end function
+          
+        '#### Добавить 3 новых типа док-та в справочник типов док-та ###################
+          public function FillDocumentTypes
+        '    dim gsql
+        '    set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+        
+            dim FilePath, FileName
+            FilePath = GetTerminalPath
+            FileName = FilePath & "SprDoc.DBF"
+        
+            dim FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            if not FSO.FileExists(FileName) then
+              call Application.MessageBox("Файл DBF не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit function
+            end if
+            
+            dim objConnection
+            set objConnection = CreateObject("ADODB.Connection")
+            objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+            objConnection.Properties("Data Source") = FilePath
+            objConnection.Properties("Jet OLEDB:Engine Type") = 18
+            objConnection.Properties("Extended Properties") = "dBASE III plus"
+        '    objConnection.ConnectionString = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB=" & FilePath
+            objConnection.Open
+        
+            dim qCheckDocs, qInsertDocs
+            
+            set qCheckDocs = CreateObject("ADODB.RecordSet")
+            qCheckDocs.ActiveConnection = objConnection
+            
+            set qInsertDocs = CreateObject("ADODB.Command")
+            qInsertDocs.ActiveConnection = objConnection
+            qInsertDocs.CommandType = 1
+            
+            if qCheckDocs.State <> 0 then
+              qCheckDocs.Close
+            end if
+            
+            qCheckDocs.Open "DELETE FROM SprDoc.DBF", objConnection
+            
+        '    qCheckDocs.Open "SELECT * FROM SprDoc.DBF WHERE CODE = '4'", objConnection
+        
+            '' Приход
+        '    if qCheckDocs.EoF then
+              qInsertDocs.CommandText = _
+                "INSERT INTO SprDoc.DBF (" & _
+                "   CODE,  " & _
+                "   NAME,  " & _
+                "   SPRT1,  " & _
+                "   VIDSPR1,  " & _
+                "   SPRT2,  " & _
+                "   VIDSPR2,  " & _
+                "   FLAGS, " & _
+                "   IDTERM, MTERM, DISCOUNT, COEF, ROUND, IDSET )" & _
+                "VALUES (" & _
+                "   '4',  " & _
+                "   'Приход',  " & _
+                "   'Поставщик:',  " & _
+                "    2,  " & _
+                "    'Подразделение',  " & _
+                "    1,  " & _
+                "    1, " & _
+                "    0, 0, 0, 0, 0, 0)"
+              qInsertDocs.Execute
+        '    end if
+        
+            if qCheckDocs.State <> 0 then
+              qCheckDocs.Close
+            end if
+            
+        '    qCheckDocs.Open "SELECT * FROM SprDoc.DBF  WHERE CODE = '15'", objConnection
+        '    if qCheckDocs.EoF then
+        '       qInsertDocs.CommandText = _
+        '        "INSERT INTO SprDoc.DBF (" & _
+        '        "   CODE,  " & _
+        '        "   NAME,  " & _
+        '        "   SPRT1,  " & _
+        '        "   VIDSPR1,  " & _
+        '        "   SPRT2,  " & _
+        '        "   VIDSPR2,  " & _
+        '        "   FLAGS, " & _
+        '        "   IDTERM, MTERM, DISCOUNT, COEF, ROUND, IDSET )" & _
+        '        "VALUES (" & _
+        '        "   '15',  " & _
+        '        "   'Возвр. от покупат.',  " & _
+        '        "   'Подразделение:',  " & _
+        '        "    1,  " & _
+        '        "    ' ',  " & _
+        '        "    0,  " & _
+        '        "    1, 0, 0, 0, 0, 0, 0 )"
+        '      qInsertDocs.Execute
+        '    end if
+        '
+        '    if qCheckDocs.State <> 0 then
+        '      qCheckDocs.Close
+        '    end if
+            
+            ' Перемещение
+        '    qCheckDocs.Open "SELECT * FROM SprDoc.DBF  WHERE CODE = '6'", objConnection
+        '    if qCheckDocs.EoF then
+               qInsertDocs.CommandText = _
+                "INSERT INTO SprDoc.DBF (" & _
+                "   CODE,  " & _
+                "   NAME,  " & _
+                "   SPRT1,  " & _
+                "   VIDSPR1,  " & _
+                "   SPRT2,  " & _
+                "   VIDSPR2,  " & _
+                "   FLAGS, " & _
+                "   IDTERM, MTERM, DISCOUNT, COEF, ROUND, IDSET )" & _
+                "VALUES (" & _
+                "   '1',  " & _
+                "   'Переучёт',  " & _
+                "   'Подразделение:',  " & _
+                "    1,  " & _
+                "    ' ',  " & _
+                "    0,  " & _
+                "    0, 0, 0, 0, 0, 0, 0)"
+              qInsertDocs.Execute
+        '    end if
+        '    qCheckDocs.Close
+        '
+        '    if qCheckDocs.State <> 0 then
+        '      qCheckDocs.Close
+        '    end if
+        
+        '    qCheckDocs.Open "SELECT * FROM SprDoc.DBF  WHERE CODE = '6'", objConnection
+        '    if qCheckDocs.EoF then
+               qInsertDocs.CommandText = _
+                "INSERT INTO SprDoc.DBF (" & _
+                "   CODE,  " & _
+                "   NAME,  " & _
+                "   SPRT1,  " & _
+                "   VIDSPR1,  " & _
+                "   SPRT2,  " & _
+                "   VIDSPR2,  " & _
+                "   FLAGS, " & _
+                "   IDTERM, MTERM, DISCOUNT, COEF, ROUND, IDSET )" & _
+                "VALUES (" & _
+                "   '6',  " & _
+                "   'Перемещение',  " & _
+                "   'Из отдела:',  " & _
+                "    1,  " & _
+                "    'В отдел:',  " & _
+                "    1,  " & _
+                "    1, 0, 0, 0, 0, 0, 0)"
+              qInsertDocs.Execute
+        '    end if
+        '    qCheckDocs.Close
+        
+            if qCheckDocs.State <> 0 then
+              qCheckDocs.Close
+            end if
+        '    qCheckDocs.Open "SELECT * FROM SprDoc.DBF  WHERE CODE = '9'", objConnection
+        '    if qCheckDocs.EoF then
+               qInsertDocs.CommandText = _
+                "INSERT INTO SprDoc.DBF (" & _
+                "   CODE,  " & _
+                "   NAME,  " & _
+                "   SPRT1,  " & _
+                "   VIDSPR1,  " & _
+                "   SPRT2,  " & _
+                "   VIDSPR2,  " & _
+                "   FLAGS, " & _
+                "   IDTERM, MTERM, DISCOUNT, COEF, ROUND, IDSET )" & _
+                "VALUES (" & _
+                "   '9',  " & _
+                "   'Возврат поставщику',  " & _
+                "   'Подразделение:',  " & _
+                "    1,  " & _
+                "    ' ',  " & _
+                "    0,  " & _
+                "    1, 0, 0, 0, 0, 0, 0)"
+              qInsertDocs.Execute
+        '    end if
+            call Application.MessageBox("Справочник документов заполнен", "Внимание", vbSystemModal + vbInformation)
+          end function
+          
+        '#### Загрузить в терминал справочник подразделений ############################
+          function SendDepsToTerminal
+        
+            dim FilePath, FileName
+            FilePath = GetTerminalPath
+            FileName = FilePath & "Sprav.DBF"
+            
+            dim FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            if not FSO.FileExists(FileName) then
+              call Application.MessageBox("Файл DBF не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit function
+            end if
+            
+            dim objConnection
+            set objConnection = CreateObject("ADODB.Connection")
+            objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+            objConnection.Properties("Data Source") = FilePath
+            objConnection.Properties("Jet OLEDB:Engine Type") = 18
+            objConnection.Properties("Extended Properties") = "dBASE III plus"
+        '    objConnection.ConnectionString = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB=" & FilePath
+            objConnection.Open
+        
+            dim qCheckDeps, qInsertDeps
+            set qCheckDeps = CreateObject("ADODB.RecordSet")
+            qCheckDeps.ActiveConnection = objConnection
+        
+            set qInsertDeps = CreateObject("ADODB.Command")
+            qInsertDeps.ActiveConnection = objConnection
+            qInsertDeps.CommandType = 1
+        
+            dim q, Creator
+            set Creator = new TCreator
+            set q = Creator.GetObject(nil, "TIBSQL", "")
+            q.Transaction = gdcBaseManager.ReadTransaction
+            q.SQL.Text = _
+              "SELECT dep.ID, dep.NAME " & _
+              "FROM GD_CONTACT cm " & _
+              "JOIN GD_CONTACT dep ON dep.LB >= cm.LB AND dep.RB <= cm.RB AND dep.CONTACTTYPE = 4 " & _
+              "WHERE cm.ID = <COMPANYKEY/>"
+            q.ExecQuery
+            qCheckDeps.Open "delete from Sprav.DBF", objConnection
+        
+            while not q.EoF
+              if qCheckDeps.State <> 0 then
+                qCheckDeps.Close
+              end if
+              
+              qCheckDeps.Open _
+                "SELECT * FROM Sprav.DBF WHERE CODE = '" & q.FieldByName("ID").AsString & "'", _
+                objConnection
+        
+              if qCheckDeps.EoF then
+                qInsertDeps.CommandText = _
+                  "INSERT INTO Sprav.DBF (" & _
+                  "   CODE,  " & _
+                  "   NAME,  " & _
+                  "   VIDSPR, COMMENT, IDTERM, MTERM, DISCOUNT, ROUND, IDSET, FLAGS)" & _
+                  "VALUES (" & _
+                  "   '" & q.FieldByName("ID").AsString & "',  " & _
+                  "   '" & q.FieldByName("NAME").AsString & "',  " & _
+                  "   1, '', 0, 0, 0, 0, 0, 0 )"
+                qInsertDeps.Execute
+              end if
+              q.Next
+            wend
+            q.Close
+            call Application.MessageBox("Справочник подразделений заполнен", "Внимание", vbSystemModal + vbInformation)
+          end function
+          
+        '#### Загрузить в терминал справочник ТМЦ с остатками (если есть) ##############
+          function SendGoodsToTerminal(RemainsDate, DepartmentKey) ', GroupKey)
+            dim DK
+            if RemainsDate = 0 then RemainsDate = now
+            if DepartmentKey(0) = -1 then
+              dk = IBLogin.CompanyKey
+            else
+              dk = DepartmentKey(0)
+            end if
+        
+            dim gsql, FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+        
+        
+            dim FilePath
+            FilePath = GetTerminalPath
+        
+            if not FSO.FolderExists(FilePath) then
+              call Application.MessageBox("Каталог связи с терминалом не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit function
+            end if
+            
+            dim prForm, RecCount:RecCount=0
+            set prForm = New Twg_ProgressForm
+            call prForm.Init(prForm, Null)
+        
+            prForm.Note = "Идет подготовка. Ожидайте..."
+            Application.ProcessMessages
+            prForm.Show
+            
+            dim objConnection
+            set objConnection = CreateObject("ADODB.Connection")
+            objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+            objConnection.Properties("Data Source") = FilePath
+            objConnection.Properties("Jet OLEDB:Engine Type") = 18
+            objConnection.Properties("Extended Properties") = "dBASE III plus"
+        '    objConnection.ConnectionString = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB=" & FilePath
+            objConnection.Open
+        
+            dim CrSQL
+            set CrSQL = CreateObject("ADODB.Command")
+            CrSQL.ActiveConnection = objConnection
+            CrSQL.CommandType = 1
+            CrSQL.CommandText = " DELETE FROM GOODS.DBF"' " CREATE TABLE '" & FilePath & "GOODS.DBF' " & _
+        '      "(ARTICUL CHAR(15), " & _
+        '      "NAME CHAR(200), " & _
+        '      "QUAN NUMERIC(9,3), " & _
+        '      "PRICE NUMERIC(11,2), " & _
+        '      "PRICE2 NUMERIC(11,2), " & _
+        '      "GR_NAME CHAR(200), " & _
+        '      "FLAGS NUMERIC(8,0), " & _
+        '      "INBOX NUMERIC(9,3), " & _
+        '      "IDSET NUMERIC(8,0)) "
+            CrSQL.Execute
+           '
+        
+            CrSQL.CommandText = " DELETE FROM BARCODE " '& _
+        '      "ARTICUL CHAR(15), " & _
+        '      "BARCODE CHAR(26), " & _
+        '      "IDSET NUMERIC(8,0), " & _
+        '      "QUAN NUMERIC(13,3)) "
+            CrSQL.Execute
+        
+            dim T, Creator
+            set Creator = new TCreator
+            set T = Creator.GetObject(nil, "TIBTransaction", "")
+            T.DefaultDataBase = IBLogin.Database
+            T.StartTransaction
+        
+            dim qTemp
+            set qTemp = Creator.GetObject(nil, "TIBSQL", "")
+            qTemp.Transaction = T
+            qTemp.SQL.Text = "EXECUTE PROCEDURE USR$SLUCKUN_FILLTEMPGOODS(:D, :CK, :Dep /*, :GroupKey*/ )"
+            qTemp.ParamByName("D").AsDateTime = RemainsDate
+            qTemp.ParamByName("CK").AsInteger = IBLogin.CompanyKey
+            qTemp.ParamByName("Dep").AsInteger = dk
+           ' qTemp.ParamByName("GroupKey").AsInteger = GroupKey
+            qTemp.ExecQuery
+        
+            qTemp.Close
+            qTemp.SQL.Text = _
+              "SELECT  " & _
+              "  t.USR$GOODKEY AS GoodKey, " & _
+              "  g.NAME, " & _
+              "  g.barcode as BARCODE, " & _
+              "  g.id AS ARTICUL, " & _
+              "  t.USR$PRICE1 AS Price1, " & _
+              "  t.USR$PRICE2 AS Price2, " & _
+              "  t.USR$REMAINS AS Remains " & _
+              "FROM " & _
+              "  USR$SLUCKUN_TEMPGOODS t " & _
+              "  JOIN GD_GOOD g ON g.ID = t.USR$GOODKEY " & _
+              "where " & _
+              "  coalesce(g.barcode, '') > ''"
+            qTemp.ExecQuery
+            
+            while not qTemp.EOF
+              RecCount = RecCount + 1
+              qTemp.next
+            wend
+            qTemp.Close
+            qTemp.ExecQuery
+        
+            prForm.Max = RecCount
+          '  prForm.Show
+            dim Barcode, cont, i
+            while not qTemp.EOF and (not prForm.Canceled)
+              Barcode = ""
+        
+              if Len(qTemp.FieldByName("BARCODE").AsString) < 8 then
+        '        Barcode = Barcode & qTemp.FieldByName("BARCODE").AsString
+        
+                cont = 7-Len(qTemp.FieldByName("BARCODE").AsString)
+                for i = 1 to cont
+                   Barcode = "0" &  Barcode
+                next
+                 Barcode = getBarcode(Barcode & qTemp.FieldByName("BARCODE").AsString)
+                 'Barcode = getBarcode(qTemp.FieldByName("BARCODE").AsString)
+              else
+                 Barcode = getBarcode(Barcode & qTemp.FieldByName("BARCODE").AsString)
+              end if
+              
+              CrSQL.CommandText = _
+                "INSERT INTO GOODS.DBF(ARTICUL, NAME, QUAN, PRICE, PRICE2, GR_NAME, FLAGS, INBOX) VALUES (" & _
+                " '" & qTemp.FieldByName("GoodKey").AsString & "', " & _
+                " '" & Join(Split(qTemp.FieldByName("NAME").AsString, "'"), " ") & "', " & _
+                " "& Join(Split(CStr(qTemp.FieldByName("REMAINS").AsCurrency), ","), ".") & ", " & _
+                " "& Join(Split(CStr(qTemp.FieldByName("Price1").AsCurrency), ","), ".") & ", " & _
+                " "& Join(Split(CStr(qTemp.FieldByName("Price2").AsCurrency), ","), ".") & ", '', 0,0)"
+              CrSQL.Execute
+        
+              CrSQL.CommandText = _
+                "INSERT INTO Barcode.DBF(ARTICUL, BARCODE) VALUES ('" & _
+                   qTemp.FieldByName("GoodKey").AsString & "', '" & BARCODE & "') "
+              CrSQL.Execute
+              prForm.Note = CSTR(qTemp.FieldByName("NAME").AsString)
+              Application.ProcessMessages
+              prForm.Position = prForm.Position + 1
+              qTemp.Next
+            wend
+            qTemp.Close
+            prForm.Close
+            set prForm = nothing
+            T.Rollback
+        
+            call Application.MessageBox("Товары экспортированы в терминал", "Внимание", vbSystemModal + vbInformation)
+          end function
+        
+        '#### Импортировать накладные на получение из терминала ########################
+          sub GetAddwBillFromTerminal(OwnerForm, DepartmentKey, SupplierKey)
+        
+            dim FilePath
+            FilePath = GetTerminalPath
+            
+            dim FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            if not FSO.FolderExists(FilePath) then
+              call Application.MessageBox("Каталог связи с терминалом не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit sub
+            end if
+        
+            dim gsql, Import, ImportLineDBF, ImportLine, UpdImport
+            set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+            set Import = gsql.Query(gsql.Add("Import", 0))
+            set ImportLineDBF = gsql.Query(gsql.Add("ImportLine", 0))
+            set UpdImport = gsql.Query(gsql.Add("ImportUpd", 0))
+            
+            dim T, Creator
+            set Creator = new TCreator
+            set T = Creator.GetObject(nil, "TIBTransaction", "")
+            T.DefaultDataBase = IBLogin.Database
+            T.StartTransaction
+        
+            dim qTemp
+            set qTemp = Creator.GetObject(nil, "TIBSQL", "")
+            qTemp.Transaction = T
+            qTemp.SQL.Text = _
+              "INSERT INTO USR$SLUCKUN_TEMPDBF( " & _
+              "    USR$IDDOC, USR$ARTICUL, USR$NAME, USR$PRICEREST, USR$PRICE, USR$CHR_QUAN) " & _
+              "VALUES (" & _
+              "    :IDDOC, :ARTICUL, :NAME, :PRICEREST, :PRICE, :CHR_QUAN)"
+        
+            dim gdcObject, gdcDetailObject
+            set gdcObject = OwnerForm.gdcObject
+            set gdcDetailObject = OwnerForm.gdcDetailObject
+            
+            dim MM
+            MM = gdcDetailObject.UseGoodKeyForMakeMovement
+            gdcDetailObject.UseGoodKeyForMakeMovement = True
+            
+            dim qFindGood
+            set qFindGood = Creator.GetObject(nil, "TIBSQL", "")
+            qFindGood.Transaction = gdcObject.ReadTransaction
+            qFindGood.SQL.Text = "SELECT g.ID FROM gd_good g WHERE G.ID = :Code"
+        
+        
+            Import.Database = FilePath
+            ImportLineDBF.Database = FilePath
+            UpdImport.Database = FilePath
+        
+            Import.SQL = "SELECT * FROM doc.dbf WHERE Accepted <> -1 and CVIDDOC = '4' "
+            ImportLineDBF.SQL = "SELECT * FROM pos.dbf "
+            UpdImport.SQL = "UPDATE doc.dbf SET Accepted = -1 WHERE IDDOC = :IdDoc "
+        
+            ImportLineDBF.Open
+            while not ImportLineDBF.EoF
+              qTemp.Close
+              qTemp.ParamByName("IDDOC").AsInteger = ImportLineDBF.FieldBYName("IDDOC").AsInteger
+              qTemp.ParamByName("ARTICUL").AsVariant = ImportLineDBF.FieldBYName("ARTICUL").AsVariant
+              qTemp.ParamByName("NAME").AsVariant = ImportLineDBF.FieldBYName("NAME").AsVariant
+              qTemp.ParamByName("PRICEREST").AsVariant = ImportLineDBF.FieldBYName("PRICEREST").AsVariant
+              qTemp.ParamByName("PRICE").AsVariant = ImportLineDBF.FieldBYName("PRICE").AsVariant
+              qTemp.ParamByName("CHR_QUAN").AsVariant = ImportLineDBF.FieldBYName("CHR_QUAN").AsVariant
+              qTemp.ExecQuery
+              ImportLineDBF.Next
+            wend
+            ImportLineDBF.Close
+            
+            set ImportLine = Creator.GetObject(nil, "TIBSQL", "")
+            ImportLine.Transaction = T
+            ImportLine.SQL.Text = "SELECT * FROM USR$SLUCKUN_TEMPDBF WHERE USR$IDDOC = :IdDoc"
+            Import.Open
+        
+            dim TempDocDate, Code, IsFirstErr
+            while not Import.EOF
+              TempDocDate = Import.FieldByName("Cre_DTST").AsString
+              gdcObject.Insert
+              gdcObject.FieldByName("DOCUMENTDATE").AsDateTime = DateSerial(mid(TempDocDate,1,4),mid(TempDocDate,5,2),mid(TempDocDate,7,2))
+              gdcObject.FieldByName("USR$DEPTKEY").AsInteger = DepartmentKey(0)
+              gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = SupplierKey(0)
+              gdcObject.Post
+              IsFirstErr = true
+        
+              ImportLine.Close
+              ImportLine.ParamByName("IDDoc").AsInteger = Import.FieldByName("IDDoc").AsInteger
+              ImportLine.ExecQuery
+              while not ImportLine.EOF
+                Code = ImportLine.FieldBYName("USR$ARTICUL").AsString
+                if Len(Code) > 10 then Code = ""
+                qFindGood.Close
+                qFindGood.ParamByName("Code").AsString = Code
+                qFindGood.ExecQuery
+        
+                if not qFindGood.EOF then
+                  gdcDetailObject.Append
+                  gdcDetailObject.FieldByName("GOODKEY").AsInteger = qFindGood.FieldByName("ID").AsInteger
+                  gdcDetailObject.FieldByName("QUANTITY").AsCurrency = ImportLine.FieldBYName("USR$CHR_QUAN").AsCurrency
+                  gdcDetailObject.FieldByName("TO_USR$INV_COSTRETAILNCU").AsVariant = ImportLine.FieldBYName("USR$PRICE").AsVariant
+                  gdcDetailObject.Post
+                else
+                  ' ошибка Товар не найден
+                  if IsFirstErr then
+                    call InsertHeadError(_
+                       Import.FieldByName("IDDoc").AsInteger, _
+                       Import.FieldByName("IDTERM").AsVariant, _
+                       4, _
+                       gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                       gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                       gdcObject.FieldByName("USR$DEPTKEY").AsInteger, _
+                       0, "")
+                    IsFirstErr = false
+                  end if
+                  call InsertLineError(_
+                    null, _
+                    ImportLine.FieldByName("USR$NAME").AsVariant, _
+                    ImportLine.FieldByName("USR$ARTICUL").AsVariant, _
+                    ImportLine.FieldByName("USR$CHR_QUAN").AsVariant, _
+                    ImportLine.FieldByName("USR$PRICEREST").AsVariant, _
+                    ImportLine.FieldByName("USR$PRICE").AsVariant, _
+                    0, "Товар не найден")
+                end if
+                ImportLine.Next
+              wend
+        
+              UpdImport.Close
+              UpdImport.ParamBYName("IDDoc").AsInteger = Import.FieldBYName("IDDoc").AsInteger
+              UpdImport.ExecSQL
+              UpdImport.Close
+        
+              Import.Next
+            wend
+            ImportLine.Close
+            Import.Close
+            if T.Active then T.Rollback
+            gdcDetailObject.UseGoodKeyForMakeMovement = MM
+            call Application.MessageBox("Документы приемки импортированы", "Внимание", vbSystemModal + vbInformation)
+          end sub
+        
+        '#### Импортировать накладные на возврат из терминала ##########################
+          sub GetRetDocFromTerminal(OwnerForm)
+            dim FilePath
+            FilePath = GetTerminalPath
+            
+            dim FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            if not FSO.FolderExists(FilePath) then
+              call Application.MessageBox("Каталог связи с терминалом не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit sub
+            end if
+        
+            dim gsql, Import, ImportLineDBF, UpdImport
+            set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+            set Import = gsql.Query(gsql.Add("Import", 0))
+            set ImportLineDBF = gsql.Query(gsql.Add("ImportLine", 0))
+            set UpdImport = gsql.Query(gsql.Add("ImportUpd", 0))
+        
+            dim gdcObject, gdcDetailObject
+            set gdcObject = OwnerForm.gdcObject
+            set gdcDetailObject = OwnerForm.gdcDetailObject
+        
+        
+            dim gdcRemains, Creator
+            set Creator = new TCreator
+            set gdcRemains = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
+            gdcRemains.gdcDocumentLine = gdcDetailObject
+            gdcRemains.ExtraConditions.Add("(c.USR$INV_COSTRETAILNCU = :Cost) OR (c.USR$INV_COSTRETAILNCU IS NULL AND :Cost = 0)")
+        
+            dim qFindGood
+            set qFindGood = Creator.GetObject(nil, "TIBSQL", "")
+            qFindGood.Transaction = gdcObject.ReadTransaction
+            qFindGood.SQL.Text = "SELECT g.ID FROM gd_good g WHERE G.ID = :Code"
+        
+            dim qFindDep
+            set qFindDep = Creator.GetObject(nil, "TIBSQL", "")
+            qFindDep.Transaction = gdcObject.ReadTransaction
+            qFindDep.SQL.Text = "SELECT ID FROM gd_contact WHERE id = :Code"
+        
+            Import.Database = FilePath
+            ImportLineDBF.Database = FilePath
+            UpdImport.Database = FilePath
+        
+            Import.SQL = "SELECT * FROM doc.dbf WHERE Accepted <> - 1 and CVIDDOC = '15' "
+            ImportLineDBF.SQL = "SELECT * FROM pos.dbf"
+            UpdImport.SQL = "UPDATE doc.dbf SET Accepted = -1 WHERE IDDOC = :IdDoc "
+        
+            dim T
+            set T = Creator.GetObject(nil, "TIBTransaction", "")
+            T.DefaultDataBase = IBLogin.Database
+            T.StartTransaction
+        
+            dim q_Temp
+            set q_Temp = Creator.GetObject(nil, "TIBSQL", "")
+            q_Temp.Transaction = T
+            q_Temp.SQL.Text = _
+              "INSERT INTO USR$SLUCKUN_TEMPDBF( " & _
+              "    USR$IDDOC, USR$ARTICUL, USR$NAME, USR$PRICEREST, USR$PRICE, USR$CHR_QUAN) " & _
+              "VALUES (" & _
+              "    :IDDOC, :ARTICUL, :NAME, :PRICEREST, :PRICE, :CHR_QUAN)"
+              
+            ImportLineDBF.Open
+            while not ImportLineDBF.EoF
+              q_Temp.Close
+              q_Temp.ParamByName("IDDOC").AsInteger = ImportLineDBF.FieldBYName("IDDOC").AsInteger
+              q_Temp.ParamByName("ARTICUL").AsVariant = ImportLineDBF.FieldBYName("ARTICUL").AsVariant
+              q_Temp.ParamByName("NAME").AsVariant = ImportLineDBF.FieldBYName("NAME").AsVariant
+              q_Temp.ParamByName("PRICEREST").AsVariant = ImportLineDBF.FieldBYName("PRICEREST").AsVariant
+              q_Temp.ParamByName("PRICE").AsVariant = ImportLineDBF.FieldBYName("PRICE").AsVariant
+              q_Temp.ParamByName("CHR_QUAN").AsVariant = ImportLineDBF.FieldBYName("CHR_QUAN").AsVariant
+              q_Temp.ExecQuery
+              ImportLineDBF.Next
+            wend
+            ImportLineDBF.Close
+        
+            dim ImportLine
+            set ImportLine = Creator.GetObject(nil, "TIBSQL", "")
+            ImportLine.Transaction = T
+            ImportLine.SQL.Text = "SELECT * FROM USR$SLUCKUN_TEMPDBF WHERE USR$IDDOC = :IdDoc"
+        
+            Import.Open
+        
+            dim TempDocDate, DocDate, Code, QTemp, QAll, DepCode, IsFirstErr
+            while not Import.EOF
+              TempDocDate = Import.FieldByName("Cre_DTST").AsString
+              DocDate = DateSerial(mid(TempDocDate,1,4),mid(TempDocDate,5,2),mid(TempDocDate,7,2))
+              DepCode = Import.FieldByName("CSPR1").AsVariant
+              if IsNull(DepCode) then DepCode = "0"
+              qFindDep.Close
+              qFindDep.ParamByName("Code").AsString = DepCode
+              qFindDep.ExecQuery
+              IsFirstErr = true
+              
+              if not qFindDep.EoF then
+                gdcObject.Insert
+                gdcObject.FieldByName("DOCUMENTDATE").AsDateTime = DocDate
+                gdcObject.FieldByName("USR$DEPTKEY").AsString = DepCode
+                gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = gdcBaseManager.GetIDByRUIDString("147004309_31587988")
+                gdcObject.Post
+        
+                gdcRemains.gdcDocumentLine = nothing
+                gdcRemains.gdcDocumentLine = gdcDetailObject
+        
+                ImportLine.Close
+                ImportLine.ParamByName("IDDoc").AsInteger = Import.FieldByName("IDDoc").AsInteger
+                ImportLine.ExecQuery
+                while not ImportLine.EOF
+                  Code = ImportLine.FieldBYName("USR$ARTICUL").AsString
+                  if Len(Code) > 10 then Code = ""
+                  qFindGood.Close
+                  qFindGood.ParamByName("Code").AsString = Code
+                  qFindGood.ExecQuery
+        
+                  if not qFindGood.EOF then
+                    gdcRemains.Close
+                    gdcRemains.ParamByName("Cost").AsVariant = ImportLine.FieldByName("USR$PRICEREST").AsVariant
+                    gdcRemains.GoodKey = qFindGood.FieldByName("ID").AsInteger
+                    gdcRemains.Open
+        
+                    QAll = ImportLine.FieldByName("USR$CHR_QUAN").AsVariant
+                    if IsNull(QAll) then QAll = 0
+                    while QAll > 0 and (not gdcRemains.EoF)
+                      if QAll >  gdcRemains.FieldByName("REMAINS").AsCurrency  then
+                        QTemp =  gdcRemains.FieldByName("REMAINS").AsCurrency
+                      else
+                        QTemp =  QAll
+                      end if
+                      QAll = QAll - QTemp
+                      gdcDetailObject.Append
+                      gdcDetailObject.FieldByName("FROMCARDKEY").AsInteger = gdcRemains.ID
+                      gdcDetailObject.FieldByName("GOODKEY").AsInteger = qFindGood.FieldByName("ID").AsInteger
+                      gdcDetailObject.FieldByName("QUANTITY").AsVariant = QTemp
+                      call gdcDetailObject.SetFeatures(True, True)
+                      gdcDetailObject.FieldByName("TO_USR$INV_COSTRETAILNCU").AsVariant = ImportLine.FieldBYName("USR$PRICE").AsVariant
+                      err.clear
+                      on error resume next
+                        gdcDetailObject.Post
+                        if err.number <> 0 then
+                          ' товар не найден на складе и т.д.
+                          if IsFirstErr then
+                            call InsertHeadError(_
+                               Import.FieldByName("IDDoc").AsInteger, _
+                               Import.FieldByName("IDTERM").AsVariant, _
+                               15, _
+                               gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                               gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                               gdcObject.FieldByName("USR$DEPTKEY").AsInteger, _
+                               0, "")
+                            IsFirstErr = false
+                          end if
+                          call InsertLineError(_
+                            gdcDetailObject.FieldByName("GOODKEY").AsInteger, _
+                            null, _
+                            null, _
+                            ImportLine.FieldByName("USR$CHR_QUAN").AsVariant, _
+                            ImportLine.FieldByName("USR$PRICEREST").AsVariant, _
+                            ImportLine.FieldByName("USR$PRICE").AsVariant, _
+                            err.Number, Err.Description)
+                        end if
+                      on error goto 0
+                      gdcRemains.Next
+                    wend
+                    ' остался несписанный товар!
+                    if QAll > 0 then
+                      if IsFirstErr then
+                        call InsertHeadError(_
+                           Import.FieldByName("IDDoc").AsInteger, _
+                           Import.FieldByName("IDTERM").AsVariant, _
+                           15, _
+                           gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                           gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                           gdcObject.FieldByName("USR$DEPTKEY").AsInteger, _
+                           0, "")
+                        IsFirstErr = false
+                      end if
+                      call InsertLineError(_
+                        qFindGood.FieldByName("ID").AsInteger, _
+                        null, _
+                        null, _
+                        ImportLine.FieldByName("USR$CHR_QUAN").AsVariant, _
+                        ImportLine.FieldByName("USR$PRICEREST").AsVariant, _
+                        ImportLine.FieldByName("USR$PRICE").AsVariant, _
+                        0, "Остались несписанными " & QAll & "единиц товара ")
+                    end if
+                  else
+                    ' ошибка Товар не найден
+                    if IsFirstErr then
+                      call InsertHeadError(_
+                         Import.FieldByName("IDDoc").AsInteger, _
+                         Import.FieldByName("IDTERM").AsVariant, _
+                         15, _
+                         gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                         gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                         gdcObject.FieldByName("USR$DEPTKEY").AsInteger, _
+                         0, "")
+                      IsFirstErr = false
+                    end if
+                    call InsertLineError(_
+                      null, _
+                      ImportLine.FieldByName("USR$NAME").AsVariant, _
+                      ImportLine.FieldByName("USR$ARTICUL").AsVariant, _
+                      ImportLine.FieldByName("USR$CHR_QUAN").AsVariant, _
+                      ImportLine.FieldByName("USR$PRICEREST").AsVariant, _
+                      ImportLine.FieldByName("USR$PRICE").AsVariant, _
+                      0, "Товар не найден")
+                  end if
+                  ImportLine.Next
+                wend
+        
+              else
+                ' Не найдено подразделение
+                call InsertHeadError(_
+                   Import.FieldByName("IDDoc").AsInteger, _
+                   Import.FieldByName("IDTERM").AsVariant, _
+                   15, _
+                   DocDate, _
+                   null, _
+                   null, _
+                   0, "Контакт с ID = '" & DepCode & "' не найден")
+              end if
+              
+              UpdImport.Close
+              UpdImport.ParamBYName("IDDoc").AsInteger = Import.FieldBYName("IDDoc").AsInteger
+              UpdImport.ExecSQL
+              UpdImport.Close
+              Import.Next
+            wend
+            ImportLine.Close
+            Import.Close
+            if T.Active then T.Rollback
+            call Application.MessageBox("Документы возврата импортированы", "Внимание", vbSystemModal + vbInformation)
+          end sub
+          
+        '#### Импортировать накладные на возврат поставщику из терминала ###############
+          sub GetRetSupplDocFromTerminal(OwnerForm, SupplKey, Dep)
+        
+            dim FilePath
+            FilePath = GetTerminalPath
+        
+            dim FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            if not FSO.FolderExists(FilePath) then
+              call Application.MessageBox("Каталог связи с терминалом не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit sub
+            end if
+        
+            dim gsql, Import, ImportLineDBF, UpdImport
+            dim objConnection, objCommandWares
+            set objConnection = CreateObject("ADODB.Connection")
+            objConnection.ConnectionString = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB="&FilePath
+            objConnection.Open
+        
+            set objCommandWares = CreateObject("ADODB.Command")
+            objCommandWares.ActiveConnection = objConnection
+            objCommandWares.CommandType = 1
+        
+            set Import = CreateObject("ADODB.RecordSet")
+            Import.ActiveConnection = objConnection
+            Import.Open "select * from doc.dbf WHERE Accepted <> 1 and CVIDDOC = '9' ", objConnection
+        
+            dim ImportLine
+            set ImportLine = CreateObject("ADODB.RecordSet")
+            ImportLine.ActiveConnection = objConnection
+        
+            dim gdcObject, gdcDetailObject
+            set gdcObject = OwnerForm.gdcObject
+            set gdcDetailObject = OwnerForm.gdcDetailObject
+        
+            dim gdcRemains, Creator
+            set Creator = new TCreator
+            set gdcRemains = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
+            gdcRemains.gdcDocumentLine = gdcDetailObject
+        '    gdcRemains.ExtraConditions.Add("(c.USR$INV_COSTRETAILNCU = :Cost) OR (c.USR$INV_COSTRETAILNCU IS NULL AND :Cost = 0)")
+        
+            dim qFindGood
+            set qFindGood = Creator.GetObject(nil, "TIBSQL", "")
+            qFindGood.Transaction = gdcObject.ReadTransaction
+            qFindGood.SQL.Text = "SELECT g.ID FROM gd_good g WHERE G.ID = :Code"
+        
+            dim qFindDep
+            set qFindDep = Creator.GetObject(nil, "TIBSQL", "")
+            qFindDep.Transaction = gdcObject.ReadTransaction
+            qFindDep.SQL.Text = "SELECT ID FROM gd_contact WHERE id = :Code"
+        
+            dim T
+            set T = Creator.GetObject(nil, "TIBTransaction", "")
+            T.DefaultDataBase = IBLogin.Database
+            T.StartTransaction
+        
+            dim q_Temp
+            set q_Temp = Creator.GetObject(nil, "TIBSQL", "")
+            q_Temp.Transaction = T
+            q_Temp.SQL.Text = _
+              "INSERT INTO USR$SLUCKUN_TEMPDBF( " & _
+              "    USR$IDDOC, USR$ARTICUL, USR$NAME, USR$PRICEREST, USR$PRICE, USR$CHR_QUAN) " & _
+              "VALUES (" & _
+              "    :IDDOC, :ARTICUL, :NAME, :PRICEREST, :PRICE, :CHR_QUAN)"
+        
+            dim TempDocDate, DocDate, Code, QTemp, QAll, DepCode, IsFirstErr
+        
+            while not Import.EOF
+        
+              if ImportLine.State <> 0 then
+                ImportLine.Close
+              end if
+        
+              ImportLine.Open _
+                " SELECT IDDOC, ARTICUL, NAME, PRICE, PRICEREST, SUM(CHR_QUAN) AS CHR_QUAN " & _
+                " FROM pos.dbf WHERE IDDOC = " & Import.Fields("IDDoc").Value & _
+                " GROUP BY IDDOC, ARTICUL, NAME, PRICE, PRICEREST ", objConnection
+        
+              TempDocDate = Import.Fields("Cre_DTST").Value
+              if TempDocDate = "" then
+                DocDate = Now
+              else
+                DocDate = DateSerial(mid(TempDocDate,1,4),mid(TempDocDate,5,2),mid(TempDocDate,7,2))
+              end if
+        
+              DepCode = Trim(Import.Fields("CSPR1").Value)
+              if IsNull(DepCode) then DepCode = "0"
+        
+              qFindDep.Close
+              qFindDep.ParamByName("Code").AsString = DepCode
+              qFindDep.ExecQuery
+        
+              if not qFindDep.EoF then
+                DepCode = CLng(DepCode)
+              else
+                DepCode = Dep
+              end if
+        
+              IsFirstErr = true
+        
+              if (not IsNull(DepCode)) then
+                gdcObject.Insert
+                gdcObject.FieldByName("DOCUMENTDATE").AsDateTime = DocDate
+                gdcObject.FieldByName("USR$MAINDEPOTKEY").AsString = DepCode
+                gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = SupplKey
+                gdcObject.Post
+        
+                gdcRemains.gdcDocumentLine = nothing
+                gdcRemains.gdcDocumentLine = gdcDetailObject
+        
+                while not ImportLine.EOF
+                  Code = CLng(ImportLine.Fields("ARTICUL").Value)
+                  if Len(Code) > 10 then Code = ""
+                  qFindGood.Close
+                  qFindGood.ParamByName("Code").AsString = Code
+                  qFindGood.ExecQuery
+        
+                  if not qFindGood.EOF then
+                    gdcRemains.Close
+             '       gdcRemains.ParamByName("Cost").AsVariant = ImportLine.Fields("PRICEREST").Value
+                    gdcRemains.GoodKey = qFindGood.FieldByName("ID").AsInteger
+                    gdcRemains.Open
+        
+                    QAll = CCur(ImportLine.Fields("CHR_QUAN").Value)
+                    if IsNull(QAll) then QAll = 0
+                    while (QAll > 0) and (not gdcRemains.EoF)
+                      if QAll >  gdcRemains.FieldByName("REMAINS").AsCurrency  then
+                        QTemp =  gdcRemains.FieldByName("REMAINS").AsCurrency
+                      else
+                        QTemp =  QAll
+                      end if
+                      QAll = QAll - QTemp
+                      gdcDetailObject.Append
+                      gdcDetailObject.FieldByName("FROMCARDKEY").AsInteger = gdcRemains.ID
+                      gdcDetailObject.FieldByName("GOODKEY").AsInteger = qFindGood.FieldByName("ID").AsInteger
+                      gdcDetailObject.FieldByName("QUANTITY").AsVariant = QTemp
+                      call gdcDetailObject.SetFeatures(True, True)
+               '       gdcDetailObject.FieldByName("TO_USR$INV_COSTRETAILNCU").AsVariant = ImportLine.Fields("USR$PRICE").Value
+                      err.clear
+                      on error resume next
+                        gdcDetailObject.Post
+                        if err.number <> 0 then
+                          ' товар не найден на складе и т.д.
+                          if IsFirstErr then
+                            call InsertHeadError(_
+                               Import.Fields("IDDoc").Value, _
+                               Import.Fields("IDTERM").Value, _
+                               9, _
+                               gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                               gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                               gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                               0, "")
+                            IsFirstErr = false
+                          end if
+                          call InsertLineError(_
+                            gdcDetailObject.FieldByName("GOODKEY").AsInteger, _
+                            null, _
+                            null, _
+                            ImportLine.Fields("CHR_QUAN").Value, _
+                            ImportLine.Fields("PRICEREST").Value, _
+                            ImportLine.Fields("PRICE").Value, _
+                            err.Number, Err.Description)
+                        end if
+                      on error goto 0
+                      gdcRemains.Next
+                    wend
+                    ' остался несписанный товар!
+                    if QAll > 0 then
+                      if IsFirstErr then
+                        call InsertHeadError(_
+                           Import.Fields("IDDoc").Value, _
+                           Import.Fields("IDTERM").Value, _
+                           9, _
+                           gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                           gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                           gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                           0, "")
+                        IsFirstErr = false
+                      end if
+                      call InsertLineError(_
+                        qFindGood.FieldByName("ID").AsInteger, _
+                        null, _
+                        null, _
+                        ImportLine.Fields("CHR_QUAN").Value, _
+                        ImportLine.Fields("PRICEREST").Value, _
+                        ImportLine.Fields("PRICE").Value, _
+                        0, "Остались несписанными " & QAll & "единиц товара ")
+                    end if
+                  else
+                    ' ошибка Товар не найден
+                    if IsFirstErr then
+                      call InsertHeadError(_
+                         Import.Fields("IDDoc").Value, _
+                         Import.Fields("IDTERM").Value, _
+                         9, _
+                         gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                         gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                         gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                         0, "")
+                      IsFirstErr = false
+                    end if
+                    call InsertLineError(_
+                      null, _
+                      ImportLine.Fields("NAME").Value, _
+                      ImportLine.Fields("ARTICUL").Value, _
+                      ImportLine.Fields("CHR_QUAN").Value, _
+                      ImportLine.Fields("PRICEREST").Value, _
+                      ImportLine.Fields("PRICE").Value, _
+                      0, "Товар не найден")
+                  end if
+                  ImportLine.MoveNext
+                wend
+        
+              else
+                ' Не найдено подразделение
+                ErrDepString = "'" & DepCode & "'"
+                call InsertHeadError(_
+                   Import.Fields("IDDoc").Value, _
+                   Import.Fields("IDTERM").Value, _
+                   6, _
+                   DocDate, _
+                   null, _
+                   null, _
+                   0, "Контакт с ID '" & ErrDepString & "' не найден")
+              end if
+        
+              objCommandWares.CommandText = "UPDATE doc.dbf SET Accepted = 1 WHERE IDDOC = " & Import.Fields("IDDoc").Value
+              objCommandWares.Execute
+              Import.MoveNext
+        
+            wend
+        
+            ImportLine.Close
+            Import.Close
+            if T.Active then T.Rollback
+            call Application.MessageBox("Документы возврата импортированы", "Внимание", vbSystemModal + vbInformation)
+        
+          end sub
+        
+          
+        '#### Импортировать накладные на выдачу в торговое подразделение из терминала ##
+          sub GetToTradeDocFromTerminal(OwnerForm, Dep, Con)
+            dim FilePath
+            FilePath = GetTerminalPath
+        
+            dim FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            if not FSO.FolderExists(FilePath) then
+              call Application.MessageBox("Каталог связи с терминалом не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit sub
+            end if
+        
+            dim gsql, Import, ImportLineDBF, UpdImport
+            dim objConnection, objCommandWares
+            set objConnection = CreateObject("ADODB.Connection")
+            objConnection.ConnectionString = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB="&FilePath
+            objConnection.Open
+        
+            set objCommandWares = CreateObject("ADODB.Command")
+            objCommandWares.ActiveConnection = objConnection
+            objCommandWares.CommandType = 1
+        
+            set Import = CreateObject("ADODB.RecordSet")
+            Import.ActiveConnection = objConnection
+            Import.Open "select * from doc.dbf WHERE Accepted <> 1 and CVIDDOC = '6' ", objConnection
+        
+            dim ImportLine
+            set ImportLine = CreateObject("ADODB.RecordSet")
+            ImportLine.ActiveConnection = objConnection
+        
+            dim gdcObject, gdcDetailObject
+            set gdcObject = OwnerForm.gdcObject
+            set gdcDetailObject = OwnerForm.gdcDetailObject
+        
+            dim gdcRemains, Creator
+            set Creator = new TCreator
+            set gdcRemains = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
+            gdcRemains.gdcDocumentLine = gdcDetailObject
+            gdcRemains.Transaction = gdcDetailObject.Transaction
+        '    gdcRemains.ExtraConditions.Add("(c.USR$INV_COSTRETAILNCU = :Cost) OR (c.USR$INV_COSTRETAILNCU IS NULL AND :Cost = 0)")
+        
+            dim qFindGood
+            set qFindGood = Creator.GetObject(nil, "TIBSQL", "")
+            qFindGood.Transaction = gdcObject.ReadTransaction
+            qFindGood.SQL.Text = "SELECT g.ID FROM gd_good g WHERE G.ID = :Code"
+        
+            dim qFindDep
+            set qFindDep = Creator.GetObject(nil, "TIBSQL", "")
+            qFindDep.Transaction = gdcObject.ReadTransaction
+            qFindDep.SQL.Text = "SELECT ID FROM gd_contact WHERE id = :Code"
+        
+            dim T
+            set T = Creator.GetObject(nil, "TIBTransaction", "")
+            T.DefaultDataBase = IBLogin.Database
+            T.StartTransaction
+        
+            dim q_Temp
+            set q_Temp = Creator.GetObject(nil, "TIBSQL", "")
+            q_Temp.Transaction = T
+            q_Temp.SQL.Text = _
+              "INSERT INTO USR$SLUCKUN_TEMPDBF( " & _
+              "    USR$IDDOC, USR$ARTICUL, USR$NAME, USR$PRICEREST, USR$PRICE, USR$CHR_QUAN) " & _
+              "VALUES (" & _
+              "    :IDDOC, :ARTICUL, :NAME, :PRICEREST, :PRICE, :CHR_QUAN)"
+        
+            dim TempDocDate, DocDate, Code, QTemp, QAll, FromDepCode, ToDepCode, IsFirstErr, FromDep, ToDep, ErrDepString
+        
+            while not Import.EOF
+        
+              if ImportLine.State <> 0 then
+                ImportLine.Close
+              end if
+        
+              ImportLine.Open _
+                " SELECT IDDOC, ARTICUL, NAME, PRICE, PRICEREST, SUM(CHR_QUAN) AS CHR_QUAN " & _
+                " FROM pos.dbf WHERE IDDOC = " & Import.Fields("IDDoc").Value & _
+                " GROUP BY IDDOC, ARTICUL, NAME, PRICE, PRICEREST ", objConnection
+        
+              TempDocDate = Import.Fields("Cre_DTST").Value
+              if TempDocDate = "" then
+                DocDate = Now
+              else
+                DocDate = DateSerial(mid(TempDocDate,1,4),mid(TempDocDate,5,2),mid(TempDocDate,7,2))
+              end if
+        
+              FromDepCode = Trim(Import.Fields("CSPR1").Value)
+              if IsNull(FromDepCode) then FromDepCode = "0"
+        
+              ToDepCode = Trim(Import.Fields("CSPR2").Value)
+              if IsNull(ToDepCode) then ToDepCode = "0"
+        
+              qFindDep.Close
+              qFindDep.ParamByName("Code").AsString = FromDepCode
+              qFindDep.ExecQuery
+              if not qFindDep.EoF then
+                FromDep = CLng(FromDepCode)
+              else
+                FromDep = Dep
+              end if
+        
+              qFindDep.Close
+              qFindDep.ParamByName("Code").AsString = ToDepCode
+              qFindDep.ExecQuery
+              if not qFindDep.EoF then
+                ToDep = CLng(ToDepCode)
+              else
+                ToDep = Con
+              end if
+        
+              IsFirstErr = true
+        
+              if (not IsNull(FromDep)) and (not IsNull(ToDep))  then
+                gdcObject.Insert
+                gdcObject.FieldByName("DOCUMENTDATE").AsDateTime = DocDate
+                gdcObject.FieldByName("USR$MAINDEPOTKEY").AsString = FromDep
+                gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = ToDep
+                gdcObject.Post
+        
+                gdcRemains.Close
+                gdcRemains.gdcDocumentLine = nil
+                gdcRemains.gdcDocumentLine = gdcDetailObject
+        
+                while not ImportLine.EOF
+                  Code = CLng(ImportLine.Fields("ARTICUL").Value)
+                  if Len(Code) > 10 then Code = ""
+                  qFindGood.Close
+                  qFindGood.ParamByName("Code").AsString = Code
+                  qFindGood.ExecQuery
+        
+                  if not qFindGood.EOF then
+                    gdcRemains.Close
+        '            gdcRemains.ParamByName("Cost").AsVariant = ImportLine.FieldByName("USR$PRICEREST").AsVariant
+                    gdcRemains.GoodKey = qFindGood.FieldByName("ID").AsInteger
+                    gdcRemains.CurrentRemains = false
+                    gdcRemains.ParamByName("remainsdate").AsVariant = gdcDetailObject.MasterSource.DataSet.FieldByName("documentdate").AsVariant
+                    gdcRemains.Open
+        
+                    QAll = CCur(ImportLine.Fields("CHR_QUAN").Value)
+                    if IsNull(QAll) then QAll = 0
+                    while QAll > 0 and (not gdcRemains.EoF)
+                      if QAll >  gdcRemains.FieldByName("REMAINS").AsCurrency  then
+                        QTemp =  gdcRemains.FieldByName("REMAINS").AsCurrency
+                      else
+                        QTemp =  QAll
+                      end if
+                      QAll = QAll - QTemp
+                      gdcDetailObject.Append
+                      gdcDetailObject.FieldByName("FROMCARDKEY").AsInteger = gdcRemains.ID
+                      gdcDetailObject.FieldByName("GOODKEY").AsInteger = qFindGood.FieldByName("ID").AsInteger
+                      gdcDetailObject.FieldByName("QUANTITY").AsVariant = QTemp
+                      call gdcDetailObject.SetFeatures(True, True)
+                      gdcDetailObject.FieldByName("TO_USR$INV_COSTRETAILNCU").AsVariant = ImportLine.Fields("PRICE").Value
+                      err.clear
+                      on error resume next
+                        gdcDetailObject.Post
+                        if err.number <> 0 then
+                          ' товар не найден на складе и т.д.
+                          if IsFirstErr then
+                            call InsertHeadError(_
+                               Import.Fields("IDDoc").Value, _
+                               Import.Fields("IDTERM").Value, _
+                               6, _
+                               gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                               gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                               gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                               0, "")
+                            IsFirstErr = false
+                          end if
+                          call InsertLineError(_
+                            gdcDetailObject.FieldByName("GOODKEY").AsInteger, _
+                            null, _
+                            null, _
+                            ImportLine.Fields("USR$CHR_QUAN").Value, _
+                            ImportLine.Fields("USR$PRICEREST").Value, _
+                            ImportLine.Fields("USR$PRICE").Value, _
+                            err.Number, Err.Description)
+                        end if
+                      on error goto 0
+                      gdcRemains.Next
+                    wend
+                    ' остался несписанный товар!
+                    if QAll > 0 then
+                      if IsFirstErr then
+                        call InsertHeadError(_
+                           Import.Fields("IDDoc").Value, _
+                           Import.Fields("IDTERM").Value, _
+                           6, _
+                           gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                           gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                           gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                           0, "")
+                        IsFirstErr = false
+                      end if
+                      call InsertLineError(_
+                        qFindGood.FieldByName("ID").AsInteger, _
+                        null, _
+                        null, _
+                        ImportLine.Fields("USR$CHR_QUAN").Value, _
+                        ImportLine.Fields("USR$PRICEREST").Value, _
+                        ImportLine.Fields("USR$PRICE").Value, _
+                        0, "Остались несписанными " & QAll & "единиц товара ")
+                    end if
+                  else
+                    ' ошибка Товар не найден
+                    if IsFirstErr then
+                      call InsertHeadError(_
+                         Import.Fields("IDDoc").Value, _
+                         Import.Fields("IDTERM").Value, _
+                         6, _
+                         gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                         gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                         gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                         0, "")
+                      IsFirstErr = false
+                    end if
+                    call InsertLineError(_
+                      null, _
+                      ImportLine.Fields("USR$NAME").Value, _
+                      ImportLine.Fields("USR$ARTICUL").Value, _
+                      ImportLine.Fields("USR$CHR_QUAN").Value, _
+                      ImportLine.Fields("USR$PRICEREST").Value, _
+                      ImportLine.Fields("USR$PRICE").Value, _
+                      0, "Товар не найден")
+                  end if
+                  ImportLine.MoveNext
+                wend
+        
+              else
+                ' Не найдено подразделение
+                ErrDepString = ""
+                if IsNull(FromDep) then ErrDepString = "'" & FromDepCode & "'"
+                if IsNull(ToDep) then
+                  if ErrDepString <> "" then ErrDepString = ErrDepString + ", "
+                  ErrDepString = ErrDepString & "'" & ToDepCode  & "'"
+                end if
+                call InsertHeadError(_
+                   Import.Fields("IDDoc").Value, _
+                   Import.Fields("IDTERM").Value, _
+                   6, _
+                   DocDate, _
+                   null, _
+                   null, _
+                   0, "Контакт с ID '" & ErrDepString & "' не найден")
+              end if
+        
+              objCommandWares.CommandText = "UPDATE doc.dbf SET Accepted = 1 WHERE IDDOC = " & Import.Fields("IDDoc").Value
+              objCommandWares.Execute
+              Import.MoveNext
+            wend
+        
+            Import.Close
+        
+            if T.Active then T.Rollback
+            call Application.MessageBox("Документы выдачи импортированы", "Внимание", vbSystemModal + vbInformation)
+            
+          end sub
+        
+        '#### Импортировать накладные на отпуск товара из терминала ##
+          sub GetToRetailSellBillDocFromTerminal(OwnerForm, Dep, Con)
+            dim FilePath
+            FilePath = GetTerminalPath
+        
+            dim FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            if not FSO.FolderExists(FilePath) then
+              call Application.MessageBox("Каталог связи с терминалом не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit sub
+            end if
+        
+            dim gsql, Import, ImportLineDBF, UpdImport
+            dim objConnection, objCommandWares
+            set objConnection = CreateObject("ADODB.Connection")
+            objConnection.ConnectionString = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB="&FilePath
+            objConnection.Open
+        
+            set objCommandWares = CreateObject("ADODB.Command")
+            objCommandWares.ActiveConnection = objConnection
+            objCommandWares.CommandType = 1
+        
+            set Import = CreateObject("ADODB.RecordSet")
+            Import.ActiveConnection = objConnection
+            Import.Open "select * from doc.dbf WHERE Accepted <> 1 and CVIDDOC = '3' ", objConnection
+        
+            dim ImportLine
+            set ImportLine = CreateObject("ADODB.RecordSet")
+            ImportLine.ActiveConnection = objConnection
+        
+            dim gdcObject, gdcDetailObject
+            set gdcObject = OwnerForm.gdcObject
+            set gdcDetailObject = OwnerForm.gdcDetailObject
+        
+            dim gdcRemains, Creator
+            set Creator = new TCreator
+            set gdcRemains = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
+            gdcRemains.gdcDocumentLine = gdcDetailObject
+            gdcRemains.Transaction = gdcDetailObject.Transaction
+        
+            dim qFindGood
+            set qFindGood = Creator.GetObject(nil, "TIBSQL", "")
+            qFindGood.Transaction = gdcObject.ReadTransaction
+            qFindGood.SQL.Text = "SELECT g.ID FROM gd_good g WHERE G.ID = :Code"
+        
+            dim qFindDep
+            set qFindDep = Creator.GetObject(nil, "TIBSQL", "")
+            qFindDep.Transaction = gdcObject.ReadTransaction
+            qFindDep.SQL.Text = "SELECT ID FROM gd_contact WHERE id = :Code"
+        
+            dim T
+            set T = Creator.GetObject(nil, "TIBTransaction", "")
+            T.DefaultDataBase = IBLogin.Database
+            T.StartTransaction
+        
+            dim q_Temp
+            set q_Temp = Creator.GetObject(nil, "TIBSQL", "")
+            q_Temp.Transaction = T
+            q_Temp.SQL.Text = _
+              "INSERT INTO USR$SLUCKUN_TEMPDBF( " & _
+              "    USR$IDDOC, USR$ARTICUL, USR$NAME, USR$PRICEREST, USR$PRICE, USR$CHR_QUAN) " & _
+              "VALUES (" & _
+              "    :IDDOC, :ARTICUL, :NAME, :PRICEREST, :PRICE, :CHR_QUAN)"
+        
+        
+            dim TempDocDate, DocDate, Code, QTemp, QAll, FromDepCode, ToDepCode, IsFirstErr, FromDep, ToDep, ErrDepString
+            while not Import.EOF
+        
+              if ImportLine.State <> 0 then
+                ImportLine.Close
+              end if
+        
+              ImportLine.Open _
+                " SELECT IDDOC, ARTICUL, NAME, PRICE, PRICEREST, SUM(CHR_QUAN) AS CHR_QUAN " & _
+                " FROM pos.dbf WHERE IDDOC = " & Import.Fields("IDDoc").Value & _
+                " GROUP BY IDDOC, ARTICUL, NAME, PRICE, PRICEREST ", objConnection
+        
+              TempDocDate = Import.Fields("Cre_DTST").Value
+              if TempDocDate = "" then
+                DocDate = Now
+              else
+                DocDate = DateSerial(mid(TempDocDate,1,4),mid(TempDocDate,5,2),mid(TempDocDate,7,2))
+              end if
+        
+              FromDepCode = Trim(Import.Fields("CSPR1").Value)
+              if FromDepCode = "" then FromDepCode = "0"
+        
+              ToDepCode = Trim(Import.Fields("CSPR2").Value)
+              if ToDepCode = "" then ToDepCode = "0"
+        
+              qFindDep.Close
+              qFindDep.ParamByName("Code").AsString = FromDepCode
+              qFindDep.ExecQuery
+              if not qFindDep.EoF then
+                FromDep = CLng(FromDepCode)
+              else
+                FromDep = Dep
+              end if
+        
+              qFindDep.Close
+              qFindDep.ParamByName("Code").AsString = ToDepCode
+              qFindDep.ExecQuery
+              if not qFindDep.EoF then
+                ToDep = CLng(ToDepCode)
+              else
+                ToDep = Con
+              end if
+        
+              IsFirstErr = true
+        
+              if (not IsNull(FromDep)) and (not IsNull(ToDep))  then
+                gdcObject.Insert
+                gdcObject.FieldByName("DOCUMENTDATE").AsDateTime = DocDate
+                gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger = FromDep
+                gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = ToDep
+                gdcObject.Post
+        
+                gdcRemains.Close
+                gdcRemains.gdcDocumentLine = nil
+                gdcRemains.gdcDocumentLine = gdcDetailObject
+        
+                while not ImportLine.EOF
+                  Code = CLng(ImportLine.Fields("ARTICUL").Value)
+                  if Len(Code) > 10 then Code = ""
+                  qFindGood.Close
+                  qFindGood.ParamByName("Code").AsString = Code
+                  qFindGood.ExecQuery
+        
+                  if not qFindGood.EOF then
+                    gdcRemains.Close
+                    gdcRemains.ParamByName("GoodKey").AsInteger = qFindGood.FieldByName("ID").AsInteger
+                    gdcRemains.CurrentRemains = false
+                    gdcRemains.ParamByName("remainsdate").AsVariant = gdcDetailObject.MasterSource.DataSet.FieldByName("documentdate").AsVariant
+                    gdcRemains.Open
+        
+                    QAll = CCur(ImportLine.Fields("CHR_QUAN").Value)
+                    if IsNull(QAll) then QAll = 0
+                    while QAll > 0 and (not gdcRemains.EoF)
+                      if QAll >  gdcRemains.FieldByName("REMAINS").AsCurrency  then
+                        QTemp =  gdcRemains.FieldByName("REMAINS").AsCurrency
+                      else
+                        QTemp =  QAll
+                      end if
+                      QAll = QAll - QTemp
+                      gdcDetailObject.Append
+                      gdcDetailObject.FieldByName("USR$DEPOTKEY").AsInteger = FromDep
+                      gdcDetailObject.FieldByName("FROMCARDKEY").AsInteger = gdcRemains.FieldByName("ID").AsInteger
+                      gdcDetailObject.FieldByName("GOODKEY").AsInteger = qFindGood.FieldByName("ID").AsInteger
+                      gdcDetailObject.FieldByName("QUANTITY").AsVariant = QTemp
+        
+                      call gdcDetailObject.SetFeatures(True, True)
+        
+                      err.clear
+                      on error resume next
+                        gdcDetailObject.Post
+                        if err.number <> 0 then
+                          ' товар не найден на складе и т.д.
+                          if IsFirstErr then
+                            call InsertHeadError(_
+                               Import.Fields("IDDoc").Value, _
+                               Import.Fields("IDTERM").Value, _
+                               6, _
+                               gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                               gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                               gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                               0, "")
+                            IsFirstErr = false
+                          end if
+                          call InsertLineError(_
+                            gdcDetailObject.FieldByName("GOODKEY").AsInteger, _
+                            null, _
+                            null, _
+                            ImportLine.Fields("CHR_QUAN").Value, _
+                            ImportLine.Fields("PRICEREST").Value, _
+                            ImportLine.Fields("PRICE").Value, _
+                            err.Number, Err.Description)
+                        end if
+                      on error goto 0
+                      gdcRemains.Next
+                    wend
+                    ' остался несписанный товар!
+                    if QAll > 0 then
+                      if IsFirstErr then
+                        call InsertHeadError(_
+                           Import.Fields("IDDoc").Value, _
+                           Import.Fields("IDTERM").Value, _
+                           6, _
+                           gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                           gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                           gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                           0, "")
+                        IsFirstErr = false
+                      end if
+                      call InsertLineError(_
+                        qFindGood.FieldByName("ID").AsInteger, _
+                        null, _
+                        null, _
+                        ImportLine.Fields("CHR_QUAN").Value, _
+                        ImportLine.Fields("PRICEREST").Value, _
+                        ImportLine.Fields("PRICE").Value, _
+                        0, "Остались несписанными " & QAll & "единиц товара ")
+                    end if
+                  else
+                    ' ошибка Товар не найден
+                    if IsFirstErr then
+                      call InsertHeadError(_
+                         Import.Fields("IDDoc").Value, _
+                         Import.Fields("IDTERM").Value, _
+                         6, _
+                         gdcObject.FieldByName("DOCUMENTDATE").AsDateTime, _
+                         gdcObject.FieldByName("USR$MAINDEPOTKEY").AsInteger, _
+                         gdcObject.FieldByName("USR$CONTACTKEY").AsInteger, _
+                         0, "")
+                      IsFirstErr = false
+                    end if
+                    call InsertLineError(_
+                      null, _
+                      ImportLine.Fields("NAME").Value, _
+                      ImportLine.Fields("ARTICUL").Value, _
+                      ImportLine.Fields("CHR_QUAN").Value, _
+                      ImportLine.Fields("PRICEREST").Value, _
+                      ImportLine.Fields("PRICE").Value, _
+                      0, "Товар не найден")
+                  end if
+                  ImportLine.MoveNext
+                wend
+        
+              else
+                ' Не найдено подразделение
+                ErrDepString = ""
+                if IsNull(FromDep) then ErrDepString = "'" & FromDepCode & "'"
+                if IsNull(ToDep) then
+                  if ErrDepString <> "" then ErrDepString = ErrDepString + ", "
+                  ErrDepString = ErrDepString & "'" & ToDepCode  & "'"
+                end if
+                call InsertHeadError(_
+                   Import.Fields("IDDoc").Value, _
+                   Import.Fields("IDTERM").Value, _
+                   6, _
+                   DocDate, _
+                   null, _
+                   null, _
+                   0, "Контакт с ID '" & ErrDepString & "' не найден")
+              end if
+        
+              objCommandWares.CommandText = "UPDATE doc.dbf SET Accepted = 1 WHERE IDDOC = " & Import.Fields("IDDoc").Value
+              objCommandWares.Execute
+              Import.MoveNext
+            wend
+        
+            Import.Close
+            if T.Active then T.Rollback
+            call Application.MessageBox("Документы отпуска импортированы", "Внимание", vbSystemModal + vbInformation)
+          end sub
+          
+        '#### Обновить поле Accepted ###################################################
+          sub UpdateAccepted(N)
+            dim FilePath
+            FilePath = GetTerminalPath
+            dim FSO
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            if not FSO.FolderExists(FilePath) then
+              call Application.MessageBox("Каталог связи с терминалом не существует!", "Внимание", vbSystemModal + mb_IconError)
+              exit sub
+            end if
+        
+            dim objConnection, UpdImport
+            set objConnection = CreateObject("ADODB.Connection")
+            objConnection.ConnectionString = "Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB=" & FilePath
+            objConnection.Open
+        
+            set UpdImport = CreateObject("ADODB.Command")
+            UpdImport.ActiveConnection = objConnection
+            UpdImport.CommandType = 1
+            
+            UpdImport.CommandText =  "UPDATE doc.dbf SET Accepted = 0 WHERE IDDOC = " & N
+            UpdImport.Execute
+        
+          end sub
+          
+          private function GetDocTypeByCode(Code)
+            if not IsNumeric(Code) then Code = CInt(Code)
+            select case Code
+              case 4
+                ' накладная на получение тмц
+                GetDocTypeByCode = gdcBaseManager.GetIDByRUIDString("147010993_109092844")
+              case 9
+                ' возврат поставщику
+                GetDocTypeByCode = gdcBaseManager.GetIDByRUIDString("147013038_109092844")
+              case 6
+                ' выдача в торговые подразделения
+                GetDocTypeByCode = gdcBaseManager.GetIDByRUIDString("147005934_63934951")
+              case 15
+                ' возврат от покупателей
+                GetDocTypeByCode = gdcBaseManager.GetIDByRUIDString("147004788_45137928")
+              case else
+                GetDocTypeByCode = null
+            end select
+          end function
+          
+          private function InsertHeadError(IDDoc, IDTerm, DocTypeCode, DocDate, FromContactKey, ToContactKey, ErrCode, ErrDescr)
+            FErrHead.Insert
+            FErrHead.FieldByName("USR$IDDOC").AsVariant = IDDoc
+            FErrHead.FieldByName("USR$IDTERM").AsVariant = IDTerm
+            FErrHead.FieldByName("USR$DOCUMENTTYPEKEY").AsVariant = GetDocTypeByCode(DocTypeCode)
+            FErrHead.FieldByName("DOCUMENTDATE").AsDateTime  = DocDate
+            FErrHead.FieldByName("USR$IMPORTDATE").AsDateTime  = now
+            FErrHead.FieldByName("USR$FROMCONTACTKEY").AsVariant = FromContactKey
+            FErrHead.FieldByName("USR$TOCONTACTKEY").AsVariant = ToContactKey
+            FErrHead.FieldByName("USR$ERRCODE").AsInteger = ErrCode
+            FErrHead.FieldByName("USR$ERRDESCRIPTION").AsString = ErrDescr
+            FErrHead.Post
+          end function
+          
+          private function InsertLineError(GoodKey, GoodName, Articul, Quantity, FromPrice, ToPrice, ErrCode, ErrDescr)
+            FErrLine.Insert
+            FErrLine.FieldByName("USR$GOODKEY").AsVariant = GoodKey
+            FErrLine.FieldByName("USR$GOODNAME").AsVariant = GoodName
+            FErrLine.FieldByName("USR$ARTICUL").AsVariant = Articul
+            FErrLine.FieldByName("USR$QUANTITY").AsVariant  = Quantity
+            FErrLine.FieldByName("USR$FROM_PRICE").AsVariant  = FromPrice
+            FErrLine.FieldByName("USR$TO_PRICE").AsVariant = ToPrice
+            FErrLine.FieldByName("USR$ERRCODE").AsInteger = ErrCode
+            FErrLine.FieldByName("USR$ERRDESCRIPTION").AsString = ErrDescr
+            FErrLine.Post
+          end function
+          
+          Private Sub Class_Initialize
+            set FvbErr = new TvbUserDocument
+            call FvbErr.InitDocument("149553698_1183151662", nil, nil)
+            set FErrHead = FvbErr.gdcUserDocument
+            set FErrLine = FvbErr.gdcUserDocumentLine
+            FErrHead.Open
+            FErrLine.Open
+          End Sub
+        
+          Private Sub Class_Terminate
+            FErrHead.Close
+          End Sub
+        End Class
+        
+        function getBarcode(Barcode)
+          getBarcode = ""
+        
+          dim BC, sum, fak, bc_Arr, i
+        
+        ' +++ преобразуем строку в масссив +++
+          BC = ""
+          for i = 1 to Len(BarCode)
+            BC = BC + Mid(BarCode, i, 1) + ";"
+          next
+          BC = Left(BC, Len(BC)-1)
+        
+          bc_Arr = Split(BC, ";")
+        ' --- преобразуем строку в масссив ---
+        ' находим контрольную сумму
+        
+          sum = 0
+          fak = Len(BarCode)
+          for i = 1 to Len(BarCode)
+            if (fak mod 2) = 0 then
+              sum = sum + (CInt(bc_Arr(i-1)) * 1)
+            else
+              sum = sum + (CInt(bc_Arr(i-1)) * 3)
+            end if
+            fak = fak - 1
+          next
+        
+          ' добавляем контрольное число
+          if (sum mod 10) = 0 then
+            getBarcode = BarCode '+ "0"
+          else
+            getBarcode = BarCode '+ CStr(10 - (sum mod 10))
+          end if
+        end function
+        
