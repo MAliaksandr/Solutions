@@ -1,0 +1,93 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 179021630_1846559139
+  Name: "Выбор актов по оплате в счет фактуре"
+  Caption: "Выбор актов по оплате в счет фактуре"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: CD5C11A7B551981E57DA36443217A4F9
+Uses: 
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 179021622_1846559139
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 179021623_1846559139
+    Fields: 
+      PARENT: "147032178_3974129 TgdcCreateableForm\\Tgdc_frmG\\Tgdc_frmMDH\\Tgdc_frmMDHGR\\Tgdc_frmUserComplexDocument"
+      NAME: "Tgdc_frmUserComplexDocument172908464_1580679213"
+      CLASSNAME: "Tgdc_frmUserComplexDocument"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "172908464_1580679213"
+      EDITIONDATE: 2022-04-06T14:44:36+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 179021625_1846559139
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 179021623_1846559139
+    Fields: 
+      NAME: "Tgdc_frmUserComplexDocument172908464_1580679213SetChoose"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "179021622_1846559139 TgdcCreateableForm\\Tgdc_frmG\\Tgdc_frmMDH\\Tgdc_frmMDHGR\\Tgdc_frmUserComplexDocument\\Tgdc_frmUserComplexDocument172908464_1580679213"
+      OBJECTNAME: "Tgdc_frmUserComplexDocument172908464_1580679213"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-04-06T14:49:50+03:00
+      DISPLAYSCRIPT: | 
+        TGDC_FRMUSERCOMPLEXDOCUMENT172908464_1580679213SETCHOOSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        CAAAAEFOT0JKRUNUCAAAAEFOT0JKRUNUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub Tgdc_frmUserComplexDocument172908464_1580679213SetChoose(Self, AnObject)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "SetChoose", Array(Self, AnObject))
+        '***               Конец кода поддержки gdc-класса.                  ***
+          If Not Assigned(AnObject) Then Exit Sub
+          If Not AnObject.VariableExists("ChooseExtraCondition") Then Exit Sub
+        
+          Self.gdcObject.ExtraConditions.Text = AnObject.Variables("ChooseExtraCondition")
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 179021623_1846559139
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "SETCHOOSE"
+      FUNCTIONKEY: "179021625_1846559139 Tgdc_frmUserComplexDocument172908464_1580679213SetChoose"
+      OBJECTKEY: "179021622_1846559139 TgdcCreateableForm\\Tgdc_frmG\\Tgdc_frmMDH\\Tgdc_frmMDHGR\\Tgdc_frmUserComplexDocument\\Tgdc_frmUserComplexDocument172908464_1580679213"
+      OBJECTNAME: "Tgdc_frmUserComplexDocument172908464_1580679213"
+      PARENTNAME: "Tgdc_frmUserComplexDocument"
+      EDITIONDATE: 2022-04-06T14:49:50+03:00
