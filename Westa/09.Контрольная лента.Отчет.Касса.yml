@@ -1,0 +1,204 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 148688196_821911878
+  Name: "09.Контрольная лента.Отчет.Касса"
+  Caption: "09.Контрольная лента.Отчет.Касса"
+  Version: "1.0.0.4"
+  Optional: False
+  Internal: True
+  MD5: B6BCC05EF1C930E71582E6AB8B458A62
+Uses: 
+  - "147019071_301427377 GS.PositiveCheck. Отчёты"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 148688081_821911878
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 148687785_821911878
+    Fields: 
+      NAME: "09. Контрольная лента"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2022-04-08T14:53:13+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44659,5047532176" ReportOptions.Description.Text="" ReportOptions.LastChange="44659,5047532176" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D22512200010C2400000020446174615365743D22514C494E452220446174615365744E616D653D22514C494E45220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" Columns="2" ColumnWidth="95" ColumnPositions.Text="0&#13;&#10;95" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="52,91342" Left="0" Top="18,89765" Width="718,1107">
+              <TfrxMemoView Name="Memo1" Left="1" Top="0" Width="355,27582" Height="52,91342" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[COMPANYNAME]&#13;&#10;[Q.&#34;USR$SERIALNUMBER&#34;]&#13;&#10;[Q.&#34;USR$REGISTERNUMBER&#34;]&#13;&#10;РљРѕРЅС‚СЂРѕР»СЊРЅР°СЏ Р»РµРЅС‚Р°"/>
+            </TfrxReportTitle>
+            <TfrxMasterData Name="MasterData1" Height="23,89765" Left="0" Top="158,74026" Width="359,05535" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" PrintIfDetailEmpty="True" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo2" Left="18,89765" Top="0" Width="340,1577" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="3" Frame.Typ="4" ParentFont="False" Text="[Q.&#34;FR_ACTION&#34;]"/>
+              <TfrxMemoView Name="Memo3" Left="264,5671" Top="12,33859" Width="94,48825" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="3" HAlign="haRight" ParentFont="False" Text="[Q.&#34;EDITIONDATE&#34;] [Q.&#34;EDITIONTIME&#34;]"/>
+              <TfrxMemoView Name="Memo4" Left="0,77953" Top="12,55906" Width="359,05535" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="РљР°СЃСЃРёСЂ:[ &#60;Q.&#34;CONTNAME&#34;&#62;]"/>
+              <TfrxMemoView Name="Memo11" Left="0,4094" Top="0" Width="18,89765" Height="7,55906" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Typ="4" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Line#]"/>
+            </TfrxMasterData>
+            <TfrxDetailData Name="DetailData1" Height="11,33859" Left="0" Top="272,12616" Width="359,05535" ColumnWidth="0" ColumnGap="0" DataSet="QLINE" DataSetName="QLINE" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo5" Left="0" Top="0" Width="188,9765" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QLINE.&#34;GOODNAME&#34;]"/>
+              <TfrxMemoView Name="Memo13" Left="241,68522" Top="0" Width="37,7953" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" DataField="QUANTITY" DataSetName="QLINE" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[QLINE.&#34;QUANTITY&#34;]"/>
+              <TfrxMemoView Name="Memo14" Left="188,7718" Top="0" Width="52,91342" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" DataField="KIND_NAME" DataSetName="QLINE" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[QLINE.&#34;KIND_NAME&#34;]"/>
+              <TfrxMemoView Name="Memo15" Left="278,65368" Top="0" Width="41,57483" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" DataField="DISCOUNTNCU" DataSetName="QLINE" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[QLINE.&#34;DISCOUNTNCU&#34;]"/>
+              <TfrxMemoView Name="Memo16" Left="320,26005" Top="0" Width="37,7953" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" DataField="SUMNCU" DataSetName="QLINE" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[QLINE.&#34;SUMNCU&#34;]"/>
+            </TfrxDetailData>
+            <TfrxHeader Name="Header1" Height="3,77953" Left="0" Top="132,28355" Width="359,05535"/>
+            <TfrxHeader Name="Header2" Height="23,67718" Left="0" Top="226,7718" Width="359,05535">
+              <TfrxMemoView Name="Memo6" Left="0" Top="0" Width="359,05535" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QLINE.&#34;CLIENT&#34;]"/>
+              <TfrxMemoView Name="Memo7" Left="241,68522" Top="11,55906" Width="37,7953" Height="11,33859" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РєРѕР»-РІРѕ"/>
+              <TfrxMemoView Name="Memo8" Left="188,7718" Top="11,55906" Width="52,91342" Height="11,33859" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РўРёРї"/>
+              <TfrxMemoView Name="Memo9" Left="278,65368" Top="11,55906" Width="41,57483" Height="11,33859" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="СЃРєРёРґРєР°"/>
+              <TfrxMemoView Name="Memo10" Left="320,26005" Top="11,55906" Width="37,7953" Height="11,33859" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РёС‚РѕРіРѕ"/>
+              <TfrxMemoView Name="Memo19" Left="0" Top="12,33859" Width="188,9765" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QLINE.&#34;TYPENAME&#34;] # [QLINE.&#34;ORDERNUMBER&#34;]"/>
+            </TfrxHeader>
+            <TfrxFooter Name="Footer1" Height="0" Left="0" Top="204,09462" Width="359,05535"/>
+            <TfrxFooter Name="Footer2" Height="11,33859" Left="0" Top="306,14193" Width="359,05535">
+              <TfrxMemoView Name="Memo12" Left="0" Top="0" Width="226,7718" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="РС‚РѕРіРѕ РїРѕ С‡РµРєСѓ в„– [QLINE.&#34;ORDERNUMBER&#34;]"/>
+              <TfrxMemoView Name="Memo17" Left="241,88992" Top="0" Width="37,7953" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" Color="15790320" DataSetName="QLINE" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;QLINE.&#34;QUANTITY&#34;&#62;,DetailData1)]"/>
+              <TfrxMemoView Name="Memo18" Left="279,68522" Top="0" Width="41,57483" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" Color="15790320" DataSetName="QLINE" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;QLINE.&#34;DISCOUNTNCU&#34;&#62;,DetailData1)]"/>
+              <TfrxMemoView Name="Memo20" Left="321,26005" Top="0" Width="37,7953" Height="11,33859" ShowHint="False" StretchMode="smMaxHeight" Color="15790320" DataSetName="QLINE" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" Frame.Style="fsDot" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;QLINE.&#34;SUMNCU&#34;&#62;,DetailData1)]"/>
+            </TfrxFooter>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 148687786_821911878
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 148687785_821911878
+    Fields: 
+      NAME: "rp_Main148687786_821911878"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-04-08T14:53:14+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN148687786_821911878
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QFAAAAQURBVEUHAAAAzeAg5ODy8wAAAAAAAAAAAAAAAAIAAAAAAAAAAAIAAABeUkZO
+        U1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main148687786_821911878(aDate)
+          BaseQueryList.Clear
+        
+          Dim q
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = "SELECT " & _
+            " (case fl.USR$ACTIONLISTKEY " & _
+            "   when :frOpen then 1 " & _
+            "   when :frCloseCh then iif(l.USR$ORDERKEY is null, 8, 2) " & _
+            "   when :frCloseDay then 9 " & _
+            "  end) as FRtype, " & _
+            " CAST(l.EDITIONDATE as DATE) as EDITIONDATE, " & _
+            " CAST(l.EDITIONDATE as TIME) as EDITIONTIME, " & _
+            " l.USR$ORDERKEY, " & _
+            " fl.USR$ACTIONLISTKEY, " & _
+            " fl.USR$DESCRIPTION, " & _
+            "  iif(fl.USR$ACTIONLISTKEY = :frOpen,AL.USR$NAME,IIF(fl.USR$ACTIONLISTKEY = :frCloseDay,'Закрытие фискальной смены','')) AS  fr_action, " & _
+            " fl.EDITORKEY, " & _
+            " CON.NAME as CONTNAME, " & _
+            " FRS.USR$CASHNUMBER, " & _
+            " FRS.USR$REGISTERNUMBER, " & _
+            " FRS.USR$SERIALNUMBER, " & _
+            " IIF(fl.USR$ACTIONLISTKEY=:frCloseDay, FRS.USR$SUM, 0) as FISCALSUM " & _
+            "  " & _
+            "FROM USR$MN_FR_ACTIONLOG fl " & _
+            "JOIN USR$MN_ACTIONLOG l on l.ID = fl.USR$ACTIONLOGKEY " & _
+            "LEFT JOIN USR$MN_FR_ACTIONLIST AL ON AL.ID  =  fl.USR$ACTIONLISTKEY " & _
+            "LEFT JOIN USR$MN_FR_SHIFTS FRS on FRS.USR$DATE = :ADATE " & _
+            "LEFT JOIN GD_CONTACT CON ON CON.ID = fl.EDITORKEY " & _
+            "where " & _
+            "al.ID in (:frOpen ,:frCloseDay, :frCloseCh) " & _
+            "and CAST(l.EDITIONDATE as DATE) = :ADATE " & _
+            "order by 2, 1 "
+          q.ParamByName("frOpen").asInteger = gdcBaseManager.GetIDBYRUIDString("149456219_248252873")
+          q.ParamByName("frCloseCh").asInteger = gdcBaseManager.GetIDBYRUIDString("149456765_248252873")
+          q.ParamByName("frCloseDay").asInteger = gdcBaseManager.GetIDBYRUIDString("149456724_248252873")
+          q.ParamByName("ADATE").asDateTime = aDATE
+          q.Open
+          
+          Dim ql
+          Set ql = BaseQueryList.Query(BaseQueryList.Add("qline", 0))
+          ql.SQL = _
+          "select " & _
+          "  IIF(COALESCE(o.USR$RETURN, 0) <> 1, 'Чек продажи', 'Чек возврата' ) AS TypeName, " & _
+          "  o.DOCUMENTKEY as orderkey, " & _
+          "  g.name as goodname, " & _
+          "  con.name as conname, CHL.USR$NUMBER as ORDERNUMBER, " & _
+          "  o.USR$B_CLIENTID, " & _
+          "  o.USR$B_CLIENTNAME as CLIENT, " & _
+          "  kt.USR$NAME as kind_name, " & _
+          "  SUM(IIF(o.USR$RETURN = 1, -obk.QTYPOS, obk.QTYPOS)) as quantity, " & _
+          "  SUM(IIF(o.USR$RETURN = 1, -obk.SUMDISCPOS, obk.SUMDISCPOS)) as discountncu, " & _
+          "  SUM(round(IIF(o.USR$RETURN = 1, -obk.SUMPOS, obk.SUMPOS), 2)) SumNcu " & _
+          "from " & _
+          "  USR$MN_ORDER o " & _
+          "  JOIN gd_document d on d.ID = o.DOCUMENTKEY " & _
+          "  LEFT JOIN USR$ORDER_BY_KINDTYPE(o.DOCUMENTKEY) obk ON 1 = 1 " & _
+          "  LEFT JOIN USR$CHECKLIST CHL ON  o.DOCUMENTKEY  =  CHL.USR$ORDERKEY " & _
+          "  LEFT JOIN gd_contact con on con.id = o.USR$DEPOTKEY " & _
+          "  JOIN USR$MN_ORDERLINE ol ON ol.DOCUMENTKEY = obk.ORDERLINEKEY " & _
+          "  JOIN GD_GOOD g on g.id = ol.USR$GOODKEY " & _
+          "  JOIN GD_GOODGROUP gr on gr.id = g.GROUPKEY " & _
+          "  LEFT JOIN  usr$mn_kindtype kt on obk.KINDTYPEKEY = kt.id " & _
+          " " & _
+          "WHERE 1 = 1 " & _
+          "  AND CAST(o.USR$LOGICDATE as DATE) = :ADATE " & _
+          "  and o.usr$vip = 0 " & _
+          "  GROUP BY " & _
+          "  1,2,3,4,5,6,7, 8 " & _
+          "HAVING SUM(obk.QTYPOS) <> 0 "
+          ql.ParamByName("ADATE").asDateTime = aDATE
+          ql.Open
+        
+          BaseQueryList.AddMasterDetail "q", "USR$ORDERKEY", "qline", "orderkey"
+        
+          Set rp_Main148687786_821911878 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 148687785_821911878
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "09. Контрольная лента"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: "147246024_431138819 Исследователь\\Ресторан\\02. Отчёты"
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "148687786_821911878 rp_Main148687786_821911878"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147094279_157767347 Отчеты по общепиту"
+      SERVERKEY: ~
+      TEMPLATEKEY: "148688081_821911878 09. Контрольная лента"
+      EDITIONDATE: 2022-04-08T14:53:14+03:00
