@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.18"
+  Version: "1.0.0.19"
   Optional: False
   Internal: True
-  MD5: 1BEE902D70EF586905500ED0BAE08E50
+  MD5: 3078B389C87CAE2FD025559BA3E1E9D0
 Uses: 
   - "154577854_1631104572 Импорт из Excell по шаблону. Таблицы"
 Objects: 
@@ -216,7 +216,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-24T13:42:44+03:00
+      EDITIONDATE: 2022-04-13T15:07:57+03:00
       DISPLAYSCRIPT: | 
         IMFF_FINDGOOD
         
@@ -365,7 +365,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-24T15:09:01+03:00
+      EDITIONDATE: 2022-04-13T15:40:17+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         EXTRACLOSE
@@ -816,7 +816,7 @@ Objects:
            gdcGood.FieldByName("BARCODE").AsString = stBarcode
            gdcGood.FieldByName("groupkey").AsString =  pGroupKey  ''''''''''
            gdcGood.FieldByName("valuekey").AsString = valuekey    '''''''''''
-           gdcGood.FieldByName("description").AsString = stDescr
+          ' gdcGood.FieldByName("description").AsString = stDescr
            gdcGood.Post
            gdcDetailObject.Transaction.CommitRetaining
            goodkey = gdcGood.Id
@@ -916,6 +916,10 @@ Objects:
            ibSQL.ExecQuery
            if not ibSQL.EOF Then
              findCountry = ibSQL.FieldByName("ID").asInteger
+           else
+             if not isNull(pDefCountry) Then
+               findCountry = pDefCountry
+             end if
            end if
          else
            if not isNull(pDefCountry) Then
