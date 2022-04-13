@@ -5,10 +5,10 @@ Properties:
   RUID: 149233306_1638717063
   Name: "Sf_export_mn_staffcard"
   Caption: "Sf_export_mn_staffcard"
-  Version: "1.0.0.3"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 0E86952E527DF8BEEFCB28C8F3448ABB
+  MD5: AC694935A1033A75D05CEE7742761DC5
 Uses: 
   - "147067874_311980179 GS new. Общепит бэк. Исследователь"
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
@@ -38,7 +38,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2021-06-04T20:05:11+03:00
+      EDITIONDATE: 2022-04-01T11:06:17+03:00
       DISPLAYSCRIPT: | 
         SF_EXPORT_MN_STAFFCARD
         
@@ -136,8 +136,8 @@ Objects:
             " USR$SUM_DATEEND = :DATEEND,       " & _
             " USR$SUM_DISABLED =:USR$SUM_DISABLED, " & _
             " USR$ISUNLIMITED = :ISUNLIMITED,   " & _
-            " USR$SUMMA = :SUMMA               " & _
-            " /*USR$BALANCE = :BALLANCE  */        " & _
+            " USR$SUMMA = :SUMMA,               " & _
+            " USR$BALANCE = :SUMMA   /**/        " & _
             " WHERE ID =:ID       "
             
           ibsql_mn_staffcard.ExecQuery

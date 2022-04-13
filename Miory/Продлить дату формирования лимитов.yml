@@ -5,10 +5,10 @@ Properties:
   RUID: 161093871_1845531803
   Name: "Продлить дату формирования лимитов"
   Caption: "Продлить дату формирования лимитов"
-  Version: "1.0.0.7"
+  Version: "1.0.0.8"
   Optional: False
   Internal: True
-  MD5: 333D2A6C4D9C926E1496AE8A3439B8BF
+  MD5: DBCF07E025B3D2CF63BBE02FB567FF7D
 Uses: 
   - "147013803_377987845 GS.PositiveCheck.Лимиты.Функции"
   - "147070860_311980179 GS new. Общепит бэк. Обмен с кассовым сервером"
@@ -797,7 +797,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-09T17:51:17+03:00
+      EDITIONDATE: 2022-04-01T10:41:28+03:00
       DISPLAYSCRIPT: | 
         USRG_ACTCREATELIMITONEXECUTE
         USRG_ACTCREATELIMIT_EXCEPT
@@ -921,7 +921,7 @@ Objects:
         
           IF Application.MessageBox("Формирование лимитов успешно завершено." & vbLF  & _
           "Передать данные по картам в кассовую часть?", "Внимание", vbYesNo + vbSystemModal + vbQuestion) = vbYes Then
-            call ExportStaffCard
+            call ExportStaffCard(false)
           End if
         End Sub
         

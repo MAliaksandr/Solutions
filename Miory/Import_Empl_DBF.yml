@@ -5,10 +5,10 @@ Properties:
   RUID: 149234579_1638717063
   Name: "Import_Empl_DBF"
   Caption: "Import_Empl_DBF"
-  Version: "1.0.0.6"
+  Version: "1.0.0.7"
   Optional: False
   Internal: True
-  MD5: 03980D06452DECF9D9CBA6CCE767C279
+  MD5: 9D1045D46F86EBC1AC06FD78F7514A02
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-30T16:24:20+03:00
+      EDITIONDATE: 2022-04-13T12:41:00+03:00
       DISPLAYSCRIPT: | 
         IMPORT_EMPL_DBF
         EXCEPTION_IMPORT_EMPL_DBF
@@ -180,6 +180,7 @@ Objects:
                 MnLimit.Append
                 MnLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asInteger = gdcBaseManager.GetIDBYRuidString("149812188_1606276715")
                 MnLimit.FieldByName("USR$SUMMA").asVariant = LimitSum
+                MnLimit.FieldByName("USR$BALANCE").asVariant = LimitSum
                 MnLimit.FieldByName("USR$SUM_DATEBEGIN").asDateTime= DateSerial(year(now),MONTH(now),01)
                 MnLimit.FieldByName("USR$SUM_DATEEND").asDateTime= DateSerial(year(now),MONTH(now)+1,01)-1
                 MnLimit.FieldByName("USR$CONTACTKEY").asInteger =ConID
