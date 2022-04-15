@@ -5,10 +5,10 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.8"
+  Version: "1.0.0.9"
   Optional: False
   Internal: True
-  MD5: BCEDE7CE1770167A1C985B7148750AB7
+  MD5: 126E6FF1DC96AB223E82A8180E4A5D2D
 Uses: 
   - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
   - "220391971_1646796305 Основание для БЕЗ НДС"
@@ -661,7 +661,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2022-03-15T13:13:05+03:00
+      EDITIONDATE: 2022-04-15T13:10:43+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
           HorzScrollBar.Range = 0
@@ -805,7 +805,7 @@ Objects:
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
-                  ActivePage = usrg_DocInf
+                  ActivePage = usrg_TBSheetCost
                   Align = alNone
                   Anchors = [akLeft, akTop]
                   Constraints.MaxHeight = 0
@@ -1252,7 +1252,7 @@ Objects:
                       end
                       object usrat_DBEdit_USR_QUANTITY_Label: TLabel
                         Left = 64
-                        Top = 91
+                        Top = 112
                         Width = 60
                         Caption = 'Количество'
                       end
@@ -1263,6 +1263,12 @@ Objects:
                       object usrat_DBEdit_USR_COUNTRY_Label: TLabel
                         Left = 225
                         Top = 136
+                      end
+                      object usrat_DBEdit_USR_VATSUM_Label: TLabel
+                        Left = 65
+                        Top = 90
+                        Width = 56
+                        Caption = 'Сумма НДС'
                       end
                       object usrat_DBEdit_USR_COSTBYNCU: TxDBCalculatorEdit
                         Left = 8
@@ -1287,7 +1293,7 @@ Objects:
                       end
                       object usrat_DBEdit_USR_QUANTITY: TxDBCalculatorEdit
                         Left = 8
-                        Top = 88
+                        Top = 109
                         Width = 52
                         Cursor = crIBeam
                         TabOrder = 3
@@ -1303,6 +1309,13 @@ Objects:
                         Top = 156
                         Width = 92
                         TabOrder = 5
+                      end
+                      object usrat_DBEdit_USR_VATSUM: TxDBCalculatorEdit
+                        Left = 8
+                        Top = 87
+                        Width = 52
+                        Cursor = crIBeam
+                        TabOrder = 6
                       end
                     end
                   end
@@ -1337,6 +1350,7 @@ Objects:
                   Width = 473
                   Height = 269
                   VertScrollBar.Position = 0
+                  Visible = False
                   object usrat_DBEdit_USR_CONTACTRUID_Label: TLabel
                     Left = 252
                     Top = 33
@@ -2253,4 +2267,46 @@ Objects:
       COMPUTED_VALUE: ~
       DEFSOURCE: | 
         DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 235087951_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$VATSUM"
+      FIELDNAME: "USR$VATSUM"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Сумма НДС"
+      LSHORTNAME: "Сумма НДС"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-04-15T13:07:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
       OBJECTS: ~

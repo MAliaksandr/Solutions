@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.19"
+  Version: "1.0.0.20"
   Optional: False
   Internal: True
-  MD5: 3078B389C87CAE2FD025559BA3E1E9D0
+  MD5: DB45A6B5A191B2091AE576DE59783FF1
 Uses: 
   - "154577854_1631104572 Импорт из Excell по шаблону. Таблицы"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-15T13:16:14+03:00
+      EDITIONDATE: 2022-04-15T13:13:40+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -47,6 +47,7 @@ Objects:
         
         public pCOSTBYNCU
         public pVATPERC     ' ставка НДС
+        public pVATSUM      ' сумма НДС
         public pDESCR       ' Описание
         public pBARCODE     ' ШК
         
@@ -100,7 +101,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-15T13:15:16+03:00
+      EDITIONDATE: 2022-04-15T13:33:59+03:00
       DISPLAYSCRIPT: | 
         IMFF_SETPARAMS
         
@@ -146,6 +147,8 @@ Objects:
             pCOSTBYNCU = gdcTemplParam.FieldByName("USR$COSTBYNCU").AsInteger
             'ставка НДС
             pVATPERC = gdcTemplParam.FieldByName("USR$VATPERC").AsInteger
+            'сумма НДС
+            pVATSUM = gdcTemplParam.FieldByName("USR$VATSUM").AsInteger
             'описание ТМЦ
             pDESCR = gdcTemplParam.FieldByName("USR$DESCRIPTION").AsInteger
             
@@ -365,7 +368,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-04-13T15:40:17+03:00
+      EDITIONDATE: 2022-04-15T13:53:02+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         EXTRACLOSE
@@ -860,6 +863,7 @@ Objects:
         'вяртае лічбу НДС
         function getVatByGood(ibSQL,Sh, gk)
           Vat = null
+        
           ' спачатку глядзім у ліст з дадзенымі
           if pVatPerc<>0 Then
             Vat = Left(Sh.Cells(pStartLine, pVatPerc).Value,2)
@@ -868,8 +872,16 @@ Objects:
             else
               Vat = null
             end if
-        
           else
+            ' шлядзім, ці есць сумма НДС
+            if pVatSum<>0 Then
+              cost = RetTypeValue(Sh.Cells(pStartLine, pCostByNCU).Value, 1)
+              sumVat = RetTypeValue(Sh.Cells(pStartLine, pVatSum).Value, 1)
+              q  = RetTypeValue(Sh.Cells(pStartLine, pQuant).Value, 1)
+              Vat = ROUND(sumVat/(cost * q)*100)
+            end if
+          end if
+            ' шукаем у GD_GOODTAX
             ibSQL.Close
             ibSQL.SQL.Text = _
             "Select first(1) " & _
@@ -881,10 +893,22 @@ Objects:
             "order by gt.DATETAX desc "
             ibSQL.ParamByName("gk").asInteger = gk
             ibSQL.ExecQuery
-            if not ibSQL.EOF then
+            
+            'калі не знайшлі ў gd_goodtax
+            if ibSQL.EOF and (not isNull(Vat)) then
+              ibSQL.Close
+              ibSQL.SQL.Text = _
+              "UPDATE OR INSERT INTO gd_goodtax(goodkey, taxkey, datetax, rate) " & _
+              "VALUES (:gk, <RUID XID=""147065078"" DBID=""486813904""/>, current_date, :rate) " & _
+              "MATCHING (goodkey, rate) "
+              ibSQL.ParamByName("gk").asInteger = gk
+              ibSQL.ParamByName("rate").asCurrency = Vat
+              ibSQL.ExecQuery
+        
+            ELSE
               Vat = ibSQL.FieldByName("RATE").asVariant
             end if
-          end if
+        
           getVatByGood = Vat
         end function
         
