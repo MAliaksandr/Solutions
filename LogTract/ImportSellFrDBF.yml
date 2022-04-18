@@ -1,0 +1,365 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 235103518_1833050115
+  Name: "ImportSellFrDBF"
+  Caption: "ImportSellFrDBF"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 4C6C25F6DA48211800570764BD9D81CB
+Uses: 
+  - "209316035_2119495691 экспорт товаров в КС ADO"
+  - "215174259_639165248 импорт_скидок_ADO"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 235090803_1833050115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ImportSellFrDBF"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-04-18T18:48:38+03:00
+      DISPLAYSCRIPT: | 
+        IMPORTSELLFRDBF
+        IMPORTSELLFRDBF_ADDHEADERN
+        IMPORTSELLFRDBF_ADDLINEN
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include ECR_TESERVER_DOCREATEERRLOG
+        '#include ECR_DEPTLIST
+        '#include ECR_TESERVER_GETBUILDPATH
+        '#include ECR_ZSERVER_SETPARAMS
+        Option Explicit
+        Sub ImportSellFrDBF
+        
+         dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam
+           ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+           ' Присвоим список параметров отдельной переменной
+          set ParamList = ParamWindow.ParamList
+        ' Добавление параметра через объект-диалог
+        
+          call ParamWindow.AddLinkParam("Подразделение", "prmLinkElement", "GD_CONTACT gg1", "id", "name", "gg1.contacttype =4 and EXISTS (SELECT con.id FROM gd_contact con where con.lb <= gg1.lb and con.rb >=gg1.rb and con.id = "+CStr(IBLogin.CompanyKey)+")" , "", "Выбор типа лимита")
+          call ParamWindow.AddParam("Дата", "prmDate", "Выбор даты формирования")
+        
+          ParamList.Params(0).Required = false
+        
+          ParamList.Params(1).Required = True
+          ' Отображение диалога и получение результата
+          result = ParamWindow.ExecuteWithParamList(ParamList)
+        
+          if IsEmpty(result) then
+             exit sub
+          end if
+        
+          depart = result(0)
+          ' адразу абазначу, потым - прыбяру
+          dim DepKey, CurrentDepKey , CurrentDocDate, IsRet
+          DepKey = ecr_DeptList.GetNpByID(depart(0))
+        
+          ' Падразьдзел. Кали ён змяняецца, патрэбна стварать новый дакумент
+          CurrentDepKey = depart(0)
+          ' Дата продажу...
+          CurrentDocDate = result(1)
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttFromCass)
+        
+          dim ErrorCount : ErrorCount = 0
+          dim Creator, Tr
+          set Creator = new TCreator
+          
+          dim ObjCon
+          set ObjCon = CreateObject("ADODB.Connection")
+          ObjCon.Provider = "Microsoft.Jet.OLEDB.4.0"
+          ObjCon.Properties("Data Source") = ecr_TEServer_workpath
+          ObjCon.Properties("Jet OLEDB:Engine Type") = 18
+          ObjCon.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.RecordSet")
+          objADOQuery.ActiveConnection = ObjCon
+        
+          dim FullFileName
+          FullFileName = "'" + ecr_TEServer_GetBuildPath(ecr_TEServer_workpath, ecr_TEServer_Sell_Filename) + "'"
+        
+         'if ecr_DeptList.CodeByCost then _
+        '    gdcRemains.ExtraConditions.Add("C.USR$SDR_ECRCODE = :card_code")
+        
+          dim ErrList
+          set ErrList = Creator.GetObject(nil, "TStringList", "")
+          ' проверка на существование файла ошибок, создание
+          ecr_TEServer_DoCreateErrLog(ErrList)
+          
+          dim DeptNp
+          DeptNp = ecr_DeptList.GetNpByID(CurrentDepKey)
+          IsRet = false
+          
+          objADOQuery.Open " SELECT sells.PLU, PRICE, HDATE, SUM(Q) as SUMM, SUM(summa) as ssumma   " + _
+            " FROM plu_sell" +  _
+            " sells " + _
+            " WHERE not (PLU is NULL) " & _
+            " and DEPARTMENT = " & DeptNp & _
+            "   " & _
+            " GROUP BY PLU, PRICE, HDATE " & _
+            " HAVING  SUM(summa) <> 0", ObjCon
+        
+          objADOQuery.MoveFirst
+          if objADOQuery.EOF then
+            objADOQuery.Close
+            exit sub
+          end if
+          
+          dim prForm, TmS, TmE, TmSum
+          TmS = Time
+          set prForm = New Twg_ProgressForm
+          call prForm.Init(prForm, Null)
+          prForm.Caption = "Снятие реализации: "
+          prForm.Note = "Идет подготовка данных..."
+          prForm.Show
+          
+          dim count : count =0
+          While not objADOQuery.EOF
+            count = count + 1
+            objADOQuery.Movenext
+          wend
+          objADOQuery.MoveFirst
+          
+          prForm.Max = count
+          prForm.Note = "Идет импорт продаж. Ожидайте..."
+          prForm.Show
+          
+        
+          dim gdcSale, gdcSaleLine, dsMasterSale
+        
+          Set Tr = Creator.GetObject(nil, "TIBTransaction", "")
+          Tr.Params.Add("nowait")
+          Tr.DefaultDatabase = gdcBaseManager.Database
+          Tr.StartTransaction
+        
+          ' документ, в которые импортируем продажи: все кидаем в
+          ' 11. Реализация товаров в розницу
+          Set gdcSale = Creator.GetObject(nil, "TgdcInvDocument", "")
+          gdcSale.SubType = "147006557_63934951"
+          gdcSale.Transaction = Tr
+        
+          Set gdcSaleLine = Creator.GetObject(nil, "TgdcInvDocumentLine", "")
+          gdcSaleLine.SubType = "147006557_63934951"
+          gdcSaleLine.Transaction = gdcSale.Transaction
+        
+          Set dsMasterSale = Creator.GetObject(nil, "TDataSource", "")
+          dsMasterSale.DataSet = gdcSale
+        
+          gdcSaleLine.MasterSource = dsMasterSale
+          gdcSaleLine.MasterField = "ID"
+          gdcSaleLine.DetailField = "PARENT"
+          gdcSaleLine.SubSet = "ByParent"
+          gdcSale.Open
+          gdcSaleLine.Open
+          
+          dim sqlGoods , gdcRemainsSale
+          set sqlGoods = Creator.GetObject(nil, "TIBSQL", "")
+          sqlGoods.Transaction = gdcSale.Transaction
+          sqlGoods.SQL.Add("SELECT NAME, "+ecr_TEServer_CodeField+", ID FROM gd_good " + _
+            " WHERE "+ecr_TEServer_CodeField+" = :BarCode")
+        
+          Set gdcRemainsSale = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
+          gdcRemainsSale.gdcDocumentLine = gdcSaleLine
+          gdcRemainsSale.Transaction = gdcSaleLine.Transaction
+        
+          Dim LCount :LCount =0
+          while not objADOQuery.EOF and not prForm.Canceled
+            if not IsNull(objADOQuery.Fields("SUMM").Value) then
+              if objADOQuery.Fields("SUMM").Value > 0 then
+                ' продажа
+                 call ImportSellFrDBF_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, false)
+        
+              elseif objADOQuery.Fields("SUMM").Value < 0 then
+                ' возврат
+                 dim dtd
+                 call ImportSellFrDBF_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, True)
+              end if
+              gdcRemainsSale.Close
+              gdcRemainsSale.gdcDocumentLine = nil
+              gdcRemainsSale.gdcDocumentLine = gdcSaleLine
+        
+              Call ImportSellFrDBF_AddLineN(objADOQuery, gdcSaleLine, gdcSale, gdcRemainsSale, sqlGoods, ErrList, IsRet)
+              
+            end if
+            PrForm.SubNote = "Принято: " & CSTR(LCount) & " из " & CSTR(Count)
+            prForm.Position = prForm.Position + 1
+            Application.ProcessMessages
+            LCount = LCount+1
+            objADOQuery.MoveNext
+          wend
+          
+          ObjCon.Close
+          PrForm.Close
+          set PrForm = nothing
+          if Tr.inTransaction then Tr.Commit
+         
+         ' if ecr_TEServer_SaveErrLog then
+        '    ecr_TEServer_DoSaveErrLog(ErrList)
+        '  else
+        '    call MsgBox("Данные приняты. Количество ошибок - " + CStr(ErrList.Count-1) + _
+        '    ".", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+        '  end if
+        
+         ' DateGoodLine.Movement.IsGetRemains = True
+          
+        End Sub
+        
+        Function ImportSellFrDBF_AddHeaderN(gdcObject, CurrentDepKey, CurrentDocDate, IsRet)
+          If IsRet Then ' возврат: Откуда - псевдоклиент, Куда - подразделение
+            If gdcObject.Locate("USR$PSEVDOCONTACT;DOCUMENTDATE ", Array(CurrentDepKey, CurrentDocDate), False) Then Exit Function
+        
+            gdcObject.Insert
+            gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = _
+              gdcBaseManager.GetIDByRUIDString("147004309_31587988")
+            gdcObject.FieldByName("USR$PSEVDOCONTACT").AsInteger = CurrentDepKey
+          Else  ' продажа: Откуда - подразделение, Куда - псевдоклиент
+            If gdcObject.Locate("USR$CONTACTKEY;DOCUMENTDATE ", Array(CurrentDepKey, CurrentDocDate), False) Then Exit Function
+        
+            gdcObject.Insert
+            gdcObject.FieldByName("USR$PSEVDOCONTACT").AsInteger = _
+              gdcBaseManager.GetIDByRUIDString("147004309_31587988")
+            gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = CurrentDepKey
+          End If
+          gdcObject.FieldByName("DOCUMENTDATE").AsDateTime = CurrentDocDate
+          gdcObject.Post
+        End Function
+        
+        
+        Function ImportSellFrDBF_AddLineN(objADOQuery, gdcDetailObject, gdcSale, gdcRemains, sqlGoods, ErrList, IsRet)
+          Dim GoodKey, plu, good_code, card_code, ecr_TEServer_CodeField
+          
+          
+          plu = objADOQuery.Fields("PLU").value
+          if Len(plu) < 13 then      ' с учетом цены
+            good_code = Left(plu, Len(plu)-ecr_DeptList.CostCodeLength)
+            card_code = Right(plu, ecr_DeptList.CostCodeLength)
+            ecr_TEServer_CodeField = "USR$SDR_ECRCODE"
+          else
+            good_code = objADOQuery.Fields("PLU").value
+            ecr_TEServer_CodeField = "BARCODE"
+          end if
+          
+          sqlGoods.SQL.Text = "SELECT NAME, USR$SDR_ECRCODE, ID FROM gd_good " + _
+            " WHERE "+ecr_TEServer_CodeField+" = :BarCode"
+          sqlGoods.ParamByName("BarCode").AsString = good_code
+          sqlGoods.ExecQuery
+          
+          GoodKey = sqlGoods.FieldByName("ID").AsInteger
+          sqlGoods.Close
+        
+          If GoodKey = 0 Then
+            ErrList.Add("Товар не найден" & " " & objADOQuery.Fields("PLU").value &  CSTR(objADOQuery.Fields("SUMM").value))
+            exit Function
+          End If
+        
+          'errFullName = DateIzm+";"+departamentname + ";;"+good_code+";" + PRICEstr
+          gdcRemains.Close
+          gdcRemains.ParamByName("GoodKey").AsInteger = GoodKey
+          ON ERROR RESUME NEXT
+          gdcRemains.ExtraConditions.CLEAR
+          if Len(plu) < 13 then      ' с учетом цены
+            gdcRemains.ExtraConditions.Add("C.USR$SDR_ECRCODE = :card_code")
+            gdcRemains.ParamByName("card_code").AsString = card_code
+          end if
+          ON ERROR GOTO 0
+          gdcRemains.CurrentRemains = false
+          gdcRemains.ParamByName("remainsdate").AsVariant = gdcDetailObject.MasterSource.DataSet.FieldByName("documentdate").AsVariant
+          gdcRemains.Open
+        
+        
+          Dim Quant, aQuantity
+          ' столько надо списать
+          aQuantity = objADOQuery.Fields("SUMM").value
+          If IsRet = 1 Then aQuantity = - aQuantity
+        
+          If Not gdcRemains.EoF Then    ' есть остатки
+            Dim WasError : WasError = False
+            ' перебираем позиции остатков, закрывая все количество
+            While Not gdcRemains.EOF And aQuantity > 0
+        
+              Quant = aQuantity
+              If Quant > gdcRemains.FieldByName("REMAINS").AsCurrency Then
+                Quant = gdcRemains.FieldByName("REMAINS").AsCurrency
+              End If
+        
+              on error resume next
+              Err.Clear
+              gdcDetailObject.isSetFeaturesFromRemains = True
+              gdcDetailObject.Insert             ' добавляем позицию
+              gdcDetailObject.FieldByName("FROMCARDKEY").AsInteger = _
+                gdcRemains.FieldByName("ID").AsInteger
+              gdcDetailObject.FieldByName("GOODKEY").AsInteger = GoodKey
+              gdcDetailObject.FieldByName("QUANTITY").AsVariant = Quant
+              Call gdcDetailObject.SetFeatures(True, True)
+              gdcDetailObject.Post
+        
+              If Err.Number <> 0 Then  ' ошибка при сохранении позиции
+                ErrList.Add(CSTR(GoodKey) + CSTR(Err.Number) +  Err.Description & "  кол-во:" & Quant)
+                If (gdcDetailObject.State = 2) or (gdcDetailObject.State = 3) Then gdcDetailObject.Cancel
+        
+                WasError = True
+                Err.Clear
+              Else
+                aQuantity = aQuantity - Quant
+              End If
+              on error goto 0
+        
+        
+              gdcRemains.Next
+            wEnd
+        
+            If Not WasError Then
+              If aQuantity > 0 Then
+               ErrList.Add(_
+                  "По товару недостаточно остатков на подразделении! Кол-во = " + CStr(aQuantity) & " ")
+              ElseIf aQuantity < 0 Then
+                ErrList.Add(_
+                  "По товару реализовано отрицательное количество (возврат)! Кол-во = " + CStr(aQuantity) & " ")
+              End If
+            End If
+          Else ' нет остатков
+            ErrList.Add(_
+              "По товару нет остатков! Кол-во = " + CStr(aQuantity) & " ")
+          End If
+          gdcRemains.Close
+        
+        End Function
+        
+        
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147047410_281066798 ecr_TEServer_DoCreateErrLog"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147045020_281066798 ecr_TEServer_GetBuildPath"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
