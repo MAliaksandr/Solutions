@@ -1,0 +1,69 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 235880715_1870723384
+  Name: "LT_ActionTimeInfo"
+  Caption: "LT_ActionTimeInfo"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 8D05E1F897F9FDC7057A2911A5495DDC
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 235880689_1870723384
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "LT_ActionTimeInfo"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-04-22T12:50:08+03:00
+      DISPLAYSCRIPT: | 
+        LT_ACTIONTIMEINFO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAU1RBUlRUSU1FCQAAAFNUQVJUVElNRQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNUUFJTVAcAAABFTkRUSU1FBwAAAEVORFRJTUUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QDAAAAUkVDAwAAAFJFQwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNUUFJTVAUA
+        AABJU1JFVgUAAABJU1JFVgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+          ' Функцыя падліку часу выканання.
+          ' з вяртаннем тэксту інфармацыі. пакуль толькі ў хвілінах
+          ' апошні (4) параметр для ужывання пераносу
+        Function LT_ActionTimeInfo(StartTime, EndTime, rec, isRev)
+          Dim FullTime, inf
+          if isRev Then
+            isRev = vbCr
+          else
+            isRev = " "
+          end if
+          FullTime = DateDiff("n",StartTime, EndTime)
+          inf = "Время начала:" & FormatDateTime(StartTime, vbLongTime) & isRev & _
+                "Время окончания:" & FormatDateTime(EndTime, vbLongTime) & isRev & _
+                "Продолжительность: " & FullTime & " мин."
+          if not isNull(rec) Then
+            inf = inf + isRev & _
+                "Количество обработанных записей:" & CSTR(rec)
+          end if
+        
+          LT_ActionTimeInfo = inf
+        End Function
+        
