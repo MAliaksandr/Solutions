@@ -5,10 +5,10 @@ Properties:
   RUID: 235103518_1833050115
   Name: "ImportSellFrDBF"
   Caption: "ImportSellFrDBF"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 4C6C25F6DA48211800570764BD9D81CB
+  MD5: 7A604BAA44A7704B0C3DDBEBB34A56C1
 Uses: 
   - "209316035_2119495691 экспорт товаров в КС ADO"
   - "215174259_639165248 импорт_скидок_ADO"
@@ -37,7 +37,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-04-18T18:48:38+03:00
+      EDITIONDATE: 2022-04-22T12:51:05+03:00
       DISPLAYSCRIPT: | 
         IMPORTSELLFRDBF
         IMPORTSELLFRDBF_ADDHEADERN
@@ -45,6 +45,8 @@ Objects:
         
       ENTEREDPARAMS: ~
       SCRIPT: | 
+        '#include LT_ACTIONTIMEINFO
+        '#include ECR_TESERVER_DOSAVEERRLOG
         '#include ECR_TESERVER_DOCREATEERRLOG
         '#include ECR_DEPTLIST
         '#include ECR_TESERVER_GETBUILDPATH
@@ -71,7 +73,10 @@ Objects:
           if IsEmpty(result) then
              exit sub
           end if
-        
+          ' дадзеныя для падліку часу выканання
+          Dim StartTime, EndTime, FullTime
+          StartTime = now
+          
           depart = result(0)
           ' адразу абазначу, потым - прыбяру
           dim DepKey, CurrentDepKey , CurrentDocDate, IsRet
@@ -102,9 +107,6 @@ Objects:
           dim FullFileName
           FullFileName = "'" + ecr_TEServer_GetBuildPath(ecr_TEServer_workpath, ecr_TEServer_Sell_Filename) + "'"
         
-         'if ecr_DeptList.CodeByCost then _
-        '    gdcRemains.ExtraConditions.Add("C.USR$SDR_ECRCODE = :card_code")
-        
           dim ErrList
           set ErrList = Creator.GetObject(nil, "TStringList", "")
           ' проверка на существование файла ошибок, создание
@@ -114,13 +116,13 @@ Objects:
           DeptNp = ecr_DeptList.GetNpByID(CurrentDepKey)
           IsRet = false
           
-          objADOQuery.Open " SELECT sells.PLU, PRICE, HDATE, SUM(Q) as SUMM, SUM(summa) as ssumma   " + _
+          objADOQuery.Open " SELECT sells.PLU, PRICE, TICKETNUM, HDATE, SUM(Q) as SUMM, SUM(summa) as ssumma   " + _
             " FROM plu_sell" +  _
             " sells " + _
             " WHERE not (PLU is NULL) " & _
             " and DEPARTMENT = " & DeptNp & _
-            "   " & _
-            " GROUP BY PLU, PRICE, HDATE " & _
+            " AND PLU = '4814183002395'  " & _
+            " GROUP BY PLU, PRICE,TICKETNUM, HDATE " & _
             " HAVING  SUM(summa) <> 0", ObjCon
         
           objADOQuery.MoveFirst
@@ -191,18 +193,20 @@ Objects:
             if not IsNull(objADOQuery.Fields("SUMM").Value) then
               if objADOQuery.Fields("SUMM").Value > 0 then
                 ' продажа
-                 call ImportSellFrDBF_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, false)
-        
+                 IsRet = false
+                 call ImportSellFrDBF_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, IsRet)
               elseif objADOQuery.Fields("SUMM").Value < 0 then
                 ' возврат
-                 dim dtd
-                 call ImportSellFrDBF_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, True)
+                 IsRet = True
+                 call ImportSellFrDBF_AddHeaderN(gdcSale, CurrentDepKey, CurrentDocDate, IsRet)
               end if
               gdcRemainsSale.Close
               gdcRemainsSale.gdcDocumentLine = nil
               gdcRemainsSale.gdcDocumentLine = gdcSaleLine
         
-              Call ImportSellFrDBF_AddLineN(objADOQuery, gdcSaleLine, gdcSale, gdcRemainsSale, sqlGoods, ErrList, IsRet)
+              if objADOQuery.Fields("SUMM").Value <> 0 Then
+                Call ImportSellFrDBF_AddLineN(objADOQuery, gdcSaleLine, gdcSale, gdcRemainsSale, sqlGoods, ErrList, IsRet)
+              end if
               
             end if
             PrForm.SubNote = "Принято: " & CSTR(LCount) & " из " & CSTR(Count)
@@ -216,16 +220,22 @@ Objects:
           PrForm.Close
           set PrForm = nothing
           if Tr.inTransaction then Tr.Commit
+        
+        
+          ' LT_ActionTimeInfo - Функцыя падліку часу выканання.
+          ' з вяртаннем тэксту інфармацыі. пакуль толькі ў хвілінах
+        
+          ErrList.Add(LT_ActionTimeInfo(StartTime, now, LCount , False))
+          call Application.MessageBox(LT_ActionTimeInfo(StartTime, now, null , True), "Информация", vbOkOnly+vbSystemModal+vbInformation)
          
-         ' if ecr_TEServer_SaveErrLog then
-        '    ecr_TEServer_DoSaveErrLog(ErrList)
-        '  else
-        '    call MsgBox("Данные приняты. Количество ошибок - " + CStr(ErrList.Count-1) + _
-        '    ".", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
-        '  end if
+          if ecr_TEServer_SaveErrLog then
+            ecr_TEServer_DoSaveErrLog(ErrList)
+          else
+            call MsgBox("Данные приняты. Количество ошибок - " + CStr(ErrList.Count-1) + _
+            ".", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          end if
         
          ' DateGoodLine.Movement.IsGetRemains = True
-          
         End Sub
         
         Function ImportSellFrDBF_AddHeaderN(gdcObject, CurrentDepKey, CurrentDocDate, IsRet)
@@ -236,9 +246,9 @@ Objects:
             gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = _
               gdcBaseManager.GetIDByRUIDString("147004309_31587988")
             gdcObject.FieldByName("USR$PSEVDOCONTACT").AsInteger = CurrentDepKey
+        
           Else  ' продажа: Откуда - подразделение, Куда - псевдоклиент
             If gdcObject.Locate("USR$CONTACTKEY;DOCUMENTDATE ", Array(CurrentDepKey, CurrentDocDate), False) Then Exit Function
-        
             gdcObject.Insert
             gdcObject.FieldByName("USR$PSEVDOCONTACT").AsInteger = _
               gdcBaseManager.GetIDByRUIDString("147004309_31587988")
@@ -285,6 +295,19 @@ Objects:
             gdcRemains.ExtraConditions.Add("C.USR$SDR_ECRCODE = :card_code")
             gdcRemains.ParamByName("card_code").AsString = card_code
           end if
+        
+          If IsRet Then
+            gdcRemains.SelectSQL.Text = _
+              gdcRemains.SelectSQL.Text & vbCrLf & _
+              "ORDER BY C.USR$INV_DATERECEIVE desc "
+          Else
+            gdcRemains.SelectSQL.Text = _
+              gdcRemains.SelectSQL.Text & vbCrLf & _
+              "ORDER BY C.USR$INV_DATERECEIVE "
+          End If
+        
+          
+          
           ON ERROR GOTO 0
           gdcRemains.CurrentRemains = false
           gdcRemains.ParamByName("remainsdate").AsVariant = gdcDetailObject.MasterSource.DataSet.FieldByName("documentdate").AsVariant
@@ -294,7 +317,7 @@ Objects:
           Dim Quant, aQuantity
           ' столько надо списать
           aQuantity = objADOQuery.Fields("SUMM").value
-          If IsRet = 1 Then aQuantity = - aQuantity
+          If IsRet Then aQuantity = - aQuantity
         
           If Not gdcRemains.EoF Then    ' есть остатки
             Dim WasError : WasError = False
@@ -335,15 +358,15 @@ Objects:
             If Not WasError Then
               If aQuantity > 0 Then
                ErrList.Add(_
-                  "По товару недостаточно остатков на подразделении! Кол-во = " + CStr(aQuantity) & " ")
+                  "По товару c PLU=" & CSTR(plu) & " и goodkey =" & CSTR(GoodKey) & " недостаточно остатков на подразделении! Кол-во = " + CStr(aQuantity) & " ")
               ElseIf aQuantity < 0 Then
                 ErrList.Add(_
-                  "По товару реализовано отрицательное количество (возврат)! Кол-во = " + CStr(aQuantity) & " ")
+                  "По товару c PLU=" & CSTR(plu) & " и goodkey =" & CSTR(GoodKey) &  " реализовано отрицательное количество (возврат)! Кол-во = " + CStr(aQuantity) & " ")
               End If
             End If
           Else ' нет остатков
             ErrList.Add(_
-              "По товару нет остатков! Кол-во = " + CStr(aQuantity) & " ")
+              "По товару c PLU=" & CSTR(plu) & " и goodkey =" & CSTR(GoodKey) & " нет остатков! Кол-во = " + CStr(aQuantity) & " ")
           End If
           gdcRemains.Close
         
@@ -355,6 +378,10 @@ Objects:
       - 
         Table: "RP_ADDITIONALFUNCTION"
         Items: 
+          - 
+            ADDFUNCTIONKEY: "235880689_1870723384 LT_ActionTimeInfo"
+          - 
+            ADDFUNCTIONKEY: "147023762_281066798 ecr_TEServer_DoSaveErrLog"
           - 
             ADDFUNCTIONKEY: "147047410_281066798 ecr_TEServer_DoCreateErrLog"
           - 
