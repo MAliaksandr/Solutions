@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.21"
+  Version: "1.0.0.22"
   Optional: False
   Internal: True
-  MD5: 432CC60FA3AECDB44ED26D571C625ABC
+  MD5: 0A9942039F1BFB1FAC7B7D05C7185119
 Uses: 
   - "154577854_1631104572 Импорт из Excell по шаблону. Таблицы"
 Objects: 
@@ -219,7 +219,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-04-13T15:07:57+03:00
+      EDITIONDATE: 2022-05-05T12:47:22+03:00
       DISPLAYSCRIPT: | 
         IMFF_FINDGOOD
         
@@ -255,7 +255,7 @@ Objects:
           IF pBarCode<>0 and not isNull(pBarCode) THEN
             'магчыма ШК будзе знаходзіцца у пачатку, або сярэдзіне, тады патрэна разкладаць увесь радок
             if pBARCODE_end =0 Then
-              ByBarCode = Sh.Cells(pStartLine, pBarCode).Value
+              ByBarCode = Trim(Sh.Cells(pStartLine, pBarCode).Value)
             else
               ByBarCode = imff_GetBareCode(Sh.Cells(pStartLine, pBarCode).Value)
             end if
