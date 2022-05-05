@@ -1,0 +1,299 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 155686227_1051805826
+  Name: "Сервис-чек. Sinocan. Westa"
+  Caption: "Сервис-чек. Sinocan. Westa"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: CB5F664720558F56833BC52BE3A725F1
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147068328_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147070713_157767346
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "usrf_mn_stolOrderNew"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2004-06-23T16:54:02+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147068329_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147070713_157767346
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(usrf_mn_stolOrderNew)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147068329_157767346"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147068327_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147070713_157767346
+    Fields: 
+      PARENT: ~
+      NAME: "usrf_mn_stolOrderNew"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147068328_157767346 Локальные макросы"
+      OBJECTNAME: "usrf_mn_stolOrderNew"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147068329_157767346 Отчеты(usrf_mn_stolOrderNew)"
+      SUBTYPE: ""
+      EDITIONDATE: 2004-06-23T16:54:02+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147070714_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147070713_157767346
+    Fields: 
+      NAME: "rp_mn_StolOrder"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147068327_157767346 usrf_mn_stolOrderNew"
+      OBJECTNAME: "usrf_mn_stolOrderNew"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-05-05T10:40:09+03:00
+      DISPLAYSCRIPT: | 
+        RP_MN_STOLORDER
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAAUFJOR1JJRAcAAABQUk5HUklEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUCwAAAFBSSU5URVJOQU1FCwAAAFBSSU5URVJOQU1FAAAAAAAAAAAAAAAABQAAAAAAAAAA
+        AAAAAEZOU1RQUlNUBQAAAERPQ0lEBQAAAERPQ0lEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RGTFBS
+      SCRIPT: | 
+        function rp_mn_StolOrder(PrnGrID, PrinterName, DocID)
+          BaseQueryList.Clear
+          
+          set head = BaseQueryList.Query(BaseQueryList.Add("head", 0))
+          head.SQL = _
+            "SELECT doc.number as NUM, doc.documentdate, comp.name compname, o.usr$guestcount guest, " + _
+            "  con.name conname, o.usr$timeorder open1 " + _
+            "FROM gd_document doc " + _
+            "  JOIN usr$mn_order o ON o.documentkey = doc.id " + _
+            "    AND doc.id = :dockey " + _
+            "  LEFT JOIN gd_contact comp ON comp.id = doc.companykey " + _
+            "  LEFT JOIN usr$mn_p_getcontact_department(o.usr$respkey) cd ON 0 = 0 " + _
+            "  LEFT JOIN gd_contact con ON con.id = cd.peoplekey " + _
+            "  LEFT JOIN gd_contact dept ON dept.id = cd.departmentkey "
+          head.ParamByName("dockey").AsInteger = DocID
+          head.Open
+        
+          set body = BaseQueryList.Query(BaseQueryList.Add("body", 0))
+          body.SQL = _
+          "select " & _
+          "  g.alias as goodalias, ol.USR$CURS as CURS, " & _
+          "  gg.name as groupname, g.name as goodname, " & _
+          "  prngr.usr$name as prngroupname, " & _
+          "  setprn.usr$printername as printername, " & _
+          "  ol.documentkey as documentkey, " & _
+          "  Sum(ol.usr$quantity) as qty " & _
+          "from " & _
+          "  gd_document doc " & _
+          "  join usr$mn_order o on doc.id = o.documentkey and doc.id = :docid " & _
+          "    and doc.usr$mn_printdate is null " & _
+          "  join usr$mn_orderline ol on o.documentkey = ol.masterkey " & _
+          "  join gd_document docl on docl.id = ol.documentkey " & _
+          "     and docl.usr$mn_printdate is null " & _
+          "  join gd_good g on g.id = ol.usr$goodkey " & _
+          "  join usr$mn_prngroup prngr on prngr.id = g.usr$prngroupkey " & _
+          "  join usr$mn_prngroupset setprn on setprn.usr$prngroup = prngr.id " & _
+          "  JOIN gd_contact comp ON comp.id = doc.companykey " & _
+          "  JOIN gd_goodgroup gg on gg.id = g.groupkey " & _
+          "  LEFT JOIN usr$mn_p_getcontact_department(o.usr$respkey) cd ON 0 = 0 " & _
+          "  LEFT JOIN gd_contact con ON con.id = cd.peoplekey " & _
+          "  LEFT JOIN gd_contact dept ON dept.id = cd.departmentkey " & _
+          " " & _
+          "where " & _
+          "  setprn.usr$printername = :printername " & _
+          "  and ol.usr$causedeletekey is null " & _
+          "  and setprn.usr$computername = :COMP " & _
+          "  and ol.usr$curs <> 0 " & _
+          "  and setprn.usr$kassa = 0 "
+        
+          if prngrid <> 0 then
+            body.SQL = body.SQL + "  and prngr.id = :prngrid "
+          end if
+        
+          body.SQL =   body.SQL & _
+          "group by " & _
+          "  gg.name, " &_
+          "  g.alias, " & _
+          "  ol.USR$CURS, " & _
+          "  g.name, " & _
+          "  prngr.usr$name, " & _
+          "  setprn.usr$printername, " & _
+          "  ol.documentkey " & _
+          "having " & _
+          "  Sum(ol.usr$quantity) > 0 " & _
+           "ORDER BY " & _
+           "  prngr.usr$name, USR$CURS, gg.name, ol.documentkey  "
+        
+          if prngrid <> 0 then
+            body.ParambyName("prngrid").AsInteger = prngrid
+          end if
+        '  body.ParambyName("cursnum").AsInteger = cursnum
+          body.ParambyName("docid").AsInteger = docid
+          body.ParambyName("printername").AsString = PrinterName
+          body.ParambyName("comp").AsString = UCASE(ibLogin.ComputerName)
+          body.Open
+        
+          set modify = BaseQueryList.Query(BaseQueryList.Add("modify", 0))
+          modify.SQL = _
+            "SELECT crosst.usr$mn_orderlinekey linekey, m.usr$name name, 0 as Sort " & _
+            "FROM usr$mn_modify m " & _
+            "left JOIN usr$cross509_157767346 crosst ON crosst.usr$mn_modifykey = m.id " & _
+            "left join usr$mn_orderline ol on ol.DOCUMENTKEY = crosst.USR$MN_ORDERLINEKEY " & _
+            "where ol.masterkey = " & DocID &_
+            " union all " & _
+            "select ol.documentkey linekey, UPPER(ol.USR$MODIFIER) name, 1 as Sort from " & _
+            "usr$mn_orderline ol " & _
+            "where ol.masterkey =  " & DocID & _
+            " and ol.USR$MODIFIER <> '' " & _
+            " ORDER BY 3 "
+          modify.Open
+        
+          BaseQueryList.AddMasterDetail "body", "documentkey", "modify", "linekey"
+        
+          set rp_mn_StolOrder = BaseQueryList
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147070723_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147070713_157767346
+    Fields: 
+      NAME: "Заказ (официант)"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR"
+      EDITIONDATE: 2022-05-05T10:40:09+03:00
+      TEMPLATEDATA: !!binary > 
+        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
+        0eVA
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147070713_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Сервис-чек - Sinocan"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 0
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147070714_157767346 rp_mn_StolOrder"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 0
+      REPORTGROUPKEY: "147068329_157767346 Отчеты(usrf_mn_stolOrderNew)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147070723_157767346 Заказ (официант)"
+      EDITIONDATE: 2022-05-05T10:40:09+03:00

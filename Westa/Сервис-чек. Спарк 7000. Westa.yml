@@ -1,0 +1,350 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 155657654_1875384224
+  Name: "Сервис-чек. Спарк 7000. Westa"
+  Caption: "Сервис-чек. Спарк 7000. Westa"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 7F7E3D3DA3729871E96A575D1153EDE6
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147030475_999502974
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147030456_999502974
+    Fields: 
+      NAME: "PositiveCheck. Сервис-чек (Spark 7000)"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2022-05-04T16:50:27+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="True" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="43440,4726748611" ReportOptions.Description.Text="" ReportOptions.LastChange="43440,4726748611" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2600000020446174615365743D224845414445522220446174615365744E616D653D22484541444552220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxDMPPage Name="Page1" PaperWidth="121,919921260051" PaperHeight="89,9582752352806" PaperSize="256" LeftMargin="2,53999835958439" RightMargin="2,53999835958439" TopMargin="4,49791376176403" BottomMargin="4,49791376176403" ColumnWidth="0" ColumnPositions.Text="" TitleBeforeHeader="False" HGuides.Text="" VGuides.Text="" FontStyle="0">
+            <TfrxMasterData Name="MasterData1" Height="17" Left="0" Top="221" Width="441,6" ColumnWidth="0" ColumnGap="0" DataSet="HEADER" DataSetName="HEADER" RowCount="0" StartNewPage="True" Stretched="True">
+              <TfrxDMPMemoView Name="DMPMemo19" Align="baWidth" Left="0" Top="0" Width="374,4" Height="17" ShowHint="False" StretchMode="smActualHeight" FontStyle="64" ParentFont="False" TruncOutboundText="False" Text="[HEADER.&#34;GOODNAME&#34;]"/>
+              <TfrxDMPMemoView Name="DMPMemo20" Align="baRight" Left="374,4" Top="0" Width="67,2" Height="17" ShowHint="False" StretchMode="smActualHeight" HAlign="haCenter" HideZeros="True" TruncOutboundText="False" Text="[HEADER.&#34;Q&#34;]"/>
+            </TfrxMasterData>
+            <TfrxReportSummary Name="ReportSummary1" Height="0" Left="0" Top="272" Width="441,6"/>
+            <TfrxPageHeader Name="PageHeader1" Height="170" Left="0" Top="17" Width="441,6">
+              <TfrxDMPMemoView Name="DMPMemo1" Align="baWidth" Left="0" Top="0" Width="441,6" Height="17" ShowHint="False" Frame.Typ="8" HAlign="haCenter" TruncOutboundText="False" Text="[HEADER.&#34;COMPNAME&#34;]"/>
+              <TfrxDMPMemoView Name="DMPMemo3" Align="baLeft" Left="0" Top="34" Width="96" Height="17" ShowHint="False" TruncOutboundText="False" Text="РќРѕРјРµСЂ:"/>
+              <TfrxDMPMemoView Name="DMPMemo4" Align="baLeft" Left="0" Top="68" Width="96" Height="17" ShowHint="False" TruncOutboundText="False" Text="РћС„РёС†РёР°РЅС‚:"/>
+              <TfrxDMPMemoView Name="DMPMemo5" Left="0" Top="51" Width="96" Height="17" ShowHint="False" TruncOutboundText="False" Text="Р”Р°С‚Р°:"/>
+              <TfrxDMPMemoView Name="DMPMemo6" Align="baLeft" Left="0" Top="85" Width="76,8" Height="17" ShowHint="False" TruncOutboundText="False" Text="Р“РѕСЃС‚РµР№:"/>
+              <TfrxDMPMemoView Name="DMPMemo7" Align="baRight" Left="268,8" Top="51" Width="67,2" Height="17" ShowHint="False" HAlign="haRight" TruncOutboundText="False" Text="Р’СЂРµРјСЏ:"/>
+              <TfrxDMPMemoView Name="DMPMemo8" Align="baRight" Left="211,2" Top="85" Width="124,8" Height="17" ShowHint="False" HAlign="haRight" TruncOutboundText="False" Text="РЎС‚РѕР» РѕС‚РєСЂС‹С‚:"/>
+              <TfrxDMPMemoView Name="DMPMemo9" Align="baLeft" Left="96" Top="34" Width="153,6" Height="17" ShowHint="False" TruncOutboundText="False" Text="[HEADER.&#34;NUM&#34;]"/>
+              <TfrxDMPMemoView Name="DMPMemo10" Align="baWidth" Left="96" Top="68" Width="345,6" Height="17" ShowHint="False" TruncOutboundText="False" Text="[HEADER.&#34;CONNAME&#34;]"/>
+              <TfrxDMPMemoView Name="DMPMemo11" Left="96" Top="51" Width="153,6" Height="17" ShowHint="False" DisplayFormat.FormatStr="dd.mm.yyyy" DisplayFormat.Kind="fkDateTime" TruncOutboundText="False" Text="[HEADER.&#34;DOCUMENTDATE&#34;]"/>
+              <TfrxDMPMemoView Name="DMPMemo12" Align="baRight" Left="336" Top="51" Width="105,6" Height="17" ShowHint="False" DisplayFormat.FormatStr="hh:mm:ss" DisplayFormat.Kind="fkDateTime" HAlign="haRight" TruncOutboundText="False" Text="[HEADER.&#34;TIME&#34;]"/>
+              <TfrxDMPMemoView Name="DMPMemo13" Left="96" Top="85" Width="96" Height="17" ShowHint="False" TruncOutboundText="False" Text="[HEADER.&#34;GUEST&#34;]"/>
+              <TfrxDMPMemoView Name="DMPMemo14" Align="baRight" Left="336" Top="85" Width="105,6" Height="17" ShowHint="False" DisplayFormat.FormatStr="hh:mm:ss" DisplayFormat.Kind="fkDateTime" HAlign="haRight" TruncOutboundText="False" Text="[HEADER.&#34;OPEN1&#34;]"/>
+              <TfrxDMPMemoView Name="DMPMemo17" Align="baWidth" Left="0" Top="153" Width="374,4" Height="17" ShowHint="False" HAlign="haCenter" TruncOutboundText="False" Text="РќР°Р·РІР°РЅРёРµ Р±Р»СЋРґР°"/>
+              <TfrxDMPMemoView Name="DMPMemo18" Align="baRight" Left="374,4" Top="153" Width="67,2" Height="17" ShowHint="False" HAlign="haCenter" TruncOutboundText="False" Text="РљРѕР»-РІРѕ"/>
+              <TfrxDMPMemoView Name="DMPMemo22" Align="baWidth" Left="0" Top="119" Width="441,6" Height="17" ShowHint="False" Frame.Typ="12" HAlign="haCenter" TruncOutboundText="False" Text="[HEADER.&#34;PRNGROUPNAME&#34;]"/>
+            </TfrxPageHeader>
+            <TfrxPageFooter Name="PageFooter1" Height="17" Left="0" Top="289" Width="441,6">
+              <TfrxDMPMemoView Name="HEADERCUT" Align="baWidth" Left="0" Top="0" Width="441,6" Height="17" ShowHint="False" DataField="CUT" DataSet="HEADER" DataSetName="HEADER" TruncOutboundText="False" Text="[HEADER.&#34;CUT&#34;]"/>
+            </TfrxPageFooter>
+          </TfrxDMPPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147030457_999502974
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147030456_999502974
+    Fields: 
+      NAME: "rp_mn_order_ServiceCheck10"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147068327_157767346 usrf_mn_stolOrderNew"
+      OBJECTNAME: "usrf_mn_stolOrderNew"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-05-04T16:52:01+03:00
+      DISPLAYSCRIPT: | 
+        RP_MN_ORDER_SERVICECHECK10
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAAUFJOR1JJRAcAAABQUk5HUklEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUCwAAAFBSSU5URVJOQU1FCwAAAFBSSU5URVJOQU1FAAAAAAAAAAAAAAAABQAAAAAAAAAA
+        AAAAAEZOU1RQUlNUBQAAAERPQ0lEBQAAAERPQ0lEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RGTFBS
+      SCRIPT: | 
+        '#include MN_MAKEPRINTFILELOG
+        Option Explicit
+        function rp_mn_order_ServiceCheck10(PrnGrID, PrinterName, DocID)
+          BaseQueryList.Clear
+        
+          dim body
+          set body = BaseQueryList.Query(BaseQueryList.Add("body", 0))
+          body.SQL = _
+            "select " & _
+            "  doc.documentdate, " & _
+            "  doc.number as NUM, " & _
+            "  comp.name compname, " & _
+            "  o.usr$guestcount guest, " & _
+            "  con.name conname, " & _
+            "  o.usr$timeorder as open1, " & _
+            "  g.alias, ol.USR$CURS as CURS, " & _
+            "  gg.name as groupname, g.name as goodname, " & _
+            "  prngr.usr$name as prngroupname, " & _
+            "  setprn.usr$printername as printername, " & _
+            "  ' *** ' || m.usr$name || ' ***' as modifyname, " & _
+            "  ol.documentkey as documentkey, " & _
+            "  Sum(ol.usr$quantity) as q " & _
+            "from " & _
+            "  gd_document doc " & _
+            "  join usr$mn_order o on doc.id = o.documentkey and doc.id = :docid " & _
+            "   and doc.usr$mn_printdate is null " & _
+            "  join usr$mn_orderline ol on o.documentkey = ol.masterkey " & _
+            "  join gd_document docl on docl.id = ol.documentkey " & _
+            "    and docl.usr$mn_printdate is null  " & _
+            "  join gd_good g on g.id = ol.usr$goodkey " & _
+            "  join usr$mn_prngroup prngr on prngr.id = g.usr$prngroupkey " & _
+            "  join usr$mn_prngroupset setprn on setprn.usr$prngroup = prngr.id " & _
+            "  left join( " & _
+            "    select cr.usr$mn_orderlinekey as orderlinekey, m.USR$NAME " & _
+            "    from usr$cross509_157767346 cr " & _
+            "    join usr$mn_modify m on m.id = cr.usr$mn_modifykey " & _
+            "    union all " & _
+            "    select l.documentkey, l.usr$modifier " & _
+            "    from usr$mn_orderline l " & _
+            "    where l.masterkey = :docid " & _
+            "  )m on m.orderlinekey = ol.documentkey " & _
+            "  JOIN gd_contact comp ON comp.id = doc.companykey " & _
+            "  JOIN gd_goodgroup gg on gg.id = g.groupkey " & _
+            "  LEFT JOIN usr$mn_p_getcontact_department(o.usr$respkey) cd ON 0 = 0 " & _
+            "  LEFT JOIN gd_contact con ON con.id = cd.peoplekey " & _
+            "  LEFT JOIN gd_contact dept ON dept.id = cd.departmentkey " & _
+            " " & _
+            "where " & _
+            "  setprn.usr$printername = :printername " & _
+            "  and ol.usr$causedeletekey is null " & _
+            "  and setprn.usr$computername = :COMP " & _
+            "  and ol.USR$CURS <> 0 " & _
+            "  and setprn.usr$kassa = 0 "
+        
+          if prngrid <> 0 then
+            body.SQL = body.SQL + "  and prngr.id = :prngrid "
+          end if
+            
+          body.SQL =   body.SQL & _
+            "group by " & _
+            "  gg.name, doc.documentdate, " & _
+            "  doc.number, " & _
+            "  comp.name, " & _
+            "  o.usr$guestcount, " & _
+            "  con.name, " & _
+            "  o.usr$timeorder, " & _
+            "  g.alias, " & _
+            "  ol.USR$CURS, " & _
+            "  g.name, " & _
+            "  prngr.usr$name, " & _
+            "  setprn.usr$printername, " & _
+            "  m.usr$name, ol.documentkey " & _
+            "having " & _
+            "  Sum(ol.usr$quantity) > 0 " & _
+             "ORDER BY " & _
+             "  prngr.usr$name, USR$CURS, gg.name, ol.documentkey  "
+             
+          if prngrid <> 0 then
+            body.ParambyName("prngrid").AsInteger = prngrid
+          end if
+          '  body.ParambyName("cursnum").AsInteger = cursnum
+          body.ParambyName("docid").AsInteger = docid
+          body.ParambyName("printername").AsString = PrinterName
+          body.ParambyName("comp").AsString = UCASE(ibLogin.ComputerName)
+          body.Open
+          body.IsResult = 0
+        
+          dim Header, i
+          set Header = BaseQuery.Query(BaseQuery.Add("Header", 1))
+          i = 0
+          while i <= body.FieldCount - 1
+            CALL Header.AddField(body.Fields(i).FieldName, _
+              body.Fields(i).FieldType, _
+              body.Fields(i).FieldSize, 0)
+            i = i + 1
+          wend
+          call Header.AddField("TIME", "FTTime", 0, 0)
+          call Header.AddField("COMPRESSEDON", "FtString", 10, 0)
+          call Header.AddField("BELL", "FtString", 10, 0)
+          call Header.AddField("CUT", "FtString", 60, 0)
+          call Header.AddField("BOLD", "FtString", 10, 0)
+          call Header.AddField("RUSPAGE", "FtString", 5, 0)
+          call Header.AddField("ENDBOLD", "FtString", 10, 0)
+          call Header.AddField("RESET", "FtString", 10, 0)
+          call Header.AddField("DOUBLESIZE", "FtString", 10, 0)
+          call Header.AddField("ENDDOUBLESIZE", "FtString", 10, 0)
+          call Header.AddField("MODNAME", "FtString", 60, 0)
+        '  call Header.AddField("GROUPNAME", "FtString", 60, 0)
+          Header.Open
+        
+        '  Bold = chr(&H1B) + CHR(&H21) + CHR(&H08)
+        '  EndBold = chr(&H1B) + CHR(&H21) + CHR(&H80)
+        '
+          dim DOUBLESIZE, ENDDOUBLESIZE, Bold, EndBold
+        '  DOUBLESIZE = chr(&H1B) + CHR(&H21) + CHR(&H20)
+        '
+        '  ENDDOUBLESIZE = chr(&H1B) + CHR(&H21) + CHR(&H00)
+          
+        '  DOUBLESIZE = chr(&H1B) + CHR(&H21) + CHR(&H30)
+        '  ENDDOUBLESIZE = chr(&H1B) + CHR(&H21) + CHR(&H08)
+          dim linekey
+          linekey = 0
+          
+          body.First
+          while not body.Eof
+            Header.Append
+            i = 0
+            while i <= body.FieldCount - 1
+              if Body.FieldByName("documentkey").AsInteger = Linekey then
+        '        Header.FieldbyName("goodname").AsString = EndBold + "    " + body.FieldByName("modifyname").AsString
+                Header.FieldbyName("goodname").AsString = "    " + body.FieldByName("modifyname").AsString
+                Header.FieldbyName("prngroupname").AsString = body.FieldByName("prngroupname").AsString
+                Header.FieldbyName("curs").AsString = body.FieldByName("curs").AsString
+                Header.FieldbyName("Groupname").AsString = Bold + body.FieldByName("Groupname").AsString + EndBold
+              else
+                if (UCASE(body.Fields(i).FieldName) = "GOODNAME") then
+                  Header.Fields(i).AsString = Bold + body.Fields(i).AsString + EndBold
+                elseif (UCASE(body.Fields(i).FieldName) = "PRNGROUPNAME") then
+                  Header.Fields(i).AsString = mid(body.Fields(i).AsString, 1, 40)
+                else
+                  Header.Fields(i).AsString = body.Fields(i).AsString
+                end if
+              end if
+              i = i + 1
+            wend
+        
+            if Body.FieldByName("documentkey").AsInteger <> Linekey then
+              if body.FieldByName("modifyname").AsString <> "" then
+                Header.FieldByName("modifyname").AsString = ""
+                Header.FieldbyName("TIME").AsdateTime = Time
+                Header.Post
+                
+                Header.Append
+                Header.FieldbyName("GOODNAME").AsString = "    " + body.FieldByName("modifyname").AsString
+                Header.FieldbyName("curs").AsString = body.FieldByName("curs").AsString
+                Header.FieldbyName("Groupname").AsString = Bold + body.FieldByName("Groupname").AsString + EndBold
+        '        Header.FieldbyName("GOODNAME").AsString = EndBold +  + "    " + body.FieldByName("modifyname").AsString
+                Header.FieldbyName("prngroupname").AsString = body.FieldByName("prngroupname").AsString
+              end if
+            end if
+        
+            Linekey = Body.FieldByName("documentkey").AsInteger
+        
+            Header.FieldbyName("TIME").AsdateTime = Time
+            Header.FieldbyName("RUSPAGE").AsVariant = chr(&H1B) + CHR(&H74) + CHR(&H7)
+            Header.FieldByName("CUT").AsVariant = chr(&H1D) + CHR(&H56) + CHR(&H66) + CHR(0)
+            Header.FieldByName("DOUBLESIZE").AsVariant = DOUBLESIZE
+            Header.FieldByName("ENDDOUBLESIZE").AsVariant = ENDDOUBLESIZE
+            Header.Post
+            body.Next
+          wend
+        
+        ' Если в параметрах установлена галка "Вести лог операций сервис-печати",
+        ' то всё то, что печатается на сервис-принтер сохраняем в файл
+        
+          if mn_Options.PrintLog then
+            Dim f1, fso, MyFile, FileSpec, fldr, pos, Path
+            Set fso = CreateObject("Scripting.FileSystemObject")
+            ' Если установлен параметр каждый день отдельным файлом
+            if mn_Options.PLSingleFile then
+              if mn_Options.PLFileFolder <> "" then
+                pos = InStrRev(mn_Options.PLFileFolder, "\")
+                Path = Left(mn_Options.PLFileFolder, pos-1)&"\"
+                If not (fso.FolderExists(Path)) Then
+                  FileSpec = "c:\ServPrint.log"
+                else
+                  FileSpec = Path&"ServPrint"&Cstr(mn_closeday_manager.LDate)&".log"
+                end if
+              else
+                FileSpec = "c:\ServPrint"&Cstr(mn_closeday_manager.LDate)&".log"
+                If not fso.DriveExists("C:\") then
+                  exit function
+                end if
+              end if
+            else
+              FileSpec = "c:\ServPrint.log"
+              If not fso.DriveExists("C:\") then
+                exit function
+              end if
+            end if
+        
+            If not (fso.FileExists(FileSpec)) Then
+              Set f1 = fso.CreateTextFile(FileSpec, True)
+            end if
+            Set f1 = fso.GetFile(FileSpec)
+            
+            Const ForAppending = 8
+            On Error Resume Next
+            Flag = True
+            T = Time
+            while Flag and Time <= T + TimeSerial(0, 1, 0)
+              Set MyFile = f1.OpenAsTextStream(ForAppending, True)
+              Flag =  Err.Number <> 0
+              Err.Clear
+            wend
+            ON ERROR GOTO 0
+            if not Flag then
+              call Mn_MakePrintFileLog(Header, MyFile)
+              MyFile.Close
+            end if
+          end if
+          
+          set rp_mn_order_ServiceCheck10 = BaseQueryList
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147348065_500830985 Mn_MakePrintFileLog"
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147030456_999502974
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Сервис-чек (Spark 7000)"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 0
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147030457_999502974 rp_mn_order_ServiceCheck10"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 0
+      REPORTGROUPKEY: "147068329_157767346 Отчеты(usrf_mn_stolOrderNew)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147030475_999502974 PositiveCheck. Сервис-чек (Spark 7000)"
+      EDITIONDATE: 2022-05-04T16:52:01+03:00
