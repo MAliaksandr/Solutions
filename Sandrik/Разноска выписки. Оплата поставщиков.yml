@@ -1,0 +1,224 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 222935479_1816166686
+  Name: "Разноска выписки. Оплата поставщиков"
+  Caption: "Разноска выписки. Оплата поставщиков"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 492E19335E5E6A176DAAD44357292A05
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147039696_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147049073_23176393
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgUserDocumentLine147038633_55147469)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147039696_55147469"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147039695_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147049073_23176393
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgUserDocumentLine147038633_55147469"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-02-04T11:42:40+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147039694_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147049073_23176393
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgUserDocumentLine147038633_55147469"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147039695_55147469 Локальные макросы"
+      OBJECTNAME: "gdc_dlgUserDocumentLine147038633_55147469"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147039696_55147469 Отчеты(gdc_dlgUserDocumentLine147038633_55147469)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-02-04T11:42:40+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147049085_23176393
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147049073_23176393
+    Fields: 
+      NAME: "ren_gdc_dlgUDocLine147038633_55147469OnSetupRecord"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "147039694_55147469 gdc_dlgUserDocumentLine147038633_55147469"
+      OBJECTNAME: "gdc_dlgUserDocumentLine147038633_55147469"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-05-10T12:41:26+03:00
+      DISPLAYSCRIPT: | 
+        REN_GDC_DLGUDOCLINE147038633_55147469ONSETUPRECORD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        function ren_gdc_dlgUDocLine147038633_55147469OnSetupRecord(ByVal Sender)
+          Set gdcObject = Sender.OwnerForm.gdcObject
+          Set MS = gdcObject.MasterSource
+          if Assigned(MS.DataSet) then
+            if StrComp(MS.DataSet.ClassName, "TGDCBANKSTATEMENTLINE", 1) = 0 then
+              Sender.OwnerForm.GetComponent("usrat_dbedit_usr_csumncu").Enabled = _
+                not MS.DataSet.FieldByName("csumncu").IsNull
+              Sender.OwnerForm.GetComponent("usrat_dbedit_usr_csumncu_label").Enabled = _
+                not MS.DataSet.FieldByName("csumncu").IsNull
+              Sender.OwnerForm.GetComponent("usrat_dbedit_usr_csumcurr").Enabled = _
+                not MS.DataSet.FieldByName("csumcurr").IsNull
+              Sender.OwnerForm.GetComponent("usrat_dbedit_usr_csumcurr_label").Enabled = _
+                not MS.DataSet.FieldByName("csumcurr").IsNull
+              Sender.OwnerForm.GetComponent("usrat_dbedit_usr_dsumncu").Enabled = _
+                not MS.DataSet.FieldByName("dsumncu").IsNull
+              Sender.OwnerForm.GetComponent("usrat_dbedit_usr_dsumncu_label").Enabled = _
+                not MS.DataSet.FieldByName("dsumncu").IsNull
+              Sender.OwnerForm.GetComponent("usrat_dbedit_usr_dsumcurr").Enabled = _
+                not MS.DataSet.FieldByName("dsumcurr").IsNull
+              Sender.OwnerForm.GetComponent("usrat_dbedit_usr_dsumcurr_label").Enabled = _
+                not MS.DataSet.FieldByName("dsumcurr").IsNull
+                
+              if gdcObject.State = dsInsert then
+                gdcObject.FieldByName("usr$companykey").AsVariant = _
+                  MS.DataSet.FieldByName("companykeyline").AsVariant
+        
+                SET USR_BYDOCKEY = Sender.OwnerForm.GetComponent("usrat_gsIBLookupComboBox_USR_BYDOCKEY")
+                USR_BYDOCKEY.Condition = " parent is NULL and ab.usr$contactkey = " + MS.DataSet.FieldByName("companykeyline").AsString
+                USR_BYDOCKEY.ListTable = "GD_DOCUMENT D LEFT JOIN USR$INV_ADDWBILL ab ON D.ID  =  ab.DOCUMENTKEY "
+        
+                set Creator = new TCreator
+                Set ibsql = Creator.GetObject(nil, "TIBSQL", "")
+        
+                ibsql.Transaction = gdcObject.ReadTransaction
+                ibsql.SQL.Text = "SELECT ca.id FROM gd_companyaccount ca WHERE ca.companykey = :companykey AND " + _
+                  "account = :account"
+                ibsql.ParamByName("companykey").AsInteger = MS.DataSet.FieldByName("companykeyline").AsInteger
+                ibsql.ParamByName("account").AsString = MS.DataSet.FieldByName("account").AsString
+                ibsql.ExecQuery
+                if ibsql.RecordCount > 0 then _
+                  gdcObject.FieldByName("usr$accountkey").AsInteger = ibsql.FieldByName("id").AsInteger
+                ibsql.Close
+                ibsql.SQL.Text = "SELECT SUM(usr$dsumncu) AS dsumncu, " + _
+                  " SUM(usr$csumncu) AS csumncu, SUM(usr$dsumcurr) AS dsumcurr, " + _
+                  " SUM(usr$csumcurr) AS csumcurr" + _
+                  " FROM usr$ren_divstatemnline " + _
+                  " WHERE " + _
+                  " masterkey = :masterkey"
+                ibsql.ParamByName("masterkey").AsInteger = MS.Dataset.ID
+                ibsql.ExecQuery
+        
+                if (not MS.DataSet.FieldByName("dsumncu").IsNull) then
+                  gdcObject.FieldByName("usr$dsumncu").AsCurrency = _
+                    MS.DataSet.FieldByName("dsumncu").AsCurrency - _
+                    ibsql.FieldByName("dsumncu").AsCurrency
+                end if
+                
+                if (not MS.DataSet.FieldByName("csumncu").IsNull) then
+                  gdcObject.FieldByName("usr$csumncu").AsCurrency = _
+                    MS.DataSet.FieldByName("csumncu").AsCurrency - _
+                    ibsql.FieldByName("csumncu").AsCurrency
+                end if
+        
+                if (not MS.DataSet.FieldByName("dsumcurr").IsNull) then
+                  gdcObject.FieldByName("usr$dsumcurr").AsCurrency = _
+                    MS.DataSet.FieldByName("dsumcurr").AsCurrency - _
+                    ibsql.FieldByName("dsumcurr").AsCurrency
+                end if
+        
+                if (not MS.DataSet.FieldByName("csumcurr").IsNull) then
+                  gdcObject.FieldByName("usr$csumcurr").AsCurrency = _
+                    MS.DataSet.FieldByName("csumcurr").AsCurrency - _
+                    ibsql.FieldByName("csumcurr").AsCurrency
+                end if
+        
+              end if
+            end if
+          end if
+          
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147049073_23176393
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gdc_dlgUserDocumentLine147038633_55147469OnSetupRecord"
+      COMMENT: ~
+      EVENT: "ONSETUPRECORD"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147039694_55147469 gdc_dlgUserDocumentLine147038633_55147469"
+      OBJECTNAME: "gdc_dlgUserDocumentLine147038633_55147469"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2003-06-27T21:38:50+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGUSERDOCUMENTLINE147038633_55147469ONSETUPRECORD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAQllWQUxTRU5ERVILAAAAQllWQUxTRU5ERVIAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        '#include ren_gdc_dlgUDocLine147038633_55147469OnSetupRecord
+        sub gdc_dlgUserDocumentLine147038633_55147469OnSetupRecord(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          call   Inherited(Sender, "OnSetupRecord", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+          call ren_gdc_dlgUDocLine147038633_55147469OnSetupRecord(Sender)
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147049085_23176393 ren_gdc_dlgUDocLine147038633_55147469OnSetupRecord"
