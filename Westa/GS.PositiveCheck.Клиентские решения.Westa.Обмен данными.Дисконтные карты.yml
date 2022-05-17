@@ -1,0 +1,179 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 155186501_1885979296
+  Name: "GS.PositiveCheck.Клиентские решения.Westa.Обмен данными.Дисконтные карты"
+  Caption: "GS.PositiveCheck.Клиентские решения.Westa.Обмен данными.Дисконтные карты"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: AE17EA28FD512E32E0EC542D566D0672
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147012283_420498444
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_import_mn_discounttype"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-05-17T16:59:59+03:00
+      DISPLAYSCRIPT: | 
+        SF_IMPORT_MN_DISCOUNTTYPE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include bri_Sync_AddRuid
+        function Sf_import_mn_discounttype(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+         set ibsql_mn_discountname = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql_mn_discountname.Transaction = Transaction
+          ibsql_mn_discountname.SQL.Text = _
+            "select v.*, p.* " & _
+            "from " & _
+            "  USR$MN_DISCOUNTNAME v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 "
+            
+          set ibsqlGet_mn_discountname = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_mn_discountname.Transaction = OurTr
+          ibsqlGet_mn_discountname.SQL.Text = _
+            "select v.* FROM usr$mn_discountname v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+            
+          dim qInsName
+          set qInsName = Creator.GetObject(nil, "TIBSQL", "")
+          qInsName.Transaction = OurTr
+          qInsName.SQL.Text = _
+            " INSERT INTO usr$MN_DISCOUNTNAME (ID, USR$NAME, DISABLED) " & _
+              " VALUES (:ID, :USR$NAME, :DISABLED) "
+        
+          dim qUpdName
+          set qUpdName = Creator.GetObject(nil, "TIBSQL", "")
+          qUpdName.Transaction = OurTr
+          qUpdName.SQL.Text = _
+            " UPDATE usr$mn_discountname SET USR$NAME = :USR$NAME, DISABLED = :DISABLED " & _
+            " WHERE ID = :ID "
+            
+            
+          set ibsql_mn_discounttype = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql_mn_discounttype.Transaction = Transaction
+          ibsql_mn_discounttype.SQL.Text = _
+            "select v.*, p.* " & _
+            "from " & _
+            "  USR$MN_DISCOUNTTYPE v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 "
+        
+          set ibsqlGet_mn_discounttype = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_mn_discounttype.Transaction = OurTr
+          ibsqlGet_mn_discounttype.SQL.Text = _
+            "select v.* FROM usr$mn_discounttype v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+        
+          dim qInsType
+          set qInsType = Creator.GetObject(nil, "TIBSQL", "")
+          qInsType.Transaction = OurTr
+          qInsType.SQL.Text = _
+            " INSERT INTO usr$mn_discounttype (ID, USR$DISCOUNTNAMEKEY, USR$PERCENT) " & _
+              " VALUES (:ID, :USR$DISCOUNTNAMEKEY, :USR$PERCENT) "
+        
+          dim qUpdType
+          set qUpdType = Creator.GetObject(nil, "TIBSQL", "")
+          qUpdType.Transaction = OurTr
+          qUpdType.SQL.Text = _
+            " UPDATE usr$mn_discounttype SET USR$PERCENT = :USR$PERCENT " & _
+              " WHERE ID = :ID "
+        
+        
+              
+          ibsql_mn_discountname.ExecQuery
+          
+          'названия скидок
+          while not ibsql_mn_discountname.EOF
+            ibsqlGet_mn_discountname.Close
+            ibsqlGet_mn_discountname.ParamBYName("xid").AsInteger = ibsql_mn_discountname.FieldBYName("xid").ASInteger
+            ibsqlGet_mn_discountname.ParamBYName("dbid").AsInteger = ibsql_mn_discountname.FieldBYName("dbid").ASInteger
+            ibsqlGet_mn_discountname.ExecQuery
+            
+            if ibsqlGet_mn_discountname.EOF then
+              NewId = gdcBaseManager.GetNextID
+              qInsName.Close
+              qInsName.ParamBYName("ID").AsInteger = NewId
+              qInsName.ParamBYName("USR$NAME").AsString = ibsql_mn_discountname.FieldByName("USR$NAME").AsString
+              qInsName.ParamBYName("DISABLED").AsVariant = ibsql_mn_discountname.FieldByName("DISABLED").AsVariant
+              qInsName.ExecQuery
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsql_mn_discountname.FieldBYName("xid").ASInteger, ibsql_mn_discountname.FieldBYName("dbid").ASInteger)
+            else
+              qUpdName.Close
+              qUpdName.ParamBYName("ID").AsInteger = ibsqlGet_mn_discountname.FieldByName("id").AsInteger
+              qUpdName.ParamBYName("USR$NAME").AsVariant = ibsql_mn_discountname.FieldByName("USR$NAME").AsVariant
+              qUpdName.ParamBYName("DISABLED").AsVariant = ibsql_mn_discountname.FieldByName("DISABLED").AsVariant
+              qUpdName.ExecQuery
+            end if
+            ibsql_mn_discountname.Next
+          wend
+          
+        
+          ibsql_mn_discounttype.ExecQuery
+          while not ibsql_mn_discounttype.EOF
+            ibsqlGet_mn_discounttype.Close
+            ibsqlGet_mn_discounttype.ParamBYName("xid").AsInteger = ibsql_mn_discounttype.FieldBYName("xid").ASInteger
+            ibsqlGet_mn_discounttype.ParamBYName("dbid").AsInteger = ibsql_mn_discounttype.FieldBYName("dbid").ASInteger
+            ibsqlGet_mn_discounttype.ExecQuery
+            if ibsqlGet_mn_discounttype.EOF then
+              NewId = gdcBaseManager.GetNextID
+              qInsName.Close
+              qInsName.ParamBYName("ID").AsInteger = NewId
+              qInsName.ParamBYName("USR$NAME").AsString = ibsql_mn_discountname.FieldByName("USR$NAME").AsString
+              qInsName.ExecQuery
+        
+              NewId2 = gdcBaseManager.GetNextID
+              qIns.Close
+              qIns.ParamBYName("ID").AsInteger = NewId2
+              qIns.ParamBYName("USR$DISCOUNTNAMEKEY").AsInteger = NewId
+              qIns.ParamBYName("USR$PERCENT").AsVariant = ibsql_mn_discounttype.FieldByName("USR$PERCENT").AsVariant
+              qIns.ExecQuery
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId2, ibsql_mn_discounttype.FieldBYName("xid").ASInteger, ibsql_mn_discounttype.FieldBYName("dbid").ASInteger)
+            else
+              qUpd.Close
+              qUpd.ParamBYName("ID").AsInteger = ibsqlGet_mn_discounttype.FieldByName("id").AsInteger
+              qUpd.ParamBYName("USR$PERCENT").AsVariant = ibsql_mn_discounttype.FieldByName("USR$PERCENT").AsVariant
+              qUpd.ExecQuery
+            end if
+            ibsql_mn_discounttype.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
