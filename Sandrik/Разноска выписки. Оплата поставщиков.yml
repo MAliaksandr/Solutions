@@ -5,10 +5,10 @@ Properties:
   RUID: 222935479_1816166686
   Name: "Разноска выписки. Оплата поставщиков"
   Caption: "Разноска выписки. Оплата поставщиков"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 492E19335E5E6A176DAAD44357292A05
+  MD5: 2005841C1DA8D2CCE49144086690F3E4
 Objects: 
   - 
     Properties: 
@@ -86,7 +86,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: ~
-      EDITIONDATE: 2022-05-10T12:41:26+03:00
+      EDITIONDATE: 2022-05-10T16:32:05+03:00
       DISPLAYSCRIPT: | 
         REN_GDC_DLGUDOCLINE147038633_55147469ONSETUPRECORD
         
@@ -124,6 +124,7 @@ Objects:
                 USR_BYDOCKEY.Condition = " parent is NULL and ab.usr$contactkey = " + MS.DataSet.FieldByName("companykeyline").AsString
                 USR_BYDOCKEY.ListTable = "GD_DOCUMENT D LEFT JOIN USR$INV_ADDWBILL ab ON D.ID  =  ab.DOCUMENTKEY "
         
+                dim BalAcc, BankAcc
                 set Creator = new TCreator
                 Set ibsql = Creator.GetObject(nil, "TIBSQL", "")
         
@@ -133,8 +134,19 @@ Objects:
                 ibsql.ParamByName("companykey").AsInteger = MS.DataSet.FieldByName("companykeyline").AsInteger
                 ibsql.ParamByName("account").AsString = MS.DataSet.FieldByName("account").AsString
                 ibsql.ExecQuery
-                if ibsql.RecordCount > 0 then _
-                  gdcObject.FieldByName("usr$accountkey").AsInteger = ibsql.FieldByName("id").AsInteger
+                if ibsql.RecordCount > 0 then
+                  BankAcc = ibsql.FieldByName("id").AsInteger
+                end if
+                ibsql.Close
+                ibsql.SQL.Text = " Select c.USR$INV_ACCOUNTKEY  as ACCOUNTKEY from gd_contact c where c.ID = :companykey "
+                ibsql.ParamByName("companykey").AsInteger = MS.DataSet.FieldByName("companykeyline").AsInteger
+                ibsql.ExecQuery
+                if ibsql.RecordCount > 0 then
+                  BalAcc = ibsql.FieldByName("ACCOUNTKEY").AsInteger
+                else
+                  BalAcc = gdcBaseManager.GetIDByRUIDString("366000_17")
+                end if
+                
                 ibsql.Close
                 ibsql.SQL.Text = "SELECT SUM(usr$dsumncu) AS dsumncu, " + _
                   " SUM(usr$csumncu) AS csumncu, SUM(usr$dsumcurr) AS dsumcurr, " + _
@@ -144,7 +156,7 @@ Objects:
                   " masterkey = :masterkey"
                 ibsql.ParamByName("masterkey").AsInteger = MS.Dataset.ID
                 ibsql.ExecQuery
-        
+                
                 if (not MS.DataSet.FieldByName("dsumncu").IsNull) then
                   gdcObject.FieldByName("usr$dsumncu").AsCurrency = _
                     MS.DataSet.FieldByName("dsumncu").AsCurrency - _
@@ -168,6 +180,9 @@ Objects:
                     MS.DataSet.FieldByName("csumcurr").AsCurrency - _
                     ibsql.FieldByName("csumcurr").AsCurrency
                 end if
+                
+                gdcObject.FieldByName("usr$accountkey").AsVariant = BankAcc
+                gdcObject.FieldByName("USR$ACCONT").AsVariant = BalAcc
         
               end if
             end if
@@ -222,3 +237,314 @@ Objects:
         Items: 
           - 
             ADDFUNCTIONKEY: "147049085_23176393 ren_gdc_dlgUDocLine147038633_55147469OnSetupRecord"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147039760_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147039707_55147469
+    Fields: 
+      NAME: "ren_GetAccountKeyByCompany"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2003-02-04T18:36:58+03:00
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2003-10-16T21:28:22+03:00
+      DISPLAYSCRIPT: | 
+        REN_GETACCOUNTKEYBYCOMPANY
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QPAAAAQllWQUxDT01QQU5ZS0VZDwAAAEJZVkFMQ09NUEFOWUtFWQAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        function ren_GetAccountKeyByCompany(ByVal CompanyKey)
+          Set Creator = new TCreator
+          Set ibsql = Creator.GetObject(nil, "TIBSQL", "GetAccountKeyByCompany_ibsql")
+          ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.SQL.Text = "SELECT id FROM gd_companyaccount WHERE companykey = :ck"
+          ibsql.ParamByName("ck").AsInteger = CompanyKey
+          ibsql.ExecQuery
+          
+          if ibsql.RecordCount > 0 then
+            ibsql.Next
+          end if
+        
+          if ibsql.RecordCount = 1 then
+            ren_GetAccountKeyByCompany = ibsql.FieldByName("id").AsInteger
+          else
+            ren_GetAccountKeyByCompany = NULL
+          end if
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147039734_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147039707_55147469
+    Fields: 
+      NAME: "ren_GetCompanyKeyByAccount"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2003-02-04T18:38:28+03:00
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2003-10-16T21:28:12+03:00
+      DISPLAYSCRIPT: | 
+        REN_GETCOMPANYKEYBYACCOUNT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QPAAAAQllWQUxBQ0NPVU5US0VZDwAAAEJZVkFMQUNDT1VOVEtFWQAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        function ren_GetCompanyKeyByAccount(ByVal AccountKey)
+          Set Creator = new TCreator
+          Set ibsql = Creator.GetObject(nil, "TIBSQL", "")
+          ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.SQL.Text = "SELECT companykey FROM gd_companyaccount WHERE id = :ak"
+          ibsql.ParamByName("ak").AsInteger = AccountKey
+          ibsql.ExecQuery
+          
+          if ibsql.RecordCount > 0 then
+            ren_GetCompanyKeyByAccount = ibsql.FieldByName("companykey").AsInteger
+          else
+            ren_GetCompanyKeyByAccount = NULL
+          end if
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147019996_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147039707_55147469
+    Fields: 
+      NAME: "ren_CheckFieldBySyncList"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2003-03-21T17:50:13+03:00
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2003-02-04T12:09:33+03:00
+      DISPLAYSCRIPT: | 
+        REN_CHECKFIELDBYSYNCLIST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QIAAAAQllWQUwgRFMIAAAAQllWQUwgRFMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QPAAAAQllWQUwgRklFTEROQU1FDwAAAEJZVkFMIEZJRUxETkFNRQAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNUUFJTVA4AAABCWVZBTCBTWU5DTElTVA4AAABCWVZBTCBTWU5DTElT
+        VAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        'Проверяет, есть ли поле в датасете и попало ли это поле в синклист
+        'Вернет Истина, если поле существует, но еще не попало в синклист
+        ' или в синклист оно последнее
+        function ren_CheckFieldBySyncList(ByVal DS, ByVal FieldName, ByVal SyncList)
+          if Assigned(DS.FindField(FieldName)) then
+            if SyncList.IndexOf(DS.FieldByName(FieldName)) = -1 or _
+              Addr(SyncList.Items(SyncList.Count - 1)) = Addr(DS.FieldByName(FieldName)) then
+        '      SyncList.Count = 1 then
+              Result = True
+            else
+              Result = False
+            end if
+          else
+            Result = False
+          end if
+          ren_CheckFieldBySyncList = Result
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147039707_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ren_gdc_dlgUDocLine147038633_55147469OnSyncField_Body"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2003-03-21T17:50:13+03:00
+      MODULE: "UNKNOWN"
+      MODULECODE: "147039694_55147469 gdc_dlgUserDocumentLine147038633_55147469"
+      OBJECTNAME: "gdc_dlgUserDocumentLine147038633_55147469"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-05-10T17:10:48+03:00
+      DISPLAYSCRIPT: | 
+        REN_GDC_DLGUDOCLINE147038633_55147469ONSYNCFIELD_BODY
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        UFJTVAUAAABGSUVMRAUAAABGSUVMRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNUUFJTVAgA
+        AABTWU5DTElTVAgAAABTWU5DTElTVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ren_CheckFieldBySyncList
+        '#include ren_GetCompanyKeyByAccount
+        '#include ren_GetAccountKeyByCompany
+        function ren_gdc_dlgUDocLine147038633_55147469OnSyncField_Body(ByVal Sender, ByVal Field, ByVal SyncList)
+          if (Addr(Field.Dataset) <> Addr(Sender.gdcObject)) then Exit function
+          if not ((Field.FieldName = "USR$ACCOUNTKEY") or _
+            (Field.FieldName = "USR$COMPANYKEY") or _
+            (Field.FieldName = "USR$BYDOCKEY") ) _
+          then
+            exit function
+          end if
+          
+          Set DS = Field.DataSet
+          
+          if DS.State <> dsInsert and DS.State <> dsEdit then
+            WasBrowse = True
+            DS.Edit
+          else
+            WasBrowse = False
+          end if
+        
+          Select Case Field.FieldName
+            Case "USR$ACCOUNTKEY"
+              if ren_CheckFieldBySyncList(DS, "usr$companykey", SyncList) then
+                if Field.AsInteger > 0 then
+                  DS.FieldByName("usr$companykey").AsVariant = _
+                    ren_GetCompanyKeyByAccount(DS.FieldByName("usr$accountkey").AsInteger)
+                end if
+              end if
+            Case "USR$COMPANYKEY"
+              if Field.IsNull or Field.AsInteger = 0 or Field.AsInteger = -1 then
+                Sender.GetComponent("usrat_gsIBLookupComboBox_USR_AccountKey").Condition = ""
+              else
+                Sender.GetComponent("usrat_gsIBLookupComboBox_USR_AccountKey").Condition = _
+                  "companykey = " + Field.AsString
+              end if
+              if ren_CheckFieldBySyncList(DS, "usr$accountkey", SyncList) then
+                DS.FieldByName("usr$accountkey").AsVariant = _
+                  ren_GetAccountKeyByCompany(DS.FieldByName("usr$companykey").AsInteger)
+              end if
+            Case "USR$BYDOCKEY"
+              if not Field.IsNull or Field.AsInteger <> 0 or Field.AsInteger > -1 then
+                dim Creator, ibsql
+                set Creator = new TCreator
+                Set ibsql = Creator.GetObject(nil, "TIBSQL", "")
+                ibsql.Transaction = Sender.gdcObject.ReadTransaction
+                ibsql.SQL.Text = _
+                  "SELECT " & _
+                  "  SUM(L.USR$SUMWITHNDSNCU) as SUMPROV " & _
+                  "FROM USR$INV_ADDWBILLLINE L " & _
+                  "WHERE L.MASTERKEY = :docID "
+                ibsql.ParamByName("docID").AsInteger = Field.AsInteger
+                ibsql.ExecQuery
+                
+                if not ibsql.EOF Then _
+                  DS.FieldByName("USR$DSUMNCU").AsVariant = ibsql.FieldByName("SUMPROV").asVariant
+              end if
+              
+              
+          End Select
+          
+          if WasBrowse and (DS.State = dsEdit or DS.State = dsInsert) then
+            DS.Post
+          end if
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147019996_55147469 ren_CheckFieldBySyncList"
+          - 
+            ADDFUNCTIONKEY: "147039734_55147469 ren_GetCompanyKeyByAccount"
+          - 
+            ADDFUNCTIONKEY: "147039760_55147469 ren_GetAccountKeyByCompany"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147039706_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gdc_dlgUserDocumentLine147038633_55147469OnSyncField"
+      COMMENT: ~
+      EVENT: "ONSYNCFIELD"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2003-03-29T16:02:12+03:00
+      MODULE: "EVENTS"
+      MODULECODE: "147039694_55147469 gdc_dlgUserDocumentLine147038633_55147469"
+      OBJECTNAME: "gdc_dlgUserDocumentLine147038633_55147469"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2003-02-04T12:09:33+03:00
+      DISPLAYSCRIPT: | 
+        GDC_DLGUSERDOCUMENTLINE147038633_55147469ONSYNCFIELD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QMAAAAQllWQUwgU0VOREVSDAAAAEJZVkFMIFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVAsAAABCWVZBTCBGSUVMRAsAAABCWVZBTCBGSUVMRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNUUFJTVA4AAABCWVZBTCBTWU5DTElTVA4AAABCWVZBTCBTWU5DTElT
+        VAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include ren_gdc_dlgUDocLine147038633_55147469OnSyncField_Body
+        sub gdc_dlgUserDocumentLine147038633_55147469OnSyncField(ByVal Sender, ByVal Field, ByVal SyncList)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          call   Inherited(Sender, "OnSyncField", Array(Sender, Field, SyncList))
+        '*** конец кода поддержки встроенного обработчика            ***
+          call ren_gdc_dlgUDocLine147038633_55147469OnSyncField_Body(Sender, Field, SyncList)
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147039707_55147469 ren_gdc_dlgUDocLine147038633_55147469OnSyncField_Body"
