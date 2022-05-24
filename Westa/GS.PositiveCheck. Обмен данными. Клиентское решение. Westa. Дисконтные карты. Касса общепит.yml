@@ -1,0 +1,605 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 155661160_1875384224
+  Name: "GS.PositiveCheck. Обмен данными. Клиентское решение. Westa. Дисконтные карты. Касса общепит"
+  Caption: "GS.PositiveCheck. Обмен данными. Клиентское решение. Westa. Дисконтные карты. Касса общепит"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 0216AABA8DEB9DC5177961A1FFF5D4A0
+Uses: 
+  - "147022359_301427377 GS.PositiveCheck. Обмен данными. Форма загрузки меню "
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147012285_420498444
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_import_mn_discountcard"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-05-24T13:31:13+03:00
+      DISPLAYSCRIPT: | 
+        SF_IMPORT_MN_DISCOUNTCARD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include bri_Sync_AddRuid
+        function Sf_import_mn_discountcard(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+           set ibsql_mn_discountcard = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql_mn_discountcard.Transaction = Transaction
+          ibsql_mn_discountcard.SQL.Text = _
+            "  select v.*, p.*, dt.xid as dt_xid, dt.dbid as dt_dbid, " & _
+            "  c.xid as c_xid, c.dbid as c_dbid " &_
+            "  from " & _
+            "  usr$mn_discountcard v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 " &_
+            "  left join GD_P_GETRUID(v.USR$DISCOUNTNAMEKEY) dt on 1 = 1 " &_
+            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 "
+        
+         ' set gdc_mn_discountcard = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
+        '  gdc_mn_discountcard.Transaction = OurTr
+        '  gdc_mn_discountcard.SubType = "usr$mn_discountcard"
+        '  gdc_mn_discountcard.Open
+        
+          set qInsOrUp_dcard = Creator.GetObject(NULL, "TIBSQL", "")
+          qInsOrUp_dcard.Transaction = OurTr
+          qInsOrUp_dcard.SQL.Text = _
+          " UPDATE OR INSERT INTO USR$MN_DISCOUNTCARD " & _
+          " (ID, DISABLED, USR$CONTACTKEY, USR$DISCOUNTNAMEKEY, USR$CARDKEY, USR$CODE,USR$DATEBEGIN, USR$DATEEND) " & _
+          " VALUES " & _
+          " (:ID, :DISABLED,:USR$CONTACTKEY, :USR$DISCOUNTNAMEKEY, :USR$CARDKEY, :USR$CODE, :USR$DATEBEGIN, :USR$DATEEND) " & _
+          " MATCHING (ID) "
+        '
+        
+          set ibsqlGet_mn_discountcard = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_mn_discountcard.Transaction = OurTr
+          ibsqlGet_mn_discountcard.SQL.Text = _
+            "select v.id FROM usr$mn_discountcard v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          ibsql_mn_discountcard.ExecQuery
+          while not ibsql_mn_discountcard.EOF
+            ibsqlGet_mn_discountcard.Close
+            ibsqlGet_mn_discountcard.ParamBYName("xid").AsInteger = ibsql_mn_discountcard.FieldBYName("xid").ASInteger
+            ibsqlGet_mn_discountcard.ParamBYName("dbid").AsInteger = ibsql_mn_discountcard.FieldBYName("dbid").ASInteger
+            ibsqlGet_mn_discountcard.ExecQuery
+            isSynch = false
+            if not ibsqlGet_mn_discountcard.EOF then
+              cardID = ibsqlGet_mn_discountcard.FieldByName("ID").asInteger
+            else
+              cardID = gdcBaseManager.GetNextID
+              isSynch = true
+            end if
+        
+            qInsOrUp_dcard.Close
+            qInsOrUp_dcard.ParamByName("ID").asInteger = cardID
+            qInsOrUp_dcard.ParamByName("DISABLED").asVariant = ibsql_mn_discountcard.FieldByName("DISABLED").asVariant
+            qInsOrUp_dcard.ParamByName("USR$CONTACTKEY").asVariant =_
+               gdcBaseManager.GetIDByRUIDTr(ibsql_mn_discountcard.FieldByName("c_xid").ASInteger,_
+               ibsql_mn_discountcard.FieldByName("c_dbID").ASInteger, OurTr)
+            qInsOrUp_dcard.ParamByName("USR$DISCOUNTNAMEKEY").asVariant = _
+               gdcBaseManager.GetIDByRUIDTr(ibsql_mn_discountcard.FieldByName("dt_xid").ASInteger,_
+               ibsql_mn_discountcard.FieldByName("dt_dbID").ASInteger, OurTr)
+            qInsOrUp_dcard.ParamByName("USR$CARDKEY").asVariant  = ibsql_mn_discountcard.FieldByName("USR$CARDKEY").asVariant
+            qInsOrUp_dcard.ParamByName("USR$CODE").asVariant = ibsql_mn_discountcard.FieldByName("USR$CODE").asVariant
+            qInsOrUp_dcard.ParamByName("USR$DATEBEGIN").asVariant =  ibsql_mn_discountcard.FieldByName("USR$DATEBEGIN").asVariant
+            qInsOrUp_dcard.ParamByName("USR$DATEEND").asVariant =  ibsql_mn_discountcard.FieldByName("USR$DATEEND").asVariant
+            qInsOrUp_dcard.ExecQuery
+        
+            if isSynch then _
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, cardID , ibsql_mn_discountcard.FieldBYName("xid").ASInteger, ibsql_mn_discountcard.FieldBYName("dbid").ASInteger)
+        
+          '  if ibsqlGet_mn_discountcard.EOF then
+        '      gdc_mn_discountcard.Insert
+        '      gdc_mn_discountcard.FieldBYName("usr$CARDKEY").AsString = ibsql_mn_discountcard.FieldByName("usr$CARDKEY").AsString
+        '      gdc_mn_discountcard.FieldBYName("USR$CONTACTKEY").AsInteger = _
+        '        gdcBaseManager.GetIDByRUIDTr(ibsql_mn_discountcard.FieldByName("c_xid").ASInteger,_
+        '        ibsql_mn_discountcard.FieldByName("c_dbID").ASInteger, OurTr)
+        '      gdc_mn_discountcard.FieldBYName("USR$DISCOUNTTYPEKEY").AsInteger = _
+        '        gdcBaseManager.GetIDByRUIDTr(ibsql_mn_discountcard.FieldByName("dt_xid").ASInteger,_
+        '        ibsql_mn_discountcard.FieldByName("dt_dbID").ASInteger, OurTr)
+        '      gdc_mn_discountcard.FieldBYName("usr$datebegin").AsDateTime = ibsql_mn_discountcard.FieldBYName("usr$datebegin").AsDateTime
+        '      gdc_mn_discountcard.FieldBYName("usr$dateend").AsDateTime = ibsql_mn_discountcard.FieldBYName("usr$dateend").AsDateTime
+        '      gdc_mn_discountcard.Post
+        '      call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, gdc_mn_discountcard.FieldByName("id").AsInteger, ibsql_mn_discountcard.FieldBYName("xid").ASInteger, ibsql_mn_discountcard.FieldBYName("dbid").ASInteger)
+        '    end if
+            Application.ProcessMessages
+            ibsql_mn_discountcard.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 155659624_1875384224
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "sf_import_employer"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-05-24T16:43:36+03:00
+      DISPLAYSCRIPT: | 
+        SF_IMPORT_EMPLOYER
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Function sf_import_employer(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+          set ibsql_Empl = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql_Empl.Transaction = Transaction
+          ibsql_Empl.SQL.Text = _
+           "SELECT " & _
+           " c.ID, " & _
+           " empl.xid, empl.dbid, " & _
+           " c.PARENT, par.Name as PARENTNAME, " & _
+           "pr.xid as pr_xid, pr.dbid as pr_dbid, " & _
+           "c.NAME, " & _
+           "p.FIRSTNAME, p.SURNAME, p.MIDDLENAME, p.NICKNAME " & _
+           " " & _
+           "FROM GD_CONTACT C " & _
+           "left join gd_contact mdep on mdep.LB<=c.LB and mdep.RB>=c.RB " & _
+           "LEFT JOIN GD_CONTACT par on PAr.ID = c.PARENT " & _
+           "LEFT JOIN gd_p_getruid(C.id) empl on 1 = 1 " & _
+           "LEFT JOIN gd_p_getruid(c.PARENT) pr on 1 = 1 " & _
+           "left join gd_people p on p.CONTACTKEY = c.ID " & _
+           " " & _
+           "where c.CONTACTTYPE = 2 " & _
+           "and mdep.ID = 147002687 "
+        
+            
+          dim gdcEmpl
+          set gdcEmpl = Creator.GetObject(NULL, "TgdcEmployee", "")
+          gdcEmpl.Transaction = OurTr
+          gdcEmpl.SubSet = "All"
+          gdcEmpl.Open
+          
+          set ibsqlGetContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetContact.Transaction = OurTr
+          ibsqlGetContact.SQL.Text = _
+            "select con.id FROM gd_contact con JOIN gd_ruid r on con.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+          
+          ibsql_Empl.ExecQuery
+          while not ibsql_Empl.EOF
+            ibsqlGetContact.Close
+            ibsqlGetContact.ParamByName("xid").asInteger = ibsql_Empl.FieldByName("xid").asInteger
+            ibsqlGetContact.ParamByName("xid").asInteger = ibsql_Empl.FieldByName("dbid").asInteger
+            ibsqlGetContact.ExecQuery
+            
+            if not gdcEmpl.Locate("id", ibsqlGetContact.FieldByName("id").AsInteger, false) then
+              gdcEmpl.Insert
+        
+              gdcEmpl.FieldBYName("Name").AsString = ibsql_Empl.FieldByName("Name").AsString
+              gdcEmpl.FieldBYName("FirstName").AsString = ibsql_Empl.FieldByName("FirstName").AsString
+              gdcEmpl.FieldBYName("surName").AsString = ibsql_Empl.FieldByName("surName").AsString
+              gdcEmpl.FieldBYName("middleName").AsString = ibsql_Empl.FieldByName("middleName").AsString
+              gdcEmpl.FieldBYName("nickName").AsString = ibsql_Empl.FieldByName("nickName").AsString
+        
+              if gdcBaseManager.GetIDByRUIDTr(ibsql_Empl.FieldByName("pr_xid").ASInteger, ibsql_Empl.FieldByName("pr_dbID").ASInteger, OurTr) = -1 then
+                gdcEmpl.FieldBYName("Parent").AsInteger = Iblogin.Companykey
+              else
+                gdcEmpl.FieldBYName("Parent").AsInteger = gdcBaseManager.GetIDByRUIDTr(ibsql_Empl.FieldByName("pr_xid").ASInteger, ibsql_Empl.FieldByName("pr_dbID").ASInteger, OurTr)
+              end if
+              gdcEmpl.Post
+            end if
+            call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, gdcEmpl.FieldByName("id").AsInteger, ibsql_Empl.FieldBYName("xid").ASInteger, ibsql_Empl.FieldBYName("dbid").ASInteger)
+            
+            ibsql_Empl.next
+          wend
+          
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+        
+        
+        
+        '
+        '
+        '  If gdcEmpl.Locate("usr$tabnum", Array(TabNum), "") Then
+        '        ConID = gdcContact.ID
+        '        gdcDiscount.Append
+        '        gdcDiscount.FieldByName("USR$NUMBER").asString = CSTR(TabNum)
+        '        gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
+        '        gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
+        '        gdcDiscount.Post
+        '
+        '  else
+        '     '   msgbox "Няма звестак па гэтаму табельнаму нумару:" & CSTR(TabNumber)
+        '        gdcContact.Append
+        '        gdcContact.FieldByName("SURNAME").asString = LASTNAME
+        '        gdcContact.FieldByName("FIRSTNAME").asVariant = NAME
+        '        gdcContact.FieldByName("MIDDLENAME").asVariant = MIDNAME
+        '        gdcContact.FieldByName("NICKNAME").asString = Left(TRIM(NAME),1) & "." & Left(TRIM(MIDNAME),1) & "." & Trim(LASTNAME)
+        '        gdcContact.FieldByName("NAME").asString = Trim(LASTNAME) & " " & Trim(NAME) & " " & Trim(MIDNAME)
+        '        gdcContact.FieldByName("USR$TABNUM").asString = CSTR(int(TabNum))
+        '        gdcContact.FieldByName("PARENT").asVariant = gdcBaseManager.GetIDByRUIDString("149256615_1606276715")
+        '        gdcContact.Post
+        '        ConID = gdcContact.ID
+        '        gdcDiscount.Append
+        '        gdcDiscount.FieldByName("USR$NUMBER").asString = CSTR(TabNum)
+        '        gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
+        '        gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
+        '        gdcDiscount.Post
+        '  end if
+        '
+        '
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147012283_420498444
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_import_mn_discounttype"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-05-24T13:33:14+03:00
+      DISPLAYSCRIPT: | 
+        SF_IMPORT_MN_DISCOUNTTYPE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include bri_Sync_AddRuid
+        function Sf_import_mn_discounttype(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+          set ibsql_mn_discountname = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql_mn_discountname.Transaction = Transaction
+          ibsql_mn_discountname.SQL.Text = _
+            "select v.*, p.* " & _
+            "from " & _
+            "  USR$MN_DISCOUNTNAME v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 "
+        
+          set ibsqlGet_mn_discountname = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_mn_discountname.Transaction = OurTr
+          ibsqlGet_mn_discountname.SQL.Text = _
+            "select v.* FROM usr$mn_discountname v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          dim qDiscName
+          set qDiscName = Creator.GetObject(nil, "TIBSQL", "")
+          qDiscName.Transaction = OurTr
+          qDiscName.SQL.Text = _
+            " UPDATE OR INSERT INTO USR$MN_DISCOUNTNAME (ID, USR$NAME, DISABLED) " & _
+            " VALUES (:ID, :USR$NAME, :DISABLED) " & _
+            " MATCHING (ID)"
+        
+          ibsql_mn_discountname.ExecQuery
+          dim isAddSynch
+          'названия скидок
+          while not ibsql_mn_discountname.EOF
+            ibsqlGet_mn_discountname.Close
+            ibsqlGet_mn_discountname.ParamBYName("xid").AsInteger = ibsql_mn_discountname.FieldBYName("xid").ASInteger
+            ibsqlGet_mn_discountname.ParamBYName("dbid").AsInteger = ibsql_mn_discountname.FieldBYName("dbid").ASInteger
+            ibsqlGet_mn_discountname.ExecQuery
+            isAddSynch = false
+            if ibsqlGet_mn_discountname.EOF then
+              NewId = gdcBaseManager.GetNextID
+              isAddSynch = True
+            else
+              NewId = ibsqlGet_mn_discountname.FieldByName("id").AsInteger
+            end if
+            qDiscName.Close
+            qDiscName.ParamByName("ID").asInteger = NewId
+            qDiscName.ParamBYName("USR$NAME").AsVariant = ibsql_mn_discountname.FieldByName("USR$NAME").AsVariant
+            qDiscName.ParamBYName("DISABLED").AsVariant = ibsql_mn_discountname.FieldByName("DISABLED").AsVariant
+            qDiscName.ExecQuery
+        
+            ' синхронизируем руид, если был добавлен
+            if isAddSynch Then _
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsql_mn_discountname.FieldBYName("xid").ASInteger, ibsql_mn_discountname.FieldBYName("dbid").ASInteger)
+            ibsql_mn_discountname.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+          '''''''''''''''''''''''''''''
+          ' синхронизация типов скидок
+        
+          set ibsql_mn_discounttype = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql_mn_discounttype.Transaction = Transaction
+          ibsql_mn_discounttype.SQL.Text = _
+            "select v.*, p.*,  n.xid as n_xid, n.dbid as n_dbid " & _
+            "from " & _
+            "  USR$MN_DISCOUNTTYPE v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 " & _
+            "  left join GD_P_GETRUID(v.USR$DISCOUNTNAMEKEY) n on 1 = 1  "
+        
+          set ibsqlGet_mn_discounttype = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_mn_discounttype.Transaction = OurTr
+          ibsqlGet_mn_discounttype.SQL.Text = _
+            "select v.* FROM usr$mn_discounttype v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+        
+          dim qDiscType
+          set qDiscType = Creator.GetObject(nil, "TIBSQL", "")
+          qDiscType.Transaction = OurTr
+          qDiscType.SQL.Text = _
+            " UPDATE OR INSERT INTO usr$mn_discounttype (ID, USR$DISCOUNTNAMEKEY, USR$PERCENT, DISABLED, USR$QUEUE, USR$FROMDATE, USR$TODATE, USR$ISACCUMULATING, USR$LIMITTIME, USR$BEGINTIME,USR$ENDTIME, USR$ONLYWORKDAY, USR$AUTOMAKE, USR$ISINDIVIDUALPERC, USR$ISSECONDPRICE, USR$DAYS, USR$LIMITDAYS) " & _
+            " VALUES (:ID, :USR$DISCOUNTNAMEKEY, :USR$PERCENT, :DISABLED, :USR$QUEUE, :USR$FROMDATE, :USR$TODATE, :USR$ISACCUMULATING, :USR$LIMITTIME, :USR$BEGINTIME, :USR$ENDTIME, :USR$ONLYWORKDAY, :USR$AUTOMAKE, :USR$ISINDIVIDUALPERC, :USR$ISSECONDPRICE, :USR$DAYS, :USR$LIMITDAYS) " & _
+            " matching (ID)"
+        
+        
+          set qGetContact = Creator.GetObject(NULL, "TIBSQL", "")
+          qGetContact.Transaction = Transaction
+          qGetContact.SQL.Text = _
+          "select v.* FROM gd_contact v JOIN gd_ruid r on v.id = r.id " & _
+          " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+        
+          ibsql_mn_discounttype.ExecQuery
+          while not ibsql_mn_discounttype.EOF
+        
+            ibsqlGet_mn_discounttype.Close
+            ibsqlGet_mn_discounttype.ParamBYName("xid").AsInteger = ibsql_mn_discounttype.FieldBYName("xid").ASInteger
+            ibsqlGet_mn_discounttype.ParamBYName("dbid").AsInteger = ibsql_mn_discounttype.FieldBYName("dbid").ASInteger
+            ibsqlGet_mn_discounttype.ExecQuery
+        
+            isAddSynch = false
+            if ibsqlGet_mn_discounttype.EOF then
+              NewId2 = gdcBaseManager.GetNextID
+              isAddSynch = True
+            else
+              NewId2 = ibsqlGet_mn_discounttype.FieldByName("id").AsInteger
+            end if
+        
+            ' ищем ID нахвания карты
+              ibsqlGet_mn_discountname.Close
+              ibsqlGet_mn_discountname.ParamBYName("xid").AsInteger = ibsql_mn_discounttype.FieldBYName("n_xid").ASInteger
+              ibsqlGet_mn_discountname.ParamBYName("dbid").AsInteger = ibsql_mn_discounttype.FieldBYName("n_dbid").ASInteger
+              ibsqlGet_mn_discountname.ExecQuery
+        
+              qDiscType.Close
+              qDiscType.ParamBYName("ID").AsInteger = NewId2
+              qDiscType.ParamBYName("USR$DISCOUNTNAMEKEY").AsInteger = ibsqlGet_mn_discountname.FieldByName("ID").AsInteger
+              qDiscType.ParamBYName("USR$PERCENT").AsVariant = ibsql_mn_discounttype.FieldByName("USR$PERCENT").AsVariant
+              qDiscType.ParamBYName("DISABLED").AsVariant = ibsql_mn_discounttype.FieldByName("DISABLED").AsVariant
+              qDiscType.ParamBYName("USR$QUEUE").AsVariant = ibsql_mn_discounttype.FieldByName("USR$QUEUE").AsVariant
+              qDiscType.ParamBYName("USR$FROMDATE").AsVariant = ibsql_mn_discounttype.FieldByName("USR$FROMDATE").AsVariant
+              qDiscType.ParamBYName("USR$TODATE").AsVariant = ibsql_mn_discounttype.FieldByName("USR$TODATE").AsVariant
+              qDiscType.ParamBYName("USR$ISACCUMULATING").AsVariant = ibsql_mn_discounttype.FieldByName("USR$ISACCUMULATING").AsVariant
+              qDiscType.ParamBYName("USR$LIMITTIME").AsVariant = ibsql_mn_discounttype.FieldByName("USR$LIMITTIME").AsVariant
+              qDiscType.ParamBYName("USR$BEGINTIME").AsVariant = ibsql_mn_discounttype.FieldByName("USR$BEGINTIME").AsVariant
+              qDiscType.ParamBYName("USR$ENDTIME").AsVariant = ibsql_mn_discounttype.FieldByName("USR$ENDTIME").AsVariant
+              qDiscType.ParamBYName("USR$ONLYWORKDAY").AsVariant = ibsql_mn_discounttype.FieldByName("USR$ONLYWORKDAY").AsVariant
+              qDiscType.ParamBYName("USR$AUTOMAKE").AsVariant = ibsql_mn_discounttype.FieldByName("USR$AUTOMAKE").AsVariant
+              qDiscType.ParamBYName("USR$ISINDIVIDUALPERC").AsVariant = null' ibsql_mn_discounttype.FieldByName("USR$ISINDIVIDUALPERC").AsVariant
+              qDiscType.ParamBYName("USR$ISSECONDPRICE").AsVariant = null 'ibsql_mn_discounttype.FieldByName("USR$ISSECONDPRICE").AsVariant
+              qDiscType.ParamBYName("USR$DAYS").AsVariant = null 'ibsql_mn_discounttype.FieldByName("USR$DAYS").AsVariant
+              qDiscType.ParamBYName("USR$LIMITDAYS").AsVariant = null 'ibsql_mn_discounttype.FieldByName("USR$LIMITDAYS").AsVariant
+              qDiscType.ExecQuery
+        
+              if isAddSynch Then _
+                call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId2, ibsql_mn_discounttype.FieldBYName("xid").ASInteger, ibsql_mn_discounttype.FieldBYName("dbid").ASInteger)
+            ibsql_mn_discounttype.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 155657732_1875384224
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "wst_Synch_DiscCard"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-05-24T17:03:43+03:00
+      DISPLAYSCRIPT: | 
+        WST_SYNCH_DISCCARD
+        WST_SYNCH_DISCCARD_EXC
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include SF_IMPORT_EMPLOYER
+        '#include SF_IMPORT_GD_PEOPLE
+        '#include SF_IMPORT_GD_CONTACT
+        '#include SF_IMPORT_MN_DISCOUNTTYPE
+        '#include SF_IMPORT_MN_DISCOUNTCARD
+        Option Explicit
+        ' будет подключаться к основной базе и синхронизировать дисконтные карты
+        Function wst_Synch_DiscCard
+        
+          Dim Creator
+          Set Creator = New TCreator
+        
+          If Assigned(mn_ActionsList) Then Call mn_ActionsList.AddToLog(95, Null, Null, "Начало", mn_Options.UserKey)
+        
+          Dim Transaction
+          Set Transaction = Creator.GetObject(Null, "TIBTransaction", "Transaction")
+          Transaction.Params.Add("nowait")
+        '  Transaction.Params.Add("rec_version")
+        '  Transaction.Params.Add("read_committed")
+          
+          Dim OurTransaction
+          Set OurTransaction = Creator.GetObject(Null, "TIBTransaction", "OurTransaction")
+          OurTransaction.Params.Add("nowait")
+          OurTransaction.Params.Add("rec_version")
+          OurTransaction.Params.Add("read_committed")
+          OurTransaction.DefaultDatabase = gdcBaseManager.Database
+          OurTransaction.StartTransaction
+        
+          Dim Database
+          Set Database = Creator.GetObject(Null, "TIBDatabase", "")
+        
+          Database.DatabaseName = "D:/Gedemin/Base/Westa/MEDK16_05_22.FDB"
+          Database.DefaultTransaction = Transaction
+          Database.Params.Add("user_name=SYSDBA")
+          Database.Params.Add("password=masterkey")
+          Database.Params.Add("lc_ctype=win1251")
+          Database.LoginPrompt = False
+          
+          Except wst_Synch_DiscCard_Exc(Transaction, OurTransaction)
+        
+          Database.Open
+            If Err.Number <> 0 Then
+              Call GlobalStorage.WriteString("Menu_Option\Synchronization\RepeatInterval", "ErrorConnectionTime", Cstr(Timer))
+              Call GlobalStorage.WriteString("Menu_Option\Synchronization\RepeatInterval", "ErrorConnectionDate", Cstr(Date))
+        
+              If Assigned(mn_ActionsList) Then Call mn_ActionsList.AddToLog(95, Null, Null, "Ошибка связи!", mn_Options.UserKey)
+              Exit Function
+            End If
+          ON ERROR GOTO 0
+          Call GlobalStorage.WriteString("Menu_Option\Synchronization\RepeatInterval", "ErrorConnectionTime", "")
+          Call GlobalStorage.WriteString("Menu_Option\Synchronization\RepeatInterval", "ErrorConnectionDate", "")
+        
+          If Not OurTransaction.InTransaction Then OurTransaction.StartTransaction
+          If Not Transaction.InTransaction Then Transaction.StartTransaction
+          
+          dim ibsqlInsRUID
+          set ibsqlInsRUID = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlInsRUID.Transaction = OurTransaction
+          ibsqlInsRUID.SQL.Text = _
+            "EXECUTE BLOCK(ID INTEGER = :ID, XID INTEGER = :XID, DBID INTEGER = :DBID) " & _
+            "AS " & _
+            "BEGIN " & _
+            "  IF (EXISTS(SELECT * FROM GD_RUID WHERE ID = :ID))  THEN " & _
+            "    UPDATE GD_RUID " & _
+            "    SET XID = :XID, " & _
+            "        DBID = :DBID " & _
+            "    WHERE ID = :ID; " & _
+            "  ELSE " & _
+            "    INSERT INTO gd_ruid(id, xid, dbid, modified, editorkey) VALUES (:ID, :XID, :DBID, 'now', 650002); " & _
+            "END "
+        
+          dim ibsqlDelRUID
+          set ibsqlDelRUID = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlDelRUID.Transaction = OurTransaction
+          ibsqlDelRUID.SQL.Text = "DELETE FROM gd_ruid r where xid = :xid and dbid = :dbid"
+        
+          call sf_import_employer(Transaction, OurTransaction, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          
+          call Sf_import_mn_discounttype(Transaction, OurTransaction, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          call Sf_import_mn_discountcard(Transaction, OurTransaction, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          
+          
+          If Transaction.InTransaction Then Transaction.Commit
+          If OurTransaction.InTransaction Then OurTransaction.Commit
+          Database.DestroyObject
+        End Function
+        
+        sub wst_Synch_DiscCard_Exc(Tr, OurTr)
+          If Tr.InTransaction Then Tr.Rollback
+          If OurTr.InTransaction Then OurTr.Rollback
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "155659624_1875384224 sf_import_employer"
+          - 
+            ADDFUNCTIONKEY: "147012444_420498444 Sf_import_gd_people"
+          - 
+            ADDFUNCTIONKEY: "147012286_420498444 Sf_import_gd_contact"
+          - 
+            ADDFUNCTIONKEY: "147012283_420498444 Sf_import_mn_discounttype"
+          - 
+            ADDFUNCTIONKEY: "147012285_420498444 Sf_import_mn_discountcard"
