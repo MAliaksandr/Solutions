@@ -5,10 +5,10 @@ Properties:
   RUID: 155186501_1885979296
   Name: "GS.PositiveCheck.Клиентские решения.Westa.Обмен данными.Дисконтные карты"
   Caption: "GS.PositiveCheck.Клиентские решения.Westa.Обмен данными.Дисконтные карты"
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: FC7ADEFCB983F547FC6473BECE7E3EFB
+  MD5: F1708C20870BAF99538D1AD3F9E3CCBC
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: ~
-      EDITIONDATE: 2022-05-23T10:58:40+03:00
+      EDITIONDATE: 2022-05-24T10:39:49+03:00
       DISPLAYSCRIPT: | 
         SF_IMPORT_MN_DISCOUNTTYPE
         
@@ -172,8 +172,8 @@ Objects:
               qDiscType.ParamBYName("USR$ENDTIME").AsVariant = ibsql_mn_discounttype.FieldByName("USR$ENDTIME").AsVariant
               qDiscType.ParamBYName("USR$ONLYWORKDAY").AsVariant = ibsql_mn_discounttype.FieldByName("USR$ONLYWORKDAY").AsVariant
               qDiscType.ParamBYName("USR$AUTOMAKE").AsVariant = ibsql_mn_discounttype.FieldByName("USR$AUTOMAKE").AsVariant
-              qDiscType.ParamBYName("USR$ISINDIVIDUALPERC").AsVariant = null' ibsql_mn_discounttype.FieldByName("USR$ISINDIVIDUALPERC").AsVariant
-              qDiscType.ParamBYName("USR$ISSECONDPRICE").AsVariant = null 'ibsql_mn_discounttype.FieldByName("USR$ISSECONDPRICE").AsVariant
+              qDiscType.ParamBYName("USR$ISINDIVIDUALPERC").AsVariant = null 'ibsql_mn_discounttype.FieldByName("USR$ISINDIVIDUALPERC").AsVariant
+              qDiscType.ParamBYName("USR$ISSECONDPRICE").AsVariant = ibsql_mn_discounttype.FieldByName("USR$ISSECONDPRICE").AsVariant
               qDiscType.ParamBYName("USR$DAYS").AsVariant = null 'ibsql_mn_discounttype.FieldByName("USR$DAYS").AsVariant
               qDiscType.ParamBYName("USR$LIMITDAYS").AsVariant = null 'ibsql_mn_discounttype.FieldByName("USR$LIMITDAYS").AsVariant
               qDiscType.ExecQuery
@@ -326,3 +326,68 @@ Objects:
         Items: 
           - 
             ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 153785540_1605708402
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_Update_DiscCross"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-05-24T12:34:20+03:00
+      DISPLAYSCRIPT: | 
+        SF_UPDATE_DISCCROSS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
+        U1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Function Sf_Update_DiscCross(ByRef OurTr, Creator)
+        
+          set ibsqlUpd = Creator.GetObject(null, "TIBSQL", "")
+          ibsqlUpd.Transaction = OurTr
+          ibsqlUpd.SQL.Text = _
+            "execute block " & _
+            "as " & _
+            "declare variable mlinekey integer; " & _
+            "declare variable DISCNAMEKEY integer; " & _
+            " " & _
+            "begin " & _
+            "EXECUTE PROCEDURE GD_P_GETID(180139985, 1192700761) RETURNING_VALUES :DISCNAMEKEY; " & _
+            "  FOR " & _
+            "    SELECT " & _
+            "      ml.DOCUMENTKEY " & _
+            "    FROM USR$MN_MENU m " & _
+            "    JOIN USR$MN_MENULINE ML on ml.MASTERKEY = m.DOCUMENTKEY " & _
+            "    where coalesce(m.USR$NOTACTIVE,0)=0 " & _
+            "    AND ml.USR$SUMWITHDESC<>0 " & _
+            "    into :mlinekey " & _
+            "  DO " & _
+            "  BEGIN " & _
+            "    DELETE from USR$MN_MLINE_DISCCROSS WHERE USR$MENULINEKEY = :mlinekey; " & _
+            "    INSERT INTO USR$MN_MLINE_DISCCROSS(USR$MENULINEKEY, USR$DISCOUNTNAMEKEY) " & _
+            "    VALUES(:mlinekey, :DISCNAMEKEY); " & _
+            "  END " & _
+            "END "
+          ibsqlUpd.ExecQuery
+          
+          if OurTr.InTransaction then OurTr.CommitRetaining
+          
+        End Function
+        
