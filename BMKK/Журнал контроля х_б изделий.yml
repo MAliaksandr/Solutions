@@ -1,0 +1,5031 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 1361158617_1818884808
+  Name: "Журнал контроля х/б изделий"
+  Caption: "Журнал контроля х/б изделий"
+  Version: "1.0.0.10"
+  Optional: False
+  Internal: True
+  MD5: 41B1249C219EE0EA210B6F4841A77238
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 1361158256_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_BREAD_INDICATION"
+      EDITIONDATE: 2022-06-17T16:42:54+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_BREAD_INDICATION 
+        RETURNS ( 
+            ID SMALLINT,
+            NAME VARCHAR(60))
+         AS
+        BEGIN
+          ID = 1;
+          NAME = 'Цвет';
+          SUSPEND;
+        
+          ID = 2;
+          NAME = 'Пропеченность';
+          SUSPEND;
+        
+          ID = 3;
+          NAME = 'Промес';
+          SUSPEND;
+        
+          ID = 4;
+          NAME = 'Пористость';
+          SUSPEND;
+          
+          ID = 5;
+          NAME = 'Соответствие вкус и запах';
+          SUSPEND;
+        
+          ID = 0;
+          NAME = 'Прочее';
+          SUSPEND;
+        
+        END
+      RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 1361157844_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "1361158586_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники\\Внешний вид(форма и поверхность)"
+      DESCRIPTION: "USR$GOODVIEWFORM"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      ISCREATECOMMAND: 0
+      LISTFIELD: ~
+      LNAME: "Внешний вид(форма и поверхность)"
+      LSHORTNAME: "Внешний вид(форма и поверхность)"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$GOODVIEWFORM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2022-06-17T13:46:12+03:00
+  - 
+    Properties: 
+      Class: "TgdcSimpleTable"
+      RUID: 1361158257_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "1361158258_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники\\Показатели х/б изделий"
+      DESCRIPTION: "USR$BREADINDICATION"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      ISCREATECOMMAND: 0
+      LISTFIELD: ~
+      LNAME: "Показатели х/б изделий"
+      LSHORTNAME: "Показатели х/б изделий"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$BREADINDICATION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2022-06-17T10:43:08+03:00
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 1361158270_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "USR$DBREADINDICATION"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$DBREADINDICATION"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Показатели х/б изделий"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Показатели х/б изделий"
+      REFTABLE: "USR$BREADINDICATION"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:06:04+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 1361158037_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
+      COLWIDTH: 20
+      DESCRIPTION: "USR$DGOODVIEWFORM"
+      FCHARLENGTH: 60
+      FFIELDTYPE: 37
+      FIELDNAME: "USR$DGOODVIEWFORM"
+      FLAG: ~
+      FLENGTH: 60
+      FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Внешний вид (форма)"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: "USR$NAME"
+      SETLISTFIELDKEY: "1361157845_1818884808 Наименование, USR$GOODVIEWFORM.USR$NAME"
+      SETLISTLNAME: "Внешний вид(форма и поверхность)"
+      SETTABLE: "USR$GOODVIEWFORM"
+      SETTABLEKEY: "1361157844_1818884808 Внешний вид(форма и поверхность), USR$GOODVIEWFORM"
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:06:14+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcUnknownTable"
+      RUID: 1361158040_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "USR$CROSS2076_1818884808"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      ISCREATECOMMAND: 0
+      LISTFIELD: ~
+      LNAME: "USR$CROSS2076_1818884808"
+      LSHORTNAME: "USR$CROSS2076_1818884808"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$CROSS2076_1818884808"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2022-06-16T14:40:27+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158156_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "CASCADE    "
+      DESCRIPTION: "USR$PD_BREADCONTOLLINEKEY"
+      FIELDNAME: "USR$PD_BREADCONTOLLINEKEY"
+      FIELDSOURCE: "DINTKEY"
+      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "USR$PD_BREADCONTOLLINEKEY"
+      LSHORTNAME: ~
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: ~
+      RELATIONNAME: "USR$CROSS2076_1818884808"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T14:40:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158157_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT   "
+      DESCRIPTION: "USR$GOODVIEWFORMKEY"
+      FIELDNAME: "USR$GOODVIEWFORMKEY"
+      FIELDSOURCE: "DINTKEY"
+      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "USR$GOODVIEWFORMKEY"
+      LSHORTNAME: ~
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: ~
+      RELATIONNAME: "USR$CROSS2076_1818884808"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: 1
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T14:40:40+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158260_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$TYPE"
+      FIELDNAME: "USR$TYPE"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Тип"
+      LSHORTNAME: "Тип"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361158257_1818884808 Показатели х/б изделий, USR$BREADINDICATION"
+      RELATIONNAME: "USR$BREADINDICATION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T10:45:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158259_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$NAME"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Наименование"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361158257_1818884808 Показатели х/б изделий, USR$BREADINDICATION"
+      RELATIONNAME: "USR$BREADINDICATION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T10:44:17+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361157845_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$NAME"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Текст (60)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157844_1818884808 Внешний вид(форма и поверхность), USR$GOODVIEWFORM"
+      RELATIONNAME: "USR$GOODVIEWFORM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T11:13:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcDocumentTable"
+      RUID: 1361157790_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "USR$PD_BREADCONTOL"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      ISCREATECOMMAND: 0
+      LISTFIELD: ~
+      LNAME: "07. Журнал контроля качества хлеба"
+      LSHORTNAME: "07. Журнал контроля качества хлеба"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$PD_BREADCONTOL"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2022-06-16T10:50:11+03:00
+  - 
+    Properties: 
+      Class: "TgdcDocumentLineTable"
+      RUID: 1361157791_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "USR$PD_BREADCONTOLLINE"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      ISCREATECOMMAND: 0
+      LISTFIELD: ~
+      LNAME: "07. Журнал контроля качества хлеба(позиция)"
+      LSHORTNAME: "07. Журнал контроля качества хлеба(позиция)"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2022-06-16T10:50:27+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158248_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$CRUNCH"
+      FIELDNAME: "USR$CRUNCH"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Хруст от мин.примесей"
+      LSHORTNAME: "Логическое"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T18:15:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158271_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$COLOR"
+      FIELDNAME: "USR$COLOR"
+      FIELDSOURCE: "USR$DBREADINDICATION"
+      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Цвет"
+      LSHORTNAME: "Цвет"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$BREADINDICATION"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T10:57:54+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361157814_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$GOODKEY"
+      FIELDNAME: "USR$GOODKEY"
+      FIELDSOURCE: "USR$GS_DGOOD"
+      FIELDSOURCEKEY: "147035009_9802323 Товар, USR$GS_DGOOD"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcGood"
+      GDSUBTYPE: ~
+      LNAME: "Товар"
+      LSHORTNAME: "Товар"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_GOOD"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T11:05:59+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158290_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$BERKARY"
+      FIELDNAME: "USR$BERKARY"
+      FIELDSOURCE: "USR$DBREADINDICATION"
+      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Пропеченность"
+      LSHORTNAME: "Пропеченность"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$BREADINDICATION"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T11:14:09+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158291_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$TASTEINDICATE"
+      FIELDNAME: "USR$TASTEINDICATE"
+      FIELDSOURCE: "USR$DBREADINDICATION"
+      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Соотвествие вкус и запах"
+      LSHORTNAME: "Соотвествие вкус и з"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$BREADINDICATION"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T11:16:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158272_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KNEAD"
+      FIELDNAME: "USR$KNEAD"
+      FIELDSOURCE: "USR$DBREADINDICATION"
+      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Промес"
+      LSHORTNAME: "Промес"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$BREADINDICATION"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T10:59:35+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158249_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$STIGMA"
+      FIELDNAME: "USR$STIGMA"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Признаки болезни, плесни"
+      LSHORTNAME: "Логическое"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T18:19:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158247_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$OTHERINCLUCION"
+      FIELDNAME: "USR$OTHERINCLUCION"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Постороние включения"
+      LSHORTNAME: "Логическое"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:13:28+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158251_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$POROSITY"
+      FIELDNAME: "USR$POROSITY"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Пористость мякиша, %"
+      LSHORTNAME: "Пористость мякиша, %"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:13:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158288_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$POROSITYM"
+      FIELDNAME: "USR$POROSITYM"
+      FIELDSOURCE: "USR$DBREADINDICATION"
+      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Пористость"
+      LSHORTNAME: "Пористость"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$BREADINDICATION"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:13:50+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158254_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$SUGAR"
+      FIELDNAME: "USR$SUGAR"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "м.д. сахара, %"
+      LSHORTNAME: "м.д. сахара, %"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:14:00+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158253_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$FAT"
+      FIELDNAME: "USR$FAT"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "М.д. жира, %"
+      LSHORTNAME: "М.д. жира, %"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:14:10+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158252_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$OXIGEN"
+      FIELDNAME: "USR$OXIGEN"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Кислородность Град."
+      LSHORTNAME: "Кислородность Град."
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:14:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158296_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$NTDKEY"
+      FIELDNAME: "USR$NTDKEY"
+      FIELDSOURCE: "USR$OT_DNTD"
+      FIELDSOURCEKEY: "147155502_917570444 Технический документ, USR$OT_DNTD"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Заключение(СТБ/ГОСТ)"
+      LSHORTNAME: "Заключение(СТБ/ГОСТ)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$CODE"
+      REFRELATIONNAME: "USR$OT_NTD"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:14:33+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158255_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$TIMETEST"
+      FIELDNAME: "USR$TIMETEST"
+      FIELDSOURCE: "DTIME"
+      FIELDSOURCEKEY: "147000165_31587988 Время, DTIME"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Время пров.испытаний"
+      LSHORTNAME: "Время пров.испытаний"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:14:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158039_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: "USR$NAME"
+      CROSSFIELDKEY: ~
+      CROSSTABLE: "USR$CROSS2076_1818884808"
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$GOODVIEWFORMKEY"
+      FIELDNAME: "USR$GOODVIEWFORMKEY"
+      FIELDSOURCE: "USR$DGOODVIEWFORM"
+      FIELDSOURCEKEY: "1361158037_1818884808 Внешний вид (форма), USR$DGOODVIEWFORM"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Внешний вид(форма)"
+      LSHORTNAME: "Внешний вид (форма)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: "USR$GOODVIEWFORM"
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: "USR$NAME"
+      SETLISTFIELDKEY: "1361157845_1818884808 Наименование, USR$GOODVIEWFORM.USR$NAME"
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:14:55+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158250_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$HUMIDITY"
+      FIELDNAME: "USR$HUMIDITY"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Влажность мякиша, %"
+      LSHORTNAME: "Влажность мякиша, %"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:15:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcUserDocumentType"
+      RUID: 1361157789_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147021569_840530749 Документы ПД\\Хлебобулочное производство"
+      NAME: "07. Журнал контроля качества хлеба"
+      ADDNUMBER: 1
+      BRANCHKEY: "1361158654_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Документы\\07. Журнал контроля качества хлеба"
+      CLASSNAME: "TgdcUserDocumentType"
+      DESCRIPTION: ~
+      DOCUMENTTYPE: "D"
+      FIXLENGTH: ~
+      HEADERFUNCTIONKEY: ~
+      HEADERRELKEY: "1361157790_1818884808 07. Журнал контроля качества хлеба, USR$PD_BREADCONTOL"
+      ISCHECKNUMBER: 0
+      ISCOMMON: 0
+      LINEFUNCTIONKEY: ~
+      LINERELKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      MASK: "\"NUMBER\""
+      REPORTGROUPKEY: "1361157792_1818884808 Документы пользователя\\07. Журнал контроля качества хлеба"
+      RUID: "1361157789_1818884808"
+      EDITIONDATE: 2022-06-17T16:15:28+03:00
+      DISABLED: 0
+      HEADERFUNCTIONTEMPLATE: ~
+      LINEFUNCTIONTEMPLATE: ~
+      OPTIONS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361158716_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147057842_1633690722 GLOBAL\\DFM\\Tgdc_frmUserComplexDocument"
+      NAME: "1361157789_1818884808"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T16:15:49+03:00
+      BLOB_DATA: | 
+        object gdc_frmUserComplexDocument1361157789_1818884808: Tgdc_frmUserComplexDocument
+          PixelsPerInch = 96
+          TextHeight = 13
+          object sbMain: TStatusBar
+            Panels = <
+              item
+                Text = 'Нет фильтрации'
+                Width = 982
+              end
+              item
+                Width = 160
+              end>
+          end
+          object TBDockTop: TTBDock
+            object tbMainToolbar: TTBToolbar
+              SavedAtRunTime = True
+              object tbiNew: TTBItem
+              end
+              object tbiEdit: TTBItem
+              end
+              object tbiDelete: TTBItem
+              end
+              object tbiDuplicate: TTBItem
+              end
+              object tbiReduction: TTBItem
+              end
+              object tbsiMainOne: TTBSeparatorItem
+              end
+              object tbiEditInGrid: TTBItem
+              end
+              object tbiCopy: TTBItem
+              end
+              object tbiCut: TTBItem
+              end
+              object tbiPaste: TTBItem
+              end
+              object tbsiMainOneAndHalf: TTBSeparatorItem
+              end
+              object tbiLoadFromFile: TTBItem
+              end
+              object tbiSaveToFile: TTBItem
+              end
+              object tbsiMainTwo: TTBSeparatorItem
+              end
+              object tbiFind: TTBItem
+              end
+              object tbiFilter: TTBItem
+              end
+              object tbiPrint: TTBItem
+              end
+              object tbiOnlySelected: TTBItem
+              end
+              object tbiLinkObject: TTBItem
+              end
+              object tbsiMainThreeAndAHalf: TTBSeparatorItem
+              end
+              object tbiHelp: TTBItem
+              end
+            end
+            object tbMainCustom: TTBToolbar
+              SavedAtRunTime = True
+            end
+            object tbMainMenu: TTBToolbar
+              SavedAtRunTime = True
+              object tbsiMainMenuObject: TTBSubmenuItem
+                object tbi_mm_New: TTBItem
+                end
+                object tbi_mm_Edit: TTBItem
+                end
+                object tbi_mm_Delete: TTBItem
+                end
+                object tbi_mm_Duplicate: TTBItem
+                end
+                object tbi_mm_Reduction: TTBItem
+                end
+                object tbi_mm_sep1_1: TTBSeparatorItem
+                end
+                object tbi_mm_Copy: TTBItem
+                end
+                object tbi_mm_Cut: TTBItem
+                end
+                object tbi_mm_Paste: TTBItem
+                end
+                object tbi_mm_sep2_2_: TTBSeparatorItem
+                end
+                object tbi_mm_AddToSelected: TTBItem
+                end
+                object tbi_mm_RemoveFromSelected: TTBItem
+                end
+                object tbi_mm_sep2_1: TTBSeparatorItem
+                end
+                object tbi_mm_Load: TTBItem
+                end
+                object tbi_mm_Save: TTBItem
+                end
+                object tbi_mm_sep3_1: TTBSeparatorItem
+                end
+                object tbi_mm_Commit: TTBItem
+                end
+                object tbi_mm_Rollback: TTBItem
+                end
+                object tbi_mm_sep4_1: TTBSeparatorItem
+                end
+                object tbi_mm_Find: TTBItem
+                end
+                object tbi_mm_Filter: TTBItem
+                end
+                object tbi_mm_Print: TTBItem
+                end
+                object tbi_mm_Macro: TTBItem
+                end
+                object tbi_mm_OnlySelected: TTBItem
+                end
+                object tbi_mm_LinkObject: TTBItem
+                end
+                object tbi_mm_sep5_1: TTBSeparatorItem
+                end
+                object tbi_mm_MainToSetting: TTBItem
+                end
+                object tbi_mm_sep5_2_: TTBSeparatorItem
+                end
+                object tbi_mm_CopySettings: TTBItem
+                end
+                object tbiDistributeSettings: TTBItem
+                end
+                object tbiDontSaveSettings: TTBItem
+                end
+              end
+              object tbsiMainMenuDetailObject: TTBSubmenuItem
+                object tbi_mm_DetailNew: TTBItem
+                end
+                object tbi_mm_DetailEdit: TTBItem
+                end
+                object tbi_mm_DetailDelete: TTBItem
+                end
+                object tbi_mm_DetailDuplicate: TTBItem
+                end
+                object tbi_mm_DetailReduction: TTBItem
+                end
+                object tbi_mm_DetailSep1: TTBSeparatorItem
+                end
+                object tbi_mm_DetailCopy: TTBItem
+                end
+                object tbi_mm_DetailCut: TTBItem
+                end
+                object tbi_mm_DetailPaste: TTBItem
+                end
+                object tbi_mm_DetailSep2: TTBSeparatorItem
+                end
+                object m_DetailLoadFromFile: TTBItem
+                end
+                object m_DetailSaveToFile: TTBItem
+                end
+                object TBSeparatorItem1: TTBSeparatorItem
+                end
+                object tbi_mm_DetailFind: TTBItem
+                end
+                object tbi_mm_DetailFilter: TTBItem
+                end
+                object tbi_mm_DetailPrint: TTBItem
+                end
+                object tbiDetailMenuAddToSelected: TTBItem
+                end
+              end
+              object tbsiMainMenuHelp: TTBSubmenuItem
+                object tbiMainMenuHelp: TTBItem
+                end
+              end
+            end
+            object tbMainInvariant: TTBToolbar
+              SavedAtRunTime = True
+              object tbiCommit: TTBItem
+              end
+              object tbiRollback: TTBItem
+              end
+              object tbsiMainThree: TTBSeparatorItem
+              end
+              object tbiMacros: TTBItem
+              end
+              object TBItem1: TTBItem
+              end
+              object TBItem3: TTBItem
+              end
+            end
+            object tbChooseMain: TTBToolbar
+              SavedAtRunTime = True
+              object tbiSelectAll: TTBItem
+              end
+              object tbiUnSelectAll: TTBItem
+              end
+              object tbiClearSelection: TTBItem
+              end
+            end
+          end
+          object TBDockLeft: TTBDock
+          end
+          object TBDockRight: TTBDock
+          end
+          object TBDockBottom: TTBDock
+          end
+          object pnlWorkArea: TPanel
+            object sMasterDetail: TSplitter
+            end
+            object spChoose: TSplitter
+              Top = 624
+              Width = 1142
+            end
+            object pnlMain: TPanel
+              object pnlSearchMain: TPanel
+                object sbSearchMain: TScrollBox
+                end
+                object pnlSearchMainButton: TPanel
+                  object btnSearchMain: TButton
+                  end
+                  object btnSearchMainClose: TButton
+                  end
+                  object chbxFuzzyMatch: TCheckBox
+                  end
+                end
+              end
+              object ibgrMain: TgsIBGrid
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <>
+                Aliases = <>
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'NUMBER'
+                    ReadOnly = False
+                    Title.Caption = 'Номер'
+                    Width = 124
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата'
+                    Width = 94
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$MN_PRINTDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата печати (Документы)'
+                    Width = 294
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID'
+                    ReadOnly = False
+                    Title.Caption = 'Ключ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PARENT'
+                    ReadOnly = False
+                    Title.Caption = 'Родитель'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTTYPEKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Тип документа'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRTYPEKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Тип транзакции'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRANSACTIONKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Транзакция'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCRIPTION'
+                    ReadOnly = False
+                    Title.Caption = 'Описание'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMNCU'
+                    ReadOnly = False
+                    Title.Caption = 'Сумма в НДЕ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMCURR'
+                    ReadOnly = False
+                    Title.Caption = 'Сумма в валюте'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMEQ'
+                    ReadOnly = False
+                    Title.Caption = 'Сумма в эквиваленте'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DELAYED'
+                    ReadOnly = False
+                    Title.Caption = 'Отложенный'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CURRKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Валюта'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'COMPANYKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Компания'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATORKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Кто создал'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATIONDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата создания'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITORKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Кто исправил'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITIONDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата изменения'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PRINTDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата печати'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DISABLED'
+                    ReadOnly = False
+                    Title.Caption = 'Отключено'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED'
+                    ReadOnly = False
+                    Title.Caption = 'Зарезервировано'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTKEY'
+                    Title.Caption = 'Идентификатор'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED1'
+                    Title.Caption = 'Зарезервировано (07. Журнал контроля качества хлеба)'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BER_DOCKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Документ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SORTNUMBER'
+                    ReadOnly = False
+                    Title.Caption = 'Номер для сортировки'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EVAT_OUT'
+                    ReadOnly = False
+                    Title.Caption = 'Статус исх. ЭСЧФ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$EVAT_OUT_USR$NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Наименование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EVAT_SUM'
+                    ReadOnly = False
+                    Title.Caption = 'Подтвержденная сумма по ЭСЧФ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EQRATE'
+                    ReadOnly = False
+                    Title.Caption = 'Курс эквивалента'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BRI_1C_MOVED'
+                    ReadOnly = False
+                    Title.Caption = 'перенесено в 1с'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BTE_ISINTERNAL'
+                    ReadOnly = False
+                    Title.Caption = 'Внутренний документ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GS_WITHOUTEVAT'
+                    ReadOnly = False
+                    Title.Caption = 'К зачету без счет-фактуры'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BTE_ISCONFIRM'
+                    ReadOnly = False
+                    Title.Caption = 'Документ подтвержден'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AFULL'
+                    ReadOnly = False
+                    Title.Caption = 'Полный доступ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'ACHAG'
+                    ReadOnly = False
+                    Title.Caption = 'Просмотр и редактирование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AVIEW'
+                    ReadOnly = False
+                    Title.Caption = 'Только просмотр'
+                    Width = -1
+                    Visible = False
+                  end>
+              end
+            end
+            object pnChoose: TPanel
+              Top = 531
+              Width = 1142
+              object pnButtonChoose: TPanel
+                Left = 1037
+                object btnCancelChoose: TButton
+                end
+                object btnOkChoose: TButton
+                end
+                object btnDeleteChoose: TButton
+                end
+              end
+              object ibgrChoose: TgsIBGrid
+                Width = 1037
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <>
+                Aliases = <>
+              end
+              object pnlChooseCaption: TPanel
+                Width = 1142
+              end
+            end
+            object pnlDetail: TPanel
+              object TBDockDetail: TTBDock
+                object tbDetailToolbar: TTBToolbar
+                  SavedAtRunTime = True
+                  object tbiDetailNew: TTBItem
+                  end
+                  object tbiDetailEdit: TTBItem
+                  end
+                  object tbiDetailDelete: TTBItem
+                  end
+                  object tbiDetailDublicate: TTBItem
+                  end
+                  object tbiDetailReduction: TTBItem
+                  end
+                  object tbsDetailOne: TTBSeparatorItem
+                  end
+                  object tbiDetailEditInGrid: TTBItem
+                  end
+                  object tbiDetailCopy: TTBItem
+                  end
+                  object tbiDetailCut: TTBItem
+                  end
+                  object tbiDetailPaste: TTBItem
+                  end
+                  object tbsDetailTwo: TTBSeparatorItem
+                  end
+                  object tbiDetailFind: TTBItem
+                  end
+                  object tbiDetailFilter: TTBItem
+                  end
+                  object tbiDetailPrint: TTBItem
+                  end
+                  object tbiDetailOnlySelected: TTBItem
+                  end
+                  object tbiDetailLinkObject: TTBItem
+                  end
+                  object TBItem2: TTBItem
+                  end
+                end
+                object tbDetailCustom: TTBToolbar
+                  SavedAtRunTime = True
+                end
+              end
+              object pnlSearchDetail: TPanel
+                Height = 431
+                object sbSearchDetail: TScrollBox
+                  Height = 404
+                end
+                object pnlSearchDetailButton: TPanel
+                  object btnSearchDetail: TButton
+                  end
+                  object btnSearchDetailClose: TButton
+                  end
+                  object chbxFuzzyMatchDetail: TCheckBox
+                  end
+                end
+              end
+              object ibgrDetail: TgsIBGrid
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <>
+                Aliases = <>
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата'
+                    Width = 65
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$GOODKEY_NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Наименование (Справочник ТМЦ)'
+                    Width = 448
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EQRATE'
+                    ReadOnly = False
+                    Title.Caption = 'Курс эквивалента'
+                    Width = 130
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GS_WITHOUTEVAT'
+                    ReadOnly = False
+                    Title.Caption = 'К зачету без счет-фактуры'
+                    Width = 130
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$MN_PRINTDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата печати (Документы)'
+                    Width = 130
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GOODVIEWFORMKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Внешний вид (форма)'
+                    Width = 364
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID'
+                    ReadOnly = False
+                    Title.Caption = 'Ключ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PARENT'
+                    ReadOnly = False
+                    Title.Caption = 'Родитель'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTTYPEKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Тип документа'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRTYPEKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Тип транзакции'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRANSACTIONKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Транзакция'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'NUMBER'
+                    ReadOnly = False
+                    Title.Caption = 'Номер'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCRIPTION'
+                    ReadOnly = False
+                    Title.Caption = 'Описание'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMNCU'
+                    ReadOnly = False
+                    Title.Caption = 'Сумма в НДЕ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMCURR'
+                    ReadOnly = False
+                    Title.Caption = 'Сумма в валюте'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMEQ'
+                    ReadOnly = False
+                    Title.Caption = 'Сумма в эквиваленте'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DELAYED'
+                    ReadOnly = False
+                    Title.Caption = 'Отложенный'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CURRKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Валюта'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'COMPANYKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Компания'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATORKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Кто создал'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATIONDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата создания'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITORKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Кто исправил'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITIONDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата изменения'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PRINTDATE'
+                    ReadOnly = False
+                    Title.Caption = 'Дата печати'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DISABLED'
+                    ReadOnly = False
+                    Title.Caption = 'Отключено'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED'
+                    ReadOnly = False
+                    Title.Caption = 'Зарезервировано'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTKEY'
+                    Title.Caption = 'Идентификатор'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'MASTERKEY'
+                    Title.Caption = 'Родитель (07. Журнал контроля качества хлеба(позиция))'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED1'
+                    Title.Caption = 'Зарезервировано (07. Журнал контроля качества хлеба(позиция))'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GOODKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Товар'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BER_DOCKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Документ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SORTNUMBER'
+                    ReadOnly = False
+                    Title.Caption = 'Номер для сортировки'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EVAT_OUT'
+                    ReadOnly = False
+                    Title.Caption = 'Статус исх. ЭСЧФ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$EVAT_OUT_USR$NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Наименование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EVAT_SUM'
+                    ReadOnly = False
+                    Title.Caption = 'Подтвержденная сумма по ЭСЧФ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BRI_1C_MOVED'
+                    ReadOnly = False
+                    Title.Caption = 'перенесено в 1с'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BTE_ISINTERNAL'
+                    ReadOnly = False
+                    Title.Caption = 'Внутренний документ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BTE_ISCONFIRM'
+                    ReadOnly = False
+                    Title.Caption = 'Документ подтвержден'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$GOODKEY_ALIAS'
+                    ReadOnly = False
+                    Title.Caption = 'Код товара'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$GOODKEY_BARCODE'
+                    ReadOnly = False
+                    Title.Caption = 'Штрих код'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AFULL'
+                    ReadOnly = False
+                    Title.Caption = 'Полный доступ'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'ACHAG'
+                    ReadOnly = False
+                    Title.Caption = 'Просмотр и редактирование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AVIEW'
+                    ReadOnly = False
+                    Title.Caption = 'Только просмотр'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BERKARY'
+                    ReadOnly = False
+                    Title.Caption = 'Пропеченность'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$COLOR'
+                    ReadOnly = False
+                    Title.Caption = 'Цвет'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$CRUNCH'
+                    ReadOnly = False
+                    Title.Caption = 'Логическое'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$FAT'
+                    ReadOnly = False
+                    Title.Caption = 'М.д. жира, %'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$HUMIDITY'
+                    ReadOnly = False
+                    Title.Caption = 'Влажность мякиша, %'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$KNEAD'
+                    ReadOnly = False
+                    Title.Caption = 'Промес'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$NTDKEY'
+                    ReadOnly = False
+                    Title.Caption = 'Заключение(СТБ/ГОСТ)'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$OTHERINCLUCION'
+                    ReadOnly = False
+                    Title.Caption = 'Логическое'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$OXIGEN'
+                    ReadOnly = False
+                    Title.Caption = 'Кислородность Град.'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$POROSITY'
+                    ReadOnly = False
+                    Title.Caption = 'Пористость мякиша, %'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$POROSITYM'
+                    ReadOnly = False
+                    Title.Caption = 'Пористость'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$STIGMA'
+                    ReadOnly = False
+                    Title.Caption = 'Логическое'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SUGAR'
+                    ReadOnly = False
+                    Title.Caption = 'м.д. сахара, %'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$TASTEINDICATE'
+                    ReadOnly = False
+                    Title.Caption = 'Соотвествие вкус и з'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$TIMETEST'
+                    ReadOnly = False
+                    Title.Caption = 'Время пров.испытаний'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$COLOR_USR$NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Наименование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$KNEAD_USR$NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Наименование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$POROSITYM_USR$NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Наименование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$BERKARY_USR$NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Наименование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$TASTEINDICATE_USR$NAME'
+                    ReadOnly = False
+                    Title.Caption = 'Наименование'
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$NTDKEY_USR$CODE'
+                    ReadOnly = False
+                    Title.Caption = 'Текст (40)'
+                    Width = -1
+                    Visible = False
+                  end>
+              end
+            end
+          end
+          object alMain: TActionList
+            Left = 260
+            Top = 136
+            object actNew: TAction
+            end
+            object actEdit: TAction
+            end
+            object actDelete: TAction
+            end
+            object actDuplicate: TAction
+            end
+            object actHlp: TAction
+            end
+            object actPrint: TAction
+            end
+            object actCut: TAction
+            end
+            object actCopy: TAction
+            end
+            object actPaste: TAction
+            end
+            object actCommit: TAction
+            end
+            object actRollback: TAction
+            end
+            object actMacros: TAction
+            end
+            object actDetailNew: TAction
+            end
+            object actDetailEdit: TAction
+            end
+            object actDetailDelete: TAction
+            end
+            object actDetailDuplicate: TAction
+            end
+            object actDetailPrint: TAction
+            end
+            object actDetailCut: TAction
+            end
+            object actDetailCopy: TAction
+            end
+            object actDetailPaste: TAction
+            end
+            object actFind: TAction
+            end
+            object actMainReduction: TAction
+            end
+            object actDetailFind: TAction
+            end
+            object actDetailReduction: TAction
+            end
+            object actFilter: TAction
+            end
+            object actProperties: TAction
+            end
+            object actLoadFromFile: TAction
+            end
+            object actSaveToFile: TAction
+            end
+            object actSearchMain: TAction
+            end
+            object actSearchMainClose: TAction
+            end
+            object actDetailFilter: TAction
+            end
+            object actDetailProperties: TAction
+            end
+            object actOnlySelected: TAction
+            end
+            object actAddToSelected: TAction
+            end
+            object actRemoveFromSelected: TAction
+            end
+            object actQExport: TAction
+            end
+            object actMainToSetting: TAction
+            end
+            object actChooseOk: TAction
+            end
+            object actDeleteChoose: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actSelectAll: TAction
+            end
+            object actSearchDetail: TAction
+            end
+            object actSearchdetailClose: TAction
+            end
+            object actDetailAddToSelected: TAction
+            end
+            object actDetailRemoveFromSelected: TAction
+            end
+            object actDetailOnlySelected: TAction
+            end
+            object actDetailQExport: TAction
+            end
+            object actDetailToSetting: TAction
+            end
+            object actDetailSaveToFile: TAction
+            end
+            object actDetailLoadFromFile: TAction
+            end
+            object actUnSelectAll: TAction
+            end
+            object actClearSelection: TAction
+            end
+            object actEditInGrid: TAction
+            end
+            object actLinkObject: TAction
+            end
+            object actDistributeSettings: TAction
+            end
+            object actDontSaveSettings: TAction
+            end
+            object actAddToSelectedFromClipboard: TAction
+            end
+            object actDetailEditInGrid: TAction
+            end
+            object actDetailLinkObject: TAction
+            end
+            object actCreateEntry: TAction
+            end
+            object actGotoEntry: TAction
+            end
+            object actMainGotoEntry: TAction
+            end
+          end
+          object pmMain: TPopupMenu
+            Left = 292
+            Top = 164
+            object nNew_OLD: TMenuItem
+            end
+            object nEdit_OLD: TMenuItem
+            end
+            object nDel_OLD: TMenuItem
+            end
+            object nDublicate_OLD: TMenuItem
+            end
+            object nProperties_OLD: TMenuItem
+            end
+            object nQExport_OLD: TMenuItem
+            end
+            object nSeparator1_OLD: TMenuItem
+            end
+            object actCopy1_OLD: TMenuItem
+            end
+            object actCut1_OLD: TMenuItem
+            end
+            object actPaste1_OLD: TMenuItem
+            end
+            object nSepartor2_OLD: TMenuItem
+            end
+            object nFind_OLD: TMenuItem
+            end
+            object nReduction_OLD: TMenuItem
+            end
+            object nSeparator3_OLD: TMenuItem
+            end
+            object actAddToSelected1: TMenuItem
+            end
+            object actAddToSelectedFromClipboard1: TMenuItem
+            end
+            object actRemoveFromSelected1: TMenuItem
+            end
+            object sprSetting: TMenuItem
+            end
+            object miMainToSetting: TMenuItem
+            end
+          end
+          object dsMain: TDataSource
+            Left = 260
+            Top = 164
+          end
+          object gdMacrosMenu: TgdMacrosMenu
+            Left = 249
+            Top = 95
+          end
+          object dsDetail: TDataSource
+            Left = 408
+            Top = 300
+          end
+          object pmDetail: TPopupMenu
+            Left = 464
+            Top = 304
+            object nDetailNew: TMenuItem
+            end
+            object nDetailEdit: TMenuItem
+            end
+            object nDetailDel: TMenuItem
+            end
+            object nDetailDup: TMenuItem
+            end
+            object nDetailProperties: TMenuItem
+            end
+            object nDetailQExport: TMenuItem
+            end
+            object nSepartor5: TMenuItem
+            end
+            object nDetailFind: TMenuItem
+            end
+            object nDetailReduction: TMenuItem
+            end
+            object actDetailAddToSelected1: TMenuItem
+            end
+            object actDetailRemoveFromSelected1: TMenuItem
+            end
+            object sprDetailSetting: TMenuItem
+            end
+            object miDetailSetting: TMenuItem
+            end
+          end
+          object dsChoose: TDataSource
+            Left = 153
+            Top = 306
+          end
+          object pmFind: TPopupMenu
+            Left = 17
+            Top = 78
+            object miRemoveFromSearch: TMenuItem
+            end
+          end
+          object gdcUserDocumentLine: TgdcUserDocumentLine
+            Left = 409
+            Top = 332
+          end
+          object gdcUserDocument: TgdcUserDocument
+            Left = 177
+            Top = 145
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361158047_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147240236_1234867257 GLOBAL\\DFM\\Tgdc_dlgUserComplexDocument"
+      NAME: "1361157789_1818884808"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T16:16:59+03:00
+      BLOB_DATA: | 
+        object gdc_dlgUserComplexDocument1361157789_1818884808: Tgdc_dlgUserComplexDocument
+          ActiveControl = nil
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+          end
+          object btnNew: TButton
+          end
+          object btnHelp: TButton
+          end
+          object btnOK: TButton
+          end
+          object btnCancel: TButton
+          end
+          object pnlMain: TPanel
+            object splMain: TSplitter
+            end
+            object pnlDetail: TPanel
+              object ibgrDetail: TgsIBGrid
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <
+                  item
+                    Lookup.LookupListField = 'NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'GD_GOOD'
+                    Lookup.gdClassName = 'TgdcGood'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$GOODKEY'
+                    DisplayField = 'U_USR$GOODKEY_NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$EVAT_STATUS'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$EVAT_OUT'
+                    DisplayField = 'Z_USR$EVAT_OUT_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$GOODVIEWFORM'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    LookupSet.KeyField = 'ID'
+                    LookupSet.SourceKeyField = 'ID'
+                    LookupSet.SourceListField = 'USR$NAME'
+                    LookupSet.SourceParentField = 'USR$GOODVIEWFORMKEY'
+                    LookupSet.CrossDestField = 'USR$PD_BREADCONTOLLINEKEY'
+                    LookupSet.CrossSourceField = 'USR$GOODVIEWFORMKEY'
+                    LookupSet.SourceTable = 'USR$GOODVIEWFORM'
+                    LookupSet.CrossTable = 'USR$CROSS2076_1818884808'
+                    EditorStyle = cesSetGrid
+                    DisplayField = 'USR$GOODVIEWFORMKEY'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$BREADINDICATION'
+                    Lookup.Condition = 'USR$TYPE=1'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$COLOR'
+                    DisplayField = 'U_USR$COLOR_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$BREADINDICATION'
+                    Lookup.Condition = 'usr$type = 3'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$KNEAD'
+                    DisplayField = 'U_USR$KNEAD_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$BREADINDICATION'
+                    Lookup.Condition = 'USR$TYPE=2'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$BERKARY'
+                    DisplayField = 'U_USR$BERKARY_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$BREADINDICATION'
+                    Lookup.Condition = 'USR$TYPE=4'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$POROSITYM'
+                    DisplayField = 'U_USR$POROSITYM_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$NAME'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$BREADINDICATION'
+                    Lookup.Condition = 'USR$TYPE=5'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$TASTEINDICATE'
+                    DisplayField = 'U_USR$TASTEINDICATE_USR$NAME'
+                    DropDownCount = 8
+                  end
+                  item
+                    Lookup.LookupListField = 'USR$CODE'
+                    Lookup.LookupKeyField = 'ID'
+                    Lookup.LookupTable = 'USR$OT_NTD'
+                    Lookup.gdClassName = 'TgdcAttrUserDefined'
+                    Lookup.Database = dmDatabase.ibdbGAdmin
+                    Lookup.Transaction = ibtrCommon
+                    Lookup.Distinct = False
+                    EditorStyle = cesLookup
+                    FieldName = 'USR$NTDKEY'
+                    DisplayField = 'U_USR$NTDKEY_USR$CODE'
+                    DropDownCount = 8
+                  end>
+                Aliases = <>
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTDATE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Дата'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 75
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$TIMETEST'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Время пров.испытаний'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 178
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$GOODKEY_NAME'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Наименование Х/Б изделий'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 231
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GOODVIEWFORMKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ReadOnly = False
+                    Title.Caption = 'Внешний вид (форма)'
+                    Title.Color = 6723839
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 152
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$COLOR_USR$NAME'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Цвет'
+                    Title.Color = 6723839
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 95
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$BERKARY_USR$NAME'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Пропеченность'
+                    Title.Color = 8454143
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 127
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$KNEAD_USR$NAME'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Промес'
+                    Title.Color = 8454143
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 132
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$POROSITYM_USR$NAME'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Пористость'
+                    Title.Color = 8454143
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 176
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$TASTEINDICATE_USR$NAME'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Соответствие вкус и запах'
+                    Title.Color = 16777088
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 154
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$OTHERINCLUCION'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Посторонние включения'
+                    Title.Color = 16744576
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 163
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$CRUNCH'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Хруст от мин.примесей'
+                    Title.Color = 16744576
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 164
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$STIGMA'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Признаки болезни, плесни'
+                    Title.Color = 16744576
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 167
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$FAT'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'М.д. жира, %'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 118
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$HUMIDITY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Влажность мякиша, %'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 132
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$OXIGEN'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Кислородность Град.'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 141
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$POROSITY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Пористость мякиша, %'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 136
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SUGAR'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'м.д. сахара, %'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 118
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$NTDKEY_USR$CODE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Заключение'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = 244
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMNCU'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Сумма в НДЕ'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$GOODKEY_BARCODE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Штрих код'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCRIPTION'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Описание'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GOODKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Товар'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Ключ'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PARENT'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Родитель'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTTYPEKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Тип документа'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRTYPEKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Тип транзакции'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TRANSACTIONKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Транзакция'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'NUMBER'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Номер'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMCURR'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Сумма в валюте'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SUMEQ'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Сумма в эквиваленте'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DELAYED'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Отложенный'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CURRKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Валюта'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'COMPANYKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Компания'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATORKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Кто создал'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CREATIONDATE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Дата создания'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITORKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Кто исправил'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EDITIONDATE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Дата изменения'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PRINTDATE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Дата печати'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DISABLED'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Отключено'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Зарезервировано'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DOCUMENTKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ReadOnly = True
+                    Title.Caption = 'Идентификатор'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'MASTERKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ReadOnly = True
+                    Title.Caption = 'Родитель (07. Журнал контроля качества хлеба(позиция))'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RESERVED1'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ReadOnly = True
+                    Title.Caption = 'Зарезервировано (07. Журнал контроля качества хлеба(позиция))'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BER_DOCKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Документ'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$SORTNUMBER'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ReadOnly = False
+                    Title.Caption = 'Номер для сортировки'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EVAT_OUT'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Статус исх. ЭСЧФ'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'Z_USR$EVAT_OUT_USR$NAME'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Наименование'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EVAT_SUM'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Подтвержденная сумма по ЭСЧФ'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$EQRATE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Курс эквивалента'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BRI_1C_MOVED'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'перенесено в 1с'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BTE_ISINTERNAL'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Внутренний документ'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$GS_WITHOUTEVAT'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'К зачету без счет-фактуры'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$MN_PRINTDATE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Дата печати (Документы)'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BTE_ISCONFIRM'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Документ подтвержден'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_USR$GOODKEY_ALIAS'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Код товара'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$COLOR'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Цвет'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$KNEAD'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Промес'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$BERKARY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Пропеченность'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$POROSITYM'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Пористость'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$TASTEINDICATE'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Соотвествие вкус и з'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'USR$NTDKEY'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Заключение(СТБ/ГОСТ)'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AFULL'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Полный доступ'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'ACHAG'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Просмотр и редактирование'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'AVIEW'
+                    Font.Charset = RUSSIAN_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Title.Caption = 'Только просмотр'
+                    Title.Font.Charset = RUSSIAN_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = []
+                    Width = -1
+                    Visible = False
+                  end>
+              end
+              object tbdTop: TTBDock
+                object tbDetail: TTBToolbar
+                  DockPos = 0
+                  SavedAtRunTime = True
+                  object tbNew: TTBItem
+                  end
+                  object tbEdit: TTBItem
+                  end
+                  object tbDelete: TTBItem
+                  end
+                  object tbDuplicate: TTBItem
+                  end
+                  object tbiDetailProperties: TTBItem
+                  end
+                  object TBSeparatorItem1: TTBSeparatorItem
+                  end
+                  object tbCopy: TTBItem
+                  end
+                  object tbCut: TTBItem
+                  end
+                  object tbPaste: TTBItem
+                  end
+                  object TBSeparatorItem2: TTBSeparatorItem
+                  end
+                  object tbMacro: TTBItem
+                  end
+                  object usrg_1361157789_1818884808_TBItem1: TTBItem
+                    Tag = 0
+                    Action = usrg_addGood
+                    AutoCheck = False
+                    DisplayMode = nbdmImageAndText
+                    GroupIndex = 0
+                    Images = dmImages.il16x16
+                    InheritOptions = True
+                    MaskOptions = []
+                    Options = []
+                    RadioItem = False
+                  end
+                  object usrg_1361157789_1818884808_TBItem2: TTBItem
+                    Tag = 0
+                    Action = usrg_addTimeTest
+                    AutoCheck = False
+                    DisplayMode = nbdmImageAndText
+                    GroupIndex = 0
+                    Images = dmImages.il16x16
+                    InheritOptions = True
+                    MaskOptions = []
+                    Options = []
+                    RadioItem = False
+                  end
+                end
+              end
+              object tbdLeft: TTBDock
+              end
+              object tbdRight: TTBDock
+              end
+              object tbdBottom: TTBDock
+              end
+            end
+            object pnlMaster: TPanel
+              object pnlHolding: TPanel
+                Width = 1536
+                object lblCompany: TLabel
+                end
+                object iblkCompany: TgsIBLookupComboBox
+                end
+              end
+              object usrg_1361157789_1818884808_PageControl1: TPageControl
+                Tag = 0
+                Left = 0
+                Top = 0
+                Width = 1536
+                Height = 105
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                ActivePage = usrg_1361157789_1818884808_TabSheet1
+                Align = alClient
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DockSite = False
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                HotTrack = False
+                Images = nil
+                MultiLine = False
+                OwnerDraw = False
+                ParentBiDiMode = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                RaggedRight = False
+                ScrollOpposite = False
+                Style = tsTabs
+                TabHeight = 0
+                TabOrder = 1
+                TabPosition = tpTop
+                TabStop = True
+                TabWidth = 0
+                Visible = True
+                object usrg_1361157789_1818884808_TabSheet1: TTabSheet
+                  Tag = 0
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  BorderWidth = 0
+                  Caption = 'Основное'
+                  DragMode = dmManual
+                  Enabled = True
+                  Highlighted = False
+                  ImageIndex = 0
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabVisible = True
+                  object usrat_xDateDBEdit_DOCUMENTDATE_Label: TLabel
+                    Left = 200
+                    Top = 7
+                  end
+                  object usrat_DBEdit_NUMBER_Label: TLabel
+                  end
+                  object usrat_xDateDBEdit_DOCUMENTDATE: TxDateDBEdit
+                    Left = 245
+                    Top = 3
+                    TabOrder = 0
+                  end
+                  object usrat_DBEdit_NUMBER: TDBEdit
+                    Left = 50
+                    TabOrder = 1
+                  end
+                end
+                object usrg_1361157789_1818884808_TabSheet2: TTabSheet
+                  Tag = 0
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  BorderWidth = 0
+                  Caption = 'Дополнительно'
+                  DragMode = dmManual
+                  Enabled = True
+                  Highlighted = False
+                  ImageIndex = 0
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabVisible = True
+                  object atContainer: TatContainer
+                    Top = 0
+                    Width = 1528
+                    Height = 77
+                    Align = alClient
+                    Anchors = [akLeft, akTop, akRight, akBottom]
+                    TabOrder = 0
+                    object usrat_DBEdit_USR_BER_DOCKEY_Label: TLabel
+                    end
+                    object usrat_DBEdit_USR_SORTNUMBER_Label: TLabel
+                    end
+                    object usrat_gsIBLookupComboBox_USR_EVAT_OUT_Label: TLabel
+                    end
+                    object usrat_DBEdit_USR_EVAT_SUM_Label: TLabel
+                    end
+                    object usrat_DBEdit_USR_EQRATE_Label: TLabel
+                    end
+                    object usrat_xDateDBEdit_USR_MN_PRINTDATE_Label: TLabel
+                    end
+                    object usrat_DBEdit_USR_BER_DOCKEY: TxDBCalculatorEdit
+                      Cursor = crArrow
+                      TabOrder = 0
+                    end
+                    object usrat_DBEdit_USR_SORTNUMBER: TxDBCalculatorEdit
+                      Cursor = crIBeam
+                      TabOrder = 1
+                    end
+                    object usrat_gsIBLookupComboBox_USR_EVAT_OUT: TgsIBLookupComboBox
+                      TabOrder = 2
+                    end
+                    object usrat_DBEdit_USR_EVAT_SUM: TxDBCalculatorEdit
+                      Cursor = crArrow
+                      TabOrder = 3
+                    end
+                    object usrat_DBEdit_USR_EQRATE: TxDBCalculatorEdit
+                      TabOrder = 4
+                    end
+                    object usrat_DBCheckBox_USR_BRI_1C_MOVED: TDBCheckBox
+                      TabOrder = 5
+                    end
+                    object usrat_DBCheckBox_USR_BTE_ISINTERNAL: TDBCheckBox
+                      TabOrder = 6
+                    end
+                    object usrat_DBCheckBox_USR_GS_WITHOUTEVAT: TDBCheckBox
+                      TabOrder = 7
+                    end
+                    object usrat_xDateDBEdit_USR_MN_PRINTDATE: TxDateDBEdit
+                      TabOrder = 8
+                    end
+                    object usrat_DBCheckBox_USR_BTE_ISCONFIRM: TDBCheckBox
+                      TabOrder = 9
+                    end
+                  end
+                end
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 388
+            Top = 8
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+            object actDetailNew: TAction
+            end
+            object actDetailEdit: TAction
+            end
+            object actDetailDelete: TAction
+            end
+            object actDetailDuplicate: TAction
+            end
+            object actDetailPrint: TAction
+            end
+            object actDetailCut: TAction
+            end
+            object actDetailCopy: TAction
+            end
+            object actDetailPaste: TAction
+            end
+            object actDetailMacro: TAction
+            end
+            object actDetailProp: TAction
+            end
+            object usrg_addGood: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Справочник ТМЦ'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = 120
+              ShortCut = 0
+              Visible = True
+            end
+            object usrg_addTimeTest: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Установить время успытаний'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = ''
+              ImageIndex = 49
+              ShortCut = 0
+              Visible = True
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 421
+            Top = 7
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Active = False
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+          object dsDetail: TDataSource
+            Left = 421
+            Top = 38
+          end
+          object gdMacrosMenu: TgdMacrosMenu
+            Left = 249
+            Top = 111
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 1361158300_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Журнал контроля"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "1361158301_1818884808 rp_Main1361158301_1818884808"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "1361157800_1818884808 Отчеты(gdc_frmUserComplexDocument1361157789_1818884808)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "1361158399_1818884808 Журнал контроля х/б изделий."
+      EDITIONDATE: 2022-06-17T13:06:09+03:00
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 1361158399_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Журнал контроля х/б изделий."
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2022-06-17T13:04:43+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44729,5258402315" ReportOptions.Description.Text="" ReportOptions.LastChange="44729,5258402315" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D2251220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="297" PaperHeight="210" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="26,45671" Left="0" Top="18,89765" Width="1046,92981">
+              <TfrxMemoView Name="Memo1" Left="3,77953" Top="0" Width="1043,15028" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="Р–СѓСЂРЅР°Р» СѓС‡РµС‚Р° С…Р»РµР±РѕР±СѓР»РѕС‡РЅС‹С… РёР·РґРµР»РёР№"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="113,3859" Left="0" Top="105,82684" Width="1046,92981">
+              <TfrxMemoView Name="Memo2" Left="0" Top="0" Width="22,67718" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="в„– Рї.Рї."/>
+              <TfrxMemoView Name="Memo3" Left="22,67718" Top="0" Width="204,09462" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°РёРјРµРЅРѕРІР°РЅРёРµ С…Р»РµР±Р°"/>
+              <TfrxMemoView Name="Memo4" Left="226,7718" Top="0" Width="22,67718" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РњР°СЃСЃР° РЅРµС‚С‚Рѕ"/>
+              <TfrxMemoView Name="Memo5" Left="249,44898" Top="0" Width="26,45671" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р”Р°С‚Р° Рё РІСЂРµРјСЏ РїСЂРѕРІРµРґРµРЅРёСЏ РёСЃРїС‹С‚Р°РЅРёР№"/>
+              <TfrxMemoView Name="Memo6" Left="275,90569" Top="0" Width="328,81911" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РћСЂРіР°РЅРѕР»РµРїС‚РёС‡РµСЃРєРёР№ РїРѕРєР°Р·Р°С‚РµР»Рё"/>
+              <TfrxMemoView Name="Memo7" Left="275,90569" Top="15,11812" Width="102,04731" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р’РЅРµС€РЅРёР№ РІРёРґ"/>
+              <TfrxMemoView Name="Memo8" Left="377,953" Top="15,11812" Width="181,41744" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎРѕСЃС‚РѕСЏРЅРёРµ РјСЏРєРёС€Р°"/>
+              <TfrxMemoView Name="Memo9" Left="275,90569" Top="75,5906" Width="64,25201" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¤РѕСЂРјР° Рё РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ"/>
+              <TfrxMemoView Name="Memo10" Left="340,1577" Top="75,5906" Width="37,7953" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¦РІРµС‚"/>
+              <TfrxMemoView Name="Memo11" Left="377,953" Top="75,5906" Width="75,5906" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРѕРїРµС‡РµРЅРЅРѕСЃС‚СЊ"/>
+              <TfrxMemoView Name="Memo12" Left="453,5436" Top="75,5906" Width="49,13389" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРѕРјРµСЃ"/>
+              <TfrxMemoView Name="Memo13" Left="502,67749" Top="75,5906" Width="56,69295" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџРѕСЂРёСЃС‚РѕСЃС‚СЊ"/>
+              <TfrxMemoView Name="Memo14" Left="559,37044" Top="15,11812" Width="45,35436" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РЎРѕРѕС‚РІРµС‚СЃС‚РІРёРµ&#13;&#10;РІРєСѓСЃ Рё Р·Р°РїР°С…"/>
+              <TfrxMemoView Name="Memo15" Left="604,7248" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°Р»РёС‡РёРµ"/>
+              <TfrxMemoView Name="Memo16" Left="604,7248" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџРѕСЃС‚РѕСЂРѕРЅРЅРёС… &#13;&#10;РІРєР»СЋС‡РµРЅРёР№"/>
+              <TfrxMemoView Name="Memo17" Left="642,5201" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РҐСЂСѓСЃС‚Р° РѕС‚&#13;&#10;РјРёРЅРµСЂР°Р»СЊРЅС‹С… &#13;&#10;РїСЂРёРјРµСЃРµР№"/>
+              <TfrxMemoView Name="Memo18" Left="680,3154" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџСЂРёР·РЅР°РєРѕРІ Р±РѕР»РµР·РЅРё, РїР»РµСЃРµРЅРё"/>
+              <TfrxMemoView Name="Memo19" Left="718,1107" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р’Р»Р°Р¶РЅРѕСЃС‚СЊ &#13;&#10;РјСЏРєРёС€Р° %"/>
+              <TfrxMemoView Name="Memo20" Left="755,906" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџРѕСЂРёСЃС‚РѕСЃС‚СЊ &#13;&#10;РјСЏРєРёС€Р° %"/>
+              <TfrxMemoView Name="Memo21" Left="793,7013" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РљРёСЃР»РѕСЂРѕРґРЅРѕСЃС‚СЊ&#13;&#10;Р“СЂР°Рґ."/>
+              <TfrxMemoView Name="Memo22" Left="831,4966" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Рњ.Рґ. Р¶РёСЂР° %"/>
+              <TfrxMemoView Name="Memo23" Left="869,2919" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Рњ.Рґ.СЃР°С…Р°СЂР° %"/>
+              <TfrxMemoView Name="Memo24" Left="907,0872" Top="0" Width="71,81107" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р—Р°РєР»СЋС‡РµРЅРёРµ"/>
+              <TfrxMemoView Name="Memo25" Left="718,1107" Top="0" Width="188,9765" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo26" Left="978,89827" Top="0" Width="68,03154" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РљС‚Рѕ РїСЂРѕРІРѕРґРёР» &#13;&#10;РёСЃРїС‹С‚Р°РЅРёСЏ"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="22,67718" Left="0" Top="241,88992" Width="1046,92981" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo27" Left="0" Top="0" Width="22,67718" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Line#]"/>
+              <TfrxMemoView Name="Memo28" Left="22,67718" Top="0" Width="204,09462" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GOODNAME" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GOODNAME&#34;]"/>
+              <TfrxMemoView Name="Memo29" Left="226,7718" Top="0" Width="22,67718" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GWEIGHT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GWEIGHT&#34;]"/>
+              <TfrxMemoView Name="Memo30" Left="249,44898" Top="0" Width="26,45671" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="[Q.&#34;DOCUMENTDATE&#34;]&#13;&#10;[Q.&#34;USR$TIMETEST&#34;]"/>
+              <TfrxMemoView Name="Memo31" Left="275,90569" Top="0" Width="64,25201" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GOODVIEWFORM" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GOODVIEWFORM&#34;]"/>
+              <TfrxMemoView Name="Memo32" Left="340,1577" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="COLOR" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;COLOR&#34;]"/>
+              <TfrxMemoView Name="Memo33" Left="377,953" Top="0" Width="75,5906" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="BERKARY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;BERKARY&#34;]"/>
+              <TfrxMemoView Name="Memo34" Left="453,5436" Top="0" Width="49,13389" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="KNEAD" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;KNEAD&#34;]"/>
+              <TfrxMemoView Name="Memo35" Left="502,67749" Top="0" Width="56,69295" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="POROSITYM" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;POROSITYM&#34;]"/>
+              <TfrxMemoView Name="Memo36" ShiftMode="smDontShift" Left="559,37044" Top="0" Width="45,35436" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="[Q.&#34;TASTE&#34;]"/>
+              <TfrxMemoView Name="Memo37" Left="604,7248" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$OTHERINCLUCION&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
+              <TfrxMemoView Name="Memo38" Left="642,5201" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$CRUNCH&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
+              <TfrxMemoView Name="Memo39" Left="680,3154" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$STIGMA&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
+              <TfrxMemoView Name="Memo40" Left="718,1107" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$HUMIDITY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$HUMIDITY&#34;]"/>
+              <TfrxMemoView Name="Memo41" Left="755,906" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$POROSITY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$POROSITY&#34;]"/>
+              <TfrxMemoView Name="Memo42" Left="793,7013" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$OXIGEN" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$OXIGEN&#34;]"/>
+              <TfrxMemoView Name="Memo43" Left="831,4966" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$FAT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$FAT&#34;]"/>
+              <TfrxMemoView Name="Memo44" Left="869,2919" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$SUGAR" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$SUGAR&#34;]"/>
+              <TfrxMemoView Name="Memo45" Left="907,0872" Top="0" Width="71,81107" Height="22,6771800000001" ShowHint="False" StretchMode="smMaxHeight" DataField="STB" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;STB&#34;]"/>
+              <TfrxMemoView Name="Memo46" Left="978,89827" Top="0" Width="68,03154" Height="22,6771800000001" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+            </TfrxMasterData>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 1361157803_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157806_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgUserComplexDocument1361157789_1818884808)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "1361157803_1818884808"
+      EDITIONDATE: 2022-06-16T10:54:52+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 1361157802_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157806_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-16T10:54:51+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361157797_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157806_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "1361157802_1818884808 Локальные макросы"
+      OBJECTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "1361157803_1818884808 Отчеты(gdc_dlgUserComplexDocument1361157789_1818884808)"
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-16T10:54:52+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 1361157808_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157806_1818884808
+    Fields: 
+      NAME: "usrg_addGoodOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2022-06-16T11:06:48+03:00
+      MODULE: "EVENTS"
+      MODULECODE: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
+      OBJECTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      OWNERNAME: ~
+      PREPAREDBYPARSER: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-06-16T11:06:47+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ADDGOODONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_addGoodOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          dim  Creator, gdcGood, dsMain, dsDetail, sqlGood, i, sqlNameGood, sqlChoosenGood
+          set Creator = new TCreator
+          set dsMain = Sender.OwnerForm.gdcObject
+          set dsDetail = Sender.OwnerForm.gdcDetailObject
+          set gdcGood = Creator.GetObject(nil, "TgdcAttrUserDefinedLBRBTree", "")
+          gdcGood.SubType = "USR$PD_GROUPTP"
+          gdcGood.Transaction = Sender.OwnerForm.gdcObject.Transaction
+          gdcGood.SelectedId.Clear
+        
+        
+          set sqlNameGood = Creator.GetObject(nil, "TIBSQL", "")
+          sqlNameGood.Transaction = gdcBaseManager.ReadTransaction
+          sqlNameGood.SQL.Text = _
+            " SELECT tp.usr$goodkey " & _
+            " FROM USR$PD_GROUPTP tp " & _
+            " WHERE tp.id = :idtp "
+          if gdcGood.ChooseItemsSelf(False, "Detail", "") then
+            if Assigned(dsDetail) then
+              for i = 0 to gdcGood.SelectedID.Count - 1
+                sqlNameGood.Close
+                sqlNameGood.ParamByName("idtp").AsInteger = gdcGood.SelectedID.Keys(i)
+                sqlNameGood.ExecQuery
+                dsDetail.Append
+                dsDetail.FieldByName("usr$goodkey").AsInteger = sqlNameGood.FieldByName("usr$goodkey").AsInteger
+             '  dsDetail.FieldByName("usr$tpgroupkey").AsInteger = gdcGood.SelectedID.Keys(i)
+                dsDetail.Post
+              Next
+            end if
+          end if
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361157805_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157806_1818884808
+    Fields: 
+      PARENT: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
+      NAME: "usrg_addGood"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_addGood"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-16T10:59:39+03:00
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361158266_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$BREADINDICATION"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T17:59:55+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_BREADINDICATION: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 95
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 71
+          end
+          object btnNew: TButton
+            Top = 71
+          end
+          object btnHelp: TButton
+            Top = 71
+          end
+          object btnOK: TButton
+            Top = 71
+          end
+          object btnCancel: TButton
+            Top = 71
+          end
+          object pnlMain: TPanel
+            Height = 62
+            object atAttributes: TatContainer
+              Height = 62
+              object usrg_USR_BREADINDICATION_Label1: TLabel
+                Tag = 0
+                Left = 294
+                Top = 32
+                Width = 28
+                Height = 13
+                Cursor = crDefault
+                Hint = ''
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoSize = True
+                Caption = 'Ключ'
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FocusControl = usrat_DBEdit_USR_TYPE
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ShowAccelChar = True
+                Transparent = True
+                Layout = tlTop
+                Visible = True
+                WordWrap = False
+              end
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Left = 12
+              end
+              object usrat_DBEdit_USR_TYPE_Label: TLabel
+                Left = 26
+                Top = 31
+                Width = 64
+                Caption = 'Показатель:'
+              end
+              object usrg_USR_BREADINDICATION_gsIBLookupComboBox1: TgsIBLookupComboBox
+                Tag = 0
+                Left = 94
+                Top = 28
+                Width = 182
+                Height = 21
+                Cursor = crDefault
+                HelpContext = 1
+                TabStop = True
+                Database = dmDatabase.ibdbGAdmin
+                Transaction = dmDatabase.ibtrGenUniqueID
+                DataSource = dsgdcBase
+                DataField = 'USR$TYPE'
+                Fields = ''
+                ListTable = 'USR$P_BREAD_INDICATION'
+                ListField = 'NAME'
+                KeyField = 'ID'
+                SortOrder = soNone
+                SortField = ''
+                CheckUserRights = False
+                Condition = ''
+                gdClassName = ''
+                SubType = ''
+                ReadOnly = False
+                StrictOnExit = True
+                Distinct = False
+                FullSearchOnExit = False
+                ViewType = vtByClass
+                Style = csDropDown
+                Anchors = [akLeft, akTop]
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                DropDownCount = 16
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                ItemHeight = 13
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 2
+                Visible = True
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 291
+              end
+              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
+                Left = 326
+                Width = 60
+                Cursor = crArrow
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 47
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 39
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361158034_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$GOODVIEWFORM"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T16:04:31+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_GOODVIEWFORM: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 71
+          ClientWidth = 479
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 47
+          end
+          object btnNew: TButton
+            Top = 47
+          end
+          object btnHelp: TButton
+            Top = 47
+          end
+          object btnOK: TButton
+            Left = 331
+            Top = 47
+          end
+          object btnCancel: TButton
+            Left = 405
+            Top = 47
+          end
+          object pnlMain: TPanel
+            Width = 479
+            Height = 38
+            object atAttributes: TatContainer
+              Width = 479
+              Height = 38
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 324
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 1361157806_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: ~
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "1361157808_1818884808 usrg_addGoodOnExecute"
+      OBJECTKEY: "1361157805_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808\\usrg_addGood"
+      OBJECTNAME: "usrg_addGood"
+      PARENTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      EDITIONDATE: 2022-06-16T11:06:47+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 1361158468_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158466_1818884808
+    Fields: 
+      NAME: "usrg_addTimeTestOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2022-06-17T13:28:47+03:00
+      MODULE: "EVENTS"
+      MODULECODE: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
+      OBJECTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      OWNERNAME: ~
+      PREPAREDBYPARSER: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-06-17T13:28:46+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ADDTIMETESTONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_addTimeTestOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          dim obj
+          set obj = Sender.owner.ownerform.gdcdetailObject
+        
+          dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam, templ
+          ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+          ' Добавление параметра через объект-диалог
+          call ParamWindow.AddParam("Время", "prmTime", "Время испытаний")
+         ' Отображение диалога и получение результата
+          result = ParamWindow.Execute
+          if IsEmpty(result) then
+             exit sub
+          end if
+          obj.First
+          while not obj.EOF
+            obj.Edit
+            obj.FieldByName("USR$TIMETEST").asDateTime = result(0)
+            obj.Post
+            obj.next
+          wend
+          
+          
+          
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361158465_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158466_1818884808
+    Fields: 
+      PARENT: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
+      NAME: "usrg_addTimeTest"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_addTimeTest"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-17T13:08:05+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 1361158466_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: ~
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "1361158468_1818884808 usrg_addTimeTestOnExecute"
+      OBJECTKEY: "1361158465_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808\\usrg_addTimeTest"
+      OBJECTNAME: "usrg_addTimeTest"
+      PARENTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      EDITIONDATE: 2022-06-17T13:28:46+03:00
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 1361159900_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147021571_840530749 Исследователь\\Плановый отдел\\Хлебобулочное производство"
+      NAME: "Справочники"
+      CLASSNAME: ~
+      CMD: "1361159900_1818884808"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 121
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2022-06-17T17:49:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 1361158586_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "1361159900_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники"
+      NAME: "Внешний вид(форма и поверхность)"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "1361157844_1818884808"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 7
+      ORDR: ~
+      SUBTYPE: "USR$GOODVIEWFORM"
+      EDITIONDATE: 2022-06-17T17:49:55+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 1361158258_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "1361159900_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники"
+      NAME: "Показатели х/б изделий"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "1361158257_1818884808"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 7
+      ORDR: ~
+      SUBTYPE: "USR$BREADINDICATION"
+      EDITIONDATE: 2022-06-17T17:50:06+03:00
+      DISABLED: 0
