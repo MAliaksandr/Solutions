@@ -5,11 +5,415 @@ Properties:
   RUID: 1361158617_1818884808
   Name: "Журнал контроля х/б изделий"
   Caption: "Журнал контроля х/б изделий"
-  Version: "1.0.0.10"
+  Version: "1.0.0.11"
   Optional: False
   Internal: True
-  MD5: 41B1249C219EE0EA210B6F4841A77238
+  MD5: 8011D5152E902DE5037461A5E71700D8
+Uses: 
+  - "887856221_779490630 GS.Мясокомбинат.Протоколы со скидкой"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753062_69526485 GS.Общие.Хранилище"
+  - "1175071831_1691443750 Маркетинговые затраты"
+  - "659780274_46083102 БМКК_накладная на перемещение"
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
 Objects: 
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147021571_840530749
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: "147168367_692374716 Исследователь\\Плановый отдел"
+      NAME: "Хлебобулочное производство"
+      CLASSNAME: ~
+      CMD: "147021571_840530749"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 1361159900_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: "147021571_840530749 Исследователь\\Плановый отдел\\Хлебобулочное производство"
+      NAME: "Справочники"
+      CLASSNAME: ~
+      CMD: "1361159900_1818884808"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 121
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2022-06-17T17:49:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 1361158586_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: "1361159900_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники"
+      NAME: "Внешний вид(форма и поверхность)"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "1361157844_1818884808"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 7
+      ORDR: ~
+      SUBTYPE: "USR$GOODVIEWFORM"
+      EDITIONDATE: 2022-06-17T17:49:55+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 1361157844_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: "1361158586_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники\\Внешний вид(форма и поверхность)"
+      DESCRIPTION: "USR$GOODVIEWFORM"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      ISCREATECOMMAND: 0
+      LISTFIELD: ~
+      LNAME: "Внешний вид(форма и поверхность)"
+      LSHORTNAME: "Внешний вид(форма и поверхность)"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$GOODVIEWFORM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2022-06-17T13:46:12+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361157845_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$NAME"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT60"
+      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Наименование"
+      LSHORTNAME: "Текст (60)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157844_1818884808 Внешний вид(форма и поверхность), USR$GOODVIEWFORM"
+      RELATIONNAME: "USR$GOODVIEWFORM"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 60
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T11:13:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361158034_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$GOODVIEWFORM"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T16:04:31+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_GOODVIEWFORM: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 71
+          ClientWidth = 479
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 47
+          end
+          object btnNew: TButton
+            Top = 47
+          end
+          object btnHelp: TButton
+            Top = 47
+          end
+          object btnOK: TButton
+            Left = 331
+            Top = 47
+          end
+          object btnCancel: TButton
+            Left = 405
+            Top = 47
+          end
+          object pnlMain: TPanel
+            Width = 479
+            Height = 38
+            object atAttributes: TatContainer
+              Width = 479
+              Height = 38
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 324
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361158026_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_GOODVIEWFORM(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-16T13:48:40+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361158631_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: "1361158026_1818884808 USER - Administrator\\gdc_frmAttrUserDefinedUSR_GOODVIEWFORM(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T13:54:34+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361158632_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: "1361158631_1818884808 USER - Administrator\\gdc_frmAttrUserDefinedUSR_GOODVIEWFORM(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T13:54:34+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgJJRA1UaXRsZS5DYXB0aW9uBg3I5OXt
+        8uj06Org8u7wBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9O
+        REFURQ1UaXRsZS5DYXB0aW9uBhDE4PLgIOzu5Oj06Org9ujoBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBghVU1IkTkFNRQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYMzeDo
+        7OXt7uLg7ejlBVdpZHRoA2QEB1Zpc2libGUJAAAJCLQeCQg=
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361157853_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_GOODVIEWFORM"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_GOODVIEWFORM"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-16T11:16:55+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 1361158724_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_GOODVIEWFORM)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "1361158724_1818884808"
+      EDITIONDATE: 2022-06-17T16:17:36+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 1361158723_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_GOODVIEWFORM"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-17T16:17:36+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361157851_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157844_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_GOODVIEWFORM"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "1361158723_1818884808 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_GOODVIEWFORM"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "1361158724_1818884808 Отчеты(gdc_frmAttrUserDefinedUSR_GOODVIEWFORM)"
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-17T16:17:36+03:00
   - 
     Properties: 
       Class: "TgdcStoredProc"
@@ -55,25 +459,24 @@ Objects:
       RDB$DESCRIPTION: ~
   - 
     Properties: 
-      Class: "TgdcPrimeTable"
-      RUID: 1361157844_1818884808
+      Class: "TgdcExplorer"
+      RUID: 1361158258_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
     Fields: 
-      BRANCHKEY: "1361158586_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники\\Внешний вид(форма и поверхность)"
-      DESCRIPTION: "USR$GOODVIEWFORM"
-      EXTENDEDFIELDS: ~
-      GENERATORNAME: ~
-      ISCREATECOMMAND: 0
-      LISTFIELD: ~
-      LNAME: "Внешний вид(форма и поверхность)"
-      LSHORTNAME: "Внешний вид(форма и поверхность)"
-      REFERENCEKEY: ~
-      RELATIONNAME: "USR$GOODVIEWFORM"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      EDITIONDATE: 2022-06-17T13:46:12+03:00
+      PARENT: "1361159900_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники"
+      NAME: "Показатели х/б изделий"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "1361158257_1818884808"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 7
+      ORDR: ~
+      SUBTYPE: "USR$BREADINDICATION"
+      EDITIONDATE: 2022-06-17T17:50:06+03:00
+      DISABLED: 0
   - 
     Properties: 
       Class: "TgdcSimpleTable"
@@ -97,210 +500,12 @@ Objects:
       EDITIONDATE: 2022-06-17T10:43:08+03:00
   - 
     Properties: 
-      Class: "TgdcField"
-      RUID: 1361158270_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CHARSET: ~
-      COLLATION: ~
-      COLWIDTH: 20
-      DESCRIPTION: "USR$DBREADINDICATION"
-      FCHARLENGTH: ~
-      FFIELDTYPE: 8
-      FIELDNAME: "USR$DBREADINDICATION"
-      FLAG: ~
-      FLENGTH: 4
-      FORMAT: ~
-      FPRECISION: 0
-      FSCALE: 0
-      FSUBTYPE: 0
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Показатели х/б изделий"
-      READONLY: 0
-      REFCONDITION: ~
-      REFLISTFIELD: "USR$NAME"
-      REFLISTLNAME: "Наименование"
-      REFLNAME: "Показатели х/б изделий"
-      REFTABLE: "USR$BREADINDICATION"
-      SEGLENGTH: ~
-      SETCONDITION: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SETLISTLNAME: ~
-      SETTABLE: ~
-      SETTABLEKEY: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-17T16:06:04+03:00
-      DISABLED: 0
-      CHECKSOURCE: ~
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      NUMERATION: ~
-  - 
-    Properties: 
-      Class: "TgdcField"
-      RUID: 1361158037_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CHARSET: "WIN1251                        "
-      COLLATION: "PXW_CYRL                       "
-      COLWIDTH: 20
-      DESCRIPTION: "USR$DGOODVIEWFORM"
-      FCHARLENGTH: 60
-      FFIELDTYPE: 37
-      FIELDNAME: "USR$DGOODVIEWFORM"
-      FLAG: ~
-      FLENGTH: 60
-      FORMAT: ~
-      FPRECISION: ~
-      FSCALE: 0
-      FSUBTYPE: 0
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Внешний вид (форма)"
-      READONLY: 0
-      REFCONDITION: ~
-      REFLISTFIELD: ~
-      REFLISTLNAME: ~
-      REFLNAME: ~
-      REFTABLE: ~
-      SEGLENGTH: ~
-      SETCONDITION: ~
-      SETLISTFIELD: "USR$NAME"
-      SETLISTFIELDKEY: "1361157845_1818884808 Наименование, USR$GOODVIEWFORM.USR$NAME"
-      SETLISTLNAME: "Внешний вид(форма и поверхность)"
-      SETTABLE: "USR$GOODVIEWFORM"
-      SETTABLEKEY: "1361157844_1818884808 Внешний вид(форма и поверхность), USR$GOODVIEWFORM"
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-17T16:06:14+03:00
-      DISABLED: 0
-      CHECKSOURCE: ~
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      NUMERATION: ~
-  - 
-    Properties: 
-      Class: "TgdcUnknownTable"
-      RUID: 1361158040_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      BRANCHKEY: ~
-      DESCRIPTION: "USR$CROSS2076_1818884808"
-      EXTENDEDFIELDS: ~
-      GENERATORNAME: ~
-      ISCREATECOMMAND: 0
-      LISTFIELD: ~
-      LNAME: "USR$CROSS2076_1818884808"
-      LSHORTNAME: "USR$CROSS2076_1818884808"
-      REFERENCEKEY: ~
-      RELATIONNAME: "USR$CROSS2076_1818884808"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      EDITIONDATE: 2022-06-16T14:40:27+03:00
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158156_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: "CASCADE    "
-      DESCRIPTION: "USR$PD_BREADCONTOLLINEKEY"
-      FIELDNAME: "USR$PD_BREADCONTOLLINEKEY"
-      FIELDSOURCE: "DINTKEY"
-      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "USR$PD_BREADCONTOLLINEKEY"
-      LSHORTNAME: ~
-      NULLFLAG: 1
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: ~
-      RELATIONNAME: "USR$CROSS2076_1818884808"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: 1
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-16T14:40:40+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158157_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: "RESTRICT   "
-      DESCRIPTION: "USR$GOODVIEWFORMKEY"
-      FIELDNAME: "USR$GOODVIEWFORMKEY"
-      FIELDSOURCE: "DINTKEY"
-      FIELDSOURCEKEY: "153002050_17 Идентификатор, DINTKEY"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "USR$GOODVIEWFORMKEY"
-      LSHORTNAME: ~
-      NULLFLAG: 1
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: ~
-      RELATIONNAME: "USR$CROSS2076_1818884808"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: 1
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-16T14:40:40+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
       Class: "TgdcTableField"
       RUID: 1361158260_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -345,6 +550,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -384,48 +590,487 @@ Objects:
       OBJECTS: ~
   - 
     Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361157845_1818884808
+      Class: "TgdcStorageValue"
+      RUID: 1361158266_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
     Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: ~
-      DESCRIPTION: "USR$NAME"
-      FIELDNAME: "USR$NAME"
-      FIELDSOURCE: "DTEXT60"
-      FIELDSOURCEKEY: "147000112_486813904 Текст (60), DTEXT60"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Наименование"
-      LSHORTNAME: "Текст (60)"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: "1361157844_1818884808 Внешний вид(форма и поверхность), USR$GOODVIEWFORM"
-      RELATIONNAME: "USR$GOODVIEWFORM"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: 60
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-16T11:13:29+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$BREADINDICATION"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T17:59:55+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_BREADINDICATION: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 95
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 71
+          end
+          object btnNew: TButton
+            Top = 71
+          end
+          object btnHelp: TButton
+            Top = 71
+          end
+          object btnOK: TButton
+            Top = 71
+          end
+          object btnCancel: TButton
+            Top = 71
+          end
+          object pnlMain: TPanel
+            Height = 62
+            object atAttributes: TatContainer
+              Height = 62
+              object usrg_USR_BREADINDICATION_Label1: TLabel
+                Tag = 0
+                Left = 294
+                Top = 32
+                Width = 28
+                Height = 13
+                Cursor = crDefault
+                Hint = ''
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoSize = True
+                Caption = 'Ключ'
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FocusControl = usrat_DBEdit_USR_TYPE
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ShowAccelChar = True
+                Transparent = True
+                Layout = tlTop
+                Visible = True
+                WordWrap = False
+              end
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Left = 12
+              end
+              object usrat_DBEdit_USR_TYPE_Label: TLabel
+                Left = 26
+                Top = 31
+                Width = 64
+                Caption = 'Показатель:'
+              end
+              object usrg_USR_BREADINDICATION_gsIBLookupComboBox1: TgsIBLookupComboBox
+                Tag = 0
+                Left = 94
+                Top = 28
+                Width = 182
+                Height = 21
+                Cursor = crDefault
+                HelpContext = 1
+                TabStop = True
+                Database = dmDatabase.ibdbGAdmin
+                Transaction = dmDatabase.ibtrGenUniqueID
+                DataSource = dsgdcBase
+                DataField = 'USR$TYPE'
+                Fields = ''
+                ListTable = 'USR$P_BREAD_INDICATION'
+                ListField = 'NAME'
+                KeyField = 'ID'
+                SortOrder = soNone
+                SortField = ''
+                CheckUserRights = False
+                Condition = ''
+                gdClassName = ''
+                SubType = ''
+                ReadOnly = False
+                StrictOnExit = True
+                Distinct = False
+                FullSearchOnExit = False
+                ViewType = vtByClass
+                Style = csDropDown
+                Anchors = [akLeft, akTop]
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                DropDownCount = 16
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                ItemHeight = 13
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 2
+                Visible = True
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 291
+              end
+              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
+                Left = 326
+                Width = 60
+                Cursor = crArrow
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 47
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 39
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361158273_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmAttrUserDefinedUSR_BREADINDICATION(Tgdc_frmAttrUserDefined)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T11:01:54+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361158633_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: "1361158273_1818884808 USER - Administrator\\gdc_frmAttrUserDefinedUSR_BREADINDICATION(Tgdc_frmAttrUserDefined)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T13:48:49+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361158634_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: "1361158633_1818884808 USER - Administrator\\gdc_frmAttrUserDefinedUSR_BREADINDICATION(Tgdc_frmAttrUserDefined)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T13:48:49+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgJJRA1UaXRsZS5DYXB0aW9uBg3I5OXt
+        8uj06Org8u7wBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghESVNBQkxF
+        RA1UaXRsZS5DYXB0aW9uBgrN5SDg6vLo4u3uBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBgtFRElUSU9OREFURQ1UaXRsZS5DYXB0aW9uBhDE4PLgIOzu5Oj06Org9ujoBVdp
+        ZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglFRElUT1JLRVkNVGl0bGUuQ2Fw
+        dGlvbgYRyvLuIOzu5Oj06Pbo8O7i4OsFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVs
+        ZE5hbWUGCFVTUiRUWVBFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgPS6O8FV2lkdGgCOAdWaXNp
+        YmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCFVTUiROQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0
+        aW9uBgzN4Ojs5e3u4uDt6OUFV2lkdGgDKwQHVmlzaWJsZQkAAAkItB4JCA==
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 1361159910_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_dlgAttrUserDefinedUSR_BREADINDICATION)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "1361159910_1818884808"
+      EDITIONDATE: 2022-06-17T17:59:19+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 1361159909_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_BREADINDICATION"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-17T17:59:19+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361158263_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgAttrUserDefinedUSR_BREADINDICATION"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "1361159909_1818884808 Локальные макросы"
+      OBJECTNAME: "gdc_dlgAttrUserDefinedUSR_BREADINDICATION"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "1361159910_1818884808 Отчеты(gdc_dlgAttrUserDefinedUSR_BREADINDICATION)"
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-17T17:59:19+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 1361158298_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmAttrUserDefinedUSR_BREADINDICATION)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "1361158298_1818884808"
+      EDITIONDATE: 2022-06-17T11:53:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 1361158297_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_BREADINDICATION"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-17T11:53:41+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361158261_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361158257_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmAttrUserDefinedUSR_BREADINDICATION"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "1361158297_1818884808 Локальные макросы"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_BREADINDICATION"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "1361158298_1818884808 Отчеты(gdc_frmAttrUserDefinedUSR_BREADINDICATION)"
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-17T11:53:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147021572_840530749
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "147021571_840530749 Исследователь\\Плановый отдел\\Хлебобулочное производство"
+      NAME: "Документы"
+      CLASSNAME: ~
+      CMD: "147021572_840530749"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 1361157792_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "147002253_15581101 Документы пользователя"
+      NAME: "07. Журнал контроля качества хлеба"
+      DESCRIPTION: "07. Журнал контроля качества хлеба"
+      USERGROUPNAME: "1361157792_1818884808"
+      EDITIONDATE: 2022-06-16T10:50:36+03:00
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 1361158654_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "147021572_840530749 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Документы"
+      NAME: "07. Журнал контроля качества хлеба"
+      CLASSNAME: "TgdcUserDocument"
+      CMD: "1361157789_1818884808"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "1361157789_1818884808"
+      EDITIONDATE: 2022-06-17T16:15:28+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcDocumentBranch"
+      RUID: 147021569_840530749
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "147168464_692374716 Документы ПД"
+      NAME: "Хлебобулочное производство"
+      BRANCHKEY: ~
+      CLASSNAME: ~
+      DESCRIPTION: ~
+      DOCUMENTTYPE: "B"
+      HEADERFUNCTIONKEY: ~
+      HEADERRELKEY: ~
+      ISCHECKNUMBER: 0
+      ISCOMMON: 0
+      LINEFUNCTIONKEY: ~
+      LINERELKEY: ~
+      REPORTGROUPKEY: ~
+      RUID: "147021569_840530749"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+      HEADERFUNCTIONTEMPLATE: ~
+      LINEFUNCTIONTEMPLATE: ~
+      OPTIONS: ~
   - 
     Properties: 
       Class: "TgdcDocumentTable"
@@ -433,6 +1078,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       BRANCHKEY: ~
       DESCRIPTION: "USR$PD_BREADCONTOL"
@@ -454,6 +1100,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       BRANCHKEY: ~
       DESCRIPTION: "USR$PD_BREADCONTOLLINE"
@@ -470,180 +1117,50 @@ Objects:
       EDITIONDATE: 2022-06-16T10:50:27+03:00
   - 
     Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158248_1818884808
+      Class: "TgdcField"
+      RUID: 1361158270_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
+      CHARSET: ~
+      COLLATION: ~
       COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: ~
-      DESCRIPTION: "USR$CRUNCH"
-      FIELDNAME: "USR$CRUNCH"
-      FIELDSOURCE: "DBOOLEAN"
-      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      DESCRIPTION: "USR$DBREADINDICATION"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$DBREADINDICATION"
+      FLAG: ~
+      FLENGTH: 4
       FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
       GDCLASSNAME: ~
       GDSUBTYPE: ~
-      LNAME: "Хруст от мин.примесей"
-      LSHORTNAME: "Логическое"
-      NULLFLAG: ~
+      LNAME: "Показатели х/б изделий"
       READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
-      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-16T18:15:58+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158271_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: "RESTRICT"
-      DESCRIPTION: "USR$COLOR"
-      FIELDNAME: "USR$COLOR"
-      FIELDSOURCE: "USR$DBREADINDICATION"
-      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Цвет"
-      LSHORTNAME: "Цвет"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
+      REFCONDITION: ~
       REFLISTFIELD: "USR$NAME"
-      REFRELATIONNAME: "USR$BREADINDICATION"
-      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
-      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
+      REFLISTLNAME: "Наименование"
+      REFLNAME: "Показатели х/б изделий"
+      REFTABLE: "USR$BREADINDICATION"
+      SEGLENGTH: ~
+      SETCONDITION: ~
       SETLISTFIELD: ~
       SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
       VISIBLE: 1
-      EDITIONDATE: 2022-06-17T10:57:54+03:00
+      EDITIONDATE: 2022-06-17T16:06:04+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361157814_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: "RESTRICT"
-      DESCRIPTION: "USR$GOODKEY"
-      FIELDNAME: "USR$GOODKEY"
-      FIELDSOURCE: "USR$GS_DGOOD"
-      FIELDSOURCEKEY: "147035009_9802323 Товар, USR$GS_DGOOD"
-      FORMAT: ~
-      GDCLASSNAME: "TgdcGood"
-      GDSUBTYPE: ~
-      LNAME: "Товар"
-      LSHORTNAME: "Товар"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: "NAME"
-      REFRELATIONNAME: "GD_GOOD"
-      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
-      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-16T11:05:59+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158290_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: "RESTRICT"
-      DESCRIPTION: "USR$BERKARY"
-      FIELDNAME: "USR$BERKARY"
-      FIELDSOURCE: "USR$DBREADINDICATION"
-      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Пропеченность"
-      LSHORTNAME: "Пропеченность"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: "USR$NAME"
-      REFRELATIONNAME: "USR$BREADINDICATION"
-      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
-      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-17T11:14:09+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
+      NUMERATION: ~
   - 
     Properties: 
       Class: "TgdcTableField"
@@ -651,6 +1168,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -691,10 +1209,11 @@ Objects:
   - 
     Properties: 
       Class: "TgdcTableField"
-      RUID: 1361158272_1818884808
+      RUID: 1361158290_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -705,15 +1224,15 @@ Objects:
       CROSSTABLE: ~
       CROSSTABLEKEY: ~
       DELETERULE: "RESTRICT"
-      DESCRIPTION: "USR$KNEAD"
-      FIELDNAME: "USR$KNEAD"
+      DESCRIPTION: "USR$BERKARY"
+      FIELDNAME: "USR$BERKARY"
       FIELDSOURCE: "USR$DBREADINDICATION"
       FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
       FORMAT: ~
       GDCLASSNAME: ~
       GDSUBTYPE: ~
-      LNAME: "Промес"
-      LSHORTNAME: "Промес"
+      LNAME: "Пропеченность"
+      LSHORTNAME: "Пропеченность"
       NULLFLAG: ~
       READONLY: 0
       REFCROSSRELATION: ~
@@ -728,17 +1247,18 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2022-06-17T10:59:35+03:00
+      EDITIONDATE: 2022-06-17T11:14:09+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
   - 
     Properties: 
       Class: "TgdcTableField"
-      RUID: 1361158249_1818884808
+      RUID: 1361158255_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -749,15 +1269,15 @@ Objects:
       CROSSTABLE: ~
       CROSSTABLEKEY: ~
       DELETERULE: ~
-      DESCRIPTION: "USR$STIGMA"
-      FIELDNAME: "USR$STIGMA"
-      FIELDSOURCE: "DBOOLEAN"
-      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      DESCRIPTION: "USR$TIMETEST"
+      FIELDNAME: "USR$TIMETEST"
+      FIELDSOURCE: "DTIME"
+      FIELDSOURCEKEY: "147000165_31587988 Время, DTIME"
       FORMAT: ~
       GDCLASSNAME: ~
       GDSUBTYPE: ~
-      LNAME: "Признаки болезни, плесни"
-      LSHORTNAME: "Логическое"
+      LNAME: "Время пров.испытаний"
+      LSHORTNAME: "Время пров.испытаний"
       NULLFLAG: ~
       READONLY: 0
       REFCROSSRELATION: ~
@@ -772,140 +1292,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2022-06-16T18:19:01+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158247_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: ~
-      DESCRIPTION: "USR$OTHERINCLUCION"
-      FIELDNAME: "USR$OTHERINCLUCION"
-      FIELDSOURCE: "DBOOLEAN"
-      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Постороние включения"
-      LSHORTNAME: "Логическое"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
-      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-17T16:13:28+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: | 
-        DEFAULT 0
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158251_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: ~
-      DESCRIPTION: "USR$POROSITY"
-      FIELDNAME: "USR$POROSITY"
-      FIELDSOURCE: "DCURRENCY"
-      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Пористость мякиша, %"
-      LSHORTNAME: "Пористость мякиша, %"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
-      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-17T16:13:39+03:00
-      COMPUTED_VALUE: ~
-      DEFSOURCE: ~
-      OBJECTS: ~
-  - 
-    Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158288_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
-      COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: "RESTRICT"
-      DESCRIPTION: "USR$POROSITYM"
-      FIELDNAME: "USR$POROSITYM"
-      FIELDSOURCE: "USR$DBREADINDICATION"
-      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
-      FORMAT: ~
-      GDCLASSNAME: ~
-      GDSUBTYPE: ~
-      LNAME: "Пористость"
-      LSHORTNAME: "Пористость"
-      NULLFLAG: ~
-      READONLY: 0
-      REFCROSSRELATION: ~
-      REFLISTFIELD: "USR$NAME"
-      REFRELATIONNAME: "USR$BREADINDICATION"
-      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
-      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
-      VISIBLE: 1
-      EDITIONDATE: 2022-06-17T16:13:50+03:00
+      EDITIONDATE: 2022-06-17T16:14:45+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -916,6 +1303,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -960,6 +1348,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -1004,6 +1393,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -1044,10 +1434,214 @@ Objects:
   - 
     Properties: 
       Class: "TgdcTableField"
+      RUID: 1361158251_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$POROSITY"
+      FIELDNAME: "USR$POROSITY"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Пористость мякиша, %"
+      LSHORTNAME: "Пористость мякиша, %"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:13:39+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158250_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$HUMIDITY"
+      FIELDNAME: "USR$HUMIDITY"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Влажность мякиша, %"
+      LSHORTNAME: "Влажность мякиша, %"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:15:05+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147155441_917570444
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "Техническая документация"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      ISCREATECOMMAND: 0
+      LISTFIELD: ~
+      LNAME: "Нормативно-техническая документация"
+      LSHORTNAME: "Техническая документация"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$OT_NTD"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2009-03-17T15:32:23+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147155444_917570444
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: ~
+      FIELDNAME: "USR$CODE"
+      FIELDSOURCE: "DTEXT40"
+      FIELDSOURCEKEY: "147000109_486813904 Текст (40), DTEXT40"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Шифр документа"
+      LSHORTNAME: "Текст (40)"
+      NULLFLAG: 1
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147155441_917570444 Нормативно-техническая документация, USR$OT_NTD"
+      RELATIONNAME: "USR$OT_NTD"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 40
+      VISIBLE: 1
+      EDITIONDATE: 2009-03-11T16:00:42+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147155502_917570444
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "Технический документ"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$OT_DNTD"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Технический документ"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$CODE"
+      REFLISTLNAME: "Шифр документа"
+      REFLNAME: "Нормативно-техническая документация"
+      REFTABLE: "USR$OT_NTD"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2009-03-18T14:39:01+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
       RUID: 1361158296_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -1087,48 +1681,50 @@ Objects:
       OBJECTS: ~
   - 
     Properties: 
-      Class: "TgdcTableField"
-      RUID: 1361158255_1818884808
+      Class: "TgdcField"
+      RUID: 1361158037_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
-      CATEGORY: ~
-      CATORD: ~
+      CHARSET: "WIN1251                        "
+      COLLATION: "PXW_CYRL                       "
       COLWIDTH: 20
-      CROSSFIELD: ~
-      CROSSFIELDKEY: ~
-      CROSSTABLE: ~
-      CROSSTABLEKEY: ~
-      DELETERULE: ~
-      DESCRIPTION: "USR$TIMETEST"
-      FIELDNAME: "USR$TIMETEST"
-      FIELDSOURCE: "DTIME"
-      FIELDSOURCEKEY: "147000165_31587988 Время, DTIME"
+      DESCRIPTION: "USR$DGOODVIEWFORM"
+      FCHARLENGTH: 60
+      FFIELDTYPE: 37
+      FIELDNAME: "USR$DGOODVIEWFORM"
+      FLAG: ~
+      FLENGTH: 60
       FORMAT: ~
+      FPRECISION: ~
+      FSCALE: 0
+      FSUBTYPE: 0
       GDCLASSNAME: ~
       GDSUBTYPE: ~
-      LNAME: "Время пров.испытаний"
-      LSHORTNAME: "Время пров.испытаний"
-      NULLFLAG: ~
+      LNAME: "Внешний вид (форма)"
       READONLY: 0
-      REFCROSSRELATION: ~
+      REFCONDITION: ~
       REFLISTFIELD: ~
-      REFRELATIONNAME: ~
-      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
-      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
-      RELATIONTYPE: "T"
-      SEMCATEGORY: ~
-      SETLISTFIELD: ~
-      SETLISTFIELDKEY: ~
-      SOURCENULLFLAG: ~
-      STRINGLENGTH: ~
+      REFLISTLNAME: ~
+      REFLNAME: ~
+      REFTABLE: ~
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: "USR$NAME"
+      SETLISTFIELDKEY: "1361157845_1818884808 Наименование, USR$GOODVIEWFORM.USR$NAME"
+      SETLISTLNAME: "Внешний вид(форма и поверхность)"
+      SETTABLE: "USR$GOODVIEWFORM"
+      SETTABLEKEY: "1361157844_1818884808 Внешний вид(форма и поверхность), USR$GOODVIEWFORM"
       VISIBLE: 1
-      EDITIONDATE: 2022-06-17T16:14:45+03:00
+      EDITIONDATE: 2022-06-17T16:06:14+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
-      OBJECTS: ~
+      NUMERATION: ~
   - 
     Properties: 
       Class: "TgdcTableField"
@@ -1136,6 +1732,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -1176,10 +1773,56 @@ Objects:
   - 
     Properties: 
       Class: "TgdcTableField"
-      RUID: 1361158250_1818884808
+      RUID: 1361158288_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$POROSITYM"
+      FIELDNAME: "USR$POROSITYM"
+      FIELDSOURCE: "USR$DBREADINDICATION"
+      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Пористость"
+      LSHORTNAME: "Пористость"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$BREADINDICATION"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:13:50+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158249_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       ALIGNMENT: "L"
       CATEGORY: ~
@@ -1190,15 +1833,15 @@ Objects:
       CROSSTABLE: ~
       CROSSTABLEKEY: ~
       DELETERULE: ~
-      DESCRIPTION: "USR$HUMIDITY"
-      FIELDNAME: "USR$HUMIDITY"
-      FIELDSOURCE: "DCURRENCY"
-      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      DESCRIPTION: "USR$STIGMA"
+      FIELDNAME: "USR$STIGMA"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
       FORMAT: ~
       GDCLASSNAME: ~
       GDSUBTYPE: ~
-      LNAME: "Влажность мякиша, %"
-      LSHORTNAME: "Влажность мякиша, %"
+      LNAME: "Признаки болезни, плесни"
+      LSHORTNAME: "Логическое"
       NULLFLAG: ~
       READONLY: 0
       REFCROSSRELATION: ~
@@ -1213,7 +1856,233 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2022-06-17T16:15:05+03:00
+      EDITIONDATE: 2022-06-16T18:19:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158272_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$KNEAD"
+      FIELDNAME: "USR$KNEAD"
+      FIELDSOURCE: "USR$DBREADINDICATION"
+      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Промес"
+      LSHORTNAME: "Промес"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$BREADINDICATION"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T10:59:35+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158271_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$COLOR"
+      FIELDNAME: "USR$COLOR"
+      FIELDSOURCE: "USR$DBREADINDICATION"
+      FIELDSOURCEKEY: "1361158270_1818884808 Показатели х/б изделий, USR$DBREADINDICATION"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Цвет"
+      LSHORTNAME: "Цвет"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$BREADINDICATION"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T10:57:54+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158248_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$CRUNCH"
+      FIELDNAME: "USR$CRUNCH"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Хруст от мин.примесей"
+      LSHORTNAME: "Логическое"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T18:15:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361158247_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$OTHERINCLUCION"
+      FIELDNAME: "USR$OTHERINCLUCION"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Постороние включения"
+      LSHORTNAME: "Логическое"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-17T16:13:28+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 1361157814_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      ALIGNMENT: "L"
+      CATEGORY: ~
+      CATORD: ~
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$GOODKEY"
+      FIELDNAME: "USR$GOODKEY"
+      FIELDSOURCE: "USR$GS_DGOOD"
+      FIELDSOURCEKEY: "147035009_9802323 Товар, USR$GS_DGOOD"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcGood"
+      GDSUBTYPE: ~
+      LNAME: "Товар"
+      LSHORTNAME: "Товар"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_GOOD"
+      RELATIONKEY: "1361157791_1818884808 07. Журнал контроля качества хлеба(позиция), USR$PD_BREADCONTOLLINE"
+      RELATIONNAME: "USR$PD_BREADCONTOLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-06-16T11:05:59+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -1249,11 +2118,660 @@ Objects:
       OPTIONS: ~
   - 
     Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361157833_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_dlgUserComplexDocument1361157789_1818884808(Tgdc_dlgUserComplexDocument)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-16T10:52:58+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361157836_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "1361157833_1818884808 USER - Administrator\\gdc_dlgUserComplexDocument1361157789_1818884808(Tgdc_dlgUserComplexDocument)"
+      NAME: "ibgrDetail(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-16T11:00:12+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361157837_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "1361157836_1818884808 USER - Administrator\\gdc_dlgUserComplexDocument1361157789_1818884808(Tgdc_dlgUserComplexDocument)\\ibgrDetail(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T13:41:05+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAA8wAAAYIY2xX
+        aW5kb3cBBgZUYWhvbWEGD2NsSGlnaGxpZ2h0VGV4dAL1AAIIAAPMAAAGC2NsSGlnaGxpZ2h0AQYG
+        VGFob21hBgxjbFdpbmRvd1RleHQC9AACCQADzAAABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQw
+        MEQ2RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgxET0NVTUVOVERBVEUMRm9udC5D
+        aGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVp
+        Z2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GBMTg8uAS
+        VGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xX
+        aW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0
+        bGUuRm9udC5TdHlsZQsABVdpZHRoAksHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxV
+        U1IkVElNRVRFU1QMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xX
+        aW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRp
+        dGxlLkNhcHRpb24GFMLw5ez/IO/w7uIu6PHv+/Lg7ejpElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVT
+        U0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250Lkhl
+        aWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAOy
+        AAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGElVfVVNSJEdPT0RLRVlfTkFNRQxGb250
+        LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5I
+        ZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlvbgYYzeDo
+        7OXt7uLg7ejlINUvwSDo5+Tl6+jpElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VU
+        EFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxl
+        LkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAPnAAdWaXNpYmxlCQAB
+        CEV4cGFuZGVkCAlGaWVsZE5hbWUGE1VTUiRHT09EVklFV0ZPUk1LRVkMRm9udC5DaGFyc2V0Bw9S
+        VVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9u
+        dC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsACFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhPC7eX4
+        7ejpIOLo5CAo9O7w7OApC1RpdGxlLkNvbG9yBP+YZgASVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNT
+        SUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVp
+        Z2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoA5gA
+        B1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYUVV9VU1IkQ09MT1JfVVNSJE5BTUUMRm9u
+        dC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQu
+        SGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GBNbi
+        5fILVGl0bGUuQ29sb3IE/5hmABJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBU
+        aXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5G
+        b250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgCXwdWaXNpYmxlCQABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGFlVfVVNSJEJFUktBUllfVVNSJE5BTUUMRm9udC5DaGFyc2V0Bw9S
+        VVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9u
+        dC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GDc/w7u/l9+Xt7e7x8vwL
+        VGl0bGUuQ29sb3IE//+AABJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRs
+        ZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250
+        Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgCfwdWaXNpYmxlCQABCEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGFFVfVVNSJEtORUFEX1VTUiROQU1FDEZvbnQuQ2hhcnNldAcPUlVTU0lB
+        Tl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFt
+        ZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBgbP8O7s5fELVGl0bGUuQ29sb3IE
+        //+AABJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5Gb250LkNvbG9y
+        BwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5hbWUGBlRhaG9t
+        YRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgDhAAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBhhVX1VTUiRQT1JPU0lUWU1fVVNSJE5BTUUMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJT
+        RVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhv
+        bWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GCs/u8Ojx8u7x8vwLVGl0bGUuQ29sb3IE//+A
+        ABJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5Gb250LkNvbG9yBwxj
+        bFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5hbWUGBlRhaG9tYRBU
+        aXRsZS5Gb250LlN0eWxlCwAFV2lkdGgDsAAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        BhxVX1VTUiRUQVNURUlORElDQVRFX1VTUiROQU1FDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFS
+        U0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFo
+        b21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBhnR7u7y4uXy8fLi6OUg4urz8SDoIOfg7+D1
+        C1RpdGxlLkNvbG9yBID//wASVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0
+        bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9u
+        dC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoA5oAB1Zpc2libGUJAAEIRXhw
+        YW5kZWQICUZpZWxkTmFtZQYSVVNSJE9USEVSSU5DTFVDSU9ODEZvbnQuQ2hhcnNldAcPUlVTU0lB
+        Tl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFt
+        ZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBhXP7vHy7vDu7e3o5SDi6uv+9+Xt
+        6P8LVGl0bGUuQ29sb3IEgID/ABJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBU
+        aXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5G
+        b250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgDowAHVmlzaWJsZQkAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBgpVU1IkQ1JVTkNIDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFS
+        U0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFo
+        b21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBhXV8PPx8iDu8iDs6O0u7/Do7OXx5ekLVGl0
+        bGUuQ29sb3IEgID/ABJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5G
+        b250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5h
+        bWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgDpAAHVmlzaWJsZQkAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgpVU1IkU1RJR01BDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZv
+        bnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZv
+        bnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBhjP8Ojn7eDq6CDh7uvl5+3oLCDv6+Xx7egLVGl0bGUu
+        Q29sb3IEgID/ABJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5Gb250
+        LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5hbWUG
+        BlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgDpwAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBgdVU1IkRkFUDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29s
+        b3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5
+        bGULAA1UaXRsZS5DYXB0aW9uBgzMLuQuIObo8OAsICUSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNT
+        SUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVp
+        Z2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAnYH
+        VmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxVU1IkSFVNSURJVFkMRm9udC5DaGFyc2V0
+        Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJ
+        Rm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GE8Lr4Obt7vHy/CDs
+        /+ro+OAsICUSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5D
+        b2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZU
+        YWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoA4QAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZp
+        ZWxkTmFtZQYKVVNSJE9YSUdFTgxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNv
+        bG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0
+        eWxlCwANVGl0bGUuQ2FwdGlvbgYTyujx6+7w7uTt7vHy/CDD8ODkLhJUaXRsZS5Gb250LkNoYXJz
+        ZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUu
+        Rm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAF
+        V2lkdGgDjQAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxVU1IkUE9ST1NJVFkMRm9u
+        dC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQu
+        SGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GFM/u
+        8Ojx8u7x8vwg7P/q6PjgLCAlElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRp
+        dGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZv
+        bnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAOIAAdWaXNpYmxlCQABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGCVVTUiRTVUdBUgxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNF
+        VApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9t
+        YQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlvbgYO7C7kLiDx4PXg8OAsICUSVGl0bGUuRm9udC5D
+        aGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRp
+        dGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHls
+        ZQsABVdpZHRoAnYHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBhVVX1VTUiROVERLRVlf
+        VVNSJENPREUMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5k
+        b3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxl
+        LkNhcHRpb24GCsfg6uv+9+Xt6OUSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQ
+        VGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUu
+        Rm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoA/QAB1Zpc2libGUJAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYGU1VNTkNVDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VU
+        CkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21h
+        CkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBgvR8+zs4CDiIM3ExRJUaXRsZS5Gb250LkNoYXJz
+        ZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUu
+        Rm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAF
+        V2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGFVVfVVNSJEdPT0RLRVlfQkFS
+        Q09ERQxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1Rl
+        eHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwANVGl0bGUuQ2Fw
+        dGlvbgYJ2PLw6PUg6u7kElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxl
+        LkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQu
+        TmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5k
+        ZWQICUZpZWxkTmFtZQYLREVTQ1JJUFRJT04MRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQK
+        Rm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEK
+        Rm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GCM7v6PHg7ejlElRpdGxlLkZvbnQuQ2hhcnNldAcP
+        UlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250
+        LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0
+        aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLVVNSJEdPT0RLRVkMRm9udC5DaGFy
+        c2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0
+        AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GBdLu4uDwElRp
+        dGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2lu
+        ZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxl
+        LkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYCSUQM
+        Rm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0Zv
+        bnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24G
+        BMrr/vcSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xv
+        cgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhv
+        bWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBgZQQVJFTlQMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xX
+        aW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRp
+        dGxlLkNhcHRpb24GCNDu5Ojy5ev8ElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VU
+        EFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxl
+        LkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYPRE9DVU1FTlRUWVBFS0VZDEZvbnQuQ2hhcnNldAcPUlVTU0lB
+        Tl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFt
+        ZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBg3S6O8g5O7q8+zl7fLgElRpdGxl
+        LkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93
+        VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZv
+        bnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJVFJUWVBF
+        S0VZDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4
+        dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0
+        aW9uBg7S6O8g8vDg7efg6vbo6BJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBU
+        aXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5G
+        b250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgC/wdWaXNpYmxlCAABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGDlRSQU5TQUNUSU9OS0VZDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9D
+        SEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYG
+        VGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBgrS8ODt5+Dq9uj/ElRpdGxlLkZvbnQu
+        Q2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFU
+        aXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5
+        bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYGTlVNQkVSDEZvbnQu
+        Q2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250Lkhl
+        aWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBgXN7uzl
+        8BJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5Gb250LkNvbG9yBwxj
+        bFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5hbWUGBlRhaG9tYRBU
+        aXRsZS5Gb250LlN0eWxlCwAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUG
+        B1NVTUNVUlIMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5k
+        b3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxl
+        LkNhcHRpb24GDtHz7OzgIOIg4uDr/vLlElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFS
+        U0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1Rp
+        dGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUI
+        AAEIRXhwYW5kZWQICUZpZWxkTmFtZQYFU1VNRVEMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJT
+        RVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhv
+        bWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GE9Hz7OzgIOIg/eri6OLg6+Xt8uUSVGl0bGUu
+        Rm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dU
+        ZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9u
+        dC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdERUxBWUVE
+        DEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtG
+        b250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9u
+        BgrO8uvu5uXt7fvpElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZv
+        bnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFt
+        ZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
+        CUZpZWxkTmFtZQYHQ1VSUktFWQxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNv
+        bG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0
+        eWxlCwANVGl0bGUuQ2FwdGlvbgYGwuDr/vLgElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9D
+        SEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0
+        D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2li
+        bGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKQ09NUEFOWUtFWQxGb250LkNoYXJzZXQHD1JVU1NJ
+        QU5fQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC9QlGb250Lk5h
+        bWUGBlRhaG9tYQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlvbgYIyu7s7+Dt6P8SVGl0bGUuRm9u
+        dC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0
+        EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5T
+        dHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpDUkVBVE9SS0VZ
+        DEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtG
+        b250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9u
+        BgrK8u4g8e7n5ODrElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZv
+        bnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFt
+        ZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
+        CUZpZWxkTmFtZQYMQ1JFQVRJT05EQVRFDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZv
+        bnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZv
+        bnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBg3E4PLgIPHu5+Tg7ej/ElRpdGxlLkZvbnQuQ2hhcnNl
+        dAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5G
+        b250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVX
+        aWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJRURJVE9SS0VZDEZvbnQuQ2hh
+        cnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdo
+        dAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBgzK8u4g6PHv
+        8ODi6OsSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xv
+        cgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhv
+        bWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBgtFRElUSU9OREFURQxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNvbG9y
+        BwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxl
+        CwANVGl0bGUuQ2FwdGlvbgYOxODy4CDo5+zl7eXt6P8SVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNT
+        SUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVp
+        Z2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8H
+        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglQUklOVERBVEUMRm9udC5DaGFyc2V0Bw9S
+        VVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9u
+        dC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GC8Tg8uAg7+X34PLoElRp
+        dGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2lu
+        ZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxl
+        LkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYIRElT
+        QUJMRUQMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dU
+        ZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNh
+        cHRpb24GCc7y6uv+9+Xt7hJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRs
+        ZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250
+        Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGCFJFU0VSVkVEDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZv
+        bnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZv
+        bnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBg/H4PDl5+Xw4ujw7uLg7e4SVGl0bGUuRm9udC5DaGFy
+        c2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxl
+        LkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsA
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtET0NVTUVOVEtFWQxGb250
+        LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5I
+        ZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwAIUmVhZE9ubHkJDVRpdGxlLkNh
+        cHRpb24GDcjk5e3y6PTo6uDy7vASVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQ
+        VGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUu
+        Rm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBglNQVNURVJLRVkMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJT
+        RVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhv
+        bWEKRm9udC5TdHlsZQsACFJlYWRPbmx5CQ1UaXRsZS5DYXB0aW9uBjbQ7uTo8uXr/CAoMDcuIMbz
+        8O3g6yDq7u3y8O7r/yDq4Pfl8fLi4CD16+Xh4Cjv7ufo9uj/KSkSVGl0bGUuRm9udC5DaGFyc2V0
+        Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZv
+        bnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdp
+        ZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglSRVNFUlZFRDEMRm9udC5DaGFy
+        c2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0
+        AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsACFJlYWRPbmx5CQ1UaXRsZS5DYXB0aW9u
+        Bj3H4PDl5+Xw4ujw7uLg7e4gKDA3LiDG8/Dt4Osg6u7t8vDu6/8g6uD35fHy4uAg9evl4eAo7+7n
+        6Pbo/ykpElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29s
+        b3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFo
+        b21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxk
+        TmFtZQYOVVNSJEJFUl9ET0NLRVkMRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5D
+        b2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5T
+        dHlsZQsADVRpdGxlLkNhcHRpb24GCMTu6vPs5e3yElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lB
+        Tl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdo
+        dAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zp
+        c2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYOVVNSJFNPUlROVU1CRVIMRm9udC5DaGFyc2V0
+        Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJ
+        Rm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsACFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhTN
+        7uzl8CDk6/8g8e7w8ujw7uLq6BJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBU
+        aXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5G
+        b250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgC/wdWaXNpYmxlCAABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGDFVTUiRFVkFUX09VVAxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hB
+        UlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRh
+        aG9tYQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlvbgYQ0fLg8vPxIOjx9S4g3dHX1BJUaXRsZS5G
+        b250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1Rl
+        eHQRVGl0bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250
+        LlN0eWxlCwAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGF1pfVVNSJEVW
+        QVRfT1VUX1VTUiROQU1FDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IH
+        DGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGUL
+        AA1UaXRsZS5DYXB0aW9uBgzN4Ojs5e3u4uDt6OUSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFO
+        X0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0
+        AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlz
+        aWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxVU1IkRVZBVF9TVU0MRm9udC5DaGFyc2V0Bw9S
+        VVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0ZvbnQuSGVpZ2h0AvUJRm9u
+        dC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24GHM/u5PLi5fDm5OXt7eD/
+        IPHz7OzgIO/uIN3R19QSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUu
+        Rm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5O
+        YW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgpVU1IkRVFSQVRFDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZv
+        bnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZv
+        bnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBhDK8/DxIP3q4uji4Ovl7fLgElRpdGxlLkZvbnQuQ2hh
+        cnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRs
+        ZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGUL
+        AAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYQVVNSJEJSSV8xQ19NT1ZF
+        RAxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQL
+        Rm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlv
+        bgYP7+Xw5e3l8eXt7iDiIDHxElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRp
+        dGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZv
+        bnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhw
+        YW5kZWQICUZpZWxkTmFtZQYSVVNSJEJURV9JU0lOVEVSTkFMDEZvbnQuQ2hhcnNldAcPUlVTU0lB
+        Tl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFt
+        ZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBhPC7fPy8OXt7ejpIOTu6vPs5e3y
+        ElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNs
+        V2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRp
+        dGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYS
+        VVNSJEdTX1dJVEhPVVRFVkFUDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29s
+        b3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5
+        bGULAA1UaXRsZS5DYXB0aW9uBhnKIOfg9+Xy8yDh5ecg8ffl8i304Ory8/D7ElRpdGxlLkZvbnQu
+        Q2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFU
+        aXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5
+        bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYQVVNSJE1OX1BSSU5U
+        REFURQxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1Rl
+        eHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwANVGl0bGUuQ2Fw
+        dGlvbgYXxODy4CDv5ffg8uggKMTu6vPs5e3y+ykSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFO
+        X0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0
+        AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlz
+        aWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhFVU1IkQlRFX0lTQ09ORklSTQxGb250LkNoYXJz
+        ZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC
+        9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlvbgYUxO7q8+zl7fIg
+        7+7k8uLl8Obk5e0SVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9u
+        dC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1l
+        BgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBhNVX1VTUiRHT09ES0VZX0FMSUFTDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFS
+        U0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFo
+        b21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBgrK7uQg8u7i4PDgElRpdGxlLkZvbnQuQ2hh
+        cnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRs
+        ZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGUL
+        AAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJVVNSJENPTE9SDEZvbnQu
+        Q2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250Lkhl
+        aWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBgTW4uXy
+        ElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29sb3IHDGNs
+        V2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFob21hEFRp
+        dGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJ
+        VVNSJEtORUFEDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2lu
+        ZG93VGV4dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRs
+        ZS5DYXB0aW9uBgbP8O7s5fESVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0
+        bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9u
+        dC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBgtVU1IkQkVSS0FSWQxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNF
+        VApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9t
+        YQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlvbgYNz/Du7+X35e3t7vHy/BJUaXRsZS5Gb250LkNo
+        YXJzZXQHD1JVU1NJQU5fQ0hBUlNFVBBUaXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0
+        bGUuRm9udC5IZWlnaHQC9A9UaXRsZS5Gb250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxl
+        CwAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDVVTUiRQT1JPU0lUWU0M
+        Rm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0Zv
+        bnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24G
+        Cs/u8Ojx8u7x8vwSVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9u
+        dC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1l
+        BgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBhFVU1IkVEFTVEVJTkRJQ0FURQxGb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hBUlNF
+        VApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC9QlGb250Lk5hbWUGBlRhaG9t
+        YQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlvbgYU0e7u8uLl8fLi6OUg4urz8SDoIOcSVGl0bGUu
+        Rm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUuRm9udC5Db2xvcgcMY2xXaW5kb3dU
+        ZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5OYW1lBgZUYWhvbWEQVGl0bGUuRm9u
+        dC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpVU1IkTlRE
+        S0VZDEZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4
+        dAtGb250LkhlaWdodAL1CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0
+        aW9uBhTH4Orr/vfl7ejlKNHSwS/DztHSKRJUaXRsZS5Gb250LkNoYXJzZXQHD1JVU1NJQU5fQ0hB
+        UlNFVBBUaXRsZS5Gb250LkNvbG9yBwxjbFdpbmRvd1RleHQRVGl0bGUuRm9udC5IZWlnaHQC9A9U
+        aXRsZS5Gb250Lk5hbWUGBlRhaG9tYRBUaXRsZS5Gb250LlN0eWxlCwAFV2lkdGgC/wdWaXNpYmxl
+        CAABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUZVTEwM
+        Rm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQKRm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0C0Zv
+        bnQuSGVpZ2h0AvUJRm9udC5OYW1lBgZUYWhvbWEKRm9udC5TdHlsZQsADVRpdGxlLkNhcHRpb24G
+        Dc/u6+376SDk7vHy8+8SVGl0bGUuRm9udC5DaGFyc2V0Bw9SVVNTSUFOX0NIQVJTRVQQVGl0bGUu
+        Rm9udC5Db2xvcgcMY2xXaW5kb3dUZXh0EVRpdGxlLkZvbnQuSGVpZ2h0AvQPVGl0bGUuRm9udC5O
+        YW1lBgZUYWhvbWEQVGl0bGUuRm9udC5TdHlsZQsABVdpZHRoAv8HVmlzaWJsZQgAAQlBbGlnbm1l
+        bnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGBUFDSEFHDEZvbnQuQ2hhcnNl
+        dAcPUlVTU0lBTl9DSEFSU0VUCkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dAtGb250LkhlaWdodAL1
+        CUZvbnQuTmFtZQYGVGFob21hCkZvbnQuU3R5bGULAA1UaXRsZS5DYXB0aW9uBhnP8O7x7O7y8CDo
+        IPDl5ODq8ujw7uLg7ejlElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxl
+        LkZvbnQuQ29sb3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQu
+        TmFtZQYGVGFob21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAEJQWxpZ25t
+        ZW50Bw50YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgVBVklFVwxGb250LkNoYXJz
+        ZXQHD1JVU1NJQU5fQ0hBUlNFVApGb250LkNvbG9yBwxjbFdpbmRvd1RleHQLRm9udC5IZWlnaHQC
+        9QlGb250Lk5hbWUGBlRhaG9tYQpGb250LlN0eWxlCwANVGl0bGUuQ2FwdGlvbgYP0u7r/OruIO/w
+        7vHs7vLwElRpdGxlLkZvbnQuQ2hhcnNldAcPUlVTU0lBTl9DSEFSU0VUEFRpdGxlLkZvbnQuQ29s
+        b3IHDGNsV2luZG93VGV4dBFUaXRsZS5Gb250LkhlaWdodAL0D1RpdGxlLkZvbnQuTmFtZQYGVGFo
+        b21hEFRpdGxlLkZvbnQuU3R5bGULAAVXaWR0aAL/B1Zpc2libGUIAAAICf0cCQg=
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361157824_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmUserComplexDocument1361157789_1818884808(Tgdc_frmUserComplexDocument)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-16T11:06:31+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361157866_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "1361157824_1818884808 USER - Administrator\\gdc_frmUserComplexDocument1361157789_1818884808(Tgdc_frmUserComplexDocument)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-16T12:55:54+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361157867_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "1361157866_1818884808 USER - Administrator\\gdc_frmUserComplexDocument1361157789_1818884808(Tgdc_frmUserComplexDocument)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T17:39:26+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgZOVU1CRVIIUmVhZE9ubHkIDVRpdGxl
+        LkNhcHRpb24GBc3u7OXwBVdpZHRoAnwHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxE
+        T0NVTUVOVERBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBMTg8uAFV2lkdGgDyAAHVmlzaWJs
+        ZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBhBVU1IkTU5fUFJJTlREQVRFCFJlYWRPbmx5CA1UaXRs
+        ZS5DYXB0aW9uBhfE4PLgIO/l9+Dy6CAoxO7q8+zl7fL7KQVXaWR0aAMBAQdWaXNpYmxlCQABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGAklECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgTK6/73BVdpZHRo
+        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgZQQVJFTlQIUmVhZE9ubHkIDVRpdGxl
+        LkNhcHRpb24GCNDu5Ojy5ev8BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        Bg9ET0NVTUVOVFRZUEVLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDdLo7yDk7urz7OXt8uAF
+        V2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCVRSVFlQRUtFWQhSZWFkT25s
+        eQgNVGl0bGUuQ2FwdGlvbgYO0ujvIPLw4O3n4Or26OgFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGDlRSQU5TQUNUSU9OS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgrS
+        8ODt5+Dq9uj/BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtERVNDUklQ
+        VElPTghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYIzu/o8eDt6OUFV2lkdGgC/wdWaXNpYmxlCAAB
+        CEV4cGFuZGVkCAlGaWVsZE5hbWUGBlNVTU5DVQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYL0fPs
+        7OAg4iDNxMUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB1NVTUNVUlII
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDtHz7OzgIOIg4uDr/vLlBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBgVTVU1FUQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYT0fPs
+        7OAg4iD96uLo4uDr5e3y5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYH
+        REVMQVlFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYKzvLr7ubl7e376QVXaWR0aAL/B1Zpc2li
+        bGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHQ1VSUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlv
+        bgYGwuDr/vLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpDT01QQU5Z
+        S0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgjK7uzv4O3o/wVXaWR0aAL/B1Zpc2libGUIAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYKQ1JFQVRPUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYK
+        yvLuIPHu5+Tg6wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMQ1JFQVRJ
+        T05EQVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg3E4PLgIPHu5+Tg7ej/BVdpZHRoAv8HVmlz
+        aWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglFRElUT1JLRVkIUmVhZE9ubHkIDVRpdGxlLkNh
+        cHRpb24GDMry7iDo8e/w4OLo6wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYLRURJVElPTkRBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDsTg8uAg6Ofs5e3l7ej/BVdp
+        ZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglQUklOVERBVEUIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GC8Tg8uAg7+X34PLoBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBghESVNBQkxFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYJzvLq6/735e3uBVdp
+        ZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghSRVNFUlZFRAhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYPx+Dw5efl8OLo8O7i4O3uBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgtET0NVTUVOVEtFWQ1UaXRsZS5DYXB0aW9uBg3I5OXt8uj06Org8u7wBVdp
+        ZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglSRVNFUlZFRDENVGl0bGUuQ2Fw
+        dGlvbgY0x+Dw5efl8OLo8O7i4O3uICgwNy4gxvPw7eDrIOru7fLw7uv/IOrg9+Xx8uLgIPXr5eHg
+        KQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYOVVNSJEJFUl9ET0NLRVkI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCMTu6vPs5e3yBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBg5VU1IkU09SVE5VTUJFUghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYU
+        ze7s5fAg5Ov/IPHu8PLo8O7i6ugFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGDFVTUiRFVkFUX09VVAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQ0fLg8vPxIOjx9S4g3dHX
+        1AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYXWl9VU1IkRVZBVF9PVVRf
+        VVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g6Ozl7e7i4O3o5QVXaWR0aAL/B1Zp
+        c2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMVVNSJEVWQVRfU1VNCFJlYWRPbmx5CA1UaXRs
+        ZS5DYXB0aW9uBhzP7uTy4uXw5uTl7e3g/yDx8+zs4CDv7iDd0dfUBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBgpVU1IkRVFSQVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9u
+        BhDK8/DxIP3q4uji4Ovl7fLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        BhBVU1IkQlJJXzFDX01PVkVECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg/v5fDl7eXx5e3uIOIg
+        MfEFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGElVTUiRCVEVfSVNJTlRF
+        Uk5BTAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYTwu3z8vDl7e3o6SDk7urz7OXt8gVXaWR0aAL/
+        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYSVVNSJEdTX1dJVEhPVVRFVkFUCFJlYWRP
+        bmx5CA1UaXRsZS5DYXB0aW9uBhnKIOfg9+Xy8yDh5ecg8ffl8i304Ory8/D7BVdpZHRoAv8HVmlz
+        aWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhFVU1IkQlRFX0lTQ09ORklSTQhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYUxO7q8+zl7fIg7+7k8uLl8Obk5e0FV2lkdGgC/wdWaXNpYmxlCAABCUFs
+        aWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUZVTEwIUmVhZE9u
+        bHkIDVRpdGxlLkNhcHRpb24GDc/u6+376SDk7vHy8+8FV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdu
+        bWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUNIQUcIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GGc/w7vHs7vLwIOgg8OXk4Ory6PDu4uDt6OUFV2lkdGgC/wdWaXNpYmxl
+        CAABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQVZJRVcI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD9Lu6/zq7iDv8O7x7O7y8AVXaWR0aAL/B1Zpc2libGUI
+        AAAICLQeCQg=
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 1361157849_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "1361157824_1818884808 USER - Administrator\\gdc_frmUserComplexDocument1361157789_1818884808(Tgdc_frmUserComplexDocument)"
+      NAME: "ibgrDetail(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-16T11:16:23+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361157850_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "1361157849_1818884808 USER - Administrator\\gdc_frmUserComplexDocument1361157789_1818884808(Tgdc_frmUserComplexDocument)\\ibgrDetail(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-16T16:43:55+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBgxET0NVTUVOVERBVEUIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GBMTg8uAFV2lkdGgCQQdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGElVfVVNSJEdPT0RLRVlfTkFNRQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYdzeDo7OXt7uLg
+        7ejlICjR7/Dg4u737ejqINLM1ikFV2lkdGgDwAEHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGRO
+        YW1lBgpVU1IkRVFSQVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhDK8/DxIP3q4uji4Ovl7fLg
+        BVdpZHRoA4IAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYSVVNSJEdTX1dJVEhPVVRF
+        VkFUCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhnKIOfg9+Xy8yDh5ecg8ffl8i304Ory8/D7BVdp
+        ZHRoA4IAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYQVVNSJE1OX1BSSU5UREFURQhS
+        ZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYXxODy4CDv5ffg8uggKMTu6vPs5e3y+ykFV2lkdGgDggAH
+        VmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBhNVU1IkR09PRFZJRVdGT1JNS0VZCFJlYWRP
+        bmx5CA1UaXRsZS5DYXB0aW9uBhPC7eX47ejpIOLo5CAo9O7w7OApBVdpZHRoA2wBB1Zpc2libGUJ
+        AAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKVVNSJEdPT0RWRghSZWFkT25seQgNVGl0bGUuQ2FwdGlv
+        bgYHwu0uIOLo5AVXaWR0aANsAQdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGAklECFJl
+        YWRPbmx5CA1UaXRsZS5DYXB0aW9uBgTK6/73BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBgZQQVJFTlQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCNDu5Ojy5ev8BVdpZHRo
+        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg9ET0NVTUVOVFRZUEVLRVkIUmVhZE9u
+        bHkIDVRpdGxlLkNhcHRpb24GDdLo7yDk7urz7OXt8uAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGCVRSVFlQRUtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYO0ujvIPLw
+        4O3n4Or26OgFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlRSQU5TQUNU
+        SU9OS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgrS8ODt5+Dq9uj/BVdpZHRoAv8HVmlzaWJs
+        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgZOVU1CRVIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24G
+        Bc3u7OXwBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtERVNDUklQVElP
+        TghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYIzu/o8eDt6OUFV2lkdGgC/wdWaXNpYmxlCAABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGBlNVTU5DVQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYL0fPs7OAg
+        4iDNxMUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB1NVTUNVUlIIUmVh
+        ZE9ubHkIDVRpdGxlLkNhcHRpb24GDtHz7OzgIOIg4uDr/vLlBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBgVTVU1FUQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYT0fPs7OAg
+        4iD96uLo4uDr5e3y5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHREVM
+        QVlFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYKzvLr7ubl7e376QVXaWR0aAL/B1Zpc2libGUI
+        AAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHQ1VSUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYG
+        wuDr/vLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpDT01QQU5ZS0VZ
+        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgjK7uzv4O3o/wVXaWR0aAL/B1Zpc2libGUIAAEIRXhw
+        YW5kZWQICUZpZWxkTmFtZQYKQ1JFQVRPUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYKyvLu
+        IPHu5+Tg6wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMQ1JFQVRJT05E
+        QVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg3E4PLgIPHu5+Tg7ej/BVdpZHRoAv8HVmlzaWJs
+        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglFRElUT1JLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRp
+        b24GDMry7iDo8e/w4OLo6wVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYL
+        RURJVElPTkRBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDsTg8uAg6Ofs5e3l7ej/BVdpZHRo
+        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglQUklOVERBVEUIUmVhZE9ubHkIDVRp
+        dGxlLkNhcHRpb24GC8Tg8uAg7+X34PLoBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmll
+        bGROYW1lBghESVNBQkxFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYJzvLq6/735e3uBVdpZHRo
+        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghSRVNFUlZFRAhSZWFkT25seQgNVGl0
+        bGUuQ2FwdGlvbgYPx+Dw5efl8OLo8O7i4O3uBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBgtET0NVTUVOVEtFWQ1UaXRsZS5DYXB0aW9uBg3I5OXt8uj06Org8u7wBVdpZHRo
+        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglNQVNURVJLRVkNVGl0bGUuQ2FwdGlv
+        bgY20O7k6PLl6/wgKDA3LiDG8/Dt4Osg6u7t8vDu6/8g6uD35fHy4uAg9evl4eAo7+7n6Pbo/ykp
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglSRVNFUlZFRDENVGl0bGUu
+        Q2FwdGlvbgY9x+Dw5efl8OLo8O7i4O3uICgwNy4gxvPw7eDrIOru7fLw7uv/IOrg9+Xx8uLgIPXr
+        5eHgKO/u5+j26P8pKQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLVVNS
+        JEdPT0RLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBdLu4uDwBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBg5VU1IkQkVSX0RPQ0tFWQhSZWFkT25seQgNVGl0bGUuQ2Fw
+        dGlvbgYIxO7q8+zl7fIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlVT
+        UiRTT1JUTlVNQkVSCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhTN7uzl8CDk6/8g8e7w8ujw7uLq
+        6AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMVVNSJEVWQVRfT1VUCFJl
+        YWRPbmx5CA1UaXRsZS5DYXB0aW9uBhDR8uDy8/Eg6PH1LiDd0dfUBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBhdaX1VTUiRFVkFUX09VVF9VU1IkTkFNRQhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYMzeDo7OXt7uLg7ejlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBgxVU1IkRVZBVF9TVU0IUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GHM/u5PLi5fDm
+        5OXt7eD/IPHz7OzgIO/uIN3R19QFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGEFVTUiRCUklfMUNfTU9WRUQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD+/l8OXt5fHl7e4g
+        4iAx8QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYSVVNSJEJURV9JU0lO
+        VEVSTkFMCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhPC7fPy8OXt7ejpIOTu6vPs5e3yBVdpZHRo
+        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhFVU1IkQlRFX0lTQ09ORklSTQhSZWFk
+        T25seQgNVGl0bGUuQ2FwdGlvbgYUxO7q8+zl7fIg7+7k8uLl8Obk5e0FV2lkdGgC/wdWaXNpYmxl
+        CAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGE1VfVVNSJEdPT0RLRVlfQUxJQVMIUmVhZE9ubHkIDVRp
+        dGxlLkNhcHRpb24GCsru5CDy7uLg8OAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVs
+        ZE5hbWUGFVVfVVNSJEdPT0RLRVlfQkFSQ09ERQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYJ2PLw
+        6PUg6u7kBVdpZHRoAv8HVmlzaWJsZQgAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGBUFGVUxMDVRpdGxlLkNhcHRpb24GDc/u6+376SDk7vHy8+8FV2lkdGgC
+        /wdWaXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYFQUNIQUcNVGl0bGUuQ2FwdGlvbgYZz/Du8ezu8vAg6CDw5eTg6vLo8O7i4O3o5QVXaWR0aAL/
+        B1Zpc2libGUIAAEJQWxpZ25tZW50Bw50YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1l
+        BgVBVklFVw1UaXRsZS5DYXB0aW9uBg/S7uv86u4g7/Du8ezu8vAFV2lkdGgC/wdWaXNpYmxlCAAA
+        CAi0HgkI
+  - 
+    Properties: 
       Class: "TgdcStorageValue"
       RUID: 1361158716_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       PARENT: "147057842_1633690722 GLOBAL\\DFM\\Tgdc_frmUserComplexDocument"
       NAME: "1361157789_1818884808"
@@ -2625,10 +4143,221 @@ Objects:
   - 
     Properties: 
       Class: "TgdcStorageValue"
+      RUID: 1361158287_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "147240190_1234867257 GLOBAL\\DFM\\Tgdc_dlgUserDocumentLine"
+      NAME: "1361157789_1818884808"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-17T11:04:09+03:00
+      BLOB_DATA: | 
+        object gdc_dlgUserDocumentLine1361157789_1818884808: Tgdc_dlgUserDocumentLine
+          PixelsPerInch = 96
+          TextHeight = 13
+          object Bevel1: TBevel
+          end
+          object btnAccess: TButton
+          end
+          object btnNew: TButton
+          end
+          object btnHelp: TButton
+          end
+          object btnOK: TButton
+          end
+          object btnCancel: TButton
+          end
+          object pnlAttributes: TPanel
+            object atAttributes: TatContainer
+              object usrat_gsIBLookupComboBox_USR_GOODKEY_Label: TLabel
+              end
+              object usrat_atSetLookupComboBox_USR_GOODVIEWFORMKEY_Label: TLabel
+              end
+              object usrat_DBEdit_USR_HUMIDITY_Label: TLabel
+              end
+              object usrat_DBEdit_USR_POROSITY_Label: TLabel
+              end
+              object usrat_DBEdit_USR_OXIGEN_Label: TLabel
+              end
+              object usrat_DBEdit_USR_FAT_Label: TLabel
+              end
+              object usrat_DBEdit_USR_SUGAR_Label: TLabel
+              end
+              object usrat_xDateDBEdit_USR_TIMETEST_Label: TLabel
+              end
+              object usrat_gsIBLookupComboBox_USR_COLOR_Label: TLabel
+              end
+              object usrat_gsIBLookupComboBox_USR_KNEAD_Label: TLabel
+              end
+              object usrat_DBEdit_Z_USR_EVAT_OUT_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_U_USR_KNEAD_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_U_USR_COLOR_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_BER_DOCKEY_Label: TLabel
+              end
+              object usrat_DBEdit_USR_SORTNUMBER_Label: TLabel
+              end
+              object usrat_gsIBLookupComboBox_USR_EVAT_OUT_Label: TLabel
+              end
+              object usrat_DBEdit_USR_EVAT_SUM_Label: TLabel
+              end
+              object usrat_DBEdit_USR_EQRATE_Label: TLabel
+              end
+              object usrat_xDateDBEdit_USR_MN_PRINTDATE_Label: TLabel
+              end
+              object usrat_gsIBLookupComboBox_USR_GOODKEY: TgsIBLookupComboBox
+              end
+              object usrat_atSetLookupComboBox_USR_GOODVIEWFORMKEY: TatSetLookupComboBox
+              end
+              object usrat_DBCheckBox_USR_OTHERINCLUCION: TDBCheckBox
+              end
+              object usrat_DBCheckBox_USR_CRUNCH: TDBCheckBox
+              end
+              object usrat_DBCheckBox_USR_STIGMA: TDBCheckBox
+              end
+              object usrat_DBEdit_USR_HUMIDITY: TxDBCalculatorEdit
+              end
+              object usrat_DBEdit_USR_POROSITY: TxDBCalculatorEdit
+              end
+              object usrat_DBEdit_USR_OXIGEN: TxDBCalculatorEdit
+              end
+              object usrat_DBEdit_USR_FAT: TxDBCalculatorEdit
+              end
+              object usrat_DBEdit_USR_SUGAR: TxDBCalculatorEdit
+              end
+              object usrat_xDateDBEdit_USR_TIMETEST: TxDateDBEdit
+              end
+              object usrat_gsIBLookupComboBox_USR_COLOR: TgsIBLookupComboBox
+              end
+              object usrat_gsIBLookupComboBox_USR_KNEAD: TgsIBLookupComboBox
+                Condition = 'USR$TYPE=3'
+              end
+              object usrat_DBEdit_Z_USR_EVAT_OUT_USR_NAME: TDBEdit
+              end
+              object usrat_DBEdit_U_USR_KNEAD_USR_NAME: TDBEdit
+              end
+              object usrat_DBEdit_U_USR_COLOR_USR_NAME: TDBEdit
+              end
+              object usrat_DBEdit_USR_BER_DOCKEY: TxDBCalculatorEdit
+              end
+              object usrat_DBEdit_USR_SORTNUMBER: TxDBCalculatorEdit
+              end
+              object usrat_gsIBLookupComboBox_USR_EVAT_OUT: TgsIBLookupComboBox
+              end
+              object usrat_DBEdit_USR_EVAT_SUM: TxDBCalculatorEdit
+              end
+              object usrat_DBEdit_USR_EQRATE: TxDBCalculatorEdit
+              end
+              object usrat_DBCheckBox_USR_BRI_1C_MOVED: TDBCheckBox
+              end
+              object usrat_DBCheckBox_USR_BTE_ISINTERNAL: TDBCheckBox
+              end
+              object usrat_DBCheckBox_USR_GS_WITHOUTEVAT: TDBCheckBox
+              end
+              object usrat_xDateDBEdit_USR_MN_PRINTDATE: TxDateDBEdit
+              end
+              object usrat_DBCheckBox_USR_BTE_ISCONFIRM: TDBCheckBox
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 118
+            Top = 215
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 80
+            Top = 215
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
       RUID: 1361158047_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       PARENT: "147240236_1234867257 GLOBAL\\DFM\\Tgdc_dlgUserComplexDocument"
       NAME: "1361157789_1818884808"
@@ -4250,101 +5979,23 @@ Objects:
         
   - 
     Properties: 
-      Class: "TgdcReport"
-      RUID: 1361158300_1818884808
+      Class: "TgdcDelphiObject"
+      RUID: 1361157843_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
-      NAME: "Журнал контроля"
+      PARENT: ~
+      NAME: "gdc_dlgUserDocumentLine1361157789_1818884808"
+      CLASSNAME: ""
       DESCRIPTION: ~
-      DISPLAYINMENU: 1
-      EVENTFORMULAKEY: ~
-      FOLDERKEY: ~
-      FRQREFRESH: 1
-      GLOBALREPORTKEY: ~
-      ISLOCALEXECUTE: 1
-      ISREBUILD: 1
-      MAINFORMULAKEY: "1361158301_1818884808 rp_Main1361158301_1818884808"
-      MODALPREVIEW: 0
-      PARAMFORMULAKEY: ~
-      PREVIEW: 1
-      REPORTGROUPKEY: "1361157800_1818884808 Отчеты(gdc_frmUserComplexDocument1361157789_1818884808)"
-      SERVERKEY: ~
-      TEMPLATEKEY: "1361158399_1818884808 Журнал контроля х/б изделий."
-      EDITIONDATE: 2022-06-17T13:06:09+03:00
-  - 
-    Properties: 
-      Class: "TgdcTemplate"
-      RUID: 1361158399_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      NAME: "Журнал контроля х/б изделий."
-      DESCRIPTION: ~
-      TEMPLATETYPE: "FR4"
-      EDITIONDATE: 2022-06-17T13:04:43+03:00
-      TEMPLATEDATA: | 
-        <?xml version="1.0" encoding="utf-8"?>
-        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44729,5258402315" ReportOptions.Description.Text="" ReportOptions.LastChange="44729,5258402315" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D2251220000095661726961626C65730100055374796C650100">
-          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
-          <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="297" PaperHeight="210" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
-            <TfrxReportTitle Name="ReportTitle1" Height="26,45671" Left="0" Top="18,89765" Width="1046,92981">
-              <TfrxMemoView Name="Memo1" Left="3,77953" Top="0" Width="1043,15028" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="Р–СѓСЂРЅР°Р» СѓС‡РµС‚Р° С…Р»РµР±РѕР±СѓР»РѕС‡РЅС‹С… РёР·РґРµР»РёР№"/>
-            </TfrxReportTitle>
-            <TfrxHeader Name="Header1" Height="113,3859" Left="0" Top="105,82684" Width="1046,92981">
-              <TfrxMemoView Name="Memo2" Left="0" Top="0" Width="22,67718" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="в„– Рї.Рї."/>
-              <TfrxMemoView Name="Memo3" Left="22,67718" Top="0" Width="204,09462" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°РёРјРµРЅРѕРІР°РЅРёРµ С…Р»РµР±Р°"/>
-              <TfrxMemoView Name="Memo4" Left="226,7718" Top="0" Width="22,67718" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РњР°СЃСЃР° РЅРµС‚С‚Рѕ"/>
-              <TfrxMemoView Name="Memo5" Left="249,44898" Top="0" Width="26,45671" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р”Р°С‚Р° Рё РІСЂРµРјСЏ РїСЂРѕРІРµРґРµРЅРёСЏ РёСЃРїС‹С‚Р°РЅРёР№"/>
-              <TfrxMemoView Name="Memo6" Left="275,90569" Top="0" Width="328,81911" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РћСЂРіР°РЅРѕР»РµРїС‚РёС‡РµСЃРєРёР№ РїРѕРєР°Р·Р°С‚РµР»Рё"/>
-              <TfrxMemoView Name="Memo7" Left="275,90569" Top="15,11812" Width="102,04731" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р’РЅРµС€РЅРёР№ РІРёРґ"/>
-              <TfrxMemoView Name="Memo8" Left="377,953" Top="15,11812" Width="181,41744" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎРѕСЃС‚РѕСЏРЅРёРµ РјСЏРєРёС€Р°"/>
-              <TfrxMemoView Name="Memo9" Left="275,90569" Top="75,5906" Width="64,25201" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¤РѕСЂРјР° Рё РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ"/>
-              <TfrxMemoView Name="Memo10" Left="340,1577" Top="75,5906" Width="37,7953" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¦РІРµС‚"/>
-              <TfrxMemoView Name="Memo11" Left="377,953" Top="75,5906" Width="75,5906" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРѕРїРµС‡РµРЅРЅРѕСЃС‚СЊ"/>
-              <TfrxMemoView Name="Memo12" Left="453,5436" Top="75,5906" Width="49,13389" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРѕРјРµСЃ"/>
-              <TfrxMemoView Name="Memo13" Left="502,67749" Top="75,5906" Width="56,69295" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџРѕСЂРёСЃС‚РѕСЃС‚СЊ"/>
-              <TfrxMemoView Name="Memo14" Left="559,37044" Top="15,11812" Width="45,35436" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РЎРѕРѕС‚РІРµС‚СЃС‚РІРёРµ&#13;&#10;РІРєСѓСЃ Рё Р·Р°РїР°С…"/>
-              <TfrxMemoView Name="Memo15" Left="604,7248" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°Р»РёС‡РёРµ"/>
-              <TfrxMemoView Name="Memo16" Left="604,7248" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџРѕСЃС‚РѕСЂРѕРЅРЅРёС… &#13;&#10;РІРєР»СЋС‡РµРЅРёР№"/>
-              <TfrxMemoView Name="Memo17" Left="642,5201" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РҐСЂСѓСЃС‚Р° РѕС‚&#13;&#10;РјРёРЅРµСЂР°Р»СЊРЅС‹С… &#13;&#10;РїСЂРёРјРµСЃРµР№"/>
-              <TfrxMemoView Name="Memo18" Left="680,3154" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџСЂРёР·РЅР°РєРѕРІ Р±РѕР»РµР·РЅРё, РїР»РµСЃРµРЅРё"/>
-              <TfrxMemoView Name="Memo19" Left="718,1107" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р’Р»Р°Р¶РЅРѕСЃС‚СЊ &#13;&#10;РјСЏРєРёС€Р° %"/>
-              <TfrxMemoView Name="Memo20" Left="755,906" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџРѕСЂРёСЃС‚РѕСЃС‚СЊ &#13;&#10;РјСЏРєРёС€Р° %"/>
-              <TfrxMemoView Name="Memo21" Left="793,7013" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РљРёСЃР»РѕСЂРѕРґРЅРѕСЃС‚СЊ&#13;&#10;Р“СЂР°Рґ."/>
-              <TfrxMemoView Name="Memo22" Left="831,4966" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Рњ.Рґ. Р¶РёСЂР° %"/>
-              <TfrxMemoView Name="Memo23" Left="869,2919" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Рњ.Рґ.СЃР°С…Р°СЂР° %"/>
-              <TfrxMemoView Name="Memo24" Left="907,0872" Top="0" Width="71,81107" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р—Р°РєР»СЋС‡РµРЅРёРµ"/>
-              <TfrxMemoView Name="Memo25" Left="718,1107" Top="0" Width="188,9765" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
-              <TfrxMemoView Name="Memo26" Left="978,89827" Top="0" Width="68,03154" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РљС‚Рѕ РїСЂРѕРІРѕРґРёР» &#13;&#10;РёСЃРїС‹С‚Р°РЅРёСЏ"/>
-            </TfrxHeader>
-            <TfrxMasterData Name="MasterData1" Height="22,67718" Left="0" Top="241,88992" Width="1046,92981" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0" Stretched="True">
-              <TfrxMemoView Name="Memo27" Left="0" Top="0" Width="22,67718" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Line#]"/>
-              <TfrxMemoView Name="Memo28" Left="22,67718" Top="0" Width="204,09462" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GOODNAME" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GOODNAME&#34;]"/>
-              <TfrxMemoView Name="Memo29" Left="226,7718" Top="0" Width="22,67718" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GWEIGHT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GWEIGHT&#34;]"/>
-              <TfrxMemoView Name="Memo30" Left="249,44898" Top="0" Width="26,45671" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="[Q.&#34;DOCUMENTDATE&#34;]&#13;&#10;[Q.&#34;USR$TIMETEST&#34;]"/>
-              <TfrxMemoView Name="Memo31" Left="275,90569" Top="0" Width="64,25201" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GOODVIEWFORM" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GOODVIEWFORM&#34;]"/>
-              <TfrxMemoView Name="Memo32" Left="340,1577" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="COLOR" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;COLOR&#34;]"/>
-              <TfrxMemoView Name="Memo33" Left="377,953" Top="0" Width="75,5906" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="BERKARY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;BERKARY&#34;]"/>
-              <TfrxMemoView Name="Memo34" Left="453,5436" Top="0" Width="49,13389" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="KNEAD" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;KNEAD&#34;]"/>
-              <TfrxMemoView Name="Memo35" Left="502,67749" Top="0" Width="56,69295" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="POROSITYM" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;POROSITYM&#34;]"/>
-              <TfrxMemoView Name="Memo36" ShiftMode="smDontShift" Left="559,37044" Top="0" Width="45,35436" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="[Q.&#34;TASTE&#34;]"/>
-              <TfrxMemoView Name="Memo37" Left="604,7248" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$OTHERINCLUCION&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
-              <TfrxMemoView Name="Memo38" Left="642,5201" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$CRUNCH&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
-              <TfrxMemoView Name="Memo39" Left="680,3154" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$STIGMA&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
-              <TfrxMemoView Name="Memo40" Left="718,1107" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$HUMIDITY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$HUMIDITY&#34;]"/>
-              <TfrxMemoView Name="Memo41" Left="755,906" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$POROSITY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$POROSITY&#34;]"/>
-              <TfrxMemoView Name="Memo42" Left="793,7013" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$OXIGEN" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$OXIGEN&#34;]"/>
-              <TfrxMemoView Name="Memo43" Left="831,4966" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$FAT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$FAT&#34;]"/>
-              <TfrxMemoView Name="Memo44" Left="869,2919" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$SUGAR" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$SUGAR&#34;]"/>
-              <TfrxMemoView Name="Memo45" Left="907,0872" Top="0" Width="71,81107" Height="22,6771800000001" ShowHint="False" StretchMode="smMaxHeight" DataField="STB" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;STB&#34;]"/>
-              <TfrxMemoView Name="Memo46" Left="978,89827" Top="0" Width="68,03154" Height="22,6771800000001" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
-            </TfrxMasterData>
-          </TfrxReportPage>
-        </Tgs_fr4SingleReport>
-        
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgUserDocumentLine1361157789_1818884808"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-16T11:10:14+03:00
   - 
     Properties: 
       Class: "TgdcReportGroup"
@@ -4352,7 +6003,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 1361157806_1818884808
+      HeadObject: 1361157789_1818884808
     Fields: 
       PARENT: ~
       NAME: "Отчеты(gdc_dlgUserComplexDocument1361157789_1818884808)"
@@ -4366,7 +6017,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 1361157806_1818884808
+      HeadObject: 1361157789_1818884808
     Fields: 
       PARENT: ~
       NAME: "Локальные макросы"
@@ -4384,7 +6035,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 1361157806_1818884808
+      HeadObject: 1361157789_1818884808
     Fields: 
       PARENT: ~
       NAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
@@ -4398,12 +6049,164 @@ Objects:
       EDITIONDATE: 2022-06-16T10:54:52+03:00
   - 
     Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 1361157800_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmUserComplexDocument1361157789_1818884808)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "1361157800_1818884808"
+      EDITIONDATE: 2022-06-16T10:53:28+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 1361157799_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmUserComplexDocument1361157789_1818884808"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-16T10:53:28+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361157794_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmUserComplexDocument1361157789_1818884808"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "1361157799_1818884808 Локальные макросы"
+      OBJECTNAME: "gdc_frmUserComplexDocument1361157789_1818884808"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "1361157800_1818884808 Отчеты(gdc_frmUserComplexDocument1361157789_1818884808)"
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-16T10:53:28+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 1361158468_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      NAME: "usrg_addTimeTestOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2022-06-17T13:28:47+03:00
+      MODULE: "EVENTS"
+      MODULECODE: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
+      OBJECTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      OWNERNAME: ~
+      PREPAREDBYPARSER: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2022-06-17T13:28:46+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ADDTIMETESTONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub usrg_addTimeTestOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          dim obj
+          set obj = Sender.owner.ownerform.gdcdetailObject
+        
+          dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam, templ
+          ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+          ' Добавление параметра через объект-диалог
+          call ParamWindow.AddParam("Время", "prmTime", "Время испытаний")
+         ' Отображение диалога и получение результата
+          result = ParamWindow.Execute
+          if IsEmpty(result) then
+             exit sub
+          end if
+          obj.First
+          while not obj.EOF
+            obj.Edit
+            obj.FieldByName("USR$TIMETEST").asDateTime = result(0)
+            obj.Post
+            obj.next
+          wend
+          
+          
+          
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 1361158465_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      PARENT: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
+      NAME: "usrg_addTimeTest"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_addTimeTest"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2022-06-17T13:08:05+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 1361158466_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      DISABLE: ~
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "1361158468_1818884808 usrg_addTimeTestOnExecute"
+      OBJECTKEY: "1361158465_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808\\usrg_addTimeTest"
+      OBJECTNAME: "usrg_addTimeTest"
+      PARENTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      EDITIONDATE: 2022-06-17T13:28:46+03:00
+  - 
+    Properties: 
       Class: "TgdcFunction"
       RUID: 1361157808_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 1361157806_1818884808
+      HeadObject: 1361157789_1818884808
     Fields: 
       NAME: "usrg_addGoodOnExecute"
       COMMENT: ~
@@ -4475,7 +6278,7 @@ Objects:
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 1361157806_1818884808
+      HeadObject: 1361157789_1818884808
     Fields: 
       PARENT: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
       NAME: "usrg_addGood"
@@ -4489,381 +6292,12 @@ Objects:
       EDITIONDATE: 2022-06-16T10:59:39+03:00
   - 
     Properties: 
-      Class: "TgdcStorageValue"
-      RUID: 1361158266_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
-      NAME: "USR$BREADINDICATION"
-      CURR_DATA: ~
-      DATA_TYPE: "B"
-      DATETIME_DATA: ~
-      INT_DATA: ~
-      STR_DATA: ~
-      EDITIONDATE: 2022-06-17T17:59:55+03:00
-      BLOB_DATA: | 
-        object gdc_dlgAttrUserDefinedUSR_BREADINDICATION: Tgdc_dlgAttrUserDefined
-          HorzScrollBar.Range = 0
-          VertScrollBar.Range = 0
-          ActiveControl = nil
-          BorderStyle = bsSingle
-          ClientHeight = 95
-          ClientWidth = 475
-          PixelsPerInch = 96
-          TextHeight = 13
-          object btnAccess: TButton
-            Top = 71
-          end
-          object btnNew: TButton
-            Top = 71
-          end
-          object btnHelp: TButton
-            Top = 71
-          end
-          object btnOK: TButton
-            Top = 71
-          end
-          object btnCancel: TButton
-            Top = 71
-          end
-          object pnlMain: TPanel
-            Height = 62
-            object atAttributes: TatContainer
-              Height = 62
-              object usrg_USR_BREADINDICATION_Label1: TLabel
-                Tag = 0
-                Left = 294
-                Top = 32
-                Width = 28
-                Height = 13
-                Cursor = crDefault
-                Hint = ''
-                Align = alNone
-                Alignment = taLeftJustify
-                Anchors = [akLeft, akTop]
-                AutoSize = True
-                Caption = 'Ключ'
-                Constraints.MaxHeight = 0
-                Constraints.MaxWidth = 0
-                Constraints.MinHeight = 0
-                Constraints.MinWidth = 0
-                DragCursor = crDrag
-                DragKind = dkDrag
-                DragMode = dmManual
-                Enabled = True
-                FocusControl = usrat_DBEdit_USR_TYPE
-                ParentBiDiMode = True
-                ParentColor = True
-                ParentFont = True
-                ParentShowHint = True
-                PopupMenu = nil
-                ShowAccelChar = True
-                Transparent = True
-                Layout = tlTop
-                Visible = True
-                WordWrap = False
-              end
-              object usrat_DBEdit_USR_NAME_Label: TLabel
-                Left = 12
-              end
-              object usrat_DBEdit_USR_TYPE_Label: TLabel
-                Left = 26
-                Top = 31
-                Width = 64
-                Caption = 'Показатель:'
-              end
-              object usrg_USR_BREADINDICATION_gsIBLookupComboBox1: TgsIBLookupComboBox
-                Tag = 0
-                Left = 94
-                Top = 28
-                Width = 182
-                Height = 21
-                Cursor = crDefault
-                HelpContext = 1
-                TabStop = True
-                Database = dmDatabase.ibdbGAdmin
-                Transaction = dmDatabase.ibtrGenUniqueID
-                DataSource = dsgdcBase
-                DataField = 'USR$TYPE'
-                Fields = ''
-                ListTable = 'USR$P_BREAD_INDICATION'
-                ListField = 'NAME'
-                KeyField = 'ID'
-                SortOrder = soNone
-                SortField = ''
-                CheckUserRights = False
-                Condition = ''
-                gdClassName = ''
-                SubType = ''
-                ReadOnly = False
-                StrictOnExit = True
-                Distinct = False
-                FullSearchOnExit = False
-                ViewType = vtByClass
-                Style = csDropDown
-                Anchors = [akLeft, akTop]
-                Color = clWindow
-                Constraints.MaxHeight = 0
-                Constraints.MaxWidth = 0
-                Constraints.MinHeight = 0
-                Constraints.MinWidth = 0
-                DragCursor = crDrag
-                DragKind = dkDrag
-                DragMode = dmManual
-                DropDownCount = 16
-                Enabled = True
-                ImeMode = imDontCare
-                ImeName = ''
-                ItemHeight = 13
-                MaxLength = 0
-                ParentBiDiMode = True
-                ParentColor = False
-                ParentCtl3D = True
-                ParentFont = True
-                ParentShowHint = True
-                PopupMenu = nil
-                TabOrder = 2
-                Visible = True
-              end
-              object usrat_DBEdit_USR_NAME: TDBEdit
-                Width = 291
-              end
-              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
-                Left = 326
-                Width = 60
-                Cursor = crArrow
-              end
-            end
-          end
-          object alBase: TActionList
-            Left = 46
-            Top = 47
-            object actNew: TAction
-            end
-            object actHelp: TAction
-            end
-            object actSecurity: TAction
-            end
-            object actOk: TAction
-            end
-            object actCancel: TAction
-            end
-            object actNextRecord: TAction
-            end
-            object actPrevRecord: TAction
-            end
-            object actApply: TAction
-            end
-            object actFirstRecord: TAction
-            end
-            object actLastRecord: TAction
-            end
-            object actProperty: TAction
-            end
-            object actCopySettingsFromUser: TAction
-            end
-            object actAddToSetting: TAction
-            end
-            object actDocumentType: TAction
-            end
-            object actDistributeUserSettings: TAction
-            end
-            object actHistory: TAction
-            end
-          end
-          object dsgdcBase: TDataSource
-            Left = 16
-            Top = 39
-          end
-          object pm_dlgG: TPopupMenu
-            Left = 152
-            Top = 216
-            object actSecurity1: TMenuItem
-            end
-            object actHistory1: TMenuItem
-            end
-            object N1: TMenuItem
-            end
-            object sepFirst: TMenuItem
-            end
-            object actNextRecord1: TMenuItem
-            end
-            object actPrevRecord1: TMenuItem
-            end
-            object actFirstRecord1: TMenuItem
-            end
-            object actLastRecord1: TMenuItem
-            end
-            object sepSecond: TMenuItem
-            end
-            object actApply1: TMenuItem
-            end
-            object sepThird: TMenuItem
-            end
-            object actProperty1: TMenuItem
-            end
-            object actCopySettings1: TMenuItem
-            end
-            object nAddToSetting1: TMenuItem
-            end
-          end
-          object ibtrCommon: TIBTransaction
-            Params.Strings = (
-              'read_committed'
-              'rec_version'
-              'nowait')
-            Left = 440
-            Top = 216
-          end
-        end
-        
-  - 
-    Properties: 
-      Class: "TgdcStorageValue"
-      RUID: 1361158034_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
-      NAME: "USR$GOODVIEWFORM"
-      CURR_DATA: ~
-      DATA_TYPE: "B"
-      DATETIME_DATA: ~
-      INT_DATA: ~
-      STR_DATA: ~
-      EDITIONDATE: 2022-06-17T16:04:31+03:00
-      BLOB_DATA: | 
-        object gdc_dlgAttrUserDefinedUSR_GOODVIEWFORM: Tgdc_dlgAttrUserDefined
-          HorzScrollBar.Range = 0
-          VertScrollBar.Range = 0
-          ActiveControl = nil
-          BorderStyle = bsSingle
-          ClientHeight = 71
-          ClientWidth = 479
-          PixelsPerInch = 96
-          TextHeight = 13
-          object btnAccess: TButton
-            Top = 47
-          end
-          object btnNew: TButton
-            Top = 47
-          end
-          object btnHelp: TButton
-            Top = 47
-          end
-          object btnOK: TButton
-            Left = 331
-            Top = 47
-          end
-          object btnCancel: TButton
-            Left = 405
-            Top = 47
-          end
-          object pnlMain: TPanel
-            Width = 479
-            Height = 38
-            object atAttributes: TatContainer
-              Width = 479
-              Height = 38
-              object usrat_DBEdit_USR_NAME_Label: TLabel
-              end
-              object usrat_DBEdit_USR_NAME: TDBEdit
-                Width = 324
-              end
-            end
-          end
-          object alBase: TActionList
-            Left = 46
-            Top = 15
-            object actNew: TAction
-            end
-            object actHelp: TAction
-            end
-            object actSecurity: TAction
-            end
-            object actOk: TAction
-            end
-            object actCancel: TAction
-            end
-            object actNextRecord: TAction
-            end
-            object actPrevRecord: TAction
-            end
-            object actApply: TAction
-            end
-            object actFirstRecord: TAction
-            end
-            object actLastRecord: TAction
-            end
-            object actProperty: TAction
-            end
-            object actCopySettingsFromUser: TAction
-            end
-            object actAddToSetting: TAction
-            end
-            object actDocumentType: TAction
-            end
-            object actDistributeUserSettings: TAction
-            end
-            object actHistory: TAction
-            end
-          end
-          object dsgdcBase: TDataSource
-            Left = 16
-            Top = 15
-          end
-          object pm_dlgG: TPopupMenu
-            Left = 152
-            Top = 216
-            object actSecurity1: TMenuItem
-            end
-            object actHistory1: TMenuItem
-            end
-            object N1: TMenuItem
-            end
-            object sepFirst: TMenuItem
-            end
-            object actNextRecord1: TMenuItem
-            end
-            object actPrevRecord1: TMenuItem
-            end
-            object actFirstRecord1: TMenuItem
-            end
-            object actLastRecord1: TMenuItem
-            end
-            object sepSecond: TMenuItem
-            end
-            object actApply1: TMenuItem
-            end
-            object sepThird: TMenuItem
-            end
-            object actProperty1: TMenuItem
-            end
-            object actCopySettings1: TMenuItem
-            end
-            object nAddToSetting1: TMenuItem
-            end
-          end
-          object ibtrCommon: TIBTransaction
-            Params.Strings = (
-              'read_committed'
-              'rec_version'
-              'nowait')
-            Left = 440
-            Top = 216
-          end
-        end
-        
-  - 
-    Properties: 
       Class: "TgdcEvent"
       RUID: 1361157806_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
     Fields: 
       DISABLE: ~
       EVENTNAME: "ONEXECUTE"
@@ -4874,158 +6308,190 @@ Objects:
       EDITIONDATE: 2022-06-16T11:06:47+03:00
   - 
     Properties: 
-      Class: "TgdcFunction"
-      RUID: 1361158468_1818884808
+      Class: "TgdcTemplate"
+      RUID: 1361158399_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 1361158466_1818884808
+      HeadObject: 1361157789_1818884808
     Fields: 
-      NAME: "usrg_addTimeTestOnExecute"
+      NAME: "Журнал контроля х/б изделий."
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2022-06-17T13:04:43+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44729,5258402315" ReportOptions.Description.Text="" ReportOptions.LastChange="44729,5258402315" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D2251220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="297" PaperHeight="210" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="26,45671" Left="0" Top="18,89765" Width="1046,92981">
+              <TfrxMemoView Name="Memo1" Left="3,77953" Top="0" Width="1043,15028" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-16" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="Р–СѓСЂРЅР°Р» СѓС‡РµС‚Р° С…Р»РµР±РѕР±СѓР»РѕС‡РЅС‹С… РёР·РґРµР»РёР№"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="113,3859" Left="0" Top="105,82684" Width="1046,92981">
+              <TfrxMemoView Name="Memo2" Left="0" Top="0" Width="22,67718" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="в„– Рї.Рї."/>
+              <TfrxMemoView Name="Memo3" Left="22,67718" Top="0" Width="204,09462" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°РёРјРµРЅРѕРІР°РЅРёРµ С…Р»РµР±Р°"/>
+              <TfrxMemoView Name="Memo4" Left="226,7718" Top="0" Width="22,67718" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РњР°СЃСЃР° РЅРµС‚С‚Рѕ"/>
+              <TfrxMemoView Name="Memo5" Left="249,44898" Top="0" Width="26,45671" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р”Р°С‚Р° Рё РІСЂРµРјСЏ РїСЂРѕРІРµРґРµРЅРёСЏ РёСЃРїС‹С‚Р°РЅРёР№"/>
+              <TfrxMemoView Name="Memo6" Left="275,90569" Top="0" Width="328,81911" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РћСЂРіР°РЅРѕР»РµРїС‚РёС‡РµСЃРєРёР№ РїРѕРєР°Р·Р°С‚РµР»Рё"/>
+              <TfrxMemoView Name="Memo7" Left="275,90569" Top="15,11812" Width="102,04731" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р’РЅРµС€РЅРёР№ РІРёРґ"/>
+              <TfrxMemoView Name="Memo8" Left="377,953" Top="15,11812" Width="181,41744" Height="60,47248" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЎРѕСЃС‚РѕСЏРЅРёРµ РјСЏРєРёС€Р°"/>
+              <TfrxMemoView Name="Memo9" Left="275,90569" Top="75,5906" Width="64,25201" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¤РѕСЂРјР° Рё РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ"/>
+              <TfrxMemoView Name="Memo10" Left="340,1577" Top="75,5906" Width="37,7953" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р¦РІРµС‚"/>
+              <TfrxMemoView Name="Memo11" Left="377,953" Top="75,5906" Width="75,5906" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРѕРїРµС‡РµРЅРЅРѕСЃС‚СЊ"/>
+              <TfrxMemoView Name="Memo12" Left="453,5436" Top="75,5906" Width="49,13389" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџСЂРѕРјРµСЃ"/>
+              <TfrxMemoView Name="Memo13" Left="502,67749" Top="75,5906" Width="56,69295" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РџРѕСЂРёСЃС‚РѕСЃС‚СЊ"/>
+              <TfrxMemoView Name="Memo14" Left="559,37044" Top="15,11812" Width="45,35436" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РЎРѕРѕС‚РІРµС‚СЃС‚РІРёРµ&#13;&#10;РІРєСѓСЃ Рё Р·Р°РїР°С…"/>
+              <TfrxMemoView Name="Memo15" Left="604,7248" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°Р»РёС‡РёРµ"/>
+              <TfrxMemoView Name="Memo16" Left="604,7248" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџРѕСЃС‚РѕСЂРѕРЅРЅРёС… &#13;&#10;РІРєР»СЋС‡РµРЅРёР№"/>
+              <TfrxMemoView Name="Memo17" Left="642,5201" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РҐСЂСѓСЃС‚Р° РѕС‚&#13;&#10;РјРёРЅРµСЂР°Р»СЊРЅС‹С… &#13;&#10;РїСЂРёРјРµСЃРµР№"/>
+              <TfrxMemoView Name="Memo18" Left="680,3154" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџСЂРёР·РЅР°РєРѕРІ Р±РѕР»РµР·РЅРё, РїР»РµСЃРµРЅРё"/>
+              <TfrxMemoView Name="Memo19" Left="718,1107" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р’Р»Р°Р¶РЅРѕСЃС‚СЊ &#13;&#10;РјСЏРєРёС€Р° %"/>
+              <TfrxMemoView Name="Memo20" Left="755,906" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РџРѕСЂРёСЃС‚РѕСЃС‚СЊ &#13;&#10;РјСЏРєРёС€Р° %"/>
+              <TfrxMemoView Name="Memo21" Left="793,7013" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РљРёСЃР»РѕСЂРѕРґРЅРѕСЃС‚СЊ&#13;&#10;Р“СЂР°Рґ."/>
+              <TfrxMemoView Name="Memo22" Left="831,4966" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Рњ.Рґ. Р¶РёСЂР° %"/>
+              <TfrxMemoView Name="Memo23" Left="869,2919" Top="15,11812" Width="37,7953" Height="98,26778" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Рњ.Рґ.СЃР°С…Р°СЂР° %"/>
+              <TfrxMemoView Name="Memo24" Left="907,0872" Top="0" Width="71,81107" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="Р—Р°РєР»СЋС‡РµРЅРёРµ"/>
+              <TfrxMemoView Name="Memo25" Left="718,1107" Top="0" Width="188,9765" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+              <TfrxMemoView Name="Memo26" Left="978,89827" Top="0" Width="68,03154" Height="113,3859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="РљС‚Рѕ РїСЂРѕРІРѕРґРёР» &#13;&#10;РёСЃРїС‹С‚Р°РЅРёСЏ"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="22,67718" Left="0" Top="241,88992" Width="1046,92981" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo27" Left="0" Top="0" Width="22,67718" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Line#]"/>
+              <TfrxMemoView Name="Memo28" Left="22,67718" Top="0" Width="204,09462" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GOODNAME" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GOODNAME&#34;]"/>
+              <TfrxMemoView Name="Memo29" Left="226,7718" Top="0" Width="22,67718" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GWEIGHT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GWEIGHT&#34;]"/>
+              <TfrxMemoView Name="Memo30" Left="249,44898" Top="0" Width="26,45671" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="[Q.&#34;DOCUMENTDATE&#34;]&#13;&#10;[Q.&#34;USR$TIMETEST&#34;]"/>
+              <TfrxMemoView Name="Memo31" Left="275,90569" Top="0" Width="64,25201" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="GOODVIEWFORM" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;GOODVIEWFORM&#34;]"/>
+              <TfrxMemoView Name="Memo32" Left="340,1577" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="COLOR" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;COLOR&#34;]"/>
+              <TfrxMemoView Name="Memo33" Left="377,953" Top="0" Width="75,5906" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="BERKARY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;BERKARY&#34;]"/>
+              <TfrxMemoView Name="Memo34" Left="453,5436" Top="0" Width="49,13389" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="KNEAD" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;KNEAD&#34;]"/>
+              <TfrxMemoView Name="Memo35" Left="502,67749" Top="0" Width="56,69295" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="POROSITYM" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;POROSITYM&#34;]"/>
+              <TfrxMemoView Name="Memo36" ShiftMode="smDontShift" Left="559,37044" Top="0" Width="45,35436" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Rotation="90" VAlign="vaCenter" Text="[Q.&#34;TASTE&#34;]"/>
+              <TfrxMemoView Name="Memo37" Left="604,7248" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$OTHERINCLUCION&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
+              <TfrxMemoView Name="Memo38" Left="642,5201" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$CRUNCH&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
+              <TfrxMemoView Name="Memo39" Left="680,3154" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[IIF(&#60;Q.&#34;USR$STIGMA&#34;&#62;=0,'РЅРµС‚','РµСЃС‚СЊ')]"/>
+              <TfrxMemoView Name="Memo40" Left="718,1107" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$HUMIDITY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$HUMIDITY&#34;]"/>
+              <TfrxMemoView Name="Memo41" Left="755,906" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$POROSITY" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$POROSITY&#34;]"/>
+              <TfrxMemoView Name="Memo42" Left="793,7013" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$OXIGEN" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$OXIGEN&#34;]"/>
+              <TfrxMemoView Name="Memo43" Left="831,4966" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$FAT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$FAT&#34;]"/>
+              <TfrxMemoView Name="Memo44" Left="869,2919" Top="0" Width="37,7953" Height="22,67718" ShowHint="False" StretchMode="smMaxHeight" DataField="USR$SUGAR" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;USR$SUGAR&#34;]"/>
+              <TfrxMemoView Name="Memo45" Left="907,0872" Top="0" Width="71,81107" Height="22,6771800000001" ShowHint="False" StretchMode="smMaxHeight" DataField="STB" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;STB&#34;]"/>
+              <TfrxMemoView Name="Memo46" Left="978,89827" Top="0" Width="68,03154" Height="22,6771800000001" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=""/>
+            </TfrxMasterData>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 1361158301_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 1361157789_1818884808
+    Fields: 
+      NAME: "rp_Main1361158301_1818884808"
       COMMENT: ~
-      EVENT: "ONEXECUTE"
+      EVENT: ~
       FUNCTIONTYPE: ~
       GROUPNAME: ~
       INHERITEDRULE: 0
       LANGUAGE: "VBScript"
       LOCALNAME: ~
-      MODIFYDATE: 2022-06-17T13:28:47+03:00
-      MODULE: "EVENTS"
-      MODULECODE: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
-      OBJECTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
+      MODIFYDATE: 2022-06-17T13:06:09+03:00
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1361157794_1818884808 gdc_frmUserComplexDocument1361157789_1818884808"
+      OBJECTNAME: "gdc_frmUserComplexDocument1361157789_1818884808"
       OWNERNAME: ~
       PREPAREDBYPARSER: ~
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: ~
-      EDITIONDATE: 2022-06-17T13:28:46+03:00
+      EDITIONDATE: 2022-06-17T13:06:09+03:00
       DISPLAYSCRIPT: | 
-        USRG_ADDTIMETESTONEXECUTE
+        RP_MAIN1361158301_1818884808
         
       ENTEREDPARAMS: !!binary > 
-        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
-        RkxQUg==
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
       SCRIPT: | 
-        Option Explicit
-        Sub usrg_addTimeTestOnExecute(ByVal Sender)
-        '*** Данный код необходим для вызова встроенного обработчика ***
-        '*** В случае его удаления возможно нарушение работы системы ***
-          Call   Inherited(Sender, "OnExecute", Array(Sender))
-        '*** конец кода поддержки встроенного обработчика            ***
-        
-          dim obj
-          set obj = Sender.owner.ownerform.gdcdetailObject
-        
-          dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam, templ
-          ' Создание диалога
-          set ParamWindow = System.GetNewParamWindow(0)
-          ' Добавление параметра через объект-диалог
-          call ParamWindow.AddParam("Время", "prmTime", "Время испытаний")
-         ' Отображение диалога и получение результата
-          result = ParamWindow.Execute
-          if IsEmpty(result) then
-             exit sub
+        Function rp_Main1361158301_1818884808(OwnerForm)
+          BaseQueryList.Clear
+          DIM id
+          
+          doc = OwnerForm.SelectedKey
+          id = "(" + Join(doc(0), ",") + ")"
+          if id = "" then
+             call Exception.Raise("Exception", "Пустой набор данных")
           end if
-          obj.First
-          while not obj.EOF
-            obj.Edit
-            obj.FieldByName("USR$TIMETEST").asDateTime = result(0)
-            obj.Post
-            obj.next
-          wend
-          
-          
-          
-        End Sub
+        
+        
+          Dim q
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = "SELECT " & _
+            "D.NUMBER, " & _
+            "D.DOCUMENTDATE, " & _
+            "L.USR$TIMETEST, " & _
+            "G.NAME AS GOODNAME, " & _
+            "G.USR$INV_WEIGHT AS GWEIGHT, " & _
+            "COLOR.USR$NAME as COLOR, " & _
+            "BERKARY.USR$NAME AS BERKARY, " & _
+            "KNEAD.USR$NAME AS KNEAD, " & _
+            "POROSITYM.USR$NAME AS POROSITYM, " & _
+            "TASTE.USR$NAME AS TASTE, " & _
+            "L.USR$OTHERINCLUCION, " & _
+            "L.USR$CRUNCH, " & _
+            "L.USR$STIGMA, " & _
+            "L.USR$HUMIDITY, " & _
+            "L.USR$POROSITY, " & _
+            "L.USR$OXIGEN, " & _
+            "L.USR$FAT, " & _
+            "L.USR$SUGAR, " & _
+            "STB.USR$CODE AS STB, " & _
+            " (SELECT " & _
+            "  list(VL.USR$NAME) " & _
+            " FROM USR$CROSS2076_1818884808 C " & _
+            " JOIN USR$GOODVIEWFORM VL ON C.USR$GOODVIEWFORMKEY = VL.ID " & _
+            " WHERE C.USR$PD_BREADCONTOLLINEKEY = L.documentkey) AS GOODVIEWFORM " & _
+            "FROM GD_DOCUMENT D " & _
+            "JOIN USR$PD_BREADCONTOL BC ON BC.DOCUMENTKEY = D.ID " & _
+            "LEFT JOIN USR$PD_BREADCONTOLLINE L ON L.MASTERKEY =  BC.DOCUMENTKEY " & _
+            "LEFT JOIN GD_GOOD G ON G.ID  =  L.USR$GOODKEY " & _
+            "LEFT JOIN USR$BREADINDICATION COLOR ON COLOR.ID  =  L.USR$COLOR " & _
+            "LEFT JOIN USR$BREADINDICATION KNEAD ON KNEAD.ID  =  L.USR$KNEAD " & _
+            "LEFT JOIN USR$BREADINDICATION POROSITYM ON POROSITYM.ID  =  L.USR$POROSITYM " & _
+            "LEFT JOIN USR$BREADINDICATION BERKARY ON BERKARY.ID  =  L.USR$BERKARY " & _
+            "LEFT JOIN USR$BREADINDICATION TASTE ON TASTE.ID  =  L.USR$TASTEINDICATE " & _
+            "LEFT JOIN USR$OT_NTD STB ON STB.ID  =  L.USR$NTDKEY " & _
+            "WHERE " & _
+            " D.ID IN (" & id & ")"
+        
+          q.Open
+        
+          Set rp_Main1361158301_1818884808 = BaseQueryList
+        End Function
         
   - 
     Properties: 
-      Class: "TgdcDelphiObject"
-      RUID: 1361158465_1818884808
+      Class: "TgdcReport"
+      RUID: 1361158300_1818884808
       AlwaysOverwrite: False
       DontRemove: False
       IncludeSiblings: False
-      HeadObject: 1361158466_1818884808
+      HeadObject: 1361157789_1818884808
     Fields: 
-      PARENT: "1361157797_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808"
-      NAME: "usrg_addTimeTest"
-      CLASSNAME: ""
+      NAME: "Журнал контроля"
       DESCRIPTION: ~
-      MACROSGROUPKEY: ~
-      OBJECTNAME: "usrg_addTimeTest"
-      OBJECTTYPE: 0
-      REPORTGROUPKEY: ~
-      SUBTYPE: ""
-      EDITIONDATE: 2022-06-17T13:08:05+03:00
-  - 
-    Properties: 
-      Class: "TgdcEvent"
-      RUID: 1361158466_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      DISABLE: ~
-      EVENTNAME: "ONEXECUTE"
-      FUNCTIONKEY: "1361158468_1818884808 usrg_addTimeTestOnExecute"
-      OBJECTKEY: "1361158465_1818884808 gdc_dlgUserComplexDocument1361157789_1818884808\\usrg_addTimeTest"
-      OBJECTNAME: "usrg_addTimeTest"
-      PARENTNAME: "gdc_dlgUserComplexDocument1361157789_1818884808"
-      EDITIONDATE: 2022-06-17T13:28:46+03:00
-  - 
-    Properties: 
-      Class: "TgdcExplorer"
-      RUID: 1361159900_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      PARENT: "147021571_840530749 Исследователь\\Плановый отдел\\Хлебобулочное производство"
-      NAME: "Справочники"
-      CLASSNAME: ~
-      CMD: "1361159900_1818884808"
-      CMDTYPE: 0
-      HOTKEY: ~
-      IMGINDEX: 121
-      ORDR: ~
-      SUBTYPE: ~
-      EDITIONDATE: 2022-06-17T17:49:00+03:00
-      DISABLED: 0
-  - 
-    Properties: 
-      Class: "TgdcExplorer"
-      RUID: 1361158586_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      PARENT: "1361159900_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники"
-      NAME: "Внешний вид(форма и поверхность)"
-      CLASSNAME: "TgdcAttrUserDefined"
-      CMD: "1361157844_1818884808"
-      CMDTYPE: 0
-      HOTKEY: ~
-      IMGINDEX: 7
-      ORDR: ~
-      SUBTYPE: "USR$GOODVIEWFORM"
-      EDITIONDATE: 2022-06-17T17:49:55+03:00
-      DISABLED: 0
-  - 
-    Properties: 
-      Class: "TgdcExplorer"
-      RUID: 1361158258_1818884808
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-    Fields: 
-      PARENT: "1361159900_1818884808 Исследователь\\Плановый отдел\\Хлебобулочное производство\\Справочники"
-      NAME: "Показатели х/б изделий"
-      CLASSNAME: "TgdcAttrUserDefined"
-      CMD: "1361158257_1818884808"
-      CMDTYPE: 0
-      HOTKEY: ~
-      IMGINDEX: 7
-      ORDR: ~
-      SUBTYPE: "USR$BREADINDICATION"
-      EDITIONDATE: 2022-06-17T17:50:06+03:00
-      DISABLED: 0
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "1361158301_1818884808 rp_Main1361158301_1818884808"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "1361157800_1818884808 Отчеты(gdc_frmUserComplexDocument1361157789_1818884808)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "1361158399_1818884808 Журнал контроля х/б изделий."
+      EDITIONDATE: 2022-06-17T13:06:09+03:00
