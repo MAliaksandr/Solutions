@@ -1,0 +1,244 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 1361161111_1818884808
+  Name: "Журнал контроля х/б изделий. Показатели.Форма"
+  Caption: "Журнал контроля х/б изделий. Показатели.Форма"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: DFDF6FA78A581D53229CCB0DE435A420
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 1361158266_1818884808
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$BREADINDICATION"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2022-06-30T17:04:39+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_BREADINDICATION: Tgdc_dlgAttrUserDefined
+          HorzScrollBar.Range = 0
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 95
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 71
+          end
+          object btnNew: TButton
+            Top = 71
+          end
+          object btnHelp: TButton
+            Top = 71
+          end
+          object btnOK: TButton
+            Top = 71
+          end
+          object btnCancel: TButton
+            Top = 71
+          end
+          object pnlMain: TPanel
+            Height = 62
+            object atAttributes: TatContainer
+              Height = 62
+              object usrg_USR_BREADINDICATION_Label1: TLabel
+                Tag = 0
+                Left = 294
+                Top = 32
+                Width = 28
+                Height = 13
+                Cursor = crDefault
+                Hint = ''
+                Align = alNone
+                Alignment = taLeftJustify
+                Anchors = [akLeft, akTop]
+                AutoSize = True
+                Caption = 'Ключ'
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FocusControl = usrat_DBEdit_USR_TYPE
+                ParentBiDiMode = True
+                ParentColor = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                ShowAccelChar = True
+                Transparent = True
+                Layout = tlTop
+                Visible = True
+                WordWrap = False
+              end
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+                Left = 12
+              end
+              object usrat_DBEdit_USR_TYPE_Label: TLabel
+                Left = 26
+                Top = 31
+                Width = 64
+                Caption = 'Показатель:'
+              end
+              object usrg_USR_BREADINDICATION_gsIBLookupComboBox1: TgsIBLookupComboBox
+                Tag = 0
+                Left = 94
+                Top = 28
+                Width = 182
+                Height = 21
+                Cursor = crDefault
+                HelpContext = 1
+                TabStop = True
+                Database = dmDatabase.ibdbGAdmin
+                Transaction = dmDatabase.ibtrGenUniqueID
+                DataSource = dsgdcBase
+                DataField = 'USR$TYPE'
+                Fields = ''
+                ListTable = 'USR$P_BREAD_INDICATION'
+                ListField = 'NAME'
+                KeyField = 'ID'
+                SortOrder = soNone
+                SortField = ''
+                CheckUserRights = False
+                Condition = ''
+                gdClassName = ''
+                SubType = ''
+                ReadOnly = False
+                StrictOnExit = True
+                Distinct = False
+                FullSearchOnExit = False
+                ViewType = vtByClass
+                Style = csDropDown
+                Anchors = [akLeft, akTop]
+                Color = clWindow
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                DropDownCount = 16
+                Enabled = True
+                ImeMode = imDontCare
+                ImeName = ''
+                ItemHeight = 13
+                MaxLength = 0
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 2
+                Visible = True
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 291
+              end
+              object usrat_DBEdit_USR_TYPE: TxDBCalculatorEdit
+                Left = 326
+                Width = 60
+                Cursor = crArrow
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 47
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 39
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 440
+            Top = 216
+          end
+        end
+        
