@@ -1,0 +1,264 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 169438436_637556225
+  Name: "Инвентаризация менеджера. Импорт в файл/из файла"
+  Caption: "Инвентаризация менеджера. Импорт в файл/из файла"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 5437FACCDDD3498CAA2D0C01B154367B
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147054947_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169438425_637556225
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmUserComplexDocument147054923_157767346)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147054947_157767346"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147054946_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169438425_637556225
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmUserComplexDocument147054923_157767346"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2004-05-14T17:00:41+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147054932_157767346
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169438425_637556225
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmUserComplexDocument147054923_157767346"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147054946_157767346 Локальные макросы"
+      OBJECTNAME: "gdc_frmUserComplexDocument147054923_157767346"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147054947_157767346 Отчеты(gdc_frmUserComplexDocument147054923_157767346)"
+      SUBTYPE: ""
+      EDITIONDATE: 2004-05-14T17:00:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169438425_637556225
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros169438425_637556225"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147054932_157767346 gdc_frmUserComplexDocument147054923_157767346"
+      OBJECTNAME: "gdc_frmUserComplexDocument147054923_157767346"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-07-05T11:34:33+03:00
+      DISPLAYSCRIPT: | 
+        MACROS169438425_637556225
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros169438425_637556225(OwnerForm)
+          dim objConnection, objCommandWares, tablename, InsertSQL
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = "c:\temp"
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          set objCommandWares = CreateObject("ADODB.Command")
+          objCommandWares.ActiveConnection = objConnection
+          objCommandWares.CommandType = 1
+          tablename = "inv" + ".dbf"
+        
+          objCommandWares.CommandText = " drop table " & tablename
+          on error resume next
+          objCommandWares.Execute
+          on error goto 0
+        
+          dim Creator, ibsql
+          set Creator = new TCreator
+          set ibsql = Creator.GetObject(null, "TIBSQL", "" )
+          ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.SQL.Text = _
+          "SELECT " & _
+          "IL.DOCUMENTKEY, " & _
+          "G.ID AS GOODKEY, " & _
+          "G.NAME as GOODNAME, " & _
+          "IL.USR$SELLCOSTNCU, " & _
+          "IL.USR$ACTUALBALANCE, " & _
+          "IL.USR$ACTUALBALANCE2, " & _
+          "IL.USR$COUNTML " & _
+          "FROM GD_DOCUMENT D " & _
+          "JOIN USR$MN_INVENTORY I on I.DOCUMENTKEY = D.ID " & _
+          "LEFT JOIN USR$MN_INVENTORYLINE IL ON IL.MASTERKEY  =  I.DOCUMENTKEY " & _
+          "LEFT JOIN GD_GOOD G  ON G.ID  =  IL.USR$GOODKEY " & _
+          "WHERE " & _
+          "D.ID = :DOCKEY " & _
+          "AND d.DOCUMENTTYPEKEY=<RUID XID=""147054923"" DBID=""157767346""/> "
+          ibsql.ParamByName("DOCKEY").asInteger = OwnerForm.gdcObject.ID
+          ibsql.ExecQuery
+          
+          objCommandWares.CommandText = " create table " & tablename & " (" & _
+            " DOCUMENTKEY varchar(11),"& _
+            " GOODKEY varchar(11), " & _
+            " GOODNAME varchar(60), " & _
+            " COST NUMERIC(15, 4), " & _
+            " BALANCE NUMERIC(15, 4), " & _
+            " BALANCE2 NUMERIC(15, 4), " & _
+            " COUNTML NUMERIC(15, 4)) "
+         objCommandWares.Execute
+         while not ibsql.EOF
+          InsertSQL = " insert into " & tablename & " (" & _
+            " DOCUMENTKEY, " & _
+            " GOODKEY, " & _
+            " GOODNAME, " & _
+            " COST, " & _
+            " BALANCE, " & _
+            " BALANCE2, " & _
+            " COUNTML " & _
+            " ) values " & _
+              " (" & _
+              "'" & CSTR(ibsql.FieldByName("DOCUMENTKEY").AsInteger) & "'" & "," & _
+              "'" & CSTR(ibsql.FieldByName("GOODKEY").AsInteger) & "'" & "," & _
+              "'" & ibsql.FieldByName("GOODNAME").AsString & "'" &  ", " & _
+              replace(CSTR(ibsql.FieldByName("USR$SELLCOSTNCU").AsCurrency), ",", ".")&  ", " & _
+              replace(CSTR(ibsql.FieldByName("USR$ACTUALBALANCE").AsCurrency), ",", ".")&  ", " & _
+              replace(CSTR(ibsql.FieldByName("USR$ACTUALBALANCE2").AsCurrency), ",", ".")&  ", " & _
+              replace(CSTR(ibsql.FieldByName("USR$COUNTML").AsCurrency), ",", ".")&  " " & _
+              ") "
+            objCommandWares.CommandText = InsertSQL
+            objCommandWares.Execute
+            ibsql.Next
+         wend
+         
+         call Application.MessageBox("Сохранение завершено!","Внимание", vbOkOnly+vbSysytemMOdal+vbInformation)
+         
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169438432_637556225
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros169438432_637556225"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147054932_157767346 gdc_frmUserComplexDocument147054923_157767346"
+      OBJECTNAME: "gdc_frmUserComplexDocument147054923_157767346"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-07-05T12:16:18+03:00
+      DISPLAYSCRIPT: | 
+        MACROS169438432_637556225
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros169438432_637556225(OwnerForm)
+        
+          dim gdcObject, gdcDetailObject
+          set gdcObject = OwnerForm.gdcObject
+          set gdcDetailObject = OwnerForm.gdcDetailObject
+        
+          dim Creator, OpenDialog
+          set Creator = new TCreator
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          OpenDialog.Filter = "*.dbf|*.dbf"
+          if not OpenDialog.Execute Then
+            call Application.MessageBox("Операция прервана","Внимание",vbOkOnly+vbInformation+vbSystemModal)
+            exit sub
+          end if
+        
+          dim FileName
+          FileName = OpenDialog.FileName
+        
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+        
+          dim Path
+          Path = FSO.GetParentFolderName(FileName)
+        
+          dim objConnection
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = Path
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.RecordSet")
+          objADOQuery.ActiveConnection = objConnection
+          objADOQuery.Open "SELECT  * FROM " &  FileName , objConnection
+        
+          objADOQuery.MoveFirst
+          if objADOQuery.EOF then
+            objADOQuery.Close
+            exit sub
+          end if
+          
+          While not objADOQuery.EOF
+            if gdcDetailObject.Locate("usr$goodkey; usr$sellcostncu", Array(objADOQuery.Fields("GOODKEY").value,objADOQuery.Fields("COST").value),  "") then
+               gdcDetailObject.Edit
+               gdcDetailObject.FieldByName("USR$ACTUALBALANCE").asCurrency = objADOQuery.Fields("BALANCE").value
+               gdcDetailObject.FieldByName("USR$ACTUALBALANCE2").asCurrency = objADOQuery.Fields("BALANCE2").value
+               gdcDetailObject.FieldByName("USR$COUNTML").asCurrency = objADOQuery.Fields("COUNTML").value
+               gdcDetailObject.Post
+            end if
+          objADOQuery.MoveNext
+          wend
+        
+          call Application.MessageBox("Импорт завершен!","Внимание", vbOkOnly+vbSysytemMOdal+vbInformation)
+        
+        End Sub
+        
