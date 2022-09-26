@@ -1,0 +1,96 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147004741_1943700807
+  Name: "export_epleyees_xml"
+  Caption: "export_epleyees_xml"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 8D4DFDC7A430ACA24F3381CF447394C9
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 187302836_1943700807
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "web_get_employees"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-09-26T15:33:53+03:00
+      DISPLAYSCRIPT: | 
+        WEB_GET_EMPLOYEES
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAQ09NUE9ORU5UCQAAAENPTVBPTkVOVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNUUFJTVAYAAABQQVJBTVMGAAAAUEFSQU1TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUCgAAAFJFU1BPTlNFTk8KAAAAUkVTUE9OU0VOTwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNUUFJTVAsAAABDT05URU5UVEVYVAsAAABDT05URU5UVEVYVAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVAoAAABGT1JNUEFSQU1TCgAAAEZPUk1QQVJBTVMAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Function web_get_employees(Component, Params, ByRef ResponseNo, ByRef ContentText, FormParams)
+          Dim Creator
+          Set Creator = New TCreator
+        
+          dim objXML
+          Set objXML = CreateObject("MSXml2.DOMDocument")
+        
+          dim rootNode, contactNode, contactsNode
+          'Создание объявления XML
+          objXML.appendChild(objXML.createProcessingInstruction("xml", "version='1.0' encoding='UTF-8' standalone='yes'"))
+        
+          dim ibsql
+          Set ibsql = Creator.GetObject(nil, "TIBSQL", "")
+          Set ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.SQL.Text = _
+            "SELECT * " & _
+            "FROM GD_CONTACT C " & _
+            "JOIN GD_PEOPLE P ON P.CONTACTKEY = C.ID " & _
+            "WHERE C.CONTACTTYPE = 2 " & _
+            "AND P.WCOMPANYKEY = <COMPANYKEY/> " & _
+            "AND EXISTS(SELECT " & _
+            "           CONTACTKEY " & _
+            "           FROM GD_EMPLOYEE E) "
+          ibsql.ExecQuery
+          
+          Dim employees, employee
+          
+          dim ReservationId
+          set employees = objXML.createElement("employees")
+        
+          while not ibsql.EOF
+            set employee = objXML.createElement("employee")
+            call employee.SetAttribute("dateTo", ibsql.FieldByName("PASSPORTEXPDATE").AsString)
+            call employee.SetAttribute("dateFrom", ibsql.FieldByName("PASSPORTISSDATE").AsString)
+            call employee.SetAttribute("codeCard", ibsql.FieldByName("ID").AsString)
+            call employee.SetAttribute("surname", ibsql.FieldByName("surname").AsString)
+            call employee.SetAttribute("name", ibsql.FieldByName("name").AsString)
+            call employee.SetAttribute("patronymic", ibsql.FieldByName("MIDDLENAME").AsString)
+            call employee.SetAttribute("id", ibsql.FieldByName("id").AsString)
+            employees.appendChild(employee)
+            ibsql.Next
+          Wend
+          objXML.appendChild(employees)
+         ' objXML.save("d:\Gedemin\Base\Westa\temp.xml")
+          ContentText.Value = objXML.xml
+        End Function
+        
