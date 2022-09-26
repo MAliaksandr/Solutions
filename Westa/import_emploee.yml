@@ -1,0 +1,488 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147004732_1943700807
+  Name: "import_emploee"
+  Caption: "import_emploee"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 9B233C8A65A16B885E4E504F733A9DFF
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 187303113_1943700807
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_GETPLACEKEYID"
+      EDITIONDATE: 2022-09-26T13:58:26+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_GETPLACEKEYID (
+            NAME VARCHAR(50),
+            PLACETYPE VARCHAR(10))
+        RETURNS ( 
+            PLACEKEY INTEGER)
+         AS
+        BEGIN
+          placekey = null;
+          
+          SELECT FIRST(1)
+            p.ID
+          FROM GD_PLACE P
+          WHERE UPPER(P.PLACETYPE) = UPPER(:PLACETYPE)
+          AND upper(P.NAME) LIKE upper(:NAME || '%')
+          into :placekey;
+        
+          suspend;
+        END
+        
+      RDB$DESCRIPTION: | 
+        Вернет ID тер. едініцы по названию и типу
+         
+        Тип может принимать только: 'Страна' 'Район' 'Область' 'Нас. пункт'
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 187303132_1943700807
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_GETPLACEKEYBYNAME"
+      EDITIONDATE: 2022-09-26T13:58:26+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_GETPLACEKEYBYNAME (
+            COUNTRY VARCHAR(50),
+            REGION VARCHAR(50),
+            DISTRICT VARCHAR(50),
+            CITY VARCHAR(50))
+        RETURNS ( 
+            PLACEKEY INTEGER)
+         AS
+        BEGIN
+          PLACEKEY = null;
+        
+        
+          EXECUTE PROCEDURE USR$P_GETPLACEKEYID(:CITY, 'Нас. пункт')
+              RETURNING_VALUES :PLACEKEY;
+        
+          IF (:PLACEKEY IS NULL) THEN
+             EXECUTE PROCEDURE USR$P_GETPLACEKEYID(:DISTRICT, 'Район')
+              RETURNING_VALUES :PLACEKEY;
+        
+          IF (:PLACEKEY IS NULL) THEN
+             EXECUTE PROCEDURE USR$P_GETPLACEKEYID(:REGION, 'Область')
+               RETURNING_VALUES :PLACEKEY;
+        
+          IF (:PLACEKEY IS NULL) THEN
+             EXECUTE PROCEDURE USR$P_GETPLACEKEYID(:COUNTRY, 'Страна')
+               RETURNING_VALUES :PLACEKEY;
+        
+          suspend;
+        END
+      RDB$DESCRIPTION: | 
+        Вернет ИД по названию
+        строковые параметры: Страна, Область, Район, Нас.пунк
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149234205_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Import_Empl_DBF"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-09-26T13:52:20+03:00
+      DISPLAYSCRIPT: | 
+        IMPORT_EMPL_DBF
+        EXCEPTION_IMPORT_EMPL_DBF
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include GS_GETCONSTBYIDANDDATE
+        Option Explicit
+        Sub Import_Empl_DBF
+        
+          dim Creator, objConnection, objCommandWares
+          set Creator = new TCreator
+        
+          dim FileName
+          FileName = "14_09_22.DBF" 'OpenDialog.FileName
+        
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+        
+          dim Path
+        '  Path = FSO.GetParentFolderName(FileName)  можно в константах хранить  187302843_1943700807
+          Path = "D:\Gedemin\Base\Westa\"
+          Path = gs_GetConstByIDAndDate(gdcBaseManager.GetIDByRUIDString("187302843_1943700807"), FormatDateTime(now, vbShortDate))
+          dim List
+          set List = Creator.GetObject(NULL, "TStringList", "")
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = Path
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+        
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.RecordSet")
+          objADOQuery.ActiveConnection = objConnection
+          objADOQuery.Open " SELECT  * FROM " &  FileName & " WHERE  NUMPROPUSK is NULL  ", objConnection
+          if objADOQuery.EOF then
+            objADOQuery.Close
+            exit sub
+          end if
+          
+          dim T
+          set T = Creator.GetObject(nil, "TIBTransaction", "Import_Empl_DBF")
+          set T.DefaultDatabase = gdcBaseManager.DataBase
+          call T.Params.Add("read_committed")
+          call T.Params.Add("rec_version")
+          call T.Params.Add("nowait")
+          T.StartTransaction
+        
+          Except Exception_Import_Empl_DBF(T,objConnection,objADOQuery)
+        
+          dim ibSQL, counter
+          counter = 0
+          set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+          ibSQL.Transaction = T
+          ibSQL.SQL.Text = _
+          "EXECUTE BLOCK( " & _
+          "TUBNUMBER  VARCHAR(10)  =:TUBNUMBER, " & _
+          "LASTNAME   VARCHAR(20)  =:LASTNAME, " & _
+          "NAME       VARCHAR(20)  =:NAME, " & _
+          "MIDNAME    VARCHAR(20)  =:MIDNAME, " & _
+          "DPRI       DATE         =:DPRI, " & _
+          "DUVOL      DATE         =:DUVOL, " & _
+          "PASNUM     VARCHAR(40)  =:PASNUM, " & _
+          "DATEIN     DATE         =:DATEIN, " & _
+          "DATEOUT    DATE         =:DATEOUT, " & _
+          "ORGAN      VARCHAR(200) =:ORGAN, " & _
+          "PRIVNUM    VARCHAR(40)  =:PRIVNUM, " & _
+          " " & _
+          "COUNTRYPROP VARCHAR(50) =:COUNTRYPROP, " & _
+          "REGIONPROP  VARCHAR(50) =:REGIONPROP, " & _
+          "AREAPROP    VARCHAR(50) =:AREAPROP, " & _
+          "CITYPROP    VARCHAR(50) =:CITYPROP, " & _
+          "ADDRESPROP  VARCHAR(60)=:ADDRESPROP, " & _
+          " " & _
+          "COUNTRYLIVE VARCHAR(50) =:COUNTRYLIVE, " & _
+          "REGIONLIVE  VARCHAR(50) =:REGIONLIVE, " & _
+          "AREALIVE    VARCHAR(50) =:AREALIVE, " & _
+          "CITYLIVE    VARCHAR(50) =:CITYLIVE, " & _
+          "ADDRESLIVE  VARCHAR(60)=:ADDRESLIVE, " & _
+          " " & _
+          "MOBILENUM   VARCHAR(20) =:MOBILENUM, " & _
+          "GENDER      VARCHAR(1)  =:GENDER, " & _
+          "DATEBIRDTH  DATE        =:DATEBIRDTH, " & _
+          "CITYZENSHIP VARCHAR(50) =:CITYZENSHIP " & _
+          ") " & _
+          "AS " & _
+          "DECLARE VARIABLE DUVOL_ST VARCHAR(300); " & _
+          "DECLARE VARIABLE CONTACTKEY INTEGER; " & _
+          "DECLARE VARIABLE NationalityKey INTEGER; " & _
+          "DECLARE VARIABLE t_FIRSTNAME VARCHAR(20); " & _
+          "DECLARE VARIABLE t_SURNAME VARCHAR(20); " & _
+          "DECLARE VARIABLE t_MIDDLENAME VARCHAR(20); " & _
+          "DECLARE VARIABLE t_PASSPORTNUMBER VARCHAR(40); " & _
+          "DECLARE VARIABLE t_PASSPORTISSDATE DATE; " & _
+          "DECLARE VARIABLE t_PASSPORTEXPDATE DATE; " & _
+          "DECLARE VARIABLE t_PASSPORTISSUER VARCHAR(200); " & _
+          "DECLARE VARIABLE t_PERSONALNUMBER VARCHAR(40); " & _
+          "DECLARE VARIABLE t_SEX VARCHAR(1); " & _
+          "DECLARE VARIABLE t_BIRTHDAY DATE; " & _
+          "DECLARE VARIABLE Emplid INTEGER; " & _
+          "DECLARE VARIABLE t_Note VARCHAR(100); " & _
+          "DECLARE VARIABLE t_termdate DATE; " & _
+          "DECLARE VARIABLE t_Phone VARCHAR(20); " & _
+          " " & _
+          "DECLARE VARIABLE PlaceLiveKey INTEGER; " & _
+          "DECLARE VARIABLE t_placeLive  INTEGER; " & _
+          "DECLARE VARIABLE t_LiveAdress VARCHAR(60); " & _
+          " " & _
+          "DECLARE VARIABLE PlacePropKey INTEGER; " & _
+          "DECLARE VARIABLE t_placeProp  INTEGER; " & _
+          "DECLARE VARIABLE t_PropAdress VARCHAR(60); " & _
+          "DECLARE VARIABLE t_NationalityKey VARCHAR(60); " & _
+          "DECLARE VARIABLE OurCompanyKey INTEGER; " & _
+          "DECLARE VARIABLE t_CompanyKey INTEGER; " & _
+          "DECLARE VARIABLE DepartKey INTEGER; " & _
+          "DECLARE VARIABLE t_Depkey INTEGER; " & _
+          "BEGIN " & _
+          "  Emplid=null; CONTACTKEY=null; " & _
+          "  DUVOL_ST=''; PlacePropKey =null; PlaceLiveKey =null; " & _
+          "  NationalityKey =Null; " & _
+          " " & _
+          "  t_FIRSTNAME=''; " & _
+          "  t_sURNAME=''; " & _
+          "  t_MIDDLENAME=''; " & _
+          "  t_PASSPORTNUMBER=''; " & _
+          "  t_PASSPORTISSDATE=null; " & _
+          "  t_PASSPORTISSUER=''; " & _
+          "  t_PERSONALNUMBER=''; " & _
+          "  t_SEX=''; " & _
+          "  t_BIRTHDAY=null; " & _
+          "  t_termdate = null; " & _
+          "  t_Note = ''; " & _
+          "  t_Phone = ''; " & _
+          "  t_placeLive = null; " & _
+          "  t_placeProp = null; " & _
+          "  t_PropAdress = ''; " & _
+          "  t_LiveAdress = ''; " & _
+          "  t_NationalityKey = null; " & _
+          "  t_CompanyKey = null; " & _
+          "  DepartKey = null; " & _
+          "  t_Depkey = null; " & _
+          " " & _
+          "    /* обработаем параметр пола */ " & _
+          "  IF ((upper(GENDER) = 'Ж') or (upper(GENDER) = 'F')) THEN " & _
+          "      GENDER = 'F'; " & _
+          "  ELSE " & _
+          "      GENDER = 'M'; " & _
+          " " & _
+          "     /*  КОМПАНИЯ*/ " & _
+          "  EXECUTE PROCEDURE GD_P_GETID(147002687,704999368) " & _
+          "      RETURNING_VALUES :OurCompanyKey; " & _
+          "       " & _
+          "     /*  ПОДРАЗДЕЛЕНИЕ ПО-УМОЛЧАНИЮ ДЛЯ НОВЫХ СОТРУДНИКОВ*/ " & _
+          "  EXECUTE PROCEDURE GD_P_GETID(180708780,1192700761) " & _
+          "      RETURNING_VALUES :DepartKey; " & _
+          " " & _
+          "    /*НАХОДИМ ИД МЕСТА ЖИТЕЛЬСТВА ПО НАЗВАНИЮ */ " & _
+          "  EXECUTE PROCEDURE USR$P_GETPLACEKEYBYNAME(:COUNTRYLIVE,:REGIONLIVE, :AREALIVE, :CITYLIVE) " & _
+          "      RETURNING_VALUES :PlaceLiveKey; " & _
+          " " & _
+          "    /*НАХОДИМ ИД МЕСТА ПРОПИСКИ ПО НАЗВАНИЮ */ " & _
+          "  EXECUTE PROCEDURE USR$P_GETPLACEKEYBYNAME(:COUNTRYPROP,:REGIONPROP, :AREAPROP, :CITYPROP) " & _
+          "      RETURNING_VALUES :PlacePropKey; " & _
+          "       " & _
+          "      /*НАХОДИМ ГРАЖДАНСТВО */ " & _
+          "  EXECUTE PROCEDURE USR$P_GETPLACEKEYID(:CITYZENSHIP,'Страна') " & _
+          "      RETURNING_VALUES :NationalityKey; " & _
+          " " & _
+          "              " & _
+          "  /* ищем контакт по табельному */ " & _
+          "  SELECT " & _
+          "    C.ID, p.FIRSTNAME, p.SURNAME, p.MIDDLENAME, p.PASSPORTNUMBER,  p.PASSPORTISSDATE, " & _
+          "    p.PASSPORTEXPDATE , p.PASSPORTISSUER, p.PERSONALNUMBER, p.SEX, p.BIRTHDAY, p.USR$TERMINATIONDATE, C.USR$PHONE, c.PLACEKEY, c.ADDRESS, p.HPLACEKEY, p.HADDRESS, p.USR$NATIONALITYKEY, p.WCOMPANYKEY, p.USR$DEPARTMENT " & _
+          "  FROM GD_CONTACT c " & _
+          "  LEFT JOIN GD_PEOPLE P ON P.CONTACTKEY = c.ID " & _
+          "  WHERE c.USR$WG_LISTNUM = :TUBNUMBER " & _
+          "  INTO :CONTACTKEY, :t_FIRSTNAME, :t_sURNAME, :t_MIDDLENAME, :t_PASSPORTNUMBER, :t_PASSPORTISSDATE, " & _
+          "       :t_PASSPORTEXPDATE, :t_PASSPORTISSUER, :t_PERSONALNUMBER, :t_SEX, :t_BIRTHDAY, :t_termdate, :t_Phone, :t_placeLive, :t_LiveAdress, :t_placeProp, :t_PropAdress, :t_NationalityKey, :t_CompanyKey, :t_Depkey; " & _
+          " " & _
+          "  /* НАШЛИ ЗАПИСЬ ПО ТАБ. НОМЕРУ*/ " & _
+          "  IF (NOT CONTACTKEY IS NULL) THEN " & _
+          " " & _
+          "     BEGIN " & _
+          "        /*ЕСЛИ УВОЛЕН переводим в КЛИЕНТЫ */ " & _
+          "        IF ((NOT :DUVOL is NULL) and (:t_termdate is NULL))  THEN " & _
+          "          BEGIN " & _
+          " " & _
+          "            DUVOL_ST = 'Уволен:' || cast(:DUVOL AS VARCHAR(10)) ; " & _
+          "            DELETE FROM GD_EMPLOYEE WHERE CONTACTKEY = :CONTACTKEY; " & _
+          "            UPDATE GD_PEOPLE SET WCOMPANYKEY = NULL, USR$TERMINATIONDATE = :DUVOL WHERE CONTACTKEY = :CONTACTKEY; " & _
+          "            UPDATE GD_CONTACT SET PARENT = 186526495, NOTE = NOTE || cast(:DUVOL_ST AS VARCHAR(300)) WHERE id = :CONTACTKEY; " & _
+          "          END " & _
+          "        ELSE " & _
+          " " & _
+          "          /* ПРОВЕРИМ НА ОТЛИЧИЯ, ЧТОБЫ ПОСТОЯННО НЕ ОБНОВЛЯТЬ */ " & _
+          "          IF ( (t_FIRSTNAME<>NAME) or " & _
+          "               (t_sURNAME<>LASTNAME) or " & _
+          "               (t_MIDDLENAME<>MIDNAME) or (t_PASSPORTNUMBER<>PASNUM) or " & _
+          "               (t_PASSPORTISSDATE <> DATEIN) or " & _
+          "               (t_PASSPORTEXPDATE<>DATEOUT) or " & _
+          "               (t_PASSPORTISSUER<>ORGAN) or (t_PERSONALNUMBER<>PRIVNUM)  or " & _
+          "               (t_SEX<>GENDER) or (t_BIRTHDAY<>DATEBIRDTH) or " & _
+          "               (t_Phone<>MOBILENUM) or (t_placeLive<>PlaceLiveKey)  or " & _
+          "               (t_LiveAdress<>ADDRESLIVE) or (t_placeProp<>PlacePropKey) or " & _
+          "               (t_PropAdress<>ADDRESPROP) or (t_NationalityKey<>NationalityKey) or " & _
+          "               (t_CompanyKey<>OurCompanyKey) or (t_Depkey is null)) THEN " & _
+          "             BEGIN " & _
+          "                UPDATE GD_PEOPLE P SET " & _
+          "                FIRSTNAME = :NAME, " & _
+          "                SURNAME = :LASTNAME, " & _
+          "                MIDDLENAME = :MIDNAME, " & _
+          "                PASSPORTNUMBER = :PASNUM, " & _
+          "                PASSPORTISSDATE = :DATEIN, " & _
+          "                PASSPORTEXPDATE = :DATEOUT, " & _
+          "                PASSPORTISSUER = :ORGAN, " & _
+          "                PERSONALNUMBER = :PRIVNUM, " & _
+          "                SEX = :GENDER, " & _
+          "                BIRTHDAY = :DATEBIRDTH, " & _
+          "                HPLACEKEY = :PlacePropKey, " & _
+          "                HADDRESS =:ADDRESPROP, " & _
+          "                USR$NATIONALITYKEY =:NationalityKey, " & _
+          "                WCOMPANYKEY = :OurCompanyKey , " & _
+          "                USR$DEPARTMENT =:DepartKey " & _
+          "                WHERE P.CONTACTKEY = :CONTACTKEY; " & _
+          " " & _
+          "                UPDATE GD_CONTACT " & _
+          "                SET USR$PHONE = :MOBILENUM, " & _
+          "                  PHONE = :MOBILENUM, " & _
+          "                  PLACEKEY = :PlaceLiveKey, " & _
+          "                  ADDRESS = :ADDRESLIVE, " & _
+          "                  NAME = LEFT(:LASTNAME || ' ' || :NAME || ' ' || :MIDNAME, 60) " & _
+          "                WHERE ID = :CONTACTKEY; " & _
+          "             END " & _
+          "     END " & _
+          " " & _
+          "    IF (CONTACTKEY IS NULL) THEN " & _
+          "   /*  ПОИЩЕМ ПО ЛИЧНОМУ НОМЕРУ */ " & _
+          "     BEGIN " & _
+          "       SELECT " & _
+          "         C.ID, p.FIRSTNAME, p.SURNAME, p.MIDDLENAME, p.PASSPORTNUMBER, p.PASSPORTISSDATE, p.PASSPORTEXPDATE, p.PASSPORTISSUER, p.PERSONALNUMBER, p.SEX, p.BIRTHDAY, " & _
+          "         C.USR$PHONE, c.PLACEKEY, c.ADDRESS, p.USR$NATIONALITYKEY, p.WCOMPANYKEY, p.USR$DEPARTMENT " & _
+          "       FROM GD_PEOPLE P " & _
+          "       JOIN GD_CONTACT c ON c.ID = p.CONTACTKEY " & _
+          "       WHERE p.PERSONALNUMBER = :PRIVNUM and p.PERSONALNUMBER <> '' " & _
+          "       INTO :CONTACTKEY, t_FIRSTNAME, t_sURNAME, t_MIDDLENAME, t_PASSPORTNUMBER, t_PASSPORTISSDATE, t_PASSPORTEXPDATE, t_PASSPORTISSUER, t_PERSONALNUMBER, t_SEX, t_BIRTHDAY, " & _
+          "            :t_Phone, :t_placeLive, :t_LiveAdress, :t_NationalityKey, :t_CompanyKey, :t_Depkey; " & _
+          " " & _
+          "       /* нашли - проверим все поля  */ " & _
+          "       IF (NOT CONTACTKEY is NULL) THEN " & _
+          "          BEGIN " & _
+          "           IF ( (t_FIRSTNAME<>NAME) or (t_sURNAME<>LASTNAME) or " & _
+          "              (t_MIDDLENAME<>MIDNAME) or (t_PASSPORTNUMBER<>PASNUM) or " & _
+          "              (t_PASSPORTISSDATE <> DATEIN) or (t_PASSPORTEXPDATE<>DATEOUT) or " & _
+          "              (t_PASSPORTISSUER<>ORGAN) or (t_PERSONALNUMBER<>PRIVNUM) or " & _
+          "              (t_SEX<>GENDER) or (t_BIRTHDAY<>DATEBIRDTH) or " & _
+          "              (t_Phone<>MOBILENUM) or (t_placeLive<>:PlaceLiveKey) or " & _
+          "              (t_LiveAdress<>ADDRESLIVE)  or (t_placeProp<>PlacePropKey) or " & _
+          "              (t_PropAdress<>ADDRESPROP) or (t_CompanyKey<>OurCompanyKey) or " & _
+          "              (t_NationalityKey<>NationalityKey) or (t_Depkey is null) ) THEN " & _
+          "              BEGIN " & _
+          "                UPDATE GD_PEOPLE P SET " & _
+          "                FIRSTNAME = :NAME, " & _
+          "                SURNAME = :LASTNAME, " & _
+          "                MIDDLENAME = :MIDNAME, " & _
+          "                PASSPORTNUMBER = :PASNUM, " & _
+          "                PASSPORTISSDATE = :DATEIN, " & _
+          "                PASSPORTEXPDATE = :DATEOUT, " & _
+          "                PASSPORTISSUER = :ORGAN, " & _
+          "                PERSONALNUMBER = :PRIVNUM, " & _
+          "                SEX = :GENDER, " & _
+          "                BIRTHDAY = :DATEBIRDTH, " & _
+          "                HPLACEKEY = :PlacePropKey, " & _
+          "                HADDRESS =:ADDRESPROP, " & _
+          "                USR$NATIONALITYKEY =:NationalityKey, " & _
+          "                WCOMPANYKEY = :OurCompanyKey, " & _
+          "                USR$DEPARTMENT =:DepartKey " & _
+          "                WHERE P.CONTACTKEY = :CONTACTKEY; " & _
+          "                 " & _
+          "                /* ТУТ ЖЕ ОБНОВИМ ТАБЕЛЬНЫЙ, Т.К. ИНАЧЕ СЮДА Б НЕ ПОПАЛ */ " & _
+          "                UPDATE GD_CONTACT " & _
+          "                SET USR$WG_LISTNUM =:TUBNUMBER, " & _
+          "                  USR$PHONE = :MOBILENUM, " & _
+          "                  PHONE = :MOBILENUM, " & _
+          "                  PLACEKEY = :PlaceLiveKey, " & _
+          "                  ADDRESS = :ADDRESLIVE, " & _
+          "                  NOTE = cast('Принят:' || cast(:DPRI AS VARCHAR(10)) AS VARCHAR(300)), " & _
+          "                  NAME = LEFT(:LASTNAME || ' ' || :NAME || ' ' || :MIDNAME, 60) " & _
+          "                WHERE ID = :CONTACTKEY; " & _
+          "              END " & _
+          "          END " & _
+          "     ELSE " & _
+          "         BEGIN " & _
+          "       /*       не нашли - создаем   */ " & _
+          "             EXECUTE PROCEDURE gd_p_getnextid RETURNING_VALUES :Emplid; " & _
+          " " & _
+          "             INSERT INTO GD_CONTACT (ID, CREATORKEY, CREATIONDATE, CONTACTTYPE, PARENT, USR$WG_LISTNUM, PHONE, USR$PHONE, PLACEKEY, ADDRESS, NAME, NOTE) " & _
+          "               VALUES(:Emplid, 650002, CURRENT_DATE, 2, :DepartKey, :TUBNUMBER, :MOBILENUM, :MOBILENUM, :PlaceLiveKey, :ADDRESLIVE, LEFT(:LASTNAME || ' ' || :NAME || ' ' || :MIDNAME, 60), cast('Принят:' || cast(:DPRI AS VARCHAR(10)) AS VARCHAR(300))); " & _
+          " " & _
+          "             INSERT INTO GD_PEOPLE (CONTACTKEY,USR$DEPARTMENT,WCOMPANYKEY,FIRSTNAME,SURNAME,MIDDLENAME, " & _
+          "                                    PASSPORTNUMBER,PASSPORTISSDATE,PASSPORTEXPDATE,PASSPORTISSUER,PERSONALNUMBER,SEX,BIRTHDAY,HPLACEKEY,HADDRESS,USR$NATIONALITYKEY) " & _
+          "               VALUES(:Emplid,:DepartKey,:OurCompanyKey,:NAME,:LASTNAME,:MIDNAME,:PASNUM,:DATEIN,:DATEOUT,:ORGAN,:PRIVNUM,:GENDER,:DATEBIRDTH, :PlacePropKey, :ADDRESPROP, :NATIONALITYKEY); " & _
+          " " & _
+          "             INSERT INTO GD_EMPLOYEE (CONTACTKEY) VALUES(:Emplid); " & _
+          "         END " & _
+          "     END " & _
+          " " & _
+          "END "
+          objADOQuery.MoveFirst
+          on error resume next
+          while not objADOQuery.EOF
+            ibSQL.Close
+            ibSQL.ParamByName("TUBNUMBER").asVariant = objADOQuery.Fields("TABNUMBER").Value  ' табельный номер (уникальное значение)
+            ibSQL.ParamByName("LASTNAME").asVariant = objADOQuery.Fields("LASTNAME").Value       ' фамилия
+            ibSQL.ParamByName("NAME").asVariant = objADOQuery.Fields("NAME").Value               ' имя
+            ibSQL.ParamByName("MIDNAME").asVariant =objADOQuery.Fields("MIDNAME").Value         ' отчество
+            ibSQL.ParamByName("DPRI").asVariant = objADOQuery.Fields("DPRI").Value               ' дата приема
+            ibSQL.ParamByName("DUVOL").asVariant = objADOQuery.Fields("DUVOL").Value             ' дата увольнения
+           ' ibSQL.ParamByName("LASTNAME").asVariant = objADOQuery.Fields("NUMPROPUSK").Value   ' номер пропуска (всегда пусто)
+        
+            ' паспортные данные
+            ibSQL.ParamByName("PASNUM").asVariant = objADOQuery.Fields("PASNUM").Value      ' номер целиком(серия + номер)
+            ibSQL.ParamByName("DATEIN").asVariant = objADOQuery.Fields("DATEIN").Value      ' дата выдачи
+            ibSQL.ParamByName("DATEOUT").asVariant = objADOQuery.Fields("DATEOUT").Value    ' срок действия
+            ibSQL.ParamByName("ORGAN").asVariant = objADOQuery.Fields("ORGAN").Value        ' кем выдан
+            ibSQL.ParamByName("PRIVNUM").asVariant = objADOQuery.Fields("PRIVNUM").Value    ' личный номер
+        
+            ' прописка
+            ibSQL.ParamByName("COUNTRYPROP").asVariant = objADOQuery.Fields("COUNTRYPRO").Value  ' страна
+            ibSQL.ParamByName("REGIONPROP").asVariant = objADOQuery.Fields("REGIONPROP").Value    ' область
+            ibSQL.ParamByName("AREAPROP").asVariant = objADOQuery.Fields("AREAPROP").Value        ' район
+            ibSQL.ParamByName("CITYPROP").asVariant = objADOQuery.Fields("CITYPROP").Value        ' город
+            ibSQL.ParamByName("ADDRESPROP").asVariant = objADOQuery.Fields("ADDRESPROP").Value    ' адрес прописки (улица, дом, корпус, квартира)
+        
+            ' адрес проживания
+            ibSQL.ParamByName("COUNTRYLIVE").asVariant = objADOQuery.Fields("COUNTRYLIV").Value  ' страна
+            ibSQL.ParamByName("REGIONLIVE").asVariant = objADOQuery.Fields("REGIONLIVE").Value    ' область
+            ibSQL.ParamByName("AREALIVE").asVariant = objADOQuery.Fields("AREALIVE").Value        ' район
+            ibSQL.ParamByName("CITYLIVE").asVariant = objADOQuery.Fields("CITYLIVE").Value        ' город
+            ibSQL.ParamByName("ADDRESLIVE").asVariant = objADOQuery.Fields("ADDRESLIVE").Value    ' адрес проживания (улица, дом, корпус, квартира)
+            ibSQL.ParamByName("MOBILENUM").asVariant  = objADOQuery.Fields("MOBILENUM").Value     ' номер мобльного телефона без + (код страны, когд города, номер)
+            ibSQL.ParamByName("GENDER").asVariant  = objADOQuery.Fields("GENDER").Value           ' пол
+            ibSQL.ParamByName("DATEBIRDTH").asVariant  = objADOQuery.Fields("DATEBIRDTH").Value   ' дата рождения
+            ibSQL.ParamByName("CITYZENSHIP").asVariant  = objADOQuery.Fields("CITYZENSHI").Value ' гражданство
+            ibSQL.ExecQuery
+            if err.number<>0 Then
+              List.Add("ошибка: TABNUMBER=" & objADOQuery.Fields("TABNUMBER").Value & err.Description)
+              on error goto 0
+            end if
+            counter = counter + 1
+            objADOQuery.MoveNext
+          wend
+          List.Add(CSTR(NOW) & " обработано " & CSTR(counter) & " записей")
+          List.Add("-----------------------")
+          List.SaveToFile(Path & "log.Txt")
+          IF T.InTransaction Then T.Commit
+          
+          objConnection.Close
+          Set objConnection = Nothing
+          Set objADOQuery = Nothing
+        
+        End Sub
+        
+        sub Exception_Import_Empl_DBF(T, objConnection,objADOQuery)
+          if T.InTransaction then T.Rollback
+          Set objConnection = Nothing
+          Set objADOQuery = Nothing
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147141414_141998543 gs_GetConstByIDAndDate"
