@@ -5,10 +5,10 @@ Properties:
   RUID: 147004741_1943700807
   Name: "export_epleyees_xml"
   Caption: "export_epleyees_xml"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 8D4DFDC7A430ACA24F3381CF447394C9
+  MD5: 4E9F96F0A05627215EC6F031F79A1513
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-09-26T15:33:53+03:00
+      EDITIONDATE: 2022-09-27T14:32:39+03:00
       DISPLAYSCRIPT: | 
         WEB_GET_EMPLOYEES
         
@@ -62,11 +62,12 @@ Objects:
           Set ibsql = Creator.GetObject(nil, "TIBSQL", "")
           Set ibsql.Transaction = gdcBaseManager.ReadTransaction
           ibsql.SQL.Text = _
-            "SELECT * " & _
+            "SELECT c.ID, p.FIRSTNAME, p.SURNAME, p.MIDDLENAME, c.USR$WG_LISTNUM " & _
             "FROM GD_CONTACT C " & _
             "JOIN GD_PEOPLE P ON P.CONTACTKEY = C.ID " & _
             "WHERE C.CONTACTTYPE = 2 " & _
             "AND P.WCOMPANYKEY = <COMPANYKEY/> " & _
+            "AND COALESCE(C.USR$WG_LISTNUM,'') <> '' " & _
             "AND EXISTS(SELECT " & _
             "           CONTACTKEY " & _
             "           FROM GD_EMPLOYEE E) "
@@ -79,18 +80,18 @@ Objects:
         
           while not ibsql.EOF
             set employee = objXML.createElement("employee")
-            call employee.SetAttribute("dateTo", ibsql.FieldByName("PASSPORTEXPDATE").AsString)
-            call employee.SetAttribute("dateFrom", ibsql.FieldByName("PASSPORTISSDATE").AsString)
-            call employee.SetAttribute("codeCard", ibsql.FieldByName("ID").AsString)
+            call employee.SetAttribute("dateTo", "")
+            call employee.SetAttribute("dateFrom", "")
+            call employee.SetAttribute("codeCard", "")
             call employee.SetAttribute("surname", ibsql.FieldByName("surname").AsString)
-            call employee.SetAttribute("name", ibsql.FieldByName("name").AsString)
+            call employee.SetAttribute("name", ibsql.FieldByName("FIRSTNAME").AsString)
             call employee.SetAttribute("patronymic", ibsql.FieldByName("MIDDLENAME").AsString)
             call employee.SetAttribute("id", ibsql.FieldByName("id").AsString)
             employees.appendChild(employee)
             ibsql.Next
           Wend
           objXML.appendChild(employees)
-         ' objXML.save("d:\Gedemin\Base\Westa\temp.xml")
+          'objXML.save("d:\Gedemin\Base\Westa\temp.xml")
           ContentText.Value = objXML.xml
         End Function
         
