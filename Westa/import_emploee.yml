@@ -5,10 +5,10 @@ Properties:
   RUID: 147004732_1943700807
   Name: "import_emploee"
   Caption: "import_emploee"
-  Version: "1.0.0.1"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 9B233C8A65A16B885E4E504F733A9DFF
+  MD5: D058C7710E06A79FB2D9E8867AB2E429
 Objects: 
   - 
     Properties: 
@@ -111,10 +111,12 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-09-26T13:52:20+03:00
+      EDITIONDATE: 2022-09-27T12:45:43+03:00
       DISPLAYSCRIPT: | 
         IMPORT_EMPL_DBF
+        GETCORRECTAREA
         EXCEPTION_IMPORT_EMPL_DBF
+        GETFILENAME
         
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -122,21 +124,22 @@ Objects:
         Option Explicit
         Sub Import_Empl_DBF
         
-          dim Creator, objConnection, objCommandWares
+          dim Creator, objConnection, objCommandWares, Path, FSO, List
           set Creator = new TCreator
-        
-          dim FileName
-          FileName = "14_09_22.DBF" 'OpenDialog.FileName
-        
-          dim FSO
           set FSO = CreateObject("Scripting.FileSystemObject")
+          Path = gs_GetConstByIDAndDate(gdcBaseManager.GetIDByRUIDString("187935477_1963596903"), FormatDateTime(now, vbShortDate))
         
-          dim Path
-        '  Path = FSO.GetParentFolderName(FileName)  можно в константах хранить  187302843_1943700807
-          Path = "D:\Gedemin\Base\Westa\"
-          Path = gs_GetConstByIDAndDate(gdcBaseManager.GetIDByRUIDString("187302843_1943700807"), FormatDateTime(now, vbShortDate))
-          dim List
-          set List = Creator.GetObject(NULL, "TStringList", "")
+          set List = FSO.OpenTextFile(Path & "LOG.TXT", 8,  true, -2)
+          dim FileName
+          FileName = GetFileName
+          
+          if isNull(FileName) Then
+             List.WriteLine(" Не найден файл DBF для обработки " & CSTR(NOW))
+             List.WriteLine("-----------------------")
+             List.Close
+             exit sub
+          end if
+        
           set objConnection = CreateObject("ADODB.Connection")
           objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
           objConnection.Properties("Data Source") = Path
@@ -146,7 +149,7 @@ Objects:
           dim objADOQuery
           set objADOQuery = CreateObject("ADODB.RecordSet")
           objADOQuery.ActiveConnection = objConnection
-          objADOQuery.Open " SELECT  * FROM " &  FileName & " WHERE  NUMPROPUSK is NULL  ", objConnection
+          objADOQuery.Open " SELECT * FROM " &  FileName & " WHERE  NUMPROPUSK is NULL  ", objConnection
           if objADOQuery.EOF then
             objADOQuery.Close
             exit sub
@@ -280,7 +283,9 @@ Objects:
           "  EXECUTE PROCEDURE USR$P_GETPLACEKEYID(:CITYZENSHIP,'Страна') " & _
           "      RETURNING_VALUES :NationalityKey; " & _
           " " & _
-          "              " & _
+          "  IF (:NationalityKey is null) Then    " & _
+          "      NationalityKey = 1800010; /*БЕЛАРУСЬ*/ " & _
+          " " & _
           "  /* ищем контакт по табельному */ " & _
           "  SELECT " & _
           "    C.ID, p.FIRSTNAME, p.SURNAME, p.MIDDLENAME, p.PASSPORTNUMBER,  p.PASSPORTISSDATE, " & _
@@ -296,7 +301,7 @@ Objects:
           " " & _
           "     BEGIN " & _
           "        /*ЕСЛИ УВОЛЕН переводим в КЛИЕНТЫ */ " & _
-          "        IF ((NOT :DUVOL is NULL) and (:t_termdate is NULL))  THEN " & _
+          "        IF ((NOT :DUVOL is NULL) and ((:DUVOL>:DPRI) or ((NOT :DUVOL is NULL) and (:DPRI is NULL))))   THEN " & _
           "          BEGIN " & _
           " " & _
           "            DUVOL_ST = 'Уволен:' || cast(:DUVOL AS VARCHAR(10)) ; " & _
@@ -342,7 +347,7 @@ Objects:
           "                  PHONE = :MOBILENUM, " & _
           "                  PLACEKEY = :PlaceLiveKey, " & _
           "                  ADDRESS = :ADDRESLIVE, " & _
-          "                  NAME = LEFT(:LASTNAME || ' ' || :NAME || ' ' || :MIDNAME, 60) " & _
+          "                  NAME = LEFT(COALESCE(:LASTNAME,'') || ' ' || COALESCE(:NAME,'') || ' ' || COALESCE(:MIDNAME,''), 60) " & _
           "                WHERE ID = :CONTACTKEY; " & _
           "             END " & _
           "     END " & _
@@ -424,12 +429,12 @@ Objects:
           while not objADOQuery.EOF
             ibSQL.Close
             ibSQL.ParamByName("TUBNUMBER").asVariant = objADOQuery.Fields("TABNUMBER").Value  ' табельный номер (уникальное значение)
-            ibSQL.ParamByName("LASTNAME").asVariant = objADOQuery.Fields("LASTNAME").Value       ' фамилия
-            ibSQL.ParamByName("NAME").asVariant = objADOQuery.Fields("NAME").Value               ' имя
-            ibSQL.ParamByName("MIDNAME").asVariant =objADOQuery.Fields("MIDNAME").Value         ' отчество
-            ibSQL.ParamByName("DPRI").asVariant = objADOQuery.Fields("DPRI").Value               ' дата приема
-            ibSQL.ParamByName("DUVOL").asVariant = objADOQuery.Fields("DUVOL").Value             ' дата увольнения
-           ' ibSQL.ParamByName("LASTNAME").asVariant = objADOQuery.Fields("NUMPROPUSK").Value   ' номер пропуска (всегда пусто)
+            ibSQL.ParamByName("LASTNAME").asVariant = objADOQuery.Fields("LASTNAME").Value    ' фамилия
+            ibSQL.ParamByName("NAME").asVariant = objADOQuery.Fields("NAME").Value            ' имя
+            ibSQL.ParamByName("MIDNAME").asVariant =objADOQuery.Fields("MIDNAME").Value       ' отчество
+            ibSQL.ParamByName("DPRI").asVariant = objADOQuery.Fields("DPRI").Value            ' дата приема
+            ibSQL.ParamByName("DUVOL").asVariant = objADOQuery.Fields("DUVOL").Value          ' дата увольнения
+           ' ibSQL.ParamByName("LASTNAME").asVariant = objADOQuery.Fields("NUMPROPUSK").Value ' номер пропуска (всегда пусто)
         
             ' паспортные данные
             ibSQL.ParamByName("PASNUM").asVariant = objADOQuery.Fields("PASNUM").Value      ' номер целиком(серия + номер)
@@ -439,33 +444,34 @@ Objects:
             ibSQL.ParamByName("PRIVNUM").asVariant = objADOQuery.Fields("PRIVNUM").Value    ' личный номер
         
             ' прописка
-            ibSQL.ParamByName("COUNTRYPROP").asVariant = objADOQuery.Fields("COUNTRYPRO").Value  ' страна
-            ibSQL.ParamByName("REGIONPROP").asVariant = objADOQuery.Fields("REGIONPROP").Value    ' область
-            ibSQL.ParamByName("AREAPROP").asVariant = objADOQuery.Fields("AREAPROP").Value        ' район
-            ibSQL.ParamByName("CITYPROP").asVariant = objADOQuery.Fields("CITYPROP").Value        ' город
-            ibSQL.ParamByName("ADDRESPROP").asVariant = objADOQuery.Fields("ADDRESPROP").Value    ' адрес прописки (улица, дом, корпус, квартира)
+            ibSQL.ParamByName("COUNTRYPROP").asVariant = objADOQuery.Fields("COUNTRYPRO").Value                ' страна
+            ibSQL.ParamByName("REGIONPROP").asVariant = GetCorrectAREA(objADOQuery.Fields("REGIONPROP").Value) ' область
+            ibSQL.ParamByName("AREAPROP").asVariant = GetCorrectAREA(objADOQuery.Fields("AREAPROP").Value)     ' район
+            ibSQL.ParamByName("CITYPROP").asVariant = GetCorrectAREA(objADOQuery.Fields("CITYPROP").Value)     ' город
+            ibSQL.ParamByName("ADDRESPROP").asVariant = objADOQuery.Fields("ADDRESPROP").Value                 ' адрес прописки (улица, дом, корпус, квартира)
         
             ' адрес проживания
-            ibSQL.ParamByName("COUNTRYLIVE").asVariant = objADOQuery.Fields("COUNTRYLIV").Value  ' страна
-            ibSQL.ParamByName("REGIONLIVE").asVariant = objADOQuery.Fields("REGIONLIVE").Value    ' область
-            ibSQL.ParamByName("AREALIVE").asVariant = objADOQuery.Fields("AREALIVE").Value        ' район
-            ibSQL.ParamByName("CITYLIVE").asVariant = objADOQuery.Fields("CITYLIVE").Value        ' город
-            ibSQL.ParamByName("ADDRESLIVE").asVariant = objADOQuery.Fields("ADDRESLIVE").Value    ' адрес проживания (улица, дом, корпус, квартира)
-            ibSQL.ParamByName("MOBILENUM").asVariant  = objADOQuery.Fields("MOBILENUM").Value     ' номер мобльного телефона без + (код страны, когд города, номер)
-            ibSQL.ParamByName("GENDER").asVariant  = objADOQuery.Fields("GENDER").Value           ' пол
-            ibSQL.ParamByName("DATEBIRDTH").asVariant  = objADOQuery.Fields("DATEBIRDTH").Value   ' дата рождения
+            ibSQL.ParamByName("COUNTRYLIVE").asVariant = objADOQuery.Fields("COUNTRYLIV").Value                ' страна
+            ibSQL.ParamByName("REGIONLIVE").asVariant = GetCorrectAREA(objADOQuery.Fields("REGIONLIVE").Value) ' область
+            ibSQL.ParamByName("AREALIVE").asVariant = GetCorrectAREA(objADOQuery.Fields("AREALIVE").Value)     ' район
+            ibSQL.ParamByName("CITYLIVE").asVariant = GetCorrectAREA(objADOQuery.Fields("CITYLIVE").Value)     ' город
+            ibSQL.ParamByName("ADDRESLIVE").asVariant = objADOQuery.Fields("ADDRESLIVE").Value   ' адрес проживания (улица, дом, корпус, квартира)
+            ibSQL.ParamByName("MOBILENUM").asVariant  = objADOQuery.Fields("MOBILENUM").Value    ' номер мобльного телефона без + (код страны, когд города, номер)
+            ibSQL.ParamByName("GENDER").asVariant  = objADOQuery.Fields("GENDER").Value          ' пол
+            ibSQL.ParamByName("DATEBIRDTH").asVariant  = objADOQuery.Fields("DATEBIRDTH").Value  ' дата рождения
             ibSQL.ParamByName("CITYZENSHIP").asVariant  = objADOQuery.Fields("CITYZENSHI").Value ' гражданство
             ibSQL.ExecQuery
             if err.number<>0 Then
-              List.Add("ошибка: TABNUMBER=" & objADOQuery.Fields("TABNUMBER").Value & err.Description)
+              List.WriteLine("Ошибка: TABNUMBER=" & objADOQuery.Fields("TABNUMBER").Value & err.Description)
               on error goto 0
             end if
             counter = counter + 1
             objADOQuery.MoveNext
           wend
-          List.Add(CSTR(NOW) & " обработано " & CSTR(counter) & " записей")
-          List.Add("-----------------------")
-          List.SaveToFile(Path & "log.Txt")
+          List.WriteLine(CSTR(NOW) & " обработано " & CSTR(counter) & " записей")
+          List.WriteLine("-----------------------")
+          'List.SaveToFile(Path & "log.Txt")
+          List.Close
           IF T.InTransaction Then T.Commit
           
           objConnection.Close
@@ -474,11 +480,64 @@ Objects:
         
         End Sub
         
+        function GetCorrectAREA(str)
+          if isNull(str) Then
+            GetCorrectAREA = null
+            exit function
+          end if
+          dim arr, res, i
+          arr = Split(str, " ")
+          for i = 0 to UBound(arr)
+            if Len(CSTR(arr(i)))>2 then
+              GetCorrectAREA = arr(i)
+            end if
+            exit function
+          next
+        
+          
+        end function
+        
         sub Exception_Import_Empl_DBF(T, objConnection,objADOQuery)
           if T.InTransaction then T.Rollback
           Set objConnection = Nothing
           Set objADOQuery = Nothing
         end sub
+        
+        function GetFileName
+            GetFileName = null
+            '  берем путь из константы для обмена с 1С
+            '  имя файла дб текущей даты либо днем ранее формата ДД_ММ_ГГ.dbf
+            '  возможно, если файл не найден, допишим инфу в лог
+            dim Path
+            Path = gs_GetConstByIDAndDate(gdcBaseManager.GetIDByRUIDString("187935477_1963596903"), FormatDateTime(now, vbShortDate))
+        
+            dim dd, mm, yy, FileName, fso, DNow
+            set FSO = CreateObject("Scripting.FileSystemObject")
+            
+            dim fExists : fExists = false
+            dim counter : counter =0
+            DNow = now
+            
+            While not fExists and counter <30
+        
+              dd = cSTR(Day(DNow))
+               if len(dd) <2 Then dd = "0" & dd
+        
+              mm = CSTR(Month(DNow))
+               if len(mm) <2 Then mm = "0" & mm
+        
+              yy = Right(CSTR(Year(DNow)),2)
+            
+              FileName = dd & "_" & mm & "_" & yy & ".dbf"
+        
+              IF fso.FileExists(Path & FileName) Then
+                GetFileName = FileName
+                fExists = true
+              end if
+              DNow = DNow -1
+              counter = counter + 1
+            wend
+        end function
         
     Set: 
       - 
@@ -486,3 +545,16 @@ Objects:
         Items: 
           - 
             ADDFUNCTIONKEY: "147141414_141998543 gs_GetConstByIDAndDate"
+  - 
+    Properties: 
+      Class: "TgdcConst"
+      RUID: 187935477_1963596903
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Путь обмена с 1С"
+      COMMENT: ~
+      CONSTTYPE: 4
+      DATATYPE: "S"
+      EDITIONDATE: 2022-09-26T16:46:24+03:00
