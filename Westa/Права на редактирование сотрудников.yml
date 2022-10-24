@@ -1,0 +1,146 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 154295848_1605708402
+  Name: "Права на редактирование сотрудников"
+  Caption: "Права на редактирование сотрудников"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: D38669BD2A17A00B8A3E2A6696F749CC
+Uses: 
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154295836_1605708402
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "wst_kassa_CheckEmplUserRights"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-10-19T15:34:53+03:00
+      DISPLAYSCRIPT: | 
+        WST_KASSA_CHECKEMPLUSERRIGHTS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAAR0RDRU1QTAcAAABHRENFTVBMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function wst_kassa_CheckEmplUserRights(gdcEmpl)
+            wst_kassa_CheckEmplUserRights = false
+            exit function
+        
+        
+            if IBLogin.IsUserAdmin then
+              exit function
+            end if
+        
+            if gdcEmpl.FieldByName("WCOMPANYKEY").AsInteger <> IBLogin.CompanyKey then
+              exit function
+            end if
+        
+            dim Creator
+            set Creator = new TCreator
+        
+            dim gdcGroup
+            set gdcGroup = Creator.GetObject(nil, "TGdcUserGroup", "")
+            gdcGroup.SubSet = "ByID"
+            gdcGroup.ID = 14 ' отдел кадров
+            gdcGroup.Open
+        
+            dim Mask
+            Mask = 0
+            if not gdcGroup.EoF then
+              Mask = gdcGroup.GetGroupMask
+            end if
+        
+            wst_kassa_CheckEmplUserRights = ((Mask And IBLogin.InGroup) <> 0)
+            gdcGroup.Close
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 154295839_1605708402
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 154295837_1605708402
+    Fields: 
+      NAME: "TgdcEmployeeDoBeforePost"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147015547_119619099 TgdcBase\\TgdcTree\\TgdcLBRBTree\\TgdcBaseContact\\TgdcContact\\TgdcEmployee"
+      OBJECTNAME: "TgdcEmployee"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-10-17T15:06:18+03:00
+      DISPLAYSCRIPT: | 
+        TGDCEMPLOYEEDOBEFOREPOST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include WST_KASSA_CHECKEMPLUSERRIGHTS
+        Option Explicit
+        Sub TgdcEmployeeDoBeforePost(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "DoBeforePost", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+        
+          if not wst_kassa_CheckEmplUserRights(Self) then
+             call Application.MessageBox("Редактирование позиции запрещено. Обратитесь к администратору", "Внимание", vbOkOnly + vbInformation + vbSystemModal)
+             call Exception.Raise("EAbort", "")
+          end if
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "154295836_1605708402 wst_kassa_CheckEmplUserRights"
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 154295837_1605708402
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOBEFOREPOST"
+      FUNCTIONKEY: "154295839_1605708402 TgdcEmployeeDoBeforePost"
+      OBJECTKEY: "147015547_119619099 TgdcBase\\TgdcTree\\TgdcLBRBTree\\TgdcBaseContact\\TgdcContact\\TgdcEmployee"
+      OBJECTNAME: "TgdcEmployee"
+      PARENTNAME: "TgdcContact"
+      EDITIONDATE: 2022-10-17T15:06:18+03:00
