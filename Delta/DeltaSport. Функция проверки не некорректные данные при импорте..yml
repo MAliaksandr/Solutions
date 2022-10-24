@@ -1,0 +1,232 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 193054356_1720517880
+  Name: "DeltaSport. Функция проверки не некорректные данные при импорте."
+  Caption: "DeltaSport. Функция проверки не некорректные данные при импорте."
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 7FBAC11DB2A53D3D40A4E791D6DE8492
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 192872100_1720517880
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "dlt_test_correct_discotcard"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-10-24T18:48:43+03:00
+      DISPLAYSCRIPT: | 
+        DLT_TEST_CORRECT_DISCOTCARD
+        DLT_TEST_CORRECT_DISCOTCARD_EXEPTION
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Option Explicit
+        Function dlt_test_correct_discotcard
+        
+          dim Creator, ibSQL, TR
+          set Creator = new TCreator
+          set Tr = Creator.GetObject(nil, "TIBTransaction", "")
+          Tr.DefaultDatabase = gdcBaseManager.Database
+          Call Tr.Params.Add("nowait")
+          Call Tr.Params.Add("read_committed")
+          Call Tr.Params.Add("rec_version")
+          Tr.StartTransaction
+        
+          Except dlt_test_correct_discotcard_Exeption(Tr)
+          
+          set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+          ibSQL.Transaction = gdcBaseManager.ReadTransaction
+          ibSQL.SQL.Text = _
+            "SELECT " & _
+            "N.ID " & _
+            "FROM USR$PF_DISCOUNTNAME N " & _
+            "WHERE N.USR$NAME IS NULL "
+          ibSQL.ExecQuery
+          
+          'диск.карт
+          dim gdcDCard
+          set gdcDCard = Designer.CreateObject(Application, "TgdcAttrUserDefined", "")
+          gdcDCard.SubType = "USR$PF_DISCOUNTCARD"
+          gdcDCard.Transaction = Tr
+        
+          'типы диск.карт
+          dim gdcDTypeCard
+          set gdcDTypeCard = Designer.CreateObject(Application, "TgdcAttrUserDefined", "")
+          gdcDTypeCard.SubType = "USR$PF_DISCOUNTNAME"
+          gdcDTypeCard.Transaction = Tr
+          
+          'правила скидок
+          dim gdcRules
+          set gdcRules = Designer.CreateObject(Application, "TgdcAttrUserDefined", "")
+          gdcRules.SubType = "USR$PF_DISCOUNTNEW"
+          gdcRules.Transaction = Tr
+        
+          
+          dim cardKeyID :cardKeyID = ""
+          
+          if not ibSQL.EOF Then
+            if Application.MessageBox("Возможны ошибки в работе программы!" + VBCR + _
+               "Найдены ТИПЫ КАРТ без наименования!"+ VBCR + _
+               "Открыть на просмотр?", "Внимание", vbYesNo + vbExclamation + vbSystemModal)= vbYes Then
+                while not ibSQL.EOF
+                  cardKeyID = ibSQL.FieldByName("ID").asInteger
+                  gdcDTypeCard.ID = cardKeyID
+                  gdcDTypeCard.Open
+                  if gdcDTypeCard.EditDialog("") then
+                    gdcDTypeCard.Edit
+                    gdcDTypeCard.Post
+                  end if
+                  ibSQL.next
+                wend
+                Tr.CommitRetaining
+            end if
+          end if
+          
+          ibSQL.Close
+          ibSQL.SQL.Text = _
+            "SELECT " & _
+            "  DN.ID " & _
+            "FROM USR$PF_DISCOUNTNAME DN " & _
+            "WHERE DN.USR$NAME = ( " & _
+            "SELECT " & _
+            "N.USR$NAME " & _
+            "FROM USR$PF_DISCOUNTNAME N " & _
+            "group by 1 " & _
+            "having COUNT(N.USR$NAME)>1) "
+          ibSQL.ExecQuery
+          
+          if not ibSQL.EOF Then
+            if Application.MessageBox("Возможны ошибки в работе программы!" + VBCR + _
+               "Найдены ОДИНАКОВЫЕ ТИПЫ КАРТ !"+ VBCR + _
+               "Открыть на просмотр?", "Внимание", vbYesNo + vbExclamation + vbSystemModal)= vbYes Then
+                while not ibSQL.EOF
+                  cardKeyID = ibSQL.FieldByName("ID").asInteger
+                  gdcDTypeCard.ID = cardKeyID
+                  gdcDTypeCard.Open
+                  if gdcDTypeCard.EditDialog("") then
+                    gdcDTypeCard.Edit
+                    gdcDTypeCard.Post
+                  end if
+                  ibSQL.next
+                wend
+                Tr.CommitRetaining
+            end if
+          end if
+        
+        
+          ibSQL.Close
+          ibSQL.SQL.Text = _
+            "SELECT " & _
+            "C.ID " & _
+            "FROM USR$PF_DISCOUNTCARD C " & _
+            "WHERE C.USR$CODE IS NULL OR " & _
+            "C.USR$TYPEDISCCARDKEY IS NULL "
+          ibSQL.ExecQuery
+          
+          if not ibSQL.EOF Then
+            if Application.MessageBox("Возможны ошибки в работе программы!" + VBCR + _
+               "Найдены дисконтные карты без наименования или без типа карты."+ VBCR + _
+               "Открыть на просмотр?", "Внимание", vbYesNo + vbExclamation + vbSystemModal)= vbYes Then
+                while not ibSQL.EOF
+                  cardKeyID = ibSQL.FieldByName("ID").asInteger
+                  gdcDCard.ID = cardKeyID
+                  gdcDCard.Open
+                  if gdcDCard.EditDialog("") then
+                    gdcDCard.Edit
+                    gdcDCard.Post
+                  end if
+                  ibSQL.next
+                wend
+                Tr.CommitRetaining
+            end if
+          end if
+          
+          ibSQL.Close
+          ibSQL.SQL.Text = _
+            "SELECT " & _
+            "  DC.ID " & _
+            "FROM USR$PF_DISCOUNTCARD  DC " & _
+            "WHERE DC.USR$CODE = ( " & _
+            "SELECT " & _
+            "c.USR$CODE " & _
+            "FROM USR$PF_DISCOUNTCARD C " & _
+            "group by 1 " & _
+            "having COUNT(C.USR$CODE)>1) "
+          ibSQL.ExecQuery
+        
+          if not ibSQL.EOF Then
+            if Application.MessageBox("Возможны ошибки в работе программы!" + VBCR + _
+               "Найдены дисконтные карты c одинаковым наименованием."+ VBCR + _
+               "Открыть на просмотр?", "Внимание", vbYesNo + vbExclamation + vbSystemModal)= vbYes Then
+                while not ibSQL.EOF
+                  cardKeyID = ibSQL.FieldByName("ID").asInteger
+                  gdcDCard.ID = cardKeyID
+                  gdcDCard.Open
+                  if gdcDCard.EditDialog("") then
+                    gdcDCard.Edit
+                    gdcDCard.Post
+                  end if
+                  ibSQL.next
+                wend
+                Tr.CommitRetaining
+            end if
+          end if
+          
+          
+          'ПРАВИЛА СКИДОК
+          
+          ibSQL.Close
+          ibSQL.SQL.Text = _
+            "SELECT r.ID " & _
+            "FROM USR$PF_DISCOUNTNEW r " & _
+            "where r.USR$CARDTYPEKEY is null "
+          ibSQL.ExecQuery
+        
+          if not ibSQL.EOF Then
+            if Application.MessageBox("Возможны ошибки в работе программы!" + VBCR + _
+               "Найдены правила без привязки к дисконтной карте, что может приводить к автоматической скидке на указанный %."+ VBCR + _
+               "Открыть на просмотр?", "Внимание", vbYesNo + vbExclamation + vbSystemModal)= vbYes Then
+                while not ibSQL.EOF
+                  cardKeyID = ibSQL.FieldByName("ID").asInteger
+                  gdcRules.ID = cardKeyID
+                  gdcRules.Open
+                  if gdcRules.EditDialog("") then
+                    gdcRules.Edit
+                    gdcRules.Post
+                  end if
+                  ibSQL.next
+                wend
+                Tr.CommitRetaining
+            end if
+          end if
+          
+          if Tr.InTransaction then Tr.Commit
+        
+        End Function
+        
+        sub dlt_test_correct_discotcard_Exeption(Tr)
+          if Tr.InTransaction then Tr.RollBack
+        end sub
+        
+        
