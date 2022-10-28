@@ -1,0 +1,122 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 235881177_1870723384
+  Name: "Предельные наценки. Макрос"
+  Caption: "Предельные наценки. Макрос"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: FA8A49DCC21C5D20FC9FF0A0850FA448
+Uses: 
+  - "219968030_1398647910 Сандрик-Лог.тракт.Передать товары в кассу. ADO"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 235881152_1870723384
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros235881152_1870723384"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014507_23783130 gdc_frmInvDocument147013048_109092844"
+      OBJECTNAME: "gdc_frmInvDocument147013048_109092844"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-10-28T18:59:58+03:00
+      DISPLAYSCRIPT: | 
+        MACROS235881152_1870723384
+        EDITGOOD
+        MACROS235881152_1870723384_EX
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros235881152_1870723384(OwnerForm)
+          dim Obj, DetObj, Tr, ibSQL, Creator
+          set Obj = OwnerForm.gdcObject
+          set DetObj = OwnerForm.gdcDetailObject
+          
+          set Creator = new TCreator
+          set Tr = Creator.GetObject(nil, "TIBTransaction", "")
+          Tr.DefaultDatabase = gdcBaseManager.Database
+          Tr.StartTransaction
+          
+          Except Macros235881152_1870723384_Ex(Tr)
+          
+          dim getGr, insGr
+          set getGr = Creator.GetObject(nil, "TIBSQL", "")
+          getGr.Transaction = Tr
+          getGr.SQL.Text = _
+          "SELECT " & _
+          "  P.ID " & _
+          "FROM USR$INV_GROUPPERC P " & _
+          "WHERE P.USR$PERC = :PERC " & _
+          "AND UPPER(P.USR$NAME) like UPPER('Макс%') "
+        
+          set insGr = Creator.GetObject(nil, "TIBSQL", "")
+          insGr.Transaction = Tr
+          insGr.SQL.Text = _
+          "INSERT INTO USR$INV_GROUPPERC(USR$NAME, USR$PERC) VALUES ('Макс%' || CAST(:perc as VARCHAR(2)), :perc) "
+          
+          dim updGood
+          set updGood = Creator.GetObject(nil, "TIBSQL", "")
+          updGood.Transaction = Tr
+          updGood.SQL.Text = _
+          "UPDATE GD_GOOD SET USR$INV_PERCKEY = :PERCGROUPKEY WHERE ID = :GOODKEY and USR$INV_PERCKEY <> :PERCGROUPKEY "
+        
+          while not DetObj.EOF
+            call EditGood(Tr, getGr, insGr, updGood, DetObj)
+            DetObj.next
+          wend
+          
+          if Tr.InTransaction then Tr.Commit
+          
+          call Application.MessageBox("Завершено", "Вніманіе", vbOkONly+vbSystemModal+vbInformation)
+        
+        
+        End Sub
+        
+        sub EditGood(Tr, getGr, insGr,updGood, Obj)
+          dim perc
+          perc = Obj.FieldByName("TO_USR$INV_TRADEPERC").asCurrency
+          
+          getGr.Close
+          getGr.ParamByName("PERC").asVariant = perc
+          getGr.ExecQuery
+        
+          if getGr.EOF Then
+             insGr.Close
+             insGr.ParamByName("PERC").asVariant = perc
+             insGr.ExecQuery
+             Tr.CommitRetaining
+             getGr.Close
+             getGr.ParamByName("PERC").asVariant = perc
+             getGr.ExecQuery
+          end if
+          updGood.Close
+          updGood.ParamByName("GOODKEY").asInteger = Obj.FieldByName("goodkey").asInteger
+          updGood.ParamByName("PERCGROUPKEY").asInteger =  getGr.FieldByName("ID").asInteger
+          updGood.ExecQuery
+          Tr.CommitRetaining
+        end sub
+        
+        sub Macros235881152_1870723384_Ex(Tr)
+          if Tr.InTransaction then Tr.RollBack
+        end sub
+        
