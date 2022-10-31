@@ -5,10 +5,10 @@ Properties:
   RUID: 235881177_1870723384
   Name: "Предельные наценки. Макрос"
   Caption: "Предельные наценки. Макрос"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: FA8A49DCC21C5D20FC9FF0A0850FA448
+  MD5: D74588B1E1BA4082CAE9BF11A94D2149
 Uses: 
   - "219968030_1398647910 Сандрик-Лог.тракт.Передать товары в кассу. ADO"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-10-28T18:59:58+03:00
+      EDITIONDATE: 2022-10-31T09:41:33+03:00
       DISPLAYSCRIPT: | 
         MACROS235881152_1870723384
         EDITGOOD
@@ -94,7 +94,7 @@ Objects:
         
         sub EditGood(Tr, getGr, insGr,updGood, Obj)
           dim perc
-          perc = Obj.FieldByName("TO_USR$INV_TRADEPERC").asCurrency
+          perc = CINT(Obj.FieldByName("TO_USR$INV_TRADEPERC").asCurrency)
           
           getGr.Close
           getGr.ParamByName("PERC").asVariant = perc
