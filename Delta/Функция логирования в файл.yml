@@ -1,0 +1,86 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 193064343_1720517880
+  Name: "Функция логирования в файл"
+  Caption: "Функция логирования в файл"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 8375B5EB811D0F1E9D2D0A26BE59136C
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 193054384_1720517880
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "gsAddTextLogInfo"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-10-31T13:33:45+03:00
+      DISPLAYSCRIPT: | 
+        GSADDTEXTLOGINFO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAVElNRVNUQVJUCQAAAFRJTUVTVEFSVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNUUFJTVAQAAABJTkZPBAAAAElORk8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
+        U1QKAAAAQUNUSU9OVFlQRQoAAABBQ1RJT05UWVBFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUBAAAAFBBVEgEAAAAUEFUSAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        ' задача ф-ции в том, чтобы логировать информацию просто вызывая ее
+        ' и передавая в качестве параметров нужную информацию
+        ' потому как заколебалось для каждого макроса писать отдельно, а класс с собой тягать не хочется
+        ' actiontype - тип операции
+        ' 1 - старт логирования
+        ' 3 - ошибка
+        ' 5 - дополнительная информация
+        ' 9 - окончание логирования с внесением какой-либо информации
+        Function gsAddTextLogInfo(TimeStart, info, actiontype, Path)
+          Dim List, FSO
+          Path = "D:\temp"
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          set List = FSO.OpenTextFile(Path & "\" &  "LOG.TXT", 8,  true, -2)
+        
+          select case actiontype
+            case 1
+              List.WriteLine("Процесс начат: " & CSTR(now))
+              
+            case 3
+              List.WriteLine("Ошибка: " & vbCf & CSTR(info))
+        
+            case 5
+              List.WriteLine(info)
+        
+            case 9
+              if info <> "" Then
+                List.WriteLine(info)
+              end if
+              List.WriteLine("Процесс окончен: " & CSTR(now))
+              if TimeStart<>"" then
+                List.WriteLine("Время выполнения: " & CSTR(DateDiff("s",TimeStart, now) & " сек."))
+              end if
+              List.WriteLine("-----------------------------------------------------")
+          end select
+          
+          List.Close
+          set FSO = nothing
+        End Function
+        
