@@ -5,10 +5,10 @@ Properties:
   RUID: 193064343_1720517880
   Name: "Функция логирования в файл"
   Caption: "Функция логирования в файл"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 8375B5EB811D0F1E9D2D0A26BE59136C
+  MD5: 728F6365B9E72891EC16982B3C4923EA
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-10-31T13:33:45+03:00
+      EDITIONDATE: 2022-11-16T18:59:03+03:00
       DISPLAYSCRIPT: | 
         GSADDTEXTLOGINFO
         
@@ -48,19 +48,29 @@ Objects:
         ' задача ф-ции в том, чтобы логировать информацию просто вызывая ее
         ' и передавая в качестве параметров нужную информацию
         ' потому как заколебалось для каждого макроса писать отдельно, а класс с собой тягать не хочется
+        ' лог-файл по-умолчанию будет рядом с базой, если не задан иной
         ' actiontype - тип операции
         ' 1 - старт логирования
         ' 3 - ошибка
         ' 5 - дополнительная информация
         ' 9 - окончание логирования с внесением какой-либо информации
+        
         Function gsAddTextLogInfo(TimeStart, info, actiontype, Path)
           Dim List, FSO
-          Path = "D:\temp"
+        
           set FSO = CreateObject("Scripting.FileSystemObject")
+          
+          if Path ="" Then
+            Path = FSO.GetParentFolderName(IBLogin.DatabaseName)
+          end if
+          
           set List = FSO.OpenTextFile(Path & "\" &  "LOG.TXT", 8,  true, -2)
         
           select case actiontype
             case 1
+              if info <> "" Then
+                List.WriteLine(info)
+              end if
               List.WriteLine("Процесс начат: " & CSTR(now))
               
             case 3
