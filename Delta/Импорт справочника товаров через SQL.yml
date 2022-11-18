@@ -5,10 +5,12 @@ Properties:
   RUID: 191932684_1720517880
   Name: "Импорт справочника товаров через SQL"
   Caption: "Импорт справочника товаров через SQL"
-  Version: "1.0.0.1"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: F1A0196EBD0444FBADE08A4256E93FD6
+  MD5: F40E5DD89BEA8F1AA516EB483C783D7B
+Uses: 
+  - "193064343_1720517880 Функция логирования в файл"
 Objects: 
   - 
     Properties: 
@@ -305,3 +307,249 @@ Objects:
           If T.InTransaction Then T.Rollback
         end sub
         
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147020127_652088221
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros147020127_652088221"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-11-18T17:45:15+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147020127_652088221
+        MACROS147020127_652088221_EXCEPT
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include GSADDTEXTLOGINFO
+        Option Explicit
+        Sub Macros147020127_652088221
+          dim Creator
+          set Creator = new TCreator
+        
+        
+          ' необходимо в SQL-редакторе активировать индекс alter index GD_X_GOOD_BARCODE active
+          dim OpenDialog
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          OpenDialog.FileName = "*.dbf"
+        
+          if not OpenDialog.Execute then exit sub
+        
+          dim FileName
+          FileName = OpenDialog.FileName
+        
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+        
+          call gsAddTextLogInfo(null, "", 1, "")
+        
+          dim Path
+          Path = FSO.GetParentFolderName(FileName)
+        
+          dim objConnection
+          set objConnection = CreateObject("ADODB.Connection")
+          objConnection.Provider = "Microsoft.Jet.OLEDB.4.0"
+          objConnection.Properties("Data Source") = Path
+          objConnection.Properties("Jet OLEDB:Engine Type") = 18
+          objConnection.Open
+          '' and BARCODE='wetuto000'  AND ( BARCODE = '0091203089251' )
+        
+          pf_ProgressBar.Caption = "Импорт товаров из прайса"
+          pf_ProgressBar.ShowBtnCancel = True
+          
+          dim objADOQuery
+          set objADOQuery = CreateObject("ADODB.RecordSet")
+          objADOQuery.ActiveConnection = objConnection
+          objADOQuery.Open " SELECT  * FROM " &  FileName & " WHERE NOT (NAME IS NULL) AND NOT (BARCODE IS NULL) order by NAME asc ", objConnection
+          objADOQuery.MoveFirst
+          if objADOQuery.EOF then
+            objADOQuery.Close
+            exit sub
+          end if
+          
+          dim prCount : prCount = 0
+          objADOQuery.MoveFirst
+          While not objADOQuery.EOF
+            prCount = prCount + 1
+            objADOQuery.MoveNext
+          wend
+          ' вернемся на 1 запись
+          objADOQuery.MoveFirst
+          pf_ProgressBar.Max = prCount
+          pf_ProgressBar.Show
+        
+          dim T
+          set T = Creator.GetObject(nil, "TIBTransaction", "")
+          T.DefaultDataBase = gdcBaseManager.Database
+          call T.Params.Add("nowait")
+          call T.Params.Add("read_committed")
+          call T.Params.Add("rec_version")
+          T.StartTransaction
+          
+          except Macros147020127_652088221_except(T)
+          Dim SqlTxt
+           SqlTxt = _
+             "EXECUTE BLOCK( " & _
+             "PRICE NUMERIC(15, 4) = :PRICE, " & _
+             "GNAME VARCHAR(60) =:GNAME, " & _
+             "ALIAS VARCHAR(20) = :ALIAS, " & _
+             "BARCODE VARCHAR(30) =:BARCODE, " & _
+             "BARCODE2 VARCHAR(30) = :BARCODE2, " & _
+             "GOODCOLOR VARCHAR(10) = :GOODCOLOR, " & _
+             "GOODSIZE VARCHAR(10) = :GOODSIZE " & _
+             ") " & _
+             " " & _
+             "AS " & _
+             "DECLARE VARIABLE GROUPKEY INTEGER; " & _
+             "DECLARE VARIABLE MAINGRKEY INTEGER; " & _
+             "DECLARE VARIABLE GENGRKEY INTEGER; " & _
+             "DECLARE VARIABLE GK INTEGER; " & _
+             "DECLARE VARIABLE T_ALIAS VARCHAR(20); " & _
+             "DECLARE VARIABLE T_NAME VARCHAR(60); " & _
+             "DECLARE VARIABLE FULLGOODNAME VARCHAR(60); " & _
+             "DECLARE VARIABLE VALUEKEY INTEGER; " & _
+             "BEGIN " & _
+             "  FULLGOODNAME = ''; " & _
+             "  /**/ EXECUTE PROCEDURE GD_P_GETID(147005904,63934951) RETURNING_VALUES :MAINGRKEY; " & _
+             "   " & _
+             "  EXECUTE PROCEDURE GD_P_GETID(3000001,17) RETURNING_VALUES :VALUEKEY;     " & _
+             " " & _
+             "  SELECT ID FROM GD_GOODGROUP GR WHERE UPPER(GR.NAME) = UPPER(:GNAME) " & _
+             "  INTO :GROUPKEY; " & _
+             " " & _
+             "  IF (:GROUPKEY IS NULL) THEN " & _
+             "    BEGIN " & _
+             "      EXECUTE PROCEDURE GD_P_GETNEXTID RETURNING_VALUES :GROUPKEY; " & _
+             "      INSERT INTO GD_GOODGROUP (ID, NAME, PARENT) VALUES(:GROUPKEY, :GNAME, :MAINGRKEY); " & _
+             "    END " & _
+             " " & _
+             "  FULLGOODNAME = GNAME || ' ' || :ALIAS || ' ' || :GOODCOLOR || ' ' || :GOODSIZE; " & _
+             " " & _
+             "  SELECT ID, ALIAS, NAME FROM GD_GOOD WHERE BARCODE = :BARCODE AND COALESCE(DISABLED, 0) = 0 " & _
+             "  INTO :GK, :T_ALIAS, :T_NAME; " & _
+             "   " & _
+             "  /* НАШЛИ - ОБНОВИМ еслі отлічается аліас ілі наіменованіе */ " & _
+             "   IF ((NOT :GK IS NULL) AND (:ALIAS = :T_ALIAS) AND (FULLGOODNAME<>:T_NAME)) THEN " & _
+             "    BEGIN  " & _
+             "         " & _
+             "        UPDATE GD_GOOD SET " & _
+             "        NAME = :FULLGOODNAME, " & _
+             "        ALIAS = :ALIAS, " & _
+             "        DESCRIPTION = CAST(CAST(COALESCE(DESCRIPTION,'') as VARCHAR(180)) || ' изменено с ' || :T_NAME || ' ' || cast(current_date as varchar(10)) as VARCHAR(180)) " & _
+             "        WHERE ID = :GK; " & _
+             "    END " & _
+             "     " & _
+             "     /* НЕ НАШЛИ - ВСТАВИМ */" & _
+             "  ELSE " & _
+             "    BEGIN " & _
+             "      IF ((:ALIAS <> :T_ALIAS) AND (NOT :GK IS NULL)) THEN " & _
+             "        BEGIN " & _
+             "           UPDATE GD_GOOD SET " & _
+             "           DISABLED = 1, " & _
+             "           DESCRIPTION = CAST(CAST(COALESCE(DESCRIPTION,'') as VARCHAR(180)) || ' отключено: ' || cast(current_date as varchar(10)) as VARCHAR(180)) " & _
+             "           WHERE ID = :GK; " & _
+             "            " & _
+             "           EXECUTE PROCEDURE GD_P_GETNEXTID RETURNING_VALUES :GK; " & _
+             "           INSERT INTO GD_GOOD (ID, NAME, ALIAS, GROUPKEY, VALUEKEY, BARCODE) VALUES(:GK,:FULLGOODNAME,:ALIAS, :GROUPKEY, :VALUEKEY, :BARCODE); " & _
+             "        END " & _
+             "     IF (:GK IS NULL) THEN " & _
+             "       BEGIN " & _
+             "         EXECUTE PROCEDURE GD_P_GETNEXTID RETURNING_VALUES :GK; " & _
+             "         INSERT INTO GD_GOOD (ID, NAME, ALIAS, GROUPKEY, VALUEKEY, BARCODE) VALUES(:GK,:FULLGOODNAME,:ALIAS, :GROUPKEY, :VALUEKEY, :BARCODE); " & _
+             "       END " & _
+             "    END " & _
+             "     " & _
+             "  /*  ОБНОВИМ ПРАЙС   */ " & _
+             "    EXECUTE PROCEDURE USR$P_UPDATEPRICE(:GK, :BARCODE2, :ALIAS, :GOODCOLOR, :GOODSIZE, :PRICE);  " & _
+             "END "
+        
+        
+          dim GoodKey, GroupKey, PriceCode, Price, DescrArray, Alias, Size, Colour
+          dim ParentKey, Counter, TGname
+          ParentKey = gdcBaseManager.GetIDByRUIDString ("147005904_63934951")'("171531994_500668075") ' группа Импорт
+          Counter = 0
+          Dim Disabled
+          
+          while not objADOQuery.EOF
+               Alias = ""
+            Colour = ""
+            Size = ""
+            if not IsNull(objADOQuery.Fields("ITEMID").Value) then
+              DescrArray = Split(objADOQuery.Fields("ITEMID").Value, " ")
+              Alias = DescrArray(0)
+              if UBound(DescrArray) > 0 then
+                Colour = DescrArray(1)
+              end if
+              if UBound(DescrArray) > 1 then
+                Size = DescrArray(2)
+              end if
+            end if
+        
+            if not IsNull(objADOQuery.Fields("PRICE").Value) then
+              Price = objADOQuery.Fields("Price").Value
+            else
+              Price = 0
+            end if
+        
+            if not IsNull(objADOQuery.Fields("BARCODE2").Value) then
+              PriceCode = objADOQuery.Fields("BARCODE2").Value
+            else
+              PriceCode = ""
+            end if
+        
+           call gdcBaseManager.ExecSingleQueryParam(sqlTxt, Array(replace(cstr(Price),",","."),_
+             objADOQuery.Fields("NAME").Value, _
+             Alias, objADOQuery.Fields("BARCODE").Value, PriceCode, Colour, Size), T)
+            objADOQuery.MoveNext
+            
+            If pf_ProgressBar.Canceled Then
+                Call Macros147020127_652088221_except(T)
+                pf_ProgressBar.Close
+                call gsAddTextLogInfo(null, "Операция прервана", 9, "")
+                Exit sub
+            End If
+            pf_ProgressBar.StepIt
+            
+            Counter = Counter + 1
+            if Counter >= 1000 then
+              if T.InTransaction then T.Commit
+              call T.StartTransaction
+              Counter = 0
+            end if
+          wend
+        
+          call gsAddTextLogInfo(null, "Количество записей:" & CSTR(prCount), 9, "")
+          
+          If T.InTransaction Then T.Commit
+          objADOQuery.Close
+          pf_ProgressBar.Close
+          Call Application.MessageBox("Импорт завершен", "Внимание", vbSystemModal + vbInformation)
+        End Sub
+        
+        sub Macros147020127_652088221_except(T)
+          If T.InTransaction Then T.Rollback
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "193054384_1720517880 gsAddTextLogInfo"
