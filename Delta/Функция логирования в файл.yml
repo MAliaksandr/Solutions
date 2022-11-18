@@ -5,10 +5,10 @@ Properties:
   RUID: 193064343_1720517880
   Name: "Функция логирования в файл"
   Caption: "Функция логирования в файл"
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: 728F6365B9E72891EC16982B3C4923EA
+  MD5: 6B589439ED7C87C076F0E4341EC32696
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-11-16T18:59:03+03:00
+      EDITIONDATE: 2022-11-18T16:59:01+03:00
       DISPLAYSCRIPT: | 
         GSADDTEXTLOGINFO
         
@@ -56,12 +56,19 @@ Objects:
         ' 9 - окончание логирования с внесением какой-либо информации
         
         Function gsAddTextLogInfo(TimeStart, info, actiontype, Path)
-          Dim List, FSO
+          Dim List, FSO , arr
         
           set FSO = CreateObject("Scripting.FileSystemObject")
           
           if Path ="" Then
+          
             Path = FSO.GetParentFolderName(IBLogin.DatabaseName)
+            ' для сетевых путей выкинем
+            ' надо продумать куда логировать если оличается
+            arr = split(Path,":")
+              if len(arr(0))>2 Then
+                Path = arr(1) & ":" & arr(2)
+              end if
           end if
           
           set List = FSO.OpenTextFile(Path & "\" &  "LOG.TXT", 8,  true, -2)
