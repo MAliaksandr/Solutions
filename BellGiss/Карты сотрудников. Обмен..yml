@@ -1,0 +1,1142 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147069859_2005880595
+  Name: "Карты сотрудников. Обмен."
+  Caption: "Карты сотрудников. Обмен."
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 8C47987BD5F1FE46A7488143C8E8DD1E
+Uses: 
+  - "147135685_478233273 GS.PositiveCash.Карты сотрудников"
+  - "147070860_311980179 GS new. Общепит бэк. Обмен с кассовым сервером"
+  - "147047675_311980179 GS.Общепит.back - Скидки"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147060649_311980179
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_export_gd_employee"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-08T11:46:47+03:00
+      DISPLAYSCRIPT: | 
+        SF_EXPORT_GD_EMPLOYEE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include bri_Sync_AddRuid
+        '#include Tvb_ren_frmProgressBar
+        function Sf_export_gd_employee(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+          dim Countrec, record
+          set Countrec = Creator.GetObject(null, "TIBSQL", "")
+          Countrec.Transaction = OurTr
+          Countrec.SQl.Text = _
+          " select count(con.id) as recordcount from " &_
+          " gd_contact con " & _
+          " JOIN gd_contact maincon on maincon.lb <= con.lb and maincon.rb >= con.rb  and maincon.id = :CompanyKey " & _
+          " JOIN gd_people people on people.contactkey = con.id " & _
+          " WHERE con.contacttype = 2 "
+          Countrec.ParamByName("CompanyKey").AsInteger = IBLogin.CompanyKey
+          Countrec.Execquery
+        
+          if Countrec.FieldByName("recordcount").AsInteger > 0 then
+            record = Countrec.FieldByName("recordcount").AsInteger
+          else
+            record = 300
+          end if
+        
+        ' progressbarr
+          Set frmPr = new Tvb_ren_frmProgressBar
+          frmPr.Caption = "Идёт загрузка сотрудников."
+          frmPr.Note = "Подождите пожалуйста..."
+          frmPr.Step = 1
+          frmPr.Smooth = True
+          frmPr.Min = 0
+          frmPr.Max = record
+          frmPr.Show
+        
+          set ibsqlContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlContact.Transaction = OurTr
+          ibsqlContact.SQL.Text = _
+            " SELECT con.USR$WG_LISTNUM as tabnum, " & _
+            " people.firstname, people.surname, people.middlename, " & _
+            " people.nickname, " & _
+            " con.name, con.parent, p.xid, p.dbid, pp.xid p_xid, pp.dbid p_dbid " & _
+            " FROM gd_contact con " & _
+            " JOIN gd_contact maincon on maincon.lb <= con.lb and maincon.rb >= con.rb  and maincon.id = :CompanyKey " & _
+            " JOIN gd_people people on people.contactkey = con.id " & _
+            " LEFT JOIN gd_p_getruid(con.id) p on 1 = 1 " & _
+            " LEFT JOIN gd_p_getruid(con.Parent) pp on 1=1 " & _
+            " WHERE con.contacttype = 2 " & _
+            " ORDER BY con.LB "
+          ibsqlContact.ParamByName("CompanyKey").AsInteger = IBLogin.CompanyKey
+        
+          set ibsqlGetContact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetContact.Transaction = Transaction
+          ibsqlGetContact.SQL.Text = _
+            "select con.id FROM gd_contact con JOIN gd_ruid r on con.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          set ibsqlGetParent = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetParent.Transaction = Transaction
+          ibsqlGetParent.SQL.Text = _
+            "select con.id FROM gd_contact con JOIN gd_ruid r on con.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          dim qIns
+          set qIns = Creator.GetObject(nil, "TIBSQL", "")
+          qIns.Transaction = Transaction
+          qIns.SQL.Text = _
+            " INSERT INTO GD_CONTACT (ID, CONTACTTYPE, PARENT, NAME) VALUES (:ID, 2, :PARENT, :NAME) "
+            
+          dim qIns1
+          set qIns1 = Creator.GetObject(nil, "TIBSQL", "")
+          qIns1.Transaction = Transaction
+          qIns1.SQL.Text = _
+            " INSERT INTO GD_PEOPLE (CONTACTKEY, FIRSTNAME, SURNAME, MIDDLENAME, NICKNAME, USR$TABNUM) VALUES (:ID, :FIRSTNAME, :SURNAME, :MIDDLENAME, :NICKNAME, :TABNUM) "
+        
+          dim qIns2
+          set qIns2 = Creator.GetObject(nil, "TIBSQL", "")
+          qIns2.Transaction = Transaction
+          qIns2.SQL.Text = _
+              "INSERT INTO GD_EMPLOYEE " & _
+              "  (CONTACTKEY) " & _
+              "values " & _
+              "  (:CONTACTKEY) "
+        
+          ibsqlContact.ExecQuery
+          while not ibsqlContact.EOF
+            ibsqlGetContact.Close
+            ibsqlGetContact.ParamBYName("xid").AsInteger = ibsqlContact.FieldBYName("xid").ASInteger
+            ibsqlGetContact.ParamBYName("dbid").AsInteger = ibsqlContact.FieldBYName("dbid").ASInteger
+            ibsqlGetContact.ExecQuery
+            if ibsqlGetContact.EOF then
+              NewId = gdcBaseManager.GetNextID
+              qIns.Close
+              qIns.ParamBYName("ID").AsInteger = NewId
+              qIns.ParamBYName("Name").AsString = ibsqlContact.FieldByName("Name").AsString
+              ibsqlGetParent.Close
+              ibsqlGetParent.ParamBYName("xid").AsInteger = ibsqlContact.FieldBYName("p_xid").ASInteger
+              ibsqlGetParent.ParamBYName("dbid").AsInteger = ibsqlContact.FieldBYName("p_dbid").ASInteger
+              ibsqlGetParent.ExecQuery
+              qIns.ParamBYName("Parent").AsInteger = ibsqlGetParent.FieldByName("id").AsInteger
+              qIns.ExecQuery
+              
+              qIns1.Close
+              qIns1.ParamBYName("ID").AsInteger = NewId
+              qIns1.ParamBYName("FirstName").AsString = ibsqlContact.FieldByName("FirstName").AsString
+              qIns1.ParamBYName("surName").AsString = ibsqlContact.FieldByName("surName").AsString
+              qIns1.ParamBYName("middleName").AsString = ibsqlContact.FieldByName("middleName").AsString
+              qIns1.ParamBYName("nickName").AsString = ibsqlContact.FieldByName("nickName").AsString
+              qIns1.ParamBYName("TABNUM").AsString = ibsqlContact.FieldByName("TABNUM").AsString
+              qIns1.ExecQuery
+              
+              qIns2.Close
+              qIns2.ParamBYName("CONTACTKEY").AsInteger = NewId
+              qIns2.ExecQuery
+              
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsqlContact.FieldBYName("xid").ASInteger, ibsqlContact.FieldBYName("dbid").ASInteger)
+            end if
+            
+            frmPr.Note = "Подождите пожалуйста..." + VbCr + _
+              " Сформировано " + Cstr(frmPr.Position) + " позиций" + " из " + Cstr(frmPr.Max)
+            frmPr.Position = frmPr.Position + 1
+            Application.ProcessMessages
+            
+            ibsqlContact.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
+          - 
+            ADDFUNCTIONKEY: "147008467_1081391 Tvb_ren_frmProgressBar"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147096389_1092285922
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_export_mn_staffcard"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-08T12:03:48+03:00
+      DISPLAYSCRIPT: | 
+        SF_EXPORT_MN_STAFFCARD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include bri_Sync_AddRuid
+        function Sf_export_mn_staffcard(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+          set ibsql_mn_staffcard = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql_mn_staffcard.Transaction = OurTr
+          ibsql_mn_staffcard.SQL.Text = _
+            "  select v.*, p.*, dt.xid as dt_xid, dt.dbid as dt_dbid, " & _
+            "  c.xid as c_xid, c.dbid as c_dbid " &_
+            "  from " & _
+            "  USR$PF_STAFFCARD v " & _
+            "  left join GD_P_GETRUID(v.id) p on 1 = 1 " &_
+            "  left join GD_P_GETRUID(v.USR$DISCOUNTCARDKEY) dt on 1 = 1 " &_
+            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 "
+        
+          set ibsqlStaff = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlStaff.Transaction = OurTr
+          ibsqlStaff.SQL.Text = " select v.*, p.*, c.xid as c_xid, c.dbid as c_dbid " & _
+            " from USR$MN_LIMIT v " & _
+            " left join GD_P_GETRUID(v.id) p on 1 = 1 " & _
+            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 "
+        
+          set ibsqlGetStaff = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetStaff.Transaction = Transaction
+          ibsqlGetStaff.SQL.Text = " select v.ID " & _
+            " from USR$MN_LIMIT v " & _
+            " JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          set ibsqlGet_mn_staffcard = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_mn_staffcard.Transaction = Transaction
+          ibsqlGet_mn_staffcard.SQL.Text = _
+            "select v.id, v.USR$DISABLED FROM USR$MN_STAFFCARD v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          set ibsqlGet_DName = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_DName.Transaction = Transaction
+          ibsqlGet_DName.SQL.Text = _
+            "select v.id FROM USR$MN_DISCOUNTNAME v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          set ibsqlGet_Contact = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_Contact.Transaction = Transaction
+          ibsqlGet_Contact.SQL.Text = _
+            "select v.id FROM gd_contact v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+          dim qIns
+          set qIns = Creator.GetObject(nil, "TIBSQL", "")
+          qIns.Transaction = Transaction
+          qIns.SQL.Text = _
+            " INSERT INTO usr$MN_STAFFCARD (ID, USR$CONTACTKEY, USR$CODE, USR$NUMBER, USR$DISCOUNTNAMEKEY) " & _
+              " VALUES (:ID, :USR$CONTACTKEY, :USR$CODE, :NUMBER, :USR$DISCOUNTNAMEKEY) "
+              
+          dim qUpd
+          set qUpd = Creator.GetObject(nil, "TIBSQL", "")
+          qUpd.Transaction = Transaction
+          qUpd.SQL.Text = _
+            " UPDATE usr$MN_STAFFCARD SET USR$DISABLED = :USR$DISABLED " & _
+              " WHERE ID = :ID "
+        
+          dim qInsL
+          set qInsL = Creator.GetObject(nil, "TIBSQL", "")
+          qInsL.Transaction = Transaction
+          qInsL.SQL.Text = _
+            " INSERT INTO USR$MN_LIMIT (ID, USR$CONTACTKEY, USR$SUM_DATEBEGIN, USR$SUM_DATEEND, USR$ISUNLIMITED, USR$SUM_DISABLED) " & _
+              " VALUES (:ID, :USR$CONTACTKEY, :DATEBEGIN, :DATEEND, 1, 0) "
+        
+          ibsql_mn_staffcard.ExecQuery
+          while not ibsql_mn_staffcard.EOF
+            ibsqlGet_mn_staffcard.Close
+            ibsqlGet_mn_staffcard.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("xid").ASInteger
+            ibsqlGet_mn_staffcard.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("dbid").ASInteger
+            ibsqlGet_mn_staffcard.ExecQuery
+            if ibsqlGet_mn_staffcard.EOF then
+              NewId = gdcBaseManager.GetNextID
+              qIns.Close
+              qIns.ParamBYName("ID").AsInteger = NewId
+              ibsqlGet_DName.Close
+              ibsqlGet_DName.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("dt_xid").ASInteger
+              ibsqlGet_DName.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("dt_dbid").ASInteger
+              ibsqlGet_DName.ExecQuery
+              qIns.ParamBYName("USR$DISCOUNTNAMEKEY").AsVariant = ibsqlGet_DName.FieldByName("id").AsVariant
+              ibsqlGet_Contact.Close
+              ibsqlGet_Contact.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("c_xid").ASInteger
+              ibsqlGet_Contact.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("c_dbid").ASInteger
+              ibsqlGet_Contact.ExecQuery
+              qIns.ParamBYName("USR$CONTACTKEY").AsInteger = ibsqlGet_Contact.FieldByName("id").AsInteger
+              qIns.ParamBYName("usr$CODE").AsString = ibsql_mn_staffcard.FieldByName("usr$CODE").AsString
+              qIns.ParamBYName("NUMBER").AsString = ibsql_mn_staffcard.FieldByName("USR$NUMBER").AsString
+              qIns.ExecQuery
+        
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsql_mn_staffcard.FieldBYName("xid").ASInteger, ibsql_mn_staffcard.FieldBYName("dbid").ASInteger)
+        
+            else
+              if ibsql_mn_staffcard.FieldBYName("USR$DISABLED").ASVariant <> ibsqlGet_mn_staffcard.FieldByName("USR$DISABLED").ASVariant then
+                qUpd.Close
+                qUpd.ParamBYName("ID").AsInteger = ibsqlGet_mn_staffcard.FieldByName("ID").AsInteger
+                qUpd.ParamBYName("USR$DISABLED").ASVariant = ibsql_mn_staffcard.FieldBYName("USR$DISABLED").ASVariant
+                qUpd.ExecQuery
+              end if
+              
+            end if
+            ibsql_mn_staffcard.Next
+          wend
+        
+          ibsqlStaff.ExecQuery
+          while not ibsqlStaff.EOF
+            ibsqlGetStaff.Close
+            ibsqlGetStaff.ParamBYName("xid").AsInteger = ibsqlStaff.FieldBYName("xid").ASInteger
+            ibsqlGetStaff.ParamBYName("dbid").AsInteger = ibsqlStaff.FieldBYName("dbid").ASInteger
+            ibsqlGetStaff.ExecQuery
+            if ibsqlGetStaff.EOF then
+              NewId = gdcBaseManager.GetNextID
+              qInsL.Close
+              qInsL.ParamBYName("ID").AsInteger = NewId
+              ibsqlGet_Contact.Close
+              ibsqlGet_Contact.ParamBYName("xid").AsInteger = ibsqlStaff.FieldBYName("c_xid").ASInteger
+              ibsqlGet_Contact.ParamBYName("dbid").AsInteger = ibsqlStaff.FieldBYName("c_dbid").ASInteger
+              ibsqlGet_Contact.ExecQuery
+              qInsL.ParamBYName("USR$CONTACTKEY").AsInteger = ibsqlGet_Contact.FieldByName("id").AsInteger
+              qInsL.ParamBYName("datebegin").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DATEBEGIN").AsVariant
+              qInsL.ParamBYName("dateend").AsVariant = ibsqlStaff.FieldByName("USR$SUM_DATEEND").AsVariant
+              qInsL.ExecQuery
+        
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsqlStaff.FieldBYName("xid").ASInteger, ibsqlStaff.FieldBYName("dbid").ASInteger)
+            end if
+            ibsqlStaff.Next
+          wend
+        
+          if Transaction.InTransaction then Transaction.CommitRetaining
+          if OurTr.InTransaction then OurTr.CommitRetaining
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149234014_1638717063
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ExportStaffCard"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-08T11:34:20+03:00
+      DISPLAYSCRIPT: | 
+        EXPORTSTAFFCARD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAASVNBVVRPBgAAAElTQVVUTwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include SF_EXPORT_MN_STAFFCARD
+        '#include SF_EXPORT_GD_PEOPLE
+        '#include SF_EXPORT_GD_EMPLOYEE
+        '#include SF_EXPORT_GD_CONTACT
+        Option Explicit
+        sub ExportStaffCard(isAuto)
+        
+        dim Creator, doc, id, q, FullFileName, i, TimeBegin, gdcConst, MenuPeriod, MainMenuId, FrontID, ExpSuccess
+          set Creator = new TCreator
+        
+          TimeBegin = Time
+          ExpSuccess = True
+        
+          dim FileNameGoods, FileNameMenu, ibsqlGood, ibsqlGroup
+        
+          Dim Database, Transaction, TrLine, OurTr, ibsqlInsRUID, ibsqlDelRUID
+        ''#include TVB_mn_Options
+        
+          set Database = Creator.GetObject(null, "TIBDatabase", "")
+          Database.SQLDialect = 3
+          Database.Params.Add("user_name=SYSDBA")
+          Database.Params.Add("password=masterkey")
+          Database.Params.Add("lc_ctype=WIN1251")
+          Database.LoginPrompt = False
+        
+         ' Depkey = OwnerForm.gdcObject.FieldByName("USR$DEPOTKEY").AsInteger
+        
+          dim ribsql, ibsql
+          set ribsql = New TReadIBSQL
+          set ibsql = ribsql.IBSQL
+          ibsql.SQL.Text = _
+            " select fl.USR$PATH as dbpath, fl.ID from USR$MN_FRONLINK fln " & _
+            " join USR$MN_FRONTLIST fl on fl.ID = fln.USR$FRONTKEY " & _
+            " where fln.USR$DEPKEY = <RUID xID=""147040725"" DBID=""1993977583""/> " & _
+            " and fl.usr$disabled <> 1 "
+         ' ibsql.ParamByName("depkey").AsInteger = Depkey
+          ibsql.ExecQuery
+          if ibsql.eof then
+            call Application.MessageBox("Не указаны параметры подключения для указанного подразделения!", "Внимание", mb_IconInformation + vBSystemModal)
+            exit sub
+          end if
+        
+          set OurTr = Creator.GetObject(Null, "TIBTransaction", "")
+          OurTr.DefaultDatabase = gdcBaseManager.Database
+          OurTr.Params.Add("nowait")
+          OurTr.Params.Add("rec_version")
+          OurTr.Params.Add("read_committed")
+        
+          while not ibsql.eof
+        
+            FrontID = ibsql.FieldByName("ID").AsInteger
+        
+            Database.Close
+            err.clear
+            on error resume next
+            Database.DatabaseName = ibsql.FieldByName("dbpath").AsString
+            Database.Connected = True
+        
+            set Transaction = Creator.GetObject(Null, "TIBTransaction", "")
+            Transaction.DefaultDatabase = Database
+            Transaction.Params.Add("nowait")
+            Transaction.Params.Add("rec_version")
+            Transaction.Params.Add("read_committed")
+            Transaction.StartTransaction
+        
+            if err.Number <> 0 then
+              call Application.MessageBox("Невозможно подключиться к базе!", "Внимание", mb_IconInformation + vBSystemModal)
+              FrontID = 0
+              ExpSuccess = False
+            end if
+            on error goto 0
+        
+            if FrontID <> 0 then
+        
+              OurTr.StartTransaction
+        
+              set ibsqlInsRUID = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsqlInsRUID.Transaction = Transaction
+              ibsqlInsRUID.SQL.Text = _
+                "EXECUTE BLOCK(ID DFOREIGNKEY = :ID, XID DFOREIGNKEY = :XID, DBID DFOREIGNKEY = :DBID) " & _
+                "AS " & _
+                "BEGIN " & _
+                "  IF (EXISTS(SELECT * FROM GD_RUID WHERE ID = :ID))  THEN " & _
+                "    UPDATE GD_RUID " & _
+                "    SET XID = :XID, " & _
+                "        DBID = :DBID " & _
+                "    WHERE ID = :ID; " & _
+                "  ELSE " & _
+                "    INSERT INTO gd_ruid(id, xid, dbid, modified, editorkey) VALUES (:ID, :XID, :DBID, 'now', 650002); " & _
+                "END "
+        
+              set ibsqlDelRUID = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsqlDelRUID.Transaction = Transaction
+              ibsqlDelRUID.SQL.Text = "DELETE FROM gd_ruid r where xid = :xid and dbid = :dbid"
+        
+        
+            ''  "Контакты"
+            call Sf_export_gd_contact(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''  "Сотрудники"
+            call Sf_export_gd_employee(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Люди"
+            call Sf_export_gd_people(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+            call Sf_export_mn_staffcard(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+        
+            Transaction.Commit
+            OurTr.Commit
+        
+            end if
+        
+            ibsql.next
+          wend
+          if not isAuto then call Application.MessageBox ("Выгрузка завершена!","Выгрузка!",vbOkOnly + vbInformation+vbSystemMOdal)
+        End sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147096389_1092285922 Sf_export_mn_staffcard"
+          - 
+            ADDFUNCTIONKEY: "147060655_311980179 Sf_export_gd_people"
+          - 
+            ADDFUNCTIONKEY: "147060649_311980179 Sf_export_gd_employee"
+          - 
+            ADDFUNCTIONKEY: "147060644_311980179 Sf_export_gd_contact"
+          - 
+            ADDFUNCTIONKEY: "147072708_157767346 TVB_mn_Options"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147069568_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros147069568_2005880595"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147134928_478233273 gdc_frmAttrUserDefinedUSR_PF_STAFFCARD"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_PF_STAFFCARD"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-08T12:33:14+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147069568_2005880595
+        ANDRECORDS
+        MACROS147069568_2005880595_EX
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros147069568_2005880595(OwnerForm)
+          dim Creator, objConnection, objCommandWares
+          set Creator = new TCreator
+          
+          dim FileName, OpenDialog
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+          Dim gdcObject, gdcDetailObject, DS
+        
+          OpenDialog.Filter = "*.xls|*.xls*"
+          OpenDialog.DefaultExt = "xls"
+        
+          if OpenDialog.Execute then
+            FileName = OpenDialog.FileName
+          else
+            Exit sub
+          end if
+          
+          Dim Exc, Sh, Sh1
+          Set Exc = CreateObject("Excel.Application")
+          
+          if not Assigned(Exc) then Exit sub
+        
+          dim pWorkShN : pWorkShN = "ЛИСТ1"
+          call Exc.Workbooks.Open(FileName)
+          dim i, c  ,goodname,quantity,price
+          c = 0
+          ' проверка на непустые лісты в кніге
+          for  i =1 to  Exc.Worksheets.count
+            set Sh1 = Exc.Worksheets(i)
+            '' праверка на патрэбны ліст
+            if pWorkShN<>"" Then
+              IF UCase(Sh1.Name)=UCase(pWorkShN) Then
+               c = i
+               exit for
+              end if
+            else
+              if pWorkSh<>0 Then
+                c = pWorkSh
+                exit for
+              end if
+            end if
+            c = i
+          next
+          if (c <> 0 ) then
+            set  Sh = Exc.Worksheets(c)
+          end if
+        
+          dim FSO
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          
+          dim T, ibSQL
+          set T = Creator.GetObject(nil, "TIBTransaction", "Import_Empl_DBF")
+          set T.DefaultDatabase = gdcBaseManager.DataBase
+          call T.Params.Add("read_committed")
+          call T.Params.Add("rec_version")
+          call T.Params.Add("nowait")
+          T.StartTransaction
+          
+          Except Macros147069568_2005880595_Ex(T)
+          
+          dim TabNum,LASTNAME, NAME, MIDNAME, DPRI,DUVOL, NUMPROPUSK
+          Dim WgPos, gdcContact , LimitSum
+        
+          '  LimitSum = gs_GetConstByIDAndDate(gdcBaseManager.GetidByRUIDString("161474500_1655689185"), FormatDateTime(now, vbShortDate))
+        
+          set WgPos = Creator.GetObject(NULL, "TgdcWgPosition", "")
+          WgPos.ReadTransaction = T
+          WgPos.Transaction = T
+          WgPos.SubSet = "All"
+          WgPos.Open
+        
+          set gdcContact = Creator.GetObject(NULL, "TgdcEmployee", "")
+          gdcContact.Transaction = T
+          '    gdcContact.SubType = "ById"
+          gdcContact.Open
+        
+          dim DiscID, gdcDiscount , ConID
+          set gdcDiscount = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
+          gdcDiscount.Transaction = T
+          gdcDiscount.SubType = "USR$PF_STAFFCARD"
+          gdcDiscount.Open
+        
+           'патрэбна рабіць адразу і фаміраванне лімітаў
+          Dim FormLimit
+          set FormLimit = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
+          FormLimit.Transaction = T
+          FormLimit.SubType = "USR$MN_FORMATION_LIMIT"
+          FormLimit.Open
+        
+          Dim MnLimit
+          set MnLimit = Creator.GetObject(NULL, "TgdcAttrUserDefined", "")
+          MnLimit.Transaction = T
+          MnLimit.SubType = "USR$MN_LIMIT"
+          MnLimit.Open
+        
+          dim pStartLine : pStartLine = 2
+          dim FIO
+          WHILE NOT andRecords(Sh, pStartLine)
+        
+            If Not gdcDiscount.Active Then gdcDiscount.Open
+        
+           ' goodname = Trim(Sh.Cells(pStartLine, pGNAME).Value)
+           'objADOQuery.Fields("TABNUMBER").Value)
+        
+            TabNum = CINT(Trim(Sh.Cells(pStartLine,1).Value))
+            FIO = Split(Trim(replace(Sh.Cells(pStartLine,2).Value,"  ", " ")), " ")
+            
+            LASTNAME = FIO(0)
+            NAME = FIO(1)
+            MIDNAME = FIO(2)
+            DPRI = null
+            DUVOL = DateSerial(2030,12,31)
+           ' IF  isNull(DUVOL) then DUVOL = DateSerial(2030,12,31)
+            NUMPROPUSK = Trim(Sh.Cells(pStartLine,4).Value)
+        
+        
+            ' не знайшлі картку по ТАБ.НУМАРУ = НУМАРУ КАРТКІ => ТРЭБА СТВАРЫЦЬ
+            IF not gdcDiscount.Locate("USR$NUMBER", Array(TabNum), "") Then
+              ' адразу знойдзем супрацоўніка
+              If gdcContact.Locate("USR$WG_LISTNUM", Array(TabNum), "") Then
+                ConID = gdcContact.ID
+                gdcDiscount.Append
+                gdcDiscount.FieldByName("USR$NUMBER").asString = CSTR(TabNum)
+                gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
+                gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
+                gdcDiscount.Post
+        
+              else
+             '   msgbox "Няма звестак па гэтаму табельнаму нумару:" & CSTR(TabNumber)
+                gdcContact.Append
+                gdcContact.FieldByName("SURNAME").asString = LASTNAME
+                gdcContact.FieldByName("FIRSTNAME").asVariant = NAME
+                gdcContact.FieldByName("MIDDLENAME").asVariant = MIDNAME
+                gdcContact.FieldByName("NICKNAME").asString = Left(TRIM(NAME),1) & "." & Left(TRIM(MIDNAME),1) & "." & Trim(LASTNAME)
+                gdcContact.FieldByName("NAME").asString = Trim(LASTNAME) & " " & Trim(NAME) & " " & Trim(MIDNAME)
+                gdcContact.FieldByName("USR$WG_LISTNUM").asString = CSTR(int(TabNum))
+                gdcContact.FieldByName("PARENT").asVariant = gdcBaseManager.GetIDByRUIDString("147040459_1993587051")
+                gdcContact.Post
+                ConID = gdcContact.ID
+                gdcDiscount.Append
+                gdcDiscount.FieldByName("USR$NUMBER").asString = CSTR(TabNum)
+                gdcDiscount.FieldByName("USR$CODE").asString = NUMPROPUSK
+                gdcDiscount.FieldByName("USR$CONTACTKEY").asINTEGER = ConID
+                gdcDiscount.Post
+              end if
+        
+              IF NOT FormLimit.Locate("USR$CONTACTKEY", ConID, "") Then
+                FormLimit.Append
+                FormLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asVariant = null 'gdcBaseManager.GetIDBYRuidString("147040459_1993587051")
+                FormLimit.FieldByName("USR$SUMMA").asVariant = LimitSum
+                FormLimit.FieldByName("USR$DATEBEGIN").asDateTime= DateSerial(year(now),01,01)
+                FormLimit.FieldByName("USR$DATEEND").asDateTime= DateSerial(year(now),12,31)
+                FormLimit.FieldByName("USR$CONTACTKEY").asInteger =ConID
+                FormLimit.Post
+              END IF
+        
+              IF NOT MnLimit.Locate("USR$CONTACTKEY", ConID, "") Then
+                MnLimit.Append
+                MnLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asVariant = null 'gdcBaseManager.GetIDBYRuidString("147040459_1993587051")
+                MnLimit.FieldByName("USR$SUMMA").asVariant = LimitSum
+                MnLimit.FieldByName("USR$BALANCE").asVariant = LimitSum
+                MnLimit.FieldByName("USR$SUM_DATEBEGIN").asDateTime= DateSerial(year(now),MONTH(now),01)
+                MnLimit.FieldByName("USR$SUM_DATEEND").asDateTime= DateSerial(year(now),MONTH(now)+1,01)-1
+                MnLimit.FieldByName("USR$CONTACTKEY").asInteger =ConID
+                MnLimit.Post
+              END IF
+              DiscID = gdcDiscount.FieldByName("ID").asInteger
+            ELSE
+              ' знайшлі карту - трэба праверыць тэрмін дзеяння
+              IF DUVOL<=CDATE(FormatDateTime(now, vbShortDate)) Then
+                gdcDiscount.Edit
+                gdcDiscount.FieldByName("USR$DISABLED").asInteger = 1
+                gdcDiscount.Post
+              END IF
+              ' таксама на наяўнасць ліміту
+        
+              IF NOT MnLimit.Locate("USR$CONTACTKEY", gdcDiscount.FieldByName("USR$CONTACTKEY").AsInteger, "") Then
+                MnLimit.Append
+                MnLimit.FieldByName("USR$DEPARTMENTTYPEKEY").asVariant = null 'gdcBaseManager.GetIDBYRuidString("147040459_1993587051")
+                MnLimit.FieldByName("USR$SUMMA").asVariant = LimitSum
+                MnLimit.FieldByName("USR$BALANCE").asVariant = LimitSum
+                MnLimit.FieldByName("USR$SUM_DATEBEGIN").asDateTime= DateSerial(year(now),MONTH(now),DAY(now))
+                MnLimit.FieldByName("USR$SUM_DATEEND").asDateTime= DateSerial(year(now),MONTH(now)+1,01)-1
+                MnLimit.FieldByName("USR$CONTACTKEY").asInteger =gdcDiscount.FieldByName("USR$CONTACTKEY").AsInteger
+                MnLimit.Post
+              END IF
+            END IF
+            pStartLine = pStartLine + 1
+          WEND
+        
+        
+          IF T.InTransaction Then T.Commit
+        
+          if Assigned(Exc) then
+            Exc.Workbooks.Close
+            set Exc = nothing
+          end if
+          call Application.MessageBox("Импорт завершен", "Внимание", vbOkOnly+vbSystemModal+vbInformation)
+        End Sub
+        
+        ' проверка на 3 последовательно идущих пустых строки означает что записей больше нет
+        function andRecords(Sh, r)
+          dim res, i
+          andRecords = false
+          res = 0
+          For i = r to 3 + r
+            if Sh.Cells(i, 1).Value = "" Then
+              res = res + 1
+            end if
+          next
+          if res>=4 then
+            andRecords = true
+          end if
+        
+        end function
+        
+        sub Macros147069568_2005880595_Ex(T)
+          if T.inTransaction then T.Rollback
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147069630_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros147069630_2005880595"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147134928_478233273 gdc_frmAttrUserDefinedUSR_PF_STAFFCARD"
+      OBJECTNAME: "gdc_frmAttrUserDefinedUSR_PF_STAFFCARD"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-08T11:34:31+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147069630_2005880595
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include EXPORTSTAFFCARD
+        Option Explicit
+        Sub Macros147069630_2005880595(OwnerForm)
+         call ExportStaffCard(false)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "149234014_1638717063 ExportStaffCard"
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147071653_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147047883_311980179 Исследователь\\Общепит\\Справочники фронт-офиса\\Скидки"
+      NAME: "Отчеты"
+      CLASSNAME: ~
+      CMD: "147071653_2005880595"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 7
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2022-12-08T16:11:48+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147071125_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147071124_2005880595
+    Fields: 
+      NAME: "rp_Main147071125_2005880595"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-08T16:19:03+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147071125_2005880595
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAUEVSSU9EBgAAAM/l8Oju5AAAAAAAAAAAAAAAAAwAAAAAAAAAAAIAAABeUkZO
+        U1RQUlNUBgAAAFNPUlRCWQ4AAADR7vDy6PDu4uDy/CDv7gAAAAAAAAAAAAAAAA4AAAAAAAAAAEAA
+        AABeViLP7iDUyM4gPSBTVC5OQU1FIiwgIs/uIPLg4eXr/O3u7PMg7e7s5fDzID0gU1QuVVNSJFdH
+        X0xJU1ROVU0iRk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main147071125_2005880595(period, sortBy)
+          BaseQueryList.Clear
+        
+          Dim q
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = "SELECT " & _
+            "ST.NAME, " & _
+            "ST.USR$WG_LISTNUM as TUBNUM, " & _
+            "SUM(l.USR$SUMNCU) as SUMNCU, " & _
+            "SUM(l.USR$SUMNCUWITHDISCOUNT) as SUMWDISC " & _
+            "FROM GD_DOCUMENT d " & _
+            "JOIN USR$MN_ORDER o on o.DOCUMENTKEY = d.ID " & _
+            "left JOIN USR$MN_ORDERLINE l ON l.MASTERKEY = o.DOCUMENTKEY " & _
+            "LEFT JOIN USR$MN_CAUSEDELETEORDERLINE del ON  del.ID  = l.USR$CAUSEDELETEKEY " & _
+            "LEFT JOIN GD_CONTACT dep ON dep.ID  =  l.USR$DEPOTKEY " & _
+            "LEFT JOIN GD_CONTACT FDEPOT ON FDEPOT.ID  =  l.USR$FROMDEPOT " & _
+            "LEFT JOIN GD_CONTACT ST  ON ST.ID  =  O.USR$STAFFKEY " & _
+            "LEFT JOIN GD_GOOD g ON g.ID  =  l.USR$GOODKEY " & _
+            "LEFT JOIN INV_CARD c ON c.ID  =  l.USR$INV_CARDKEY " & _
+            " " & _
+            "WHERE " & _
+            " d.DOCUMENTDATE between :db and :de " & _
+            " and d.DOCUMENTTYPEKEY =<RUID xID=""147014509"" dbID=""9263644""/> " & _
+            "GROUP BY 1, 2 " & _
+            "ORDER BY " & sortBy
+          q.ParamByName("db").asDateTime = period(0)
+          q.ParamByName("de").asDateTime = period(1)
+          q.Open
+          
+          dim Title
+          set Title = BaseQueryList.Query(BaseQueryList.Add("Title", 1))
+          CALL Title.AddField("DateBegin", "ftDate", 0, 0)
+          CALL Title.AddField("DateEnd", "ftDate", 0, 0)
+          Title.Open
+          Title.Edit
+          Title.FieldByName("DateBegin").AsVariant = period(0)
+          Title.FieldByName("DateEnd").AsVariant = period(1)
+          Title.Post
+        
+          Set rp_Main147071125_2005880595 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147071120_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147071124_2005880595
+    Fields: 
+      PARENT: ~
+      NAME: "Формирование лимитов"
+      DESCRIPTION: ~
+      USERGROUPNAME: "TGDCATTRUSERDEFINEDUSR$MN_FORMATION_LIMIT"
+      EDITIONDATE: 2022-12-08T14:39:40+03:00
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147071124_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Отчет по питанию сотрудников"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: "147071653_2005880595 Исследователь\\Общепит\\Справочники фронт-офиса\\Скидки\\Отчеты"
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147071125_2005880595 rp_Main147071125_2005880595"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147071120_2005880595 Формирование лимитов"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147071671_2005880595 Отчет по питанию сотрудников. Общий"
+      EDITIONDATE: 2022-12-08T16:19:03+03:00
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147071438_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147071279_2005880595
+    Fields: 
+      NAME: "Отчет по питанию сотрудника. Детализированный"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2022-12-08T16:11:14+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44903,6600759491" ReportOptions.Description.Text="" ReportOptions.LastChange="44903,6600759491" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2600000020446174615365743D2244455441494C2220446174615365744E616D653D2244455441494C2200010C1C00000020446174615365743D22512220446174615365744E616D653D22512200010C2400000020446174615365743D225449544C452220446174615365744E616D653D225449544C45220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="45,35436" Left="0" Top="18,89765" Width="718,1107">
+              <TfrxMemoView Name="Memo1" Left="0" Top="0" Width="718,1107" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РћС‚С‡РµС‚ РїРѕ СЂРµР°Р»РёР·Р°С†РёРё С‚РѕРІР°СЂРѕРІ Р·Р° РїРµСЂРёРѕРґ СЃ [TITLE.&#34;DateBegin&#34;] РїРѕ [TITLE.&#34;DateEnd&#34;]&#13;&#10; СЃРѕС‚СЂСѓРґРЅРёРє: [Q.&#34;NAME&#34;], С‚Р°Р±РµР»СЊРЅС‹Р№ РЅРѕРјРµСЂ [Q.&#34;TUBNUM&#34;]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="0" Left="0" Top="124,72449" Width="718,1107"/>
+            <TfrxMasterData Name="MasterData1" Height="18,89765" Left="0" Top="147,40167" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0">
+              <TfrxMemoView Name="Memo2" Left="3,77953" Top="0" Width="109,60637" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text="[Q.&#34;USR$LOGICDATE&#34;]"/>
+              <TfrxMemoView Name="Memo3" Left="113,3859" Top="0" Width="170,07885" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text="РћР±С‰Р°СЏ СЃСѓРјРјР°: [Q.&#34;SUMWDISC&#34;]"/>
+              <TfrxMemoView Name="Memo10" Left="283,46475" Top="0" Width="207,87415" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo11" Left="491,3389" Top="0" Width="56,69295" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РєРѕР»-РІРѕ"/>
+              <TfrxMemoView Name="Memo12" Left="548,03185" Top="0" Width="94,48825" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="СЃСѓРјРјР°"/>
+            </TfrxMasterData>
+            <TfrxDetailData Name="DetailData1" Height="15,11812" Left="0" Top="188,9765" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="DETAIL" DataSetName="DETAIL" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo4" Left="283,46475" Top="0" Width="207,87415" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Text="[DETAIL.&#34;GOODNAME&#34;]"/>
+              <TfrxMemoView Name="Memo5" Left="491,3389" Top="0" Width="56,69295" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Text="[DETAIL.&#34;QUANT&#34;]"/>
+              <TfrxMemoView Name="Memo6" Left="548,03185" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[DETAIL.&#34;SUMWDISC&#34;]"/>
+            </TfrxDetailData>
+            <TfrxFooter Name="Footer1" Height="15,11812" Left="0" Top="226,7718" Width="718,1107">
+              <TfrxMemoView Name="Memo7" Left="283,46475" Top="0" Width="264,5671" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="РС‚РѕРіРѕ Р·Р° [DETAIL.&#34;USR$LOGICDATE&#34;]"/>
+              <TfrxMemoView Name="Memo9" Left="548,03185" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" StretchMode="smMaxHeight" Color="15000804" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;DETAIL.&#34;SUMWDISC&#34;&#62;,DetailData1)]"/>
+            </TfrxFooter>
+            <TfrxReportSummary Name="ReportSummary1" Height="18,89765" Left="0" Top="302,3624" Width="718,1107">
+              <TfrxMemoView Name="Memo8" Left="0" Top="0" Width="283,46475" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text="РћР±С‰Р°СЏ СЃСѓРјРјР° СЂРµР°Р»РёР·РѕРІР°РЅРЅС‹С… С‚РѕРІР°СЂРѕРІ:  [SUM(&#60;Q.&#34;SUMWDISC&#34;&#62;,MasterData1)]"/>
+            </TfrxReportSummary>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147071280_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147071279_2005880595
+    Fields: 
+      NAME: "rp_Main147071125_2005880595147071280_2005880595"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-08T16:12:45+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147071125_2005880595147071280_2005880595
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAUEVSSU9EBgAAAM/l8Oju5AAAAAAAAAAAAAAAAAwAAAAAAAAAAAIAAABeUkZO
+        U1RQUlNUBAAAAEVNUEwJAAAA0e7y8PPk7ejqOQAAAGdkX2NvbnRhY3QgYyBsZWZ0IGpvaW4gZ2Rf
+        cGVvcGxlIHAgb24gcC5jb250YWN0a2V5ID0gYy5pZBgAAABjLm5hbWUsIGMuVVNSJFdHX0xJU1RO
+        VU0CAAAAaWQHHQAAAHAuV0NPTVBBTllLRVkgPSA8Y29tcGFueWtleS8+AAAAAAQAAABeUl5BRk5T
+        VEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main147071125_2005880595147071280_2005880595(period, empl)
+          BaseQueryList.Clear
+        
+          Dim q
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = "SELECT " & _
+            "st.USR$WG_LISTNUM as tubnum, " & _
+            "o.USR$LOGICDATE, " & _
+            "ST.NAME, " & _
+            "SUM(l.USR$SUMNCU) as SUMNCU, " & _
+            "SUM(l.USR$SUMNCUWITHDISCOUNT) as SUMWDISC " & _
+            "FROM GD_DOCUMENT d " & _
+            "JOIN USR$MN_ORDER o on o.DOCUMENTKEY = d.ID " & _
+            "left JOIN USR$MN_ORDERLINE l ON l.MASTERKEY = o.DOCUMENTKEY " & _
+            "LEFT JOIN USR$MN_CAUSEDELETEORDERLINE del ON  del.ID  = l.USR$CAUSEDELETEKEY " & _
+            "LEFT JOIN GD_CONTACT dep ON dep.ID  =  l.USR$DEPOTKEY " & _
+            "LEFT JOIN GD_CONTACT FDEPOT ON FDEPOT.ID  =  l.USR$FROMDEPOT " & _
+            "LEFT JOIN GD_CONTACT ST  ON ST.ID  =  O.USR$STAFFKEY " & _
+            "LEFT JOIN GD_GOOD g ON g.ID  =  l.USR$GOODKEY " & _
+            "LEFT JOIN INV_CARD c ON c.ID  =  l.USR$INV_CARDKEY " & _
+            " " & _
+            "WHERE " & _
+            " d.DOCUMENTDATE between :db and :de " & _
+            " and d.DOCUMENTTYPEKEY =<RUID xID=""147014509"" dbID=""9263644""/> " & _
+            " and ST.ID = :empl " & _
+            "GROUP BY 1,2, 3 "
+          q.ParamByName("empl").asInteger = empl(0)
+          q.ParamByName("db").asDateTime = period(0)
+          q.ParamByName("de").asDateTime = period(1)
+          q.Open
+        
+        
+          DIM qDet
+          Set qDet = BaseQueryList.Query(BaseQueryList.Add("Detail", 0))
+          qDet.SQL = _
+          "SELECT " & _
+          "O.USR$LOGICDATE, " & _
+          "g.NAME as GOODNAME, " & _
+          "sum(l.USR$QUANTITY) as Quant, " & _
+          "SUM(l.USR$SUMNCU) as SUMNCU, " & _
+          "SUM(l.USR$SUMNCUWITHDISCOUNT) as SUMWDISC " & _
+          "FROM GD_DOCUMENT d " & _
+          "JOIN USR$MN_ORDER o on o.DOCUMENTKEY = d.ID " & _
+          "left JOIN USR$MN_ORDERLINE l ON l.MASTERKEY = o.DOCUMENTKEY " & _
+          "LEFT JOIN USR$MN_CAUSEDELETEORDERLINE del ON  del.ID  = l.USR$CAUSEDELETEKEY " & _
+          "LEFT JOIN GD_CONTACT dep ON dep.ID  =  l.USR$DEPOTKEY " & _
+          "LEFT JOIN GD_CONTACT FDEPOT ON FDEPOT.ID  =  l.USR$FROMDEPOT " & _
+          "LEFT JOIN GD_CONTACT ST  ON ST.ID  =  O.USR$STAFFKEY " & _
+          "left join gd_people pl on pl.CONTACTKEY = st.ID " & _
+          "LEFT JOIN GD_GOOD g ON g.ID  =  l.USR$GOODKEY " & _
+          "LEFT JOIN INV_CARD c ON c.ID  =  l.USR$INV_CARDKEY " & _
+          " " & _
+          "WHERE " & _
+          " d.DOCUMENTDATE between :db and :de " & _
+          " and d.DOCUMENTTYPEKEY =<RUID xID=""147014509"" dbID=""9263644""/> " & _
+          " and ST.ID = :empl " & _
+          "GROUP BY 1,2 "
+          qDet.ParamByName("empl").asInteger = empl(0)
+          qDet.ParamByName("db").asDateTime = period(0)
+          qDet.ParamByName("de").asDateTime = period(1)
+          qDet.Open
+          
+          BaseQueryList.AddMasterDetail "q", "USR$LOGICDATE", "Detail", "USR$LOGICDATE;GOODNAME"
+          
+          dim Title
+          set Title = BaseQueryList.Query(BaseQueryList.Add("Title", 1))
+          CALL Title.AddField("DateBegin", "ftDate", 0, 0)
+          CALL Title.AddField("DateEnd", "ftDate", 0, 0)
+          Title.Open
+          Title.Edit
+          Title.FieldByName("DateBegin").AsVariant = period(0)
+          Title.FieldByName("DateEnd").AsVariant = period(1)
+          Title.Post
+          
+          Set rp_Main147071125_2005880595147071280_2005880595 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147071279_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Отчет по питанию сотрудника детализированный"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: "147071653_2005880595 Исследователь\\Общепит\\Справочники фронт-офиса\\Скидки\\Отчеты"
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147071280_2005880595 rp_Main147071125_2005880595147071280_2005880595"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147071120_2005880595 Формирование лимитов"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147071438_2005880595 Отчет по питанию сотрудника. Детализированный"
+      EDITIONDATE: 2022-12-08T16:12:45+03:00
