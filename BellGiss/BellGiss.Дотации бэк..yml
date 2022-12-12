@@ -1,0 +1,663 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147072182_2005880595
+  Name: "BellGiss.Дотации бэк. "
+  Caption: "BellGiss.Дотации бэк. "
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: F0427A603B42EB8789D94BA49F255311
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+  - "147067874_311980179 GS new. Общепит бэк. Исследователь"
+  - "147047675_311980179 GS.Общепит.back - Скидки"
+  - "147070860_311980179 GS new. Общепит бэк. Обмен с кассовым сервером"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcSimpleTable"
+      RUID: 147345676_924187115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147345677_924187115
+    Fields: 
+      BRANCHKEY: "147072150_2005880595 Исследователь\\Общепит\\Справочники фронт-офиса\\Скидки\\Группы товаров для сумм дотаций"
+      DESCRIPTION: "Группы товаров для сумм дотаций"
+      EXTENDEDFIELDS: ~
+      LISTFIELD: ~
+      LNAME: "Группы товаров для сумм дотаций"
+      LSHORTNAME: "Группы товаров для сумм дотаций"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$BELGISS_SPONSOR_GOODGROUP"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2022-12-12T18:44:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147345677_924187115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$GROUPKEY"
+      FIELDNAME: "USR$GROUPKEY"
+      FIELDSOURCE: "USR$INV_D_GOODGROUP"
+      FIELDSOURCEKEY: "147016216_119091725 Группа ТМЦ, USR$INV_D_GOODGROUP"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Группа ТМЦ"
+      LSHORTNAME: "Группа ТМЦ"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_GOODGROUP"
+      RELATIONKEY: "147345676_924187115 Группы товаров для сумм дотаций, USR$BELGISS_SPONSOR_GOODGROUP"
+      RELATIONNAME: "USR$BELGISS_SPONSOR_GOODGROUP"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2022-12-12T19:23:53+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147072150_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147345677_924187115
+    Fields: 
+      PARENT: "147047883_311980179 Исследователь\\Общепит\\Справочники фронт-офиса\\Скидки"
+      NAME: "Группы товаров для сумм дотаций"
+      CLASSNAME: "TgdcAttrUserDefined"
+      CMD: "147345676_924187115"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "USR$BELGISS_SPONSOR_GOODGROUP"
+      EDITIONDATE: 2022-12-12T18:44:53+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcConst"
+      RUID: 147345672_924187115
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "BellGiss.Сумма дотации"
+      COMMENT: ~
+      CONSTTYPE: 1
+      DATATYPE: "N"
+      EDITIONDATE: 2022-12-12T19:38:28+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147072289_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_export_constants"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-12T21:01:14+03:00
+      DISPLAYSCRIPT: | 
+        SF_EXPORT_CONSTANTS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNUUFJTVAIAAABJRAIAAABJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include BRI_SYNC_ADDRUID
+        Option Explicit
+        Function Sf_export_constants(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID, ID)
+        
+          dim ibsqlGetConst, ibsqlGet_Const
+          set ibsqlGetConst = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetConst.Transaction = OurTr
+          ibsqlGetConst.SQL.Text = _
+          "select c.NAME, c.DATATYPE, c.CONSTTYPE, r.xid, r.dbid from GD_CONST c " & _
+          "JOIN gd_ruid r on c.id = r.id  where c.id = <RUID xID=""147345672"" dbID=""924187115""/> "
+          ibsqlGetConst.ExecQuery
+          
+          set ibsqlGet_Const= Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_Const.Transaction = Transaction
+          ibsqlGet_Const.SQL.Text = _
+            "select v.id FROM GD_CONST v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+        
+        
+          dim ConstVal
+          set ConstVal= Creator.GetObject(NULL, "TIBSQL", "")
+          ConstVal.Transaction = OurTr
+          ConstVal.SQL.Text = _
+            "SELECT " & _
+            "cv.CONSTDATE, " & _
+            "cv.CONSTVALUE, " & _
+            "cv.CONSTKEY, r.xid, r.dbid " & _
+            "FROM GD_CONSTVALUE cv JOIN gd_ruid r on cv.id = r.id " & _
+            "WHERE CV.CONSTKEY = <RUID xID=""147345672"" dbID=""924187115""/> "
+        
+          dim GetConstVal
+          set GetConstVal= Creator.GetObject(NULL, "TIBSQL", "")
+          GetConstVal.Transaction = Transaction
+          GetConstVal.SQL.Text = _
+           "select v.id FROM GD_CONST v JOIN gd_ruid r on v.id = r.id " & _
+           " WHERE r.xid = :xid and r.dbid = :dbid "
+          
+          dim InsOrUpdConstVal
+          set InsOrUpdConstVal = Creator.GetObject(NULL, "TIBSQL", "")
+          InsOrUpdConstVal.Transaction = Transaction
+          InsOrUpdConstVal.SQL.Text = _
+           "UPDATE OR INSERT INTO GD_CONSTVALUE (ID, CONSTDATE, CONSTVALUE, CONSTKEY) " & _
+           "VALUES (:ID, :CONSTDATE,  :CONSTVALUE, :CONSTKEY) " & _
+           "MATCHING (ID) "
+        
+        
+          dim ConstID
+          ibsqlGet_Const.Close
+          ibsqlGet_Const.ParamByName("xid").asInteger = ibsqlGetConst.FieldByName("xid").asInteger
+          ibsqlGet_Const.ParamByName("dbid").asInteger = ibsqlGetConst.FieldByName("dbid").asInteger
+          ibsqlGet_Const.ExecQuery
+        
+          if not ibsqlGet_Const.EOF then
+            ConstID = ibsqlGet_Const.FieldByName("ID").asInteger
+          else
+            ConstID = gdcBaseManager.GetNextID
+          end if
+        
+          dim InsConst, ConstValID
+          set InsConst= Creator.GetObject(NULL, "TIBSQL", "")
+          InsConst.Transaction = Transaction
+          InsConst.SQL.Text = _
+          "UPDATE OR INSERT INTO GD_CONST (ID, NAME, DATATYPE, CONSTTYPE) " & _
+          "VALUES (:ID, :NAME,:DATATYPE,:CONSTTYPE ) " & _
+          "MATCHING (ID) "
+          InsConst.ParamByName("ID").asInteger = ConstID
+          InsConst.ParamByName("NAME").asVariant = ibsqlGetConst.FieldByName("NAME").asVariant
+          InsConst.ParamByName("DATATYPE").asVariant = ibsqlGetConst.FieldByName("DATATYPE").asVariant
+          InsConst.ParamByName("CONSTTYPE").asVariant = ibsqlGetConst.FieldByName("CONSTTYPE").asVariant
+          InsConst.ExecQuery
+          
+          call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, ConstID, ibsqlGetConst.FieldBYName("xid").ASInteger, ibsqlGetConst.FieldBYName("dbid").ASInteger)
+          ConstVal.ExecQuery
+          while not ConstVal.EOF
+            GetConstVal.Close
+            GetConstVal.ParamByName("xid").asInteger = ConstVal.FieldByName("xid").asInteger
+            GetConstVal.ParamByName("dbid").asInteger = ConstVal.FieldByName("dbid").asInteger
+            GetConstVal.ExecQuery
+          
+            if not GetConstVal.EOF Then
+              ConstValID  = GetConstVal.FieldByName("ID").asInteger
+            else
+              ConstValID = gdcBaseManager.GetNextID
+            end if
+          
+            InsOrUpdConstVal.Close
+            InsOrUpdConstVal.ParamByName("ID").asInteger = ConstValID
+            InsOrUpdConstVal.ParamByName("CONSTDATE").asVariant= ConstVal.FieldByName("CONSTDATE").asVariant
+            InsOrUpdConstVal.ParamByName("CONSTVALUE").asVariant = ConstVal.FieldByName("CONSTVALUE").asVariant
+            InsOrUpdConstVal.ParamByName("CONSTKEY").asVariant = ConstID
+            InsOrUpdConstVal.ExecQuery
+            
+        
+            call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, ConstValID, ConstVal.FieldBYName("xid").ASInteger, ConstVal.FieldBYName("dbid").ASInteger)
+            
+            ConstVal.next
+          wend
+           
+        
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147072175_2005880595
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sf_export_dotation"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-12T19:33:35+03:00
+      DISPLAYSCRIPT: | 
+        SF_EXPORT_DOTATION
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAVFJBTlNBQ1RJT04LAAAAVFJBTlNBQ1RJT04AAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QFAAAAT1VSVFIFAAAAT1VSVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVFBSU1QHAAAAQ1JFQVRPUgcAAABDUkVBVE9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUDAAAAElCU1FMREVMUlVJRAwAAABJQlNRTERFTFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVFBSU1QMAAAASUJTUUxJTlNSVUlEDAAAAElCU1FMSU5TUlVJRAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABGTlNUUFJTVAIAAABJRAIAAABJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include BRI_SYNC_ADDRUID
+        Option Explicit
+        Function Sf_export_dotation(ByRef Transaction, ByRef OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID, ID)
+        
+          dim ibsqlGetSponsorGr, ibsqlGet_SponsorGr, ibsqlGet_Group
+          set ibsqlGetSponsorGr = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGetSponsorGr.Transaction = OurTr
+          ibsqlGetSponsorGr.SQL.Text = _
+           "select " & _
+           "rg.xid as g_xid, rg.dbid as g_dbid, g.Disabled, " & _
+           "gr.xid as ggr_xid, gr.dbid as ggr_dbid " & _
+           "from USR$BELGISS_SPONSOR_GOODGROUP g " & _
+           "left join gd_p_getruid(g.ID) rg on 1 = 1 " & _
+           "left join gd_goodgroup gg on gg.ID = g.USR$GROUPKEY " & _
+           "left join gd_p_getruid(g.USR$GROUPKEY) gr on 1 = 1 "
+          ibsqlGetSponsorGr.ExecQuery
+          
+          set ibsqlGet_SponsorGr= Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_SponsorGr.Transaction = Transaction
+          ibsqlGet_SponsorGr.SQL.Text = _
+            "select v.id FROM USR$BELGISS_SPONSOR_GOODGROUP v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+            
+          set ibsqlGet_Group= Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGet_Group.Transaction = Transaction
+          ibsqlGet_Group.SQL.Text = _
+            "select v.id FROM GD_GOODGROUP v JOIN gd_ruid r on v.id = r.id " & _
+            " WHERE r.xid = :xid and r.dbid = :dbid "
+            
+          
+          dim InsOrUpdSponsorGr
+          set InsOrUpdSponsorGr = Creator.GetObject(NULL, "TIBSQL", "")
+          InsOrUpdSponsorGr.Transaction = Transaction
+          InsOrUpdSponsorGr.SQL.Text = _
+           "UPDATE OR INSERT INTO USR$BELGISS_SPONSOR_GOODGROUP (ID, DISABLED, EDITIONDATE, EDITORKEY, USR$GROUPKEY) " & _
+           "VALUES (:ID, :DISABLED, Current_date || ' ' || Current_time, :user, :USR$GROUPKEY) " & _
+           "MATCHING (ID) "
+        
+          
+          
+          while not ibsqlGetSponsorGr.EOF
+            ibsqlGet_SponsorGr.Close
+            ibsqlGet_SponsorGr.ParamByName("xid").asInteger = ibsqlGetSponsorGr.FieldByName("g_xid").asInteger
+            ibsqlGet_SponsorGr.ParamByName("dbid").asInteger = ibsqlGetSponsorGr.FieldByName("g_dbid").asInteger
+            ibsqlGet_SponsorGr.ExecQuery
+            
+            ibsqlGet_Group.Close
+            ibsqlGet_Group.ParamByName("xid").asInteger = ibsqlGetSponsorGr.FieldByName("ggr_xid").asInteger
+            ibsqlGet_Group.ParamByName("dbid").asInteger = ibsqlGetSponsorGr.FieldByName("ggr_dbID").asInteger
+            ibsqlGet_Group.ExecQuery
+            
+            dim GetID
+            if ibsqlGet_SponsorGr.EOF Then
+              GetID = gdcBaseManager.GetNextID
+            else
+              GetID = ibsqlGet_SponsorGr.FieldByName("ID").AsInteger
+            end if
+            
+            InsOrUpdSponsorGr.Close
+            InsOrUpdSponsorGr.ParamByName("ID").asInteger = GetID
+            InsOrUpdSponsorGr.ParamByName("DISABLED").asVariant = ibsqlGetSponsorGr.FieldByName("Disabled").asInteger
+            InsOrUpdSponsorGr.ParamByName("user").asVariant = 650002
+            InsOrUpdSponsorGr.ParamByName("USR$GROUPKEY").asVariant = ibsqlGet_Group.FieldByName("ID").asInteger
+            InsOrUpdSponsorGr.ExecQuery
+            
+            call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, GetID, ibsqlGetSponsorGr.FieldBYName("g_xid").ASInteger, ibsqlGetSponsorGr.FieldBYName("g_dbid").ASInteger)
+            
+            ibsqlGetSponsorGr.next
+          wend
+           
+        
+        End Function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147012035_416793598 bri_Sync_AddRuid"
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147060545_311980179
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "MenuExportPositiveCheck"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014299_9263644 gdc_frmUserComplexDocument147014188_52143670"
+      OBJECTNAME: "gdc_frmUserComplexDocument147014188_52143670"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-12T21:07:36+03:00
+      DISPLAYSCRIPT: | 
+        MENUEXPORTPOSITIVECHECK
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include SF_EXPORT_CONSTANTS
+        '#include SF_EXPORT_DOTATION
+        '#include SF_EXPORT_MN_STAFFCARD
+        '#include SF_EXPORT_GD_EMPLOYEE
+        '#include Sf_export_gd_value
+        '#include SF_EXPORT_GD_GOODGROUP
+        '#include Sf_export_gd_contact
+        '#include SF_EXPORT_GD_EMPLOYEE
+        '#include Sf_export_gd_people
+        '#include Sf_export_MN_PRNGROUP
+        '#include Sf_export_mn_modify
+        '#include Sf_export_mn_category
+        '#include Sf_import_inv_paytype
+        '#include Sf_import_mn_kindtype
+        '#include Sf_import_mn_causedeleteorderline
+        '#include Sf_export_mn_discounttype
+        '#include Sf_export_mn_discountcard
+        '#include Sf_export_mn_menuname
+        '#include Sf_import_mn_prngroupset
+        '#include Sf_import_mn_options
+        '#include Sf_import_gd_good
+        '#include Sf_import_cr_good_modify
+        '#include Sf_export_mn_menu
+        '#include Sf_import_mn_order
+        '#include Sf_import_cr_order_modify
+        '#include Sf_import_mn_payment
+        '#include Sf_export_mn_discountgoodgroup
+        '#include Sf_export_menudiscount
+        Option Explicit
+        sub MenuExportPositiveCheck(OwnerForm)
+          dim Creator, doc, id, q, FullFileName, i, TimeBegin, gdcConst, MenuPeriod, MainMenuId, FrontID, ExpSuccess
+          set Creator = new TCreator
+        
+          TimeBegin = Time
+          ExpSuccess = True
+          
+          dim FileNameGoods, FileNameMenu, ibsqlGood, ibsqlGroup
+        
+          doc = OwnerForm.SelectedKey
+          id = "(" + Join(doc(0), ",") + ")"
+          
+          Dim Database, Transaction, TrLine, OurTr, ibsqlInsRUID, ibsqlDelRUID, Depkey
+        ''#include TVB_mn_Options
+        
+          set Database = Creator.GetObject(null, "TIBDatabase", "")
+          Database.SQLDialect = 3
+          Database.Params.Add("user_name=SYSDBA")
+          Database.Params.Add("password=masterkey")
+          Database.Params.Add("lc_ctype=WIN1251")
+          Database.LoginPrompt = False
+            
+          Depkey = OwnerForm.gdcObject.FieldByName("USR$DEPOTKEY").AsInteger
+        
+          dim ribsql, ibsql
+          set ribsql = New TReadIBSQL
+          set ibsql = ribsql.IBSQL
+          ibsql.SQL.Text = _
+            " select fl.USR$PATH as dbpath, fl.ID from USR$MN_FRONLINK fln " & _
+            " join USR$MN_FRONTLIST fl on fl.ID = fln.USR$FRONTKEY " & _
+            " where fln.USR$DEPKEY = :depkey " & _
+            " and fl.usr$disabled <> 1 "
+          ibsql.ParamByName("depkey").AsInteger = Depkey
+          ibsql.ExecQuery
+          if ibsql.eof then
+            call Application.MessageBox("Не указаны параметры подключения для указанного подразделения!", "Внимание", mb_IconInformation + vBSystemModal)
+            exit sub
+          end if
+          
+          set OurTr = Creator.GetObject(Null, "TIBTransaction", "")
+          OurTr.DefaultDatabase = gdcBaseManager.Database
+          OurTr.Params.Add("nowait")
+          OurTr.Params.Add("rec_version")
+          OurTr.Params.Add("read_committed")
+        
+          while not ibsql.eof
+          
+            FrontID = ibsql.FieldByName("ID").AsInteger
+        
+            Database.Close
+            err.clear
+            on error resume next
+            Database.DatabaseName = ibsql.FieldByName("dbpath").AsString
+            Database.Connected = True
+        
+            set Transaction = Creator.GetObject(Null, "TIBTransaction", "")
+            Transaction.DefaultDatabase = Database
+            Transaction.Params.Add("nowait")
+            Transaction.Params.Add("rec_version")
+            Transaction.Params.Add("read_committed")
+            Transaction.StartTransaction
+        
+            if err.Number <> 0 then
+              call Application.MessageBox("Невозможно подключиться к базе!", "Внимание", mb_IconInformation + vBSystemModal)
+              FrontID = 0
+              ExpSuccess = False
+            end if
+            on error goto 0
+            
+            if FrontID <> 0 then
+        
+              OurTr.StartTransaction
+        
+              set ibsqlInsRUID = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsqlInsRUID.Transaction = Transaction
+              ibsqlInsRUID.SQL.Text = _
+                "EXECUTE BLOCK(ID DFOREIGNKEY = :ID, XID DFOREIGNKEY = :XID, DBID DFOREIGNKEY = :DBID) " & _
+                "AS " & _
+                "BEGIN " & _
+                "  IF (EXISTS(SELECT * FROM GD_RUID WHERE ID = :ID))  THEN " & _
+                "    UPDATE GD_RUID " & _
+                "    SET XID = :XID, " & _
+                "        DBID = :DBID " & _
+                "    WHERE ID = :ID; " & _
+                "  ELSE " & _
+                "    INSERT INTO gd_ruid(id, xid, dbid, modified, editorkey) VALUES (:ID, :XID, :DBID, 'now', 650002); " & _
+                "END "
+        
+              set ibsqlDelRUID = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsqlDelRUID.Transaction = Transaction
+              ibsqlDelRUID.SQL.Text = "DELETE FROM gd_ruid r where xid = :xid and dbid = :dbid"
+        
+            '  "Единицы измерения"
+              call Sf_export_gd_value(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''  "Группы ТМЦ"
+              call Sf_export_gd_goodgroup(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''  "Контакты"
+              call Sf_export_gd_contact(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''  "Сотрудники"
+              call Sf_export_gd_employee(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Люди"
+            '  call Sf_export_gd_people(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''  "Группы сервис-печати"
+              call Sf_export_mn_prngroup(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Модификаторы"
+              call Sf_export_mn_modify(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Категории блюда"
+              call Sf_export_mn_category(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''  "Форма оплаты"
+            ''  call Sf_import_inv_paytype(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Типы форм оплаты"
+            ''  call Sf_import_mn_kindtype(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Причины удаления заказа"
+            ''  call Sf_import_mn_causedeleteorderline(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Скидки"
+            ''   "Типы скидок"
+              call Sf_export_mn_discounttype(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Дисконтные карты"
+              call Sf_export_mn_discountcard(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Скидки по товарам"
+              call Sf_export_mn_discountgoodgroup(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "карты сотрудников"
+              call Sf_export_mn_staffcard(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+              '' "Наименование меню"
+            ''' добавить проверку на интервальное дерево
+              call Sf_export_mn_menuname(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            '''  "Настройка групп сервис-печати"
+            ''  call Sf_import_mn_prngroupset(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''  usrg_Label1.Caption = "Параметры закрытия-открытия дня"
+            ''  call Sf_import_mn_options(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID)
+            ''   "Документ Меню"
+              call Sf_export_mn_menu(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID, id)
+            ''   "Скидки по меню
+              call Sf_export_menudiscount(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID, id)
+        
+             ' дотации
+             call Sf_export_dotation(Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID, ID)
+        
+             ' константа по дотациям
+             call Sf_export_constants (Transaction, OurTr, Creator, ibsqlDelRUID, ibsqlInsRUID, ID)
+              Transaction.Commit
+              OurTr.Commit
+              
+            end if
+        
+            ibsql.next
+          wend
+        
+          if ExpSuccess = True then
+          
+            OurTr.StartTransaction
+            
+            Dim qUpdMenuline
+            set qUpdMenuline = Creator.GetObject(nil, "TIBSQL", "")
+            qUpdMenuline.Transaction = OurTr
+            qUpdMenuline.SQL.Text = _
+              " UPDATE USR$MN_MENULINE SET USR$ISEXPORT = 1 WHERE MASTERKEY IN " & id
+            qUpdMenuline.ExecQuery
+            
+            OurTr.Commit
+            
+            call Application.MessageBox ("Выгрузка завершена!","Выгрузка!",vbOkOnly + vbInformation)
+            
+          else
+            call Application.MessageBox ("Выгрузка завершена! Передано не на все кассы, признак экспорта не будет проставлен! ","Выгрузка!",vbOkOnly + vbInformation)
+          end if
+          
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147072289_2005880595 Sf_export_constants"
+          - 
+            ADDFUNCTIONKEY: "147072175_2005880595 Sf_export_dotation"
+          - 
+            ADDFUNCTIONKEY: "147096389_1092285922 Sf_export_mn_staffcard"
+          - 
+            ADDFUNCTIONKEY: "147060649_311980179 Sf_export_gd_employee"
+          - 
+            ADDFUNCTIONKEY: "147060624_311980179 Sf_export_gd_value"
+          - 
+            ADDFUNCTIONKEY: "147060623_311980179 Sf_export_gd_goodgroup"
+          - 
+            ADDFUNCTIONKEY: "147060644_311980179 Sf_export_gd_contact"
+          - 
+            ADDFUNCTIONKEY: "147060655_311980179 Sf_export_gd_people"
+          - 
+            ADDFUNCTIONKEY: "147060675_311980179 Sf_export_mn_prngroup"
+          - 
+            ADDFUNCTIONKEY: "147060694_311980179 Sf_export_mn_modify"
+          - 
+            ADDFUNCTIONKEY: "147061115_311980179 Sf_export_mn_category"
+          - 
+            ADDFUNCTIONKEY: "147012240_420498444 Sf_import_inv_paytype"
+          - 
+            ADDFUNCTIONKEY: "147012241_420498444 Sf_import_mn_kindtype"
+          - 
+            ADDFUNCTIONKEY: "147012247_420498444 Sf_import_mn_causedeleteorderline"
+          - 
+            ADDFUNCTIONKEY: "147061148_311980179 Sf_export_mn_discounttype"
+          - 
+            ADDFUNCTIONKEY: "147061173_311980179 Sf_export_mn_discountcard"
+          - 
+            ADDFUNCTIONKEY: "147061182_311980179 Sf_export_mn_menuname"
+          - 
+            ADDFUNCTIONKEY: "147012539_420498444 Sf_import_mn_prngroupset"
+          - 
+            ADDFUNCTIONKEY: "147012551_420498444 Sf_import_mn_options"
+          - 
+            ADDFUNCTIONKEY: "147012162_416793598 Sf_import_gd_good"
+          - 
+            ADDFUNCTIONKEY: "147013487_420498444 Sf_import_cr_good_modify"
+          - 
+            ADDFUNCTIONKEY: "147060631_311980179 Sf_export_mn_menu"
+          - 
+            ADDFUNCTIONKEY: "147024348_420498444 Sf_import_mn_order"
+          - 
+            ADDFUNCTIONKEY: "147058556_420498444 Sf_import_cr_order_modify"
+          - 
+            ADDFUNCTIONKEY: "147058557_420498444 Sf_import_mn_payment"
+          - 
+            ADDFUNCTIONKEY: "147061340_311980179 Sf_export_mn_discountgoodgroup"
+          - 
+            ADDFUNCTIONKEY: "147061358_311980179 Sf_export_menudiscount"
+          - 
+            ADDFUNCTIONKEY: "147072708_157767346 TVB_mn_Options"
