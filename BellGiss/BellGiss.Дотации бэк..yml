@@ -5,10 +5,10 @@ Properties:
   RUID: 147072182_2005880595
   Name: "BellGiss.Дотации бэк. "
   Caption: "BellGiss.Дотации бэк. "
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: F0427A603B42EB8789D94BA49F255311
+  MD5: 9F68C2F176827FF71B3A71503E9D78A8
 Uses: 
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
@@ -135,7 +135,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-12-12T21:01:14+03:00
+      EDITIONDATE: 2022-12-12T22:05:44+03:00
       DISPLAYSCRIPT: | 
         SF_EXPORT_CONSTANTS
         
@@ -156,8 +156,9 @@ Objects:
           set ibsqlGetConst = Creator.GetObject(NULL, "TIBSQL", "")
           ibsqlGetConst.Transaction = OurTr
           ibsqlGetConst.SQL.Text = _
-          "select c.NAME, c.DATATYPE, c.CONSTTYPE, r.xid, r.dbid from GD_CONST c " & _
-          "JOIN gd_ruid r on c.id = r.id  where c.id = <RUID xID=""147345672"" dbID=""924187115""/> "
+          " select c.NAME, c.DATATYPE, c.CONSTTYPE, r.xid, r.dbid from GD_CONST c " & _
+          " left join gd_p_getruid(c.ID) r on 1 = 1  " & _
+          " where c.id = <RUID xID=""147345672"" dbID=""924187115""/> "
           ibsqlGetConst.ExecQuery
           
           set ibsqlGet_Const= Creator.GetObject(NULL, "TIBSQL", "")
@@ -175,14 +176,15 @@ Objects:
             "cv.CONSTDATE, " & _
             "cv.CONSTVALUE, " & _
             "cv.CONSTKEY, r.xid, r.dbid " & _
-            "FROM GD_CONSTVALUE cv JOIN gd_ruid r on cv.id = r.id " & _
+            "FROM GD_CONSTVALUE cv " & _
+            "left join gd_p_getruid(cv.id) r on 1 = 1 " & _
             "WHERE CV.CONSTKEY = <RUID xID=""147345672"" dbID=""924187115""/> "
         
           dim GetConstVal
           set GetConstVal= Creator.GetObject(NULL, "TIBSQL", "")
           GetConstVal.Transaction = Transaction
           GetConstVal.SQL.Text = _
-           "select v.id FROM GD_CONST v JOIN gd_ruid r on v.id = r.id " & _
+           "select v.id FROM GD_CONSTVALUE v left join gd_p_getruid(v.id) r on 1=1 " & _
            " WHERE r.xid = :xid and r.dbid = :dbid "
           
           dim InsOrUpdConstVal
@@ -220,6 +222,7 @@ Objects:
           InsConst.ExecQuery
           
           call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, ConstID, ibsqlGetConst.FieldBYName("xid").ASInteger, ibsqlGetConst.FieldBYName("dbid").ASInteger)
+        
           ConstVal.ExecQuery
           while not ConstVal.EOF
             GetConstVal.Close
