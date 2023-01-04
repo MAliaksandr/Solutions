@@ -5,10 +5,10 @@ Properties:
   RUID: 147069859_2005880595
   Name: "Карты сотрудников. Обмен."
   Caption: "Карты сотрудников. Обмен."
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: 2506553CFD912ECD53795A0A1A359CA7
+  MD5: D739EE5F89770A30CD82F744E933DC56
 Uses: 
   - "147135685_478233273 GS.PositiveCash.Карты сотрудников"
   - "147070860_311980179 GS new. Общепит бэк. Обмен с кассовым сервером"
@@ -38,7 +38,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-12-08T11:46:47+03:00
+      EDITIONDATE: 2022-12-28T18:31:00+03:00
       DISPLAYSCRIPT: | 
         SF_EXPORT_GD_EMPLOYEE
         
@@ -110,6 +110,11 @@ Objects:
             "select con.id FROM gd_contact con JOIN gd_ruid r on con.id = r.id " & _
             " WHERE r.xid = :xid and r.dbid = :dbid "
         
+          dim ibsqlGenID
+          set ibsqlGenID = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGenID.Transaction = Transaction
+          ibsqlGenID.SQL.Text = " select ID from GD_P_GETNEXTID "
+          
           dim qIns
           set qIns = Creator.GetObject(nil, "TIBSQL", "")
           qIns.Transaction = Transaction
@@ -138,7 +143,9 @@ Objects:
             ibsqlGetContact.ParamBYName("dbid").AsInteger = ibsqlContact.FieldBYName("dbid").ASInteger
             ibsqlGetContact.ExecQuery
             if ibsqlGetContact.EOF then
-              NewId = gdcBaseManager.GetNextID
+              ibsqlGenID.Close
+              ibsqlGenID.ExecQuery
+              NewId = ibsqlGenID.FieldByName("ID").asInteger
               qIns.Close
               qIns.ParamBYName("ID").AsInteger = NewId
               qIns.ParamBYName("Name").AsString = ibsqlContact.FieldByName("Name").AsString
@@ -210,7 +217,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-12-08T12:03:48+03:00
+      EDITIONDATE: 2022-12-28T15:31:44+03:00
       DISPLAYSCRIPT: | 
         SF_EXPORT_MN_STAFFCARD
         
@@ -233,7 +240,8 @@ Objects:
             "  USR$PF_STAFFCARD v " & _
             "  left join GD_P_GETRUID(v.id) p on 1 = 1 " &_
             "  left join GD_P_GETRUID(v.USR$DISCOUNTCARDKEY) dt on 1 = 1 " &_
-            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 "
+            "  left join GD_P_GETRUID(v.USR$CONTACTKEY) c on 1 = 1 " & _
+            "  WHERE COALESCE(v.USR$ISSEND,0) = 0 "
         
           set ibsqlStaff = Creator.GetObject(NULL, "TIBSQL", "")
           ibsqlStaff.Transaction = OurTr
@@ -248,6 +256,12 @@ Objects:
             " from USR$MN_LIMIT v " & _
             " JOIN gd_ruid r on v.id = r.id " & _
             " WHERE r.xid = :xid and r.dbid = :dbid "
+            
+          dim ibsqlGenID
+          set ibsqlGenID = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsqlGenID.Transaction = Transaction
+          ibsqlGenID.SQL.Text = " select ID from GD_P_GETNEXTID "
+            
         
           set ibsqlGet_mn_staffcard = Creator.GetObject(NULL, "TIBSQL", "")
           ibsqlGet_mn_staffcard.Transaction = Transaction
@@ -267,19 +281,13 @@ Objects:
             "select v.id FROM gd_contact v JOIN gd_ruid r on v.id = r.id " & _
             " WHERE r.xid = :xid and r.dbid = :dbid "
         
-          dim qIns
-          set qIns = Creator.GetObject(nil, "TIBSQL", "")
-          qIns.Transaction = Transaction
-          qIns.SQL.Text = _
-            " INSERT INTO usr$MN_STAFFCARD (ID, USR$CONTACTKEY, USR$CODE, USR$NUMBER, USR$DISCOUNTNAMEKEY) " & _
-              " VALUES (:ID, :USR$CONTACTKEY, :USR$CODE, :NUMBER, :USR$DISCOUNTNAMEKEY) "
-              
-          dim qUpd
-          set qUpd = Creator.GetObject(nil, "TIBSQL", "")
-          qUpd.Transaction = Transaction
-          qUpd.SQL.Text = _
-            " UPDATE usr$MN_STAFFCARD SET USR$DISABLED = :USR$DISABLED " & _
-              " WHERE ID = :ID "
+          dim qUpdInsCard
+          set qUpdInsCard = Creator.GetObject(nil, "TIBSQL", "")
+          qUpdInsCard.Transaction = Transaction
+          qUpdInsCard.SQL.Text = _
+            " UPDATE OR INSERT INTO USR$MN_STAFFCARD (ID, USR$CONTACTKEY, USR$CODE, USR$NUMBER, USR$DISCOUNTNAMEKEY, USR$DISABLED) " & _
+            " VALUES (:ID, :USR$CONTACTKEY, :USR$CODE, :NUMBER, :USR$DISCOUNTNAMEKEY, :USR$DISABLED) " & _
+            " MATCHING (ID) "
         
           dim qInsL
           set qInsL = Creator.GetObject(nil, "TIBSQL", "")
@@ -287,42 +295,54 @@ Objects:
           qInsL.SQL.Text = _
             " INSERT INTO USR$MN_LIMIT (ID, USR$CONTACTKEY, USR$SUM_DATEBEGIN, USR$SUM_DATEEND, USR$ISUNLIMITED, USR$SUM_DISABLED) " & _
               " VALUES (:ID, :USR$CONTACTKEY, :DATEBEGIN, :DATEEND, 1, 0) "
+              
+          dim qIsSend
+          set qIsSend = Creator.GetObject(nil, "TIBSQL", "")
+          qIsSend.Transaction = OurTr
+          qIsSend.SQL.Text = _
+            " UPDATE USR$PF_STAFFCARD SET USR$ISSEND = 1 " & _
+            " WHERE ID = :ID "
         
           ibsql_mn_staffcard.ExecQuery
           while not ibsql_mn_staffcard.EOF
-            ibsqlGet_mn_staffcard.Close
+           ibsqlGet_mn_staffcard.Close
             ibsqlGet_mn_staffcard.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("xid").ASInteger
             ibsqlGet_mn_staffcard.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("dbid").ASInteger
             ibsqlGet_mn_staffcard.ExecQuery
+        
+            ibsqlGet_DName.Close
+            ibsqlGet_DName.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("dt_xid").ASInteger
+            ibsqlGet_DName.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("dt_dbid").ASInteger
+            ibsqlGet_DName.ExecQuery
+        
+            ibsqlGet_Contact.Close
+            ibsqlGet_Contact.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("c_xid").ASInteger
+            ibsqlGet_Contact.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("c_dbid").ASInteger
+            ibsqlGet_Contact.ExecQuery
+        
+            Dim CardID
             if ibsqlGet_mn_staffcard.EOF then
-              NewId = gdcBaseManager.GetNextID
-              qIns.Close
-              qIns.ParamBYName("ID").AsInteger = NewId
-              ibsqlGet_DName.Close
-              ibsqlGet_DName.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("dt_xid").ASInteger
-              ibsqlGet_DName.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("dt_dbid").ASInteger
-              ibsqlGet_DName.ExecQuery
-              qIns.ParamBYName("USR$DISCOUNTNAMEKEY").AsVariant = ibsqlGet_DName.FieldByName("id").AsVariant
-              ibsqlGet_Contact.Close
-              ibsqlGet_Contact.ParamBYName("xid").AsInteger = ibsql_mn_staffcard.FieldBYName("c_xid").ASInteger
-              ibsqlGet_Contact.ParamBYName("dbid").AsInteger = ibsql_mn_staffcard.FieldBYName("c_dbid").ASInteger
-              ibsqlGet_Contact.ExecQuery
-              qIns.ParamBYName("USR$CONTACTKEY").AsInteger = ibsqlGet_Contact.FieldByName("id").AsInteger
-              qIns.ParamBYName("usr$CODE").AsString = ibsql_mn_staffcard.FieldByName("usr$CODE").AsString
-              qIns.ParamBYName("NUMBER").AsString = ibsql_mn_staffcard.FieldByName("USR$NUMBER").AsString
-              qIns.ExecQuery
-        
-              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, NewId, ibsql_mn_staffcard.FieldBYName("xid").ASInteger, ibsql_mn_staffcard.FieldBYName("dbid").ASInteger)
-        
+              ibsqlGenID.Close
+              ibsqlGenID.ExecQuery
+              CardID = ibsqlGenID.FieldByName("ID").asInteger
             else
-              if ibsql_mn_staffcard.FieldBYName("USR$DISABLED").ASVariant <> ibsqlGet_mn_staffcard.FieldByName("USR$DISABLED").ASVariant then
-                qUpd.Close
-                qUpd.ParamBYName("ID").AsInteger = ibsqlGet_mn_staffcard.FieldByName("ID").AsInteger
-                qUpd.ParamBYName("USR$DISABLED").ASVariant = ibsql_mn_staffcard.FieldBYName("USR$DISABLED").ASVariant
-                qUpd.ExecQuery
-              end if
-              
+              CardID = ibsqlGet_mn_staffcard.FieldByName("ID").AsInteger
             end if
+        
+              qUpdInsCard.Close
+              qUpdInsCard.ParamBYName("ID").AsInteger = CardID
+              qUpdInsCard.ParamBYName("USR$CONTACTKEY").AsInteger = ibsqlGet_Contact.FieldByName("ID").AsInteger
+              qUpdInsCard.ParamBYName("usr$CODE").AsString = ibsql_mn_staffcard.FieldByName("usr$CODE").AsString
+              qUpdInsCard.ParamBYName("NUMBER").AsString = ibsql_mn_staffcard.FieldByName("USR$NUMBER").AsString
+              qUpdInsCard.ParamBYName("USR$DISCOUNTNAMEKEY").AsVariant = ibsqlGet_DName.FieldByName("id").AsVariant
+              qUpdInsCard.ParamBYName("USR$DISABLED").AsVariant = ibsql_mn_staffcard.FieldByName("USR$DISABLED").AsVariant
+              qUpdInsCard.ExecQuery
+        
+              call bri_Sync_AddRuid(ibsqlInsRUID, ibsqlDelRUID, CardID, ibsql_mn_staffcard.FieldBYName("xid").ASInteger, ibsql_mn_staffcard.FieldBYName("dbid").ASInteger)
+        
+              qIsSend.Close
+              qIsSend.ParamByName("ID").asInteger = ibsql_mn_staffcard.FieldBYName("ID").asInteger
+              qIsSend.ExecQuery
             ibsql_mn_staffcard.Next
           wend
         
@@ -333,7 +353,9 @@ Objects:
             ibsqlGetStaff.ParamBYName("dbid").AsInteger = ibsqlStaff.FieldBYName("dbid").ASInteger
             ibsqlGetStaff.ExecQuery
             if ibsqlGetStaff.EOF then
-              NewId = gdcBaseManager.GetNextID
+              ibsqlGenID.Close
+              ibsqlGenID.ExecQuery
+              NewId = ibsqlGenID.FieldByName("ID").asInteger
               qInsL.Close
               qInsL.ParamBYName("ID").AsInteger = NewId
               ibsqlGet_Contact.Close
@@ -546,18 +568,16 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-12-08T12:33:14+03:00
+      EDITIONDATE: 2022-12-09T14:06:28+03:00
       DISPLAYSCRIPT: | 
         MACROS147069568_2005880595
         ANDRECORDS
         MACROS147069568_2005880595_EX
         
-      ENTEREDPARAMS: !!binary > 
-        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
-        AABGTlNURkxQUg==
+      ENTEREDPARAMS: ~
       SCRIPT: | 
         Option Explicit
-        Sub Macros147069568_2005880595(OwnerForm)
+        Sub Macros147069568_2005880595
           dim Creator, objConnection, objCommandWares
           set Creator = new TCreator
           
@@ -670,7 +690,7 @@ Objects:
             DPRI = null
             DUVOL = DateSerial(2030,12,31)
            ' IF  isNull(DUVOL) then DUVOL = DateSerial(2030,12,31)
-            NUMPROPUSK = Trim(Sh.Cells(pStartLine,4).Value)
+            NUMPROPUSK = TabNum ' Trim(Sh.Cells(pStartLine,4).Value)
         
         
             ' не знайшлі картку по ТАБ.НУМАРУ = НУМАРУ КАРТКІ => ТРЭБА СТВАРЫЦЬ
@@ -865,7 +885,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-12-08T16:19:03+03:00
+      EDITIONDATE: 2022-12-13T11:59:33+03:00
       DISPLAYSCRIPT: | 
         RP_MAIN147071125_2005880595
         
@@ -899,6 +919,7 @@ Objects:
             "WHERE " & _
             " d.DOCUMENTDATE between :db and :de " & _
             " and d.DOCUMENTTYPEKEY =<RUID xID=""147014509"" dbID=""9263644""/> " & _
+            " and not o.USR$STAFFCARDKEY is null " & _
             "GROUP BY 1, 2 " & _
             "ORDER BY " & sortBy
           q.ParamByName("db").asDateTime = period(0)
@@ -955,8 +976,8 @@ Objects:
       PREVIEW: 1
       REPORTGROUPKEY: "147071120_2005880595 Формирование лимитов"
       SERVERKEY: ~
-      TEMPLATEKEY: "147071671_2005880595 Отчет по питанию сотрудников. Общий"
-      EDITIONDATE: 2022-12-08T16:19:03+03:00
+      TEMPLATEKEY: "147074037_1993977583 Отчет по питанию сотрудников."
+      EDITIONDATE: 2022-12-13T11:59:33+03:00
   - 
     Properties: 
       Class: "TgdcTemplate"
@@ -1139,7 +1160,7 @@ Objects:
       REPORTGROUPKEY: "147071120_2005880595 Формирование лимитов"
       SERVERKEY: ~
       TEMPLATEKEY: "147071438_2005880595 Отчет по питанию сотрудника. Детализированный"
-      EDITIONDATE: 2022-12-08T16:12:45+03:00
+      EDITIONDATE: 2022-12-13T11:59:50+03:00
   - 
     Properties: 
       Class: "TgdcExplorer"
