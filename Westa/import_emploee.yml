@@ -5,10 +5,10 @@ Properties:
   RUID: 147004732_1943700807
   Name: "import_emploee"
   Caption: "import_emploee"
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: D058C7710E06A79FB2D9E8867AB2E429
+  MD5: 3B7ECBC7824212643C8F2D5F3AC58CBC
 Objects: 
   - 
     Properties: 
@@ -111,7 +111,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-09-27T12:45:43+03:00
+      EDITIONDATE: 2023-01-10T13:17:06+03:00
       DISPLAYSCRIPT: | 
         IMPORT_EMPL_DBF
         GETCORRECTAREA
@@ -217,7 +217,7 @@ Objects:
           "DECLARE VARIABLE Emplid INTEGER; " & _
           "DECLARE VARIABLE t_Note VARCHAR(100); " & _
           "DECLARE VARIABLE t_termdate DATE; " & _
-          "DECLARE VARIABLE t_Phone VARCHAR(20); " & _
+            "DECLARE VARIABLE t_Phone VARCHAR(20); " & _
           " " & _
           "DECLARE VARIABLE PlaceLiveKey INTEGER; " & _
           "DECLARE VARIABLE t_placeLive  INTEGER; " & _
@@ -301,13 +301,16 @@ Objects:
           " " & _
           "     BEGIN " & _
           "        /*ЕСЛИ УВОЛЕН переводим в КЛИЕНТЫ */ " & _
-          "        IF ((NOT :DUVOL is NULL) and ((:DUVOL>:DPRI) or ((NOT :DUVOL is NULL) and (:DPRI is NULL))))   THEN " & _
+          "        IF ((NOT :DUVOL is NULL) or (not :DPRI is null)) /* and ((:DUVOL>:DPRI) or ((NOT :DUVOL is NULL) and (:DPRI is NULL))))  */  THEN " & _
           "          BEGIN " & _
           " " & _
-          "            DUVOL_ST = 'Уволен:' || cast(:DUVOL AS VARCHAR(10)) ; " & _
+          "            EXECUTE PROCEDURE USR$EMPLOYMENT_DISMISSAL(:DPRI, :DUVOL, :CONTACTKEY); " & _
+          " " & _
+          "          /*  DUVOL_ST = 'Уволен:' || cast(:DUVOL AS VARCHAR(10)) ; " & _
           "            DELETE FROM GD_EMPLOYEE WHERE CONTACTKEY = :CONTACTKEY; " & _
           "            UPDATE GD_PEOPLE SET WCOMPANYKEY = NULL, USR$TERMINATIONDATE = :DUVOL WHERE CONTACTKEY = :CONTACTKEY; " & _
           "            UPDATE GD_CONTACT SET PARENT = 186526495, NOTE = NOTE || cast(:DUVOL_ST AS VARCHAR(300)) WHERE id = :CONTACTKEY; " & _
+          "          */ " & _
           "          END " & _
           "        ELSE " & _
           " " & _
@@ -342,13 +345,15 @@ Objects:
           "                USR$DEPARTMENT =:DepartKey " & _
           "                WHERE P.CONTACTKEY = :CONTACTKEY; " & _
           " " & _
-          "                UPDATE GD_CONTACT " & _
-          "                SET USR$PHONE = :MOBILENUM, " & _
-          "                  PHONE = :MOBILENUM, " & _
+          "                UPDATE GD_CONTACT SET " & _
           "                  PLACEKEY = :PlaceLiveKey, " & _
           "                  ADDRESS = :ADDRESLIVE, " & _
           "                  NAME = LEFT(COALESCE(:LASTNAME,'') || ' ' || COALESCE(:NAME,'') || ' ' || COALESCE(:MIDNAME,''), 60) " & _
           "                WHERE ID = :CONTACTKEY; " & _
+          "   " & _
+          "               IF ((t_Phone<>MOBILENUM) AND (MOBILENUM<>'')) THEN " & _
+          "                  UPDATE GD_CONTACT SET  USR$PHONE = :MOBILENUM,  PHONE = :MOBILENUM  WHERE ID = :CONTACTKEY;  " & _
+          "   " & _
           "             END " & _
           "     END " & _
           " " & _
@@ -398,13 +403,14 @@ Objects:
           "                /* ТУТ ЖЕ ОБНОВИМ ТАБЕЛЬНЫЙ, Т.К. ИНАЧЕ СЮДА Б НЕ ПОПАЛ */ " & _
           "                UPDATE GD_CONTACT " & _
           "                SET USR$WG_LISTNUM =:TUBNUMBER, " & _
-          "                  USR$PHONE = :MOBILENUM, " & _
-          "                  PHONE = :MOBILENUM, " & _
           "                  PLACEKEY = :PlaceLiveKey, " & _
           "                  ADDRESS = :ADDRESLIVE, " & _
           "                  NOTE = cast('Принят:' || cast(:DPRI AS VARCHAR(10)) AS VARCHAR(300)), " & _
           "                  NAME = LEFT(:LASTNAME || ' ' || :NAME || ' ' || :MIDNAME, 60) " & _
           "                WHERE ID = :CONTACTKEY; " & _
+          " " & _
+          "               IF ((t_Phone<>MOBILENUM) AND (MOBILENUM<>'')) THEN " & _
+          "                  UPDATE GD_CONTACT SET  USR$PHONE = :MOBILENUM,  PHONE = :MOBILENUM  WHERE ID = :CONTACTKEY;  " & _
           "              END " & _
           "          END " & _
           "     ELSE " & _
@@ -425,8 +431,9 @@ Objects:
           " " & _
           "END "
           objADOQuery.MoveFirst
-          on error resume next
+        
           while not objADOQuery.EOF
+            on error resume next
             ibSQL.Close
             ibSQL.ParamByName("TUBNUMBER").asVariant = objADOQuery.Fields("TABNUMBER").Value  ' табельный номер (уникальное значение)
             ibSQL.ParamByName("LASTNAME").asVariant = objADOQuery.Fields("LASTNAME").Value    ' фамилия

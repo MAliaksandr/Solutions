@@ -1,0 +1,89 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 190211916_2009942616
+  Name: "Процедура приема/увольнения сотрудника"
+  Caption: "Процедура приема/увольнения сотрудника"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 2E484C8855CBD4BB1CE68E89569FBBE1
+Uses: 
+  - "147004732_1943700807 import_emploee"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 190211901_2009942616
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$EMPLOYMENT_DISMISSAL"
+      EDITIONDATE: 2023-01-10T13:12:19+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$EMPLOYMENT_DISMISSAL (
+            DPRI DATE,
+            DUVOL DATE,
+            CONTACTKEY INTEGER)
+         AS
+        DECLARE VARIABLE DUVOL_ST VARCHAR(300);
+        DECLARE VARIABLE CONTKEY INTEGER;
+        DECLARE VARIABLE OurCompanyKey INTEGER;
+        DECLARE VARIABLE DepartKey INTEGER;
+        DECLARE VARIABLE DismissalKey INTEGER;
+        BEGIN
+        
+          /*  КОМПАНИЯ*/
+          EXECUTE PROCEDURE GD_P_GETID(147002687,704999368)
+              RETURNING_VALUES :OurCompanyKey;
+        
+          /*  ПОДРАЗДЕЛЕНИЕ ПО-УМОЛЧАНИЮ ДЛЯ НОВЫХ СОТРУДНИКОВ*/
+          EXECUTE PROCEDURE GD_P_GETID(180708780,1192700761)
+              RETURNING_VALUES :DepartKey;
+        
+          /*  ПАПКА ДЛЯ УВОЛЕННЫХ СОТРУДНИКОВ*/
+          EXECUTE PROCEDURE GD_P_GETID(179138098,1192700761)
+              RETURNING_VALUES :DismissalKey;
+        
+        
+         IF (:DUVOL>:DPRI) THEN
+           BEGIN
+           /*УВОЛЕН*/
+             DUVOL_ST = 'Ув-н:' || cast(:DUVOL AS VARCHAR(10)) ;
+             DELETE FROM GD_EMPLOYEE WHERE CONTACTKEY = :CONTACTKEY;
+             UPDATE GD_PEOPLE SET WCOMPANYKEY = NULL, USR$TERMINATIONDATE = :DUVOL WHERE CONTACTKEY = :CONTACTKEY;
+             UPDATE GD_CONTACT SET PARENT = :DismissalKey, NOTE = NOTE || cast(:DUVOL_ST AS VARCHAR(300)) WHERE id = :CONTACTKEY;
+           END
+         ELSE
+           BEGIN
+           /*ПОВТОРНО ПРИНЯТ*/
+            SELECT CONTACTKEY FROM GD_EMPLOYEE WHERE CONTACTKEY = :CONTACTKEY
+            INTO :CONTKEY;
+        
+            IF (:CONTKEY is NULL) THEN
+             BEGIN
+               INSERT INTO GD_EMPLOYEE (CONTACTKEY) VALUES(:CONTACTKEY);
+        
+               UPDATE GD_PEOPLE
+               SET
+                 WCOMPANYKEY = :OurCompanyKey,
+                 USR$DEPARTMENT =:DepartKey
+               WHERE CONTACTKEY = :CONTACTKEY;
+        
+               UPDATE GD_CONTACT
+               SET
+                 PARENT = :DepartKey,
+                 NOTE = cast('Принят:' || cast(:DPRI AS VARCHAR(10)) AS VARCHAR(300))
+               WHERE ID = :CONTACTKEY;
+             END
+           END
+        
+        END
+      RDB$DESCRIPTION: | 
+        Сверяет даты и принимает или увольняет сотрудника 
+        входящие параметры:
+        DPRI DATE,
+        DUVOL DATE,
+        CONTACTKEY INTEGER
