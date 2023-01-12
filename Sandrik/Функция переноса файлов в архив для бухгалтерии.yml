@@ -1,0 +1,250 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 225960999_2026928654
+  Name: "Функция переноса файлов в архив для бухгалтерии"
+  Caption: "Функция переноса файлов в архив для бухгалтерии"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 3FE202C22658A10615D070D52B06F489
+Uses: 
+  - "147728891_43451302 Общие данные"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcConst"
+      RUID: 225960996_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Путь к банк.выписке"
+      COMMENT: ~
+      CONSTTYPE: 0
+      DATATYPE: "S"
+      EDITIONDATE: 2023-01-12T23:51:13+03:00
+  - 
+    Properties: 
+      Class: "TgdcConstValue"
+      RUID: 225960997_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      COMPANYKEY: "147016180_111470144 Организации\\Поставщики\\ЗАО Сандрик"
+      COMPANYNAME: "ЗАО Сандрик"
+      CONSTDATE: 2016-07-28
+      CONSTKEY: "225960996_2026928654 Путь к банк.выписке"
+      CONSTNAME: "Путь к банк.выписке"
+      CONSTTYPE: 0
+      CONSTVALUE: "d:\\Gedemin\\Base\\Sandrik\\temp\\"
+      DATATYPE: "S"
+      USERKEY: ~
+      USERNAME: ~
+      EDITIONDATE: 2023-01-12T23:51:56+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 225960992_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Sandrik_BankStateM_Number"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-13T00:02:22+03:00
+      DISPLAYSCRIPT: | 
+        SANDRIK_BANKSTATEM_NUMBER
+        MOVEUSERFILE
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include GS_GETCONSTBYIDANDDATE
+        'Option Explicit
+        Function Sandrik_BankStateM_Number
+        
+          dim Path, fso, arhFolder
+          
+          if Application.MessageBox("Файлы выписок будут перемещены в архив. Продолжить?", "Внимание", vbYesNo+vbSystemModal+vbInformation) = vbNo Then
+             call Application.MessageBox("Операция прервана!", "Внимание", vbOkOnly+vbSystemModal+vbExclamation)
+             exit function
+          end if
+          set fso = CreateObject("Scripting.FileSystemObject")
+          
+          Path = gs_GetConstByIDAndDate(gdcBaseManager.GetIDByRUIDString("225960996_2026928654"), now)
+        
+          'задали имя папки для архива
+          arhFolder = "ARCH" & Replace(FormatdateTime(now, vbShortdate),".", "")
+        
+          if not FSO.FolderExists(Path & arhFolder) then
+            'создали папку
+            fso.CreateFolder Path & arhFolder
+          end if
+        
+          dim frPath
+          set frPath = fso.GetFolder(Path)
+          
+          call MoveUserFile(fso, frPath, Path & arhFolder & "\")
+        
+          set fso = nothing
+          
+          call Application.MessageBox("Завершено!", "Внимание", vbOkOnly+vbSystemModal+vbInformation)
+        
+        End Function
+        
+        ' переносим все файлы
+        sub MoveUserFile(fso, frPath, toPath)
+          dim File , fl, iMask, arrMask
+          
+          iMask = "txt pdf vbs"
+          arrMask = Split(LCase(iMask)," ")
+          ' перебираем все файлы
+          For Each File In frPath.Files
+            '
+            For i = LBound(arrMask) to UBound(arrMask)
+              if LCase(fso.GetExtensionName(File)) = arrMask(i) then
+                File.Move toPath
+                Exit For
+              end if
+            next
+          Next
+          
+          
+        end sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147141414_141998543 gs_GetConstByIDAndDate"
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147035304_55147469
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225960989_2026928654
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmBankStatement)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147035304_55147469"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147005389_15581101
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225960989_2026928654
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmBankStatement"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-01-11T15:32:13+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147005388_15581101
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225960989_2026928654
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmBankStatement"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147005389_15581101 Локальные макросы"
+      OBJECTNAME: "gdc_frmBankStatement"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147035304_55147469 Отчеты(gdc_frmBankStatement)"
+      SUBTYPE: ""
+      EDITIONDATE: 2003-01-30T16:40:57+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 225960991_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225960989_2026928654
+    Fields: 
+      NAME: "Macros225960991_2026928654"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147005388_15581101 gdc_frmBankStatement"
+      OBJECTNAME: "gdc_frmBankStatement"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-13T00:03:10+03:00
+      DISPLAYSCRIPT: | 
+        MACROS225960991_2026928654
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include SANDRIK_BANKSTATEM_NUMBER
+        Sub Macros225960991_2026928654(OwnerForm)
+         call Sandrik_BankStateM_Number
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "225960992_2026928654 Sandrik_BankStateM_Number"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 225960989_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Архивирование файлов выписки"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "225960991_2026928654 Macros225960991_2026928654"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147005389_15581101 Локальные макросы"
+      OBJECTNAME: "gdc_frmBankStatement"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2023-01-13T00:03:10+03:00
