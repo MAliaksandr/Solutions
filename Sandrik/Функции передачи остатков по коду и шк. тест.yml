@@ -1,0 +1,1170 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 225961042_2026928654
+  Name: "Функции передачи остатков по коду и шк. тест"
+  Caption: "Функции передачи остатков по коду и шк. тест"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: FC30F170FD69295EBB58934F08C4E280
+Uses: 
+  - "148919179_537677461 GS.Общее.Деноминация 2016"
+  - "223169950_1838344811 TEServer. Параметры обмена"
+  - "209316035_2119495691 TEServer. Экспорт остатков  в КС"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147014663_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225961013_2026928654
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmInvViewRemains147025940_63934951)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147014663_23783130"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147014662_23783130
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225961013_2026928654
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2003-09-24T17:23:15+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 225961015_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225961013_2026928654
+    Fields: 
+      NAME: "Macros147045062_281066798158231492_70366225961015_2026928654"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014649_23783130 gdc_frmInvViewRemains147025940_63934951"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-13T00:39:49+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147045062_281066798158231492_70366225961015_2026928654
+        REMAINSBYBARCODE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_DNMNTODIVIDE
+        '#include ecr_DeptList
+        '#include ecr_ZServer_SetParams
+        '#include ecr_TEServer_Waiting
+        '#include ecr_ZServer_CreateTable
+        sub Macros147045062_281066798158231492_70366225961015_2026928654(OwnerForm)
+        
+        ' Передать товары в кассу (TEServer) из остатков
+          dim ToDivide
+          ToDivide = gs_DnmnToDivide
+          
+          set Creator = New TCreator
+          set gdcDocLine = Creator.GetObject(nil, "TIBSQL", "")
+          gdcDocLine.Transaction = gdcBaseManager.ReadTransaction
+          gdcDocLine.SQL.Text = RemainsByBarcode
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+          FileName = "'" + ecr_TEServer_Ref_Filename + "'"
+          set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+          set qryDoc = gsql.Query(gsql.Add("qryDoc", 0))
+        
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          if FSO.FileExists(FullFileName) then
+            qryDoc.SQL = "DELETE FROM '" + FullFileName + "'"
+            qryDoc.ExecSQL
+          else
+            ecr_ZServer_CreateTable(0)
+          end if
+          FullFileName = "'" + FullFileName + "'"
+        
+          qryDoc.SQL = "INSERT INTO " + FullFileName + _
+            " (SECTIONID, PLU, PLUNAME, PRICE, DEPARTMENT, Q) " + _
+            " VALUES(:SECTIONID, :PLU, :PLUNAME, :PRICE, :DEPT, :QUANT) "
+        
+          ' формируем список
+          gdcDocLine.ParamByName("companykey").AsInteger = ibLogin.CompanyKey
+          gdcDocLine.ExecQuery
+        '  gdcDocLine.First
+          while not gdcDocLine.EOF
+        
+            set DeptField = gdcDocLine.FieldByName("CONTACTKEY")
+        
+            if ecr_DeptList.CodeByCost then
+              plucode = gdcDocLine.FieldByName("USR$SDR_ECRCODE1").AsString + _
+                gdcDocLine.FieldByName("USR$SDR_ECRCODE").AsString
+            else
+              plucode = gdcDocLine.FieldByName("BARCODE").AsString
+            end if
+        
+            plucode = gdcDocLine.FieldByName("BARCODE").AsString
+        
+        
+            ' товары м.б. на разных подразделениях
+            DeptNp = ecr_DeptList.GetNpByID(DeptField.AsInteger)
+            ' номер секции
+            Section = ""
+            SectionID = ecr_DeptList.GetSectionByID(DeptField.AsInteger)
+            if SectionID > -1 then
+              Section = CStr(SectionID)
+            end if
+        
+            qryDoc.ParamByName("SECTIONID").AsString = Section
+            qryDoc.ParamByName("PLU").AsString = plucode
+            qryDoc.ParamByName("PLUNAME").AsString = gdcDocLine.FieldByName("NAMEGOOD").AsString
+        
+            IF ToDivide and (DateValue(Now) >= DateSerial(2016, 7, 6)) THEN
+              price = gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant /10000
+            ELSE
+              price = gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant
+            END IF
+        
+            qryDoc.ParamByName("PRICE").AsFloat = price 'gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant
+            qryDoc.ParamByName("DEPT").AsFloat = DeptNp
+            qryDoc.ParamByName("QUANT").AsFloat = gdcDocLine.FieldByName("REMAINS").AsCurrency
+            qryDoc.ExecSQL
+        
+            gdcDocLine.Next
+          wend
+        '  gdcDocLine.First
+        
+          ' количество - перезаписывается!
+          qryDoc.SQL = "INSERT INTO " + ecr_TEServer_FullCommandFileName + _
+            " (ROWID,SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(7," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocSetPLUr) + ", " + _
+            FileName + ", 0) "
+        
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting(qryDoc, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+            call MsgBox("Данные успешно переданы.", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          else
+            call MsgBox("При передаче данных возникла ошибка! - " + ceDescr, mb_OK or mb_IconExclamation or mb_TaskModal, "Внимание")
+          end if
+        
+        end sub
+        
+        function RemainsByBarcode
+          RemainsByBarcode = _
+            "SELECT  " & _
+            "  MIN ( M.CARDKEY ) AS ID,  " & _
+            "  G.ID AS GOODKEY,  " & _
+            "  G.NAME AS NAMEGOOD,  " & _
+            "  G.ALIAS AS GOODALIAS,  " & _
+            "  SUM ( M.BALANCE ) AS REMAINS,  " & _
+            "  CON.ID AS CONTACTKEY,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE  " & _
+            "  " & _
+            "FROM  " & _
+            "  INV_CARD C " & _
+            "    JOIN  " & _
+            "      GD_GOOD G " & _
+            "    ON  " & _
+            "      ( G.ID  =  C.GOODKEY )  " & _
+            "    JOIN  " & _
+            "      INV_BALANCE M " & _
+            "    ON  " & _
+            "      C.ID  =  M.CARDKEY " & _
+            "         AND  " & _
+            "      M.BALANCE  >  0 " & _
+            "    JOIN  " & _
+            "      GD_CONTACT COMPANY " & _
+            "    ON  " & _
+            "      COMPANY.ID = C.COMPANYKEY  " & _
+            "    JOIN  " & _
+            "      GD_CONTACT CON " & _
+            "    ON  " & _
+            "      M.CONTACTKEY  =  CON.ID " & _
+            "         AND  " & _
+            "      CON.LB  >=  COMPANY.LB " & _
+            "         AND  " & _
+            "      CON.RB  <=  COMPANY.RB " & _
+            " " & _
+            "WHERE  " & _
+            "   C.COMPANYKEY   =  :companykey " & _
+            "     AND  " & _
+            "  M.BALANCE  >  0 " & _
+            " and con.id in (<RUID xID=""149536551"" DBID=""295952074""/>,<RUID xID=""151470177"" DBID=""638291160""/>,<RUID xID=""152387414"" DBID=""564276098""/>, " & _
+            "  <RUID xID=""147037129"" DBID=""638291160""/>,<RUID xID=""150666894"" DBID=""338790988""/>) " & _
+            "  and COALESCE(TRIM(G.BARCODE),'')<>'' " & _
+            "GROUP BY " & _
+            "  G.ID,  " & _
+            "  G.NAME,  " & _
+            "  G.ALIAS,  " & _
+            "  CON.ID,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE " & _
+            "HAVING  " & _
+            "  SUM ( M.BALANCE )  >  0 " & _
+            " "
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"
+          - 
+            ADDFUNCTIONKEY: "147006692_122479781 ecr_ZServer_CreateTable"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 225961013_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "20. Передать товары в кассу ШК"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "225961015_2026928654 Macros147045062_281066798158231492_70366225961015_2026928654"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014662_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2023-01-13T00:39:49+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 225961027_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225961025_2026928654
+    Fields: 
+      NAME: "Macros147045062_281066798158231492_70366225961027_2026928654"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014649_23783130 gdc_frmInvViewRemains147025940_63934951"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-13T00:34:40+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147045062_281066798158231492_70366225961027_2026928654
+        REMAINSBYCODESQL
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_DNMNTODIVIDE
+        '#include ecr_DeptList
+        '#include ecr_ZServer_SetParams
+        '#include ecr_TEServer_Waiting
+        '#include ecr_ZServer_CreateTable
+        sub Macros147045062_281066798158231492_70366225961027_2026928654(OwnerForm)
+        
+        ' Передать товары в кассу (TEServer) из остатков
+        
+          dim ToDivide
+          ToDivide = gs_DnmnToDivide
+        
+          set Creator = New TCreator
+          set gdcDocLine = Creator.GetObject(nil, "TIBSQL", "")
+          gdcDocLine.Transaction = gdcBaseManager.ReadTransaction
+          gdcDocLine.SQL.Text = RemainsByCodeSQL
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+          FileName = "'" + ecr_TEServer_Ref_Filename + "'"
+          set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+          set qryDoc = gsql.Query(gsql.Add("qryDoc", 0))
+        
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          if FSO.FileExists(FullFileName) then
+            qryDoc.SQL = "DELETE FROM '" + FullFileName + "'"
+            qryDoc.ExecSQL
+          else
+            ecr_ZServer_CreateTable(0)
+          end if
+          FullFileName = "'" + FullFileName + "'"
+        
+          qryDoc.SQL = "INSERT INTO " + FullFileName + _
+            " (SECTIONID, PLU, PLUNAME, PRICE, DEPARTMENT, Q) " + _
+            " VALUES(:SECTIONID, :PLU, :PLUNAME, :PRICE, :DEPT, :QUANT) "
+        
+          ' формируем список
+          gdcDocLine.ParamByName("companykey").AsInteger = ibLogin.CompanyKey
+          gdcDocLine.ExecQuery
+        '  gdcDocLine.First
+          while not gdcDocLine.EOF
+        
+            set DeptField = gdcDocLine.FieldByName("CONTACTKEY")
+        
+            if ecr_DeptList.CodeByCost then
+              plucode = gdcDocLine.FieldByName("USR$SDR_ECRCODE1").AsString + _
+                gdcDocLine.FieldByName("USR$SDR_ECRCODE").AsString
+            else
+              plucode = gdcDocLine.FieldByName("BARCODE").AsString
+            end if
+        
+            ' товары м.б. на разных подразделениях
+            DeptNp = ecr_DeptList.GetNpByID(DeptField.AsInteger)
+            ' номер секции
+            Section = ""
+            SectionID = ecr_DeptList.GetSectionByID(DeptField.AsInteger)
+            if SectionID > -1 then
+              Section = CStr(SectionID)
+            end if
+        
+            qryDoc.ParamByName("SECTIONID").AsString = Section
+            qryDoc.ParamByName("PLU").AsString = plucode
+            qryDoc.ParamByName("PLUNAME").AsString = gdcDocLine.FieldByName("NAMEGOOD").AsString
+            
+            price = gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant
+        
+            qryDoc.ParamByName("PRICE").AsFloat = PRICE
+            qryDoc.ParamByName("DEPT").AsFloat = DeptNp
+            qryDoc.ParamByName("QUANT").AsFloat = gdcDocLine.FieldByName("REMAINS").AsCurrency
+            qryDoc.ExecSQL
+        
+            gdcDocLine.Next
+          wend
+        '  gdcDocLine.First
+        
+          ' количество - перезаписывается!
+          qryDoc.SQL = "INSERT INTO " + ecr_TEServer_FullCommandFileName + _
+            " (ROWID, SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(8," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocSetPLUr) + ", " + _
+            FileName + ", 0) "
+        
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting(qryDoc, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+            call MsgBox("Данные успешно переданы.", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          else
+            call MsgBox("При передаче данных возникла ошибка! - " + ceDescr, mb_OK or mb_IconExclamation or mb_TaskModal, "Внимание")
+          end if
+        
+        end sub
+        
+        function RemainsByCodeSQL
+          RemainsByCodeSQL = _
+            "SELECT   " & _
+            "  MIN ( M.CARDKEY ) AS ID,  " & _
+            "  G.ID AS GOODKEY,  " & _
+            "  G.NAME AS NAMEGOOD,  " & _
+            "  G.ALIAS AS GOODALIAS,  " & _
+            "  SUM ( M.BALANCE ) AS REMAINS,  " & _
+            "  CON.ID AS CONTACTKEY,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE  " & _
+            "  " & _
+            "FROM  " & _
+            "  INV_CARD C " & _
+            "    JOIN  " & _
+            "      GD_GOOD G " & _
+            "    ON  " & _
+            "      ( G.ID  =  C.GOODKEY )  " & _
+            "    JOIN  " & _
+            "      INV_BALANCE M " & _
+            "    ON  " & _
+            "      C.ID  =  M.CARDKEY " & _
+            "         AND  " & _
+            "      M.BALANCE  >  0 " & _
+            "    JOIN  " & _
+            "      GD_CONTACT COMPANY " & _
+            "    ON  " & _
+            "      COMPANY.ID = C.COMPANYKEY  " & _
+            "    JOIN  " & _
+            "      GD_CONTACT CON " & _
+            "    ON  " & _
+            "      M.CONTACTKEY  =  CON.ID " & _
+            "         AND  " & _
+            "      CON.LB  >=  COMPANY.LB " & _
+            "         AND  " & _
+            "      CON.RB  <=  COMPANY.RB " & _
+            " " & _
+            "WHERE  " & _
+            "   C.COMPANYKEY   =  :companykey " & _
+            "     AND  " & _
+            "  M.BALANCE  >  0 " & _
+            "  and CON.id = <RUID xID=""152387414"" DBID=""564276098""/> " & _
+            "  and COALESCE(TRIM(G.BARCODE),'')='' " & _
+            "GROUP BY " & _
+            "  G.ID,  " & _
+            "  G.NAME,  " & _
+            "  G.ALIAS,  " & _
+            "  CON.ID,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE " & _
+            "HAVING  " & _
+            "  SUM ( M.BALANCE )  >  0 " & _
+            " "
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"
+          - 
+            ADDFUNCTIONKEY: "147006692_122479781 ecr_ZServer_CreateTable"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 225961025_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "21. Передать товары в кассу по КОДУ (Секция 2)"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "225961027_2026928654 Macros147045062_281066798158231492_70366225961027_2026928654"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014662_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2023-01-13T00:34:40+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 225961034_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225961032_2026928654
+    Fields: 
+      NAME: "Macros147045062_281066798158231492_70366225961034_2026928654"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014649_23783130 gdc_frmInvViewRemains147025940_63934951"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-13T00:42:44+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147045062_281066798158231492_70366225961034_2026928654
+        REMAINSBYCODESQLS3
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_DNMNTODIVIDE
+        '#include ecr_DeptList
+        '#include ecr_ZServer_SetParams
+        '#include ecr_TEServer_Waiting
+        '#include ecr_ZServer_CreateTable
+        sub Macros147045062_281066798158231492_70366225961034_2026928654(OwnerForm)
+        
+        ' Передать товары в кассу (TEServer) из остатков
+          dim ToDivide
+          ToDivide = gs_DnmnToDivide
+          
+          set Creator = New TCreator
+          set gdcDocLine = Creator.GetObject(nil, "TIBSQL", "")
+          gdcDocLine.Transaction = gdcBaseManager.ReadTransaction
+          gdcDocLine.SQL.Text = RemainsByCodeSQLs3
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+        
+          FileName = "'" + ecr_TEServer_Ref_Filename + "'"
+          set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+          set qryDoc = gsql.Query(gsql.Add("qryDoc", 0))
+        
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          if FSO.FileExists(FullFileName) then
+            qryDoc.SQL = "DELETE FROM '" + FullFileName + "'"
+            qryDoc.ExecSQL
+          else
+            ecr_ZServer_CreateTable(0)
+          end if
+          FullFileName = "'" + FullFileName + "'"
+        
+          qryDoc.SQL = "INSERT INTO " + FullFileName + _
+            " (SECTIONID, PLU, PLUNAME, PRICE, DEPARTMENT, Q) " + _
+            " VALUES(:SECTIONID, :PLU, :PLUNAME, :PRICE, :DEPT, :QUANT) "
+        
+          ' формируем список
+          gdcDocLine.ParamByName("companykey").AsInteger = ibLogin.CompanyKey
+          gdcDocLine.ExecQuery
+        '  gdcDocLine.First
+          while not gdcDocLine.EOF
+        
+            set DeptField = gdcDocLine.FieldByName("CONTACTKEY")
+        
+            if ecr_DeptList.CodeByCost then
+              plucode = gdcDocLine.FieldByName("USR$SDR_ECRCODE1").AsString + _
+                gdcDocLine.FieldByName("USR$SDR_ECRCODE").AsString
+            else
+              plucode = gdcDocLine.FieldByName("BARCODE").AsString
+            end if
+        
+            ' товары м.б. на разных подразделениях
+            DeptNp = ecr_DeptList.GetNpByID(DeptField.AsInteger)
+            ' номер секции
+            Section = ""
+            SectionID = ecr_DeptList.GetSectionByID(DeptField.AsInteger)
+            if SectionID > -1 then
+              Section = CStr(SectionID)
+            end if
+        
+            qryDoc.ParamByName("SECTIONID").AsString = Section
+            qryDoc.ParamByName("PLU").AsString = plucode
+            qryDoc.ParamByName("PLUNAME").AsString = gdcDocLine.FieldByName("NAMEGOOD").AsString
+            
+            price = gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant
+        
+            qryDoc.ParamByName("PRICE").AsFloat = price 'gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant
+            qryDoc.ParamByName("DEPT").AsFloat = DeptNp
+            qryDoc.ParamByName("QUANT").AsFloat = gdcDocLine.FieldByName("REMAINS").AsCurrency
+            qryDoc.ExecSQL
+        
+            gdcDocLine.Next
+          wend
+        '  gdcDocLine.First
+        
+          ' количество - перезаписывается!
+          qryDoc.SQL = "INSERT INTO " + ecr_TEServer_FullCommandFileName + _
+            " (ROWID,SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(4," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocSetPLUr) + ", " + _
+            FileName + ", 0) "
+        
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting(qryDoc, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+            call MsgBox("Данные успешно переданы.", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          else
+            call MsgBox("При передаче данных возникла ошибка! - " + ceDescr, mb_OK or mb_IconExclamation or mb_TaskModal, "Внимание")
+          end if
+        
+        end sub
+        
+        function RemainsByCodeSQLs3
+          RemainsByCodeSQLs3 = _
+            "SELECT  " & _
+            "  MIN ( M.CARDKEY ) AS ID,  " & _
+            "  G.ID AS GOODKEY,  " & _
+            "  G.NAME AS NAMEGOOD,  " & _
+            "  G.ALIAS AS GOODALIAS,  " & _
+            "  SUM ( M.BALANCE ) AS REMAINS,  " & _
+            "  CON.ID AS CONTACTKEY,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE  " & _
+            "  " & _
+            "FROM  " & _
+            "  INV_CARD C " & _
+            "    JOIN  " & _
+            "      GD_GOOD G " & _
+            "    ON  " & _
+            "      ( G.ID  =  C.GOODKEY )  " & _
+            "    JOIN  " & _
+            "      INV_BALANCE M " & _
+            "    ON  " & _
+            "      C.ID  =  M.CARDKEY " & _
+            "         AND  " & _
+            "      M.BALANCE  >  0 " & _
+            "    JOIN  " & _
+            "      GD_CONTACT COMPANY " & _
+            "    ON  " & _
+            "      COMPANY.ID = C.COMPANYKEY  " & _
+            "    JOIN  " & _
+            "      GD_CONTACT CON " & _
+            "    ON  " & _
+            "      M.CONTACTKEY  =  CON.ID " & _
+            "         AND  " & _
+            "      CON.LB  >=  COMPANY.LB " & _
+            "         AND  " & _
+            "      CON.RB  <=  COMPANY.RB " & _
+            " " & _
+            "WHERE  " & _
+            "   C.COMPANYKEY   =  :companykey " & _
+            "     AND  " & _
+            "  M.BALANCE  >  0 " & _
+            " and CON.id = <RUID xID=""147037129"" DBID=""638291160""/> " & _
+            " and COALESCE(TRIM(G.BARCODE),'')='' " & _
+            "GROUP BY " & _
+            "  G.ID,  " & _
+            "  G.NAME,  " & _
+            "  G.ALIAS,  " & _
+            "  CON.ID,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE " & _
+            "HAVING  " & _
+            "  SUM ( M.BALANCE )  >  0 " & _
+            " "
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"
+          - 
+            ADDFUNCTIONKEY: "147006692_122479781 ecr_ZServer_CreateTable"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 225961032_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "22. Передать товары в кассу по КОДУ (Секция 3)"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "225961034_2026928654 Macros147045062_281066798158231492_70366225961034_2026928654"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014662_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2023-01-13T00:42:44+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 225961037_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225961035_2026928654
+    Fields: 
+      NAME: "Macros147045062_281066798158231492_70366225961037_2026928654"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014649_23783130 gdc_frmInvViewRemains147025940_63934951"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-13T00:40:11+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147045062_281066798158231492_70366225961037_2026928654
+        REMAINSBYCODESQLS4
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_DNMNTODIVIDE
+        '#include ecr_DeptList
+        '#include ecr_ZServer_SetParams
+        '#include ecr_TEServer_Waiting
+        '#include ecr_ZServer_CreateTable
+        sub Macros147045062_281066798158231492_70366225961037_2026928654(OwnerForm)
+        
+        ' Передать товары в кассу (TEServer) из остатков
+          dim ToDivide
+          ToDivide = gs_DnmnToDivide
+          
+          set Creator = New TCreator
+          set gdcDocLine = Creator.GetObject(nil, "TIBSQL", "")
+          gdcDocLine.Transaction = gdcBaseManager.ReadTransaction
+          gdcDocLine.SQL.Text = RemainsByCodeSQLs4
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+          FileName = "'" + ecr_TEServer_Ref_Filename + "'"
+          
+          set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+          set qryDoc = gsql.Query(gsql.Add("qryDoc", 0))
+        
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          if FSO.FileExists(FullFileName) then
+            qryDoc.SQL = "DELETE FROM '" + FullFileName + "'"
+            qryDoc.ExecSQL
+          else
+            ecr_ZServer_CreateTable(0)
+          end if
+          FullFileName = "'" + FullFileName + "'"
+        
+          qryDoc.SQL = "INSERT INTO " + FullFileName + _
+            " (SECTIONID, PLU, PLUNAME, PRICE, DEPARTMENT, Q) " + _
+            " VALUES(:SECTIONID, :PLU, :PLUNAME, :PRICE, :DEPT, :QUANT) "
+        
+          ' формируем список
+          gdcDocLine.ParamByName("companykey").AsInteger = ibLogin.CompanyKey
+          gdcDocLine.ExecQuery
+        '  gdcDocLine.First
+          while not gdcDocLine.EOF
+        
+            set DeptField = gdcDocLine.FieldByName("CONTACTKEY")
+        
+            if ecr_DeptList.CodeByCost then
+              plucode = gdcDocLine.FieldByName("USR$SDR_ECRCODE1").AsString + _
+                gdcDocLine.FieldByName("USR$SDR_ECRCODE").AsString
+            else
+              plucode = gdcDocLine.FieldByName("BARCODE").AsString
+            end if
+        
+            ' товары м.б. на разных подразделениях
+            DeptNp = ecr_DeptList.GetNpByID(DeptField.AsInteger)
+            ' номер секции
+            Section = ""
+            SectionID = ecr_DeptList.GetSectionByID(DeptField.AsInteger)
+            if SectionID > -1 then
+              Section = CStr(SectionID)
+            end if
+        
+            qryDoc.ParamByName("SECTIONID").AsString = Section
+            qryDoc.ParamByName("PLU").AsString = plucode
+            qryDoc.ParamByName("PLUNAME").AsString = gdcDocLine.FieldByName("NAMEGOOD").AsString
+        
+            price = gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant
+        
+            qryDoc.ParamByName("PRICE").AsFloat = price
+            qryDoc.ParamByName("DEPT").AsFloat = DeptNp
+            qryDoc.ParamByName("QUANT").AsFloat = gdcDocLine.FieldByName("REMAINS").AsCurrency
+          '  qryDoc.ParamByName("lock").AsІ = 0
+            qryDoc.ExecSQL
+        
+            gdcDocLine.Next
+          wend
+        '  gdcDocLine.First
+        
+          ' количество - перезаписывается!
+          qryDoc.SQL = "INSERT INTO " + ecr_TEServer_FullCommandFileName + _
+            " (ROWID, SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(9," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocSetPLUr) + ", " + _
+            FileName + ", 0) "
+        
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting(qryDoc, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+            call MsgBox("Данные успешно переданы.", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          else
+            call MsgBox("При передаче данных возникла ошибка! - " + ceDescr, mb_OK or mb_IconExclamation or mb_TaskModal, "Внимание")
+          end if
+        
+        end sub
+        
+        function RemainsByCodeSQLs4
+          RemainsByCodeSQLs4 = _
+            "SELECT  " & _
+            "  MIN ( M.CARDKEY ) AS ID,  " & _
+            "  G.ID AS GOODKEY,  " & _
+            "  G.NAME AS NAMEGOOD,  " & _
+            "  G.ALIAS AS GOODALIAS,  " & _
+            "  SUM ( M.BALANCE ) AS REMAINS,  " & _
+            "  CON.ID AS CONTACTKEY,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE  " & _
+            "  " & _
+            "FROM  " & _
+            "  INV_CARD C " & _
+            "    JOIN  " & _
+            "      GD_GOOD G " & _
+            "    ON  " & _
+            "      ( G.ID  =  C.GOODKEY )  " & _
+            "    JOIN  " & _
+            "      INV_BALANCE M " & _
+            "    ON  " & _
+            "      C.ID  =  M.CARDKEY " & _
+            "         AND  " & _
+            "      M.BALANCE  >  0 " & _
+            "    JOIN  " & _
+            "      GD_CONTACT COMPANY " & _
+            "    ON  " & _
+            "      COMPANY.ID = C.COMPANYKEY  " & _
+            "    JOIN  " & _
+            "      GD_CONTACT CON " & _
+            "    ON  " & _
+            "      M.CONTACTKEY  =  CON.ID " & _
+            "         AND  " & _
+            "      CON.LB  >=  COMPANY.LB " & _
+            "         AND  " & _
+            "      CON.RB  <=  COMPANY.RB " & _
+            " " & _
+            "WHERE  " & _
+            "   C.COMPANYKEY   =  :companykey " & _
+            "     AND  " & _
+            "  M.BALANCE  >  0 " & _
+            " and CON.id = <RUID xID=""150666894"" DBID=""338790988""/> " & _
+            " and COALESCE(TRIM(G.BARCODE),'')='' " & _
+            "GROUP BY " & _
+            "  G.ID,  " & _
+            "  G.NAME,  " & _
+            "  G.ALIAS,  " & _
+            "  CON.ID,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE " & _
+            "HAVING  " & _
+            "  SUM ( M.BALANCE )  >  0 " & _
+            " "
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"
+          - 
+            ADDFUNCTIONKEY: "147006692_122479781 ecr_ZServer_CreateTable"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 225961035_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "23. Передать товары в кассу по КОДУ (Секция 4)"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "225961037_2026928654 Macros147045062_281066798158231492_70366225961037_2026928654"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014662_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2023-01-13T00:40:11+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 225961040_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 225961038_2026928654
+    Fields: 
+      NAME: "Macros147045062_281066798158231492_70366225961040_2026928654"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014649_23783130 gdc_frmInvViewRemains147025940_63934951"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-13T00:42:37+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147045062_281066798158231492_70366225961040_2026928654
+        REMAINSBYCODESQLS5
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include GS_DNMNTODIVIDE
+        '#include ecr_DeptList
+        '#include ecr_ZServer_SetParams
+        '#include ecr_TEServer_Waiting
+        '#include ecr_ZServer_CreateTable
+        sub Macros147045062_281066798158231492_70366225961040_2026928654(OwnerForm)
+        
+        ' Передать товары в кассу (TEServer) из остатков
+            dim ToDivide
+          ToDivide = gs_DnmnToDivide
+          
+          set Creator = New TCreator
+          set gdcDocLine = Creator.GetObject(nil, "TIBSQL", "")
+          gdcDocLine.Transaction = gdcBaseManager.ReadTransaction
+          gdcDocLine.SQL.Text = RemainsByCodeSQLs5
+        
+          ecr_CriticalError = ecr_TEServer_ceOK
+        
+          ecr_ZServer_SetParams(ecr_TEServer_ttToCass)
+        
+          FullFileName = ecr_TEServer_workpath + ecr_TEServer_Ref_Filename
+          FileName = "'" + ecr_TEServer_Ref_Filename + "'"
+          set gsql = CreateObject("gsdbquery.gsdb_rpQueryList")
+          set qryDoc = gsql.Query(gsql.Add("qryDoc", 0))
+        
+          set FSO = CreateObject("Scripting.FileSystemObject")
+          if FSO.FileExists(FullFileName) then
+            qryDoc.SQL = "DELETE FROM '" + FullFileName + "'"
+            qryDoc.ExecSQL
+          else
+            ecr_ZServer_CreateTable(0)
+          end if
+          FullFileName = "'" + FullFileName + "'"
+        
+          qryDoc.SQL = "INSERT INTO " + FullFileName + _
+            " (SECTIONID, PLU, PLUNAME, PRICE, DEPARTMENT, Q) " + _
+            " VALUES(:SECTIONID, :PLU, :PLUNAME, :PRICE, :DEPT, :QUANT) "
+        
+          ' формируем список
+          gdcDocLine.ParamByName("companykey").AsInteger = ibLogin.CompanyKey
+          gdcDocLine.ExecQuery
+        '  gdcDocLine.First
+          while not gdcDocLine.EOF
+        
+            set DeptField = gdcDocLine.FieldByName("CONTACTKEY")
+        
+            if ecr_DeptList.CodeByCost then
+              plucode = gdcDocLine.FieldByName("USR$SDR_ECRCODE1").AsString + _
+                gdcDocLine.FieldByName("USR$SDR_ECRCODE").AsString
+            else
+              plucode = gdcDocLine.FieldByName("BARCODE").AsString
+            end if
+        
+            ' товары м.б. на разных подразделениях
+            DeptNp = ecr_DeptList.GetNpByID(DeptField.AsInteger)
+            ' номер секции
+            Section = ""
+            SectionID = ecr_DeptList.GetSectionByID(DeptField.AsInteger)
+            if SectionID > -1 then
+              Section = CStr(SectionID)
+            end if
+        
+            qryDoc.ParamByName("SECTIONID").AsString = Section
+            qryDoc.ParamByName("PLU").AsString = plucode
+            qryDoc.ParamByName("PLUNAME").AsString = gdcDocLine.FieldByName("NAMEGOOD").AsString
+        
+            price = gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant
+        
+            qryDoc.ParamByName("PRICE").AsFloat = PRICE 'gdcDocLine.FieldByName("USR$INV_COSTRETAILNCU").AsVariant
+            qryDoc.ParamByName("DEPT").AsFloat = DeptNp
+            qryDoc.ParamByName("QUANT").AsFloat = gdcDocLine.FieldByName("REMAINS").AsCurrency
+            qryDoc.ExecSQL
+        
+            gdcDocLine.Next
+          wend
+        '  gdcDocLine.First
+        
+          ' количество - перезаписывается!
+          qryDoc.SQL = "INSERT INTO " + ecr_TEServer_FullCommandFileName + _
+            " (ROWID, SERVERID, COMMANDID, FILENAME, FLAG) "  + _
+            " VALUES(7," + _
+            CStr(ecr_TEServer_ServerID) + ", "  + _
+            CStr(ecr_TEServer_ocSetPLUr) + ", " + _
+            FileName + ", 0) "
+        
+          ceDescr = ""
+          ecr_CriticalError = ecr_TEServer_Waiting(qryDoc, ceDescr)
+        
+          if ecr_CriticalError = ecr_TEServer_ceOK then
+            call MsgBox("Данные успешно переданы.", mb_OK or mb_IconInformation or mb_TaskModal, "Внимание")
+          else
+            call MsgBox("При передаче данных возникла ошибка! - " + ceDescr, mb_OK or mb_IconExclamation or mb_TaskModal, "Внимание")
+          end if
+        
+        end sub
+        
+        function RemainsByCodeSQLs5
+          RemainsByCodeSQLs5 = _
+            "SELECT  " & _
+            "  MIN ( M.CARDKEY ) AS ID,  " & _
+            "  G.ID AS GOODKEY,  " & _
+            "  G.NAME AS NAMEGOOD,  " & _
+            "  G.ALIAS AS GOODALIAS,  " & _
+            "  SUM ( M.BALANCE ) AS REMAINS,  " & _
+            "  CON.ID AS CONTACTKEY,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE  " & _
+            "  " & _
+            "FROM  " & _
+            "  INV_CARD C " & _
+            "    JOIN  " & _
+            "      GD_GOOD G " & _
+            "    ON  " & _
+            "      ( G.ID  =  C.GOODKEY )  " & _
+            "    JOIN  " & _
+            "      INV_BALANCE M " & _
+            "    ON  " & _
+            "      C.ID  =  M.CARDKEY " & _
+            "         AND  " & _
+            "      M.BALANCE  >  0 " & _
+            "    JOIN  " & _
+            "      GD_CONTACT COMPANY " & _
+            "    ON  " & _
+            "      COMPANY.ID = C.COMPANYKEY  " & _
+            "    JOIN  " & _
+            "      GD_CONTACT CON " & _
+            "    ON  " & _
+            "      M.CONTACTKEY  =  CON.ID " & _
+            "         AND  " & _
+            "      CON.LB  >=  COMPANY.LB " & _
+            "         AND  " & _
+            "      CON.RB  <=  COMPANY.RB " & _
+            " " & _
+            "WHERE  " & _
+            "   C.COMPANYKEY   =  :companykey " & _
+            "     AND  " & _
+            "  M.BALANCE  >  0 " & _
+            " and CON.id = <RUID xID=""151470177"" DBID=""638291160""/> " & _
+            " and COALESCE(TRIM(G.BARCODE),'')='' " & _
+            "GROUP BY " & _
+            "  G.ID,  " & _
+            "  G.NAME,  " & _
+            "  G.ALIAS,  " & _
+            "  CON.ID,  " & _
+            "  C.USR$SDR_ECRCODE,  " & _
+            "  C.USR$INV_COSTRETAILNCU,  " & _
+            "  G.USR$SDR_ECRCODE,  " & _
+            "  G.BARCODE " & _
+            "HAVING  " & _
+            "  SUM ( M.BALANCE )  >  0 " & _
+            " "
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "148919176_537677461 gs_DnmnToDivide"
+          - 
+            ADDFUNCTIONKEY: "147040356_260108671 ecr_DeptList"
+          - 
+            ADDFUNCTIONKEY: "147012321_13359259 ecr_ZServer_SetParams"
+          - 
+            ADDFUNCTIONKEY: "147020216_281066798 ecr_TEServer_Waiting"
+          - 
+            ADDFUNCTIONKEY: "147006692_122479781 ecr_ZServer_CreateTable"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 225961038_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "24. Передать товары в кассу по КОДУ (Секция 5)"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "225961040_2026928654 Macros147045062_281066798158231492_70366225961040_2026928654"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147014662_23783130 Локальные макросы"
+      OBJECTNAME: "gdc_frmInvViewRemains147025940_63934951"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2023-01-13T00:42:37+03:00
