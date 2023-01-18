@@ -1,0 +1,176 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 148145341_2021781451
+  Name: "Создать оплату из заказа"
+  Caption: "Создать оплату из заказа"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: D987F9D4C9598ABFBDA9CCF3EAA2CF04
+Uses: 
+  - "147071168_311980179 GS new. Общепит бэк. Документы. Заказ"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 148144597_2021781451
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "mn_CreatePaymentFrOrder"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-18T17:25:07+03:00
+      DISPLAYSCRIPT: | 
+        MN_CREATEPAYMENTFRORDER
+        MN_CREATEPAYMENTFRORDER_EX
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QIAAAAT1JERVJLRVkIAAAAT1JERVJLRVkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        Rk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Function mn_CreatePaymentFrOrder(orderkey)
+          IF Application.MessageBox("Создать оплату по данному заказу", "Внимание",  vbYesNo+vbInformation + vbSystemModal) = vbNo Then
+            exit function
+          end if
+          
+          dim ibSQL, Creator, Tr
+          set Creator = new TCreator
+          set Tr = Creator.GetObject(nil, "TIBTransaction", "Tr")
+          Tr.DefaultDatabase = gdcBaseManager.Database
+          Tr.StartTransaction
+          
+          Except mn_CreatePaymentFrOrder_Ex(Tr)
+          
+          set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+          ibSQL.Transaction = Tr
+          ibSQL.SQL.Text = _
+            "SELECT " & _
+            "  SUM(OL.USR$SUMNCUWITHDISCOUNT) AS SUMNCU, " & _
+            "  (SELECT " & _
+            "   SUM(USR$SUMNCU) " & _
+            "   FROM USR$MN_PAYMENT " & _
+            "   WHERE USR$ORDERKEY = :ORDERKEY) AS PAYSUM " & _
+            "FROM USR$MN_ORDERLINE OL " & _
+            "WHERE OL.MASTERKEY = :ORDERKEY "
+          ibSQL.ParamByName("ORDERKEY").asInteger = orderkey
+          ibSQL.ExecQuery
+          
+          if ibSQL.FieldByName("SUMNCU").asCurrency = ibSQL.FieldByName("PAYSUM").asCurrency Then
+            call Application.MessageBox("Заказ в оплате не нуждается!", "Внимание",  vbOkOnly+vbCritical + vbSystemModal)
+            mn_CreatePaymentFrOrder_Ex(Tr)
+            exit function
+          end if
+          
+          dim DeltaSum
+          DeltaSum = ibSQL.FieldByName("SUMNCU").asCurrency - ibSQL.FieldByName("PAYSUM").asCurrency
+          
+          dim ParamList, ParamWindow, ParamIndex, depart, result , tempParam, templ
+          ' Создание диалога
+          set ParamWindow = System.GetNewParamWindow(0)
+          ' Присвоим список параметров отдельной переменной
+          set ParamList = ParamWindow.ParamList
+          ' Добавление параметра через объект-диалог
+        
+          call ParamList.AddParam("Сумма оплаты", "prmFloat", "")
+          ParamList.Params(0).Required = True
+          ParamList.Params(0).Value = DeltaSum
+          
+          call ParamWindow.AddLinkParam("Тип оплаты", "prmLinkElement", "USR$MN_KINDTYPE", "id", "usr$NAME", "COALESCE(DISABLED,0)=0" , "", "Выбор типа лимита")
+          ParamList.Params(1).Required = True
+        
+         ' Отображение диалога и получение результата
+          result = ParamWindow.ExecuteWithParamList(ParamList)
+        
+          if IsEmpty(result) then
+            call Application.MessageBox("Операция отменена!", "Внимание",  vbOkOnly+vbExclamation + vbSystemModal)
+            mn_CreatePaymentFrOrder_Ex(Tr)
+            exit Function
+          end if
+          
+          IF result(0) > DeltaSum Then
+            call Application.MessageBox("Нельзя, чтобы сумма оплаты превышала сумму заказа!" & vbCr & _
+            "Операция прервана!", "Внимание",  vbOkOnly+vbCritical + vbSystemModal)
+            mn_CreatePaymentFrOrder_Ex(Tr)
+            exit Function
+          else
+           ibSQL.Close
+           ibSQL.SQL.Text = _
+           "INSERT INTO USR$MN_PAYMENT (USR$ORDERKEY, USR$DATETIME, USR$PAYKINDKEY, USR$SUMNCU) " & _
+           "VALUES(:ORDERKEY, CURRENt_DATE, :PAYTYPE, :PAYSUM) "
+           ibSQL.ParamByName("ORDERKEY").asInteger = orderkey
+           ibSQL.ParamByName("PAYTYPE").asInteger  = result(1)(0)
+           ibSQL.ParamByName("PAYSUM").asCurrency = result(0)
+           ibSQL.ExecQuery
+          end if
+        
+          if Tr.InTransaction Then Tr.Commit
+          call Application.MessageBox("Операция успешно завершена!", "Внимание",  vbOkOnly+vbInformation + vbSystemModal)
+          
+        End Function
+        
+        sub mn_CreatePaymentFrOrder_Ex(Tr)
+          if Tr.InTransaction then Tr.RollBack
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 148144596_2021781451
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros148144596_2021781451"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147094145_157767347 gdc_frmUserComplexDocument147014509_9263644"
+      OBJECTNAME: "gdc_frmUserComplexDocument147014509_9263644"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-01-18T18:04:48+03:00
+      DISPLAYSCRIPT: | 
+        MACROS148144596_2021781451
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        '#include MN_CREATEPAYMENTFRORDER
+        Option Explicit
+        Sub Macros148144596_2021781451(OwnerForm)
+           mn_CreatePaymentFrOrder(OwnerForm.gdcObject.ID)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "148144597_2021781451 mn_CreatePaymentFrOrder"
