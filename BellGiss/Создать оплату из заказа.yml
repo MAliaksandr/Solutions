@@ -5,10 +5,10 @@ Properties:
   RUID: 148145341_2021781451
   Name: "Создать оплату из заказа"
   Caption: "Создать оплату из заказа"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: D987F9D4C9598ABFBDA9CCF3EAA2CF04
+  MD5: 4684BA308E2E1BE73458B425A2CDA7DB
 Uses: 
   - "147071168_311980179 GS new. Общепит бэк. Документы. Заказ"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-01-18T17:25:07+03:00
+      EDITIONDATE: 2023-01-18T18:19:33+03:00
       DISPLAYSCRIPT: | 
         MN_CREATEPAYMENTFRORDER
         MN_CREATEPAYMENTFRORDER_EX
@@ -47,6 +47,11 @@ Objects:
       SCRIPT: | 
         Option Explicit
         Function mn_CreatePaymentFrOrder(orderkey)
+          if IBLogin.UserKey <> 150001 then
+            call Application.MessageBox("Нет прав на выполнение данной операции. " & vbCr & _
+            "Обратитесь к администратору!", "Внимание",  vbOkOnly+vbCritical + vbSystemModal)
+            exit function
+          end if
           IF Application.MessageBox("Создать оплату по данному заказу", "Внимание",  vbYesNo+vbInformation + vbSystemModal) = vbNo Then
             exit function
           end if
