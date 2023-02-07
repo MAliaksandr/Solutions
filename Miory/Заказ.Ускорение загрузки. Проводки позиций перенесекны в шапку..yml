@@ -1,0 +1,713 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 169298619_2041710529
+  Name: "Заказ.Ускорение загрузки. Проводки позиций перенесены в шапку."
+  Caption: "Заказ.Ускорение загрузки. Проводки позиций перенесены в шапку."
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 844453C7C7FC2B25753D88C1D3CB8592
+Uses: 
+  - "147067874_311980179 GS new. Общепит бэк. Исследователь"
+  - "147071168_311980179 GS new. Общепит бэк. Документы. Заказ"
+  - "147100501_602252858 GS new. Общепит бэк. Исследователь.Ветки документов"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169293724_2041710529
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169293723_2041710529
+    Fields: 
+      NAME: "TrEntryScript147989716_651903840"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "ENTRY"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-06T17:28:34+03:00
+      DISPLAYSCRIPT: | 
+        TRENTRYSCRIPT147989716_651903840
+        EXCEPTTRENTRYSCRIPT147989716_651903840
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QIAAAAZ2RjRW50cnkLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAARk5TVFBSU1QLAAAAZ2RjRG9jdW1lbnQLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        'Данная скрипт-функция создана конструктором функций.
+        'Все изменения, произведённые вручную, будут потеряны
+        'при следующей генерации скрипт-функции.
+        Sub TrEntryScript147989716_651903840(gdcEntry, gdcDocument)
+          Dim IsZero, Result, BeginDate, EndDate, EntryDate, Transaction, Creator
+          
+          IsZero = True
+          Result = False
+          BeginDate = gdcDocument.FieldByName("documentdate").AsDateTime
+          EndDate = BeginDate
+          EntryDate = EndDate
+          TrRecordKey = gdcBaseManager.GetIDByRUIDString("169293723_2041710529")
+          Set Transaction = gdcDocument.Transaction
+          GS.Transaction = Transaction
+          Set Creator = New TCreator
+          Except ExceptTrEntryScript147989716_651903840(gdcEntry)
+          'Скрипт инициализации процедуры
+          
+          Set SQLCycle_1 = Creator.GetObject(nul, "TIBSQL", "")
+          SQLCycle_1.Transaction = Transaction
+          SQLCycle_1.SQL.Text = _
+            " SELECT " + _
+            " L.USR$DEPOTKEY, " + _
+            " iif(con.USR$INV_ACCOUNTKEY is null, 322009,con.USR$INV_ACCOUNTKEY) as Account, " + _
+            " SUM(L.USR$SUMTRADE) as SUMTRADE, " + _
+            " SUM(L.USR$SUMEXTRA + L.USR$SUMBUY) as SUMEXTRA, " + _
+            " SUM(L.USR$SUMSELLNDS) AS SUMSELLNDS, " + _
+            " SUM(L.USR$SUMEXTRANDS) AS SUMEXTRANDS " + _
+            "  " + _
+            " FROM USR$MN_ORDERLINE L " + _
+            " JOIN gd_contact con ON CON.ID = L.USR$DEPOTKEY " + _
+            "  " + _
+            " WHERE L.MASTERKEY = :DOCKEY " + _
+            " AND L.USR$CAUSEDELETEKEY IS NULL " + _
+            " GROUP BY 1, 2 "
+          SQLCycle_1.Prepare
+          SQLCycle_1.ParamByName("DOCKEY").AsVariant = gdcDocument.FieldByName("ID").AsInteger
+          SQLCycle_1.ExecQuery
+          Do While Not SQLCycle_1.Eof 
+            RecordKey = gdcEntry.GetNextId(True)
+            DebitNcu = 0
+            CreditNcu = 0
+            DebitCurr = 0
+            CreditCurr = 0
+            DebitEq = 0
+            CreditEq = 0
+            'Позиция типовой проводки Кредит 42.01.01
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("recorddate").AsDateTime = gdcDocument.FieldByName("USR$LOGICDATE").Value
+            gdcEntry.FieldByName("description").Value = "Акт выпуска ГП"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147062979_581974608")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "C"
+            gdcEntry.FieldByName("creditncu").AsCurrency = GS.MulDiv(SQLCycle_1.FieldByName("SUMTRADE").asCurrency, 1, 1, 1, 2)
+            CreditNcu = CreditNcu + gdcEntry.FieldByName("creditncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = SQLCycle_1.FieldByName("USR$DEPOTKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            'Позиция типовой проводки Кредит 42.01.02
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("recorddate").AsDateTime = gdcDocument.FieldByName("USR$LOGICDATE").Value
+            gdcEntry.FieldByName("description").Value = "Акт выпуска ГП"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147062981_581974608")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "C"
+            gdcEntry.FieldByName("creditncu").AsCurrency = GS.MulDiv(SQLCycle_1.FieldByName("SUMEXTRA").asCurrency, 1, 1, 1, 2)
+            CreditNcu = CreditNcu + gdcEntry.FieldByName("creditncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = SQLCycle_1.FieldByName("USR$DEPOTKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            'Позиция типовой проводки Кредит 42.03.01
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("recorddate").AsDateTime = gdcDocument.FieldByName("USR$LOGICDATE").Value
+            gdcEntry.FieldByName("description").Value = "Акт выпуска ГП"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147062982_581974608")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "C"
+            gdcEntry.FieldByName("creditncu").AsCurrency = GS.MulDiv(SQLCycle_1.FieldByName("SUMSELLNDS").asCurrency, 1, 1, 1, 2)
+            CreditNcu = CreditNcu + gdcEntry.FieldByName("creditncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = SQLCycle_1.FieldByName("USR$DEPOTKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            'Позиция типовой проводки Кредит 42.03.02
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("recorddate").AsDateTime = gdcDocument.FieldByName("USR$LOGICDATE").Value
+            gdcEntry.FieldByName("description").Value = "Акт выпуска ГП"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("155836446_243506600")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "C"
+            gdcEntry.FieldByName("creditncu").AsCurrency = GS.MulDiv(SQLCycle_1.FieldByName("SUMEXTRANDS").asCurrency, 1, 1, 1, 2)
+            CreditNcu = CreditNcu + gdcEntry.FieldByName("creditncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = SQLCycle_1.FieldByName("USR$DEPOTKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            'Позиция типовой проводки Дебет SQLCycle_1.FieldByName("ACCOUNT").Value
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("recorddate").AsDateTime = gdcDocument.FieldByName("USR$LOGICDATE").Value
+            gdcEntry.FieldByName("description").Value = "Акт выпуска ГП"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = SQLCycle_1.FieldByName("ACCOUNT").Value
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "D"
+            gdcEntry.FieldByName("debitncu").AsCurrency = CreditNCU
+            DebitNcu = DebitNcu + gdcEntry.FieldByName("debitncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = SQLCycle_1.FieldByName("USR$DEPOTKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            If (DebitNcu <> CreditNcu) Then
+              Call Exception.Raise("Exception", "Сумма по дебету не равна сумме по кредиту!" & Chr(13) & Chr(10) & _
+                "Проверьте настройку типовой операции." & Chr(13) & Chr(10))
+            End If
+            IsZero = (DebitNcu = 0) and (CreditNcu = 0) and _ 
+              (DebitCurr = 0) and (CreditCurr = 0) and _ 
+              (DebitEq = 0) and (CreditEq = 0)
+            If IsZero Then 
+              call gdcBaseManager.ExecSingleQuery("DELETE FROM ac_record WHERE id = (" & _ 
+                CStr(RecordKey) & ")", Transaction )
+            End If
+            SQLCycle_1.Next
+          Loop
+          Creator.DestroyObject(SQLCycle_1)
+          'Скрипт финализации процедуры
+          Result = True
+        End Sub
+        'Функция обработки исключения
+        Sub ExceptTrEntryScript147989716_651903840 (gdcEntry)
+          If (gdcEntry.State = 2) Or (gdcEntry.State = 3) Then gdcEntry.Cancel
+        End Sub
+        
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcAcctTransactionEntry"
+      RUID: 169293723_2041710529
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACCOUNTNAME: "План счетов"
+      DBEGIN: ~
+      DEND: ~
+      DESCRIPTION: "Акт выпуска готовой продукции (ш)"
+      DOCUMENTNAME: "01. Заказ"
+      DOCUMENTPART: "шапка"
+      DOCUMENTTYPEKEY: "147014509_9263644 Документ пользователя\\Общепит()\\01. Заказ"
+      FUNCTIONKEY: "169293724_2041710529 TrEntryScript147989716_651903840"
+      FUNCTIONNAME: "TrEntryScript147989716_651903840"
+      ISSAVENULL: 0
+      TRANSACTIONKEY: "147062976_581974608 Движение материальных ценностей\\Общепит\\08. Заказы"
+      TRANSACTIONNAME: "08. Заказы"
+      USR$BANK_ACCOUNT: ~
+      USR$FA_GROUPKEY: ~
+      USR$FA_INVCARDKEY: ~
+      USR$FA_TYPEKEY: ~
+      USR$GROUP_TMC: ~
+      USR$GSM_CAR: ~
+      USR$GSM_DRIVER: ~
+      USR$GS_CONTRACT: ~
+      USR$GS_CUSTOMER: ~
+      USR$GS_DEPARTMENT: ~
+      USR$GS_DOCUMENT: ~
+      USR$GS_ECONOMICACTIVITY: ~
+      USR$GS_EMPLOYEE: ~
+      USR$GS_EXPENSES: ~
+      USR$GS_GOOD: ~
+      USR$GS_SALETAXRATE: ~
+      USR$GS_SERVICE: ~
+      USR$INV_CUSTPERMITKEY: ~
+      USR$VATTYPE_KEY: ~
+      USR$WG_FEETYPEKEY: ~
+      EDITIONDATE: 2023-02-06T17:28:34+03:00
+      DISABLED: 0
+      FUNCTIONTEMPLATE: !!binary > 
+        RldpegEAAAAMAAAAVFNjcmlwdEJsb2NrEgAAAAAAAAAAAAAAAAAAAAAAAAAAVwEAALACAAABAAAA
+        AAAAAAABAAAAFQAAAFRUckVudHJ5RnVuY3Rpb25CbG9jaxIAAAAgAAAAVHJFbnRyeVNjcmlwdDE0
+        Nzk4OTcxNl82NTE5MDM4NDAAAAAAAQoAAAAFAAAAOAEAAAEBAAABAAAAAAAAAAAAU0xQUlBSU1QI
+        AAAAZ2RjRW50cnkLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVAAA
+        AABQUlNUCwAAAGdkY0RvY3VtZW50CwAAAM3lIPPk4Ov/8vwhAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAEZOU1QAAAAARkxQUgIAAAANCg8AAABSZXN1bHQgPSBUcnVlDQoTAAAAMTQ3MDYyOTc2XzU4
+        MTk3NDYwOBQAAAAxNjkyOTM3MjNfMjA0MTcxMDUyOQARAAAAMTQ3MDE0NTA5XzkyNjM2NDQAAQAA
+        AA4AAABUU1FMQ3ljbGVCbG9jaxIAAAAKAAAAU1FMQ3ljbGVfMQAAAAABCgAAABwAAAApAQAAyQAA
+        AAAAAAAAAAAAAKQBAABTRUxFQ1QNCkwuVVNSJERFUE9US0VZLA0KaWlmKGNvbi5VU1IkSU5WX0FD
+        Q09VTlRLRVkgaXMgbnVsbCwgMzIyMDA5LGNvbi5VU1IkSU5WX0FDQ09VTlRLRVkpIGFzIEFjY291
+        bnQsDQpTVU0oTC5VU1IkU1VNVFJBREUpIGFzIFNVTVRSQURFLA0KU1VNKEwuVVNSJFNVTUVYVFJB
+        ICsgTC5VU1IkU1VNQlVZKSBhcyBTVU1FWFRSQSwNClNVTShMLlVTUiRTVU1TRUxMTkRTKSBBUyBT
+        VU1TRUxMTkRTLA0KU1VNKEwuVVNSJFNVTUVYVFJBTkRTKSBBUyBTVU1FWFRSQU5EUw0KDQpGUk9N
+        IFVTUiRNTl9PUkRFUkxJTkUgTA0KSk9JTiBnZF9jb250YWN0IGNvbiBPTiBDT04uSUQgPSBMLlVT
+        UiRERVBPVEtFWQ0KDQpXSEVSRSBMLk1BU1RFUktFWSA9IDpET0NLRVkNCkFORCBMLlVTUiRDQVVT
+        RURFTEVURUtFWSBJUyBOVUxMDQpHUk9VUCBCWSAxLCAyDQoNAAAARE9DS0VZPVtILklEXQAAAAAB
+        AAAADQAAAFRUckVudHJ5QmxvY2sSAAAACQAAAFRyRW50cnlfMQAAAAABCgAAABwAAAAaAQAAqAAA
+        AAAAAAAAAAAAAAAAAAARAAAAW0guVVNSJExPR0lDREFURV0QAAAAIsDq8iDi++/z8ergIMPPIgAA
+        AAAFAAAAFQAAAFRUckVudHJ5UG9zaXRpb25CbG9jaxIAAAAMAAAAVHJQb3NFbnRyeV8xAAAAAAAK
+        AAAAHAAAAGQAAAAXAAAAAAAAAAAPAAAAyvDl5OjyIDQyLjAxLjAxAAAAAAEAAABDQAAAAFVTUiRH
+        U19ERVBBUlRNRU5UPVNRTEN5Y2xlXzEuRmllbGRCeU5hbWUoIlVTUiRERVBPVEtFWSIpLlZhbHVl
+        DQoAAAAAAAAAABMAAAAxNDcwNjI5NzlfNTgxOTc0NjA4RgAAAFtHUy5NdWxEaXYoU1FMQ3ljbGVf
+        MS5GaWVsZEJ5TmFtZSgiU1VNVFJBREUiKS5hc0N1cnJlbmN5LCAxLCAxLCAxLCAyKV0AAAAAAAAA
+        AAAAAAAVAAAAVFRyRW50cnlQb3NpdGlvbkJsb2NrEgAAAAwAAABUclBvc0VudHJ5XzIAAAAAAAoA
+        AAA4AAAAZAAAABcAAAAAAAAAAA8AAADK8OXk6PIgNDIuMDEuMDIAAAAAAQAAAENAAAAAVVNSJEdT
+        X0RFUEFSVE1FTlQ9U1FMQ3ljbGVfMS5GaWVsZEJ5TmFtZSgiVVNSJERFUE9US0VZIikuVmFsdWUN
+        CgAAAAAAAAAAEwAAADE0NzA2Mjk4MV81ODE5NzQ2MDhGAAAAW0dTLk11bERpdihTUUxDeWNsZV8x
+        LkZpZWxkQnlOYW1lKCJTVU1FWFRSQSIpLmFzQ3VycmVuY3ksIDEsIDEsIDEsIDIpXQAAAAAAAAAA
+        AAAAABUAAABUVHJFbnRyeVBvc2l0aW9uQmxvY2sSAAAADAAAAFRyUG9zRW50cnlfMwAAAAAACgAA
+        AFQAAABkAAAAFwAAAAAAAAAADwAAAMrw5eTo8iA0Mi4wMy4wMQAAAAABAAAAQ0AAAABVU1IkR1Nf
+        REVQQVJUTUVOVD1TUUxDeWNsZV8xLkZpZWxkQnlOYW1lKCJVU1IkREVQT1RLRVkiKS5WYWx1ZQ0K
+        AAAAAAAAAAATAAAAMTQ3MDYyOTgyXzU4MTk3NDYwOEgAAABbR1MuTXVsRGl2KFNRTEN5Y2xlXzEu
+        RmllbGRCeU5hbWUoIlNVTVNFTExORFMiKS5hc0N1cnJlbmN5LCAxLCAxLCAxLCAyKV0AAAAAAAAA
+        AAAAAAAVAAAAVFRyRW50cnlQb3NpdGlvbkJsb2NrEgAAAAwAAABUclBvc0VudHJ5XzQAAAAAAAoA
+        AABwAAAAZAAAABcAAAAAAAAAAA8AAADK8OXk6PIgNDIuMDMuMDIAAAAAAQAAAENAAAAAVVNSJEdT
+        X0RFUEFSVE1FTlQ9U1FMQ3ljbGVfMS5GaWVsZEJ5TmFtZSgiVVNSJERFUE9US0VZIikuVmFsdWUN
+        CgAAAAAAAAAAEwAAADE1NTgzNjQ0Nl8yNDM1MDY2MDBJAAAAW0dTLk11bERpdihTUUxDeWNsZV8x
+        LkZpZWxkQnlOYW1lKCJTVU1FWFRSQU5EUyIpLmFzQ3VycmVuY3ksIDEsIDEsIDEsIDIpXQAAAAAA
+        AAAAAAAAABUAAABUVHJFbnRyeVBvc2l0aW9uQmxvY2sSAAAADAAAAFRyUG9zRW50cnlfNQAAAAAA
+        CgAAAIwAAAALAQAAFwAAAAAAAAAALQAAAMTl4eXyIFNRTEN5Y2xlXzEuRmllbGRCeU5hbWUoIkFD
+        Q09VTlQiKS5WYWx1ZQAAAAABAAAAREAAAABVU1IkR1NfREVQQVJUTUVOVD1TUUxDeWNsZV8xLkZp
+        ZWxkQnlOYW1lKCJVU1IkREVQT1RLRVkiKS5WYWx1ZQ0KAAAAAAAAAAAnAAAAU1FMQ3ljbGVfMS5G
+        aWVsZEJ5TmFtZSgiQUNDT1VOVCIpLlZhbHVlCQAAAENyZWRpdE5DVQAAAAAAAAAAAAAAAA==
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169293736_2041710529
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169293735_2041710529
+    Fields: 
+      NAME: "TrEntryScript147062978_581974600"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "ENTRY"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-06T17:28:46+03:00
+      DISPLAYSCRIPT: | 
+        TRENTRYSCRIPT147062978_581974600
+        EXCEPTTRENTRYSCRIPT147062978_581974600
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QIAAAAZ2RjRW50cnkLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAARk5TVFBSU1QLAAAAZ2RjRG9jdW1lbnQLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        'Данная скрипт-функция создана конструктором функций.
+        'Все изменения, произведённые вручную, будут потеряны
+        'при следующей генерации скрипт-функции.
+        Sub TrEntryScript147062978_581974600(gdcEntry, gdcDocument)
+          Dim IsZero, Result, BeginDate, EndDate, EntryDate, Transaction, Creator
+          
+          IsZero = True
+          Result = False
+          BeginDate = gdcDocument.FieldByName("documentdate").AsDateTime
+          EndDate = BeginDate
+          EntryDate = EndDate
+          TrRecordKey = gdcBaseManager.GetIDByRUIDString("169293735_2041710529")
+          Set Transaction = gdcDocument.Transaction
+          GS.Transaction = Transaction
+          Set Creator = New TCreator
+          Except ExceptTrEntryScript147062978_581974600(gdcEntry)
+          Set SQLCycle_1 = Creator.GetObject(nul, "TIBSQL", "")
+          SQLCycle_1.Transaction = Transaction
+          SQLCycle_1.SQL.Text = _
+            " SELECT " + _
+            " l.USR$LOGICDATE, " + _
+            " L.USR$DEPOTKEY, " + _
+            " iif(con.USR$INV_ACCOUNTKEY is null, 322009, con.USR$INV_ACCOUNTKEY) AS ACCOUNT, " + _
+            " SUM(USR$SUMNCUWITHDISCOUNT) as  SUMNCUWITHDISCOUNT " + _
+            "  " + _
+            " FROM USR$MN_ORDERLINE L " + _
+            " JOIN gd_contact con ON CON.ID = L.USR$DEPOTKEY " + _
+            "  " + _
+            " WHERE L.MASTERKEY = :DOCKEY " + _
+            " AND L.USR$CAUSEDELETEKEY IS NULL " + _
+            " GROUP BY 1, 2, 3 "
+          SQLCycle_1.Prepare
+          SQLCycle_1.ParamByName("DOCKEY").AsVariant = gdcDocument.FieldByName("ID").AsInteger
+          SQLCycle_1.ExecQuery
+          Do While Not SQLCycle_1.Eof 
+            RecordKey = gdcEntry.GetNextId(True)
+            DebitNcu = 0
+            CreditNcu = 0
+            DebitCurr = 0
+            CreditCurr = 0
+            DebitEq = 0
+            CreditEq = 0
+            'Позиция типовой проводки Дебет 90.04
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("recorddate").AsDateTime = SQLCycle_1.FieldByName("USR$LOGICDATE").Value
+            gdcEntry.FieldByName("description").Value = "Реализация"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147301267_441235478")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "D"
+            gdcEntry.FieldByName("debitncu").AsCurrency = SQLCycle_1.FieldByName("SUMNCUWITHDISCOUNT").asCurrency
+            DebitNcu = DebitNcu + gdcEntry.FieldByName("debitncu").AsCurrency
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            'Позиция типовой проводки Кредит SQLCycle_1.FieldByName("ACCOUNT").Value
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("recorddate").AsDateTime = SQLCycle_1.FieldByName("USR$LOGICDATE").Value
+            gdcEntry.FieldByName("description").Value = "Реализация"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = SQLCycle_1.FieldByName("ACCOUNT").Value
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "C"
+            gdcEntry.FieldByName("creditncu").AsCurrency = DebitNCU
+            CreditNcu = CreditNcu + gdcEntry.FieldByName("creditncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = SQLCycle_1.FieldByName("USR$DEPOTKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            If (DebitNcu <> CreditNcu) Then
+              Call Exception.Raise("Exception", "Сумма по дебету не равна сумме по кредиту!" & Chr(13) & Chr(10) & _
+                "Проверьте настройку типовой операции." & Chr(13) & Chr(10))
+            End If
+            IsZero = (DebitNcu = 0) and (CreditNcu = 0) and _ 
+              (DebitCurr = 0) and (CreditCurr = 0) and _ 
+              (DebitEq = 0) and (CreditEq = 0)
+            If IsZero Then 
+              call gdcBaseManager.ExecSingleQuery("DELETE FROM ac_record WHERE id = (" & _ 
+                CStr(RecordKey) & ")", Transaction )
+            End If
+            SQLCycle_1.Next
+          Loop
+          Creator.DestroyObject(SQLCycle_1)
+          'Скрипт финализации процедуры
+          Result = True
+        End Sub
+        'Функция обработки исключения
+        Sub ExceptTrEntryScript147062978_581974600 (gdcEntry)
+          If (gdcEntry.State = 2) Or (gdcEntry.State = 3) Then gdcEntry.Cancel
+        End Sub
+        
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcAcctTransactionEntry"
+      RUID: 169293735_2041710529
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACCOUNTNAME: "План счетов"
+      DBEGIN: ~
+      DEND: ~
+      DESCRIPTION: "Реализация(ш)"
+      DOCUMENTNAME: "01. Заказ"
+      DOCUMENTPART: "шапка"
+      DOCUMENTTYPEKEY: "147014509_9263644 Документ пользователя\\Общепит()\\01. Заказ"
+      FUNCTIONKEY: "169293736_2041710529 TrEntryScript147062978_581974600"
+      FUNCTIONNAME: "TrEntryScript147062978_581974600"
+      ISSAVENULL: 0
+      TRANSACTIONKEY: "147062976_581974608 Движение материальных ценностей\\Общепит\\08. Заказы"
+      TRANSACTIONNAME: "08. Заказы"
+      USR$BANK_ACCOUNT: ~
+      USR$FA_GROUPKEY: ~
+      USR$FA_INVCARDKEY: ~
+      USR$FA_TYPEKEY: ~
+      USR$GROUP_TMC: ~
+      USR$GSM_CAR: ~
+      USR$GSM_DRIVER: ~
+      USR$GS_CONTRACT: ~
+      USR$GS_CUSTOMER: ~
+      USR$GS_DEPARTMENT: ~
+      USR$GS_DOCUMENT: ~
+      USR$GS_ECONOMICACTIVITY: ~
+      USR$GS_EMPLOYEE: ~
+      USR$GS_EXPENSES: ~
+      USR$GS_GOOD: ~
+      USR$GS_SALETAXRATE: ~
+      USR$GS_SERVICE: ~
+      USR$INV_CUSTPERMITKEY: ~
+      USR$VATTYPE_KEY: ~
+      USR$WG_FEETYPEKEY: ~
+      EDITIONDATE: 2023-02-06T17:28:46+03:00
+      DISABLED: 0
+      FUNCTIONTEMPLATE: !!binary > 
+        RldpegEAAAAMAAAAVFNjcmlwdEJsb2NrEgAAAAAAAAAAAAAAAAAAAAAAAAAAVwEAALACAAABAAAA
+        AAAAAAABAAAAFQAAAFRUckVudHJ5RnVuY3Rpb25CbG9jaxIAAAAgAAAAVHJFbnRyeVNjcmlwdDE0
+        NzA2Mjk3OF81ODE5NzQ2MDAAAAAAAQoAAAAFAAAAPgEAAK0AAAABAAAAAAAAAAAAU0xQUlBSU1QI
+        AAAAZ2RjRW50cnkLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVAAA
+        AABQUlNUCwAAAGdkY0RvY3VtZW50CwAAAM3lIPPk4Ov/8vwhAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAEZOU1QAAAAARkxQUgAAAAAPAAAAUmVzdWx0ID0gVHJ1ZQ0KEwAAADE0NzA2Mjk3Nl81ODE5
+        NzQ2MDgUAAAAMTY5MjkzNzM1XzIwNDE3MTA1MjkAEQAAADE0NzAxNDUwOV85MjYzNjQ0AAEAAAAO
+        AAAAVFNRTEN5Y2xlQmxvY2sSAAAACgAAAFNRTEN5Y2xlXzEAAAAAAQoAAAAcAAAALwEAAHUAAAAA
+        AAAAAAAAAABOAQAAU0VMRUNUDQpsLlVTUiRMT0dJQ0RBVEUsDQpMLlVTUiRERVBPVEtFWSwNCmlp
+        Zihjb24uVVNSJElOVl9BQ0NPVU5US0VZIGlzIG51bGwsIDMyMjAwOSwgY29uLlVTUiRJTlZfQUND
+        T1VOVEtFWSkgQVMgQUNDT1VOVCwNClNVTShVU1IkU1VNTkNVV0lUSERJU0NPVU5UKSBhcyAgU1VN
+        TkNVV0lUSERJU0NPVU5UDQoNCkZST00gVVNSJE1OX09SREVSTElORSBMDQpKT0lOIGdkX2NvbnRh
+        Y3QgY29uIE9OIENPTi5JRCA9IEwuVVNSJERFUE9US0VZDQoNCldIRVJFIEwuTUFTVEVSS0VZID0g
+        OkRPQ0tFWQ0KQU5EIEwuVVNSJENBVVNFREVMRVRFS0VZIElTIE5VTEwNCkdST1VQIEJZIDEsIDIs
+        IDMNCg0AAABET0NLRVk9W0guSURdAAAAAAEAAAANAAAAVFRyRW50cnlCbG9jaxIAAAAJAAAAVHJF
+        bnRyeV8xAAAAAAEKAAAAHAAAACABAABUAAAAAAAAAAAAAAAAAAAAAC0AAABTUUxDeWNsZV8xLkZp
+        ZWxkQnlOYW1lKCJVU1IkTE9HSUNEQVRFIikuVmFsdWUMAAAAItDl4Ovo5+D26P8iAAAAAAIAAAAV
+        AAAAVFRyRW50cnlQb3NpdGlvbkJsb2NrEgAAAAwAAABUclBvc0VudHJ5XzEAAAAAAAoAAAAcAAAA
+        TgAAABcAAAAAAAAAAAsAAADE5eHl8iA5MC4wNAAAAAABAAAARAAAAAAAAAAAAAAAABMAAAAxNDcz
+        MDEyNjdfNDQxMjM1NDc4NwAAAFNRTEN5Y2xlXzEuRmllbGRCeU5hbWUoIlNVTU5DVVdJVEhESVND
+        T1VOVCIpLmFzQ3VycmVuY3kAAAAAAAAAAAAAAAAVAAAAVFRyRW50cnlQb3NpdGlvbkJsb2NrEgAA
+        AAwAAABUclBvc0VudHJ5XzIAAAAAAAoAAAA4AAAAEQEAABcAAAAAAAAAAC4AAADK8OXk6PIgU1FM
+        Q3ljbGVfMS5GaWVsZEJ5TmFtZSgiQUNDT1VOVCIpLlZhbHVlAAAAAAEAAABDQAAAAFVTUiRHU19E
+        RVBBUlRNRU5UPVNRTEN5Y2xlXzEuRmllbGRCeU5hbWUoIlVTUiRERVBPVEtFWSIpLlZhbHVlDQoA
+        AAAAAAAAACcAAABTUUxDeWNsZV8xLkZpZWxkQnlOYW1lKCJBQ0NPVU5UIikuVmFsdWUIAAAARGVi
+        aXROQ1UAAAAAAAAAAAAAAAA=
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 169293740_2041710529
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 169293739_2041710529
+    Fields: 
+      NAME: "TrEntryScript149451482_740398410"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "ENTRY"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-06T17:38:08+03:00
+      DISPLAYSCRIPT: | 
+        TRENTRYSCRIPT149451482_740398410
+        EXCEPTTRENTRYSCRIPT149451482_740398410
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QIAAAAZ2RjRW50cnkLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAAAAAAAAAW
+        AAAAwejn7eXxIO7h+uXq8iDv8O7i7uTq6EZOU1RQUlNUCwAAAGdkY0RvY3VtZW50CwAAAM3lIPPk
+        4Ov/8vwhAAAAAAAAAAAAAAAAAAAAAAAAAAAAFwAAAMHo5+3l8SDu4frl6vIg5O7q8+zl7fLgRk5T
+        VEZMUFI=
+      SCRIPT: | 
+        'Данная скрипт-функция создана конструктором функций.
+        'Все изменения, произведённые вручную, будут потеряны
+        'при следующей генерации скрипт-функции.
+        Sub TrEntryScript149451482_740398410(gdcEntry, gdcDocument)
+          Dim IsZero, Result, BeginDate, EndDate, EntryDate, Transaction, Creator
+          
+          IsZero = True
+          Result = False
+          BeginDate = gdcDocument.FieldByName("documentdate").AsDateTime
+          EndDate = BeginDate
+          EntryDate = EndDate
+          TrRecordKey = gdcBaseManager.GetIDByRUIDString("169293739_2041710529")
+          Set Transaction = gdcDocument.Transaction
+          GS.Transaction = Transaction
+          Set Creator = New TCreator
+          Except ExceptTrEntryScript149451482_740398410(gdcEntry)
+            dim AvgNdsRate, AvgExtraRate
+            set gdcConst = Creator.GetObject(null, "TgdcConst", "")
+            AvgNdsRate = gdcConst.QGetValueByIDAndDate(gdcBaseManager.GetIdByRUIDString("147353604_257569877"), Cdate(gdcDocument.FieldByNAme("documentdate").AsVariant))
+          Set SQLCycle_1 = Creator.GetObject(nul, "TIBSQL", "")
+          SQLCycle_1.Transaction = Transaction
+          SQLCycle_1.SQL.Text = _
+            " SELECT " + _
+            " l.USR$LOGICDATE, " + _
+            " L.USR$DEPOTKEY, " + _
+            " iif(con.USR$INV_ACCOUNTKEY is null, 322009, con.USR$INV_ACCOUNTKEY) AS ACCOUNT, " + _
+            " SUM(l.USR$SUMDISCOUNT) as SUMDISCOUNT " + _
+            "  " + _
+            " FROM USR$MN_ORDERLINE L " + _
+            " JOIN gd_contact con ON CON.ID = L.USR$DEPOTKEY " + _
+            "  " + _
+            " WHERE L.MASTERKEY = :DOCKEY " + _
+            " AND L.USR$CAUSEDELETEKEY IS NULL " + _
+            " GROUP BY 1, 2, 3 "
+          SQLCycle_1.Prepare
+          SQLCycle_1.ParamByName("DOCKEY").AsVariant = gdcDocument.FieldByName("ID").AsInteger
+          SQLCycle_1.ExecQuery
+          Do While Not SQLCycle_1.Eof 
+            NdsSum = gs.MulDiv(SQLCycle_1.FieldByName("SUMDISCOUNT").asCurrency * AvgNdsRate/100, 1, 1, 1, 2)
+            RecordKey = gdcEntry.GetNextId(True)
+            DebitNcu = 0
+            CreditNcu = 0
+            DebitCurr = 0
+            CreditCurr = 0
+            DebitEq = 0
+            CreditEq = 0
+            '"Сумма НДС"
+            'Позиция типовой проводки Дебет 42.03.02
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("description").Value = "Списание скидки"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("155836446_243506600")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "D"
+            gdcEntry.FieldByName("debitncu").AsCurrency = gs.MulDiv(SQLCycle_1.FieldByName("SUMDISCOUNT").asCurrency, AvgNdsRate, 100, 1, 2)
+            DebitNcu = DebitNcu + gdcEntry.FieldByName("debitncu").AsCurrency
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            '"Наценка"
+            'Позиция типовой проводки Дебет 42.01.02
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("description").Value = "Списание скидки"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147062981_581974608")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "D"
+            gdcEntry.FieldByName("debitncu").AsCurrency = GS.MulDiv(SQLCycle_1.FieldByName("SUMDISCOUNT").asCurrency - NdsSum, 1, 1, 1, 2)
+            DebitNcu = DebitNcu + gdcEntry.FieldByName("debitncu").AsCurrency
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            'Позиция типовой проводки Кредит SQLCycle_1.FieldByName("ACCOUNT").Value
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            gdcEntry.FieldByName("description").Value = "Списание скидки"
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = SQLCycle_1.FieldByName("ACCOUNT").Value
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "C"
+            gdcEntry.FieldByName("creditncu").AsCurrency = DebitNcu
+            CreditNcu = CreditNcu + gdcEntry.FieldByName("creditncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$GS_DOCUMENT").AsVariant = gdcDocument.FieldByName("DOCUMENTKEY").AsInteger
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = SQLCycle_1.FieldByName("USR$DEPOTKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            If (DebitNcu <> CreditNcu) Then
+              Call Exception.Raise("Exception", "Сумма по дебету не равна сумме по кредиту!" & Chr(13) & Chr(10) & _
+                "Проверьте настройку типовой операции." & Chr(13) & Chr(10))
+            End If
+            IsZero = (DebitNcu = 0) and (CreditNcu = 0) and _ 
+              (DebitCurr = 0) and (CreditCurr = 0) and _ 
+              (DebitEq = 0) and (CreditEq = 0)
+            If IsZero Then 
+              call gdcBaseManager.ExecSingleQuery("DELETE FROM ac_record WHERE id = (" & _ 
+                CStr(RecordKey) & ")", Transaction )
+            End If
+            SQLCycle_1.Next
+          Loop
+          Creator.DestroyObject(SQLCycle_1)
+          'Скрипт финализации процедуры
+          Result = True
+        End Sub
+        'Функция обработки исключения
+        Sub ExceptTrEntryScript149451482_740398410 (gdcEntry)
+          If (gdcEntry.State = 2) Or (gdcEntry.State = 3) Then gdcEntry.Cancel
+        End Sub
+        
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcAcctTransactionEntry"
+      RUID: 169293739_2041710529
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACCOUNTNAME: "План счетов"
+      DBEGIN: ~
+      DEND: ~
+      DESCRIPTION: "Списание скидки(ш)"
+      DOCUMENTNAME: "01. Заказ"
+      DOCUMENTPART: "шапка"
+      DOCUMENTTYPEKEY: "147014509_9263644 Документ пользователя\\Общепит()\\01. Заказ"
+      FUNCTIONKEY: "169293740_2041710529 TrEntryScript149451482_740398410"
+      FUNCTIONNAME: "TrEntryScript149451482_740398410"
+      ISSAVENULL: 0
+      TRANSACTIONKEY: "147062976_581974608 Движение материальных ценностей\\Общепит\\08. Заказы"
+      TRANSACTIONNAME: "08. Заказы"
+      USR$BANK_ACCOUNT: ~
+      USR$FA_GROUPKEY: ~
+      USR$FA_INVCARDKEY: ~
+      USR$FA_TYPEKEY: ~
+      USR$GROUP_TMC: ~
+      USR$GSM_CAR: ~
+      USR$GSM_DRIVER: ~
+      USR$GS_CONTRACT: ~
+      USR$GS_CUSTOMER: ~
+      USR$GS_DEPARTMENT: ~
+      USR$GS_DOCUMENT: ~
+      USR$GS_ECONOMICACTIVITY: ~
+      USR$GS_EMPLOYEE: ~
+      USR$GS_EXPENSES: ~
+      USR$GS_GOOD: ~
+      USR$GS_SALETAXRATE: ~
+      USR$GS_SERVICE: ~
+      USR$INV_CUSTPERMITKEY: ~
+      USR$VATTYPE_KEY: ~
+      USR$WG_FEETYPEKEY: ~
+      EDITIONDATE: 2023-02-06T17:38:08+03:00
+      DISABLED: 0
+      FUNCTIONTEMPLATE: !!binary > 
+        RldpegEAAAAMAAAAVFNjcmlwdEJsb2NrEgAAAAAAAAAAAAAAAAAAAAAAAAAAVwEAALACAAABAAAA
+        AAAAAAABAAAAFQAAAFRUckVudHJ5RnVuY3Rpb25CbG9jaxIAAAAgAAAAVHJFbnRyeVNjcmlwdDE0
+        OTQ1MTQ4Ml83NDAzOTg0MTAAAAAAAQoAAAAFAAAAPgEAAAEBAAABAAAAAAAAAAAAU0xQUlBSU1QI
+        AAAAZ2RjRW50cnkLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAAAwejn7eXx
+        IO7h+uXq8iDv8O7i7uTq6EZOU1QAAAAAUFJTVAsAAABnZGNEb2N1bWVudAsAAADN5SDz5ODr//L8
+        IQAAAAAAAAAAAAAAAAAAAAAAAAAAABcAAADB6Oft5fEg7uH65eryIOTu6vPs5e3y4EZOU1QAAAAA
+        RkxQUgAAAAAPAAAAUmVzdWx0ID0gVHJ1ZQ0KEwAAADE0NzA2Mjk3Nl81ODE5NzQ2MDgUAAAAMTY5
+        MjkzNzM5XzIwNDE3MTA1MjkAEQAAADE0NzAxNDUwOV85MjYzNjQ0AAIAAAAKAAAAVFVzZXJCbG9j
+        axIAAAAHAAAAQXZnUmF0ZQAAAAABCgAAABwAAAD1AAAAFwAAAAAAAAAAKQAAAMru7fHy4O3y4CAt
+        IPDg8fe48u3g/yDx8uDi6uAgzcTRLCDN4Pbl7erg/AAAACAgZGltIEF2Z05kc1JhdGUsIEF2Z0V4
+        dHJhUmF0ZQ0KICBzZXQgZ2RjQ29uc3QgPSBDcmVhdG9yLkdldE9iamVjdChudWxsLCAiVGdkY0Nv
+        bnN0IiwgIiIpDQogIEF2Z05kc1JhdGUgPSBnZGNDb25zdC5RR2V0VmFsdWVCeUlEQW5kRGF0ZShn
+        ZGNCYXNlTWFuYWdlci5HZXRJZEJ5UlVJRFN0cmluZygiMTQ3MzUzNjA0XzI1NzU2OTg3NyIpLCBD
+        ZGF0ZShnZGNEb2N1bWVudC5GaWVsZEJ5TkFtZSgiZG9jdW1lbnRkYXRlIikuQXNWYXJpYW50KSkN
+        CgAAAAAOAAAAVFNRTEN5Y2xlQmxvY2sSAAAACgAAAFNRTEN5Y2xlXzEAAAAAAQoAAAA4AAAALwEA
+        AK0AAAAAAAAAAAAAAABBAQAAU0VMRUNUDQpsLlVTUiRMT0dJQ0RBVEUsDQpMLlVTUiRERVBPVEtF
+        WSwNCmlpZihjb24uVVNSJElOVl9BQ0NPVU5US0VZIGlzIG51bGwsIDMyMjAwOSwgY29uLlVTUiRJ
+        TlZfQUNDT1VOVEtFWSkgQVMgQUNDT1VOVCwNClNVTShsLlVTUiRTVU1ESVNDT1VOVCkgYXMgU1VN
+        RElTQ09VTlQNCg0KRlJPTSBVU1IkTU5fT1JERVJMSU5FIEwNCkpPSU4gZ2RfY29udGFjdCBjb24g
+        T04gQ09OLklEID0gTC5VU1IkREVQT1RLRVkNCg0KV0hFUkUgTC5NQVNURVJLRVkgPSA6RE9DS0VZ
+        DQpBTkQgTC5VU1IkQ0FVU0VERUxFVEVLRVkgSVMgTlVMTA0KR1JPVVAgQlkgMSwgMiwgMw0KDQAA
+        AERPQ0tFWT1bSC5JRF0AAAAAAgAAAAkAAABUVmFyQmxvY2sSAAAABgAAAE5kc1N1bQAAAAABCgAA
+        ABwAAAB5AAAAFwAAAAAAAAAAAAAAAFgAAABncy5NdWxEaXYoU1FMQ3ljbGVfMS5GaWVsZEJ5TmFt
+        ZSgiU1VNRElTQ09VTlQiKS5hc0N1cnJlbmN5ICogQXZnTmRzUmF0ZS8xMDAsIDEsIDEsIDEsIDIp
+        AAAAAAANAAAAVFRyRW50cnlCbG9jaxIAAAAJAAAAVHJFbnRyeV8xAAAAAAEKAAAAOAAAACABAABw
+        AAAAAAAAAAAAAAAAAAAAAAAAAAARAAAAItHv6PHg7ejlIPHq6OTq6CIAAAAAAwAAABUAAABUVHJF
+        bnRyeVBvc2l0aW9uQmxvY2sSAAAADAAAAFRyUG9zRW50cnlfMwsAAAAi0fPs7OAgzcTRIgEKAAAA
+        HAAAAF4AAAAXAAAAAAAAAAAOAAAAxOXh5fIgNDIuMDMuMDIAAAAAAQAAAEQAAAAAAAAAAAAAAAAT
+        AAAAMTU1ODM2NDQ2XzI0MzUwNjYwMFIAAABncy5NdWxEaXYoU1FMQ3ljbGVfMS5GaWVsZEJ5TmFt
+        ZSgiU1VNRElTQ09VTlQiKS5hc0N1cnJlbmN5LCBBdmdOZHNSYXRlLCAxMDAsIDEsIDIpAAAAAAAA
+        AAAAAAAAFQAAAFRUckVudHJ5UG9zaXRpb25CbG9jaxIAAAAMAAAAVHJQb3NFbnRyeV80CQAAACLN
+        4Pbl7ergIgEKAAAAOAAAAF4AAAAXAAAAAAAAAAAOAAAAxOXh5fIgNDIuMDEuMDIAAAAAAQAAAEQA
+        AAAAAAAAAAAAAAATAAAAMTQ3MDYyOTgxXzU4MTk3NDYwOFIAAABbR1MuTXVsRGl2KFNRTEN5Y2xl
+        XzEuRmllbGRCeU5hbWUoIlNVTURJU0NPVU5UIikuYXNDdXJyZW5jeSAtIE5kc1N1bSwgMSwgMSwg
+        MSwgMildAAAAAAAAAAAAAAAAFQAAAFRUckVudHJ5UG9zaXRpb25CbG9jaxIAAAAMAAAAVHJQb3NF
+        bnRyeV8yAAAAAAAKAAAAVAAAABEBAAAXAAAAAAAAAAAuAAAAyvDl5OjyIFNRTEN5Y2xlXzEuRmll
+        bGRCeU5hbWUoIkFDQ09VTlQiKS5WYWx1ZQAAAAABAAAAQ2EAAABVU1IkR1NfRE9DVU1FTlQ9W0gu
+        RE9DVU1FTlRLRVldDQpVU1IkR1NfREVQQVJUTUVOVD1TUUxDeWNsZV8xLkZpZWxkQnlOYW1lKCJV
+        U1IkREVQT1RLRVkiKS5WYWx1ZQ0KAAAAAAAAAAAnAAAAU1FMQ3ljbGVfMS5GaWVsZEJ5TmFtZSgi
+        QUNDT1VOVCIpLlZhbHVlCAAAAERlYml0TmN1AAAAAAAAAAAAAAAA
