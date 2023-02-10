@@ -1,0 +1,1189 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 225961183_2026928654
+  Name: "Товар с регулир.ценой"
+  Caption: "Товар с регулир.ценой"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 4677B4D234F33FBADDB7210800AA9FFD
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 225961181_2026928654
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$ISREGULABLE"
+      FIELDNAME: "USR$ISREGULABLE"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Регулируемый товар"
+      LSHORTNAME: "Регулируемый товар"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147000531_31587988 Справочник ТМЦ, GD_GOOD"
+      RELATIONNAME: "GD_GOOD"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-02-10T16:03:45+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147007095_20381277
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "TVB_inv_GoodInfo"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: 2003-01-31T16:02:40+03:00
+      MODULE: "VBCLASSES"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2023-02-10T17:02:04+03:00
+      DISPLAYSCRIPT: ~
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Class TVB_inv_GoodInfo
+          private FCreator
+          private ibsqlPack
+          private FgdcGood
+        
+          public function GetTaxRate(GoodKey, TaxName, DateTax)
+            FgdcGood.ID = GoodKey
+            GetTaxRate = FgdcGood.GetTaxRateOnName(TaxName, DateTax)
+          end function
+          
+          public function isRegulareGood(GoodKey)
+            set ibsql = Designer.CreateObject(FgdcGood, "TIBSQL", "")
+            ibsql.Transaction = FgdcGood.ReadTransaction
+            ibsql.SQL.Text = "SELECT COALESCE(USR$ISREGULABLE,0) as isRegul FROM gd_good g  " + _
+              " WHERE g.id = :goodkey"
+            ibsql.ParamByName("goodkey").AsInteger = GoodKey
+            ibsql.ExecQuery
+            if ibsql.FieldByName("isRegul").AsInteger = 1 Then
+              isRegulareGood = True
+            else
+              isRegulareGood = false
+            end if
+            Designer.DestroyObject(ibsql)
+          end function
+        
+          public function IsGoodToGroup(GoodKey, GroupKey)
+            set ibsql = Designer.CreateObject(FgdcGood, "TIBSQL", "")
+            ibsql.Transaction = FgdcGood.ReadTransaction
+            ibsql.SQL.Text = "SELECT * FROM gd_good g LEFT JOIN gd_goodgroup gr ON g.groupkey = gr.id WHERE " + _
+            " g.id = :id AND gr.LB >= (SELECT gr2.lb FROM gd_goodgroup gr2 WHERE gr2.id = :groupkey) " + _
+            " AND gr.RB <= (SELECT gr3.rb FROM gd_goodgroup gr3 WHERE gr3.id = :groupkey) "
+            ibsql.ParamByName("id").AsInteger = GoodKey
+            ibsql.ParamByName("groupkey").AsInteger = GroupKey
+            ibsql.ExecQuery
+            isGoodToGroup = ibsql.RecordCount > 0
+            ibsql.Close
+            Designer.DestroyObject(ibsql)
+          end function
+        
+          public function IsTaraGood(GoodKey, TypeTara)
+        
+            set ibsql = Designer.CreateObject(FgdcGood, "TIBSQL", "")
+            ibsql.Transaction = FgdcGood.ReadTransaction
+            ibsql.SQL.Text = "SELECT * FROM gd_good gd JOIN gd_goodgroup g ON gd.groupkey = g.id " + _
+              " WHERE gd.id = :goodkey AND "
+            select case TypeTara
+              case inv_GlassTara
+                ibsql.SQL.Text = ibsql.SQL.Text + _
+                  " (g.LB >= (SELECT gr.LB FROM gd_goodgroup gr WHERE " + _
+                  "           gr.id = :GlassGroupKey) AND " + _
+                  " g.RB <= (SELECT gr.RB FROM gd_goodgroup gr WHERE " + _
+                  "           gr.id = :GlassGroupKey)) "
+              case inv_OtherTara
+                ibsql.SQL.Text = ibsql.SQL.Text + _
+                  " (g.LB >= (SELECT gr.LB FROM gd_goodgroup gr WHERE " + _
+                  "            gr.id = :PackageGroupKey) AND " + _
+                  " g.RB <= (SELECT gr.RB FROM gd_goodgroup gr WHERE " + _
+                  "            gr.id = :PackageGroupKey)) "
+              case inv_AnyTara
+                ibsql.SQL.Text = ibsql.SQL.Text + _
+                  " ((g.LB >= (SELECT gr.LB FROM gd_goodgroup gr WHERE " + _
+                  "            gr.id = :PackageGroupKey) AND " + _
+                  " g.RB <= (SELECT gr.RB FROM gd_goodgroup gr WHERE " + _
+                  "            gr.id = :PackageGroupKey)) OR " + _
+                  " (g.LB >= (SELECT gr.LB FROM gd_goodgroup gr WHERE " + _
+                  "           gr.id = :GlassGroupKey) AND " + _
+                  " g.RB <= (SELECT gr.RB FROM gd_goodgroup gr WHERE " + _
+                  "           gr.id = :GlassGroupKey))) "
+            end select
+        
+            ibsql.ParamByName("goodkey").AsInteger = GoodKey
+            if TypeTara = inv_OtherTara or TypeTara = inv_AnyTara then
+              ibsql.ParamByName("PackageGroupKey").AsInteger = _
+                gdcBaseManager.GetIDByRUID(PackageGroup_XID, PackageGroup_DBID)
+            end if
+            if TypeTara = inv_GlassTara or TypeTara = inv_AnyTara then
+              ibsql.ParamByName("GlassGroupKey").AsInteger = _
+                gdcBaseManager.GetIDByRUID(GlassGroup_XID, GlassGroup_DBID)
+            end if
+            ibsql.ExecQuery
+            if ibsql.RecordCount > 0 then
+              IsTaraGood = True
+            else
+              IsTaraGood = False
+            end if
+        
+            Designer.DestroyObject(ibsql)
+        
+          end function
+        
+          public function GetGlassGoodForGoodKey(GoodKey)
+        
+            set ibsql = Designer.CreateObject(FgdcGood, "TIBSQL", "")
+            ibsql.Transaction = FgdcGood.ReadTransaction
+            ibsql.SQL.Text = "SELECT gdv.id FROM gd_good gd " + _
+              " JOIN gd_value v ON gd.valuekey = v.id JOIN gd_good gdv ON v.goodkey = gdv.id " + _
+              " JOIN gd_goodgroup g ON gdv.groupkey = g.id " + _
+              " WHERE gd.id = :goodkey AND " + _
+              " (g.LB >= (SELECT gr.LB FROM gd_goodgroup gr WHERE gr.id = :GlassGroupKey) AND " + _
+              " g.RB <= (SELECT gr.RB FROM gd_goodgroup gr WHERE gr.id = :GlassGroupKey)) "
+            ibsql.ParamByName("goodkey").AsInteger = GoodKey
+        
+            ibsql.ParamByName("GlassGroupKey").AsInteger = _
+              gdcBaseManager.GetIDByRUID(GlassGroup_XID, GlassGroup_DBID)
+            ibsql.ExecQuery
+            if ibsql.RecordCount > 0 then
+              GetGlassGoodForGoodKey = ibsql.FieldByName("id").AsInteger
+            else
+              GetGlassGoodForGoodKey = -1
+            end if
+            Designer.DestroyObject(ibsql)
+        
+          end function
+        
+          public function GetPackKeyForGoodKey(GoodKey)
+            ibsqlPack.Close
+            ibsqlPack.ParamByName("goodkey").AsInteger = GoodKey
+        
+            ibsqlPack.ExecQuery
+            if ibsqlPack.RecordCount > 0 then
+              GetPackKeyForGoodKey = ibsqlPack.FieldByName("id").AsInteger
+            else
+              GetPackKeyForGoodKey = -1
+            end if
+          end function
+        
+          public function GetTaxRateByRUIDTr(GoodKey, DateTax, XID, DBID, Transaction)
+            if FgdcGood.ID <> GoodKey then
+              FgdcGood.ID = GoodKey
+            end if
+            FgdcGood.Close
+            set OldTransaction = FgdcGood.Transaction
+            set FgdcGood.Transaction = Transaction
+            FgdcGood.Open
+            GetTaxRateByRUIDTr = FgdcGood.GetTaxRate(gdcBaseManager.GetIDByRUID(XID, DBID), DateTax)
+            FgdcGood.Close
+            set FgdcGood.Transaction = OldTransaction
+          end function
+        
+          public function GetTaxRateByRUID(GoodKey, DateTax, XID, DBID)
+            if FgdcGood.ID <> GoodKey then
+              FgdcGood.ID = GoodKey
+            end if
+            FgdcGood.Open
+            GetTaxRateByRUID = FgdcGood.GetTaxRate(gdcBaseManager.GetIDByRUID(XID, DBID), DateTax)
+          end function
+        
+          public sub SetAttrField(DataSet, GoodKey)
+            FgdcGood.ID = GoodKey
+            FgdcGood.Open
+            for i = 0 to FgdcGood.FieldCount - 1
+              if InStr(FgdcGood.Fields(i).FieldName, "USR$") > 0 then
+                set Field = DataSet.FindField(FgdcGood.Fields(i).FieldName)
+                if Assigned(Field) then
+                   DataSet.FieldByName(FgdcGood.Fields(i).FieldName).AsVariant = _
+                     FgdcGood.Fields(i).AsVariant
+                 end if
+              end if
+            next
+            DataSet.FieldByName("name").AsString = FgdcGood.FieldByName("VALUENAME").AsString
+          end sub
+        
+          Private Sub Class_Initialize
+            set FCreator = new TCreator
+            set FgdcGood = FCreator.GetObject(null, "TgdcGood", "")
+            FgdcGood.SubSet = "ByID"
+        
+            set ibsqlPack = FCreator.GetObject(null, "TIBSQL", "")
+            ibsqlPack.Transaction = FgdcGood.ReadTransaction
+            ibsqlPack.SQL.Text = "SELECT gdv.id FROM gd_good gd " + _
+              " JOIN gd_goodvalue v ON gd.id = v.goodkey " + _
+              " JOIN gd_value vd ON v.valuekey = vd.id " + _
+              " JOIN gd_good gdv ON vd.goodkey = gdv.id " + _
+              " WHERE gd.id = :goodkey AND vd.IsPack = 1 "
+        
+          End Sub
+        
+          Private Sub Class_Terminate
+          End Sub
+        
+          Public Property Get gdcGood
+            Set gdcGood = FgdcGood
+          End Property
+        End Class
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147039418_63934951
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "TVBInv_Options"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "VBCLASSES"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2023-02-10T16:37:18+03:00
+      DISPLAYSCRIPT: ~
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Class TVBInv_Options
+          private FCreator
+        
+          'Автоматически добавлять (корректировать количество) тару в отпуске
+          private FAutoCorrectTaraInSell
+          'Автоматически добавлять (корректировать количество) стеклопосуду в отпуске
+          private FAutoCorrectGlassInSell
+          'Выбирать тару и посуду только из тогоже прихода
+          private FRestrictTara
+          
+          'Разрешить отпуск со справочника
+          private FSellWithGuide
+          'Авт. сохранение (commit) позиций при создании складского документа
+          private FAutoCommit_insert
+        
+          private Foptinv_TypeRealization
+        
+          'Настройка округлений
+          'Список полей, которые не округляютяся в приходе, если цена фиксированная
+          private FFixedFieldList
+          'Формат: свойство типа ("Scripting.Dictionary"), где
+          'key - имя поля, item - Массив (Тип округления, кратность округления)
+          'Настройка округления для прихода
+          private FReceptionRoundDict
+          'Настройка округления для оптового отпуска
+          private FChargeRoundDict
+          'Настройка округления для безналичной розницы
+          private FRetailCashlessRoundDict
+          'Настройка округления для наличной розницы
+          private FRetailCashRoundDict
+          'Настройка округления для отпуска со склада
+          private FSellWithGuideRoundDict
+        
+        
+          private FoptReceiptCostAlgorithm
+          private FoptQuantityAlgorithm
+        
+          'Запрет изменения цены
+          'Отпуск на сторону
+          private FStandCostSellBill
+          'Счет фактура
+          private FStandCostBill
+          'Выдача в торг.подразделения
+          private FStandCostToTrade
+          'Возврат с тогр.подр.
+          private FStandCostFromTrade
+          'Реализация в розницу
+          private FStandCostCashBill
+        
+          'Автоформирование артикула
+          'Оптово-розничный склад
+          private FGMOptRetail
+          'Материальный склад
+          private FGMMatDepart
+        
+          'Сортировка в отчетах
+          'Наименование товара или шифру тмц
+          private FSortByNameAlias
+          
+          'не сортировать Возврат с доработки
+          private FNoSort
+          'печатать в накладных массу в т или кг
+          Private FPrintWeight
+          
+          'печатать в накладных рамку с УНП
+          Private FPrintUNP
+        
+        'Использовать в прайс-листе цены из прихода
+          private FViewCardCostInPrice
+        
+          'Брать тип рассчета налога с продаж из Группы ТМЦ
+          private FTaxSaleTypeFromGroup
+          'Тип рассчета налога с продаж по умолчанию
+          private FDefTaxSaleType
+        
+          private FCurrentCompanyKey
+        
+        'Плательщик или не плательщик НДС
+          private FNDSDodger
+        
+        'Форимровать счета-фактуры отложенными
+          'Оптовые
+          private FSFOptDelay
+          'Розничные
+          private FSFRetailDelay
+          'Валютные
+          private FSFImportDelay
+        
+          'Округлять тару как обычный товар
+          private FRoundTara
+          
+        ' стоит ли на базе Общепит
+        ' (для решения конфликтов между розницей и общепитом)
+        ' по умолчанию ЛОЖЬ
+          private FIsMenu
+        
+          private function StrToCurr(Text)
+            on error resume next
+            StrToCurr = CDbl(Text)
+            if Err.Number > 0 then
+              StrToCurr = 0
+            end if
+            on error goto 0
+          end function
+        
+          'Загрузка параметров округления с хранилища
+          private sub LoadRoundList
+            dim LCreator, LStrings
+            set LCreator = new TCreator
+            set FReceptionRoundDict = CreateObject("Scripting.Dictionary")
+            set FChargeRoundDict    = CreateObject("Scripting.Dictionary")
+            set FRetailCashlessRoundDict = CreateObject("Scripting.Dictionary")
+            set FRetailCashRoundDict = CreateObject("Scripting.Dictionary")
+            set FSellWithGuideRoundDict = CreateObject("Scripting.Dictionary")
+        
+            set LStrings = LCreator.GetObject(null, "TStringList", "")
+        
+            call InitRoundDict(LStrings, FReceptionRoundDict, "ReceptionRoundList", CompanyStorage, _
+              "TO_USR$INV_COSTOPTNCU=1/1" & vbCrLf & "TO_USR$INV_COSTRETAILNCU=2/0" & vbCrLf & _
+              "USR$SUMNCU=1/1" & vbCrLf & "USR$SUMNDSNCU=1/1" & vbCrLf & "USR$SUMWITHNDSNCU=1/1" & _
+              vbCrLf & "USR$SUMRETAILNCU=2/0")
+            call InitRoundDict(LStrings, FChargeRoundDict, "ChargeRoundDict", CompanyStorage, _
+              "USR$SUMNCU=1/1" & vbCrLf & "USR$SUMWITHNDSNCU=1/1" & vbCrLf & _
+              "USR$SUMWITHSALETAX=1/1" & vbCrLf & "USR$SUMNDSNCU=1/1")
+            
+            call InitRoundDict(LStrings, FRetailCashlessRoundDict, "RetailCashlessRoundDict", CompanyStorage, _
+              "TO_USR$INV_COSTFULLNCU=2/0" & vbCrlf & "USR$SUMWITHSALETAX=2/0")
+            call InitRoundDict(LStrings, FRetailCashRoundDict, "RetailCashRoundDict", CompanyStorage, _
+              "TO_USR$INV_COSTFULLNCU=2/0" & vbCrlf & "USR$SUMWITHSALETAX=2/0")
+            call InitRoundDict(LStrings, FSellWithGuideRoundDict, "SellWithGuideRoundDict", CompanyStorage, _
+              "FROM_USR$INV_COSTPROVIDER=1/1" & vbCrLf & "FROM_USR$INV_COSTBUYNCU=1/1" & vbCrLf & _
+              "FROM_USR$INV_PERCPROVIDER=1/0")
+          end sub
+        
+          private sub InitRoundDict(ByRef Strings, ByRef RoundDict, ByRef VarName, ByRef Storage, DefStr)
+            dim I, EqSignPos, FieldName, RoundStr, RoundAlg
+            RoundDict.RemoveAll
+            Strings.Text = Storage.ReadString("Inventory_Option\Round", VarName, DefStr)
+            for I = 0 to Strings.Count - 1
+              EqSignPos = InStr(Strings(I), "=")
+              if EqSignPos > 0 then
+                RoundStr = Trim(Strings(I))
+                FieldName = UCase(Trim(Left(RoundStr, EqSignPos - 1)))
+                RoundStr = Trim(Right(RoundStr, Len(RoundStr) - EqSignPos))
+                RoundStr = Replace(RoundStr, ".", Application.DecimalSeparatorSys, 1, 1, 1)
+                RoundStr = Replace(RoundStr, ",", Application.DecimalSeparatorSys, 1, 1, 1)
+                RoundAlg  = Array(Left(RoundStr, 1), Right(RoundStr, Len(RoundStr) - 2))
+                call RoundDict.Add(FieldName, RoundAlg)
+              end if
+            next
+          end sub
+        
+          'Сохранение параметров округления в хранилища
+          private sub SaveRoundList
+            set LCreator = new TCreator
+            set LStrings = LCreator.GetObject(null, "TStringList", "")
+        
+            call SaveRoundParam(LStrings, FReceptionRoundDict, "ReceptionRoundList", CompanyStorage)
+            call SaveRoundParam(LStrings, FChargeRoundDict, "ChargeRoundDict", CompanyStorage)
+            call SaveRoundParam(LStrings, FRetailCashlessRoundDict, "RetailCashlessRoundDict", CompanyStorage)
+            call SaveRoundParam(LStrings, FRetailCashRoundDict, "RetailCashRoundDict", CompanyStorage)
+            call SaveRoundParam(LStrings, FSellWithGuideRoundDict, "SellWithGuideRoundDict", CompanyStorage)
+          end sub
+          
+          private sub SaveRoundParam(ByRef Strings, ByRef RoundDict, ByRef VarName, ByRef Storage)
+            Strings.Clear
+            Keys  = RoundDict.Keys
+            Items = RoundDict.Items
+            for I = 0 to RoundDict.Count - 1
+              call Strings.Add(Keys(I) & "=" & Items(I)(0) & "/" & Items(I)(1))
+            next
+            call Storage.WriteString("Inventory_Option\Round", VarName, Strings.Text)
+          end sub
+          
+          private sub AddInFReceptionRoundDict(ByRef RoundDict, ByRef ParamForm, ByRef FieldName, ByRef cbName, ByRef seName)
+            set ComboBox = ParamForm.FindComponent(cbName)
+            I = ComboBox.ItemIndex
+            if I > 0 then
+              RoundAlg = CStr(ParamForm.FindComponent(cbName).ItemIndex)
+              RoundMP = CStr(ParamForm.FindComponent(seName).Value)
+              call RoundDict.Add(FieldName, Array(RoundAlg, RoundMP))
+            end if
+          end sub
+        
+          private sub InitCompInParamFrm(ByRef RoundDict, ByRef ParamForm, ByRef FieldName, ByRef cbName, ByRef seName)
+            set ComboBox = ParamForm.FindComponent(cbName)
+            set SpinEdit = ParamForm.FindComponent(seName)
+        
+            RoundSetArray = RoundDict.Item(FieldName)
+        
+        '    if not isArray(RoundSetArray) and not IsEmpty(RoundDict.Item(FieldName)) then
+        '      RoundSetArray = split(RoundDict.Item(FieldName), 0)
+        '    end if
+            
+            if IsArray(RoundSetArray) then
+              ComboBox.ItemIndex = RoundSetArray(0)
+              if RoundSetArray(1) <> "" then
+                SpinEdit.Value = RoundSetArray(1)
+              end if
+            else
+              ComboBox.ItemIndex = 0
+              SpinEdit.Value = 0
+            end if
+            SpinEdit.Enabled = (ComboBox.ItemIndex = 1)
+          end sub
+        
+          private sub InitFixedFieldList
+            set FFixedFieldList = FCreator.GetObject(null, "TStringList", "")
+            FFixedFieldList.Add "TO_USR$INV_COSTTRWITHNDS"
+            FFixedFieldList.Add "TO_USR$INV_COSTRETAILNCU"
+          end sub
+        
+          Private Sub Class_Initialize
+            set FCreator = new TCreator
+        
+            InitFixedFieldList
+            
+            LoadRoundList
+            
+            'Алгоритм расчета цены оптовой цены прихода
+            '0 - от цены первого поставщика, 1 - от цены покупки
+            FoptReceiptCostAlgorithm = CompanyStorage.ReadInteger("Inventory_Option\Recalculation", "optReceiptCostAlgorithm", 0)
+        
+            'Алгоритм пересчета количества при изменении кол-ва упаковок (кол-во в упаковке)
+            'True - не пересчитывать, False - пересчитывать
+            FoptQuantityAlgorithm = CompanyStorage.ReadBoolean("Inventory_Option\Recalculation", "optQuantityAlgorithm", True)
+        
+            'True - Брать тип рассчета налога с продаж из Группы ТМЦ
+            FTaxSaleTypeFromGroup = CompanyStorage.ReadBoolean("Inventory_Option\Tax", "TaxSaleTypeFromGroup", False)
+            'Тип рассчета налога с продаж по умолчанию S- Прямой R- обратный
+            FDefTaxSaleType = CompanyStorage.ReadString("Inventory_Option\Tax", "DefTaxSaleType", "S")
+        
+            FGMOptRetail = UserStorage.ReadBoolean("GoodMarkOptions", "OptRetdepart", False)
+            FGMMatDepart = UserStorage.ReadBoolean("GoodMarkOptions", "Matdepart", False)
+        'Формировать счета-фактуры отложенными
+            FSFOptDelay = UserStorage.ReadBoolean("Sf_Delay", "SfOpt", False)
+            FSFRetailDelay = UserStorage.ReadBoolean("Sf_Delay", "SfRetail", False)
+            FSFImprotDelay = UserStorage.ReadBoolean("Sf_Delay", "SfImport", False)
+        
+            FViewCardCostInPrice = UserStorage.ReadBoolean("ViewCardCostInPrice", "ViewCardCostInPrice", False)
+        
+            FSortByNameAlias = UserStorage.ReadInteger("ReportSortByInv", "SortByNameAlias", False)
+            FPrintWeight = UserStorage.ReadInteger("ReportSortByInv", "PrintWeight", 1)
+            FPrintUNP = UserStorage.ReadInteger("ReportSortByInv", "PrintUNP", 1)
+        
+            FNoSort = UserStorage.ReadBoolean("ReportSortByInv", "NoSort", False)
+        
+            FStandCostSellBill = UserStorage.ReadBoolean("Inventory_Option\Opt", "StandCostSellBill", False)
+            FStandCostBill = UserStorage.ReadBoolean("Inventory_Option\Opt", "StandCostBill", False)
+            FStandCostToTrade = UserStorage.ReadBoolean("Inventory_Option\Opt", "StandCostToTrade", False)
+            FStandCostFromTrade = UserStorage.ReadBoolean("Inventory_Option\Opt", "StandCostFromTrade", False)
+            FStandCostCashBill = UserStorage.ReadBoolean("Inventory_Option\Retail", "StandCostCashBill", False)
+        
+            FAutoCorrectTaraInSell = UserStorage.ReadBoolean("Inventory_Option\Sell", "AutoCorrectTaraInSell", False)
+            FAutoCorrectGlassInSell = UserStorage.ReadBoolean("Inventory_Option\Sell", "AutoCorrectGlassInSell", False)
+            FRestrictTara = UserStorage.ReadBoolean("Inventory_Option\Sell", "RestrictTara", True)
+        
+            FSellWithGuide = UserStorage.ReadBoolean("Inventory_Option\Sell", "SellWithGuide", False)
+            FAutoCommit_insert = UserStorage.ReadBoolean("Inventory_Option\Sell", "AutoCommit_insert", False)
+            Foptinv_TypeRealization = CompanyStorage.ReadInteger("Inventory_Option\TypeRealization", "DefTypeRealization", optinv_RealizationOnCargo)
+            FRoundTara = CompanyStorage.ReadInteger("Inventory_Option\Tara", "RoundTara", False)
+            
+            FIsMenu = GlobalStorage.ReadBoolean("Options", "mn_IsMenu", false)
+        
+          End Sub
+        
+          Private Sub Class_Terminate
+          'Setup Terminate event.
+        
+          End Sub
+        
+          private sub FieldRound(ByRef RoundDict, ByRef gdcObject, ByRef Field, ByRef FieldName, ByRef ExceptTara)
+        
+            if not gdcObject.VariableExists("RoundFields") then
+              Keys = RoundDict.Keys
+              for I = 0 to RoundDict.Count - 1
+                gdcObject.FieldsCallDoChange.Add(Keys(I))
+              next
+              gdcObject.AddVariableItem("RoundFields")
+            end if
+            
+            if gdcObject.Variables("DontRound") then
+              Exit sub
+            end if
+        
+        '    if Field.ReadOnly then Exit sub
+            RoundAlgArray = RoundDict.Item(FieldName)
+            if IsArray(RoundAlgArray) then
+              if not FRoundTara then
+                'Если товар тара, то не округляем
+                if ExceptTara then
+                  if inv_GoodInfo.IsTaraGood(gdcObject.FieldByName("goodkey").AsInteger, inv_AnyTara) then
+                    Exit sub
+                  end if
+                end if
+              end if
+              CurValue = Field.AsCurrency
+              if gdcObject.FieldByName("documentdate").AsDateTime < DateSerial(2004, 9, 1) then
+                NewValue = invRound(CurValue, CDbl(RoundAlgArray(0)), CDbl(RoundAlgArray(1)))
+              elseif inv_GoodInfo.isRegulareGood(gdcObject.FieldByName("goodkey").AsInteger) then
+                NewValue = gs.MulDiv(CurValue,1,1,2,2)
+              else
+                NewValue = invRoundLast(CurValue, CDbl(RoundAlgArray(0)), CDbl(RoundAlgArray(1)))
+              end if
+              if NewValue <> CurValue then
+                DontRecalc = gdcObject.Variables("DontRecalc")
+                gdcObject.Variables("DontRecalc") = True
+                Field.AsCurrency = NewValue
+                gdcObject.Variables("DontRecalc") = DontRecalc
+              end if
+            end if
+          end sub
+        
+          'Сохранение параметров округления с формы параметров склада
+          private sub SaveRoundWithParamForm(ByRef ParamForm)
+            ErrMsg = "Не передана форма параметров склада."
+            if not Assigned(ParamForm) then call Exception.Raise("Exception", ErrMsg)
+            if not ParamForm.InheritsFrom("TCreateableForm") then call Exception.Raise("Exception", ErrMsg)
+            if UCase(ParamForm.InitialName) <> UCase("usrf_inv_RetailOptOption") then call Exception.Raise("Exception", ErrMsg)
+        
+            FReceptionRoundDict.RemoveAll
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "TO_USR$INV_COSTOPTNCU", "usrg_cbOptCostReceipt", "usrg_seOptCostReceipt")
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "TO_USR$INV_COSTTRADENCU", "usrg_cbCostTradeReceipt", "usrg_seCostTradeReceipt")
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "TO_USR$INV_COSTRETAILNCU", "usrg_cbRetCostReceipt", "usrg_seRetCostReceipt")
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "TO_USR$INV_COSTTRWITHNDS", "usrg_cbWithNDSReceipt", "usrg_seWithNDSReceipt")
+            'Цена продажная (общепит)
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "TO_USR$INV_SELCOSTNCU", "usrg_mnSELCOSTNCU", "usrg_seSELCOSTNCU")
+            
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "USR$SUMNCU", "usrg_cb_InvSumReceipt", "usrg_seInvSumReceipt")
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "USR$SUMNDSNCU", "usrg_cb_InvSumNDSReceipt", "usrg_seInvSumNDSReceipt")
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "USR$SUMWITHNDSNCU", "usrg_cb_InvSumWithNDSReceipt", "usrg_seInvSumWithNDSReceipt")
+            call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "USR$SUMRETAILNCU", "usrg_cbAdd_ReatailSum", "usrg_seAdd_ReatailSum")
+        
+        '    call AddInFReceptionRoundDict(FReceptionRoundDict, ParamForm, "USR$3", "usrg_cbRetCostWithoutTaxReceipt", "usrg_seRetCostWithoutTaxReceipt")
+        
+            FChargeRoundDict.RemoveAll
+            call AddInFReceptionRoundDict(FChargeRoundDict, ParamForm, "TO_USR$INV_COSTNCU", "usrg_cbOptRecWithTradeCost", "usrg_seOptRecWithTradeCost")
+            call AddInFReceptionRoundDict(FChargeRoundDict, ParamForm, "TO_USR$INV_COSTWITHNDSNCU", "usrg_cbOptRecWithNDSCost", "usrg_seOptRecWithNDSCost")
+            call AddInFReceptionRoundDict(FChargeRoundDict, ParamForm, "TO_USR$INV_COSTFULLNCU", "usrg_cbOptRecAllTaxCost", "usrg_seOptRecAllTaxCost")
+            call AddInFReceptionRoundDict(FChargeRoundDict, ParamForm, "TO_USR$INV_COSTNDSNCU", "usrg_cbOptRecNDSCost", "usrg_seOptRecNDSCost")
+            call AddInFReceptionRoundDict(FChargeRoundDict, ParamForm, "USR$SUMNCU", "usrg_cbOptRecSumCost", "usrg_seOptRecSumCost")
+            call AddInFReceptionRoundDict(FChargeRoundDict, ParamForm, "USR$SUMWITHNDSNCU", "usrg_cbOptRecSumWithNDSCost", "usrg_seOptRecSumWithNDSCost")
+            call AddInFReceptionRoundDict(FChargeRoundDict, ParamForm, "USR$SUMWITHSALETAX", "usrg_cbOptRecSumWithAllTaxCost", "usrg_seOptRecSumWithAllTaxCost")
+            call AddInFReceptionRoundDict(FChargeRoundDict, ParamForm, "USR$SUMNDSNCU", "usrg_cbOptRecSumNDSCost", "usrg_seOptRecSumNDSCost")
+            'Присвоение параметров
+        
+            FRetailCashlessRoundDict.RemoveAll
+            call AddInFReceptionRoundDict(FRetailCashlessRoundDict, ParamForm, "TO_USR$INV_COSTNCU", "usrg_cbRetailCLWithTradeCost", "usrg_seRetailCLWithTradeCost")
+            call AddInFReceptionRoundDict(FRetailCashlessRoundDict, ParamForm, "TO_USR$INV_COSTWITHNDSNCU", "usrg_cbRetailCLWithNDSCost", "usrg_seRetailCLWithNDSCost")
+            call AddInFReceptionRoundDict(FRetailCashlessRoundDict, ParamForm, "TO_USR$INV_COSTFULLNCU", "usrg_cbRetailCLAllTaxCost", "usrg_seRetailCLAllTaxCost")
+            call AddInFReceptionRoundDict(FRetailCashlessRoundDict, ParamForm, "TO_USR$INV_COSTNDSNCU", "usrg_cbRetailCLNDSCost", "usrg_seRetailCLNDSCost")
+            call AddInFReceptionRoundDict(FRetailCashlessRoundDict, ParamForm, "USR$SUMNCU", "usrg_cbRetailCLSumCost", "usrg_seRetailCLSumCost")
+            call AddInFReceptionRoundDict(FRetailCashlessRoundDict, ParamForm, "USR$SUMWITHNDSNCU", "usrg_cbRetailCLSumWithNDSCost", "usrg_seRetailCLSumWithNDSCost")
+            call AddInFReceptionRoundDict(FRetailCashlessRoundDict, ParamForm, "USR$SUMWITHSALETAX", "usrg_cbRetailCLSumWithAllTaxCost", "usrg_seRetailCLSumWithAllTaxCost")
+            call AddInFReceptionRoundDict(FRetailCashlessRoundDict, ParamForm, "USR$SUMNDSNCU", "usrg_cbRetailCLSumNDSCost", "usrg_seRetailCLSumNDSCost")
+        
+            FRetailCashRoundDict.RemoveAll
+            call AddInFReceptionRoundDict(FRetailCashRoundDict, ParamForm, "TO_USR$INV_COSTNCU", "usrg_cbRetailCashWithTradeCost", "usrg_seRetailCashWithTradeCost")
+            call AddInFReceptionRoundDict(FRetailCashRoundDict, ParamForm, "TO_USR$INV_COSTWITHNDSNCU", "usrg_cbRetailCashWithNDSCost", "usrg_seRetailCashWithNDSCost")
+            call AddInFReceptionRoundDict(FRetailCashRoundDict, ParamForm, "TO_USR$INV_COSTFULLNCU", "usrg_cbRetailCashAllTaxCost", "usrg_seRetailCashAllTaxCost")
+            call AddInFReceptionRoundDict(FRetailCashRoundDict, ParamForm, "TO_USR$INV_COSTNDSNCU", "usrg_cbRetailCashNDSCost", "usrg_seRetailCashNDSCost")
+            call AddInFReceptionRoundDict(FRetailCashRoundDict, ParamForm, "USR$SUMNCU", "usrg_cbRetailCashSumCost", "usrg_seRetailCashSumCost")
+            call AddInFReceptionRoundDict(FRetailCashRoundDict, ParamForm, "USR$SUMWITHNDSNCU", "usrg_cbRetailCashSumWithNDSCost", "usrg_seRetailCashSumWithNDSCost")
+            call AddInFReceptionRoundDict(FRetailCashRoundDict, ParamForm, "USR$SUMWITHSALETAX", "usrg_cbRetailCashSumWithAllTaxCost", "usrg_seRetailCashSumWithAllTaxCost")
+            call AddInFReceptionRoundDict(FRetailCashRoundDict, ParamForm, "USR$SUMNDSNCU", "usrg_cbRetailCashSumNDSCost", "usrg_seRetailCashSumNDSCost")
+        
+            FSellWithGuideRoundDict.RemoveAll
+            call AddInFReceptionRoundDict(FSellWithGuideRoundDict, ParamForm, "FROM_USR$INV_COSTPROVIDER", "usrg_cbSellProviderCost", "usrg_seSellProviderCost")
+            call AddInFReceptionRoundDict(FSellWithGuideRoundDict, ParamForm, "FROM_USR$INV_COSTBUYNCU", "usrg_cbSellBuyCost", "usrg_seSellBuyCost")
+            call AddInFReceptionRoundDict(FSellWithGuideRoundDict, ParamForm, "FROM_USR$INV_PERCPROVIDER", "usrg_cbSellProviderPerc", "usrg_seSellProviderPerc")
+        
+            SaveRoundList
+          end sub
+        
+          'Настройка компонентов округления формы параметров склада
+          private sub InitRoundWithParamForm(ByRef ParamForm)
+            ErrMsg = "Не передана форма параметров склада."
+            if not Assigned(ParamForm) then call Exception.Raise("Exception", ErrMsg)
+            if not ParamForm.InheritsFrom("TCreateableForm") then call Exception.Raise("Exception", ErrMsg)
+            if UCase(ParamForm.InitialName) <> UCase("usrf_inv_RetailOptOption") then call Exception.Raise("Exception", ErrMsg)
+        
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "TO_USR$INV_COSTOPTNCU", "usrg_cbOptCostReceipt", "usrg_seOptCostReceipt")
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "TO_USR$INV_COSTTRADENCU", "usrg_cbCostTradeReceipt", "usrg_seCostTradeReceipt")
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "TO_USR$INV_COSTRETAILNCU", "usrg_cbRetCostReceipt", "usrg_seRetCostReceipt")
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "TO_USR$INV_COSTTRWITHNDS", "usrg_cbWithNDSReceipt", "usrg_seWithNDSReceipt")
+            'Цена продажная (общепит)
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "TO_USR$INV_SELCOSTNCU", "usrg_mnSELCOSTNCU", "usrg_seSELCOSTNCU")
+            
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "USR$SUMNCU", "usrg_cb_InvSumReceipt", "usrg_seInvSumReceipt")
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "USR$SUMNDSNCU", "usrg_cb_InvSumNDSReceipt", "usrg_seInvSumNDSReceipt")
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "USR$SUMWITHNDSNCU", "usrg_cb_InvSumWithNDSReceipt", "usrg_seInvSumWithNDSReceipt")
+            call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "USR$SUMRETAILNCU", "usrg_cbAdd_ReatailSum", "usrg_seAdd_ReatailSum")
+        
+        '    call InitCompInParamFrm(FReceptionRoundDict, ParamForm, "USR$3", "usrg_cbRetCostWithoutTaxReceipt", "usrg_seRetCostWithoutTaxReceipt")
+        
+            call InitCompInParamFrm(FChargeRoundDict, ParamForm, "TO_USR$INV_COSTNCU", "usrg_cbOptRecWithTradeCost", "usrg_seOptRecWithTradeCost")
+            call InitCompInParamFrm(FChargeRoundDict, ParamForm, "TO_USR$INV_COSTWITHNDSNCU", "usrg_cbOptRecWithNDSCost", "usrg_seOptRecWithNDSCost")
+            call InitCompInParamFrm(FChargeRoundDict, ParamForm, "TO_USR$INV_COSTFULLNCU", "usrg_cbOptRecAllTaxCost", "usrg_seOptRecAllTaxCost")
+            call InitCompInParamFrm(FChargeRoundDict, ParamForm, "TO_USR$INV_COSTNDSNCU", "usrg_cbOptRecNDSCost", "usrg_seOptRecNDSCost")
+            call InitCompInParamFrm(FChargeRoundDict, ParamForm, "USR$SUMNCU", "usrg_cbOptRecSumCost", "usrg_seOptRecSumCost")
+            call InitCompInParamFrm(FChargeRoundDict, ParamForm, "USR$SUMWITHNDSNCU", "usrg_cbOptRecSumWithNDSCost", "usrg_seOptRecSumWithNDSCost")
+            call InitCompInParamFrm(FChargeRoundDict, ParamForm, "USR$SUMWITHSALETAX", "usrg_cbOptRecSumWithAllTaxCost", "usrg_seOptRecSumWithAllTaxCost")
+            call InitCompInParamFrm(FChargeRoundDict, ParamForm, "USR$SUMNDSNCU", "usrg_cbOptRecSumNDSCost", "usrg_seOptRecSumNDSCost")
+        
+            call InitCompInParamFrm(FRetailCashlessRoundDict, ParamForm, "TO_USR$INV_COSTNCU", "usrg_cbRetailCLWithTradeCost", "usrg_seRetailCLWithTradeCost")
+            call InitCompInParamFrm(FRetailCashlessRoundDict, ParamForm, "TO_USR$INV_COSTWITHNDSNCU", "usrg_cbRetailCLWithNDSCost", "usrg_seRetailCLWithNDSCost")
+            call InitCompInParamFrm(FRetailCashlessRoundDict, ParamForm, "TO_USR$INV_COSTFULLNCU", "usrg_cbRetailCLAllTaxCost", "usrg_seRetailCLAllTaxCost")
+            call InitCompInParamFrm(FRetailCashlessRoundDict, ParamForm, "TO_USR$INV_COSTNDSNCU", "usrg_cbRetailCLNDSCost", "usrg_seRetailCLNDSCost")
+            call InitCompInParamFrm(FRetailCashlessRoundDict, ParamForm, "USR$SUMNCU", "usrg_cbRetailCLSumCost", "usrg_seRetailCLSumCost")
+            call InitCompInParamFrm(FRetailCashlessRoundDict, ParamForm, "USR$SUMWITHNDSNCU", "usrg_cbRetailCLSumWithNDSCost", "usrg_seRetailCLSumWithNDSCost")
+            call InitCompInParamFrm(FRetailCashlessRoundDict, ParamForm, "USR$SUMWITHSALETAX", "usrg_cbRetailCLSumWithAllTaxCost", "usrg_seRetailCLSumWithAllTaxCost")
+            call InitCompInParamFrm(FRetailCashlessRoundDict, ParamForm, "USR$SUMNDSNCU", "usrg_cbRetailCLSumNDSCost", "usrg_seRetailCLSumNDSCost")
+        
+            call InitCompInParamFrm(FRetailCashRoundDict, ParamForm, "TO_USR$INV_COSTNCU", "usrg_cbRetailCashWithTradeCost", "usrg_seRetailCashWithTradeCost")
+            call InitCompInParamFrm(FRetailCashRoundDict, ParamForm, "TO_USR$INV_COSTWITHNDSNCU", "usrg_cbRetailCashWithNDSCost", "usrg_seRetailCashWithNDSCost")
+            call InitCompInParamFrm(FRetailCashRoundDict, ParamForm, "TO_USR$INV_COSTFULLNCU", "usrg_cbRetailCashAllTaxCost", "usrg_seRetailCashAllTaxCost")
+            call InitCompInParamFrm(FRetailCashRoundDict, ParamForm, "TO_USR$INV_COSTNDSNCU", "usrg_cbRetailCashNDSCost", "usrg_seRetailCashNDSCost")
+            call InitCompInParamFrm(FRetailCashRoundDict, ParamForm, "USR$SUMNCU", "usrg_cbRetailCashSumCost", "usrg_seRetailCashSumCost")
+            call InitCompInParamFrm(FRetailCashRoundDict, ParamForm, "USR$SUMWITHNDSNCU", "usrg_cbRetailCashSumWithNDSCost", "usrg_seRetailCashSumWithNDSCost")
+            call InitCompInParamFrm(FRetailCashRoundDict, ParamForm, "USR$SUMWITHSALETAX", "usrg_cbRetailCashSumWithAllTaxCost", "usrg_seRetailCashSumWithAllTaxCost")
+            call InitCompInParamFrm(FRetailCashRoundDict, ParamForm, "USR$SUMNDSNCU", "usrg_cbRetailCashSumNDSCost", "usrg_seRetailCashSumNDSCost")
+        
+            call InitCompInParamFrm(FSellWithGuideRoundDict, ParamForm, "FROM_USR$INV_COSTPROVIDER", "usrg_cbSellProviderCost", "usrg_seSellProviderCost")
+            call InitCompInParamFrm(FSellWithGuideRoundDict, ParamForm, "FROM_USR$INV_COSTBUYNCU", "usrg_cbSellBuyCost", "usrg_seSellBuyCost")
+            call InitCompInParamFrm(FSellWithGuideRoundDict, ParamForm, "FROM_USR$INV_PERCPROVIDER", "usrg_cbSellProviderPerc", "usrg_seSellProviderPerc")
+          end sub
+        
+        '**********PUBLIC PART *************
+          'Округляет значение цен прихода
+          public sub ReceptionFieldRound(gdcObject, Field, IsReceipt)
+        '    set FixField = gdcObject.FindField("USR$ISFIXEDCOST")
+            set FixField = gdcObject.FindField("TO_USR$INV_ISFIXEDCOST")
+            if Assigned(FixField) then
+              if FixField.AsInteger = 1 then
+                if FFixedFieldList.IndexOf(Field.FieldName) > -1 then Exit sub
+              end if
+            end if
+            FieldName = Field.FieldName
+            if not IsReceipt then
+              if InStr(FieldName, "FROM_") = 1 then
+                FieldName = "TO_" + Mid(FieldName, Len("FROM_") + 1)
+              end if
+            end if
+            call FieldRound(FReceptionRoundDict, gdcObject, Field, FieldName, True)
+          end sub
+          
+          'Округляет значение цен оптового отпуска
+          public sub OptChargeFieldRound(gdcObject, Field)
+            call FieldRound(FChargeRoundDict, gdcObject, Field, Field.FieldName, True)
+          end sub
+        
+          'Округляет значение цен б/н розницы
+          public sub RetailCashlessFieldRound(gdcObject, Field)
+            call FieldRound(FRetailCashlessRoundDict, gdcObject, Field, Field.FieldName, True)
+          end sub
+        
+          'Округляет значение цен нал. розницы
+          public sub RetailCashFieldRound(gdcObject, Field)
+            call FieldRound(FRetailCashRoundDict, gdcObject, Field, Field.FieldName, True)
+          end sub
+        
+          'Округляет значение цен отпуска со справочника
+          public sub SellWithGuideFieldRound(gdcObject, Field)
+            call FieldRound(FSellWithGuideRoundDict, gdcObject, Field, Field.FieldName, False)
+          end sub
+          
+          ' Округляет значение цен при возврате от покупателя
+          ' Определяем, каким документом товар был продан покупателю,
+          ' и берем его настройки округления
+          public sub RetCustFieldRound(gdcObject, Field)
+            ' ссылка на позицию расхода
+            dim MDKeyField
+            set MDKeyField = gdcObject.FindField("FROM_USR$INV_MOVEDOCKEY")
+            if Assigned(MDKeyField) then
+              dim LCreator, q
+              set LCreator = new TCreator
+              set q = LCreator.GetObject(nil, "TIBSQL", "")
+              q.Transaction = gdcBaseManager.ReadTransaction
+              q.SQL.Text = "SELECT DOCUMENTTYPEKEY FROM GD_DOCUMENT WHERE ID = :DK"
+              q.ParamByName("DK").AsInteger = MDKeyField.AsInteger
+              q.ExecQuery
+              select case q.FieldByName("DOCUMENTTYPEKEY").AsInteger
+                ' отпуск товара на сторону опт торговля
+                case gdcBaseManager.GetIDByRUIDString("147013033_109092844")
+                  call OptChargeFieldRound(gdcObject, Field)
+                ' реализация товара в розницу
+                case gdcBaseManager.GetIDByRUIDString("147006557_63934951")
+                  call RetailCashFieldRound(gdcObject, Field)
+                ' отпуск на сторону розница
+                case gdcBaseManager.GetIDByRUIDString("147022442_63934951")
+                  call RetailCashlessFieldRound(gdcObject, Field)
+                ' в остальных случаях округляем как раньше
+                case else
+                  call OptChargeFieldRound(gdcObject, Field)
+              end select
+              q.Close
+            end if
+          end sub
+        
+          public sub ReadOption(ByRef Form)
+        
+        '    Form.FindComponent("usrg_cbTaxSaleGroup")
+        '    Form.FindComponent("usrg_rbTaxSaleS")
+        '    Form.FindComponent("usrg_rbTaxSaleR")
+        
+            'Алгоритм расчета цены оптовой цены прихода
+            '0 - от цены первого поставщика, 1 - от цены покупки
+            Form.FindComponent("usrg_rgOptCost").ItemIndex = FoptReceiptCostAlgorithm
+        
+            'Алгоритм пересчета количества при изменении кол-ва упаковок (кол-во в упаковке)
+            'True - не пересчитывать, False - пересчитывать
+            Form.FindComponent("usrg_CheckBox12").Checked = FoptQuantityAlgorithm
+            
+            set usrg_cbStandCostSellBill = Form.FindComponent("usrg_cbStandCostSellBill")
+            set usrg_cbStandCostBill = Form.FindComponent("usrg_cbStandCostBill")
+            set usrg_cbStandCostToTrade = Form.FindComponent("usrg_cbStandCostToTrade")
+            set usrg_cbStandCostFromTrade = Form.FindComponent("usrg_cbStandCostFromTrade")
+            set usrg_cbStandCostCashBill = Form.FindComponent("usrg_cbStandCostCashBill")
+            set usrg_rg_optinv_TypeRealization = Form.FindComponent("usrg_rg_optinv_TypeRealization")
+            usrg_cbStandCostSellBill.Checked = FStandCostSellBill
+            usrg_cbStandCostBill.Checked = FStandCostBill
+            usrg_cbStandCostToTrade.Checked = FStandCostToTrade
+            usrg_cbStandCostFromTrade.Checked = FStandCostFromTrade
+            usrg_cbStandCostCashBill.Checked = FStandCostCashBill
+            usrg_rg_optinv_TypeRealization.ItemIndex = optinv_TypeRealization
+        
+            set usrg_gm_OptRet = Form.OwnerForm.FindComponent("usrg_gm_OptRet")
+            set usrg_gm_Matdep = Form.OwnerForm.FindComponent("usrg_gm_Matdep")
+            usrg_gm_OptRet.Checked = FGMOptRetail
+            usrg_gm_Matdep.Checked = FGMMatDepart
+        
+        'Формировать с/ф отложенными
+            set usrg_Sf_Opt = Form.OwnerForm.FindComponent("usrg_Sf_Opt")
+            set usrg_Sf_Retail = Form.OwnerForm.FindComponent("usrg_Sf_Retail")
+            set usrg_Sf_Import = Form.OwnerForm.FindComponent("usrg_Sf_Import")
+            usrg_Sf_Opt.Checked = FSFOptDelay
+            usrg_Sf_Retail.Checked = FSFRetailDelay
+            usrg_Sf_Import.Checked = FSFImportDelay
+            
+            set usrg_inv_ViewCardCostInPrice = Form.OwnerForm.FindComponent("usrg_inv_ViewCardCostInPrice")
+            usrg_inv_ViewCardCostInPrice.Checked = FViewCardCostInPrice
+        
+            set usrg_SortByNameAlias = Form.OwnerForm.FindComponent("usrg_SortByNameAlias")
+            usrg_SortByNameAlias.ItemIndex = FSortByNameAlias
+            
+            set usrg_cbNoSort = Form.OwnerForm.FindComponent("usrg_cbNoSort")
+            usrg_cbNoSort.Checked = FNoSort
+            
+            set usrg_PrintWeight = Form.OwnerForm.FindComponent("usrg_PrintWeight")
+            usrg_PrintWeight.ItemIndex = FPrintWeight
+            
+            set usrg_PrintUNP = Form.OwnerForm.FindComponent("usrg_PrintUNP")
+            usrg_PrintUNP.Checked = FPrintUNP
+        
+            set usrg_cbAutoCorrectTaraInSell = Form.FindComponent("usrg_cbAutoCorrectTaraInSell")
+            set usrg_cbAutoCorrectGlassInSell = Form.FindComponent("usrg_cbAutoCorrectGlassInSell")
+            set usrg_cbRestrictTara = Form.FindComponent("usrg_cbRestrictTara")
+            
+            usrg_cbAutoCorrectTaraInSell.Checked = FAutoCorrectTaraInSell
+            usrg_cbAutoCorrectGlassInSell.Checked = FAutoCorrectGlassInSell
+            usrg_cbRestrictTara.Checked = FRestrictTara
+            
+            set usrg_cbSellWithGuide = Form.FindComponent("usrg_cbSellWithGuide")
+            usrg_cbSellWithGuide.Checked = FSellWithGuide
+        
+            set usrg_cbAutoCommit_insert = Form.FindComponent("usrg_cbAutoCommit_insert")
+            usrg_cbAutoCommit_insert.Checked = FAutoCommit_insert
+        
+            set usrg_RoundTara = Form.FindComponent("usrg_RoundTara")
+            usrg_RoundTara.Checked = FRoundTara
+        
+            Form.FindComponent("usrg_cbTaxSaleGroup").Checked = FTaxSaleTypeFromGroup
+        
+            if FDefTaxSaleType = "S" then
+              Form.FindComponent("usrg_rbTaxSaleS").Checked = True
+            else
+              Form.FindComponent("usrg_rbTaxSaleR").Checked = True
+            end if
+        
+            InitRoundWithParamForm(Form)
+          end sub
+        
+          public sub WriteOption(Form)
+            'Алгоритм расчета цены оптовой цены прихода
+            '0 - от цены первого поставщика, 1 - от цены покупки
+            '2 - цена с торг.надбавкой, 3 - цена учета
+            FoptReceiptCostAlgorithm = Form.FindComponent("usrg_rgOptCost").ItemIndex
+            call CompanyStorage.WriteInteger("Inventory_Option\Recalculation", "optReceiptCostAlgorithm", _
+              FoptReceiptCostAlgorithm)
+            'Алгоритм пересчета количества при изменении кол-ва упаковок (кол-во в упаковке)
+            'True - не пересчитывать, False - пересчитывать
+            FoptQuantityAlgorithm = Form.FindComponent("usrg_CheckBox12").Checked
+            call CompanyStorage.WriteBoolean("Inventory_Option\Recalculation", "optQuantityAlgorithm", _
+              FoptQuantityAlgorithm)
+        
+            'True - Брать тип рассчета налога с продаж из Группы ТМЦ
+            FTaxSaleTypeFromGroup = Form.FindComponent("usrg_cbTaxSaleGroup").Checked
+            call CompanyStorage.WriteBoolean("Inventory_Option\Tax", "TaxSaleTypeFromGroup", FTaxSaleTypeFromGroup)
+            'Тип рассчета налога с продаж по умолчанию S- Прямой R- обратный
+            if Form.FindComponent("usrg_rbTaxSaleR").Checked then
+              FDefTaxSaleType = "R"
+            else
+              FDefTaxSaleType = "S"
+            end if
+            call CompanyStorage.WriteString("Inventory_Option\Tax", "DefTaxSaleType", FDefTaxSaleType)
+        
+            'Запреты на изм цен
+            set usrg_cbStandCostSellBill = Form.FindComponent("usrg_cbStandCostSellBill")
+            set usrg_cbStandCostBill = Form.FindComponent("usrg_cbStandCostBill")
+            set usrg_cbStandCostToTrade = Form.FindComponent("usrg_cbStandCostToTrade")
+            set usrg_cbStandCostFromTrade = Form.FindComponent("usrg_cbStandCostFromTrade")
+            set usrg_cbStandCostCashBill = Form.FindComponent("usrg_cbStandCostCashBill")
+            set usrg_rg_optinv_TypeRealization = Form.FindComponent("usrg_rg_optinv_TypeRealization")
+            FStandCostSellBill = usrg_cbStandCostSellBill.Checked
+            FStandCostBill = usrg_cbStandCostBill.Checked
+            FStandCostToTrade = usrg_cbStandCostToTrade.Checked
+            FStandCostFromTrade = usrg_cbStandCostFromTrade.Checked
+            FStandCostCashBill = usrg_cbStandCostCashBill.Checked
+            Foptinv_TypeRealization = usrg_rg_optinv_TypeRealization.ItemIndex
+        
+            set usrg_gm_OptRet = Form.OwnerForm.FindComponent("usrg_gm_OptRet")
+            set usrg_gm_Matdep = Form.OwnerForm.FindComponent("usrg_gm_Matdep")
+            FGMOptRetail = usrg_gm_OptRet.Checked
+            FGMMatDepart = usrg_gm_Matdep.Checked
+            call UserStorage.WriteBoolean("GoodMarkOptions", "OptRetdepart", FGMOptRetail)
+            call UserStorage.WriteBoolean("GoodMarkOptions", "Matdepart", FGMMatDepart)
+        
+            set usrg_inv_ViewCardCostInPrice = Form.OwnerForm.FindComponent("usrg_inv_ViewCardCostInPrice")
+            FViewCardCostInPrice = usrg_inv_ViewCardCostInPrice.Checked
+            call UserStorage.WriteBoolean("ViewCardCostInPrice", "ViewCardCostInPrice", FViewCardCostInPrice)
+        
+            set usrg_SortByNameAlias = Form.OwnerForm.FindComponent("usrg_SortByNameAlias")
+            FSortByNameAlias = usrg_SortByNameAlias.ItemIndex
+            call UserStorage.WriteInteger("ReportSortByInv", "SortByNameAlias", FSortByNameAlias)
+            
+            
+            set usrg_cbNoSort = Form.OwnerForm.FindComponent("usrg_cbNoSort")
+            FNoSort = usrg_cbNoSort.Checked
+            call UserStorage.WriteBoolean("ReportSortByInv", "NoSort", FNoSort)
+            
+            set usrg_PrintWeight = Form.OwnerForm.FindComponent("usrg_PrintWeight")
+            FPrintWeight = usrg_PrintWeight.ItemIndex
+            call UserStorage.WriteInteger("ReportSortByInv", "PrintWeight", FPrintWeight)
+            
+            set usrg_PrintUNP = Form.OwnerForm.FindComponent("usrg_PrintUNP")
+            FPrintUNP = usrg_PrintUNP.Checked
+            call UserStorage.WriteInteger("ReportSortByInv", "PrintUNP", FPrintUNP)
+            
+            
+        
+        'Формировать с/ф отложенными
+            set usrg_Sf_Opt = Form.OwnerForm.FindComponent("usrg_Sf_Opt")
+            set usrg_Sf_Retail = Form.OwnerForm.FindComponent("usrg_Sf_Retail")
+            set usrg_Sf_Import = Form.OwnerForm.FindComponent("usrg_Sf_Import")
+            FSFOptDelay = usrg_Sf_Opt.Checked
+            FSFRetailDelay = usrg_Sf_Retail.Checked
+            FSFImportDelay = usrg_Sf_Import.Checked
+            call UserStorage.WriteBoolean("Sf_Delay", "SfOpt", FSFOptDelay)
+            call UserStorage.WriteBoolean("Sf_Delay", "SfRetail", FSFRetailDelay)
+            call UserStorage.WriteBoolean("Sf_Delay", "SfImport", FSFImportDelay)
+        
+            call CompanyStorage.WriteInteger("Inventory_Option\TypeRealization", "DefTypeRealization", optinv_TypeRealization)
+            call UserStorage.WriteBoolean("Inventory_Option\Opt", "StandCostSellBill", FStandCostSellBill)
+            call UserStorage.WriteBoolean("Inventory_Option\Opt", "StandCostBill", FStandCostBill)
+            call UserStorage.WriteBoolean("Inventory_Option\Opt", "StandCostToTrade", FStandCostToTrade)
+            call UserStorage.WriteBoolean("Inventory_Option\Opt", "StandCostFromTrade", FStandCostFromTrade)
+            call UserStorage.WriteBoolean("Inventory_Option\Retail", "StandCostCashBill", FStandCostCashBill)
+        
+            set usrg_cbAutoCorrectTaraInSell = Form.FindComponent("usrg_cbAutoCorrectTaraInSell")
+            set usrg_cbAutoCorrectGlassInSell = Form.FindComponent("usrg_cbAutoCorrectGlassInSell")
+            set usrg_cbRestrictTara = Form.FindComponent("usrg_cbRestrictTara")
+            
+            FAutoCorrectTaraInSell = usrg_cbAutoCorrectTaraInSell.Checked
+            call UserStorage.WriteBoolean("Inventory_Option\Sell", "AutoCorrectTaraInSell", FAutoCorrectTaraInSell)
+            FAutoCorrectGlassInSell = usrg_cbAutoCorrectGlassInSell.Checked
+            call UserStorage.WriteBoolean("Inventory_Option\Sell", "AutoCorrectGlassInSell", FAutoCorrectGlassInSell)
+            FRestrictTara = usrg_cbRestrictTara.Checked
+            call UserStorage.WriteBoolean("Inventory_Option\Sell", "RestrictTara", FRestrictTara)
+        
+            set usrg_cbSellWithGuide = Form.FindComponent("usrg_cbSellWithGuide")
+            FSellWithGuide = usrg_cbSellWithGuide.Checked
+            call UserStorage.WriteBoolean("Inventory_Option\Sell", "SellWithGuide", FSellWithGuide)
+        
+            set usrg_cbAutoCommit_insert = Form.FindComponent("usrg_cbAutoCommit_insert")
+            FAutoCommit_insert = usrg_cbAutoCommit_insert.Checked
+            call UserStorage.WriteBoolean("Inventory_Option\Sell", "AutoCommit_insert", FAutoCommit_insert)
+        
+            set usrg_RoundTara = Form.FindComponent("usrg_RoundTara")
+            FRoundTara = usrg_RoundTara.Checked
+            call UserStorage.WriteBoolean("Inventory_Option\Tara", "RoundTara", FRoundTara)
+        
+            SaveRoundWithParamForm(Form)
+        '    set USRG_CHECKBOX3 = Sender.OwnerForm.FindComponent("USRG_CHECKBOX3")
+        '    call UserStorage.WriteBoolean("Inventory_Option\Opt", "AutoCheckBill", usrg_CheckBox3.Checked)
+          end sub
+        
+          public function invRound(Number, RoundMethod, RoundTo)
+            if RoundMethod = Mat_RoundType then
+              if RoundTo <> 0 then
+                invRound = Round(Number / RoundTo + 0.0000000001) * RoundTo
+              else
+                invRound = Round(Number + 0.0000000001)
+              end if
+            else
+              if RoundMethod = None_RoundType then
+                invRound = Number
+              else
+                if Number > 1000 then
+                  invRound = Round(Number / 10 + 0.0000000001) * 10
+                else
+                  invRound = Round(Number / 5 + 0.0000000001) * 5
+                end if
+              end if
+            end if
+          end function
+          
+          public function invRoundLast(Number, RoundMethod, RoundTo)
+            dim Delta
+            if Number >= 0 then
+              Delta = 0.0001
+            else
+              Delta = -0.0001
+            end if
+            if RoundMethod = Mat_RoundType then
+              if RoundTo <> 0 then
+                invRoundLast = Round(Number / RoundTo + Delta) * RoundTo
+              else
+                invRoundLast = Round(Number + Delta)
+              end if
+            elseif RoundMethod = None_RoundType then
+              invRoundLast = Number
+            elseif RoundMethod = Rule50100_RoundType then
+              dim Fx, Frc
+              Fx = Fix(Number / 100)
+              Frc = (Number/ 100 - Fx) * 100
+              if Frc > 0 and Frc < 50 then
+                Frc = 50
+              elseif Frc > 50 and Frc < 100 then
+                Frc = 100
+              elseif Frc < 0 and Frc > -50 then
+                Frc = -50
+              elseif Frc < -50 and Frc > -100 then
+                Frc = -100
+              end if
+              invRoundLast = Fx * 100 + Frc
+            elseif RoundMethod = Cents_RoundType then
+              invRoundLast = Round(Number + Delta, 2)
+            else
+              invRoundLast = Round(Number / 10 - Delta) * 10
+            end if
+          end function
+        
+          
+          'Неплательщик НДС
+          public property Get NDSDodger
+            if FCurrentCompanyKey <> IBLogin.CompanyKey then
+              set Creator = new TCreator
+              set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
+              ibsql.Transaction = gdcBaseManager.ReadTransaction
+              ibsql.SQl.Text = "SELECT USR$INV_NDSDODGER FROM gd_company WHERE contactkey = :contactkey"
+              ibsql.ParamByName("contactkey").AsInteger = IBLogin.CompanyKey
+              ibsql.ExecQuery
+              FNdsDodger = ibsql.FieldByname("USR$INV_NDSDODGER").AsInteger = 1
+              FCurrentCompanyKey = IBLogin.CompanyKey
+            end if
+            NDSDodger = FNdsDodger
+          end property
+        
+          public property Get optReceiptCostAlgorithm
+            optReceiptCostAlgorithm = FoptReceiptCostAlgorithm
+          end property
+        
+          public property Get optQuantityAlgorithm
+            optQuantityAlgorithm = FoptQuantityAlgorithm
+          end property
+        
+        
+          'Запрет изменения цены
+          'Отпуск на сторону
+          public property Get StandCostSellBill
+            StandCostSellBill = FStandCostSellBill
+          end property
+          'Счет фактура
+          public property Get StandCostBill
+            StandCostBill = FStandCostBill
+          end property
+          'Выдача в торг.подразделения
+          public property Get StandCostToTrade
+            StandCostToTrade = FStandCostToTrade
+          end property
+          'Возврат с тогр.подр.
+          public property Get StandCostFromTrade
+            StandCostFromTrade = FStandCostFromTrade
+          end property
+          'Реализация в розницу
+          public property Get StandCostCashBill
+            StandCostCashBill = FStandCostCashBill
+          end property
+        
+          'Автоформирование артикула
+          'Оптово-розничный склад
+          public property Get GMOptRetail
+            GMOptRetail = FGMOptRetail
+          end property
+          'Материальный склад
+          public property Get GMMatDepart
+            GMMatDepart = FGMMatDepart
+          end property
+        
+        'Формирование с/ф отложенными
+          'Оптовая
+          public property Get SFOptDelay
+            SFOptDelay = FSFOptDelay
+          end property
+          'Розничная
+          public property Get SFRetailDelay
+            SFRetailDelay = FSFRetailDelay
+          end property
+          'Валютная
+          public property Get SFImportDelay
+            SFImportDelay = FSFImportDelay
+          end property
+          
+          'Использовать в прайс-листе цены из прихода
+          public property Get ViewCardCostInPrice
+            ViewCardCostInPrice = FViewCardCostInPrice
+          end property
+          'Сортировка по шифру ТМЦ или наименованию
+          public property Get SortByNameAlias
+            SortByNameAlias = FSortByNameAlias
+          end property
+          'не сортировать в док-те Возврат с доработки
+          public property Get NoSort
+            NoSort = FNoSort
+          end property
+          
+          'печатать тонны или кг
+          public property Get PrintWeight
+            PrintWeight = FPrintWeight
+          end property
+          
+          'печатать рамку с УНП
+          public property Get PrintUNP
+            PrintUNP = FPrintUNP
+          end property
+          
+          
+          'Автоматически добавлять (корректировать количество) тару в отпуске
+          public property Get AutoCorrectTaraInSell
+            AutoCorrectTaraInSell = FAutoCorrectTaraInSell
+          end property
+          'Автоматически добавлять (корректировать количество) стеклопосуду в отпуске
+          public property Get AutoCorrectGlassInSell
+            AutoCorrectGlassInSell = FAutoCorrectGlassInSell
+          end property
+        
+          public property Get RestrictTara
+            RestrictTara = FRestrictTara
+          end property
+        
+          'Разрешить работу со справочника
+          public property Get SellWithGuide
+            SellWithGuide = FSellWithGuide
+          end property
+        
+          'Авт. commit при создании документа
+          public property Get AutoCommit_insert
+            AutoCommit_insert = FAutoCommit_insert
+          end property
+        
+         'Порядок рассчета налога с продаж по умолчанию
+          public property Get DefTaxSaleType
+            DefTaxSaleType = FDefTaxSaleType
+          end property
+          'Брать налог с продаж из группы
+          public property Get TaxSaleTypeFromGroup
+            TaxSaleTypeFromGroup = FTaxSaleTypeFromGroup
+          end property
+          
+          public property Get optinv_TypeRealization
+            optinv_TypeRealization = Foptinv_TypeRealization
+          end property
+          
+          public property Get IsMenu
+            IsMenu = FIsMenu
+          end property
+        
+        End Class
+        
