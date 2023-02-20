@@ -1,0 +1,243 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 150278140_2049824916
+  Name: "Меню с ингредиентами шаблон. Добавлена колорийность"
+  Caption: "Меню с ингредиентами. Добавлена колорийность"
+  Version: "1.0.0.5"
+  Optional: False
+  Internal: True
+  MD5: 3AA71FCC65CF071482703F39FD38E0D8
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147434180_295176351
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Меню с ингредиентами"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147434181_295176351 rp_Main147015402_9263644147434181_295176351"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147014580_9263644 Отчеты(gdc_frmUserComplexDocument147014188_52143670)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147434190_295176351 Меню147434190_295176351"
+      EDITIONDATE: 2023-02-20T12:19:43+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147434181_295176351
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "rp_Main147015402_9263644147434181_295176351"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147014299_9263644 gdc_frmUserComplexDocument147014188_52143670"
+      OBJECTNAME: "gdc_frmUserComplexDocument147014188_52143670"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2023-02-20T12:19:43+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147015402_9263644147434181_295176351
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAgAAABNRU5VTkFNRREAAADN4Ojs5e3u4uDt6OUg7OXt/gAAAAAAAAAAAAAAAAUA
+        AAAAAAAAAA8AAADk6/8g7+X34PLoIMzFzd5GTlNUUFJTVAkAAABJU0NBTE9SSUUVAAAAz+X34PLg
+        8vwg6uDr7vDo6e3u8fL8AAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        function rp_Main147015402_9263644147434181_295176351(OwnerForm, menuname, isCalorie)
+          ' Получаем выделеные меню
+          doc = OwnerForm.SelectedKey
+          id = "(" + Join(doc(0), ",") + ")"
+        
+          if isCalorie then
+            isCalorie = 1
+          else
+            isCalorie =0
+          end if
+          
+        
+          ' Выбираем шапку документа
+          BaseQueryList.Clear
+          set q = BaseQueryList.Query(BaseQueryList.Add("Menu", 0))
+          q.SQL = _
+              " SELECT " & _
+              " CAST(" & isCalorie & " as SMALLINT) as isCalorie,  " & _
+              " iif('" & CSTR(menuname) & "' <>'','" & CSTR(menuname) & "', mn.usr$name) as usr$name, mm.usr$todate, con.name depotname, doc.documentdate, mm.documentkey " + _
+              " FROM usr$mn_menu mm " + _
+              " JOIN usr$mn_menuname mn on mm.usr$menunamekey = mn.id " + _
+              " JOIN gd_contact con on mm.usr$depotkey = con.id " + _
+              " JOIN GD_DOCUMENT doc ON doc.id = mm.documentkey " + _
+              " WHERE doc.id IN " + ID
+        
+         ' Выбираем позиции документа
+          set qmenu = BaseQueryList.Query(BaseQueryList.Add("Menuline", 0))
+          qmenu.SQL = _
+             " SELECT g_s_delchar(g.alias) as goodalias, g.description, " & _
+            " coalesce(mc.usr$outputstr, '1шт.') as usr$outputstr, ml.usr$cost, g.name, " + _
+            " max(gg.name) as groupname, max(gg.alias) as groupalias, " & _
+            "  g.usr$mn_protein as protein, " & _
+            "  g.usr$mn_fat as fat, " & _
+            "  g.usr$mn_uglevod as uglevod, " & _
+            "  g.usr$mn_calorie as calorie, " & _
+            "  iif(g.USR$MN_CALORIE * 4.1868 <= 5, round(g.USR$MN_CALORIE * 4.1868), iif(g.USR$MN_CALORIE * 4.1868 > 100, round(g.USR$MN_CALORIE * 4.1868 / 10) * 10, round(g.USR$MN_CALORIE * 4.1868 / 5) * 5)) as calorie2, " & _
+            " ml.masterkey, mc.documentkey as cardkey, ml.documentkey " + _
+            " FROM usr$mn_menuline ml " + _
+            " join gd_document d on d.id = ml.documentkey " & _
+            " left JOIN usr$mn_menu mm on mm.documentkey = ml.masterkey " + _
+            " left JOIN gd_good g on g.id = ml.usr$goodkey " + _
+            " left JOIN usr$mn_calccard mc on mc.documentkey = ml.usr$cardkey " + _
+            " left JOIN GD_GOODGROUP gg on gg.id = g.groupkey " + _
+            " WHERE d.DISABLED <> 1 and ml.masterkey in"  + ID + _
+            "group by 1, 2, 3, 4, 5, 8, 9, 10,11,12,13,14, 15 " & _
+            " ORDER BY 7, 5 "
+          q.Open
+          qmenu.Open
+        
+          set qDesc = BaseQueryList.Query(BaseQueryList.Add("Descr", 1))
+          call qDesc.AddField("NAME", "ftString", 4000, 0)
+          call qDesc.AddField("NAME2", "ftString", 4000, 0)
+          call qDesc.AddField("NAME3", "ftString", 4000, 0)
+          call qDesc.AddField("CardKey", "ftInteger", 0, 0)
+          qDesc.Open
+        
+         ' находим позиции кальк. карточки для печати в меню
+          set Creator = new TCreator
+          set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
+          ibsql.Transaction = gdcBaseManager.ReadTransaction
+          ibsql.SQl.Text = " SELECT g.name " + _
+          " FROM usr$mn_calccardline rl " + _
+          " JOIN gd_good g on g.id = rl.USR$OLDGOODKEY " + _
+          " WHERE rl.masterkey = :Receipt and rl.usr$printinmenu = 1 " & _
+          " and coalesce(rl.USR$SUBRECEIPKEY, 0) = 0 "
+        
+          while not qmenu.EOF
+            ibsql.Close
+            ibsql.ParamBYName("receipt").AsInteger = qmenu.FieldBYName("CardKey").AsInteger
+            ibsql.ExecQuery
+            S = ""
+            S1 = ""
+            S2 = ""
+            while not ibsql.EOF
+              if S > "" and ibsql.FieldBYName("Name").ASString > "" then
+                S = S + ", "
+              end if
+        '      if S1 > "" and ibsql.FieldBYName("usr$Name2").ASString > "" then
+        '        S1 = S1 + ", "
+        '      end if
+        '      if S2 > "" and ibsql.FieldBYName("usr$Name3").ASString > "" then
+        '        S2 = S2 + ", "
+        '      end if
+              S = S + LCase(ibsql.FieldBYName("Name").ASString)
+        '      S1 = S1 + ibsql.FieldBYName("USR$Name2").ASString
+        '      S2 = S2 + ibsql.FieldBYName("USR$Name2").ASString
+              ibsql.Next
+            wend
+            qDesc.Append
+            qDesc.FieldByName("CardKey").AsInteger = qmenu.FieldBYName("documentkey").AsInteger
+            qDesc.FieldByName("NAME").AsString = S
+        '    qDesc.FieldByName("NAME2").AsString = S1
+        '    qDesc.FieldByName("NAME3").AsString = S2
+            qDesc.Post
+            qmenu.Next
+          wend
+        
+        
+          
+          
+          BaseQueryList.AddMasterDetail "Menuline", "documentkey" , "Descr", "CardKey"
+        
+          set rp_Main147015402_9263644147434181_295176351 = BaseQueryList
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147434190_295176351
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Меню147434190_295176351"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR"
+      EDITIONDATE: 2023-02-20T12:19:33+03:00
+      TEMPLATEDATA: !!binary > 
+        GQAAAAABAAEA//////8JAAAANAgAAJoLAAA2AAAANgAAADYAAAA2AAAAAP//AAAAAP//AAAAAAAA
+        AAAAAAAAAwQARm9ybQAPAACA3AAAAHgAAAB8AQAALAEAAAQAAAACAMwAAAAMAFJlcG9ydFRpdGxl
+        MQACAQAAAAA0AAAA9gIAALQAAAAwAAAAAQAAAAAAAAAAAP///x8AAAAAAAAAAAAAAAAA//8AAAAA
+        AAIAAAABAAAAABYAAAABAAAAyAAAABQAAAABAAAAAAAAAgBAAQAACwBNYXN0ZXJEYXRhMQACAQAA
+        AABoAQAA9gIAABQAAAA1AAUAAQAAAAAAAAAAAP///x8AAAAACABNRU5VTElORQAAAAAAAAD//wAA
+        AAAAAgAAAAEAAAAAFgAAAAEAAADIAAAAFAAAAAEAAAAAAAACAMQBAAAMAEdyb3VwSGVhZGVyMQAC
+        AQAAAAA0AQAA9gIAABQAAAAwABAAAQAAAAAAAAAAAP///x8AAAAAFwBbTUVOVUxJTkUuIkdST1VQ
+        QUxJQVMiXQAAAAAAAAD//wAAAAAAAgAAAAEAAAAAFgAAAAEAAADIAAAAFAAAAAEAAAAAAAACADUC
+        AAALAERldGFpbERhdGExAAIBAAAAAJQBAAD2AgAACwAAADEACAABAAAAAAAAAAAA////HwAAAAAF
+        AERFU0NSAAAAAAAAAP//AAAAAAACAAAAAQAAAAAWAAAAAQAAAMgAAAAUAAAAAQAAAAAAAAIAdwMA
+        AAsAUGFnZUhlYWRlcjEAAgEAAAAA9QAAAPYCAAAfAAAAMAACAAEAAAAAAAAAAAD///8fAAAAAAAA
+        AAAAAAoABQBiZWdpbg0eACAgaWYgW01FTlUuIklTQ0FMT1JJRSJdPTAgVGhlbg0JACAgICBiZWdp
+        bg0dACAgICAgIE1lbW8xMS5WaXNpYmxlIDo9ZmFsc2U7DR0AICAgICAgTWVtbzEzLlZpc2libGUg
+        Oj1mYWxzZTsNGAAgICAgICBNZW1vOS5sZWZ0IDo9IDU3MDsNGQAgICAgICBNZW1vMTQubGVmdCA6
+        PSA1NzA7DR8AICAgIGVuZCAgICAvL01lbW85LmxlZnQgOj0gNDg3Ow0AAA0DAGVuZAD//wAAAAAA
+        AgAAAAEAAAAAFgAAAAEAAADIAAAAFAAAAAEAAAAAAAAAAAcEAAAFAE1lbW8yAAIASAAAAGgBAACk
+        AQAAFAAAAAMAAgABAAAAAAAAAAAA////Hy4CAAAAAAABABEAW01FTlVMSU5FLiJOQU1FIl0AAAAA
+        //8AAAAAAAIAAAABAAAAABYFAEFyaWFsAAoAAAACAAAAAAAIAAAAzAACAAAAAAD///8AAAAAAgAA
+        AAAAAAAAAIQEAAAFAE1lbW8zAAIA7QEAAGgBAABQAAAAFAAAAAMAAgABAAAAAAAAAAAA////Hy4C
+        AAAAAAAAAAAAAAD//wAAAAAAAgAAAAEAAAAAFgUAQXJpYWwACAAAAAMAAAAAAAoAAADMAAIAAAAA
+        AP///wAAAAACAAAAAAAAAAAAGAUAAAUATWVtbzQAAgCEAgAAaAEAADUAAAAUAAAAAwACAAEAAAAA
+        AAAAAAD///8fLgIDAQAAAAEAFQBbTUVOVUxJTkUuIlVTUiRDT1NUIl0AAAAA//8AAAAAAAIAAAAB
+        AAAAABYFAEFyaWFsAAoAAAADAAAAAAAJAAAAzAACAAAAAAD///8AAAAAAgAAAAAAAAAAALIFAAAF
+        AE1lbW81AAIANgAAAKEAAACKAgAAJAAAAAMAAAABAAAAAAAAAAAA////Hy4CAAAAAAABABEAW01F
+        TlUuIlVTUiROQU1FIl0AAAAA//8AAAAAAAIAAAABAAAABxYPAFRpbWVzIE5ldyBSb21hbgAWAAAA
+        AwAAAAAACgAAAMwAAgAAAAAA////AAAAAAIAAAAAAAAAAABfBgAABQBNZW1vNwACADYAAADJAAAA
+        igIAABQAAAADAAIAAQAAAAAAAAAAAP///x8uAgAAAAAAAQAuAGMgW01FTlUuIkRPQ1VNRU5UREFU
+        RSJdIO/uIFtNRU5VLiJVU1IkVE9EQVRFIl0AAAAA//8AAAAAAAIAAAABAAAABxYFAEFyaWFsAAoA
+        AAAAAAAAAAAKAAAAzAACAAAAAAD///8AAAAAAgAAAAAAAAAAAO4GAAAFAE1lbW84AAIAOQAAAEkA
+        AACIAgAAVAAAAAMAAAABAAAAAAAAAAAA////HywCAAAAAAABAAUAzMXN3iAAAAAA//8AAAAAAAIA
+        AAABAAAAABYQAE1vbm90eXBlIENvcnNpdmEASAAAAAIA/////xIAAADMAAIAAAAAAP///wAAAAAC
+        AAAAAAAAAAAAgwcAAAUATWVtbzEAAgA2AAAANAEAAIoCAAAUAAAAAwAAAAEAAAAAAAAAAADf398A
+        LgIAAAAAAAEAFgBbTUVOVUxJTkUuIkdST1VQTkFNRSJdAAAAAP//AAAAAAACAAAAAQAAAAQWBQBB
+        cmlhbAAMAAAAAgAAAAAAAAAAAMwAAgAAAAAA////AAAAAAIAAAAAAAAAAAAHCAAABQBNZW1vOQAC
+        AOcBAAD3AAAATAAAABwAAAADAAAAAQAAAAAAAAAAAP///x8uAgAAAAAAAQAFAML79e7kAAAAAP//
+        AAAAAAACAAAAAQAAAAAWBQBBcmlhbAAIAAAAAAAAAAAACgAAAMwAAgAAAAAA////AAAAAAIAAAAA
+        AAAAAACSCAAABgBNZW1vMTAAAgCAAgAA9gAAADgAAAAeAAAAAwAAAAEAAAAAAAAAAAD///8fLgIA
+        AAAAAAEACwDW5e3gIOIg8PPhLgAAAAD//wAAAAAAAgAAAAEAAAAAFgUAQXJpYWwACAAAAAAAAAAA
+        AAoAAADMAAIAAAAAAP///wAAAAACAAAAAAAAAAAAKgkAAAYATWVtbzEyAAIASAAAAJQBAABwAgAA
+        CwAAAAMAAAABAAAAAAAAAAAA////Hy4CAAAAAAABABgAW01FTlVMSU5FLiJERVNDUklQVElPTiJd
+        AAAAAP//AAAAAAACAAAAAQAAAAAWBQBBcmlhbAAHAAAAAAAAAAAACAAAAMwAAgAAAAAA////AAAA
+        AAIAAAAAAAAAAACnCQAABQBNZW1vNgACAD0CAABoAQAASAAAABQAAAADAAIAAQAAAAAAAAAAAP//
+        /x8sAgAAAAAAAAAAAAAA//8AAAAAAAIAAAABAAAAABYFAEFyaWFsAAgAAAADAAAAAAAKAAAAzAAC
+        AAAAAAD///8AAAAAAgAAAAAAAAAAAD4KAAAGAE1lbW8xMQACADMCAAD2AAAATQAAAB0AAAADAAAA
+        AQAAAAAAAAAAAP///x8sAgAAAAAAAQAXAMrg6+7w6Ont7vHy/CDt4CAxMDDjL+zjAAAAAP//AAAA
+        AAACAAAAAQAAAAAWBQBBcmlhbAAIAAAAAAAAAAAACgAAAMwAAgAAAAAA////AAAAAAIAAAAAAAAA
+        AADSCgAABgBNZW1vMTMAAgA9AgAAaQEAAEgAAAASAAAAAwAAAAEAAAAAAAAAAAD///8fLAIAAAAA
+        AAEAFABbTUVOVUxJTkUuIkNBTE9SSUUiXQAAAAD//wAAAAAAAgAAAAEAAAAAFgUAQXJpYWwACAAA
+        AAMAAAAAAAoAAADMAAIAAAAAAP///wAAAAACAAAAAAAAAAAAbAsAAAYATWVtbzE0AAIA7QEAAGoB
+        AABQAAAAEQAAAAMAAAABAAAAAAAAAAAA////HywCAAAAAAABABoAW01FTlVMSU5FLiJVU1IkT1VU
+        UFVUU1RSIl0AAAAA//8AAAAAAAIAAAABAAAAABYFAEFyaWFsAAgAAAADAAAAAAAKAAAAzAACAAAA
+        AAD///8AAAAAAgAAAAAAAAD+/v8EAAAAEgAgwvXu5O375SDv4PDg7OXy8PsABgAjJCYDADAABgBQ
+        QVJBTTIABgAjJCYLADAABgBQQVJBTTEABQAjJCYIAAAGAFBBUkFNMAAFACMkJggAAAAAAAAAAAAA
+        /AAAAAAAAAAAAAAAAAAAAABYAB63mYf5fOJAnY8dbzD25UA=
