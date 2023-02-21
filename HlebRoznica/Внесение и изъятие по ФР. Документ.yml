@@ -1,0 +1,2918 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147823465_2042300911
+  Name: "Внесение и изъятие по ФР. Документ"
+  Caption: "Внесение и изъятие по ФР. Документ"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 0B0B440999ABF77C2196EA04026A3360
+Uses: 
+  - "147031769_208155297 GS.PositiveCash.Склад.Обмен с кассовым сервером.Функции"
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+  - "147728063_43451302 Кассовые документы 10"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753062_69526485 GS.Общие.Хранилище"
+  - "149374277_623967871 Кассовые документы 10.ТХО"
+  - "147773116_84733194 GS.Общее.Настройки кнопки Проводки"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823367_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      NAME: "AutoEntryScript147823367_2042300911_header"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "ENTRY"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-20T18:37:25+03:00
+      DISPLAYSCRIPT: | 
+        AUTOENTRYSCRIPT147823367_2042300911_HEADER
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QLAAAAZ2RjRG9jdW1lbnQWAAAAwejn7eXxIO7h+uXq8iDv8O7i7uTq6AAAAAAAAAAA
+        AAAAAAAAAAAAAAAAABYAAADB6Oft5fEg7uH65eryIO/w7uLu5OroRk5TVEZMUFI=
+      SCRIPT: | 
+        'Данная скрипт-функция создана конструктором функций.
+        'Все изменения, произведённые вручную, будут потеряны
+        'при следующей генерации скрипт-функции.
+        Sub AutoEntryScript147823367_2042300911_header(gdcDocument)
+          Set Creator = New TCreator
+          If gdcDocument.Transaction.InTransaction Then
+            Set Transaction = gdcDocument.Transaction
+          Else
+            Set Transaction = gdcDocument.ReadTransaction
+          End If
+          gdcDocument.FieldByName("transactionkey").AsInteger = gdcBaseManager.GetIdByRuidString("147823358_2042300911")
+        End Sub
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147823315_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "147006462_486813904 Документы пользователя"
+      NAME: "Операции ФР"
+      DESCRIPTION: "Операции ФР"
+      USERGROUPNAME: "147823315_2042300911"
+      EDITIONDATE: 2023-02-20T17:51:17+03:00
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147823316_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "147021877_3974129 Исследователь\\Банк и касса\\Касса"
+      NAME: "Операции ФР"
+      CLASSNAME: "TgdcUserDocument"
+      CMD: "147823312_2042300911"
+      CMDTYPE: 0
+      HOTKEY: ~
+      IMGINDEX: 0
+      ORDR: ~
+      SUBTYPE: "147823312_2042300911"
+      EDITIONDATE: 2023-02-20T18:41:52+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcDocumentTable"
+      RUID: 147823314_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "USR$FR_ACTION"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      LISTFIELD: ~
+      LNAME: "Операции по ФР"
+      LSHORTNAME: "Операции по ФР"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$FR_ACTION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2023-02-20T17:50:37+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147823322_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$SUMNCU"
+      FIELDNAME: "USR$SUMNCU"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Сумма"
+      LSHORTNAME: "Сумма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147823314_2042300911 Операции по ФР, USR$FR_ACTION"
+      RELATIONNAME: "USR$FR_ACTION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-02-20T17:54:29+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147823321_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$CASHREGISTER"
+      FIELDNAME: "USR$CASHREGISTER"
+      FIELDSOURCE: "USR$BN_CASHREGISTERKEY"
+      FIELDSOURCEKEY: "147061288_3974129 Ссылка на кассовый аппарат, USR$BN_CASHREGISTERKEY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Кассовый аппарат"
+      LSHORTNAME: "Ссылка на кассовый а"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$BN_NAME"
+      REFRELATIONNAME: "USR$BN_CASHREGISTER"
+      RELATIONKEY: "147823314_2042300911 Операции по ФР, USR$FR_ACTION"
+      RELATIONNAME: "USR$FR_ACTION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-02-20T17:54:03+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147823320_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$DESCRIPTION"
+      FIELDNAME: "USR$DESCRIPTION"
+      FIELDSOURCE: "DTEXT180"
+      FIELDSOURCEKEY: "147000116_31587988 Текст (180), DTEXT180"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Описание операции"
+      LSHORTNAME: "Описание операции"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147823314_2042300911 Операции по ФР, USR$FR_ACTION"
+      RELATIONNAME: "USR$FR_ACTION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 180
+      VISIBLE: 1
+      EDITIONDATE: 2023-02-20T17:53:15+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147823319_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$DEPKEY"
+      FIELDNAME: "USR$DEPKEY"
+      FIELDSOURCE: "USR$GS_DDEPARTMENT"
+      FIELDSOURCEKEY: "147034863_9802323 Подразделение, USR$GS_DDEPARTMENT"
+      FORMAT: ~
+      GDCLASSNAME: "TgdcDepartment"
+      GDSUBTYPE: ~
+      LNAME: "Подразделение"
+      LSHORTNAME: "Подразделение"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_CONTACT"
+      RELATIONKEY: "147823314_2042300911 Операции по ФР, USR$FR_ACTION"
+      RELATIONNAME: "USR$FR_ACTION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-02-20T17:52:47+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147823318_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$OPERATIONKEY"
+      FIELDNAME: "USR$OPERATIONKEY"
+      FIELDSOURCE: "DSMALLINT"
+      FIELDSOURCEKEY: "147000168_31587988 Целое число, DSMALLINT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Ключ операции"
+      LSHORTNAME: "Ключ операции"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147823314_2042300911 Операции по ФР, USR$FR_ACTION"
+      RELATIONNAME: "USR$FR_ACTION"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-02-20T17:52:01+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcUserDocumentType"
+      RUID: 147823312_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "801000_17 Документ пользователя"
+      NAME: "Операции ФР"
+      ADDNUMBER: 1
+      BRANCHKEY: "147823316_2042300911 Исследователь\\Банк и касса\\Касса\\Операции ФР"
+      CLASSNAME: "TgdcUserDocumentType"
+      DESCRIPTION: ~
+      DOCUMENTTYPE: "D"
+      FIXLENGTH: ~
+      HEADERFUNCTIONKEY: "147823367_2042300911 AutoEntryScript147823367_2042300911_header"
+      HEADERRELKEY: "147823314_2042300911 Операции по ФР, USR$FR_ACTION"
+      ISCHECKNUMBER: 0
+      ISCOMMON: 0
+      LINEFUNCTIONKEY: ~
+      LINERELKEY: ~
+      MASK: "\"NUMBER\""
+      REPORTGROUPKEY: "147823315_2042300911 Документы пользователя\\Операции ФР"
+      RUID: "147823312_2042300911"
+      EDITIONDATE: 2023-02-20T18:41:52+03:00
+      DISABLED: 0
+      HEADERFUNCTIONTEMPLATE: !!binary > 
+        RldpegEAAAAMAAAAVFNjcmlwdEJsb2NrEgAAAAAAAAAAAAAAAAAAAAAAAAAArAEAALACAAABAAAA
+        AAAAAAABAAAAHAAAAFREb2N1bWVudFRyYW5zYWN0aW9uRnVuY3Rpb24SAAAAKgAAAEF1dG9FbnRy
+        eVNjcmlwdDE0NzgyMzM2N18yMDQyMzAwOTExX2hlYWRlcgAAAAABCgAAAAUAAABNAQAATwAAAAEA
+        AAAAAAAAAABTTFBSUFJTVAsAAABnZGNEb2N1bWVudBYAAADB6Oft5fEg7uH65eryIO/w7uLu5Oro
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAAMHo5+3l8SDu4frl6vIg7/Du4u7k6uhGTlNUAAAAAEZM
+        UFJzAAAASWYgTm90IGdkY0RvY3VtZW50LkZpZWxkQnlOYW1lKCJ0cmFuc2FjdGlvbmtleSIpLklz
+        TnVsbCBUaGVuIF8NCiAgZ2RjRG9jdW1lbnQuRmllbGRCeU5hbWUoInRyYW5zYWN0aW9ua2V5Iiku
+        Q2xlYXINCgAAAAABAAAAEQAAAFRUcmFuc2FjdGlvbkJsb2NrEgAAAA0AAABUcmFuc2FjdGlvbl8x
+        AAAAAAEKAAAAHAAAALcAAAAXAAAAAAAAAAAAAAAAFAAAADE0NzgyMzM1OF8yMDQyMzAwOTExAAAA
+        AA==
+      LINEFUNCTIONTEMPLATE: ~
+      OPTIONS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147823441_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "990010_17 USER - Administrator"
+      NAME: "gdc_frmUserSimpleDocument147823312_2042300911(Tgdc_frmUserSimpleDocument)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2023-02-20T17:56:16+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageFolder"
+      RUID: 147823442_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "147823441_2042300911 USER - Administrator\\gdc_frmUserSimpleDocument147823312_2042300911(Tgdc_frmUserSimpleDocument)"
+      NAME: "ibgrMain(TgsIBGrid)"
+      CURR_DATA: ~
+      DATA_TYPE: "F"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2023-02-20T18:05:02+03:00
+      BLOB_DATA: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147823443_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "147823442_2042300911 USER - Administrator\\gdc_frmUserSimpleDocument147823312_2042300911(Tgdc_frmUserSimpleDocument)\\ibgrMain(TgsIBGrid)"
+      NAME: "data"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2023-02-21T11:52:13+03:00
+      BLOB_DATA: !!binary > 
+        VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
+        bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
+        aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
+        RTdFNw4BDERpc3BsYXlGaWVsZAYXVV9VU1IkRVhQRU5TRVNfVVNSJE5BTUUJTGluZUNvdW50AgIH
+        T3B0aW9ucwsMY2VvTXVsdGlsaW5lAAABDERpc3BsYXlGaWVsZAYVVV9VU1IkQ09OVEFDVEtFWV9O
+        QU1FCUxpbmVDb3VudAICB09wdGlvbnMLDGNlb011bHRpbGluZQAAAQxEaXNwbGF5RmllbGQGC0RF
+        U0NSSVBUSU9OCUxpbmVDb3VudAICB09wdGlvbnMLDGNlb011bHRpbGluZQAAAAgIDgAIDgEIRXhw
+        YW5kZWQICUZpZWxkTmFtZQYGTlVNQkVSCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgXN7uzl8AVX
+        aWR0aAI0B1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMRE9DVU1FTlREQVRFCFJlYWRP
+        bmx5CA1UaXRsZS5DYXB0aW9uBgTE4PLgBVdpZHRoAkEHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmll
+        bGROYW1lBg9VU1IkREVTQ1JJUFRJT04IUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GEc7v6PHg7ejl
+        IO7v5fDg9ujoBVdpZHRoA4IAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYRVV9VU1Ik
+        REVQS0VZX05BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDc/u5PDg5+Tl6+Xt6OUFV2lkdGgD
+        oQAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1lBhBVU1IkT1BFUkFUSU9OS0VZCFJlYWRP
+        bmx5CA1UaXRsZS5DYXB0aW9uBg3K6/73IO7v5fDg9ujoBVdpZHRoAlcHVmlzaWJsZQkAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBgpVU1IkU1VNTkNVCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgXR8+zs
+        4AVXaWR0aAJ/B1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYUVV9VU1IkREVQS0VZX0FE
+        RFJFU1MIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBcDk8OXxBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBh5VX1VTUiRDQVNIUkVHSVNURVJfVVNSJEJOX05BTUUIUmVhZE9u
+        bHkIDVRpdGxlLkNhcHRpb24GI8rg8fHu4vvpIODv7+Dw4PIgKMrg8fHu4vvpIODv7+Dw4PIpBVdp
+        ZHRoA4IAB1Zpc2libGUJAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYCSUQIUmVhZE9ubHkIDVRpdGxl
+        LkNhcHRpb24GBMrr/vcFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBlBB
+        UkVOVAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYI0O7k6PLl6/wFV2lkdGgC/wdWaXNpYmxlCAAB
+        CEV4cGFuZGVkCAlGaWVsZE5hbWUGD0RPQ1VNRU5UVFlQRUtFWQhSZWFkT25seQgNVGl0bGUuQ2Fw
+        dGlvbgYN0ujvIOTu6vPs5e3y4AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYJVFJUWVBFS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBg7S6O8g8vDg7efg6vbo6AVXaWR0
+        aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYOVFJBTlNBQ1RJT05LRVkIUmVhZE9u
+        bHkIDVRpdGxlLkNhcHRpb24GCtLw4O3n4Or26P8FV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGC0RFU0NSSVBUSU9OCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgjO7+jx4O3o
+        5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYGU1VNTkNVCFJlYWRPbmx5
+        CA1UaXRsZS5DYXB0aW9uBgvR8+zs4CDiIM3ExQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
+        CUZpZWxkTmFtZQYHU1VNQ1VSUghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYO0fPs7OAg4iDi4Ov+
+        8uUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBVNVTUVRCFJlYWRPbmx5
+        CA1UaXRsZS5DYXB0aW9uBhPR8+zs4CDiIP3q4uji4Ovl7fLlBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBgdERUxBWUVECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgrO8uvu
+        5uXt7fvpBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdDVVJSS0VZCFJl
+        YWRPbmx5CA1UaXRsZS5DYXB0aW9uBgbC4Ov+8uAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGCkNPTVBBTllLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCMru7O/g7ej/
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpDUkVBVE9SS0VZCFJlYWRP
+        bmx5CA1UaXRsZS5DYXB0aW9uBgrK8u4g8e7n5ODrBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
+        ZAgJRmllbGROYW1lBgxDUkVBVElPTkRBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDcTg8uAg
+        8e7n5ODt6P8FV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCUVESVRPUktF
+        WQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYMyvLuIOjx7/Dg4ujrBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9OREFURQhSZWFkT25seQgNVGl0bGUuQ2FwdGlv
+        bgYOxODy4CDo5+zl7eXt6P8FV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUG
+        CVBSSU5UREFURQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYLxODy4CDv5ffg8ugFV2lkdGgC/wdW
+        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCERJU0FCTEVECFJlYWRPbmx5CA1UaXRsZS5D
+        YXB0aW9uBghESVNBQkxFRAVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYI
+        UkVTRVJWRUQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GD8fg8OXn5fDi6PDu4uDt7gVXaWR0aAL/
+        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLRE9DVU1FTlRLRVkNVGl0bGUuQ2FwdGlv
+        bgYNyOTl7fLo9Ojq4PLu8AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYJ
+        UkVTRVJWRUQxDVRpdGxlLkNhcHRpb24GIMfg8OXn5fDi6PDu4uDt7iAozu/l8OD26Ogg7+4g1NAp
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhBVU1IkQ0FTSFJFR0lTVEVS
+        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhDK4PHx7uL76SDg7+/g8ODyBVdpZHRoAv8HVmlzaWJs
+        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpVU1IkREVQS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0
+        aW9uBg3P7uTw4Ofk5evl7ejlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        Bg5VU1IkU09SVE5VTUJFUghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYUze7s5fAg5Ov/IPHu8PLo
+        8O7i6ugFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGClVTUiRFUVJBVEUI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GEMrz8PEg/eri6OLg6+Xt8uAFV2lkdGgC/wdWaXNpYmxl
+        CAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDFVTUiRFVkFUX09VVAhSZWFkT25seQgNVGl0bGUuQ2Fw
+        dGlvbgYQ0fLg8vPxIOjx9S4g3dHX1AVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxk
+        TmFtZQYXWl9VU1IkRVZBVF9PVVRfVVNSJE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g
+        6Ozl7e7i4O3o5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMVVNSJEVW
+        QVRfU1VNCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhzP7uTy4uXw5uTl7e3g/yDx8+zs4CDv7iDd
+        0dfUBVdpZHRoAv8HVmlzaWJsZQgAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGBUFGVUxMDVRpdGxlLkNhcHRpb24GDc/u6+376SDk7vHy8+8FV2lkdGgC/wdW
+        aXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYF
+        QUNIQUcNVGl0bGUuQ2FwdGlvbgYZz/Du8ezu8vAg6CDw5eTg6vLo8O7i4O3o5QVXaWR0aAL/B1Zp
+        c2libGUIAAEJQWxpZ25tZW50Bw50YVJpZ2h0SnVzdGlmeQhFeHBhbmRlZAgJRmllbGROYW1lBgVB
+        VklFVw1UaXRsZS5DYXB0aW9uBg/S7uv86u4g7/Du8ezu8vAFV2lkdGgC/wdWaXNpYmxlCAAACAi0
+        HgkI
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147823353_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "147030551_1439110857 GLOBAL\\DFM\\Tgdc_dlgUserSimpleDocument"
+      NAME: "147823312_2042300911"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2023-02-20T18:16:46+03:00
+      BLOB_DATA: | 
+        object gdc_dlgUserSimpleDocument147823312_2042300911: Tgdc_dlgUserSimpleDocument
+          Left = 505
+          Top = 327
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 160
+          ClientWidth = 519
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 134
+            TabOrder = 2
+          end
+          object btnNew: TButton
+            Top = 134
+            TabOrder = 3
+          end
+          object btnHelp: TButton
+            Top = 134
+            TabOrder = 4
+          end
+          object btnOK: TButton
+            Top = 134
+            TabOrder = 0
+          end
+          object btnCancel: TButton
+            Top = 134
+            TabOrder = 1
+          end
+          object usrg_147823312_2042300911_PageControl1: TPageControl
+            Tag = 0
+            Left = -2
+            Top = 6
+            Width = 519
+            Height = 124
+            Cursor = crDefault
+            Hint = ''
+            HelpContext = 0
+            ActivePage = usrg_147823312_2042300911_TabSheet1
+            Align = alNone
+            Anchors = [akLeft, akTop]
+            Constraints.MaxHeight = 0
+            Constraints.MaxWidth = 0
+            Constraints.MinHeight = 0
+            Constraints.MinWidth = 0
+            DockSite = False
+            DragCursor = crDrag
+            DragKind = dkDrag
+            DragMode = dmManual
+            Enabled = True
+            HotTrack = False
+            Images = nil
+            MultiLine = False
+            OwnerDraw = False
+            ParentBiDiMode = True
+            ParentFont = True
+            ParentShowHint = True
+            PopupMenu = nil
+            RaggedRight = False
+            ScrollOpposite = False
+            Style = tsTabs
+            TabHeight = 0
+            TabOrder = 6
+            TabPosition = tpTop
+            TabStop = True
+            TabWidth = 0
+            Visible = True
+            object usrg_147823312_2042300911_TabSheet1: TTabSheet
+              Tag = 0
+              Cursor = crDefault
+              Hint = ''
+              HelpContext = 0
+              BorderWidth = 0
+              Caption = 'Основное'
+              DragMode = dmManual
+              Enabled = True
+              Highlighted = False
+              ImageIndex = 0
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              TabVisible = True
+              object usrat_gsIBLookupComboBox_USR_CASHREGISTER_Label: TLabel
+                Left = 316
+                Top = 55
+              end
+              object usrat_DBEdit_USR_SUMNCU_Label: TLabel
+                Left = 131
+                Top = 11
+                Width = 69
+              end
+              object usrat_xDateDBEdit_DOCUMENTDATE_Label: TLabel
+                Left = 15
+                Top = 12
+              end
+              object usrat_DBEdit_USR_DESCRIPTION_Label: TLabel
+                Left = 15
+                Top = 57
+              end
+              object usrat_gsIBLookupComboBox_USR_DEPKEY_Label: TLabel
+                Left = 15
+                Top = 34
+              end
+              object usrat_DBEdit_USR_OPERATIONKEY_Label: TLabel
+                Left = 315
+                Top = 33
+              end
+              object usrat_gsIBLookupComboBox_USR_CASHREGISTER: TgsIBLookupComboBox
+                Left = 425
+                Top = 51
+                Width = 67
+                TabOrder = 0
+              end
+              object usrat_DBEdit_USR_SUMNCU: TxDBCalculatorEdit
+                Left = 173
+                Top = 7
+                Width = 116
+                Cursor = crArrow
+                TabOrder = 1
+              end
+              object usrat_xDateDBEdit_DOCUMENTDATE: TxDateDBEdit
+                Left = 52
+                Top = 8
+                TabOrder = 2
+              end
+              object usrat_DBEdit_USR_DESCRIPTION: TDBEdit
+                Left = 123
+                Top = 53
+                Width = 165
+                TabOrder = 3
+              end
+              object usrat_gsIBLookupComboBox_USR_DEPKEY: TgsIBLookupComboBox
+                Left = 104
+                Top = 30
+                Width = 185
+                TabOrder = 4
+              end
+              object usrat_DBEdit_USR_OPERATIONKEY: TxDBCalculatorEdit
+                Left = 424
+                Top = 29
+                Width = 68
+                Cursor = crIBeam
+                TabOrder = 5
+              end
+            end
+            object usrg_147823312_2042300911_TabSheet2: TTabSheet
+              Tag = 0
+              Cursor = crDefault
+              Hint = ''
+              HelpContext = 0
+              BorderWidth = 0
+              Caption = 'Дополнительно'
+              DragMode = dmManual
+              Enabled = True
+              Highlighted = False
+              ImageIndex = 0
+              Constraints.MaxHeight = 0
+              Constraints.MaxWidth = 0
+              Constraints.MinHeight = 0
+              Constraints.MinWidth = 0
+              ParentFont = True
+              ParentShowHint = True
+              PopupMenu = nil
+              TabVisible = True
+              object atContainer: TatContainer
+                Width = 511
+                Height = 96
+                VertScrollBar.Position = 0
+                Align = alClient
+                object usrat_DBEdit_NUMBER_Label: TLabel
+                  Left = 349
+                  Top = 37
+                end
+                object usrat_DBEdit_USR_SORTNUMBER_Label: TLabel
+                  Top = 22
+                end
+                object usrat_DBEdit_USR_EQRATE_Label: TLabel
+                  Top = 45
+                end
+                object usrat_gsIBLookupComboBox_USR_EVAT_OUT_Label: TLabel
+                  Top = 68
+                end
+                object usrat_DBEdit_USR_EVAT_SUM_Label: TLabel
+                  Top = 91
+                end
+                object usrat_DBEdit_NUMBER: TDBEdit
+                  Left = 394
+                  Top = 33
+                  TabOrder = 0
+                end
+                object usrat_DBEdit_USR_SORTNUMBER: TxDBCalculatorEdit
+                  Top = 18
+                  Cursor = crIBeam
+                  TabOrder = 1
+                end
+                object usrat_DBEdit_USR_EQRATE: TxDBCalculatorEdit
+                  Top = 41
+                  Cursor = crIBeam
+                  TabOrder = 2
+                end
+                object usrat_gsIBLookupComboBox_USR_EVAT_OUT: TgsIBLookupComboBox
+                  Top = 64
+                  TabOrder = 3
+                end
+                object usrat_DBEdit_USR_EVAT_SUM: TxDBCalculatorEdit
+                  Top = 90
+                  Cursor = crIBeam
+                  TabOrder = 4
+                end
+                object pnlHolding: TPanel
+                  Top = 0
+                  Width = 494
+                  TabOrder = 5
+                  object lblCompany: TLabel
+                  end
+                  object iblkCompany: TgsIBLookupComboBox
+                  end
+                end
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 166
+            Top = 119
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+            object actCopyIDToClipboard: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 72
+            Top = 151
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 144
+            Top = 128
+            object actSecurity1: TMenuItem
+            end
+            object nCopyIDToClipboard: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 104
+            Top = 144
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147823348_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "147057828_1220615315 GLOBAL\\DFM\\Tgdc_frmUserSimpleDocument"
+      NAME: "147823312_2042300911"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2023-02-20T18:05:22+03:00
+      BLOB_DATA: | 
+        object gdc_frmUserSimpleDocument147823312_2042300911: Tgdc_frmUserSimpleDocument
+          Left = 274
+          Top = 80
+          ActiveControl = ibgrMain
+          PixelsPerInch = 96
+          TextHeight = 13
+          object sbMain: TStatusBar
+            Panels = <
+              item
+                Text = 'Нет фильтрации'
+                Width = 1087
+              end
+              item
+                Width = 160
+              end>
+          end
+          object TBDockTop: TTBDock
+            object tbMainToolbar: TTBToolbar
+              DockPos = 0
+              SavedAtRunTime = True
+              object tbiNew: TTBItem
+              end
+              object tbiEdit: TTBItem
+              end
+              object tbiDelete: TTBItem
+              end
+              object tbiDuplicate: TTBItem
+              end
+              object tbiReduction: TTBItem
+              end
+              object tbsiMainOne: TTBSeparatorItem
+              end
+              object tbiEditInGrid: TTBItem
+              end
+              object tbiCopy: TTBItem
+              end
+              object tbiCut: TTBItem
+              end
+              object tbiPaste: TTBItem
+              end
+              object tbsiMainOneAndHalf: TTBSeparatorItem
+              end
+              object tbiLoadFromFile: TTBItem
+              end
+              object tbiSaveToFile: TTBItem
+              end
+              object tbsiMainTwo: TTBSeparatorItem
+              end
+              object tbiFind: TTBItem
+              end
+              object tbiFilter: TTBItem
+              end
+              object tbiPrint: TTBItem
+              end
+              object tbiOnlySelected: TTBItem
+              end
+              object tbiLinkObject: TTBItem
+              end
+              object tbsiMainThreeAndAHalf: TTBSeparatorItem
+              end
+              object tbiHelp: TTBItem
+              end
+            end
+            object tbMainCustom: TTBToolbar
+              Left = 552
+              Top = 25
+              DockPos = 530
+              SavedAtRunTime = True
+            end
+            object tbMainMenu: TTBToolbar
+              DockPos = 0
+              SavedAtRunTime = True
+              object tbsiMainMenuObject: TTBSubmenuItem
+                object tbi_mm_New: TTBItem
+                end
+                object tbi_mm_Edit: TTBItem
+                end
+                object tbi_mm_Delete: TTBItem
+                end
+                object tbi_mm_Duplicate: TTBItem
+                end
+                object tbi_mm_Reduction: TTBItem
+                end
+                object tbi_mm_sep1_1: TTBSeparatorItem
+                end
+                object tbi_mm_Copy: TTBItem
+                end
+                object tbi_mm_Cut: TTBItem
+                end
+                object tbi_mm_Paste: TTBItem
+                end
+                object tbi_mm_sep2_2_: TTBSeparatorItem
+                end
+                object tbi_mm_AddToSelected: TTBItem
+                end
+                object tbi_mm_RemoveFromSelected: TTBItem
+                end
+                object tbi_mm_sep2_1: TTBSeparatorItem
+                end
+                object tbi_mm_Load: TTBItem
+                end
+                object tbi_mm_Save: TTBItem
+                end
+                object tbi_mm_sep3_1: TTBSeparatorItem
+                end
+                object tbi_mm_Commit: TTBItem
+                end
+                object tbi_mm_Rollback: TTBItem
+                end
+                object tbi_mm_sep4_1: TTBSeparatorItem
+                end
+                object tbi_mm_Find: TTBItem
+                end
+                object tbi_mm_Filter: TTBItem
+                end
+                object tbi_mm_Print: TTBItem
+                end
+                object tbi_mm_Macro: TTBItem
+                end
+                object tbi_mm_OnlySelected: TTBItem
+                end
+                object tbi_mm_LinkObject: TTBItem
+                end
+                object tbi_mm_sep5_1: TTBSeparatorItem
+                end
+                object tbi_mm_MainToSetting: TTBItem
+                end
+                object tbi_mm_sep5_2_: TTBSeparatorItem
+                end
+                object tbi_mm_CopySettings: TTBItem
+                end
+                object tbiDistributeSettings: TTBItem
+                end
+                object tbiDontSaveSettings: TTBItem
+                end
+              end
+              object tbsiMainMenuHelp: TTBSubmenuItem
+                object tbiMainMenuHelp: TTBItem
+                end
+              end
+            end
+            object tbMainInvariant: TTBToolbar
+              DockPos = 327
+              SavedAtRunTime = True
+              object tbiCommit: TTBItem
+              end
+              object tbiRollback: TTBItem
+              end
+              object tbsiMainThree: TTBSeparatorItem
+              end
+              object tbiMacros: TTBItem
+              end
+              object TBItem2: TTBItem
+              end
+              object TBItem1: TTBItem
+              end
+              object usrg_tbiEntry: TTBItem
+                Tag = 0
+                Action = usrg_actEntry
+                AutoCheck = True
+                Checked = True
+                DisplayMode = nbdmImageAndText
+                GroupIndex = 0
+                Images = dmImages.il16x16
+                InheritOptions = True
+                MaskOptions = []
+                Options = []
+                RadioItem = False
+              end
+            end
+            object tbChooseMain: TTBToolbar
+              Left = 519
+              Top = 25
+              DockPos = 497
+              SavedAtRunTime = True
+              object tbiSelectAll: TTBItem
+              end
+              object tbiUnSelectAll: TTBItem
+              end
+              object tbiClearSelection: TTBItem
+              end
+            end
+          end
+          object TBDockLeft: TTBDock
+            Width = 0
+            Height = 540
+          end
+          object TBDockRight: TTBDock
+            Left = 1247
+            Width = 0
+            Height = 540
+          end
+          object TBDockBottom: TTBDock
+            Top = 591
+            Height = 0
+          end
+          object pnlWorkArea: TPanel
+            Left = 0
+            Width = 1247
+            Height = 540
+            object spChoose: TSplitter
+              Top = 536
+              Width = 1247
+            end
+            object pnlMain: TPanel
+              Width = 1247
+              Height = 540
+              object pnlSearchMain: TPanel
+                Height = 441
+                object sbSearchMain: TScrollBox
+                  Height = 414
+                end
+                object pnlSearchMainButton: TPanel
+                  Top = 0
+                  object btnSearchMain: TButton
+                  end
+                  object btnSearchMainClose: TButton
+                  end
+                  object chbxFuzzyMatch: TCheckBox
+                  end
+                end
+              end
+              object usrg_pnlRightDetail: TPanel
+                Tag = 0
+                Left = 0
+                Top = 0
+                Width = 1247
+                Height = 540
+                Cursor = crDefault
+                Hint = ''
+                HelpContext = 0
+                Align = alClient
+                Alignment = taCenter
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                AutoSize = False
+                BevelInner = bvNone
+                BevelOuter = bvRaised
+                BevelWidth = 1
+                BorderWidth = 0
+                BorderStyle = bsNone
+                Caption = ''
+                Color = clBtnFace
+                Constraints.MaxHeight = 0
+                Constraints.MaxWidth = 0
+                Constraints.MinHeight = 0
+                Constraints.MinWidth = 0
+                UseDockManager = True
+                DockSite = False
+                DragCursor = crDrag
+                DragKind = dkDrag
+                DragMode = dmManual
+                Enabled = True
+                FullRepaint = True
+                Locked = False
+                ParentBiDiMode = True
+                ParentColor = False
+                ParentCtl3D = True
+                ParentFont = True
+                ParentShowHint = True
+                PopupMenu = nil
+                TabOrder = 1
+                TabStop = False
+                Visible = True
+                object usrg_SplitterEntry: TSplitter
+                  Tag = 0
+                  Left = 1
+                  Top = 359
+                  Width = 1245
+                  Height = 3
+                  Cursor = crVSplit
+                  Hint = ''
+                  Align = alBottom
+                  AutoSnap = True
+                  Beveled = False
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  MinSize = 30
+                  ParentColor = True
+                  ResizeStyle = rsPattern
+                  Visible = True
+                end
+                object usrg_pnlMainGrid: TPanel
+                  Tag = 0
+                  Left = 1
+                  Top = 1
+                  Width = 1245
+                  Height = 358
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  Align = alClient
+                  Alignment = taCenter
+                  Anchors = [akLeft, akTop, akRight, akBottom]
+                  AutoSize = False
+                  BevelInner = bvNone
+                  BevelOuter = bvRaised
+                  BevelWidth = 1
+                  BorderWidth = 0
+                  BorderStyle = bsNone
+                  Caption = ''
+                  Color = clBtnFace
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  UseDockManager = True
+                  DockSite = False
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  FullRepaint = True
+                  Locked = False
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = True
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  TabOrder = 0
+                  TabStop = False
+                  Visible = True
+                  object ibgrMain: TgsIBGrid
+                    Left = 1
+                    Top = 1
+                    Width = 1243
+                    Height = 356
+                    TabOrder = 0
+                    Expands = <
+                      item
+                        DisplayField = 'U_USR$EXPENSES_USR$NAME'
+                        LineCount = 2
+                        Options = [ceoMultiline]
+                      end
+                      item
+                        DisplayField = 'U_USR$CONTACTKEY_NAME'
+                        LineCount = 2
+                        Options = [ceoMultiline]
+                      end
+                      item
+                        DisplayField = 'DESCRIPTION'
+                        LineCount = 2
+                        Options = [ceoMultiline]
+                      end>
+                    Conditions = <>
+                    ColumnEditors = <>
+                    Aliases = <>
+                    Columns = <
+                      item
+                        Expanded = False
+                        FieldName = 'ID'
+                        ReadOnly = False
+                        Title.Caption = 'Ключ'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'PARENT'
+                        ReadOnly = False
+                        Title.Caption = 'Родитель'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'DOCUMENTTYPEKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Тип документа'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'TRTYPEKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Тип транзакции'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'TRANSACTIONKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Транзакция'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'NUMBER'
+                        ReadOnly = False
+                        Title.Caption = 'Номер'
+                        Width = 52
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'DOCUMENTDATE'
+                        ReadOnly = False
+                        Title.Caption = 'Дата'
+                        Width = 65
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'DESCRIPTION'
+                        ReadOnly = False
+                        Title.Caption = 'Описание'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'SUMNCU'
+                        ReadOnly = False
+                        Title.Caption = 'Сумма в НДЕ'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'SUMCURR'
+                        ReadOnly = False
+                        Title.Caption = 'Сумма в валюте'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'SUMEQ'
+                        ReadOnly = False
+                        Title.Caption = 'Сумма в эквиваленте'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'DELAYED'
+                        ReadOnly = False
+                        Title.Caption = 'Отложенный'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'CURRKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Валюта'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'COMPANYKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Компания'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'CREATORKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Кто создал'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'CREATIONDATE'
+                        ReadOnly = False
+                        Title.Caption = 'Дата создания'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'EDITORKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Кто исправил'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'EDITIONDATE'
+                        ReadOnly = False
+                        Title.Caption = 'Дата изменения'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'PRINTDATE'
+                        ReadOnly = False
+                        Title.Caption = 'Дата печати'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'DISABLED'
+                        ReadOnly = False
+                        Title.Caption = 'DISABLED'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'RESERVED'
+                        ReadOnly = False
+                        Title.Caption = 'Зарезервировано'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'DOCUMENTKEY'
+                        Title.Caption = 'Идентификатор'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'RESERVED1'
+                        Title.Caption = 'Зарезервировано (Операции по ФР)'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$CASHREGISTER'
+                        ReadOnly = False
+                        Title.Caption = 'Кассовый аппарат'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$DEPKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Подразделение'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$DESCRIPTION'
+                        ReadOnly = False
+                        Title.Caption = 'Описание операции'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$OPERATIONKEY'
+                        ReadOnly = False
+                        Title.Caption = 'Ключ операции'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$SUMNCU'
+                        ReadOnly = False
+                        Title.Caption = 'Сумма'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$SORTNUMBER'
+                        ReadOnly = False
+                        Title.Caption = 'Номер для сортировки'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$EQRATE'
+                        ReadOnly = False
+                        Title.Caption = 'Курс эквивалента'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$EVAT_OUT'
+                        ReadOnly = False
+                        Title.Caption = 'Статус исх. ЭСЧФ'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'Z_USR$EVAT_OUT_USR$NAME'
+                        ReadOnly = False
+                        Title.Caption = 'Наименование'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'USR$EVAT_SUM'
+                        ReadOnly = False
+                        Title.Caption = 'Подтвержденная сумма по ЭСЧФ'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'U_USR$DEPKEY_NAME'
+                        ReadOnly = False
+                        Title.Caption = 'Наименование (Контакты)'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'U_USR$DEPKEY_ADDRESS'
+                        ReadOnly = False
+                        Title.Caption = 'Адрес'
+                        Width = 260
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'U_USR$CASHREGISTER_USR$BN_NAME'
+                        ReadOnly = False
+                        Title.Caption = 'Кассовый аппарат (Кассовый аппарат)'
+                        Width = 130
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'AFULL'
+                        ReadOnly = False
+                        Title.Caption = 'Полный доступ'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'ACHAG'
+                        ReadOnly = False
+                        Title.Caption = 'Просмотр и редактирование'
+                        Width = -1
+                        Visible = False
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'AVIEW'
+                        ReadOnly = False
+                        Title.Caption = 'Только просмотр'
+                        Width = -1
+                        Visible = False
+                      end>
+                  end
+                end
+                object usrg_ibgrEntry: TgsIBGrid
+                  Tag = 0
+                  Left = 1
+                  Top = 362
+                  Width = 1245
+                  Height = 177
+                  Cursor = crDefault
+                  Hint = ''
+                  HelpContext = 0
+                  TabStop = True
+                  Align = alBottom
+                  Anchors = [akLeft, akRight, akBottom]
+                  BorderStyle = bsSingle
+                  Constraints.MaxHeight = 0
+                  Constraints.MaxWidth = 0
+                  Constraints.MinHeight = 0
+                  Constraints.MinWidth = 0
+                  DataSource = usrg_dsEntry
+                  DefaultDrawing = True
+                  DragCursor = crDrag
+                  DragKind = dkDrag
+                  DragMode = dmManual
+                  Enabled = True
+                  ImeMode = imDontCare
+                  ImeName = ''
+                  Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+                  ParentBiDiMode = True
+                  ParentColor = False
+                  ParentCtl3D = True
+                  ParentFont = False
+                  ParentShowHint = True
+                  PopupMenu = nil
+                  ReadOnly = False
+                  TabOrder = 1
+                  Visible = True
+                  TableColor = clWindow
+                  SelectedColor = 12615680
+                  TitleColor = clBtnFace
+                  RefreshType = rtCloseOpen
+                  Striped = True
+                  StripeOdd = 15201271
+                  StripeEven = 14084071
+                  InternalMenuKind = imkWithSeparator
+                  Expands = <>
+                  ExpandsActive = False
+                  ExpandsSeparate = False
+                  TitlesExpanding = False
+                  Conditions = <>
+                  ConditionsActive = False
+                  CheckBox.DisplayField = ''
+                  CheckBox.FieldName = ''
+                  CheckBox.Visible = False
+                  CheckBox.FirstColumn = False
+                  ScaleColumns = False
+                  MinColWidth = 40
+                  ToolBar = nil
+                  FinishDrawing = True
+                  RememberPosition = True
+                  SaveSettings = True
+                  ColumnEditors = <>
+                  Aliases = <>
+                  ShowFooter = False
+                  ShowTotals = True
+                  Columns = <
+                    item
+                      Alignment = taLeftJustify
+                      Expanded = False
+                      FieldName = 'DEBIT'
+                      Title.Caption = 'Дебет'
+                      Width = 125
+                      Visible = True
+                    end
+                    item
+                      Alignment = taLeftJustify
+                      Expanded = False
+                      FieldName = 'CREDIT'
+                      Title.Caption = 'Кредит'
+                      Width = 90
+                      Visible = True
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'SUMNCU'
+                      Title.Caption = 'Сумма, руб.'
+                      Width = 83
+                      Visible = True
+                      DisplayFormat = '#,##0.00'
+                      TotalType = ttSum
+                    end
+                    item
+                      Alignment = taLeftJustify
+                      Expanded = False
+                      FieldName = 'SHORTNAME'
+                      Title.Caption = 'Валюта'
+                      Width = 72
+                      Visible = True
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'SUMCURR'
+                      Title.Caption = 'Сумма, вал.'
+                      Width = 92
+                      Visible = True
+                      DisplayFormat = '#,##0.00'
+                      TotalType = ttSum
+                    end>
+                end
+              end
+            end
+            object pnChoose: TPanel
+              Top = 441
+              Width = 1247
+              object pnButtonChoose: TPanel
+                Left = 1142
+                object btnCancelChoose: TButton
+                end
+                object btnOkChoose: TButton
+                end
+                object btnDeleteChoose: TButton
+                end
+              end
+              object ibgrChoose: TgsIBGrid
+                Width = 1142
+                Expands = <>
+                Conditions = <>
+                ColumnEditors = <>
+                Aliases = <>
+              end
+              object pnlChooseCaption: TPanel
+                Width = 1247
+              end
+            end
+          end
+          object alMain: TActionList
+            Left = 92
+            Top = 136
+            object actNew: TAction
+            end
+            object actEdit: TAction
+            end
+            object actDelete: TAction
+            end
+            object actDuplicate: TAction
+            end
+            object actHlp: TAction
+            end
+            object actPrint: TAction
+            end
+            object actCut: TAction
+            end
+            object actCopy: TAction
+            end
+            object actPaste: TAction
+            end
+            object actCommit: TAction
+            end
+            object actRollback: TAction
+            end
+            object actMacros: TAction
+            end
+            object actFind: TAction
+            end
+            object actMainReduction: TAction
+            end
+            object actFilter: TAction
+            end
+            object actProperties: TAction
+            end
+            object actLoadFromFile: TAction
+            end
+            object actSaveToFile: TAction
+            end
+            object actSearchMain: TAction
+            end
+            object actSearchMainClose: TAction
+            end
+            object actOnlySelected: TAction
+            end
+            object actAddToSelected: TAction
+            end
+            object actRemoveFromSelected: TAction
+            end
+            object actQExport: TAction
+            end
+            object actMainToSetting: TAction
+            end
+            object actChooseOk: TAction
+            end
+            object actDeleteChoose: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actSelectAll: TAction
+            end
+            object actUnSelectAll: TAction
+            end
+            object actClearSelection: TAction
+            end
+            object actEditInGrid: TAction
+            end
+            object actLinkObject: TAction
+            end
+            object actDistributeSettings: TAction
+            end
+            object actDontSaveSettings: TAction
+            end
+            object actAddToSelectedFromClipboard: TAction
+            end
+            object actCopyMasterIDToClipboard: TAction
+            end
+            object actCreateEntry: TAction
+            end
+            object actGotoEntry: TAction
+            end
+            object usrg_actEntry: TgsAction
+              Tag = 0
+              Category = ''
+              Caption = 'Проводки'
+              Checked = False
+              Enabled = True
+              HelpContext = 0
+              Hint = 'Показать проводки'
+              ImageIndex = 79
+              ShortCut = 0
+              Visible = True
+            end
+          end
+          object pmMain: TPopupMenu
+            Left = 124
+            Top = 204
+            object nNew_OLD: TMenuItem
+            end
+            object nEdit_OLD: TMenuItem
+            end
+            object nDel_OLD: TMenuItem
+            end
+            object nDublicate_OLD: TMenuItem
+            end
+            object nProperties_OLD: TMenuItem
+            end
+            object nQExport_OLD: TMenuItem
+            end
+            object nSeparator1_OLD: TMenuItem
+            end
+            object nCopyMasterIDToClipboard: TMenuItem
+            end
+            object actCopy1_OLD: TMenuItem
+            end
+            object actCut1_OLD: TMenuItem
+            end
+            object actPaste1_OLD: TMenuItem
+            end
+            object nSepartor2_OLD: TMenuItem
+            end
+            object nFind_OLD: TMenuItem
+            end
+            object nReduction_OLD: TMenuItem
+            end
+            object nSeparator3_OLD: TMenuItem
+            end
+            object actAddToSelected1: TMenuItem
+            end
+            object actAddToSelectedFromClipboard1: TMenuItem
+            end
+            object actRemoveFromSelected1: TMenuItem
+            end
+            object sprSetting: TMenuItem
+            end
+            object miMainToSetting: TMenuItem
+            end
+          end
+          object dsMain: TDataSource
+            Left = 92
+            Top = 204
+          end
+          object gdMacrosMenu: TgdMacrosMenu
+            Left = 249
+            Top = 103
+          end
+          object dsChoose: TDataSource
+            Left = 153
+            Top = 306
+          end
+          object pmFind: TPopupMenu
+            Left = 17
+            Top = 78
+            object miRemoveFromSearch: TMenuItem
+            end
+          end
+          object gdcUserDocument: TgdcUserDocument
+            Left = 169
+            Top = 105
+          end
+          object IBTransaction: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 217
+            Top = 105
+          end
+          object usrg_dsEntry: TDataSource
+            Tag = 0
+            AutoEdit = True
+            DataSet = usrg_ibdsEntry
+            Enabled = True
+            Left = 728
+            Top = 315
+          end
+          object usrg_ibdsEntry: TIBDataSet
+            Tag = 0
+            Database = dmDatabase.ibdbGAdmin
+            Transaction = dmDatabase.ibtrGenUniqueID
+            ForcedRefresh = False
+            AutoCalcFields = True
+            ObjectView = False
+            AllowStreamedActive = True
+            BufferChunks = 16
+            CachedUpdates = False
+            SelectSQL.Strings = (
+              ' SELECT '
+              ' C.ALIAS As Debit, '
+              ' C1.alias as Credit, '
+              
+                ' SUM(IIF(R1.id IS NULL, R.DEBITNCU, iif (R1.issimple = 1, iif(r.' +
+                'id is null, R1.creditncu, R.DEBITNCU), R1.creditncu))) as SUMNCU' +
+                ', '
+              
+                ' SUM(IIF(r1.ID IS NULL, R.DEBITCURR, iif (R1.issimple = 1, iif(r' +
+                '.id is null, R1.creditcurr, R.DEBITCURR), R1.creditcurr))) as SU' +
+                'MCURR, '
+              
+                ' iif(CUR.SHORTNAME is null, cur1.shortname, cur.shortname) Short' +
+                'name  FROM '
+              ' GD_DOCUMENT DOC '
+              
+                ' JOIN AC_RECORD Z ON Z.DOCUMENTKEY = DOC.ID AND doc.parent = :id' +
+                ' '
+              ' LEFT JOIN AC_ENTRY R ON Z.ID = R.RECORDKEY AND r.debitncu <> 0 '
+              ' LEFT JOIN AC_ACCOUNT C ON R.ACCOUNTKEY = C.ID '
+              ' LEFT JOIN GD_CURR CUR ON R.CURRKEY = CUR.ID '
+              
+                ' LEFT JOIN AC_ENTRY R1 ON Z.ID = R1.RECORDKEY AND r1.creditncu <' +
+                '> 0 '
+              ' LEFT JOIN AC_ACCOUNT C1 ON R1.ACCOUNTKEY = C1.ID '
+              ' LEFT JOIN GD_CURR CUR1 ON R1.CURRKEY = CUR1.ID '
+              ' GROUP BY '
+              ' C.ALIAS, C1.alias, CUR.SHORTNAME, cur1.shortname '
+              ' UNION ALL '
+              ' SELECT '
+              ' C.ALIAS As Debit, '
+              ' C1.alias as Credit, '
+              
+                ' SUM(IIF(R1.id IS NULL, R.DEBITNCU, iif (R1.issimple = 1, iif(r.' +
+                'id is null, R1.creditncu, R.DEBITNCU), R1.creditncu))) as SUMNCU' +
+                ', '
+              
+                ' SUM(IIF(r1.ID IS NULL, R.DEBITCURR, iif (R1.issimple = 1, iif(r' +
+                '.id is null, R1.creditcurr, R.DEBITCURR), R1.creditcurr))) as SU' +
+                'MCURR, '
+              
+                ' iif(CUR.SHORTNAME is null, cur1.shortname, cur.shortname) Short' +
+                'name  FROM '
+              ' GD_DOCUMENT DOC '
+              ' JOIN AC_RECORD Z ON Z.DOCUMENTKEY = DOC.ID AND doc.id = :id '
+              ' LEFT JOIN AC_ENTRY R ON Z.ID = R.RECORDKEY AND r.debitncu <> 0 '
+              ' LEFT JOIN AC_ACCOUNT C ON R.ACCOUNTKEY = C.ID '
+              ' LEFT JOIN GD_CURR CUR ON R.CURRKEY = CUR.ID '
+              
+                ' LEFT JOIN AC_ENTRY R1 ON Z.ID = R1.RECORDKEY AND r1.creditncu <' +
+                '> 0 '
+              ' LEFT JOIN AC_ACCOUNT C1 ON R1.ACCOUNTKEY = C1.ID '
+              ' LEFT JOIN GD_CURR CUR1 ON R1.CURRKEY = CUR1.ID '
+              ' GROUP BY '
+              ' C.ALIAS, C1.alias, CUR.SHORTNAME, cur1.shortname '
+              ''
+              '')
+            ParamCheck = True
+            UniDirectional = False
+            Filtered = False
+            GeneratorField.Field = ''
+            GeneratorField.Generator = ''
+            GeneratorField.IncrementBy = 1
+            GeneratorField.ApplyEvent = gamOnNewRecord
+            UpdateObject = nil
+            Active = False
+            DataSource = dsMain
+            ReadTransaction = dmDatabase.ibtrGenUniqueID
+            Left = 758
+            Top = 374
+          end
+        end
+        
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147823335_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_dlgUserSimpleDocument147823312_2042300911"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "gdc_dlgUserSimpleDocument147823312_2042300911"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2023-02-20T17:55:21+03:00
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 147823339_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: ~
+      NAME: "Отчеты(gdc_frmUserSimpleDocument147823312_2042300911)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "147823339_2042300911"
+      EDITIONDATE: 2023-02-20T17:58:07+03:00
+  - 
+    Properties: 
+      Class: "TgdcMacrosGroup"
+      RUID: 147823338_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: ~
+      NAME: "Локальные макросы"
+      CLASSNAME: ""
+      ISGLOBAL: 0
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTPARENT: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2023-02-20T17:58:07+03:00
+      DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147823333_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: ~
+      NAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: "147823338_2042300911 Локальные макросы"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: "147823339_2042300911 Отчеты(gdc_frmUserSimpleDocument147823312_2042300911)"
+      SUBTYPE: ""
+      EDITIONDATE: 2023-02-20T17:58:07+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823360_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      NAME: "TrEntryScript147823360_2042300911"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "ENTRY"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-20T18:37:17+03:00
+      DISPLAYSCRIPT: | 
+        TRENTRYSCRIPT147823360_2042300911
+        EXCEPTTRENTRYSCRIPT147823360_2042300911
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QIAAAAZ2RjRW50cnkLAAAAzeUg8+Tg6//y/CEAAAAAAAAAAAAAAAAAAAAAAAAAAAAW
+        AAAAwejn7eXxIO7h+uXq8iDv8O7i7uTq6EZOU1RQUlNUCwAAAGdkY0RvY3VtZW50CwAAAM3lIPPk
+        4Ov/8vwhAAAAAAAAAAAAAAAAAAAAAAAAAAAAFwAAAMHo5+3l8SDu4frl6vIg5O7q8+zl7fLgRk5T
+        VEZMUFI=
+      SCRIPT: | 
+        'Данная скрипт-функция создана конструктором функций.
+        'Все изменения, произведённые вручную, будут потеряны
+        'при следующей генерации скрипт-функции.
+        Sub TrEntryScript147823360_2042300911(gdcEntry, gdcDocument)
+          Dim IsZero, Result, BeginDate, EndDate, EntryDate, Transaction, Creator
+          
+          IsZero = True
+          Result = False
+          BeginDate = gdcDocument.FieldByName("documentdate").AsDateTime
+          EndDate = BeginDate
+          EntryDate = EndDate
+          TrRecordKey = gdcBaseManager.GetIDByRUIDString("147823359_2042300911")
+          Set Transaction = gdcDocument.Transaction
+          GS.Transaction = Transaction
+          Set Creator = New TCreator
+          Except ExceptTrEntryScript147823360_2042300911(gdcEntry)
+          If gdcDocument.FieldByName("USR$OPERATIONKEY").AsInteger=1  Then
+            RecordKey = gdcEntry.GetNextId(True)
+            DebitNcu = 0
+            CreditNcu = 0
+            DebitCurr = 0
+            CreditCurr = 0
+            DebitEq = 0
+            CreditEq = 0
+            'Позиция типовой проводки Кредит 50.01
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("355001_17")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "C"
+            gdcEntry.FieldByName("creditncu").AsCurrency = gdcDocument.FieldByName("USR$SUMNCU").AsCurrency
+            CreditNcu = CreditNcu + gdcEntry.FieldByName("creditncu").AsCurrency
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            'Позиция типовой проводки Дебет 50.025
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147823361_2042300911")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "D"
+            gdcEntry.FieldByName("debitncu").AsCurrency = CreditNCU
+            DebitNcu = DebitNcu + gdcEntry.FieldByName("debitncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$CASHREGISTER").AsVariant = gdcDocument.FieldByName("USR$CASHREGISTER").Value
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = gdcDocument.FieldByName("USR$DEPKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            If (DebitNcu <> CreditNcu) Then
+              Call Exception.Raise("Exception", "Сумма по дебету не равна сумме по кредиту!" & Chr(13) & Chr(10) & _
+                "Проверьте настройку типовой операции." & Chr(13) & Chr(10))
+            End If
+            IsZero = (DebitNcu = 0) and (CreditNcu = 0) and _ 
+              (DebitCurr = 0) and (CreditCurr = 0) and _ 
+              (DebitEq = 0) and (CreditEq = 0)
+            If IsZero Then 
+              call gdcBaseManager.ExecSingleQuery("DELETE FROM ac_record WHERE id = (" & _ 
+                CStr(RecordKey) & ")", Transaction )
+            End If
+          Else
+            RecordKey = gdcEntry.GetNextId(True)
+            DebitNcu = 0
+            CreditNcu = 0
+            DebitCurr = 0
+            CreditCurr = 0
+            DebitEq = 0
+            CreditEq = 0
+            'Позиция типовой проводки Кредит 50.025
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147823361_2042300911")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "C"
+            gdcEntry.FieldByName("creditncu").AsCurrency = gdcDocument.FieldByName("USR$SUMNCU").AsCurrency
+            CreditNcu = CreditNcu + gdcEntry.FieldByName("creditncu").AsCurrency
+            'Присвоение значения аналитик
+            gdcEntry.FieldByName("USR$CASHREGISTER").AsVariant = gdcDocument.FieldByName("USR$CASHREGISTER").Value
+            gdcEntry.FieldByName("USR$GS_DEPARTMENT").AsVariant = gdcDocument.FieldByName("USR$DEPKEY").Value
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            'Позиция типовой проводки Дебет 50.01
+            gdcEntry.Insert
+            gdcEntry.FieldByName("recordkey").AsInteger = RecordKey
+            'Присвоение счета и типа счета проводки
+            gdcEntry.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("355001_17")
+            'Тип счета
+            gdcEntry.FieldByName("accountpart").AsString = "D"
+            gdcEntry.FieldByName("debitncu").AsCurrency = CreditNCU
+            DebitNcu = DebitNcu + gdcEntry.FieldByName("debitncu").AsCurrency
+            gdcEntry.FieldByName("trrecordkey").AsInteger = TrRecordKey
+            gdcEntry.Post
+            If (DebitNcu <> CreditNcu) Then
+              Call Exception.Raise("Exception", "Сумма по дебету не равна сумме по кредиту!" & Chr(13) & Chr(10) & _
+                "Проверьте настройку типовой операции." & Chr(13) & Chr(10))
+            End If
+            IsZero = (DebitNcu = 0) and (CreditNcu = 0) and _ 
+              (DebitCurr = 0) and (CreditCurr = 0) and _ 
+              (DebitEq = 0) and (CreditEq = 0)
+            If IsZero Then 
+              call gdcBaseManager.ExecSingleQuery("DELETE FROM ac_record WHERE id = (" & _ 
+                CStr(RecordKey) & ")", Transaction )
+            End If
+          End If
+          'Скрипт финализации процедуры
+          Result = True
+        End Sub
+        'Функция обработки исключения
+        Sub ExceptTrEntryScript147823360_2042300911 (gdcEntry)
+          If (gdcEntry.State = 2) Or (gdcEntry.State = 3) Then gdcEntry.Cancel
+        End Sub
+        
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcAcctTransaction"
+      RUID: 147823358_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "147011715_3974129 Касса"
+      NAME: "Внесение и изъятие ФР"
+      AUTOTRANSACTION: 0
+      COMPANYKEY: ~
+      DESCRIPTION: ~
+      ISINTERNAL: 0
+      EDITIONDATE: 2023-02-20T18:29:17+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcAcctTransactionEntry"
+      RUID: 147823359_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACCOUNTNAME: "План счетов"
+      DBEGIN: ~
+      DEND: ~
+      DESCRIPTION: "Внесение и изъятие денежных средств"
+      DOCUMENTNAME: "Операции ФР"
+      DOCUMENTPART: "шапка"
+      DOCUMENTTYPEKEY: "147823312_2042300911 Документ пользователя\\Операции ФР"
+      FUNCTIONKEY: "147823360_2042300911 TrEntryScript147823360_2042300911"
+      FUNCTIONNAME: "TrEntryScript147823360_2042300911"
+      ISSAVENULL: 0
+      TRANSACTIONKEY: "147823358_2042300911 Касса\\Внесение и изъятие ФР"
+      TRANSACTIONNAME: "Внесение и изъятие ФР"
+      USR$BANK_ACCOUNT: ~
+      USR$BN_BANKACCOUNTCOMPANY: ~
+      USR$CASHREGISTER: ~
+      USR$FA_GROUPKEY: ~
+      USR$FA_INVCARDKEY: ~
+      USR$FA_TYPEKEY: ~
+      USR$GROUP_TMC: ~
+      USR$GSM_CAR: ~
+      USR$GSM_DRIVER: ~
+      USR$GS_CONGROUP: ~
+      USR$GS_CONTRACT: ~
+      USR$GS_CUSTOMER: ~
+      USR$GS_DEPARTMENT: ~
+      USR$GS_DOCUMENT: ~
+      USR$GS_ECONOMICACTIVITY: ~
+      USR$GS_EMPLOYEE: ~
+      USR$GS_EXPENSES: ~
+      USR$GS_GOOD: ~
+      USR$GS_SALETAXRATE: ~
+      USR$GS_SERVICE: ~
+      USR$INV_CUSTPERMITKEY: ~
+      USR$VATTYPE_KEY: ~
+      USR$WG_FEETYPEKEY: ~
+      EDITIONDATE: 2023-02-20T18:37:18+03:00
+      DISABLED: 0
+      FUNCTIONTEMPLATE: !!binary > 
+        RldpegEAAAAMAAAAVFNjcmlwdEJsb2NrEgAAAAAAAAAAAAAAAAAAAAAAAAAArAEAALACAAABAAAA
+        AAAAAAABAAAAFQAAAFRUckVudHJ5RnVuY3Rpb25CbG9jaxIAAAAhAAAAVHJFbnRyeVNjcmlwdDE0
+        NzgyMzM2MF8yMDQyMzAwOTExAAAAAAEKAAAABQAAABgBAAAnAQAAAQAAAAAAAAAAAFNMUFJQUlNU
+        CAAAAGdkY0VudHJ5CwAAAM3lIPPk4Ov/8vwhAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAAMHo5+3l
+        8SDu4frl6vIg7/Du4u7k6uhGTlNUAAAAAFBSU1QLAAAAZ2RjRG9jdW1lbnQLAAAAzeUg8+Tg6//y
+        /CEAAAAAAAAAAAAAAAAAAAAAAAAAAAAXAAAAwejn7eXxIO7h+uXq8iDk7urz7OXt8uBGTlNUAAAA
+        AEZMUFIAAAAADQAAAFJlc3VsdCA9IFRydWUUAAAAMTQ3ODIzMzU4XzIwNDIzMDA5MTEUAAAAMTQ3
+        ODIzMzU5XzIwNDIzMDA5MTEAFAAAADE0NzgyMzMxMl8yMDQyMzAwOTExAAEAAAAIAAAAVElmQmxv
+        Y2sSAAAABAAAAElmXzEAAAAAAQoAAAAcAAAA1QAAAO8AAAAAAAAAAAgAAADC7eXx5e3o5RcAAABb
+        SC5VU1IkT1BFUkFUSU9OS0VZXT0xIAIAAAANAAAAVFRyRW50cnlCbG9jaxIAAAAJAAAAVHJFbnRy
+        eV8xAAAAAAEKAAAAHAAAALcAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAVAAAA
+        VFRyRW50cnlQb3NpdGlvbkJsb2NrEgAAAAwAAABUclBvc0VudHJ5XzIAAAAAAAoAAAAcAAAAVAAA
+        ABcAAAAAAAAAAAwAAADK8OXk6PIgNTAuMDEAAAAAAQAAAEMAAAAAAAAAAAAAAAAJAAAAMzU1MDAx
+        XzE3DgAAAFtILlVTUiRTVU1OQ1VdAAAAAAAAAAAAAAAAFQAAAFRUckVudHJ5UG9zaXRpb25CbG9j
+        axIAAAAMAAAAVHJQb3NFbnRyeV8xAAAAAAAKAAAAOAAAAFQAAAAXAAAAAAAAAAAMAAAAxOXh5fIg
+        NTAuMDI1AAAAAAEAAABESQAAAFVTUiRDQVNIUkVHSVNURVI9W0guVVNSJENBU0hSRUdJU1RFUl0N
+        ClVTUiRHU19ERVBBUlRNRU5UPVtILlVTUiRERVBLRVldDQoAAAAAAAAAABQAAAAxNDc4MjMzNjFf
+        MjA0MjMwMDkxMQkAAABDcmVkaXROQ1UAAAAAAAAAAAAAAAAKAAAAVEVsc2VCbG9jaxIAAAAGAAAA
+        RWxzZV8xAAAAAAEKAAAAdQAAAMYAAAB1AAAAAAAAAAAHAAAAyOf6//Lo5QEAAAANAAAAVFRyRW50
+        cnlCbG9jaxIAAAAJAAAAVHJFbnRyeV8yAAAAAAEKAAAAHAAAALcAAABUAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAIAAAAVAAAAVFRyRW50cnlQb3NpdGlvbkJsb2NrEgAAAAwAAABUclBvc0Vu
+        dHJ5XzQAAAAAAAoAAAAcAAAAWgAAABcAAAAAAAAAAA0AAADK8OXk6PIgNTAuMDI1AAAAAAEAAABD
+        SQAAAFVTUiRDQVNIUkVHSVNURVI9W0guVVNSJENBU0hSRUdJU1RFUl0NClVTUiRHU19ERVBBUlRN
+        RU5UPVtILlVTUiRERVBLRVldDQoAAAAAAAAAABQAAAAxNDc4MjMzNjFfMjA0MjMwMDkxMQ4AAABb
+        SC5VU1IkU1VNTkNVXQAAAAAAAAAAAAAAABUAAABUVHJFbnRyeVBvc2l0aW9uQmxvY2sSAAAADAAA
+        AFRyUG9zRW50cnlfMwAAAAAACgAAADgAAABOAAAAFwAAAAAAAAAACwAAAMTl4eXyIDUwLjAxAAAA
+        AAEAAABEAAAAAAAAAAAAAAAACQAAADM1NTAwMV8xNwkAAABDcmVkaXROQ1UAAAAAAAAAAAAAAAA=
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147822128_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      NAME: "ImportFRInfo"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-20T18:02:46+03:00
+      DISPLAYSCRIPT: | 
+        IMPORTFRINFO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QNAAAAREVQQVJUTUVOVEtFWQ0AAABERVBBUlRNRU5US0VZAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAEZOU1RQUlNUDAAAAERBVEFCQVNFUEFUSAwAAABEQVRBQkFTRVBBVEgAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QFAAAAQURBVEUFAAAAQURBVEUAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAARk5TVFBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAA
+        AAsAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function ImportFRInfo(Departmentkey, DataBasePath, ADate, OwnerForm)
+          dim Creator, doc, Docline, docsales, todocsales
+          set Creator = new TCreator
+        
+          set doc = OwnerForm.gdcObject
+        
+          ' БД кассового сервера
+          dim Database
+          set Database = Creator.GetObject(nil, "TIBDatabase", "")
+        
+          ' удаленная транзакция (на базе КС)
+          dim Transaction
+          set Transaction = Creator.GetObject(nil, "TIBTransaction", "")
+          Transaction.Params.Add("nowait")
+          Transaction.Params.Add("read_committed")
+          Transaction.Params.Add("rec_version")
+        
+          ' локальная транзакция (на базе склада)
+          dim OurTransaction
+          set OurTransaction = Creator.GetObject(nil, "TIBTransaction", "")
+          OurTransaction.Params.Add("nowait")
+          OurTransaction.DefaultDatabase = gdcBaseManager.Database
+          OurTransaction.StartTransaction
+        
+        ' пытаемся подключиться к БД КС
+          Database.DatabaseName = DataBasePath
+          Database.DefaultTransaction = Transaction
+          Database.Params.Add("user_name=SYSDBA")
+          Database.Params.Add("password=masterkey")
+          Database.Params.Add("lc_ctype=win1251")
+          Database.LoginPrompt = False
+        
+          Err.Clear
+          ON ERROR RESUME NEXT
+            Database.Open
+            if Err.Number <> 0 then
+               if not pf_Silent then
+                 call Application.MessageBox("Невозможно подключиться к удаленной базе!" + VBCr + Err.Description, "Внимание!", vbSystemModal+vbCritical)
+               else
+                 call pfd_ImportFromCashServer_AddErrorN(ErrorList, 0, nil,  Err.Number, "Невозможно подключиться к удаленной базе! " + Err.Description, 0)
+               end if
+               Exit Function
+            end if
+            if not Transaction.InTransaction then
+              Transaction.StartTransaction
+            end if
+            if Err.Number <> 0 then
+               if not pf_Silent then
+                 call Application.MessageBox("Невозможно подключиться к удаленной базе!"  + VBCr + Err.Description, "Внимание!", vbSystemModal+vbCritical)
+               else
+                 call pfd_ImportFromCashServer_AddErrorN(ErrorList, 0, nil,  Err.Number, "Невозможно подключиться к удаленной базе! " + Err.Description, 0)
+               end if
+               Exit Function
+            end if
+          ON ERROR GOTO 0
+          
+          
+          dim qFRinfo, FieldSize, SizeTable
+        
+          set qFRinfo = Creator.GetObject(nil, "TIBSQL", "")
+          qFRinfo.Transaction = Transaction
+          qFRinfo.SQL.Text = _
+          "SELECT " & vbCrLf & _
+          "  z.USR$DATE, " & vbCrLf & _
+          "  z.USR$CASHKEY, " & vbCrLf & _
+          "  IIF(USR$OPERATIONKEY = :OutSumKey, 2, 1) as typpe, " & vbCrLf & _
+          "  a.USR$ACTIONNAME, " & vbCrLf & _
+          "  CH.USR$CASHCODE AS CashCode, " & vbCrLf & _
+          "  SUM(z.USR$SUM) as SUMNCU " & vbCrLf & _
+          "FROM   USR$PF_LOGOPERATION Z " & vbCrLf & _
+          "LEFT JOIN USR$PF_ACTIONS a ON a.ID = z.USR$OPERATIONKEY " & vbCrLf & _
+          "LEFT JOIN USR$PF_CASH CH ON CH.ID =Z.USR$CASHKEY " & vbCrLf & _
+          "WHERE z.USR$DATE = :ADate " & vbCrLf & _
+          "  AND z.USR$OPERATIONKEY in(:OutSumKey, :InSumKey) " & vbCrLf & _
+          "group by 1, 2, 3,4, 5 " & vbCrLf & _
+          "ORDER BY 1, 2 " & vbCrLf & _
+          " "
+          qFRinfo.ParamByName("ADate").AsDateTime = ADate
+          qFRinfo.ParamByName("InSumKey").AsInteger = 147016089
+          qFRinfo.ParamByName("OutSumKey").AsInteger = 147016087
+          qFRinfo.ExecQuery
+          Err.Clear
+          on error resume next
+            if Err.Number <> 0 then
+              if not pf_Silent then
+                call Application.MessageBox("Невозможно получить продажи на удаленной базе!"  + _
+                  VBCr + Err.Description + VBCr + _
+                  "Возможно, на базе не стоят нужные настройки", "Внимание!", vbSystemModal+vbCritical)
+              end if
+              if Transaction.InTransaction then Transaction.Rollback
+              if OurTransaction.InTransaction then OurTransaction.Rollback
+              exit function
+            end if
+          on error goto 0
+          
+          if qFRinfo.EoF then
+            if Transaction.InTransaction then Transaction.Rollback
+            if OurTransaction.InTransaction then OurTransaction.Rollback
+            exit function
+          end if
+          
+          'Dim gdcO : set gdcO = Creator.GetObject(nil, "TgdcAttrUserDefined", "")
+        '  gdcO.SubType = "USR$FR_ACTIONLOG"
+        '  gdcO.Transaction = OurTransaction
+        '  gdcO.ReadTransaction = OurTransaction
+        '  gdcO.Open
+        
+          dim gdcO
+          set gdcO = Creator.GetObject(nil, "TgdcUserDocument", "")
+          gdcO.SubType = "147823312_2042300911"
+          gdcO.open
+        
+        'TgdcUserDocument
+          
+          dim qFindCashByNum
+          set qFindCashByNum = Creator.GetObject(nil, "TIBSQL", "")
+          qFindCashByNum.Transaction = gdcBaseManager.ReadTransaction
+          qFindCashByNum.SQL.Text = "select z.id, USR$DEPARTMENTKEY FROM USR$BN_CASHREGISTER Z where z.USR$BN_NUM = :num"
+          
+          
+          dim CashCode, CashKey
+          while not qFRinfo.EoF
+            ''if CashCode <> qFRinfo.FieldByName("CASHCODE").AsString then
+              ''' Если код кассы изменился, то создаём новый документ кассового отчёта
+              CashCode = qFRinfo.FieldByName("CASHCODE").AsString
+        
+              qFindCashByNum.Close
+              qFindCashByNum.ParamByName("num").AsString = CashCode
+              qFindCashByNum.ExecQuery
+        
+              if qFindCashByNum.eof then
+                MsgBox "Кассы с кодом " & CashCode &" нет в справочнике"
+                exit function
+              end if
+        
+              CashKey = qFindCashByNum.FieldByName("ID").AsInteger
+        
+              If not gdcO.Locate(CStr("USR$CASHREGISTER;USR$SUMNCU;DOCUMENTDATE"), _
+                 array(CashKey, qFRinfo.FieldByName("SUMNCU").AsCurrency, qFRinfo.FieldByName("USR$DATE").asDateTime), False) Then
+                 gdcO.Append
+                 gdcO.FieldByName("USR$CASHREGISTER").AsInteger = CashKey
+                 gdcO.FieldByName("USR$description").AsString = qFRinfo.FieldByName("USR$ACTIONNAME").AsString
+                 gdcO.FieldByName("USR$SUMNCU").AsCurrency = qFRinfo.FieldByName("SUMNCU").AsCurrency
+                 gdcO.FieldByName("DOCUMENTDATE").asDateTime = qFRinfo.FieldByName("USR$DATE").asDateTime
+                 gdcO.FieldByName("USR$DEPKEY").AsInteger = qFindCashByNum.FieldByName("USR$DEPARTMENTKEY").AsInteger
+                 gdcO.FieldByName("USR$OPERATIONKEY").AsInteger = qFRinfo.FieldByName("typpe").AsInteger
+                 gdcO.Post
+              End If
+            ''end if
+            qFRinfo.next
+          wend
+        
+         if Transaction.InTransaction then Transaction.Commit
+         if OurTransaction.InTransaction then OurTransaction.Commit
+          
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823343_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      NAME: "Macros147823343_2042300911"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147823333_2042300911 gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-20T18:27:00+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147823343_2042300911
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAUAAABBREFURQcAAADN4CDk4PLzAAAAAAAAAAAAAAAAAgAAAAAAAAAAAgAAAF5S
+        Rk5TVEZMUFI=
+      SCRIPT: | 
+        '#include IMPORTFRINFO
+        Option Explicit
+        Sub Macros147823343_2042300911(OwnerForm, adate)
+          dim Creator, q
+          set Creator = new TCreator
+          set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.Transaction = gdcBaseManager.ReadTransaction
+          q.SQL.Text = _
+            "SELECT * FROM USR$SERVERDEP WHERE COALESCE(USR$DISABLED, 0) = 0 "
+          q.ExecQuery
+          while not q.EoF
+             call ImportFRInfo(q.FieldByName("USR$DEPOTKEY").AsInteger, q.FieldByName("USR$PATH").AsString, ADate, OwnerForm)
+            q.Next
+          wend
+        
+          if not pf_Silent then
+            call Application.MessageBox("Завершен импорт.", "Внимание", vbOkOnly + vbInformation + vbSystemModal)
+          end if
+          OwnerForm.gdcObject.CloseOpen
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147822128_2042300911 ImportFRInfo"
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 147823341_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      NAME: "Загрузить операции ФР"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "147823343_2042300911 Macros147823343_2042300911"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147823338_2042300911 Локальные макросы"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2023-02-20T18:27:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823352_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      NAME: "usrg_actEntryOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147823333_2042300911 gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-20T18:05:43+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTENTRYONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include INVMAT_SHOWENTRYCLICK
+        Sub usrg_actEntryOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          call invMat_ShowEntryClick(Sender.OwnerForm)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147040608_23783130 invMat_ShowEntryClick"
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147823349_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      PARENT: "147823333_2042300911 gdc_frmUserSimpleDocument147823312_2042300911"
+      NAME: "usrg_actEntry"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_actEntry"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2023-02-20T18:05:21+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147823350_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "147823352_2042300911 usrg_actEntryOnExecute"
+      OBJECTKEY: "147823349_2042300911 gdc_frmUserSimpleDocument147823312_2042300911\\usrg_actEntry"
+      OBJECTNAME: "usrg_actEntry"
+      PARENTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      EDITIONDATE: 2023-02-20T18:05:43+03:00
+  - 
+    Properties: 
+      Class: "TgdcComponentFilter"
+      RUID: 147823334_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      APPLICATIONNAME: "GEDEMIN"
+      CRC: 555745391
+      FILTERNAME: "flt_147823312_204230"
+      FORMNAME: "gdcUserDocument"
+      FULLNAME: "1V\\GEDEMIN\\TGDCUSERDOCUMENT\\FLT_147823312_2042300911GDCUSERDOCUMENT"
+      EDITIONDATE: 2023-02-20T17:55:20+03:00
+  - 
+    Properties: 
+      Class: "TgdcSavedFilter"
+      RUID: 147823418_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      NAME: "По аппарату за период"
+      COMPONENTKEY: "147823334_2042300911 1V\\GEDEMIN\\TGDCUSERDOCUMENT\\FLT_147823312_2042300911GDCUSERDOCUMENT"
+      DESCRIPTION: ~
+      USERKEY: ~
+      EDITIONDATE: 2023-02-20T18:22:38+03:00
+      DISABLED: ~
+      DATA: !!binary > 
+        XkJGRF5CQ0xeTUNOAV5DTEleQkNPXkJGTF5UTk0OAAAADVVTUiRGUl9BQ1RJT05eVEFMAwAAAAJV
+        Ll5MVEIfAAAAHs7v5fDg9ujoIO/uINTQIChVU1IkRlJfQUNUSU9OKV5GTk0RAAAAEFVTUiRDQVNI
+        UkVHSVNURVJeTEZMEQAAABDK4PHx7uL76SDg7+/g8ODyXkZUUAQAAAA6AgAAXkROTQwAAAALVVNS
+        JEJOX05BTUVeUlRCFAAAABNVU1IkQk5fQ0FTSFJFR0lTVEVSXlJGTAMAAAACSUReSVNUAQAAAABe
+        SVNSAQAAAAFeRUZMXkNUUA4BAABeVkwxEAAAAMrg8fHu4vvpIODv7+Dw4PJeVkwyAT0AAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABeRUNPXkNMSV5CQ09eQkZMXlROTQwAAAAL
+        R0RfRE9DVU1FTlReVEFMAwAAAAJaLl5MVEIYAAAAF8Tu6vPs5e3y+yAoR0RfRE9DVU1FTlQpXkZO
+        TQ0AAAAMRE9DVU1FTlREQVRFXkxGTAUAAAAExODy4F5GVFAEAAAACAIAAF5JU1QBAAAAAF5JU1IB
+        AAAAAF5FRkxeQ1RQDgEAAF5WTDELAAAAxODy4CDt4Pfg6+BeVkwyAj49AAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABeRUNPXkNMSV5CQ09eQkZMXlROTQwAAAALR0RfRE9DVU1F
+        TlReVEFMAwAAAAJaLl5MVEIYAAAAF8Tu6vPs5e3y+yAoR0RfRE9DVU1FTlQpXkZOTQ0AAAAMRE9D
+        VU1FTlREQVRFXkxGTAUAAAAExODy4F5GVFAEAAAACAIAAF5JU1QBAAAAAF5JU1IBAAAAAF5FRkxe
+        Q1RQDgEAAF5WTDEOAAAAxODy4CDu6u7t9+Dt6P9eVkwyAT0AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAABeRUNPXkVDTF5CT0xeSUlGAF5PTEleQk9EXlROTQwAAAALR0RfRE9D
+        VU1FTlReVEFMAwAAAAJaLl5GTk0NAAAADERPQ1VNRU5UREFURV5MRkwFAAAABMTg8uBeSVNSAQAA
+        AABeRU9EXkVPTF5FRkQ=
+  - 
+    Properties: 
+      Class: "TgdcSavedFilter"
+      RUID: 147823417_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823312_2042300911
+    Fields: 
+      NAME: "По кассовому аппарату"
+      COMPONENTKEY: "147823334_2042300911 1V\\GEDEMIN\\TGDCUSERDOCUMENT\\FLT_147823312_2042300911GDCUSERDOCUMENT"
+      DESCRIPTION: ~
+      USERKEY: ~
+      EDITIONDATE: 2023-02-20T18:18:56+03:00
+      DISABLED: ~
+      DATA: !!binary > 
+        XkJGRF5CQ0xeTUNOAV5DTEleQkNPXkJGTF5UTk0OAAAADVVTUiRGUl9BQ1RJT05eVEFMAwAAAAJV
+        Ll5MVEIfAAAAHs7v5fDg9ujoIO/uINTQIChVU1IkRlJfQUNUSU9OKV5GTk0RAAAAEFVTUiRDQVNI
+        UkVHSVNURVJeTEZMEQAAABDK4PHx7uL76SDg7+/g8ODyXkZUUAQAAAA6AgAAXkROTQwAAAALVVNS
+        JEJOX05BTUVeUlRCFAAAABNVU1IkQk5fQ0FTSFJFR0lTVEVSXlJGTAMAAAACSUReSVNUAQAAAABe
+        SVNSAQAAAAFeRUZMXkNUUA4BAABeVkwxEAAAAMrg8fHu4vvpIODv7+Dw4PJeVkwyAT0AAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABeRUNPXkVDTF5CT0xeSUlGAF5PTEleQk9E
+        XlROTQwAAAALR0RfRE9DVU1FTlReVEFMAwAAAAJaLl5GTk0NAAAADERPQ1VNRU5UREFURV5MRkwF
+        AAAABMTg8uBeSVNSAQAAAABeRU9EXkVPTF5FRkQ=
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823508_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823506_2042300911
+    Fields: 
+      NAME: "gdc_frmUserSimpleDocument147823312_2042300911OnLoadSettingsAfterCreate"
+      COMMENT: ~
+      EVENT: "ONLOADSETTINGSAFTERCREATE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147823333_2042300911 gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-21T10:54:02+03:00
+      DISPLAYSCRIPT: | 
+        GDC_FRMUSERSIMPLEDOCUMENT147823312_2042300911ONLOADSETTINGSAFTERCREATE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include INVMAT_LOADFRMSETTINGS
+        Sub gdc_frmUserSimpleDocument147823312_2042300911OnLoadSettingsAfterCreate(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnLoadSettingsAfterCreate", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          invMat_LoadFrmSettings(Sender)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147040596_23783130 invMat_LoadFrmSettings"
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147823506_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONLOADSETTINGSAFTERCREATE"
+      FUNCTIONKEY: "147823508_2042300911 gdc_frmUserSimpleDocument147823312_2042300911OnLoadSettingsAfterCreate"
+      OBJECTKEY: "147823333_2042300911 gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      PARENTNAME: ~
+      EDITIONDATE: 2023-02-21T10:54:02+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823511_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823509_2042300911
+    Fields: 
+      NAME: "gdc_frmUserSimpleDocument147823312_2042300911OnSaveSettings"
+      COMMENT: ~
+      EVENT: "ONSAVESETTINGS"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147823333_2042300911 gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-21T10:54:31+03:00
+      DISPLAYSCRIPT: | 
+        GDC_FRMUSERSIMPLEDOCUMENT147823312_2042300911ONSAVESETTINGS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include INVMAT_SAVEFRMSETTINGS
+        Sub gdc_frmUserSimpleDocument147823312_2042300911OnSaveSettings(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnSaveSettings", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+         invMat_SaveFrmSettings(Sender)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147040601_23783130 invMat_SaveFrmSettings"
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147823509_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONSAVESETTINGS"
+      FUNCTIONKEY: "147823511_2042300911 gdc_frmUserSimpleDocument147823312_2042300911OnSaveSettings"
+      OBJECTKEY: "147823333_2042300911 gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      PARENTNAME: ~
+      EDITIONDATE: 2023-02-21T10:54:31+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823550_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "xlRosn_ShowFRActions"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-21T11:44:56+03:00
+      DISPLAYSCRIPT: | 
+        XLROSN_SHOWFRACTIONS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function xlRosn_ShowFRActions(OwnerForm)
+        
+          dim FRAction, frAct, form
+          set FRAction = new TVBUserDocument
+          call FRAction.InitDocument("147823312_2042300911", null, null)
+          set frAct = FRAction.gdcUserDocument
+        
+          set Form = Application.FindComponent("gdc_frmUserComplexDocument147823312_2042300911")
+          if Assigned(Form) then
+            form.DestroyObject
+          end if
+        ' &
+          set Form = frAct.CreateViewForm(Application, frAct.GetViewFormClassName(frAct.SubType), frAct.SubType)
+          Form.gdcObject.Close
+          Form.gdcObject.ExtraConditions.Clear
+          Form.gdcObject.ExtraConditions.Add("U.USR$CASHREGISTER =" & OwnerForm.gdcObject.FieldByName("USR$BN_KINDREGISTER").asInteger)
+          Form.gdcObject.Open
+          if Form.gdcObject.RecordCount = 0 then
+            call Application.MessageBox("Нет данных по данному кассовому аппарату!", "Внимание", VbOkOnly or mb_IconError or vbSystemModal)
+          else
+            Form.Show
+          end if
+        
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823591_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823589_2042300911
+    Fields: 
+      NAME: "usrg_actShowFRsumOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "147105048_244600472 gdc_frmUserComplexDocument147061248_3974129"
+      OBJECTNAME: "gdc_frmUserComplexDocument147061248_3974129"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-21T11:57:54+03:00
+      DISPLAYSCRIPT: | 
+        USRG_ACTSHOWFRSUMONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include XLROSN_SHOWFRACTIONS
+        Sub usrg_actShowFRsumOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+          call xlRosn_ShowFRActions(Sender.OwnerForm)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147823550_2042300911 xlRosn_ShowFRActions"
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147823588_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823589_2042300911
+    Fields: 
+      PARENT: "147105048_244600472 gdc_frmUserComplexDocument147061248_3974129"
+      NAME: "usrg_actShowFRsum"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_actShowFRsum"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2023-02-21T11:56:23+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147823589_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "147823591_2042300911 usrg_actShowFRsumOnExecute"
+      OBJECTKEY: "147823588_2042300911 gdc_frmUserComplexDocument147061248_3974129\\usrg_actShowFRsum"
+      OBJECTNAME: "usrg_actShowFRsum"
+      PARENTNAME: "gdc_frmUserComplexDocument147061248_3974129"
+      EDITIONDATE: 2023-02-21T11:57:54+03:00
