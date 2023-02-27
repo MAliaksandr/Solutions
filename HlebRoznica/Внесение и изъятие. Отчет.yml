@@ -1,0 +1,171 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147824669_2042300911
+  Name: "Внесение и изъятие. Отчет"
+  Caption: "Внесение и изъятие. Отчет"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 9792F07A895D8073ABBAFBF096076A09
+Uses: 
+  - "147823465_2042300911 Внесение и изъятие по ФР. Документ"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147824582_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147824493_2042300911
+    Fields: 
+      NAME: "Внесения и Изъятия ФР"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2023-02-27T11:39:47+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44984,4753778704" ReportOptions.Description.Text="" ReportOptions.LastChange="44984,4753778704" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C1C00000020446174615365743D22512220446174615365744E616D653D22512200010C2400000020446174615365743D225449544C452220446174615365744E616D653D225449544C45220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="45,35436" Left="0" Top="18,89765" Width="718,1107">
+              <TfrxMemoView Name="Memo1" Left="0" Top="0" Width="718,1107" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="Р’РЅРµСЃРµРЅРёРµ Рё РёР·СЉСЏС‚РёРµ Р¤Р  Р·Р° РїРµСЂРёРѕРґ СЃ [TITLE.&#34;DateBegin&#34;] РїРѕ [TITLE.&#34;DateEnd&#34;]&#13;&#10;РїРѕ РїРѕРґСЂР°Р·РґРµР»РµРЅРёСЋ [TITLE.&#34;Dep&#34;]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="18,89765" Left="0" Top="170,07885" Width="718,1107">
+              <TfrxMemoView Name="Memo2" Left="0" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р”Р°С‚Р°"/>
+              <TfrxMemoView Name="Memo3" Left="75,5906" Top="0" Width="188,9765" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РћРїРµСЂР°С†РёСЏ"/>
+              <TfrxMemoView Name="Memo4" Left="264,5671" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎСѓРјРјР°"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="18,89765" Left="0" Top="211,65368" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0">
+              <TfrxMemoView Name="Memo5" Left="0" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" DataField="DOCUMENTDATE" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[Q.&#34;DOCUMENTDATE&#34;]"/>
+              <TfrxMemoView Name="Memo6" Left="75,5906" Top="0" Width="188,9765" Height="18,89765" ShowHint="False" DataField="USR$DESCRIPTION" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Text="[Q.&#34;USR$DESCRIPTION&#34;]"/>
+              <TfrxMemoView Name="Memo7" Left="264,5671" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" DataField="USR$SUMNCU" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[Q.&#34;USR$SUMNCU&#34;]"/>
+            </TfrxMasterData>
+            <TfrxFooter Name="Footer1" Height="18,89765" Left="0" Top="253,22851" Width="718,1107">
+              <TfrxMemoView Name="Memo9" Left="0" Top="0" Width="264,5671" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text="РРўРћР“Рћ:"/>
+              <TfrxMemoView Name="Memo10" Left="264,5671" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" DataSet="Q" DataSetName="Q" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haRight" ParentFont="False" Text="[SUM(&#60;Q.&#34;USR$SUMNCU&#34;&#62;,MasterData1)]"/>
+            </TfrxFooter>
+            <TfrxGroupHeader Name="GroupHeader1" Height="22,67718" Left="0" Top="124,72449" Width="718,1107" Condition="Q.&#34;USR$CASHREGISTER&#34;">
+              <TfrxMemoView Name="Memo8" Left="3,77953" Top="0" Width="336,37817" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="[Q.&#34;CASHREGISTERNAME&#34;]"/>
+            </TfrxGroupHeader>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147824494_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147824493_2042300911
+    Fields: 
+      NAME: "rp_Main147824494_2042300911"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147823333_2042300911 gdc_frmUserSimpleDocument147823312_2042300911"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-27T11:39:48+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147824494_2042300911
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAIAAABQUgYAAADP5fDo7uQAAAAAAAAAAAAAAAAMAAAAAAAAAAACAAAAXlJGTlNU
+        UFJTVAYAAABERVBLRVkNAAAAz+7k8ODn5OXr5e3o5Q4AAABnZF9jb250YWN0IGdnMQQAAABuYW1l
+        AgAAAGlkB5kAAAAiZ2cxLmNvbnRhY3R0eXBlID0gNCBhbmQgRVhJU1RTIChTRUxFQ1QgY29uLmlk
+        IEZST00gZ2RfY29udGFjdCBjb24gd2hlcmUgY29uLmxiIDw9IGdnMS5sYiBhbmQgY29uLnJiID49
+        Z2cxLnJiIGFuZCBjb24uaWQgPSAiK0NTdHIoSUJMb2dpbi5Db21wYW55S2V5KSsiKSIIAAAAVkJT
+        Y3JpcHQCAAAAXkFGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main147824494_2042300911(OwnerForm, pr, depkey)
+          BaseQueryList.Clear
+        
+          Dim q, Result
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = "SELECT " & vbCrLf & _
+            "  D.DOCUMENTDATE, " & vbCrLf & _
+            "  A.USR$CASHREGISTER, " & vbCrLf & _
+            "  A.USR$DEPKEY, " & vbCrLf & _
+            "  A.USR$DESCRIPTION, " & vbCrLf & _
+            "  A.USR$OPERATIONKEY, " & vbCrLf & _
+            "  A.USR$SUMNCU, " & vbCrLf & _
+            "  DEP.ID, " & vbCrLf & _
+            "  DEP.NAME AS DEPNAME, " & vbCrLf & _
+            "  CASH.USR$BN_NAME AS CASHREGISTERNAME " & vbCrLf & _
+            " " & vbCrLf & _
+            "FROM GD_DOCUMENT D " & vbCrLf & _
+            "JOIN USR$FR_ACTION A ON A.DOCUMENTKEY  =  D.ID " & vbCrLf & _
+            "LEFT JOIN GD_CONTACT DEP  ON DEP.ID  =  A.USR$DEPKEY " & vbCrLf & _
+            "LEFT JOIN USR$BN_CASHREGISTER CASH ON CASH.ID  =  A.USR$CASHREGISTER " & vbCrLf & _
+            "WHERE " & vbCrLf & _
+            "  D.DOCUMENTTYPEKEY = <RUID XID=""147823312"" DBID=""2042300911""/> " & vbCrLf & _
+            "AND D.DOCUMENTDATE BETWEEN :DB AND :DE " & vbCrLf & _
+            "AND A.USR$DEPKEY = :DEPKEY " & vbCrLf & _
+            "ORDER BY  A.USR$CASHREGISTER, D.DOCUMENTDATE "
+        
+          q.ParamByName("DB").asDateTime = pr(0)
+          q.ParamByName("DE").asDateTime = pr(1)
+          q.ParamByName("DEPKEY").asInteger = depkey(0)
+          q.Open
+          
+          call gdcBaseManager.ExecSingleQueryResult( _
+           "select name from gd_contact where id = :depkey " , _
+           depkey(0), Result, gdcBaseManager.ReadTransaction)
+          
+           dim qTitle
+          set qTitle = BaseQueryList.Query(BaseQueryList.Add("Title", 1))
+          call qTitle.AddField("DateBegin", "ftDate", 0, 0)
+          call qTitle.AddField("DateEnd", "ftDate", 0, 0 )
+          call qTitle.AddField("Dep", "ftString", 60, 0 )
+          qTitle.Open
+        
+          qTitle.Insert
+          qTitle.FieldByName("DateBegin").AsDateTime = pr(0)
+          qTitle.FieldByName("DateEnd").AsDateTime = pr(1)
+          qTitle.FieldByName("Dep").AsString = Result(0,0)
+          qTitle.Post
+        
+        
+          Set rp_Main147824494_2042300911 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147824493_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Внесения/Изъятия ФР"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147824494_2042300911 rp_Main147824494_2042300911"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147823339_2042300911 Отчеты(gdc_frmUserSimpleDocument147823312_2042300911)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147824582_2042300911 Внесения и Изъятия ФР"
+      EDITIONDATE: 2023-02-27T11:39:48+03:00
