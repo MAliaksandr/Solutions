@@ -1,0 +1,226 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147824683_2042300911
+  Name: "Внесение и изъятие по ФР. Функция импорта"
+  Caption: "Внесение и изъятие по ФР. Функция импорта"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 65EB492EF7AB4BDB9A88E0DFC00B90F4
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147822128_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ImportFRInfo"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-27T11:04:32+03:00
+      DISPLAYSCRIPT: | 
+        IMPORTFRINFO
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QNAAAAREVQQVJUTUVOVEtFWQ0AAABERVBBUlRNRU5US0VZAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAEZOU1RQUlNUDAAAAERBVEFCQVNFUEFUSAwAAABEQVRBQkFTRVBBVEgAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QFAAAAQURBVEUFAAAAQURBVEUAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAARk5TVFBSU1QGAAAAVE9EQVRFBgAAAFRPREFURQAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVAkAAABPV05FUkZPUk0JAAAAT1dORVJGT1JNAAAAAAAAAAAAAAAACwAA
+        AAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function ImportFRInfo(Departmentkey, DataBasePath, ADate, ToDate, OwnerForm)
+          dim Creator, doc, Docline, docsales, todocsales
+          set Creator = new TCreator
+        
+          set doc = OwnerForm.gdcObject
+        
+          ' БД кассового сервера
+          dim Database
+          set Database = Creator.GetObject(nil, "TIBDatabase", "")
+        
+          ' удаленная транзакция (на базе КС)
+          dim Transaction
+          set Transaction = Creator.GetObject(nil, "TIBTransaction", "")
+          Transaction.Params.Add("nowait")
+          Transaction.Params.Add("read_committed")
+          Transaction.Params.Add("rec_version")
+        
+          ' локальная транзакция (на базе склада)
+          dim OurTransaction
+          set OurTransaction = Creator.GetObject(nil, "TIBTransaction", "")
+          OurTransaction.Params.Add("nowait")
+          OurTransaction.DefaultDatabase = gdcBaseManager.Database
+          OurTransaction.StartTransaction
+        
+        ' пытаемся подключиться к БД КС
+          Database.DatabaseName = DataBasePath
+          Database.DefaultTransaction = Transaction
+          Database.Params.Add("user_name=SYSDBA")
+          Database.Params.Add("password=masterkey")
+          Database.Params.Add("lc_ctype=win1251")
+          Database.LoginPrompt = False
+        
+          Err.Clear
+          ON ERROR RESUME NEXT
+            Database.Open
+            if Err.Number <> 0 then
+               if not pf_Silent then
+                 call Application.MessageBox("Невозможно подключиться к удаленной базе!" + VBCr + Err.Description, "Внимание!", vbSystemModal+vbCritical)
+               else
+                 call pfd_ImportFromCashServer_AddErrorN(ErrorList, 0, nil,  Err.Number, "Невозможно подключиться к удаленной базе! " + Err.Description, 0)
+               end if
+               Exit Function
+            end if
+            if not Transaction.InTransaction then
+              Transaction.StartTransaction
+            end if
+            if Err.Number <> 0 then
+               if not pf_Silent then
+                 call Application.MessageBox("Невозможно подключиться к удаленной базе!"  + VBCr + Err.Description, "Внимание!", vbSystemModal+vbCritical)
+               else
+                 call pfd_ImportFromCashServer_AddErrorN(ErrorList, 0, nil,  Err.Number, "Невозможно подключиться к удаленной базе! " + Err.Description, 0)
+               end if
+               Exit Function
+            end if
+          ON ERROR GOTO 0
+          
+          
+          dim qFRinfo, FieldSize, SizeTable
+        
+          set qFRinfo = Creator.GetObject(nil, "TIBSQL", "")
+          qFRinfo.Transaction = Transaction
+          qFRinfo.SQL.Text = _
+          "SELECT " & vbCrLf & _
+          "  z.USR$DATE, " & vbCrLf & _
+          "  z.USR$CASHKEY, " & vbCrLf & _
+          "  IIF(USR$OPERATIONKEY = :OutSumKey, 2, 1) as typpe, " & vbCrLf & _
+          "  a.USR$ACTIONNAME, " & vbCrLf & _
+          "  CH.USR$CASHCODE AS CashCode, " & vbCrLf & _
+          "  SUM(z.USR$SUM) as SUMNCU " & vbCrLf & _
+          "FROM   USR$PF_LOGOPERATION Z " & vbCrLf & _
+          "LEFT JOIN USR$PF_ACTIONS a ON a.ID = z.USR$OPERATIONKEY " & vbCrLf & _
+          "LEFT JOIN USR$PF_CASH CH ON CH.ID =Z.USR$CASHKEY " & vbCrLf & _
+          "WHERE z.USR$DATE between  :ADate  and :ToDate " & vbCrLf & _
+          "  AND z.USR$OPERATIONKEY in(:OutSumKey, :InSumKey) " & vbCrLf & _
+          "group by 1, 2, 3,4, 5 " & vbCrLf & _
+          "ORDER BY 1, 2 " & vbCrLf & _
+          " "
+          qFRinfo.ParamByName("ADate").AsDateTime = ADate
+          qFRinfo.ParamByName("ToDate").AsDateTime = ToDate
+          qFRinfo.ParamByName("InSumKey").AsInteger = 147016089
+          qFRinfo.ParamByName("OutSumKey").AsInteger = 147016087
+          qFRinfo.ExecQuery
+          Err.Clear
+          on error resume next
+            if Err.Number <> 0 then
+              if not pf_Silent then
+                call Application.MessageBox("Невозможно получить продажи на удаленной базе!"  + _
+                  VBCr + Err.Description + VBCr + _
+                  "Возможно, на базе не стоят нужные настройки", "Внимание!", vbSystemModal+vbCritical)
+              end if
+              if Transaction.InTransaction then Transaction.Rollback
+              if OurTransaction.InTransaction then OurTransaction.Rollback
+              exit function
+            end if
+          on error goto 0
+          
+          if qFRinfo.EoF then
+            if Transaction.InTransaction then Transaction.Rollback
+            if OurTransaction.InTransaction then OurTransaction.Rollback
+            exit function
+          end if
+          
+          'Dim gdcO : set gdcO = Creator.GetObject(nil, "TgdcAttrUserDefined", "")
+        '  gdcO.SubType = "USR$FR_ACTIONLOG"
+        '  gdcO.Transaction = OurTransaction
+        '  gdcO.ReadTransaction = OurTransaction
+        '  gdcO.Open
+        
+          dim gdcO
+          set gdcO = Creator.GetObject(nil, "TgdcUserDocument", "")
+          gdcO.SubType = "147823312_2042300911"
+          gdcO.open
+        
+        'TgdcUserDocument
+          
+          dim qFindCashByNum
+          set qFindCashByNum = Creator.GetObject(nil, "TIBSQL", "")
+          qFindCashByNum.Transaction = gdcBaseManager.ReadTransaction
+          qFindCashByNum.SQL.Text = "select z.id, USR$DEPARTMENTKEY FROM USR$BN_CASHREGISTER Z where z.USR$BN_NUM = :num"
+          
+          
+          dim CashCode, CashKey
+          while not qFRinfo.EoF
+            ''if CashCode <> qFRinfo.FieldByName("CASHCODE").AsString then
+              ''' Если код кассы изменился, то создаём новый документ кассового отчёта
+              CashCode = qFRinfo.FieldByName("CASHCODE").AsString
+        
+              qFindCashByNum.Close
+              qFindCashByNum.ParamByName("num").AsString = CashCode
+              qFindCashByNum.ExecQuery
+        
+              if qFindCashByNum.eof then
+                MsgBox "Кассы с кодом " & CashCode &" нет в справочнике"
+                exit function
+              end if
+        
+              CashKey = qFindCashByNum.FieldByName("ID").AsInteger
+        
+              If not gdcO.Locate(CStr("USR$CASHREGISTER;USR$SUMNCU;DOCUMENTDATE"), _
+                 array(CashKey, qFRinfo.FieldByName("SUMNCU").AsCurrency, qFRinfo.FieldByName("USR$DATE").asDateTime), False) Then
+                 gdcO.Append
+                 gdcO.FieldByName("USR$CASHREGISTER").AsInteger = CashKey
+                 gdcO.FieldByName("USR$description").AsString = qFRinfo.FieldByName("USR$ACTIONNAME").AsString
+                 gdcO.FieldByName("USR$SUMNCU").AsCurrency = qFRinfo.FieldByName("SUMNCU").AsCurrency
+                 gdcO.FieldByName("DOCUMENTDATE").asDateTime = qFRinfo.FieldByName("USR$DATE").asDateTime
+                 gdcO.FieldByName("USR$DEPKEY").AsInteger = qFindCashByNum.FieldByName("USR$DEPARTMENTKEY").AsInteger
+                 gdcO.FieldByName("USR$OPERATIONKEY").AsInteger = qFRinfo.FieldByName("typpe").AsInteger
+                 gdcO.Post
+              End If
+            ''end if
+            qFRinfo.next
+          wend
+        
+         if Transaction.InTransaction then Transaction.Commit
+         if OurTransaction.InTransaction then OurTransaction.Commit
+          
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcMacros"
+      RUID: 147823341_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Загрузить операции ФР"
+      DISPLAYINMENU: 1
+      EXECUTEDATE: ~
+      FUNCTIONKEY: "147823343_2042300911 Macros147823343_2042300911"
+      ISLOCALEXECUTE: 0
+      ISREBUILD: 0
+      MACROSGROUPKEY: "147823338_2042300911 Локальные макросы"
+      OBJECTNAME: "gdc_frmUserSimpleDocument147823312_2042300911"
+      SERVERKEY: ~
+      SHORTCUT: 0
+      EDITIONDATE: 2023-02-27T11:03:33+03:00
