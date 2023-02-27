@@ -1,0 +1,268 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147824287_2042300911
+  Name: "Списание ГП за период. Отчет"
+  Caption: "Списание ГП за период. Отчет"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 4E3338D40E3685E7B5C0E04F55D746A5
+Uses: 
+  - "147062817_602252858 GS new. Общепит бэк. Документы. Списание ГП"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147823792_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823601_2042300911
+    Fields: 
+      NAME: "Списание ГП за период."
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2023-02-22T15:45:45+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44979,6040191435" ReportOptions.Description.Text="" ReportOptions.LastChange="44979,6040191435" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2200000020446174615365743D22434F4D312220446174615365744E616D653D22434F4D312200010C2200000020446174615365743D22434F4D322220446174615365744E616D653D22434F4D322200010C2200000020446174615365743D22434F4D332220446174615365744E616D653D22434F4D332200010C2200000020446174615365743D22434F4D342220446174615365744E616D653D22434F4D342200010C2600000020446174615365743D224D41535445522220446174615365744E616D653D224D41535445522200010C2400000020446174615365743D225449544C452220446174615365744E616D653D225449544C452200010C2400000020446174615365743D22544D41494E2220446174615365744E616D653D22544D41494E220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="64,25201" Left="0" Top="18,89765" Width="718,1107">
+              <TfrxMemoView Name="Memo1" Left="0" Top="3,77953" Width="718,1107" Height="34,01577" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="РЎРїРёСЃР°РЅРёРµ Р“Рџ Р·Р° РїРµСЂРёРѕРґ СЃ [TITLE.&#34;DateBegin&#34;] РїРѕ [TITLE.&#34;DateEnd&#34;]&#13;&#10;[TITLE.&#34;Dep&#34;]"/>
+              <TfrxMemoView Name="Memo17" Left="0" Top="37,7953" Width="566,9295" Height="18,89765" ShowHint="False" Text="РўРѕРІР°СЂРЅР°СЏ РіСЂСѓРїРїР°: [TITLE.&#34;GroupName&#34;]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="18,89765" Left="0" Top="143,62214" Width="718,1107">
+              <TfrxMemoView Name="Memo2" Left="18,89765" Top="0" Width="283,46475" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РќР°РёРјРµРЅРѕРІР°РЅРёРµ"/>
+              <TfrxMemoView Name="Memo3" Left="302,3624" Top="0" Width="56,69295" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р¦РµРЅР°"/>
+              <TfrxMemoView Name="Memo4" Left="359,05535" Top="0" Width="68,03154" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РљРѕР»РёС‡РµСЃС‚РІРѕ"/>
+              <TfrxMemoView Name="Memo5" Left="426,7483" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎСѓРјРјР°"/>
+              <TfrxMemoView Name="Memo6" Left="0" Top="0" Width="18,89765" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="в„–"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="18,89765" Left="0" Top="268,34663" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="MASTER" DataSetName="MASTER" RowCount="0">
+              <TfrxMemoView Name="Memo7" Left="18,89765" Top="0" Width="283,46475" Height="18,89765" ShowHint="False" DataField="GOODNAME" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Text="[MASTER.&#34;GOODNAME&#34;]"/>
+              <TfrxMemoView Name="Memo8" Left="302,3624" Top="0" Width="56,69295" Height="18,89765" ShowHint="False" DataField="USR$INV_SELCOSTNCU" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[MASTER.&#34;USR$INV_SELCOSTNCU&#34;]"/>
+              <TfrxMemoView Name="Memo9" Left="359,05535" Top="0" Width="68,03154" Height="18,89765" ShowHint="False" DataField="QUANTITY" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[MASTER.&#34;QUANTITY&#34;]"/>
+              <TfrxMemoView Name="Memo10" Left="426,7483" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" DataField="SUMNCU" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[MASTER.&#34;SUMNCU&#34;]"/>
+              <TfrxMemoView Name="Memo11" Left="0" Top="0" Width="18,89765" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[Line#]"/>
+            </TfrxMasterData>
+            <TfrxGroupHeader Name="GroupHeader1" Height="18,89765" Left="0" Top="226,7718" Width="718,1107" Condition="MASTER.&#34;DOCUMENTDATE&#34;">
+              <TfrxMemoView Name="Memo12" Left="18,89765" Top="0" Width="483,77984" Height="18,89765" ShowHint="False" Color="15790320" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text="[MASTER.&#34;DOCUMENTDATE&#34;]"/>
+            </TfrxGroupHeader>
+            <TfrxGroupFooter Name="GroupFooter1" Height="22,67718" Left="0" Top="309,92146" Width="718,1107">
+              <TfrxMemoView Name="Memo13" Left="18,89765" Top="0" Width="283,46475" Height="18,89765" ShowHint="False" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="РС‚РѕРіРѕ Р·Р° [MASTER.&#34;DOCUMENTDATE&#34;]"/>
+              <TfrxMemoView Name="Memo14" Left="302,3624" Top="0" Width="56,69295" Height="18,89765" ShowHint="False" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo15" Left="359,05535" Top="0" Width="68,03154" Height="18,89765" ShowHint="False" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;MASTER.&#34;QUANTITY&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo16" Left="426,7483" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;MASTER.&#34;SUMNCU&#34;&#62;,MasterData1)]"/>
+            </TfrxGroupFooter>
+            <TfrxReportSummary Name="ReportSummary1" Height="136,06308" Left="0" Top="442,20501" Width="718,1107">
+              <TfrxMemoView Name="Memo18" Left="18,89765" Top="15,11812" Width="226,7718" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[COM1.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo19" Left="18,89765" Top="37,7953" Width="226,7718" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[COM1.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo20" Left="18,89765" Top="60,47248" Width="226,7718" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[COM1.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo21" Left="18,89765" Top="83,14966" Width="226,7718" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[COM1.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo22" Left="377,953" Top="15,11812" Width="215,43321" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[COM1.&#34;NAME&#34;]"/>
+              <TfrxMemoView Name="Memo23" Left="377,953" Top="37,7953" Width="215,43321" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[COM2.&#34;NAME&#34;]"/>
+              <TfrxMemoView Name="Memo24" Left="377,953" Top="60,47248" Width="215,43321" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[COM3.&#34;NAME&#34;]"/>
+              <TfrxMemoView Name="Memo25" Left="377,953" Top="83,14966" Width="215,43321" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[COM4.&#34;NAME&#34;]"/>
+            </TfrxReportSummary>
+            <TfrxGroupHeader Name="GroupHeader2" Height="18,89765" Left="0" Top="185,19697" Width="718,1107" Condition="MASTER.&#34;NAME&#34;">
+              <TfrxMemoView Name="Memo26" Left="0" Top="0" Width="502,67749" Height="18,89765" ShowHint="False" Color="15000804" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" Text="[MASTER.&#34;NAME&#34;]"/>
+            </TfrxGroupHeader>
+            <TfrxGroupFooter Name="GroupFooter2" Height="26,45671" Left="0" Top="355,27582" Width="718,1107">
+              <TfrxMemoView Name="Memo27" Left="0" Top="0" Width="302,3624" Height="18,89765" ShowHint="False" Color="15000804" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" ParentFont="False" VAlign="vaCenter" Text="РС‚РѕРіРѕ РїРѕ РїРѕРґСЂР°Р·РґРµР»РµРЅРёСЋ [MASTER.&#34;NAME&#34;]"/>
+              <TfrxMemoView Name="Memo28" Left="302,3624" Top="0" Width="56,69295" Height="18,89765" ShowHint="False" Color="15000804" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="С…"/>
+              <TfrxMemoView Name="Memo29" Left="359,05535" Top="0" Width="68,03154" Height="18,89765" ShowHint="False" Color="15000804" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;MASTER.&#34;QUANTITY&#34;&#62;,MasterData1)]"/>
+              <TfrxMemoView Name="Memo30" Left="426,7483" Top="0" Width="75,5906" Height="18,89765" ShowHint="False" Color="15000804" DataSet="MASTER" DataSetName="MASTER" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[SUM(&#60;MASTER.&#34;SUMNCU&#34;&#62;,MasterData1)]"/>
+            </TfrxGroupFooter>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147823602_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147823601_2042300911
+    Fields: 
+      NAME: "RetailInv_Spis1_Copy_1151963178_67061744147823602_2042300911"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147250681_257136471 gdc_frmInvDocument147153968_250734751"
+      OBJECTNAME: "gdc_frmInvDocument147153968_250734751"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-02-22T15:45:45+03:00
+      DISPLAYSCRIPT: | 
+        RETAILINV_SPIS1_COPY_1151963178_67061744147823602_2042300911
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QCAAAAUFIGAAAAz+Xw6O7kAAAAAAAAAAAAAAAADAAAAAAAAAAAAgAAAF5SRk5TVFBS
+        U1QGAAAAREVQS0VZDQAAAM/u5PDg5+Tl6+Xt6OUOAAAAZ2RfY29udGFjdCBnZzEEAAAAbmFtZQIA
+        AABpZAeZAAAAImdnMS5jb250YWN0dHlwZSA9IDQgYW5kIEVYSVNUUyAoU0VMRUNUIGNvbi5pZCBG
+        Uk9NIGdkX2NvbnRhY3QgY29uIHdoZXJlIGNvbi5sYiA8PSBnZzEubGIgYW5kIGNvbi5yYiA+PWdn
+        MS5yYiBhbmQgY29uLmlkID0gIitDU3RyKElCTG9naW4uQ29tcGFueUtleSkrIikiCAAAAFZCU2Ny
+        aXB0AAAAAEZOU1RQUlNUBgAAAEdHUk9VUA4AAADD8PPv7+Ag8u7i4PDu4gwAAABnZF9nb29kZ3Jv
+        dXAEAAAAbmFtZQIAAABJRAcAAAAAAAAAAAAAAABGTlNUUFJTVAQAAABDT04xFQAAAM/w5eTx5eTg
+        8uXr/CDq7uzo8fHo6A4AAABHRF9DT05UQUNUIGdnMQQAAABOYW1lAgAAAElEB5kAAAAiZ2cxLmNv
+        bnRhY3R0eXBlID0gMiBhbmQgRVhJU1RTIChTRUxFQ1QgY29uLmlkIEZST00gZ2RfY29udGFjdCBj
+        b24gd2hlcmUgY29uLmxiIDw9IGdnMS5sYiBhbmQgY29uLnJiID49Z2cxLnJiIGFuZCBjb24uaWQg
+        PSAiK0NTdHIoSUJMb2dpbi5Db21wYW55S2V5KSsiKSIIAAAAVkJTY3JpcHQAAAAARk5TVFBSU1QE
+        AAAAQ09OMg0AAADX6+XtIOru7Ojx8ejoDgAAAEdEX0NPTlRBQ1QgZ2cxBAAAAE5hbWUCAAAASUQH
+        mQAAACJnZzEuY29udGFjdHR5cGUgPSAyIGFuZCBFWElTVFMgKFNFTEVDVCBjb24uaWQgRlJPTSBn
+        ZF9jb250YWN0IGNvbiB3aGVyZSBjb24ubGIgPD0gZ2cxLmxiIGFuZCBjb24ucmIgPj1nZzEucmIg
+        YW5kIGNvbi5pZCA9ICIrQ1N0cihJQkxvZ2luLkNvbXBhbnlLZXkpKyIpIggAAABWQlNjcmlwdAAA
+        AABGTlNUUFJTVAQAAABDT04zDQAAANfr5e0g6u7s6PHx6OgOAAAAR0RfQ09OVEFDVCBnZzEEAAAA
+        TmFtZQIAAABJRAeZAAAAImdnMS5jb250YWN0dHlwZSA9IDIgYW5kIEVYSVNUUyAoU0VMRUNUIGNv
+        bi5pZCBGUk9NIGdkX2NvbnRhY3QgY29uIHdoZXJlIGNvbi5sYiA8PSBnZzEubGIgYW5kIGNvbi5y
+        YiA+PWdnMS5yYiBhbmQgY29uLmlkID0gIitDU3RyKElCTG9naW4uQ29tcGFueUtleSkrIikiCAAA
+        AFZCU2NyaXB0AAAAAEZOU1RQUlNUBAAAAENPTjQNAAAA1+vl7SDq7uzo8fHo6A4AAABHRF9DT05U
+        QUNUIGdnMQQAAABOYW1lAgAAAElEB5kAAAAiZ2cxLmNvbnRhY3R0eXBlID0gMiBhbmQgRVhJU1RT
+        IChTRUxFQ1QgY29uLmlkIEZST00gZ2RfY29udGFjdCBjb24gd2hlcmUgY29uLmxiIDw9IGdnMS5s
+        YiBhbmQgY29uLnJiID49Z2cxLnJiIGFuZCBjb24uaWQgPSAiK0NTdHIoSUJMb2dpbi5Db21wYW55
+        S2V5KSsiKSIIAAAAVkJTY3JpcHQAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        function RetailInv_Spis1_Copy_1151963178_67061744147823602_2042300911(pr, depkey, ggroup, Con1, Con2, Con3, Con4)
+         BaseQueryList.Clear
+         
+         dim whereStr
+         if ggroup(0)>-1 Then
+           whereStr = "  AND GG1.ID = " & ggroup(0)
+         end if
+        
+         dim DepartKey : DepartKey = IBlogin.Companykey
+         if depkey(0)>-1 Then
+           whereStr = whereStr & "  AND b.USR$FROMDEPOT = " & depkey(0)
+           DepartKey = depkey(0)
+         end if
+        
+         call gdcBaseManager.ExecSingleQueryResult( _
+           "select name from gd_contact where id = :depkey " , _
+           DepartKey, Result, gdcBaseManager.ReadTransaction)
+           
+         set q = BaseQueryList.Query(BaseQueryList.Add("Master", 0))
+            q.SQL = _
+            "Select " & _
+            "  doc.ID, " & _
+            "  doc.DOCUMENTDATE, " & _
+            "  doc.NUMBER, " & _
+            "  dep.ID, " & _
+            "  dep.NAME, " & _
+            "  GG.ID, " & _
+            "  GG.NAME AS GROUPNAME, " & _
+            "  g.NAME as goodname, " & _
+            "  c.USR$INV_COSTRETAILNCU, " & _
+            "  c.USR$INV_SELCOSTNCU, " & _
+            "  SUM(bl.QUANTITY) as quantity, " & _
+            "  sum(bl.USR$SUMNCU) as sumncu, " & _
+            "  sum(bl.USR$SUMROUND) as sumround " & _
+            "from gd_document doc " & _
+            "join USR$MN_SPENDCOURSE b on b.DOCUMENTKEY = doc.ID " & _
+            "left join gd_contact dep on dep.ID = b.USR$FROMDEPOT " & _
+            "left join USR$MN_SPENDCOURSELINE bl on bl.MASTERKEY = b.DOCUMENTKEY " & _
+            "LEFT JOIN GD_V_COMPANY cf ON doc.companykey = cf.id " & _
+            "left join USR$INV_ADDFULLINFO cl ON doc.companykey = cl.id " & _
+            "LEFT JOIN inv_card c ON bl.fromcardkey = c.id " & _
+            "LEFT JOIN gd_good g ON c.goodkey = g.id " & _
+            "LEFT JOIN GD_GOODGROUP GG ON GG.ID= G.GROUPKEY " & _
+            "LEFT JOIN GD_GOODGROUP GG1 ON GG1.LB<=GG.LB AND GG1.RB>=GG.RB " & _
+            "LEFT JOIN gd_value v ON v.id = g.valuekey " & _
+            "where " & _
+            "  doc.DOCUMENTDATE between :db and :de " & _
+            whereStr & _
+            "GROUP BY 1,2,3,4,5,6,7,8,9,10 " & _
+            "order by dep.NAME, doc.DOCUMENTDATE, g.NAME "
+            
+         q.ParamByName("db").asDateTime = pr(0)
+         q.ParamByName("de").asDateTime = pr(1)
+         q.Open
+         
+          dim grName
+          if ggroup(0)>-1 Then
+            grName = q.FieldByName("GROUPNAME").asString
+          else
+            grName = "Все ТМЦ"
+          end if
+        
+          set z = BaseQueryList.Query(BaseQueryList.Add("Tmain", 0))
+          compid = System.company.id
+          z.SQL = " Select * from GD_V_COMPANY cf " +_
+                     " where cf.id = " + CSTr(compid)
+          z.open
+          z.IsResult = 1
+          
+          set Com1 = BaseQueryList.Query(BaseQueryList.Add("Com1",0))
+          Com1.SQL =   " select con.name, p.rank from gd_contact con JOIN gd_people p on p.contactkey = con.id where con.id = :id "
+          Com1.ParamBYName("ID").ASInteger = Con1(0)
+          Com1.Open
+          set Com2 = BaseQueryList.Query(BaseQueryList.Add("Com2",0))
+          Com2.SQL =   " select con.name, p.rank from gd_contact con JOIN gd_people p on p.contactkey = con.id where con.id = :id "
+          Com2.ParamBYName("ID").ASInteger = Con2(0)
+          Com2.Open
+          set Com3 = BaseQueryList.Query(BaseQueryList.Add("Com3",0))
+          Com3.SQL =   " select con.name, p.rank from gd_contact con JOIN gd_people p on p.contactkey = con.id where con.id = :id "
+          Com3.ParamBYName("ID").ASInteger = Con3(0)
+          Com3.Open
+        
+          set Com4 = BaseQueryList.Query(BaseQueryList.Add("Com4",0))
+          Com4.SQL =   " select con.name, p.rank from gd_contact con JOIN gd_people p on p.contactkey = con.id where con.id = :id "
+          Com4.ParamBYName("ID").ASInteger = Con4(0)
+          Com4.Open
+          
+          dim qTitle
+          set qTitle = BaseQueryList.Query(BaseQueryList.Add("Title", 1))
+          call qTitle.AddField("DateBegin", "ftDate", 0, 0)
+          call qTitle.AddField("DateEnd", "ftDate", 0, 0 )
+          call qTitle.AddField("Dep", "ftString", 60, 0 )
+          call qTitle.AddField("GroupName", "ftString", 60, 0 )
+          qTitle.Open
+        
+          qTitle.Insert
+          qTitle.FieldByName("DateBegin").AsDateTime = pr(0)
+          qTitle.FieldByName("DateEnd").AsDateTime = pr(1)
+          qTitle.FieldByName("Dep").AsString = Result(0,0)
+          qTitle.FieldByName("GroupName").AsString = grName
+          qTitle.Post
+          
+        
+          set RetailInv_Spis1_Copy_1151963178_67061744147823602_2042300911 = BaseQueryList
+        end function
+        
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147823601_2042300911
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Списание за период"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147823602_2042300911 RetailInv_Spis1_Copy_1151963178_67061744147823602_2042300911"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147284925_287762809 Отчеты(gdc_frmInvDocument147153968_250734751)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147823792_2042300911 Списание ГП за период."
+      EDITIONDATE: 2023-02-22T15:45:45+03:00
