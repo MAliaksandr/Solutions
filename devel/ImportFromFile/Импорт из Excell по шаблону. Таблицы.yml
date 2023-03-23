@@ -5,10 +5,10 @@ Properties:
   RUID: 154577854_1631104572
   Name: "Импорт из Excell по шаблону. Таблицы"
   Caption: "Импорт из Excell по шаблону. Таблицы"
-  Version: "1.0.0.9"
+  Version: "1.0.0.11"
   Optional: False
   Internal: True
-  MD5: 126E6FF1DC96AB223E82A8180E4A5D2D
+  MD5: BFFCC862D8AE5897B1A3E16E88A42AD8
 Uses: 
   - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
   - "220391971_1646796305 Основание для БЕЗ НДС"
@@ -661,7 +661,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2022-04-15T13:10:43+03:00
+      EDITIONDATE: 2023-03-16T14:02:51+03:00
       BLOB_DATA: | 
         object gdc_dlgAttrUserDefinedUSR_IMPORTTEMPLATE: Tgdc_dlgAttrUserDefined
           HorzScrollBar.Range = 0
@@ -805,7 +805,7 @@ Objects:
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
-                  ActivePage = usrg_TBSheetCost
+                  ActivePage = usrg_TBSheetGood
                   Align = alNone
                   Anchors = [akLeft, akTop]
                   Constraints.MaxHeight = 0
@@ -1129,6 +1129,10 @@ Objects:
                         Width = 38
                         Caption = 'Ед.изм.'
                       end
+                      object usrat_DBEdit_USR_SEPARATOR_Label: TLabel
+                        Left = 189
+                        Top = 84
+                      end
                       object usrat_DBEdit_USR_GOODNAME: TxDBCalculatorEdit
                         Left = 5
                         Top = 13
@@ -1186,6 +1190,15 @@ Objects:
                           'Указывает в какой части строки расположен. Если, к примеру,  в о' +
                           'дной ячейке и название и артикул '
                         TabOrder = 7
+                      end
+                      object usrat_DBEdit_USR_SEPARATOR: TDBEdit
+                        Left = 264
+                        Top = 81
+                        Width = 40
+                        Font.Color = clBlue
+                        Font.Style = [fsBold]
+                        ParentFont = False
+                        TabOrder = 8
                       end
                     end
                   end
@@ -1288,7 +1301,7 @@ Objects:
                         Left = 9
                         Top = 42
                         Width = 52
-                        Cursor = crIBeam
+                        Cursor = crArrow
                         TabOrder = 2
                       end
                       object usrat_DBEdit_USR_QUANTITY: TxDBCalculatorEdit
@@ -1314,7 +1327,7 @@ Objects:
                         Left = 8
                         Top = 87
                         Width = 52
-                        Cursor = crIBeam
+                        Cursor = crArrow
                         TabOrder = 6
                       end
                     end
@@ -2307,6 +2320,48 @@ Objects:
       STRINGLENGTH: ~
       VISIBLE: 1
       EDITIONDATE: 2022-04-15T13:07:58+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 239775878_639165248
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$SEPARATOR"
+      FIELDNAME: "USR$SEPARATOR"
+      FIELDSOURCE: "USR$DTEXT4"
+      FIELDSOURCEKEY: "147552011_1776626171 Текст (4), USR$DTEXT4"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Разделитель"
+      LSHORTNAME: "Разделитель"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "154479184_1631104572 Шаблоны для импорта, USR$IMPORTTEMPLATE"
+      RELATIONNAME: "USR$IMPORTTEMPLATE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 4
+      VISIBLE: 1
+      EDITIONDATE: 2023-03-16T13:50:50+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~

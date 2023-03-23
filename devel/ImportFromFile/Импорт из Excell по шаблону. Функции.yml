@@ -8,7 +8,7 @@ Properties:
   Version: "1.0.0.22"
   Optional: False
   Internal: True
-  MD5: 0A9942039F1BFB1FAC7B7D05C7185119
+  MD5: E4F90048FFCD55D973C53802C937723C
 Uses: 
   - "154577854_1631104572 Импорт из Excell по шаблону. Таблицы"
 Objects: 
@@ -36,7 +36,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-04-15T13:13:40+03:00
+      EDITIONDATE: 2023-03-16T13:56:00+03:00
       DISPLAYSCRIPT: ~
       ENTEREDPARAMS: ~
       SCRIPT: | 
@@ -76,6 +76,8 @@ Objects:
         
         public pGroupKey   ' товарная группа, кот. будет использоваться по умолчанию при вставке нового товара
         
+        public pSepar      ' разделитель для ШК/Артикула
+        
         
   - 
     Properties: 
@@ -101,7 +103,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-04-15T13:33:59+03:00
+      EDITIONDATE: 2023-03-16T13:57:05+03:00
       DISPLAYSCRIPT: | 
         IMFF_SETPARAMS
         
@@ -184,6 +186,8 @@ Objects:
             pDept = gdcTemplParam.FieldByName("USR$DEPARTMENT").AsInteger          ' подразделение
             pClient = gdcTemplParam.FieldByName("USR$CONTACT").AsInteger           ' клиент
             
+            pSepar = gdcTemplParam.FieldByName("USR$SEPARATOR").AsString           ' разделитель
+            
             if pQuant = 0 Then
               call Application.MessageBox("В шаблоне не задано поле для 'количества'" & vbCrLf & _
               "Возможны ошибки при импорте!", "Внимание", vbOkOnly + vbCritical + vbSystemModal)
@@ -219,7 +223,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-05-05T12:47:22+03:00
+      EDITIONDATE: 2023-03-22T11:15:19+03:00
       DISPLAYSCRIPT: | 
         IMFF_FINDGOOD
         
@@ -255,16 +259,31 @@ Objects:
           IF pBarCode<>0 and not isNull(pBarCode) THEN
             'магчыма ШК будзе знаходзіцца у пачатку, або сярэдзіне, тады патрэна разкладаць увесь радок
             if pBARCODE_end =0 Then
-              ByBarCode = Trim(Sh.Cells(pStartLine, pBarCode).Value)
+              ' ДЛЯ ВИКТОРИИ ШК СТАЛ СТРОКОЙ НИЖЕ В НАИМЕНОВАНИИ
+            '  if templ(0)= gdcBaseManager.GetIDByRUIDString("237832517_639165248") Then
+        '        ByBarCode = Trim(Sh.Cells(pStartLine+1, pBarCode).Value)
+        '      else
+                ByBarCode = Trim(Sh.Cells(pStartLine, pBarCode).Value)
+             ' end if
             else
-              ByBarCode = imff_GetBareCode(Sh.Cells(pStartLine, pBarCode).Value)
+             ' для высокий терем ШК находится в строке ниже, при этом в массиве проч. информации
+             if templ(0)= gdcBaseManager.GetIDByRUIDString("239111336_639165248") Then
+               ByBarCode = imff_GetBareCode(Sh.Cells(pStartLine +1, pBarCode).Value)
+             else
+               ByBarCode = imff_GetBareCode(Sh.Cells(pStartLine, pBarCode).Value)
+             end if
             end if
+            
+            if Len(ByBarCode)>13 then ByBarCode = left(ByBarCode, 13)
         
-            if templ(0)= gdcBaseManager.GetIDByRUIDString("235081136_1833050115") Then
+            if templ(0)= gdcBaseManager.GetIDByRUIDString("235081136_1833050115") or _
+              templ(0)= gdcBaseManager.GetIDByRUIDString("236605239_639165248") Then
               ByBarCode = Sh.Cells(pStartLine+2, pBarCode).Value
               dim arr
-              arr = Split(ByBarCode)
-              ByBarCode =arr(UBound(arr))
+              if not isEmpty(ByBarCode) then
+                arr = Split(ByBarCode)
+                ByBarCode =arr(UBound(arr))
+              end if
             end if
         
             If Len(ByBarCode) = 12 Then
@@ -368,7 +387,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-04-15T14:06:04+03:00
+      EDITIONDATE: 2023-03-16T13:34:04+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         EXTRACLOSE
@@ -782,8 +801,12 @@ Objects:
               if pBARCODE_end = 0 then
                 stBarcode = LegalTypeValue(Sh.Cells(pStartLine, pBarcode).Value,2)
               else
-                stBarcode = Imff_GetBareCode(Sh.Cells(pStartLine, pBarcode).Value)
-                goodname = Replace(goodname,stBarcode,"")
+                 if templ(0)= gdcBaseManager.GetIDByRUIDString("239111336_639165248") Then
+                   stBarcode = imff_GetBareCode(Sh.Cells(pStartLine +1, pBarCode).Value)
+                 else
+                   stBarcode = imff_GetBareCode(Sh.Cells(pStartLine, pBarCode).Value)
+                   goodname = Replace(goodname,stBarcode,"")
+                 end if
               end if
               
               if templ(0)= gdcBaseManager.GetIDByRUIDString("235081136_1833050115") Then
@@ -800,13 +823,17 @@ Objects:
               stDescr = Trim(Sh.Cells(pStartLine, pGNAME).Value)
             end if
         
-           ibSQL.Close
-           ibSQL.ParamBYName("VNAME").asString  =  LegalTypeValue(Sh.Cells(pStartLine, pVNAME).Value, 2)
-           ibSQL.ExecQuery
-           if not ibSQL.EOF Then
-             valuekey = ibSQL.FieldBYName("ID").asInteger
+           if pVNAME <>0 Then
+             ibSQL.Close
+             ibSQL.ParamBYName("VNAME").asString  =  LegalTypeValue(Sh.Cells(pStartLine, pVNAME).Value, 2)
+             ibSQL.ExecQuery
+             if not ibSQL.EOF Then
+               valuekey = ibSQL.FieldBYName("ID").asInteger
+             else
+               valuekey = gdcBaseManager.GetIDByRUIDString("147028905_285908973")
+             end if
            else
-             valuekey = gdcBaseManager.GetIDByRUIDString("3000001_17")
+             valuekey = gdcBaseManager.GetIDByRUIDString("147028905_285908973")
            end if
            
           ' if stDescr = 0 Then
@@ -827,11 +854,20 @@ Objects:
            'else
            '  goodkey = ibsql.FieldByName("ID").AsInteger
           end if
+          
+           dim LineNumb
+           ibSQL.Close
+           ibSQL.SQL.Text = _
+           "SELECT max(USR$NUMORDER) as NUM FROM USR$INV_ADDWBILLLINE WHERE MASTERKEY = :MASTERKEY "
+           ibSQL.ParamBYName("MASTERKEY").asInteger = gdcDetailObject.MasterSource.DataSet.FieldByName("ID").AsInteger
+           ibSQL.ExecQuery
+           LineNumb = ibSQL.FieldByName("NUM").asInteger + 1
          
           gdcDetailObject.DisableControls
           BookMark = gdcDetailObject.GetBookMark
           gdcDetailobject.Append
           gdcDetailObject.FieldbyName("goodkey").AsInteger = goodkey
+          gdcDetailObject.FieldbyName("USR$NUMORDER").AsInteger = LineNumb
           gdcDetailObject.FieldbyName("quantity").asCurrency = Sh.Cells(pStartLine, pQuant).Value
         
           gdcDetailObject.FieldbyName("TO_USR$INV_COSTPROVIDER").asCurrency  = RetTypeValue(Sh.Cells(pStartLine, pCostByNCU).Value, 1)
@@ -886,7 +922,14 @@ Objects:
             ibSQL.ExecQuery
             if not ibSQL.EOF then
               Vat = ibSQL.FieldByName("RATE").asVariant
-        
+            else
+              ibSQL.Close
+              ibSQL.SQL.Text =_
+              "INSERT INTO GD_GOODTAX(DATETAX,GOODKEY,RATE, TAXKEY) " & _
+              "VALUES(CURRENT_DATE, :GK, 20, <RUID xID=""147065078"" DBID=""486813904""/>) "
+              ibSQL.ParamByName("gk").asInteger = gk
+              ibSQL.ExecQuery
+              Vat = 20
             end if
           end if
           getVatByGood = Vat
@@ -967,7 +1010,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2022-03-18T17:33:06+03:00
+      EDITIONDATE: 2023-03-16T14:11:17+03:00
       DISPLAYSCRIPT: | 
         IMFF_GETBARECODE
         
@@ -979,12 +1022,21 @@ Objects:
         Function Imff_GetBareCode(vl)
           imff_GetBareCode = ""
           ' пазбаўляемся ад іншых сымболаў
-          vl = Trim(vl)
-          vl = replace(vl,",","")
-          vl = replace(vl,"/","")
-          vl = replace(vl,";","")
           dim arr, i
-          arr = Split(vl)
+          if pSepar<>""Then
+            vl = Trim(vl)
+            arr = Split(vl,pSepar)
+          else
+            vl = Trim(vl)
+            vl = replace(vl,",","")
+            vl = replace(vl,"-","")
+            vl = replace(vl,".","")
+            vl = replace(vl,"/","")
+            vl = replace(vl,";","")
+            vl = replace(vl,":"," ")
+            arr = Split(vl)
+          end if
+        
           'калі ШК знаходзіцца разам з назвай матэрыяльная каштоўнасці
           if pBARCODE_end = 1 Then
             for i=0 to UBound(arr)
