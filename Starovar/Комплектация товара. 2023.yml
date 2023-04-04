@@ -1,0 +1,504 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147294138_2075105124
+  Name: "Комплектация товара. 2023"
+  Caption: "Комплектация товара. 2023"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 71A6B8785B416256EFEC39CDB62117FF
+Uses: 
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+  - "147696827_43451302 Мат_склад - макросы"
+  - "149298642_623967871 Торговля. Комплектация товара"
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147294077_2075105124
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$SUMDIFF"
+      FIELDNAME: "USR$SUMDIFF"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Сумма расхождения"
+      LSHORTNAME: "Сумма расхождения"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147872777_30358866 Акт переработки, USR$INV_ACTWORK"
+      RELATIONNAME: "USR$INV_ACTWORK"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-04-04T14:42:23+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147293771_2075105124
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "MakeComplect_BeforePost"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-04T13:11:55+03:00
+      DISPLAYSCRIPT: | 
+        MAKECOMPLECT_BEFOREPOST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Function MakeComplect_BeforePost(Self)
+        
+          if Assigned(Self.FindField("InQuantity")) then
+            set Creator = new TCreator
+            set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
+            ibsql.Transaction = Self.Transaction
+            ibsql.SQl.Text = _
+             "select " & _
+             "  max(fc.USR$INV_ORIGINCOUNTRYKEY) as country, " & _
+             "  max(fc.usr$inv_accountkey) as usr$inv_accountkey, " & _
+             "  max(fc.usr$inv_addnds) as usr$inv_addnds, " & _
+             "  max(fc.usr$inv_sellnds) as usr$inv_sellnds, " & _
+             "  max(fc.usr$inv_tradeperc) as usr$inv_tradeperc, " & _
+             "  sum(fc.usr$inv_costbuyncu * wl.OUTQUANTITY) as SumBuy, " & _
+             "    sum(fc.usr$inv_costaccncu * wl.OUTQUANTITY) as SumAccNcu, " & _
+             "  sum(fc.usr$inv_costprovider * wl.OUTQUANTITY) as SumProvider, " & _
+             "  sum(fc.usr$inv_costtradencu * wl.OUTQUANTITY)as SumTrade, " & _
+             "  sum(fc.usr$inv_costtrwithnds * wl.OUTQUANTITY) as sumTRWithNDS, " & _
+             "  sum(fc.usr$inv_selcostncu * wl.OUTQUANTITY) as sumselcost, " & _
+             "  sum(fc.USR$INV_COSTRETAILNCU * wl.OUTQUANTITY) as sumretail " & _
+             "from USR$INV_ACTWORKLINE wl " & _
+             "LEFT JOIN INV_CARD fc ON fc.ID  =  wl.FROMCARDKEY " & _
+             "where wl.MASTERKEY = :mk " & _
+             "and wl.OUTQUANTITY>0 "
+            ibsql.ParamByName("mk").AsInteger = Self.MasterSource.DataSet.Id
+            ibsql.ExecQuery
+        
+            if Assigned(Self.FindField("to_usr$inv_accountkey")) then
+              Self.FieldByName("to_usr$inv_accountkey").AsVariant = _
+                ibsql.FieldByName("usr$inv_accountkey").AsVariant
+            end if
+        
+            if Assigned(Self.FindField("to_usr$inv_costbuyncu")) then
+              Self.FieldByName("to_usr$inv_costbuyncu").AsCurrency = _
+                 ibsql.FieldByName("SUMBUY").ASCurrency / _
+                 Self.FieldByName("INQUANTITY").AsCurrency
+            end if
+            
+            if Assigned(Self.FindField("to_usr$inv_costprovider")) then
+              Self.FieldByName("to_usr$inv_costprovider").AsCurrency = _
+                 ibsql.FieldByName("SUMPROVIDER").ASCurrency / _
+                 Self.FieldByName("INQUANTITY").AsCurrency
+            end if
+        
+            if Assigned(Self.FindField("TO_USR$INV_COSTTRADENCU")) then
+              Self.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency = _
+                 ibsql.FieldByName("SUMTRADE").ASCurrency / _
+                 Self.FieldByName("INQUANTITY").AsCurrency
+            end if
+        
+            if Assigned(Self.FindField("TO_USR$INV_ADDNDS")) then
+              Self.FieldByName("TO_USR$INV_ADDNDS").AsCurrency = _
+                ibsql.FieldByName("USR$INV_ADDNDS").AsCurrency
+            end if
+        
+            if Assigned(Self.FindField("TO_USR$INV_SELLNDS")) then
+              Self.FieldByName("TO_USR$INV_SELLNDS").AsCurrency = _
+                ibsql.FieldByName("USR$INV_SELLNDS").AsCurrency
+            end if
+        
+            if Assigned(Self.FindField("TO_USR$INV_TRADEPERC")) then
+              Self.FieldByName("TO_USR$INV_TRADEPERC").AsCurrency = _
+                ibsql.FieldByName("USR$INV_TRADEPERC").AsCurrency
+            end if
+            
+            if Assigned(Self.FindField("TO_USR$INV_COSTTRWITHNDS")) then
+              Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency = _
+                 ibsql.FieldByName("SUMTRWITHNDS").ASCurrency / _
+                 Self.FieldByName("INQUANTITY").AsCurrency
+            end if
+            
+            if Assigned(Self.FindField("TO_USR$INV_COSTRETAILNCU")) then
+              Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = _
+                Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency
+            end if
+            
+            if Assigned(Self.FindField("TO_usr$inv_selcostncu")) then
+              Self.FieldByName("TO_usr$inv_selcostncu").AsCurrency = _
+                 ibsql.FieldByName("SUMselcost").ASCurrency / _
+                 Self.FieldByName("INQUANTITY").AsCurrency
+            end if
+        
+            if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
+              Self.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+                gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency, _
+                Self.FieldByName("INQUANTITY").AsCurrency, 1, 1, 2)
+            end if
+            
+            if Assigned(Self.FindField("USR$SUMSELNCU")) then
+              Self.FieldByName("USR$SUMSELNCU").AsCurrency = _
+                mn_options.RoundCalcCardCost(Self.FieldByName("TO_USR$INV_SELCOSTNCU").AsCurrency * _
+                Self.FieldByName("INQUANTITY").AsCurrency)
+            end if
+            
+            if Assigned(Self.FindField("USR$SUMNCU")) then
+              Self.FieldByName("USR$SUMNCU").AsCurrency = _
+                gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTBUYNCU").AsCurrency, _
+                Self.FieldByName("INQUANTITY").AsCurrency, 1,1,2)
+            end if
+            
+            if Assigned(Self.FindField("TO_USR$INV_DATERECEIVE")) then
+              Self.FieldByName("TO_USR$INV_DATERECEIVE").AsDateTime = _
+                Self.FieldByName("DOCUMENTDATE").AsDateTime
+            end if
+            
+            ibsql.Close
+        
+            if Assigned(Self.FindField("TO_USR$INV_COSTACCNCU")) then
+                Self.FieldByName("TO_USR$INV_COSTACCNCU").Value = _
+                   ibsql.FieldByName("SumAccNcu").ASCurrency / _
+                   Self.FieldByName("INQUANTITY").AsCurrency
+            end if
+        
+            if Assigned(Self.FindField("to_USR$INV_ORIGINCOUNTRYKEY")) then
+              Self.FieldByName("to_USR$INV_ORIGINCOUNTRYKEY").AsVariant = _
+                ibsql.FieldByName("COUNTRY").AsVariant
+            end if
+        
+          elseif Assigned(Self.FindField("OutQuantity")) then
+            if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
+              Self.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+                gs.MulDiv(Self.FieldByName("FROM_USR$INV_COSTRETAILNCU").AsCurrency, _
+               Self.FieldByName("OUTQUANTITY").AsCurrency, 1, 1, 2)
+            end if
+        
+            if Assigned(Self.FindField("USR$SUMSELNCU")) then
+              Self.FieldByName("USR$SUMSELNCU").AsCurrency = _
+                gs.MulDiv(Self.FieldByName("FROM_USR$INV_SELCOSTNCU").AsCurrency, _
+                Self.FieldByName("OUTQUANTITY").AsCurrency,1,1,2)
+            end if
+            
+            if Assigned(Self.FindField("USR$SUMNCU")) then
+              Self.FieldByName("USR$SUMNCU").AsCurrency = _
+                gs.MulDiv(Self.FieldByName("FROM_USR$INV_COSTBUYNCU").AsCurrency, _
+                Self.FieldByName("OUTQUANTITY").AsCurrency, 1, 1, 2)
+            end if
+          end if
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149300083_623967871
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 149300081_623967871
+    Fields: 
+      NAME: "TgdcInvDocumentLine149299696_623967871DoBeforePost"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "149299912_623967871 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147872775_59073233\\TgdcInvDocumentLine149299696_623967871"
+      OBJECTNAME: "TgdcInvDocumentLine149299696_623967871"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-04T12:15:41+03:00
+      DISPLAYSCRIPT: | 
+        TGDCINVDOCUMENTLINE149299696_623967871DOBEFOREPOST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include MAKECOMPLECT_BEFOREPOST
+        Option Explicit
+        Sub TgdcInvDocumentLine149299696_623967871DoBeforePost(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "DoBeforePost", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+        
+         ' Dim Creator, Dialog, sec, StrList, I
+        '
+        '  set Creator = new TCreator
+        '  if Self.ViewMovementPart = 0 then
+        '    set Dialog = Self.OwnerForm.GetComponent("dlgInvDocument149299696_623967871")
+        '    set sec = Dialog.FindComponent("FBottomDataSource").DataSet
+        '    set StrList = Creator.GetObject(null, "TStringList", "")
+        '    StrList.Text = CompanyStorage.ReadString("CompleteParams", "Factors", "")
+        '    if Self.ViewMovementPart = 0 then
+        '      for I = 0 to StrList.Count - 1
+        '        FromFiled = "FROM_" + Mid(StrList(i),4)
+        '        if (Assigned(Self.FindField(StrList(i)))) and  (Assigned(sec.FindField(FromFiled))) then
+        '          if Self.FindField(StrList(i)).IsNull then
+        '            Self.FieldByName(StrList(i)).Value = sec.FieldByName(FromFiled).Value
+        '          end if
+        '        end if
+        '      next
+        '    end if
+        '    if assigned(Self.FindField("TO_USR$INV_SELLNDS")) then
+        '      if assigned(sec.FindField("FROM_USR$INV_SELLNDS")) then
+        '        Self.FieldByName("TO_USR$INV_SELLNDS").AsCurrency = sec.FieldByName("FROM_USR$INV_SELLNDS").AsCurrency
+        '      end if
+        '    end if
+        '    if assigned(Self.FindField("TO_USR$INV_ADDNDS")) then
+        '      if assigned(sec.FindField("FROM_USR$INV_ADDNDS")) then
+        '        Self.FieldByName("TO_USR$INV_ADDNDS").AsCurrency = sec.FieldByName("FROM_USR$INV_ADDNDS").AsCurrency
+        '      end if
+        '    end if
+        '    if assigned(Self.FindField("TO_USR$INV_PROVIDER")) then
+        '      if assigned(sec.FindField("FROM_USR$INV_PROVIDER")) then
+        '        Self.FieldByName("TO_USR$INV_PROVIDER").AsCurrency = sec.FieldByName("FROM_USR$INV_PROVIDER").AsCurrency
+        '      end if
+        '    end if
+        ''    if Self.FieldByName("INQUANTITY").AsCurrency > 0 then
+        ''      Self.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency = Self.FieldByName("TO_USR$INV_COSTBUYNCU").AsCurrency * (1 + Self.FieldByName("TO_USR$INV_TRADEPERC").AsCurrency / 100)
+        ''      Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency = Self.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency * (1 + Self.FieldByName("TO_USR$INV_ADDNDS").AsCurrency / 100)
+        ''      Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency
+        ''    end if
+        '  if assigned(Self.FindField("TO_USR$INV_COSTRETAILNCU")) then
+        '    Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = _
+        '      gs.MulDiv(1, sec.FieldByName("usr$sumretailncu").AsCurrency,  Self.FieldByName("INQUANTITY").AsCurrency, 1, 2)
+        '  end if
+        '
+        '  end if
+        
+          call MakeComplect_BeforePost(Self)
+          call inv_RecalcAlgorithms.InvAddCostAccOnDoBeforePost(Self)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147293771_2075105124 MakeComplect_BeforePost"
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 149300081_623967871
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOBEFOREPOST"
+      FUNCTIONKEY: "149300083_623967871 TgdcInvDocumentLine149299696_623967871DoBeforePost"
+      OBJECTKEY: "149299912_623967871 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147872775_59073233\\TgdcInvDocumentLine149299696_623967871"
+      OBJECTNAME: "TgdcInvDocumentLine149299696_623967871"
+      PARENTNAME: "TgdcInvDocumentLine147872775_59073233"
+      EDITIONDATE: 2023-04-04T12:15:41+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147294080_2075105124
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147294078_2075105124
+    Fields: 
+      NAME: "TgdcInvDocumentLine149299696_623967871DoAfterPost"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "149299912_623967871 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147872775_59073233\\TgdcInvDocumentLine149299696_623967871"
+      OBJECTNAME: "TgdcInvDocumentLine149299696_623967871"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-04T14:30:13+03:00
+      DISPLAYSCRIPT: | 
+        TGDCINVDOCUMENTLINE149299696_623967871DOAFTERPOST
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub TgdcInvDocumentLine149299696_623967871DoAfterPost(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "DoAfterPost", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+           dim Creator, qPrice, qPrice2
+              set Creator = new TCreator
+              set qPrice = Creator.GetObject(null, "TIBSQL", "")
+              set qPrice2 = Creator.GetObject(null, "TIBSQL", "")
+              if Self.Transaction.InTransaction then
+                qPrice.Transaction = Self.Transaction
+                qPrice2.Transaction = Self.Transaction
+              else
+                qPrice.Transaction = Self.ReadTransaction
+                qPrice2.Transaction = Self.ReadTransaction
+              end if
+              qPrice.SQL.Text = _
+                " SELECT sum(cl.USR$SUMRETAILNCU) as p " + _
+                " FROM USR$INV_ACTWORKLINE cl " + _
+                " WHERE cl.masterkey = :id and INQUANTITY > 0"
+              qPrice.ParamByName("ID").AsInteger = Self.MasterSource.DataSet.Id
+              qPrice.ExecQuery
+        
+              qPrice2.SQL.Text = _
+                " SELECT sum(cl.USR$SUMRETAILNCU) as r " + _
+                " FROM USR$INV_ACTWORKLINE cl " + _
+                " WHERE cl.masterkey = :id and OUTQUANTITY > 0"
+              qPrice2.ParamByName("ID").AsInteger = Self.MasterSource.DataSet.Id
+              qPrice2.ExecQuery
+              dim m
+              if Self.MasterSource.DataSet.state = dsEdit then
+                Self.MasterSource.DataSet.FieldByName("USR$SUMDIFF").AsCurrency = qPrice.FieldByName("p").AsCurrency - qPrice2.FieldByName("r").AsCurrency
+              else
+                m = Self.MasterSource.DataSet.state
+                Self.MasterSource.DataSet.Edit
+                Self.MasterSource.DataSet.FieldByName("USR$SUMDIFF").AsCurrency = qPrice.FieldByName("p").AsCurrency - qPrice2.FieldByName("r").AsCurrency
+                Self.MasterSource.DataSet.Post
+        
+              end if
+        
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147294078_2075105124
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "DOAFTERPOST"
+      FUNCTIONKEY: "147294080_2075105124 TgdcInvDocumentLine149299696_623967871DoAfterPost"
+      OBJECTKEY: "149299912_623967871 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147872775_59073233\\TgdcInvDocumentLine149299696_623967871"
+      OBJECTNAME: "TgdcInvDocumentLine149299696_623967871"
+      PARENTNAME: "TgdcInvDocumentLine147872775_59073233"
+      EDITIONDATE: 2023-04-04T14:30:13+03:00
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147120204_356340120
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Акт переработки (стандарт)"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147120205_356340120 rp_Main147120205_356340120"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147020797_23783130 Отчеты(gdc_frmInvDocument147872775_59073233)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147120232_356340120 Акт переработки (стандрат)"
+      EDITIONDATE: 2023-04-04T14:45:10+03:00
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147120092_356340120
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Акт переработки"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147120093_356340120 rp_Main147120093_356340120"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147020797_23783130 Отчеты(gdc_frmInvDocument147872775_59073233)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147120183_356340120 Акт переработки"
+      EDITIONDATE: 2023-04-04T14:46:49+03:00
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147120241_356340120
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Реестр актов переработки"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: "147133179_356867677 rp_Event147133179_356867677"
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147120242_356340120 rp_Main147120242_356340120"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147872798_30358866 Материальный склад\\03. Акт переработки (базовый)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147120296_356340120 Реестр актов переработки"
+      EDITIONDATE: 2023-04-04T14:50:06+03:00
