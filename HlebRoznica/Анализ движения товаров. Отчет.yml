@@ -1,0 +1,464 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147294977_2075105124
+  Name: "Анализ движения товаров. Отчет"
+  Caption: "Анализ движения товаров. Отчет"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 8A179B5D202C665D25472AF6C683184E
+Uses: 
+  - "147978914_215642201 Торговля - evt_object"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147294411_2075105124
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_GET_REMANDMOVEGOOD"
+      EDITIONDATE: 2023-04-05T18:26:25+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_GET_REMANDMOVEGOOD (
+            DB DATE,
+            DE DATE,
+            DEPARTMENTKEY DFOREIGNKEY,
+            COMPANYKEY DFOREIGNKEY,
+            PROVIDER DFOREIGNKEY)
+        RETURNS ( 
+            GOODKEY DFOREIGNKEY,
+            MININVDATE DATE,
+            MAXINVDATE DATE,
+            PERIODDAYCOUNT DINTEGER,
+            PERIODWEEKCOUNT DINTEGER,
+            PERIODMONTHCOUNT DINTEGER,
+            COSTACCNCU NUMERIC(15, 4),
+            COSTRETAILNCU NUMERIC(15, 4),
+            BREMAINS NUMERIC(15, 4),
+            EREMAINS NUMERIC(15, 4),
+            DEBIT NUMERIC(15, 4),
+            CREDIT NUMERIC(15, 4),
+            ALLOUTLAY NUMERIC(15, 4),
+            INTAKE NUMERIC(15, 4),
+            OUTINVENT NUMERIC(15, 4),
+            ININVENT NUMERIC(15, 4),
+            PROVIDERBACK NUMERIC(15, 4),
+            CUSTOMERBACK NUMERIC(15, 4),
+            CLEARIN NUMERIC(15, 4),
+            CLEAROUT NUMERIC(15, 4),
+            PEROUTLAY NUMERIC(15, 4),
+            DAYOUTLAY NUMERIC(15, 4),
+            PERIODREMAINS NUMERIC(15, 4),
+            ORDERCOUNT NUMERIC(15, 4),
+            ORDERCOUNTPREDICTION NUMERIC(15, 4),
+            REMAINSONDAYS NUMERIC(15, 4),
+            CRITICALFLAG NUMERIC(15, 4),
+            SELLRETOUT NUMERIC(15, 4),
+            SELLRETIN NUMERIC(15, 4),
+            SPENDOUT NUMERIC(15, 4))
+         AS
+        DECLARE LB           DLB;
+        DECLARE RB           DRB;
+        DECLARE Remains      NUMERIC(15,4);
+        DECLARE Saldo        NUMERIC(15,4);
+        DECLARE SaldoDebit   NUMERIC(15,4);
+        DECLARE TDate        DATE;
+        DECLARE LastMoveDate DATE;
+        DECLARE MoveNext     DBOOLEAN;
+        DECLARE CustomerBackDoc INTEGER;
+        DECLARE ProviderBackDoc INTEGER;
+        DECLARE SELLRETAILDOC INTEGER;
+        DECLARE SPENDDOC  INTEGER;
+        DECLARE InventDoc INTEGER;
+        BEGIN
+        
+        EXECUTE PROCEDURE GD_P_GETID(147004788, 45137928) RETURNING_VALUES :CustomerBackDoc; /*Возврат от покупателя*/
+        EXECUTE PROCEDURE GD_P_GETID(147013038, 109092844) RETURNING_VALUES :ProviderBackDoc; /*Возврат поставщику*/
+        EXECUTE PROCEDURE GD_P_GETID(147006557, 63934951) RETURNING_VALUES :SellRetailDoc;   /*Реализация товаров в розницу*/
+        EXECUTE PROCEDURE GD_P_GETID(147013043, 109092844) RETURNING_VALUES :SpendDoc;        /*Списание товаров*/
+        EXECUTE PROCEDURE GD_P_GETID(147013054, 109092844) RETURNING_VALUES :InventDoc;       /*Инвентаризация товаров*/
+        
+        
+        SELECT LB, RB FROM GD_CONTACT WHERE ID = :DEPARTMENTKEY
+        INTO :LB, :RB;
+        
+        FOR
+        
+        SELECT
+              rem.GoodKey,
+              SUM(rem.BeginSaldo) AS BeginSaldo,             /*остаток на начало*/
+              SUM(rem.EndSaldo) AS EndSaldo,                 /*остаток на конец*/
+              SUM(rem.Debit) AS Debit,                       /*приход общий*/
+              SUM(rem.Credit) AS Credit,                     /*расход общий*/
+              SUM(rem.OutDebit) AS OutDebit,                 /*приход от других контактов*/
+              SUM(rem.OutCredit) AS OutCredit,               /*расход на другие контакты*/
+              SUM(rem.CustomerBack) AS CustomerBack,         /*приход по док-ту Возврат от покупателя*/
+              SUM(rem.ProviderBack) AS ProviderBack,         /*расход по док-ту Возврат поставщику*/
+              sum(rem.SellRetOut) as SellRetOut,             /*расход по док-ту Реализация*/
+              sum(rem.SellRetIn) as SellRetIn,               /*возврат/приход по док-ту Реализация*/
+              sum(rem.SpendOut) as SpendOut,                 /*расход по док-ту Спісаніе*/
+              SUM(rem.InInvent) AS InInvent,                 /*приход по док-ту Инвентаризация*/
+              SUM(rem.OutInvent) AS OutInvent                /*расход по док-ту Инвентаризация*/
+        
+            FROM (
+        
+              SELECT
+                m.CARDKEY,
+                m.CONTACTKEY,
+                m.GOODKEY,
+                m.BALANCE AS BeginSaldo,
+                m.BALANCE AS EndSaldo,
+                0.0000 AS Debit,
+                0.0000 AS Credit,
+                0.0000 AS OutDebit,
+                0.0000 AS OutCredit,
+                0.0000 AS CustomerBack,
+                0.0000 AS ProviderBack,
+                0.0000 as SellRetOut,
+                0.0000 as SellRetIN,
+                0.0000 as SpendOut,
+                0.0000 AS InInvent,
+                0.0000 AS OutInvent
+              FROM GD_CONTACT con
+              JOIN INV_BALANCE m ON m.CONTACTKEY  =  con.ID
+              LEFT JOIN INV_CARD c ON c.ID = m.CARDKEY
+              WHERE con.LB >= :LB
+                AND con.RB <= :RB
+                AND M.BALANCE  <>  0
+                AND c.COMPANYKEY + 0 = :Companykey
+                AND (:Provider = - 1 OR c.USR$INV_PROVIDER = :Provider)
+              UNION ALL
+              /*движения с даты начала по сегодня*/
+              SELECT
+                m.CARDKEY,
+                m.CONTACTKEY,
+                m.GOODKEY,
+                /*остаток на начало*/
+                ( m.CREDIT - m.DEBIT ) AS BeginSaldo,
+                /*остаток на конец*/
+                IIF(m.MOVEMENTDATE > :DE, m.CREDIT - m.DEBIT, 0.0000 ) AS EndSaldo,
+                /*приход общий*/
+                IIF(m.MOVEMENTDATE <= :DE, m.DEBIT, 0.0000 ) AS Debit,
+                /*расход общий*/
+                IIF(m.MOVEMENTDATE <= :DE, m.CREDIT, 0.0000 ) AS Credit,
+                /*приход от других контактов*/
+                IIF(m.MOVEMENTDATE <= :DE AND (con_pair.ID IS NULL OR con_pair.LB < :LB OR con_pair.RB > :RB), m.DEBIT, 0.0000) AS OutDebit,
+                /*расход на другие контакты*/
+                IIF(m.MOVEMENTDATE <= :DE AND (con_pair.ID IS NULL OR con_pair.LB < :LB OR con_pair.RB > :RB), m.CREDIT, 0.0000) AS OutCredit,
+        
+                IIF(m.MOVEMENTDATE <= :DE AND doc.DOCUMENTTYPEKEY = :CustomerBackDoc, m.DEBIT, 0.0000 ) AS CustomerBack,  /*приход по док-ту Возврат от покупателя*/
+                IIF(m.MOVEMENTDATE <= :DE AND doc.DOCUMENTTYPEKEY = :ProviderBackDoc, m.CREDIT, 0.0000 ) AS ProviderBack,  /*расход по док-ту Возврат поставщику*/
+        
+                /*расход по док-ту Реализация*/
+                IIF(m.MOVEMENTDATE <= :DE AND doc.DOCUMENTTYPEKEY = :SellRetailDoc, m.CREDIT, 0.0000 ) AS SellRetOut,
+                /*возврат по док-ту Реализация*/
+                IIF(m.MOVEMENTDATE <= :DE AND doc.DOCUMENTTYPEKEY = :SellRetailDoc, m.DEBIT, 0.0000 ) AS SellRetIn,
+        
+                /*расход по док-ту Спісаніе*/
+                IIF(m.MOVEMENTDATE <= :DE AND doc.DOCUMENTTYPEKEY = :SpendDoc, m.CREDIT, 0.0000 ) AS SpendOut,
+                /*возврат по док-ту Реализация
+                IIF(m.MOVEMENTDATE <= :DE AND doc.DOCUMENTTYPEKEY = :SellRetailDoc, m.DEBIT, 0.0000 ) AS SellRetIn,
+                   */
+                /*приход по док-ту Инвентаризация*/
+                IIF(m.MOVEMENTDATE <= :DE AND doc.DOCUMENTTYPEKEY = :InventDoc, m.DEBIT, 0.0000 ) AS InInvent,
+                /*расход по док-ту Инвентаризация*/
+                IIF(m.MOVEMENTDATE <= :DE AND doc.DOCUMENTTYPEKEY = :InventDoc, m.CREDIT, 0.0000 ) AS OutInvent
+              FROM GD_CONTACT con
+              JOIN INV_MOVEMENT m ON m.CONTACTKEY = con.ID
+              LEFT JOIN INV_CARD c ON c.ID = m.CARDKEY
+              LEFT JOIN GD_DOCUMENT doc ON doc.ID = m.DOCUMENTKEY
+              LEFT JOIN INV_MOVEMENT m_pair ON m_pair.MOVEMENTKEY = m.MOVEMENTKEY AND m_pair.ID <> m.ID
+              LEFT JOIN GD_CONTACT con_pair ON con_pair.ID = m_pair.CONTACTKEY
+              WHERE con.LB >= :LB
+                AND con.RB <= :RB
+                AND m.MOVEMENTDATE >= :DB
+                AND m.DISABLED = 0
+                AND c.COMPANYKEY + 0 = :CompanyKey
+                AND (:Provider = - 1 OR c.USR$INV_PROVIDER = :Provider)
+              ) rem
+            GROUP BY 1
+            HAVING SUM(rem.Debit ) <> 0.0000
+                OR SUM(rem.Credit ) <> 0.0000
+                OR SUM(rem.BeginSaldo ) <> 0.0000
+                OR SUM(rem.EndSaldo ) <> 0.0000
+            INTO :GoodKey,
+                 :BRemains, :ERemains,
+                 :Debit, :Credit,
+                 :InTake, :AllOutLay,
+                 :CustomerBack, :ProviderBack, :SellRetOut, :SellRetIn, :SpendOut,:InInvent, :OutInvent
+          DO
+          BEGIN
+        
+            IF (BRemains IS NULL) THEN BRemains = 0.00;
+            IF (ERemains IS NULL) THEN ERemains = 0.00;
+            IF (Debit IS NULL) THEN Debit = 0.00;
+            IF (Credit IS NULL) THEN Credit = 0.00;
+            IF (InTake IS NULL) THEN InTake = 0.00;
+            IF (AllOutLay IS NULL) THEN AllOutLay = 0.00;
+            IF (CustomerBack IS NULL) THEN CustomerBack = 0.00;
+            IF (ProviderBack IS NULL) THEN ProviderBack = 0.00;
+            IF (InInvent IS NULL) THEN InInvent = 0.00;
+            IF (OutInvent IS NULL) THEN OutInvent = 0.00;
+        
+            /*
+            ClearIn = InTake - InInvent;
+            ClearOut = AllOutLay - OutInvent;
+        
+        
+            LastMoveDate = NULL;
+            CostAccNcu = NULL;
+            CostRetailNcu = NULL;
+            */
+        
+          SUSPEND;
+          END
+        END
+      RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147294561_2075105124
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147294431_2075105124
+    Fields: 
+      NAME: "Анализ движения товаров. Обороты"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2023-04-05T17:19:59+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="43360,9267902894" ReportOptions.Description.Text="" ReportOptions.LastChange="45021,6993743287" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2600000020446174615365743D224845414445522220446174615365744E616D653D224845414445522200010C1C00000020446174615365743D22512220446174615365744E616D653D2251220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="279,4" PaperHeight="215,9" PaperSize="1" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="71,81107" Left="0" Top="18,89765" Width="980,410082" Stretched="True">
+              <TfrxMemoView Name="Memo1" Align="baWidth" Left="0" Top="0" Width="980,410082" Height="68,03154" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="РђРЅР°Р»РёР· РѕСЃС‚Р°С‚РєРѕРІ СЃРєР»Р°РґР°&#13;&#10;РїРѕ: [HEADER.&#34;DepName&#34;]&#13;&#10;РїРѕСЃС‚Р°РІС‰РёРє: [HEADER.&#34;ProvName&#34;]&#13;&#10;РїРµСЂРёРѕРґ [HEADER.&#34;DATEBEGIN&#34;] - [HEADER.&#34;DATEEND&#34;]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="143,62214" Left="0" Top="151,1812" Width="980,410082">
+              <TfrxMemoView Name="Memo2" Align="baLeft" Left="0" Top="0" Width="328,81911" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РўРѕРІР°СЂ"/>
+              <TfrxMemoView Name="Memo3" Align="baLeft" Left="0" Top="18,8976378" Width="188,9765" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РќР°РёРјРµРЅРѕРІР°РЅРёРµ"/>
+              <TfrxMemoView Name="Memo5" Align="baLeft" Left="188,9765" Top="18,89765" Width="37,7953" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РµРґ. РёР·Рј"/>
+              <TfrxMemoView Name="Memo9" Align="baLeft" Left="328,81911" Top="0" Width="56,69295" Height="143,62214" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РћСЃС‚. РЅР° [HEADER.&#34;DATEBEGIN&#34;]"/>
+              <TfrxMemoView Name="Memo10" Align="baLeft" Left="385,51206" Top="0" Width="151,1812" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РџСЂРёС…РѕРґ "/>
+              <TfrxMemoView Name="Memo11" Align="baLeft" Left="385,51206" Top="18,8976378" Width="41,57483" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р’СЃРµРіРѕ"/>
+              <TfrxMemoView Name="Memo12" Align="baLeft" Left="427,08689" Top="18,8976378" Width="34,01577" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Rotation="90" VAlign="vaCenter" Text=" РІ С‚.С‡. &#13;&#10; РІРѕР·РІСЂР°С‚ РѕС‚ РїРѕРєСѓРїР°С‚РµР»РµР№"/>
+              <TfrxMemoView Name="Memo13" Align="baLeft" Left="461,10266" Top="18,89765" Width="37,7953" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Rotation="90" VAlign="vaCenter" Text=" РІ С‚.С‡.&#13;&#10; РёРЅРІРµРЅС‚Р°СЂРёР·Р°С†РёСЏ"/>
+              <TfrxMemoView Name="Memo14" Align="baLeft" Left="536,69326" Top="0" Width="192,75603" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р Р°СЃС…РѕРґ "/>
+              <TfrxMemoView Name="Memo15" Align="baLeft" Left="536,69326" Top="18,8976378" Width="41,57483" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р’СЃРµРіРѕ"/>
+              <TfrxMemoView Name="Memo16" Align="baLeft" Left="578,26809" Top="18,8976378" Width="37,7953" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Rotation="90" VAlign="vaCenter" Text=" РІ С‚.С‡. РІРѕР·РІСЂР°С‚ &#13;&#10; РїРѕСЃС‚Р°РІС‰РёРєСѓ"/>
+              <TfrxMemoView Name="Memo17" Align="baLeft" Left="616,06339" Top="18,89765" Width="37,7953" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Rotation="90" VAlign="vaCenter" Text=" РІ С‚.С‡. РёРЅРІРµРЅС‚Р°СЂРёР·Р°С†РёСЏ"/>
+              <TfrxMemoView Name="Memo24" Align="baLeft" Left="729,44929" Top="0" Width="56,69295" Height="143,62214" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РћСЃС‚. РЅР° [HEADER.&#34;DATEEND&#34;]"/>
+              <TfrxMemoView Name="Memo4" Align="baLeft" Left="498,89796" Top="18,89765" Width="37,7953" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Rotation="90" VAlign="vaCenter" Text=" РІ С‚.С‡.&#13;&#10; СЂРµР°Р»РёР·Р°С†РёСЏ РІ СЂРѕР·РЅРёС†Сѓ (РІРѕР·РІСЂР°С‚)"/>
+              <TfrxMemoView Name="Memo7" Align="baLeft" Left="653,85869" Top="18,89765" Width="37,7953" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Rotation="90" VAlign="vaCenter" Text=" РІ С‚.С‡. СЂРµР°Р»РёР·Р°С†РёСЏ &#13;&#10; РІ СЂРѕР·РЅРёС†Сѓ"/>
+              <TfrxMemoView Name="Memo18" Align="baLeft" Left="691,65399" Top="18,89765" Width="37,7953" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Rotation="90" VAlign="vaCenter" Text=" РІ С‚.С‡. СЃРїРёСЃР°РЅРёРµ"/>
+              <TfrxMemoView Name="Memo20" Align="baLeft" Left="226,7718" Top="18,89765" Width="102,04731" Height="124,72449" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="РЁРљ"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="18,89765" Left="0" Top="317,48052" Width="980,410082" ColumnWidth="0" ColumnGap="0" DataSet="Q" DataSetName="Q" RowCount="0" Stretched="True">
+              <TfrxMemoView Name="Memo25" Align="baLeft" Left="0" Top="0" Width="188,9765" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="NAME" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;NAME&#34;]"/>
+              <TfrxMemoView Name="Memo26" Align="baLeft" Left="188,9765" Top="0" Width="37,7953" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="VNAME" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;VNAME&#34;]"/>
+              <TfrxMemoView Name="Memo29" Align="baLeft" Left="328,81911" Top="0" Width="56,69295" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;BREMAINS&#34;]"/>
+              <TfrxMemoView Name="Memo30" Align="baLeft" Left="385,51206" Top="0" Width="41,57483" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="DEBIT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;DEBIT&#34;]"/>
+              <TfrxMemoView Name="Memo31" Align="baLeft" Left="427,08689" Top="0" Width="34,01577" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="CUSTOMERBACK" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;CUSTOMERBACK&#34;]"/>
+              <TfrxMemoView Name="Memo32" Align="baLeft" Left="461,10266" Top="0" Width="37,7953" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="ININVENT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;ININVENT&#34;]"/>
+              <TfrxMemoView Name="Memo33" Align="baLeft" Left="536,69326" Top="0" Width="41,57483" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="CREDIT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;CREDIT&#34;]"/>
+              <TfrxMemoView Name="Memo34" Align="baLeft" Left="578,26809" Top="0" Width="37,7953" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="PROVIDERBACK" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;PROVIDERBACK&#34;]"/>
+              <TfrxMemoView Name="Memo35" Align="baLeft" Left="616,06339" Top="0" Width="37,7953" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="OUTINVENT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;OUTINVENT&#34;]"/>
+              <TfrxMemoView Name="Memo40" Align="baLeft" Left="729,44929" Top="0" Width="56,69295" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;EREMAINS&#34;]"/>
+              <TfrxMemoView Name="Memo6" Align="baLeft" Left="498,89796" Top="0" Width="37,7953" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="SELLRETIN" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;SELLRETIN&#34;]"/>
+              <TfrxMemoView Name="Memo8" Align="baLeft" Left="653,85869" Top="0" Width="37,7953" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="SELLRETOUT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;SELLRETOUT&#34;]"/>
+              <TfrxMemoView Name="Memo19" Align="baLeft" Left="691,65399" Top="0" Width="37,7953" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="SPENDOUT" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haRight" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;SPENDOUT&#34;]"/>
+              <TfrxMemoView Name="Memo21" Align="baLeft" Left="226,7718" Top="0" Width="102,04731" Height="18,89762559" ShowHint="False" StretchMode="smMaxHeight" DataField="BARCODE" DataSet="Q" DataSetName="Q" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" HideZeros="True" ParentFont="False" VAlign="vaCenter" Text="[Q.&#34;BARCODE&#34;]"/>
+            </TfrxMasterData>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147294432_2075105124
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147294431_2075105124
+    Fields: 
+      NAME: "rp_Main147294432_2075105124"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-05T18:25:42+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147294432_2075105124
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAUEVSSU9EBgAAAM/l8Oju5AAAAAAAAAAAAAAAAAwAAAAAAAAAAAIAAABeUkZO
+        U1RQUlNUBgAAAERFUEtFWQ0AAADP7uTw4Ofk5evl7ejlDgAAAGdkX2NvbnRhY3QgZ2cxBAAAAG5h
+        bWUCAAAAaWQHmQAAACJnZzEuY29udGFjdHR5cGUgPSA0IGFuZCBFWElTVFMgKFNFTEVDVCBjb24u
+        aWQgRlJPTSBnZF9jb250YWN0IGNvbiB3aGVyZSBjb24ubGIgPD0gZ2cxLmxiIGFuZCBjb24ucmIg
+        Pj1nZzEucmIgYW5kIGNvbi5pZCA9ICIrQ1N0cihJQkxvZ2luLkNvbXBhbnlLZXkpKyIpIggAAABW
+        QlNjcmlwdAQAAABeUl5BRk5TVFBSU1QHAAAAUFJPVktFWQkAAADP7vHy4OL56OoOAAAAZ2RfY29u
+        dGFjdCBnZzEEAAAAbmFtZQIAAABpZAcWAAAAImdnMS5jb250YWN0dHlwZSA9IDMgIggAAABWQlNj
+        cmlwdAAAAABGTlNUUFJTVAUAAABHUktFWQ4AAADD8PPv7+Ag8u7i4PDu4gwAAABnZF9nb29kZ3Jv
+        dXAEAAAAbmFtZQIAAABpZAgAAAAAAAAAAAIAAABeQUZOU1RQUlNUBAAAAEdLRVkFAAAA0u7i4PAH
+        AAAAZ2RfZ29vZAQAAABuYW1lAgAAAGlkCAAAAAAAAAAAAgAAAF5BRk5TVFBSU1QFAAAATVRZUEUM
+        AAAA0ujvIOTi6Obl7ej/AAAAAAAAAAAAAAAADQAAAAAAAAAAsAAAAF5WIjEuIMLx5SDy7uLg8Ps9
+        MCIsICIyLtLu6/zq7iDw4PH17uQ9ci5jcmVkaXQ8PjAiLCAiMy7S7uv86u4g7/Do9e7kPXIuZGVi
+        aXQ8PjAiLCI0LsXx8vwg5OLo5uXt6OUgPSAoci5jcmVkaXQ8PjAgb3Igci5kZWJpdDw+MCkgIiwg
+        IjUuweXnIOTi6Obl7ej/PShyLmNyZWRpdD0wIGFuZCByLmRlYml0PTApIl5SRk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Function rp_Main147294432_2075105124(period, depkey, provkey, grkey, gkey, mtype)
+          BaseQueryList.Clear
+          
+          Dim WhereStr : WhereStr = ""
+          dim gStr : gStr = ""
+          if join(grkey,",")<>"" Then
+            WhereStr = " gg.ID in (" & join(grkey,",")& ")"
+          end if
+        
+          if join(gkey,",")<>"" Then
+            gStr = " g.ID in (" & join(gkey,",")& ")"
+            if WhereStr <> "" then
+              WhereStr = WhereStr & " AND " & gStr
+             else
+              WhereStr = gStr
+            end if
+          end if
+        
+          IF mtype<>"0" THEN
+            if WhereStr <> "" then
+              WhereStr = WhereStr & "AND" & mtype
+            ELSE
+              WhereStr = mtype
+            end if
+          END IF
+          
+          if WhereStr <> "" then WhereStr = " WHERE " & WhereStr
+        
+          Dim q
+          Set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = _
+          "SELECT " & _
+          "g.NAME, " & _
+          "v.name as vname, " & _
+          "g.Barcode, " & _
+          "r.BREMAINS, " & _
+          "r.EREMAINS, " & _
+          "r.debit, " & _
+          "r.credit, " & _
+          "r.CustomerBack, " & _
+          "r.ProviderBack, " & _
+          "r.SellRetOut, " & _
+          "r.SellRetIn, " & _
+          "r.SpendOut, " & _
+          "r.InInvent, " & _
+          "r.OutInvent " & _
+          " " & _
+          " " & _
+          "FROM USR$P_GET_REMANDMOVEGOOD(:DB, :DE, :DEPARTMENTKEY, :Companykey, :Provider) r " & _
+          "join gd_good g on g.ID = r.goodkey " & _
+          "left join gd_value v on v.id = g.valuekey " & _
+          "join gd_goodgroup gg on gg.ID = g.GROUPKEY " & _
+           WhereStr
+          q.ParamByName("DB").asDateTime =  period(0)
+          q.ParamByName("DE").asDateTime = period(1)
+          q.ParamByName("DEPARTMENTKEY").asInteger = depkey(0)
+          q.ParamByName("Companykey").asInteger = IBLogin.Companykey
+          q.ParamByName("Provider").asInteger = provkey(0)
+          q.Open
+          
+           dim DepName, ProvName
+          dim Creator
+          set Creator = new TCreator
+        
+          dim qCont
+          set qCont = Creator.GetObject(nil, "TIBSQL", "")
+          set qCont.Transaction = gdcBaseManager.ReadTransaction
+          qCont.SQL.Text = " SELECT NAME FROM GD_CONTACT WHERE ID = :ID"
+          if depkey(0) > 0 then
+            qCont.ParamByName("ID").AsInteger = depkey(0)
+          else
+            qCont.ParamByName("ID").AsInteger = IBLogin.CompanyKey
+          end if
+          qCont.ExecQuery
+          if not qCont.EoF then
+            DepName = qCont.FieldByName("Name").AsString
+          else
+            DepName = ""
+          end if
+          
+          qCont.Close
+          if provkey(0) > 0 then
+            qCont.ParamByName("ID").AsInteger = provkey(0)
+            qCont.ExecQuery
+            if not qCont.EoF then
+              ProvName = qCont.FieldByName("Name").AsString
+            end if
+            qCont.Close
+          else
+            ProvName = "ВСЕ"
+          end if
+          
+          dim h
+          set h = BaseQueryList.Query(BaseQueryList.Add("header", 1))
+          call h.AddField("AllDays", "ftInteger", 0, False)
+          call h.AddField("DepName", "ftString", 120, False)
+          call h.AddField("ProvName", "ftString", 120, False)
+          call h.AddField("DB", "ftDate", 0, False)
+          call h.AddField("DATEBEGIN", "ftDate", 0, False)
+          call h.AddField("DATEEND", "ftDate", 0, False)
+          h.Open
+          h.Insert
+          h.FieldByName("DepName").AsString = DepName
+          h.FieldByName("ProvName").AsString = ProvName
+          h.FieldByName("AllDays").AsInteger = period(1) - period(0) + 1
+          h.FieldByName("DB").AsDateTime = period(0) - 1
+          h.FieldByName("DATEBEGIN").AsDateTime = period(0)
+          h.FieldByName("DATEEND").AsDateTime = period(1)
+          h.Post
+          
+        
+          Set rp_Main147294432_2075105124 = BaseQueryList
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147294431_2075105124
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Анализ движения товаров(обороты)"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: "147013302_109092844 Исследователь\\Торговля\\Отчеты по торговому складу"
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147294432_2075105124 rp_Main147294432_2075105124"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147011962_109092844 Торговля\\Отчеты по оптовому складу"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147294561_2075105124 Анализ движения товаров. Обороты"
+      EDITIONDATE: 2023-04-05T18:25:42+03:00
