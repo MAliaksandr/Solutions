@@ -5,13 +5,91 @@ Properties:
   RUID: 239855435_2068136651
   Name: "Расход товаров с поиском по части названия"
   Caption: "Расход товаров с поіском по части названия"
-  Version: "1.0.0.2"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 9672094C55DBE84D536962E67BA8F751
+  MD5: D4E9132D8CEBAA833E5479557EB34871
 Uses: 
   - "217517392_985027797 товарнный отчет по проводкам. Карт-чеки"
 Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 239855224_2068136651
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_SELLGOODBYNAME"
+      EDITIONDATE: 2023-04-06T11:16:49+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_SELLGOODBYNAME (
+            DEPKEY INTEGER,
+            TGOODNAME VARCHAR(60),
+            BEGINDATE DATE,
+            ENDDATE DATE,
+            BYDATE SMALLINT)
+        RETURNS ( 
+            GOODKEY INTEGER,
+            GOODNAME VARCHAR(60),
+            DOCTYPEKEY INTEGER,
+            DOCTYPE VARCHAR(60),
+            COSTRET NUMERIC(15, 4),
+            DOCDATE DATE,
+            CREDIT NUMERIC(15, 4))
+         AS
+        DECLARE VARIABLE GID INTEGER;
+        DECLARE VARIABLE NewCostDT INTEGER;
+        DECLARE VARIABLE SellGoodDT INTEGER;
+        BEGIN
+        EXECUTE PROCEDURE GD_P_GETID (147013048, 109092844) RETURNING_VALUES :NewCostDT;  /*переоценка*/
+        EXECUTE PROCEDURE GD_P_GETID (147006557, 63934951) RETURNING_VALUES :SellGoodDT;  /*Реализация в розницу*/
+        
+          GID = NULL;
+          FOR
+            SELECT ID FROM GD_GOOD WHERE UPPER(NAME) LIKE '%' || UPPER(:TGOODNAME) || '%'
+            INTO :GID
+          DO
+          BEGIN
+            FOR
+              SELECT
+                G.ID,
+                G.NAME AS GOODNAME,
+                d.DOCUMENTTYPEKEY,
+                DT.NAME,
+                IIF(:BYDATE=1, D.DOCUMENTDATE, IIF(D.DOCUMENTTYPEKEY=:SellGoodDT,:ENDDATE,D.DOCUMENTDATE)),
+                C.USR$INV_COSTRETAILNCU,
+                SUM(M.CREDIT) AS CREDIT
+              FROM INV_CARD C
+              JOIN INV_MOVEMENT M ON M.CARDKEY = C.ID
+              JOIN INV_MOVEMENT M1 ON M1.MOVEMENTKEY = M.MOVEMENTKEY AND M1.ID<>M.ID
+              JOIN GD_CONTACT TOC ON TOC.ID = M.CONTACTKEY
+              JOIN GD_CONTACT FRC ON FRC.ID = M1.CONTACTKEY
+              JOIN GD_DOCUMENT D ON D.ID = M.DOCUMENTKEY
+              LEFT JOIN GD_DOCUMENTTYPE DT ON DT.ID = D.DOCUMENTTYPEKEY
+              JOIN GD_GOOD G ON G.ID = C.GOODKEY
+              WHERE
+              C.GOODKEY = :GID  AND D.DOCUMENTDATE BETWEEN :BEGINDATE AND :ENDDATE
+              AND TOC.ID = :DEPKEY
+              AND M.CREDIT<>0
+              AND DT.ID<> :NewCostDT
+              GROUP BY 1,2 ,3,4 ,5, 6
+                INTO :GOODKEY, :GOODNAME, :DOCTYPEKEY , :DOCTYPE, :DOCDATE , :COSTRET,  :CREDIT
+        
+             DO SUSPEND;
+          END
+        END
+      RDB$DESCRIPTION: | 
+        покажет расход товаров по подразделению за период;
+        выборка товара по части слова;
+        только расход;
+        не включены вложенные подразделения;
+        вх.параметры:
+        DEPKEY INTEGER,
+        TGOODNAME VARCHAR(60),
+        BEGINDATE DATE,
+        ENDDATE DATE,
+        BYDATE SMALLINT
   - 
     Properties: 
       Class: "TgdcTemplate"
