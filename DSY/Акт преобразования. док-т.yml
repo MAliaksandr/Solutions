@@ -5,10 +5,10 @@ Properties:
   RUID: 299409376_2076379983
   Name: "Акт преобразования. док-т"
   Caption: "Акт преобразования. док-т"
-  Version: "1.0.0.2"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 42C2DCB75AAB56566E640943DFB01413
+  MD5: 447E6AD40DB912026020B6786EB6181B
 Uses: 
   - "148509668_396646306 Торговля - исследователь"
   - "147698172_43451302 Мат_склад - метаданные"
@@ -6509,57 +6509,6 @@ Objects:
       EDITIONDATE: 2023-04-06T18:45:00+03:00
   - 
     Properties: 
-      Class: "TgdcReportGroup"
-      RUID: 299408934_2076379983
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 299408909_2076379983
-    Fields: 
-      PARENT: ~
-      NAME: "Отчеты(gdc_frmInvDocument299408909_2076379983)"
-      DESCRIPTION: ~
-      USERGROUPNAME: "299408934_2076379983"
-      EDITIONDATE: 2023-04-06T18:41:06+03:00
-  - 
-    Properties: 
-      Class: "TgdcMacrosGroup"
-      RUID: 299408933_2076379983
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 299408909_2076379983
-    Fields: 
-      PARENT: ~
-      NAME: "Локальные макросы"
-      CLASSNAME: ""
-      ISGLOBAL: 0
-      OBJECTNAME: "gdc_frmInvDocument299408909_2076379983"
-      OBJECTPARENT: ~
-      SUBTYPE: ""
-      EDITIONDATE: 2023-04-06T18:41:06+03:00
-      DESCRIPTION: ~
-  - 
-    Properties: 
-      Class: "TgdcDelphiObject"
-      RUID: 299408923_2076379983
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 299408909_2076379983
-    Fields: 
-      PARENT: ~
-      NAME: "gdc_frmInvDocument299408909_2076379983"
-      CLASSNAME: ""
-      DESCRIPTION: ~
-      MACROSGROUPKEY: "299408933_2076379983 Локальные макросы"
-      OBJECTNAME: "gdc_frmInvDocument299408909_2076379983"
-      OBJECTTYPE: 0
-      REPORTGROUPKEY: "299408934_2076379983 Отчеты(gdc_frmInvDocument299408909_2076379983)"
-      SUBTYPE: ""
-      EDITIONDATE: 2023-04-06T18:41:06+03:00
-  - 
-    Properties: 
       Class: "TgdcDelphiObject"
       RUID: 299408950_2076379983
       AlwaysOverwrite: False
@@ -6952,7 +6901,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-04-10T15:56:58+03:00
+      EDITIONDATE: 2023-04-11T12:04:23+03:00
       DISPLAYSCRIPT: | 
         ACT_TRANSFORMATION_CALCSUM
         
@@ -6969,6 +6918,7 @@ Objects:
               "  MAX(C.USR$INV_EXPIRYDATE) AS EXPIRYDATE, " & _
               "  max(c.USR$INV_ORIGINCOUNTRYKEY) as country, " & _
               "  max(c.USR$MN_HUMIDITY) as HUMIDITY, " & _
+              "  MAX(C.USR$INV_PROVIDER) AS PROVIDER, " & _
               "  max(c.usr$inv_accountkey) as usr$inv_accountkey,   " & _
               "  max(c.usr$inv_addnds) as usr$inv_addnds,   " & _
               "  max(c.usr$inv_sellnds) as usr$inv_sellnds,   " & _
@@ -6994,6 +6944,9 @@ Objects:
         
             Self.FieldByName("TO_USR$INV_EXPIRYDATE").AsVariant = _
               ibsql.FieldByName("EXPIRYDATE").AsVariant
+        
+            Self.FieldByName("TO_USR$INV_PROVIDER").AsVariant = _
+              ibsql.FieldByName("PROVIDER").AsVariant
               
             Self.FieldByName("to_usr$inv_accountkey").AsVariant = _
               ibsql.FieldByName("usr$inv_accountkey").AsVariant
@@ -7359,271 +7312,6 @@ Objects:
       OBJECTNAME: "usrg_tbiEntry"
       PARENTNAME: "gdc_frmInvDocument299408909_2076379983"
       EDITIONDATE: 2023-04-06T18:42:36+03:00
-  - 
-    Properties: 
-      Class: "TgdcTemplate"
-      RUID: 299409307_2076379983
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 299408909_2076379983
-    Fields: 
-      NAME: "Акт преобразования. ФР3"
-      DESCRIPTION: ~
-      TEMPLATETYPE: "FR"
-      EDITIONDATE: 2023-04-10T13:18:29+03:00
-      TEMPLATEDATA: !!binary > 
-        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
-        AAAAAAAAAAAAWAAQFwlkssXiQDh+gL5R/OVA
-  - 
-    Properties: 
-      Class: "TgdcFunction"
-      RUID: 299409005_2076379983
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 299408909_2076379983
-    Fields: 
-      NAME: "rp_Main299409005_2076379983"
-      COMMENT: ~
-      EVENT: ~
-      FUNCTIONTYPE: ~
-      GROUPNAME: ~
-      INHERITEDRULE: 0
-      LANGUAGE: "VBScript"
-      LOCALNAME: ~
-      MODIFYDATE: ~
-      MODULE: "REPORTMAIN"
-      MODULECODE: "299408923_2076379983 gdc_frmInvDocument299408909_2076379983"
-      OBJECTNAME: "gdc_frmInvDocument299408909_2076379983"
-      OWNERNAME: ~
-      PUBLICFUNCTION: 1
-      SHORTCUT: ~
-      USEDEBUGINFO: 0
-      EDITIONDATE: 2023-04-10T13:19:51+03:00
-      DISPLAYSCRIPT: | 
-        RP_MAIN299409005_2076379983
-        
-      ENTEREDPARAMS: !!binary > 
-        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
-        AABGTlNURkxQUg==
-      SCRIPT: | 
-        Option Explicit
-        Function rp_Main299409005_2076379983(OwnerForm)
-          BaseQueryList.Clear
-         dim arr, product, math, id, document
-        
-          arr = OwnerForm.SelectedKey
-          id = "(" + join(arr(0), ",") + ")"
-        
-          if id = "()" then
-            set rp_Main147120093_356340120 = BaseQueryList
-            call Exception.Raise("Exception", "Пустой набор данных")
-          end if
-        
-          set document = BaseQueryList.Query(BaseQueryList.Add("document", 0))
-          document.SQL = _
-            "SELECT " & _
-            "   doc.id, doc.number, doc.documentdate, con.name " & _
-            "FROM " & _
-            "  gd_document doc " & _
-            "    JOIN " & _
-            "      usr$inv_actwork a ON doc.id = a.documentkey and doc.id in " & id & _
-            "    JOIN " & _
-            "      gd_contact con ON a.USR$TOCONTACTKEY = con.id "
-          document.Open
-        
-          set product = BaseQueryList.Query(BaseQueryList.Add("product", 0))
-          product.SQL = _
-            "SELECT " & _
-            "   doc.id, g.Name, v.name as valuename, " & _
-            "   l.inquantity, c.usr$inv_costretailncu as usr$inv_costaccncu, con.name " & _
-            "FROM " & _
-            "  gd_document doc " & _
-            "    JOIN " & _
-            "      usr$inv_actwork a ON doc.id = a.documentkey and doc.id in " & id & _
-            "    JOIN " & _
-            "      gd_contact con ON a.USR$TOCONTACTKEY = con.id " & _
-            "    JOIN " & _
-            "      usr$inv_actworkline l ON a.documentkey = l.masterkey and l.inquantity > 0 " & _
-            "    JOIN " & _
-            "      inv_card c ON l.fromcardkey = c.id " & _
-            "    LEFT JOIN " & _
-            "      gd_good g ON c.goodkey = g.id " & _
-            "    LEFT JOIN " & _
-            "      gd_value v ON g.valuekey = v.id "
-          product.Open
-        
-          set math = BaseQueryList.Query(BaseQueryList.Add("matherial", 0))
-          math.SQL = _
-            "SELECT " & _
-            "   doc.id, g.Name, v.name as valuename, " & _
-            "   l.outquantity, c.usr$inv_costretailncu as usr$inv_costaccncu /*c.usr$inv_costaccncu*/, con.name " & _
-            "FROM " & _
-            "  gd_document doc " & _
-            "    JOIN " & _
-            "      usr$inv_actwork a ON doc.id = a.documentkey and doc.id in " & id & _
-            "    JOIN " & _
-            "      gd_contact con ON a.USR$FROMCONTACTKEY = con.id " & _
-            "    JOIN " & _
-            "      usr$inv_actworkline l ON a.documentkey = l.masterkey and l.outquantity > 0 " & _
-            "    JOIN " & _
-            "      inv_card c ON l.fromcardkey = c.id " & _
-            "    LEFT JOIN " & _
-            "      gd_good g ON c.goodkey = g.id " & _
-            "    LEFT JOIN " & _
-            "      gd_value v ON g.valuekey = v.id "
-          math.Open
-          BaseQueryList.AddMasterDetail "document", "id", "product", "id;name"
-          BaseQueryList.AddMasterDetail "document", "id", "matherial", "id;name"
-          Set rp_Main299409005_2076379983 = BaseQueryList
-        End Function
-        
-  - 
-    Properties: 
-      Class: "TgdcReport"
-      RUID: 299409004_2076379983
-      AlwaysOverwrite: False
-      DontRemove: False
-      IncludeSiblings: False
-      HeadObject: 299408909_2076379983
-    Fields: 
-      NAME: "Акт"
-      DESCRIPTION: ~
-      DISPLAYINMENU: 1
-      EVENTFORMULAKEY: ~
-      FOLDERKEY: ~
-      FRQREFRESH: 1
-      GLOBALREPORTKEY: ~
-      ISLOCALEXECUTE: 1
-      ISREBUILD: 1
-      MAINFORMULAKEY: "299409005_2076379983 rp_Main299409005_2076379983"
-      MODALPREVIEW: 0
-      PARAMFORMULAKEY: ~
-      PREVIEW: 1
-      REPORTGROUPKEY: "299408934_2076379983 Отчеты(gdc_frmInvDocument299408909_2076379983)"
-      SERVERKEY: ~
-      TEMPLATEKEY: "299409307_2076379983 Акт преобразования. ФР3"
-      EDITIONDATE: 2023-04-10T13:19:51+03:00
   - 
     Properties: 
       Class: "TgdcInvDocumentTypeOptions"
@@ -8347,3 +8035,150 @@ Objects:
       RELATIONFIELDKEY: ~
       EDITIONDATE: 2023-04-06T18:32:05+03:00
       DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 299409520_2076379983
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 299409521_2076379983
+    Fields: 
+      PARENT: "147024393_23783130 TgdcCreateableForm\\Tgdc_frmG\\Tgdc_frmMDH\\Tgdc_frmMDHGR\\Tgdc_frmInvDocument"
+      NAME: "Tgdc_frmInvDocument299408909_2076379983"
+      CLASSNAME: "Tgdc_frmInvDocument"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "299408909_2076379983"
+      EDITIONDATE: 2023-04-11T10:58:21+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 299409523_2076379983
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 299409521_2076379983
+    Fields: 
+      NAME: "Tgdc_frmInvDocument299408909_2076379983LoadSettingsAfterCreate"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "299409520_2076379983 TgdcCreateableForm\\Tgdc_frmG\\Tgdc_frmMDH\\Tgdc_frmMDHGR\\Tgdc_frmInvDocument\\Tgdc_frmInvDocument299408909_2076379983"
+      OBJECTNAME: "Tgdc_frmInvDocument299408909_2076379983"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-11T10:59:08+03:00
+      DISPLAYSCRIPT: | 
+        TGDC_FRMINVDOCUMENT299408909_2076379983LOADSETTINGSAFTERCREATE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include INVMAT_LOADFRMSETTINGS
+        Option Explicit
+        Sub Tgdc_frmInvDocument299408909_2076379983LoadSettingsAfterCreate(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "LoadSettingsAfterCreate", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+        
+          invMat_LoadFrmSettings(Self)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147040596_23783130 invMat_LoadFrmSettings"
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 299409521_2076379983
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "LOADSETTINGSAFTERCREATE"
+      FUNCTIONKEY: "299409523_2076379983 Tgdc_frmInvDocument299408909_2076379983LoadSettingsAfterCreate"
+      OBJECTKEY: "299409520_2076379983 TgdcCreateableForm\\Tgdc_frmG\\Tgdc_frmMDH\\Tgdc_frmMDHGR\\Tgdc_frmInvDocument\\Tgdc_frmInvDocument299408909_2076379983"
+      OBJECTNAME: "Tgdc_frmInvDocument299408909_2076379983"
+      PARENTNAME: "Tgdc_frmInvDocument"
+      EDITIONDATE: 2023-04-11T10:59:08+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 299409526_2076379983
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 299409524_2076379983
+    Fields: 
+      NAME: "Tgdc_frmInvDocument299408909_2076379983SaveSettings"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "299409520_2076379983 TgdcCreateableForm\\Tgdc_frmG\\Tgdc_frmMDH\\Tgdc_frmMDHGR\\Tgdc_frmInvDocument\\Tgdc_frmInvDocument299408909_2076379983"
+      OBJECTNAME: "Tgdc_frmInvDocument299408909_2076379983"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-11T10:59:03+03:00
+      DISPLAYSCRIPT: | 
+        TGDC_FRMINVDOCUMENT299408909_2076379983SAVESETTINGS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        '#include INVMAT_SAVEFRMSETTINGS
+        Option Explicit
+        Sub Tgdc_frmInvDocument299408909_2076379983SaveSettings(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "SaveSettings", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+        
+          invMat_SaveFrmSettings(Self)
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147040601_23783130 invMat_SaveFrmSettings"
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 299409524_2076379983
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "SAVESETTINGS"
+      FUNCTIONKEY: "299409526_2076379983 Tgdc_frmInvDocument299408909_2076379983SaveSettings"
+      OBJECTKEY: "299409520_2076379983 TgdcCreateableForm\\Tgdc_frmG\\Tgdc_frmMDH\\Tgdc_frmMDHGR\\Tgdc_frmInvDocument\\Tgdc_frmInvDocument299408909_2076379983"
+      OBJECTNAME: "Tgdc_frmInvDocument299408909_2076379983"
+      PARENTNAME: "Tgdc_frmInvDocument"
+      EDITIONDATE: 2023-04-11T10:59:03+03:00
