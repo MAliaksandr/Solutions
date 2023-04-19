@@ -1,0 +1,148 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147047197_2083926957
+  Name: "Обновление чеков на КС для повтороной загрузки продаж"
+  Caption: "Обновление чеков на КС для повтороной загрузки продаж"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 3DC6055C71CBC9CD6C3C8945807E2DDE
+Uses: 
+  - "147755479_69526485 GS.Общие.EVT_OBJECT"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147047195_2083926957
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "pf_UpdateCheckForReload"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-19T15:48:16+03:00
+      DISPLAYSCRIPT: | 
+        PF_UPDATECHECKFORRELOAD
+        PF_UPDATECHECKFORRELOAD_EXC
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Option Explicit
+        Function pf_UpdateCheckForReload
+          dim Tr, Creator
+          set Creator = new TCreator
+          set Tr = Creator.GetObject(nil, "TIBTransaction", "")
+          Tr.DefaultDataBase = gdcBaseManager.Database
+          Tr.StartTransaction
+        
+          Except pf_UpdateCheckForReload_Exc(Tr)
+        
+          Dim ParamWindow, ParamList, Result
+              ''' Создание диалога
+          Set ParamWindow = System.GetNewParamWindow(0)
+              ''' Присвоим список параметров отдельной переменной
+          Set ParamList = ParamWindow.ParamList
+        
+          Call ParamWindow.AddParam("Период", "prmPeriod", "ПЕРІОД")
+              ParamList.Params(0).Required = True
+        
+          Result = ParamWindow.ExecuteWithParamList(ParamList)
+        
+          if IsEmpty(Result) then
+             exit Function
+          end if
+          
+          dim PeriodUp : PeriodUp = Result(0)
+          
+          dim DateBegin : DateBegin = PeriodUp(0)
+          dim DateEnd : DateEnd = PeriodUp(1)
+          
+          if Application.MessageBox("Вы уверены, что хотите " & vbCr & _
+            "обновить данные по чекам за период " & vbCr & _
+            " c " & CSTR(DateBegin) & " по " &  CSTR(DateEnd), "Внимание", vbYesNo + vbQuestion + vbSystemModal) = vbNo Then
+        
+            call pf_UpdateCheckForReload_Exc(Tr)
+            exit function
+          end if
+          
+          Dim ibsql
+          Set ibsql = Creator.GetObject(nil, "TIBSQL", "")
+          ibsql.Transaction = Tr
+          ibsql.SQL.Text = _
+            "UPDATE USR$PF_CHECK c SET c.USR$PFD_DELIVERED = 0 " & _
+            "WHERE c.USR$DATE BETWEEN :DateBegin AND :DateEnd " & _
+            "and COALESCE(c.USR$PFD_DELIVERED, 0) = 1 "
+          ibsql.ParamBYName("DateBegin").asDateTime =  DateBegin
+          ibsql.ParamBYName("DateEnd").asDateTime = DateEnd
+          ibsql.ExecQuery
+          
+          if Tr.InTransaction Then Tr.Commit
+          
+          call Application.MessageBox("Операция завершена." & vbCr & _
+            "Вы можете повторно загрузить продажи за период " & vbCr & _
+            " c " & CSTR(DateBegin) & " по " &  CSTR(DateEnd), "Внимание", vbOkOnly + vbInformation + vbSystemModal)
+          
+        End Function
+        
+        sub pf_UpdateCheckForReload_Exc(Tr)
+          if Tr.InTransaction Then Tr.RollBack
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147047194_2083926957
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros147047194_2083926957"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147002595_248774685 gdc_frmExplorer"
+      OBJECTNAME: "gdc_frmExplorer"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-19T15:44:04+03:00
+      DISPLAYSCRIPT: | 
+        MACROS147047194_2083926957
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        '#include PF_UPDATECHECKFORRELOAD
+        Option Explicit
+        Sub Macros147047194_2083926957
+          pf_UpdateCheckForReload
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147047195_2083926957 pf_UpdateCheckForReload"
