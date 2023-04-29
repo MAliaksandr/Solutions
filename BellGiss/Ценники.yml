@@ -1,0 +1,247 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 151119861_2082809843
+  Name: "Ценники"
+  Caption: "Ценники"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 031316C44D3FED52B1BDDF9343825764
+Uses: 
+  - "147070091_311980179 GS new. Общепит бэк. Документы. Меню"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 148333946_1636064287
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 148333936_1636064287
+    Fields: 
+      NAME: "Общепит. Цены бистро148333946_1636064287"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2022-12-15T13:42:55+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="40527,3989181829" ReportOptions.Description.Text="" ReportOptions.LastChange="40527,3989181829" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2200000020446174615365743D224D454E552220446174615365744E616D653D224D454E552200010C2A00000020446174615365743D224D454E554C494E452220446174615365744E616D653D224D454E554C494E45220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" Columns="2" ColumnWidth="95" ColumnPositions.Text="0&#13;&#10;95" HGuides.Text="" VGuides.Text="">
+            <TfrxMasterData Name="MasterData1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Height="196,53543307" Left="0" ParentFont="False" Top="18,89765" Width="359,05535" ColumnWidth="0" ColumnGap="0" DataSet="MENULINE" DataSetName="MENULINE" RowCount="0">
+              <TfrxMemoView Name="Memo1" Left="0" Top="26,45671" Width="283,46475" Height="52,91342" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-21" Font.Name="Arno Pro" Font.Style="1" Frame.Typ="3" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[MENULINE.&#34;NAME&#34;]  [MENULINE.&#34;USR$OUTPUT&#34;]"/>
+              <TfrxMemoView Name="Memo2" Left="0" Top="143,62214" Width="283,46475" Height="52,91342" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-35" Font.Name="Arno Pro" Font.Style="0" Frame.Typ="11" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[MENULINE.&#34;USR$COST&#34;] СЂСѓР±."/>
+              <TfrxMemoView Name="Memo3" Left="0" Top="79,37013" Width="283,46475" Height="64,25201" ShowHint="False" DataSet="MENULINE" DataSetName="MENULINE" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arno Pro" Font.Style="0" Frame.Typ="3" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text=" [MENULINE.&#34;DESCRIPTION&#34;]"/>
+              <TfrxMemoView Name="Memo4" Left="0" Top="0" Width="283,46475" Height="26,45671" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="1" Frame.Typ="7" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р‘РµР»Р“РРЎРЎ, РєР°С„Рµ &#34;Р“РѕСЃС‚РёРЅРµС†&#34;"/>
+            </TfrxMasterData>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 148333937_1636064287
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 148333936_1636064287
+    Fields: 
+      NAME: "rp_Main147015402_9263644147986039_157599148333937_1636064287"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147014299_9263644 gdc_frmUserComplexDocument147014188_52143670"
+      OBJECTNAME: "gdc_frmUserComplexDocument147014188_52143670"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-15T13:42:55+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147015402_9263644147986039_157599148333937_1636064287
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        function rp_Main147015402_9263644147986039_157599148333937_1636064287(OwnerForm)
+        
+          doc = OwnerForm.SelectedKey
+          id = "(" + Join(doc(0), ",") + ")"
+        
+          BaseQueryList.Clear
+          set q = BaseQueryList.Query(BaseQueryList.Add("Menu", 0))
+          q.SQL = " SELECT * FROM usr$mn_menu mm " + _
+              " JOIN usr$mn_menuname mn on mm.usr$menunamekey = mn.id " + _
+              " JOIN gd_contact con on mm.usr$depotkey = con.id " + _
+              " WHERE mm.documentkey IN " + ID
+        
+          set qmenu = BaseQueryList.Query(BaseQueryList.Add("Menuline", 0))
+          qmenu.SQL = _
+          " SELECT g_s_delchar(g.alias) as alias, g.description, ml.USR$COST, g.name, gg.name as goodnam, mc.usr$outputstr as usr$output FROM usr$mn_menuline ml " & _
+          " left JOIN usr$mn_menu mm on mm.documentkey = ml.masterkey " & _
+          " left JOIN gd_good g on g.id = ml.usr$goodkey " & _
+          " left JOIN GD_GOODGROUP gg on gg.id = g.groupkey " & _
+          " left JOIN usr$mn_calccard mc on mc.documentkey = ml.usr$cardkey " + _
+          " WHERE ml.masterkey in"  + ID + " ORDER BY gg.name, g_s_delchar(g.alias)"
+        
+          q.Open
+          q.IsResult = 1
+          qmenu.Open
+          qmenu.IsResult = 1
+        
+        
+        '  BaseQueryList.AddMasterDetail "Menu","documentkey", "Menuline", "masterkey;name1;alias"
+        
+          set rp_Main147015402_9263644147986039_157599148333937_1636064287 = BaseQueryList
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 148333936_1636064287
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Ценник со составом"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "148333937_1636064287 rp_Main147015402_9263644147986039_157599148333937_1636064287"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147014580_9263644 Отчеты(gdc_frmUserComplexDocument147014188_52143670)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "148333946_1636064287 Общепит. Цены бистро148333946_1636064287"
+      EDITIONDATE: 2022-12-15T13:42:55+03:00
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 147986076_1575995929
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147986038_1575995929
+    Fields: 
+      NAME: "Общепит. Цены бистро"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2022-12-15T13:43:37+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="40527,3989181829" ReportOptions.Description.Text="" ReportOptions.LastChange="40527,3989181829" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2200000020446174615365743D224D454E552220446174615365744E616D653D224D454E552200010C2A00000020446174615365743D224D454E554C494E452220446174615365744E616D653D224D454E554C494E45220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" Columns="2" ColumnWidth="95" ColumnPositions.Text="0&#13;&#10;95" HGuides.Text="" VGuides.Text="">
+            <TfrxMasterData Name="MasterData1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Height="196,53543307" Left="0" ParentFont="False" Top="18,89765" Width="359,05535" ColumnWidth="0" ColumnGap="0" DataSetName="MENULINE" RowCount="0">
+              <TfrxMemoView Name="Memo1" Left="0" Top="26,45671" Width="283,46475" Height="94,48825" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-27" Font.Name="Arno Pro" Font.Style="0" Frame.Typ="3" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[MENULINE.&#34;NAME&#34;]  [MENULINE.&#34;USR$OUTPUT&#34;]"/>
+              <TfrxMemoView Name="Memo2" Left="0" Top="120,94496" Width="283,46475" Height="75,5906" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-35" Font.Name="Arno Pro" Font.Style="1" Frame.Typ="11" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="[MENULINE.&#34;USR$COST&#34;] СЂСѓР±."/>
+              <TfrxMemoView Name="Memo3" Left="0" Top="0" Width="283,46475" Height="26,45671" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="1" Frame.Typ="7" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Р‘РµР»Р“РРЎРЎ, РєР°С„Рµ &#34;Р“РѕСЃС‚РёРЅРµС†&#34;"/>
+            </TfrxMasterData>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147986039_1575995929
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147986038_1575995929
+    Fields: 
+      NAME: "rp_Main147015402_9263644147986039_1575995929"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "147014299_9263644 gdc_frmUserComplexDocument147014188_52143670"
+      OBJECTNAME: "gdc_frmUserComplexDocument147014188_52143670"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2022-12-15T13:43:40+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN147015402_9263644147986039_1575995929
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        function rp_Main147015402_9263644147986039_1575995929(OwnerForm)
+        
+          doc = OwnerForm.SelectedKey
+          id = "(" + Join(doc(0), ",") + ")"
+        
+          BaseQueryList.Clear
+          set q = BaseQueryList.Query(BaseQueryList.Add("Menu", 0))
+          q.SQL = " SELECT * FROM usr$mn_menu mm " + _
+              " JOIN usr$mn_menuname mn on mm.usr$menunamekey = mn.id " + _
+              " JOIN gd_contact con on mm.usr$depotkey = con.id " + _
+              " WHERE mm.documentkey IN " + ID
+        
+          set qmenu = BaseQueryList.Query(BaseQueryList.Add("Menuline", 0))
+          qmenu.SQL = _
+          " SELECT g_s_delchar(g.alias) as alias, ml.USR$COST, g.name, gg.name as goodnam, mc.usr$outputstr as usr$output FROM usr$mn_menuline ml " & _
+          " left JOIN usr$mn_menu mm on mm.documentkey = ml.masterkey " & _
+          " left JOIN gd_good g on g.id = ml.usr$goodkey " & _
+          " left JOIN GD_GOODGROUP gg on gg.id = g.groupkey " & _
+          " left JOIN usr$mn_calccard mc on mc.documentkey = ml.usr$cardkey " + _
+          " WHERE ml.masterkey in"  + ID + " ORDER BY gg.name, g_s_delchar(g.alias)"
+        
+          q.Open
+          q.IsResult = 1
+          qmenu.Open
+          qmenu.IsResult = 1
+        
+        
+        '  BaseQueryList.AddMasterDetail "Menu","documentkey", "Menuline", "masterkey;name1;alias"
+        
+          set rp_Main147015402_9263644147986039_1575995929 = BaseQueryList
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 147986038_1575995929
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Ценник"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147986039_1575995929 rp_Main147015402_9263644147986039_1575995929"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "147014580_9263644 Отчеты(gdc_frmUserComplexDocument147014188_52143670)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "147986076_1575995929 Общепит. Цены бистро"
+      EDITIONDATE: 2022-12-15T13:43:40+03:00
