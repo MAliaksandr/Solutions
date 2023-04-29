@@ -1,0 +1,82 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147059727_2089375573
+  Name: "CN.Confiscat. Перекрытие методов"
+  Caption: "CN.Confiscat. Перекрытие методов"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: 7B8AAEAB58927ABE2FCF1EF2DF1EBCD3
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147042307_2076867174
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "cn_isConfiscatGoodGroup"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-04-20T10:37:46+03:00
+      DISPLAYSCRIPT: | 
+        CN_ISCONFISCATGOODGROUP
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAR0RDT0JKRUNUCQAAAEdEQ09CSkVDVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        ' вернет true если товар входит в группу КОНФИСКАТ(в том числе и влоденные)
+        Function cn_isConfiscatGoodGroup(gdcObject)
+          cn_isConfiscatGoodGroup = false
+        
+          dim ibSQL, Creator
+          set Creator = new TCreator
+          set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+          ibSQL.Transaction = gdcObject.ReadTransaction
+          ibSQL.SQL.Text = _
+          "SELECT " & vbCrLf & _
+          "* " & vbCrLf & _
+          "FROM gd_goodgroup gg " & vbCrLf & _
+          "left join gd_goodgroup gg1 on gg1.LB<=gg.lb and gg1.RB>=gg.RB " & vbCrLf & _
+          "where gg1.id = <RUID xID=""147047409"" dbID=""2082756242""/> " & vbCrLf & _
+          "and gg.ID =:groupkey "
+          ibSQL.ParamByName("groupkey").AsInteger = gdcObject.FieldByName("GROUPKEY").asInteger
+          ibSQL.ExecQuery
+          if not ibSQL.EOF Then _
+            cn_isConfiscatGoodGroup = true
+          
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147005098_119560140
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: ~
+      EVENTNAME: "SETUPRECORD"
+      FUNCTIONKEY: "147005100_119560140 Tgdc_dlgGoodSetupRecord"
+      OBJECTKEY: "147005097_119560140 TgdcCreateableForm\\Tgdc_dlgG\\Tgdc_dlgTR\\Tgdc_dlgTRPC\\Tgdc_dlgGood"
+      OBJECTNAME: "Tgdc_dlgGood"
+      PARENTNAME: "Tgdc_dlgTRPC"
+      EDITIONDATE: 2023-04-29T17:09:24+03:00
