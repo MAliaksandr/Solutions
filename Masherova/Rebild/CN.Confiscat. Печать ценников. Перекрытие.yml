@@ -1,0 +1,246 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147060338_2089375573
+  Name: "CN.Confiscat. Печать ценников. Перекрытие"
+  Caption: "CN.Confiscat. Печать ценников. Перекрытие"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: EA2F287A2DE39BE6217B1041B380C2D4
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 149041191_623967871
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "RetailInv_ReportLabels"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-05-02T13:32:02+03:00
+      DISPLAYSCRIPT: | 
+        RETAILINV_REPORTLABELS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVA8AAABDT1VOVE9OUVVBTlRJVFkPAAAAQ09VTlRPTlFVQU5USVRZAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNUCAAAAElTV0VJR0hUCAAAAElTV0VJR0hUAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNUBQAAAElTQUxMBQAAAElTQUxMAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAEZOU1RQUlNUBAAAAFJVSUQEAAAAUlVJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABGTlNUUFJTVAoAAABURU1QUEVSSU9ECgAAAFRFTVBQRVJJT0QAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        ' печать ценников
+        ' CountOnQuantity - Кол-во ценников = Кол-во товара
+        ' RUID - тип документа
+        ' TempPeriod = true: печатать цену до деноминации и после деноминации
+        Function RetailInv_ReportLabels(OwnerForm, CountOnQuantity, IsWeight, IsAll, RUID, TempPeriod)
+          BaseQueryList.Clear
+        
+          dim gdcInvDocument
+          set gdcInvDocument = OwnerForm.gdcObject
+          if gdcInvDocument.IsEmpty then
+            call Exception.Raise("Exception", "Пустой набор данных")
+          end if
+          
+          dim ids
+          if not IsAll then
+            dim doc
+            doc = OwnerForm.SelectedKey
+            ids = join(doc(1), ",")
+            if ids = "" then ids = "0"
+            ids = " l.DOCUMENTKEY IN (" & ids & ")"
+          else
+            ids = " l.MASTERKEY = " + gdcInvDocument.FieldByName("id").AsString
+          end if
+          
+          dim TableName, quant, andwhere, barcode, actnum, acttable
+          andwhere = ""
+          barcode = " G.BARCODE, "
+          actnum = " CAST('' as VARCHAR(1)) as actnumber, "
+          acttable =  " "
+          select case RUID
+            ' Накладная на получение товара
+            ' Накладная на получение импортного товара
+            ' Накладная на получение конфиската
+            case inv_DocAddwOptBill_RUID, _
+                 inv_DocAddwImportBill_RUID, _
+                 "147047539_2082756242"
+              TableName = _
+                " JOIN USR$INV_ADDWBILLLINE l  ON  doc.ID  =  l.DOCUMENTKEY " & _
+                " JOIN INV_CARD card ON card.ID  =  l.FROMCARDKEY "
+              quant = "   l.QUANTITY as QUANTITY, "
+              barcode = " card. USR$PFD_BARCODE as BARCODE, "
+              actnum = " av.USR$DOCNUMBER || ' от ' || CAST(av.USR$DOCDATE as VARCHAR(10)) as actnumber, "
+              acttable =  " LEFT JOIN USR$CN_ACTVALUATION AV on AV.ID = card.USR$CN_ACTVALUATION "
+            ' Выдача в торговые подразделения
+            case inv_DocToTradeBill_RUID
+              TableName = _
+                " JOIN USR$INV_TOTRADELINE l  ON  doc.ID  =  l.DOCUMENTKEY " & _
+                " JOIN INV_CARD card ON card.ID  =  l.TOCARDKEY "
+              quant = "   l.QUANTITY as QUANTITY, "
+            ' переоценка товаров
+            case inv_DocNewCostBill_RUID
+              TableName = _
+                " JOIN USR$INV_NEWCOSTLINE l  ON  doc.ID  =  l.DOCUMENTKEY " & _
+                " JOIN INV_CARD card ON card.ID  =  l.TOCARDKEY " & _
+                " LEFT JOIN INV_CARD card1 ON card1.ID  =  l.FROMCARDKEY "
+              quant = "   l.QUANTITY as QUANTITY, "
+            ' комплектация товаров
+            case "149299696_623967871"
+              TableName = _
+                " JOIN USR$INV_ACTWORKLINE l  ON  doc.ID  =  l.DOCUMENTKEY " & _
+                " JOIN INV_CARD card ON card.ID  =  l.FROMCARDKEY "
+            quant = "   l.INQUANTITY as QUANTITY, "
+            andwhere = " and l.INQUANTITY > 0 "
+          end select
+          
+          dim PriceStr
+          if RUID = inv_DocNewCostBill_RUID then
+            PriceStr = _
+              " card1.USR$INV_COSTRETAILNCU AS OldPrice, "
+          elseif RUID = inv_DocAddwOptBill_RUID then
+            PriceStr = _
+              " l.USR$COSTRETAIL_PREV AS OldPrice, "
+          else
+            PriceStr = _
+              " CAST(0 AS NUMERIC(15,4)) AS OldPrice, "
+          end if
+          
+          dim f, GoodAlias
+          Set F = atDatabase.Relations.ByRelationName("GD_GOOD").RelationFields.ByFieldName("USR$PF_WEIGHTCODE")
+          if Assigned(F) then
+            GoodAlias = " coalesce(G.USR$PF_WEIGHTCODE, g.ALIAS) AS GoodAlias, "
+          else
+            GoodAlias = " g.ALIAS AS GoodAlias, "
+          end if
+              
+          dim CustomerSQL
+          set CustomerSQL = BaseQueryList.Query(BaseQueryList.Add("CustomerSQL", 0))
+          CustomerSQL.SQL = _
+            "SELECT fullname AS COMPFULLNAME FROM gd_company WHERE contactkey = " & IBLogin.Companykey
+          CustomerSQL.Open
+        
+          dim id
+          id = gdcBaseManager.GetIDByRUIDString("147006033_63934951")
+        
+          dim t 'тара
+          set t = BaseQueryList.Query(BaseQueryList.Add("T", 0))
+          t.SQL = _
+            " SELECT gr.lb, gr.rb " & _
+            " FROM gd_goodgroup gr " & _
+            " WHERE gr.id = " + CStr(id)
+          t.Open
+          t.IsResult = false
+        
+          dim q
+          set q = BaseQueryList.Query(BaseQueryList.Add("q", 0))
+          q.SQL = _
+            " SELECT " & _
+            quant & _
+            "   doc.DOCUMENTDATE, " & _
+            "   coalesce(g.usr$fullname, g.NAME) AS GoodName, " & _
+            GoodAlias & _
+            barcode & _
+            actnum & _
+            "   coalesce(g.USR$INV_WEIGHT, g.USR$MN_MEASURE) as weight, " & _
+            "   v.NAME AS ValueName, " & _
+            "   prov.FULLNAME AS Provider, " & _
+            "   PLACE.NAME AS PLACENAME, " & _
+            "   card.USR$INV_DATERECEIVE AS OnDate, " & _
+            PriceStr & _
+            "   card.USR$INV_COSTRETAILNCU AS Price, " & _
+            "   iif((coalesce(g.USR$INV_WEIGHT, coalesce(g.USR$MN_MEASURE,0)) <> 0 and coalesce(g.USR$INV_WEIGHT, coalesce(g.USR$MN_MEASURE,0)) <> 1), round(card.USR$INV_COSTRETAILNCU / coalesce(g.USR$INV_WEIGHT, g.USR$MN_MEASURE), 2), 0) as priceone " & _
+            " FROM GD_DOCUMENT doc " & _
+            TableName & _
+            " LEFT JOIN GD_GOOD g ON g.ID  = card.GOODKEY " & _
+            " LEFT JOIN GD_GOODGROUP gg ON g.GROUPKEY  =  gg.ID " & _
+            " LEFT JOIN GD_VALUE v ON g.VALUEKEY  =  v.ID " & _
+            " LEFT JOIN GD_COMPANY prov ON prov.CONTACTKEY  =  card.USR$INV_PROVIDER " & _
+            " LEFT JOIN GD_PLACE PLACE ON CARD.USR$INV_ORIGINCOUNTRYKEY = PLACE.ID " & _
+            acttable & _
+            " WHERE " & _
+            ids & _
+            andwhere & _
+            "   AND NOT (gg.LB >= :lb AND gg.RB <= :rb) "
+          q.ParamByName("lb").AsInteger = t.FieldByName("lb").AsInteger
+          q.ParamByName("rB").AsInteger = t.FieldByName("rb").AsInteger
+          q.Open
+          q.IsResult = false
+        
+          dim ql
+          set ql = BaseQueryList.Query(BaseQueryList.Add("line", 1))
+          call ql.AddField("DocumentDate", "ftDate", 0, 0)
+          call ql.AddField("GoodName", "ftString", 300, 0)
+          call ql.AddField("GoodAlias", "ftString", 20, 0)
+          call ql.AddField("Barcode", "ftString", 20, 0)
+          call ql.AddField("actnumber", "ftString", 300, 0)
+          call ql.AddField("Weight", "ftBCD", 3, 0)
+          call ql.AddField("ValueName", "ftString", 20, 0)
+          call ql.AddField("Provider", "ftString", 100, 0)
+          call ql.AddField("Place", "ftString", 20, 0)
+          call ql.AddField("OnDate", "ftDate", 0, 0)
+          call ql.AddField("OldPrice", "ftFloat", 0, 0)
+          call ql.AddField("Price", "ftFloat", 0, 0)
+          call ql.AddField("Priceone", "ftFloat", 0, 0)
+          call ql.AddField("OldPriceStr", "ftString", 60, 0)
+          call ql.AddField("PriceStr", "ftString", 60, 0)
+          call ql.AddField("PriceoneStr", "ftString", 60, 0)
+          call ql.AddField("IsPrint", "ftInteger", 0, 0)
+          ql.Open
+        
+        
+          dim I, J, K, PrR, PrC, PrR1, PrC1, PrROld, PrCOld
+          while not q.EOF
+            if CountOnQuantity then
+              J = Round(q.FieldByName("quantity").AsCurrency) - 1
+            else
+              J = 0
+            end if
+        
+            for I = 0 to J
+              ql.Append
+              for K = 0 to q.FieldCount - 2
+                ql.Fields(k).AsVariant =  q.Fields(k + 1).AsVariant
+              next
+        
+              PrROld = int(ql.FieldByName("OldPrice").AsCurrency)
+              PrCOld = Round((ql.FieldByName("OldPrice").AsCurrency - PrR) * 100)
+              ql.FieldByName("OldPriceStr").AsString = PrROld & "р." & right("00" & PrCOld, 2) & "к."
+        
+              PrR = int(ql.FieldByName("Price").AsCurrency)
+              PrC = Round((ql.FieldByName("Price").AsCurrency - PrR) * 100)
+              ql.FieldByName("PriceStr").AsString =  PrR & "р." & right("00" & PrC, 2) & "к."
+              
+              PrR1 = int(ql.FieldByName("Priceone").AsCurrency)
+              PrC1 = Round((ql.FieldByName("Priceone").AsCurrency - PrR1) * 100)
+              ql.FieldByName("PriceoneStr").AsString =  PrR1 & "р." & right("00" & PrC1, 2) & "к."
+              
+              ql.FieldByName("IsPrint").AsInteger = IsWeight
+        
+              ql.Post
+            next
+        
+            q.Next
+          wend
+          set RetailInv_ReportLabels = BaseQueryList
+        End Function
+        
