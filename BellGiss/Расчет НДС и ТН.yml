@@ -1,0 +1,1311 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 151119874_2082809843
+  Name: "Расчет НДС и ТН"
+  Caption: "Расчет НДС и ТН"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: AF0B7EE25E993C762285F4EBD9D27A5E
+Uses: 
+  - "147711198_43451302 Общие данные бухгалтерии"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcAutoTransaction"
+      RUID: 147771727_36674028
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365846_336895043
+    Fields: 
+      PARENT: ~
+      NAME: "Налоги"
+      AUTOTRANSACTION: 1
+      COMPANYKEY: ~
+      DESCRIPTION: ~
+      ISINTERNAL: ~
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcTaxName"
+      RUID: 158365846_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Расчет % и суммы реализованной наценки"
+      ACCOUNTKEY: "300001_17 План счетов"
+      TRANSACTIONKEY: "147771727_36674028 Налоги"
+      EDITIONDATE: 2023-01-16T14:18:32+03:00
+  - 
+    Properties: 
+      Class: "TgdcTaxName"
+      RUID: 158365532_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "002. Расчет ставки и суммы НДС"
+      ACCOUNTKEY: "300001_17 План счетов"
+      TRANSACTIONKEY: "147771727_36674028 Налоги"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+  - 
+    Properties: 
+      Class: "TgdcDocumentType"
+      RUID: 164831001_897504668
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365750_336895043
+    Fields: 
+      PARENT: ~
+      NAME: "Произвольный тип181552839"
+      ADDNUMBER: ~
+      BRANCHKEY: ~
+      CLASSNAME: ~
+      DESCRIPTION: ~
+      DOCUMENTTYPE: "D"
+      FIXLENGTH: ~
+      HEADERFUNCTIONKEY: ~
+      HEADERRELKEY: ~
+      ISCHECKNUMBER: 0
+      ISCOMMON: 0
+      LINEFUNCTIONKEY: ~
+      LINERELKEY: ~
+      MASK: ~
+      REPORTGROUPKEY: ~
+      RUID: "164831001_580195777"
+      EDITIONDATE: 2000-01-01T00:00:00+03:00
+      DISABLED: 0
+      HEADERFUNCTIONTEMPLATE: ~
+      LINEFUNCTIONTEMPLATE: ~
+      OPTIONS: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 158365753_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365750_336895043
+    Fields: 
+      NAME: "AutoEntryScript158365753_336895043"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "ENTRY"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2023-02-09T11:25:07+03:00
+      DISPLAYSCRIPT: | 
+        AUTOENTRYSCRIPT158365753_336895043
+        EXCEPTAUTOENTRYSCRIPT158365753_336895043
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAQmVnaW5EYXRlEwAAAMTg8uAg7eD34OvgIO/l8Oju5OAAAAAAAAAAAAAAAAAC
+        AAAAAAAAAAAAAAAARk5TVFBSU1QHAAAARW5kRGF0ZRYAAADE4PLgIO7q7u334O3o/yDv5fDo7uTg
+        AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        'Данная скрипт-функция создана конструктором функций.
+        'Все изменения, произведённые вручную, будут потеряны
+        'при следующей генерации скрипт-функции.
+        Sub AutoEntryScript158365753_336895043(BeginDate, EndDate)
+          EntryDate = EndDate
+          Result = False
+          Set Creator = new TCreator
+          Set Transaction = Creator.GetObject(null, "TIBTransaction", "")
+          Transaction.DefaultDataBase = gdcBaseManager.DataBase
+          Transaction.StartTransaction
+          GS.Transaction = Transaction
+        
+          TrRecordKey = gdcBaseManager.GetIDByRUIDString("158365752_336895043")
+          TransactionKey = gdcBaseManager.GetIDByRUIDString("147771727_36674028")
+          Except ExceptAutoEntryScript158365753_336895043(Transaction)
+          'Удаляем предыдущие проводки
+          Set SQL = Creator.GetObject(null, "TIBSQL", "")
+          SQL.Transaction = Transaction
+          SQL.SQL.Text = "execute block (begindate DATE = :begindate, enddate DATE = :enddate, trrecordkey INTEGER = :trrecordkey)" & vbCrLf & _
+            "as " & vbCrLf & _
+            "  declare id integer;" & vbCrLf & _
+            "begin" & vbCrLf & _
+            "  for" & vbCrLf & _
+            "    SELECT e.documentkey FROM ac_autoentry ae JOIN ac_entry e ON e.id = ae.entrykey" & vbCrLf & _
+            "    WHERE ae.trrecordkey = :trrecordkey AND" & vbCrLf & _
+            "     ae.begindate >= :begindate AND ae.enddate <= :enddate AND" & vbCrLf & _
+            "      e.companykey IN (" & IbLogin.HoldingList & ")" & vbCrLf & _
+            "    into :id" & vbCrLf & _
+            "  do" & vbCrLf & _
+            "   DELETE FROM gd_document  WHERE id = :id;" & vbCrLf & _
+            "end" 
+          SQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+          SQL.ParamByName("begindate").AsDateTime = BeginDate
+          SQL.ParamByName("enddate").AsDateTime = EndDate
+          SQL.ExecQuery
+          Creator.DestroyObject(SQL)
+          Set SimpleRecordSQL = Creator.GetObject(nil, "TIBSQL", "")
+          SimpleRecordSQL.Transaction = Transaction
+          SimpleRecordSQL.SQL.Text = "INSERT INTO AC_AUTOENTRY (entrykey, trrecordkey, begindate, " & _
+            "enddate, debitaccount, creditaccount) VALUES(:entrykey, " & _
+            ":trrecordkey, :begindate, :enddate, :debit, :credit)"
+        
+          Set gdcSimpleRecord = Creator.GetObject(nil, "TgdcAcctSimpleRecord", "")
+          gdcSimpleRecord.Transaction = Transaction
+          gdcSimpleRecord.ReadTransaction = Transaction
+          gdcSimpleRecord.Open
+        
+          Set gdcTaxDesignDate = Creator.GetObject(null, "TgdcTaxDesignDate", "")
+          gdcTaxDesignDate.Transaction = Transaction
+          gdcTaxDesignDate.ReadTransaction = Transaction
+          gdcTaxDesignDate.SubSet = "ByTaxActual,ByDocumentDate"
+          gdcTaxDesignDate.ParamByName("taxactualkey").AsInteger = gdcBaseManager.GetIdByRUIDString("158365750_336895043")
+          gdcTaxDesignDate.ParamByName("documentdate").AsDateTime = EndDate
+          gdcTaxDesignDate.Open
+          If gdcTaxDesignDate.Eof Then
+            gdcTaxDesignDate.Insert
+            gdcTaxDesignDate.FieldByName("taxactualkey").AsInteger = gdcBaseManager.GetIdByRUIDString("158365750_336895043")
+            gdcTaxDesignDate.FieldByName("taxnamekey").AsInteger = gdcBaseManager.GetIdByRUIDString("158365532_336895043")
+            gdcTaxDesignDate.FieldByName("documentdate").AsDateTime = EndDate
+            gdcTaxDesignDate.Post
+          End If
+          Transaction.CommitRetaining
+          If 1=1 Then
+            CompanyName = CurrCompanyName
+            ResponsibleFIO = CurCompanyResponsibleFIO
+            ChiefAccountantFIO = CurrCompanyChiefAccountant
+            DirectorFIO = CurrCompanyDirectorFIO
+            UNN = CurrCompanyUNN
+            TEL = CurrCompanyTelephone
+            Address = CurrCompanyAddress
+            RMonth = MonthName(Month(EndDate))
+            RYear = Year(EndDate)
+            Pos1 = CurrCompanyName
+            Pos2 = ((GS.SK("42.2", BeginDate - 1, Empty) - GS.SD("42.2", BeginDate - 1, Empty) ) / 1)
+            Pos2old = ((GS.SK("42.2.1", BeginDate - 1, Empty) - GS.SD("42.2.1", BeginDate - 1, Empty) ) / 1) + ((GS.SK("42.2.2", BeginDate - 1, Empty) - GS.SD("42.2.2", BeginDate - 1, Empty) ) / 1) - ((GS.SK("42.2", BeginDate - 1, Empty) - GS.SD("42.2", BeginDate - 1, Empty) ) / 1)
+            acc42_2_1 = GS.OK(gdcBaseManager.GetIdByRUIDString("147062982_581974608"), BeginDate, EndDate, Empty) - GS.OD(gdcBaseManager.GetIdByRUIDString("147062982_581974608"), BeginDate, EndDate, Empty)
+            acc42_2_2 = GS.OK(gdcBaseManager.GetIdByRUIDString("155836446_243506600"), BeginDate, EndDate, Empty)-GS.OD(gdcBaseManager.GetIdByRUIDString("155836446_243506600"), BeginDate, EndDate, Empty)
+            Ob42 = (acc42_2_1+acc42_2_2)
+            Pos3 = Ob42
+            S42 = 1
+            Pos33 = ( (GS.OK("42.2", BeginDate, EndDate, Empty) - GS.OD("42.2", BeginDate, EndDate, Empty) ) / 1) + ( (GS.OK("42.2.1", BeginDate, EndDate, Empty) - GS.OD("42.2.1", BeginDate, EndDate, Empty) ) / 1) + ( (GS.OK("42.2.2", BeginDate, EndDate, Empty) - GS.OD("42.2.2", BeginDate, EndDate, Empty) ) / 1)
+            Pos4 = Pos2 +Ob42
+            Pos5 = ((GS.OK("90.01", BeginDate, EndDate, Empty) ) / 1)
+            Pos6 = GS.SD("20.3", EndDate, Empty)   + GS.SD("20.3-1", EndDate, Empty)
+            Pos7 = Pos5 + Pos6
+            Pos8 = (Pos4 * 100 / Pos7) 
+            Pos9 = (Pos6 * Pos8 / 100)
+            Pos10 = (Pos4 - Pos9)
+            'Вычисляем сумму проводки
+            Sum = -Pos10 
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147301265_441235478")
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = 344203
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = gdcBaseManager.GetIdByRUIDString("147301265_441235478")
+              SimpleRecordSQL.ParamByName("credit").AsInteger = 344203
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+            'Вычисляем сумму проводки
+            Sum = Pos10 
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum1 <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147301265_441235478")
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147013580_119553761")
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = gdcBaseManager.GetIdByRUIDString("147301265_441235478")
+              SimpleRecordSQL.ParamByName("credit").AsInteger = gdcBaseManager.GetIdByRUIDString("147013580_119553761")
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+            If 1=2 Then
+            End If
+          End If
+          'Скрипт финализации процедуры
+          Result = True
+        '#include tax_AddTaxResult
+        'Сохраняем налоги
+          If Result Then
+            Set gdcTaxResult = Creator.GetObject(null, "TgdcTaxResult", "")
+            gdcTaxResult.Transaction = Transaction
+            gdcTaxResult.ReadTransaction = Transaction
+            gdcTaxResult.SubSet = "ByDesignDate"
+            gdcTaxResult.ParamByName("taxdesigndatekey").AsInteger = gdcTaxDesignDate.Id
+            gdcTaxResult.Open
+            While Not gdcTaxResult.Eof 
+              gdcTaxResult.Delete
+            WEnd
+        
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "CompanyName", EndDate, CompanyName, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "ResponsibleFIO", EndDate, ResponsibleFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "ChiefAccountantFIO", EndDate, ChiefAccountantFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "DirectorFIO", EndDate, DirectorFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "UNN", EndDate, UNN, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "TEL", EndDate, TEL, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Address", EndDate, Address, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "RMonth", EndDate, RMonth, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "RYear", EndDate, RYear, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos1", EndDate, Pos1, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos2", EndDate, Pos2, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos2old", EndDate, Pos2old, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "acc42_2_1", EndDate, acc42_2_1, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "acc42_2_2", EndDate, acc42_2_2, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Ob42", EndDate, Ob42, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos3", EndDate, Pos3, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "S42", EndDate, S42, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos33", EndDate, Pos33, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos4", EndDate, Pos4, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos5", EndDate, Pos5, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos6", EndDate, Pos6, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos7", EndDate, Pos7, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos8", EndDate, Pos8, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos9", EndDate, Pos9, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos10", EndDate, Pos10, "")
+          End If
+          If Result Then
+            Set SQL = Creator.GetObject(null, "TIBSQL", "")
+            SQL.Transaction = Transaction
+            SQL.SQL.Text = "execute block (trrecordkey INTEGER = :trrecordkey, begindate DATE = :begindate, enddate DATE = :enddate)" & _
+              "as " & _
+              "  declare id integer; " & _
+              "begin " & _
+              "  for " & _
+              "    SELECT e.recordkey FROM ac_autoentry ae JOIN ac_entry e ON e.id = ae.entrykey " & _
+              "    JOIN ac_record r ON r.id = e.recordkey WHERE ae.trrecordkey = :trrecordkey AND " & _
+              "    ae.begindate = :begindate AND ae.enddate = :enddate AND r.delayed = 1 AND " & _
+              "    r.companykey IN (" & IbLogin.HoldingList & ")" & _
+              "    into :id " & _
+              "  do " & _
+              "    UPDATE ac_record SET delayed = 0 WHERE id = :id; " & _
+              "end " 
+            SQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+            SQL.ParamByName("begindate").AsDateTime = BeginDate
+            SQL.ParamByName("enddate").AsDateTime = EndDate
+            SQL.ExecQuery
+            Creator.DestroyObject(SQL)
+          End If
+          GS.Transaction = nothing
+          If Result Then
+            Transaction.Commit
+          Else
+            Transaction.Rollback
+          End If
+        End Sub
+        'Функция обработки исключения
+        Sub ExceptAutoEntryScript158365753_336895043 (Transaction)
+          Transaction.Rollback
+          GS.Transaction = Nothing
+        End Sub
+        
+        
+        '#include CurrCompanyName
+        '#include CurCompanyResponsibleFIO
+        '#include CurrCompanyChiefAccountant
+        '#include CurrCompanyDirectorFIO
+        '#include CurrCompanyUNN
+        '#include CurrCompanyTelephone
+        '#include CurrCompanyAddress
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147084499_66720196 tax_AddTaxResult"
+          - 
+            ADDFUNCTIONKEY: "147009862_69059608 CurrCompanyName"
+          - 
+            ADDFUNCTIONKEY: "147029222_69059608 CurCompanyResponsibleFIO"
+          - 
+            ADDFUNCTIONKEY: "147029221_69059608 CurrCompanyChiefAccountant"
+          - 
+            ADDFUNCTIONKEY: "147009966_69059608 CurrCompanyDirectorFIO"
+          - 
+            ADDFUNCTIONKEY: "147009945_69059608 CurrCompanyUNN"
+          - 
+            ADDFUNCTIONKEY: "147009960_69059608 CurrCompanyTelephone"
+          - 
+            ADDFUNCTIONKEY: "147009922_69059608 CurrCompanyAddress"
+  - 
+    Properties: 
+      Class: "TgdcAutoTrRecord"
+      RUID: 158365752_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365750_336895043
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACCOUNTNAME: "План счетов"
+      DBEGIN: ~
+      DEND: ~
+      DESCRIPTION: "002. Расчет ставки и суммы НДС ('01.01.2022')"
+      DOCUMENTNAME: "Произвольный тип181552839"
+      DOCUMENTPART: ~
+      DOCUMENTTYPEKEY: "164831001_897504668 Произвольный тип181552839"
+      FOLDERKEY: ~
+      FUNCTIONKEY: "158365753_336895043 AutoEntryScript158365753_336895043"
+      FUNCTIONNAME: "AutoEntryScript158365753_336895043"
+      IMAGEINDEX: ~
+      ISSAVENULL: ~
+      SHOWINEXPLORER: ~
+      TRANSACTIONKEY: "147771727_36674028 Налоги"
+      TRANSACTIONNAME: "Налоги"
+      USR$BN_BANKACCOUNTCOMPANY: ~
+      USR$FA_GROUPKEY: ~
+      USR$FA_INVCARDKEY: ~
+      USR$FA_TYPEKEY: ~
+      USR$GROUP_TMC: ~
+      USR$GSM_CAR: ~
+      USR$GSM_DRIVER: ~
+      USR$GS_CONGROUP: ~
+      USR$GS_CONTRACT: ~
+      USR$GS_CUSTOMER: ~
+      USR$GS_DEPARTMENT: ~
+      USR$GS_DOCUMENT: ~
+      USR$GS_ECONOMICACTIVITY: ~
+      USR$GS_EMPLOYEE: ~
+      USR$GS_EXPENSES: ~
+      USR$GS_GOOD: ~
+      USR$GS_SALETAXRATE: ~
+      USR$GS_SERVICE: ~
+      USR$INV_CUSTPERMITKEY: ~
+      USR$VATTYPE_KEY: ~
+      USR$WG_FEETYPEKEY: ~
+      EDITIONDATE: 2023-05-04T14:43:03+03:00
+      DISABLED: 0
+      FUNCTIONTEMPLATE: !!binary > 
+        RldpegEAAAAMAAAAVFNjcmlwdEJsb2NrEgAAAAAAAAAAAAAAAAAAAAAAAAAAOAEAAIgDAAABAAAA
+        AAAAAAABAAAAEQAAAFRUYXhGdW5jdGlvbkJsb2NrEgAAACIAAABBdXRvRW50cnlTY3JpcHQxNTgz
+        NjU3NTNfMzM2ODk1MDQzAAAAAAEKAAAABQAAAB8BAACXAwAAAQAAAAAAAAAAAFNMUFJQUlNUCQAA
+        AEJlZ2luRGF0ZRMAAADE4PLgIO3g9+Dr4CDv5fDo7uTgAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA
+        AEZOU1QAAAAAUFJTVAcAAABFbmREYXRlFgAAAMTg8uAg7uru7ffg7ej/IO/l8Oju5OAAAAAAAAAA
+        AAAAAAACAAAAAAAAAAAAAAAARk5TVAAAAABGTFBSAAAAAA8AAABSZXN1bHQgPSBUcnVlDQoSAAAA
+        MTQ3NzcxNzI3XzM2Njc0MDI4EwAAADE1ODM2NTc1Ml8zMzY4OTUwNDMAEwAAADE1ODM2NTc1MF8z
+        MzY4OTUwNDMTAAAAMTU4MzY1NTMyXzMzNjg5NTA0MwIAAAAKAAAAVFVzZXJCbG9jaxIAAAAFAAAA
+        VXNyXzEAAAAAAQoAAAAcAAAArAAAABcAAAAAAAAAAAAAAAAdAAAAVHJhbnNhY3Rpb24uQ29tbWl0
+        UmV0YWluaW5nDQoAAAAACAAAAFRJZkJsb2NrEgAAAAQAAABJZl8xAAAAAAEKAAAAOAAAANgAAABD
+        AwAAAAAAAAAAAAAAAwAAADE9MRwAAAAMAAAAVFRheFZhckJsb2NrEgAAAAsAAABDb21wYW55TmFt
+        ZQAAAAABCgAAABwAAACvAAAAFwAAAAAAAAAAAAAAABQAAABbU0YuQ3VyckNvbXBhbnlOYW1lXQAA
+        AAAADAAAAFRUYXhWYXJCbG9jaxIAAAAOAAAAUmVzcG9uc2libGVGSU8AAAAAAQoAAAA4AAAAsgAA
+        ABcAAAAAAAAAAAAAAAAdAAAAW1NGLkN1ckNvbXBhbnlSZXNwb25zaWJsZUZJT10AAAAAAAwAAABU
+        VGF4VmFyQmxvY2sSAAAAEgAAAENoaWVmQWNjb3VudGFudEZJTwAAAAABCgAAAFQAAADJAAAAFwAA
+        AAAAAAAAAAAAAB8AAABbU0YuQ3VyckNvbXBhbnlDaGllZkFjY291bnRhbnRdAAAAAAAMAAAAVFRh
+        eFZhckJsb2NrEgAAAAsAAABEaXJlY3RvckZJTwAAAAABCgAAAHAAAACfAAAAFwAAAAAAAAAAAAAA
+        ABsAAABbU0YuQ3VyckNvbXBhbnlEaXJlY3RvckZJT10AAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAA
+        AwAAAFVOTgAAAAABCgAAAIwAAAB8AAAAFwAAAAAAAAAAAAAAABMAAABbU0YuQ3VyckNvbXBhbnlV
+        Tk5dAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAMAAABURUwAAAAAAQoAAACoAAAAeAAAABcAAAAA
+        AAAAAAAAAAAZAAAAW1NGLkN1cnJDb21wYW55VGVsZXBob25lXQAAAAAADAAAAFRUYXhWYXJCbG9j
+        axIAAAAHAAAAQWRkcmVzcwAAAAABCgAAAMQAAACOAAAAFwAAAAAAAAAAAAAAABcAAABbU0YuQ3Vy
+        ckNvbXBhbnlBZGRyZXNzXQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAGAAAAUk1vbnRoAAAAAAEK
+        AAAA4AAAAIwAAAAXAAAAAAAAAAAAAAAAGQAAAE1vbnRoTmFtZShNb250aChFbmREYXRlKSkAAAAA
+        AAwAAABUVGF4VmFyQmxvY2sSAAAABQAAAFJZZWFyAAAAAAEKAAAA/AAAAIQAAAAXAAAAAAAAAAAA
+        AAAADQAAAFllYXIoRW5kRGF0ZSkAAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAABAAAAFBvczEAAAAA
+        AQoAAAAYAQAAfgAAABcAAAAAAAAAAAAAAAAUAAAAW1NGLkN1cnJDb21wYW55TmFtZV0AAAAAAAwA
+        AABUVGF4VmFyQmxvY2sSAAAABAAAAFBvczIAAAAAAQoAAAA0AQAAfgAAABcAAAAAAAAAAAAAAABW
+        AAAAKChbR1MuU0soIjQyLjIiLCBCZWdpbkRhdGUgLSAxLCBFbXB0eSldIC0gW0dTLlNEKCI0Mi4y
+        IiwgQmVnaW5EYXRlIC0gMSwgRW1wdHkpXSApIC8gMSkAAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAA
+        BwAAAFBvczJvbGQAAAAAAQoAAABQAQAAjAAAABcAAAAAAAAAAAAAAAAQAQAAKChbR1MuU0soIjQy
+        LjIuMSIsIEJlZ2luRGF0ZSAtIDEsIEVtcHR5KV0gLSBbR1MuU0QoIjQyLjIuMSIsIEJlZ2luRGF0
+        ZSAtIDEsIEVtcHR5KV0gKSAvIDEpICsgKChbR1MuU0soIjQyLjIuMiIsIEJlZ2luRGF0ZSAtIDEs
+        IEVtcHR5KV0gLSBbR1MuU0QoIjQyLjIuMiIsIEJlZ2luRGF0ZSAtIDEsIEVtcHR5KV0gKSAvIDEp
+        IC0gKChbR1MuU0soIjQyLjIiLCBCZWdpbkRhdGUgLSAxLCBFbXB0eSldIC0gW0dTLlNEKCI0Mi4y
+        IiwgQmVnaW5EYXRlIC0gMSwgRW1wdHkpXSApIC8gMSkAAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAA
+        CQAAAGFjYzQyXzJfMQAAAAABCgAAAGwBAACbAAAAFwAAAAAAAAAAAAAAAMkAAABbR1MuT0soZ2Rj
+        QmFzZU1hbmFnZXIuR2V0SWRCeVJVSURTdHJpbmcoIjE0NzA2Mjk4Ml81ODE5NzQ2MDgiKXs0Mi4y
+        LjF9LCBCZWdpbkRhdGUsIEVuZERhdGUsIEVtcHR5KV0gLSBbR1MuT0QoZ2RjQmFzZU1hbmFnZXIu
+        R2V0SWRCeVJVSURTdHJpbmcoIjE0NzA2Mjk4Ml81ODE5NzQ2MDgiKXs0Mi4yLjF9LCBCZWdpbkRh
+        dGUsIEVuZERhdGUsIEVtcHR5KV0AAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAACQAAAGFjYzQyXzJf
+        MgAAAAABCgAAAIgBAACbAAAAFwAAAAAAAAAAAAAAAMcAAABbR1MuT0soZ2RjQmFzZU1hbmFnZXIu
+        R2V0SWRCeVJVSURTdHJpbmcoIjE1NTgzNjQ0Nl8yNDM1MDY2MDAiKXs0Mi4yLjJ9LCBCZWdpbkRh
+        dGUsIEVuZERhdGUsIEVtcHR5KV0tW0dTLk9EKGdkY0Jhc2VNYW5hZ2VyLkdldElkQnlSVUlEU3Ry
+        aW5nKCIxNTU4MzY0NDZfMjQzNTA2NjAwIil7NDIuMi4yfSwgQmVnaW5EYXRlLCBFbmREYXRlLCBF
+        bXB0eSldAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAQAAABPYjQyAAAAAAEKAAAApAEAAIEAAAAX
+        AAAAAAAAAAAAAAAAFQAAAChhY2M0Ml8yXzErYWNjNDJfMl8yKQAAAAAADAAAAFRUYXhWYXJCbG9j
+        axIAAAAEAAAAUG9zMwAAAAABCgAAAMABAAB+AAAAFwAAAAAAAAAAAAAAAAQAAABPYjQyAAAAAAAM
+        AAAAVFRheFZhckJsb2NrEgAAAAMAAABTNDIAAAAAAQoAAADcAQAAeQAAABcAAAAAAAAAAAAAAAAB
+        AAAAMQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAFAAAAUG9zMzMAAAAAAQoAAAD4AQAAhAAAABcA
+        AAAAAAAAAAAAAAAxAQAAKCAoW0dTLk9LKCI0Mi4yIiwgQmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0
+        eSldIC0gW0dTLk9EKCI0Mi4yIiwgQmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0eSldICkgLyAxKSAr
+        ICggKFtHUy5PSygiNDIuMi4xIiwgQmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0eSldIC0gW0dTLk9E
+        KCI0Mi4yLjEiLCBCZWdpbkRhdGUsIEVuZERhdGUsIEVtcHR5KV0gKSAvIDEpICsgKCAoW0dTLk9L
+        KCI0Mi4yLjIiLCBCZWdpbkRhdGUsIEVuZERhdGUsIEVtcHR5KV0gLSBbR1MuT0QoIjQyLjIuMiIs
+        IEJlZ2luRGF0ZSwgRW5kRGF0ZSwgRW1wdHkpXSApIC8gMSkAAAAAAAwAAABUVGF4VmFyQmxvY2sS
+        AAAABAAAAFBvczQAAAAAAQoAAAAUAgAAfgAAABcAAAAAAAAAAAAAAAAKAAAAUG9zMiArT2I0MgAA
+        AAAADAAAAFRUYXhWYXJCbG9jaxIAAAAEAAAAUG9zNQAAAAABCgAAADACAAB+AAAAFwAAAAAAAAAA
+        AAAAADQAAAAoKFtHUy5PSygiOTAuMDEiLCBCZWdpbkRhdGUsIEVuZERhdGUsIEVtcHR5KV0gKSAv
+        IDEpAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAQAAABQb3M2AAAAAAEKAAAATAIAAH4AAAAXAAAA
+        AAAAAAAAAAAARQAAAFtHUy5TRCgiMjAuMyIsIEVuZERhdGUsIEVtcHR5KV0gICArIFtHUy5TRCgi
+        MjAuMy0xIiwgRW5kRGF0ZSwgRW1wdHkpXQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAEAAAAUG9z
+        NwAAAAABCgAAAGgCAAB+AAAAFwAAAAAAAAAAAAAAAAsAAABQb3M1ICsgUG9zNgAAAAAADAAAAFRU
+        YXhWYXJCbG9jaxIAAAAEAAAAUG9zOAAAAAABCgAAAIQCAAB+AAAAFwAAAAAAAAAAAAAAABQAAAAo
+        UG9zNCAqIDEwMCAvIFBvczcpIAAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAEAAAAUG9zOQAAAAAB
+        CgAAAKACAAB+AAAAFwAAAAAAAAAAAAAAABMAAAAoUG9zNiAqIFBvczggLyAxMDApAAAAAAAMAAAA
+        VFRheFZhckJsb2NrEgAAAAUAAABQb3MxMAAAAAABCgAAALwCAACEAAAAFwAAAAAAAAAAAAAAAA0A
+        AAAoUG9zNCAtIFBvczkpAAAAAAALAAAAVEVudHJ5QmxvY2sSAAAABwAAAEVudHJ5XzIAAAAAAQoA
+        AADYAgAAbgAAABcAAAAAAAAAAAAAAAATAAAAMTQ3MzAxMjY1XzQ0MTIzNTQ3OAkAAAAzNDQyMDNf
+        MTcAAAAAAAAAAAcAAAAtUG9zMTAgAAAAAAkAAABCZWdpbkRhdGUHAAAARW5kRGF0ZQkAAABFbnRy
+        eURhdGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAABURW50cnlCbG9jaxIAAAAHAAAA
+        RW50cnlfMQAAAAABCgAAAPQCAABuAAAAFwAAAAAAAAAAAAAAABMAAAAxNDczMDEyNjVfNDQxMjM1
+        NDc4EwAAADE0NzAxMzU4MF8xMTk1NTM3NjEAAAAAAAAAAAYAAABQb3MxMCAAAAAACQAAAEJlZ2lu
+        RGF0ZQcAAABFbmREYXRlCQAAAEVudHJ5RGF0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        CAAAAFRJZkJsb2NrEgAAAAQAAABJZl8yAAAAAAEKAAAAEAMAAGcAAAAuAAAAAAAAAAAAAAAAAwAA
+        ADE9MgAAAAA=
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 158365754_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365750_336895043
+    Fields: 
+      PARENT: "1020002_17 Бухгалтерский отчет"
+      NAME: "002. Расчет ставки и суммы НДС (01.01.2022)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "158365754_580195777"
+      EDITIONDATE: 2022-12-27T19:24:12+03:00
+  - 
+    Properties: 
+      Class: "TgdcTaxActual"
+      RUID: 158365750_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACTUALDATE: 2022-01-01
+      DESCRIPTION: ~
+      REPORTDAY: 20
+      REPORTGROUPKEY: "158365754_336895043 Бухгалтерский отчет\\002. Расчет ставки и суммы НДС (01.01.2022)"
+      TAXNAME: "002. Расчет ставки и суммы НДС"
+      TAXNAMEKEY: "158365532_336895043 002. Расчет ставки и суммы НДС"
+      TRRECORDKEY: "158365752_336895043 002. Расчет ставки и суммы НДС ('01.01.2022')"
+      TYPEKEY: "350001_17"
+      TYPENAME: "За месяц"
+      EDITIONDATE: 2023-05-04T14:43:03+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 158365850_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365847_336895043
+    Fields: 
+      NAME: "AutoEntryScript158365850_336895043"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "ENTRY"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2023-02-09T11:26:58+03:00
+      DISPLAYSCRIPT: | 
+        AUTOENTRYSCRIPT158365850_336895043
+        EXCEPTAUTOENTRYSCRIPT158365850_336895043
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAQmVnaW5EYXRlEwAAAMTg8uAg7eD34OvgIO/l8Oju5OAAAAAAAAAAAAAAAAAC
+        AAAAAAAAAAAAAAAARk5TVFBSU1QHAAAARW5kRGF0ZRYAAADE4PLgIO7q7u334O3o/yDv5fDo7uTg
+        AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        'Данная скрипт-функция создана конструктором функций.
+        'Все изменения, произведённые вручную, будут потеряны
+        'при следующей генерации скрипт-функции.
+        Sub AutoEntryScript158365850_336895043(BeginDate, EndDate)
+          EntryDate = EndDate
+          Result = False
+          Set Creator = new TCreator
+          Set Transaction = Creator.GetObject(null, "TIBTransaction", "")
+          Transaction.DefaultDataBase = gdcBaseManager.DataBase
+          Transaction.StartTransaction
+          GS.Transaction = Transaction
+        
+          TrRecordKey = gdcBaseManager.GetIDByRUIDString("158365849_336895043")
+          TransactionKey = gdcBaseManager.GetIDByRUIDString("147771727_36674028")
+          Except ExceptAutoEntryScript158365850_336895043(Transaction)
+          'Удаляем предыдущие проводки
+          Set SQL = Creator.GetObject(null, "TIBSQL", "")
+          SQL.Transaction = Transaction
+          SQL.SQL.Text = "execute block (begindate DATE = :begindate, enddate DATE = :enddate, trrecordkey INTEGER = :trrecordkey)" & vbCrLf & _
+            "as " & vbCrLf & _
+            "  declare id integer;" & vbCrLf & _
+            "begin" & vbCrLf & _
+            "  for" & vbCrLf & _
+            "    SELECT e.documentkey FROM ac_autoentry ae JOIN ac_entry e ON e.id = ae.entrykey" & vbCrLf & _
+            "    WHERE ae.trrecordkey = :trrecordkey AND" & vbCrLf & _
+            "     ae.begindate >= :begindate AND ae.enddate <= :enddate AND" & vbCrLf & _
+            "      e.companykey IN (" & IbLogin.HoldingList & ")" & vbCrLf & _
+            "    into :id" & vbCrLf & _
+            "  do" & vbCrLf & _
+            "   DELETE FROM gd_document  WHERE id = :id;" & vbCrLf & _
+            "end" 
+          SQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+          SQL.ParamByName("begindate").AsDateTime = BeginDate
+          SQL.ParamByName("enddate").AsDateTime = EndDate
+          SQL.ExecQuery
+          Creator.DestroyObject(SQL)
+          Set SimpleRecordSQL = Creator.GetObject(nil, "TIBSQL", "")
+          SimpleRecordSQL.Transaction = Transaction
+          SimpleRecordSQL.SQL.Text = "INSERT INTO AC_AUTOENTRY (entrykey, trrecordkey, begindate, " & _
+            "enddate, debitaccount, creditaccount) VALUES(:entrykey, " & _
+            ":trrecordkey, :begindate, :enddate, :debit, :credit)"
+        
+          Set gdcSimpleRecord = Creator.GetObject(nil, "TgdcAcctSimpleRecord", "")
+          gdcSimpleRecord.Transaction = Transaction
+          gdcSimpleRecord.ReadTransaction = Transaction
+          gdcSimpleRecord.Open
+        
+          Set gdcTaxDesignDate = Creator.GetObject(null, "TgdcTaxDesignDate", "")
+          gdcTaxDesignDate.Transaction = Transaction
+          gdcTaxDesignDate.ReadTransaction = Transaction
+          gdcTaxDesignDate.SubSet = "ByTaxActual,ByDocumentDate"
+          gdcTaxDesignDate.ParamByName("taxactualkey").AsInteger = gdcBaseManager.GetIdByRUIDString("158365847_336895043")
+          gdcTaxDesignDate.ParamByName("documentdate").AsDateTime = EndDate
+          gdcTaxDesignDate.Open
+          If gdcTaxDesignDate.Eof Then
+            gdcTaxDesignDate.Insert
+            gdcTaxDesignDate.FieldByName("taxactualkey").AsInteger = gdcBaseManager.GetIdByRUIDString("158365847_336895043")
+            gdcTaxDesignDate.FieldByName("taxnamekey").AsInteger = gdcBaseManager.GetIdByRUIDString("158365846_336895043")
+            gdcTaxDesignDate.FieldByName("documentdate").AsDateTime = EndDate
+            gdcTaxDesignDate.Post
+          End If
+          Transaction.CommitRetaining
+          If 1=1 Then
+            CompanyName = CurrCompanyName
+            ResponsibleFIO = CurCompanyResponsibleFIO
+            ChiefAccountantFIO = CurrCompanyChiefAccountant
+            DirectorFIO = CurrCompanyDirectorFIO
+            UNN = CurrCompanyUNN
+            TEL = CurrCompanyTelephone
+            Address = CurrCompanyAddress
+            RMonth = MonthName(Month(EndDate))
+            RYear = Year(EndDate)
+            Pos1 = CurrCompanyName
+            Pos2old = ((GS.SK("42.1.1", BeginDate - 1, Empty) - GS.SD("42.1.1", BeginDate - 1, Empty) ) / 1) + ((GS.SK("42.1.2", BeginDate - 1, Empty) - GS.SD("42.1.2", BeginDate - 1, Empty) ) / 1)
+            Pos2 = ((GS.SK("42.1", BeginDate - 1, Empty) - GS.SD("42.1", BeginDate - 1, Empty) ) / 1)
+            Pos3 = (GS.OK("42.1.1", BeginDate, EndDate, Empty) - GS.OD("42.1.1", BeginDate, EndDate, Empty)) + (GS.OK("42.1.2", BeginDate, EndDate, Empty) - GS.OD("42.1.2", BeginDate, EndDate, Empty))
+            Pos4 = Pos2 + Pos3
+            Pos5 = ((GS.OK("90.01", BeginDate, EndDate, Empty) ) / 1)
+            Pos6 = ((GS.SD("41.02", EndDate, Empty)  + GS.SD("41.04", EndDate, Empty)) / 1) +  GS.SD("20.3", EndDate, Empty)   + GS.SD("20.3-1", EndDate, Empty)
+            Pos7 = Pos5 + Pos6
+            Pos8 = (Pos4 * 100 / Pos7) 
+            Pos9 = (Pos6 * Pos8 / 100)
+            Pos10 = (Pos4 - Pos9)
+            'Вычисляем сумму проводки
+            Sum = -Pos10 
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147048832_338915844")
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = 344201
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = gdcBaseManager.GetIdByRUIDString("147048832_338915844")
+              SimpleRecordSQL.ParamByName("credit").AsInteger = 344201
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+          End If
+          'Скрипт финализации процедуры
+          Result = True
+        '#include tax_AddTaxResult
+        'Сохраняем налоги
+          If Result Then
+            Set gdcTaxResult = Creator.GetObject(null, "TgdcTaxResult", "")
+            gdcTaxResult.Transaction = Transaction
+            gdcTaxResult.ReadTransaction = Transaction
+            gdcTaxResult.SubSet = "ByDesignDate"
+            gdcTaxResult.ParamByName("taxdesigndatekey").AsInteger = gdcTaxDesignDate.Id
+            gdcTaxResult.Open
+            While Not gdcTaxResult.Eof 
+              gdcTaxResult.Delete
+            WEnd
+        
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "CompanyName", EndDate, CompanyName, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "ResponsibleFIO", EndDate, ResponsibleFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "ChiefAccountantFIO", EndDate, ChiefAccountantFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "DirectorFIO", EndDate, DirectorFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "UNN", EndDate, UNN, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "TEL", EndDate, TEL, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Address", EndDate, Address, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "RMonth", EndDate, RMonth, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "RYear", EndDate, RYear, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos1", EndDate, Pos1, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos2old", EndDate, Pos2old, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos3", EndDate, Pos3, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos4", EndDate, Pos4, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos5", EndDate, Pos5, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos6", EndDate, Pos6, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos7", EndDate, Pos7, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos8", EndDate, Pos8, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos9", EndDate, Pos9, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos10", EndDate, Pos10, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos2", EndDate, Pos2, "")
+          End If
+          If Result Then
+            Set SQL = Creator.GetObject(null, "TIBSQL", "")
+            SQL.Transaction = Transaction
+            SQL.SQL.Text = "execute block (trrecordkey INTEGER = :trrecordkey, begindate DATE = :begindate, enddate DATE = :enddate)" & _
+              "as " & _
+              "  declare id integer; " & _
+              "begin " & _
+              "  for " & _
+              "    SELECT e.recordkey FROM ac_autoentry ae JOIN ac_entry e ON e.id = ae.entrykey " & _
+              "    JOIN ac_record r ON r.id = e.recordkey WHERE ae.trrecordkey = :trrecordkey AND " & _
+              "    ae.begindate = :begindate AND ae.enddate = :enddate AND r.delayed = 1 AND " & _
+              "    r.companykey IN (" & IbLogin.HoldingList & ")" & _
+              "    into :id " & _
+              "  do " & _
+              "    UPDATE ac_record SET delayed = 0 WHERE id = :id; " & _
+              "end " 
+            SQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+            SQL.ParamByName("begindate").AsDateTime = BeginDate
+            SQL.ParamByName("enddate").AsDateTime = EndDate
+            SQL.ExecQuery
+            Creator.DestroyObject(SQL)
+          End If
+          GS.Transaction = nothing
+          If Result Then
+            Transaction.Commit
+          Else
+            Transaction.Rollback
+          End If
+        End Sub
+        'Функция обработки исключения
+        Sub ExceptAutoEntryScript158365850_336895043 (Transaction)
+          Transaction.Rollback
+          GS.Transaction = Nothing
+        End Sub
+        
+        
+        '#include CurrCompanyName
+        '#include CurCompanyResponsibleFIO
+        '#include CurrCompanyChiefAccountant
+        '#include CurrCompanyDirectorFIO
+        '#include CurrCompanyUNN
+        '#include CurrCompanyTelephone
+        '#include CurrCompanyAddress
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147084499_66720196 tax_AddTaxResult"
+          - 
+            ADDFUNCTIONKEY: "147009862_69059608 CurrCompanyName"
+          - 
+            ADDFUNCTIONKEY: "147029222_69059608 CurCompanyResponsibleFIO"
+          - 
+            ADDFUNCTIONKEY: "147029221_69059608 CurrCompanyChiefAccountant"
+          - 
+            ADDFUNCTIONKEY: "147009966_69059608 CurrCompanyDirectorFIO"
+          - 
+            ADDFUNCTIONKEY: "147009945_69059608 CurrCompanyUNN"
+          - 
+            ADDFUNCTIONKEY: "147009960_69059608 CurrCompanyTelephone"
+          - 
+            ADDFUNCTIONKEY: "147009922_69059608 CurrCompanyAddress"
+  - 
+    Properties: 
+      Class: "TgdcAutoTrRecord"
+      RUID: 158365849_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365847_336895043
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACCOUNTNAME: "План счетов"
+      DBEGIN: ~
+      DEND: ~
+      DESCRIPTION: "Расчет % и суммы реализованной наценки ('01.01.2005')"
+      DOCUMENTNAME: "Произвольный тип181552839"
+      DOCUMENTPART: ~
+      DOCUMENTTYPEKEY: "164831001_897504668 Произвольный тип181552839"
+      FOLDERKEY: ~
+      FUNCTIONKEY: "158365850_336895043 AutoEntryScript158365850_336895043"
+      FUNCTIONNAME: "AutoEntryScript158365850_336895043"
+      IMAGEINDEX: ~
+      ISSAVENULL: ~
+      SHOWINEXPLORER: ~
+      TRANSACTIONKEY: "147771727_36674028 Налоги"
+      TRANSACTIONNAME: "Налоги"
+      USR$BN_BANKACCOUNTCOMPANY: ~
+      USR$FA_GROUPKEY: ~
+      USR$FA_INVCARDKEY: ~
+      USR$FA_TYPEKEY: ~
+      USR$GROUP_TMC: ~
+      USR$GSM_CAR: ~
+      USR$GSM_DRIVER: ~
+      USR$GS_CONGROUP: ~
+      USR$GS_CONTRACT: ~
+      USR$GS_CUSTOMER: ~
+      USR$GS_DEPARTMENT: ~
+      USR$GS_DOCUMENT: ~
+      USR$GS_ECONOMICACTIVITY: ~
+      USR$GS_EMPLOYEE: ~
+      USR$GS_EXPENSES: ~
+      USR$GS_GOOD: ~
+      USR$GS_SALETAXRATE: ~
+      USR$GS_SERVICE: ~
+      USR$INV_CUSTPERMITKEY: ~
+      USR$VATTYPE_KEY: ~
+      USR$WG_FEETYPEKEY: ~
+      EDITIONDATE: 2023-05-04T14:43:32+03:00
+      DISABLED: 0
+      FUNCTIONTEMPLATE: !!binary > 
+        RldpegEAAAAMAAAAVFNjcmlwdEJsb2NrEgAAAAAAAAAAAAAAAAAAAAAAAAAANAEAAIgDAAABAAAA
+        AAAAAAABAAAAEQAAAFRUYXhGdW5jdGlvbkJsb2NrEgAAACIAAABBdXRvRW50cnlTY3JpcHQxNTgz
+        NjU4NTBfMzM2ODk1MDQzAAAAAAEKAAAABQAAAB8BAAC8AgAAAQAAAAAAAAAAAFNMUFJQUlNUCQAA
+        AEJlZ2luRGF0ZRMAAADE4PLgIO3g9+Dr4CDv5fDo7uTgAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA
+        AEZOU1QAAAAAUFJTVAcAAABFbmREYXRlFgAAAMTg8uAg7uru7ffg7ej/IO/l8Oju5OAAAAAAAAAA
+        AAAAAAACAAAAAAAAAAAAAAAARk5TVAAAAABGTFBSAAAAAA8AAABSZXN1bHQgPSBUcnVlDQoSAAAA
+        MTQ3NzcxNzI3XzM2Njc0MDI4EwAAADE1ODM2NTg0OV8zMzY4OTUwNDMAEwAAADE1ODM2NTg0N18z
+        MzY4OTUwNDMTAAAAMTU4MzY1ODQ2XzMzNjg5NTA0MwIAAAAKAAAAVFVzZXJCbG9jaxIAAAAFAAAA
+        VXNyXzEAAAAAAQoAAAAcAAAArAAAABcAAAAAAAAAAAAAAAAdAAAAVHJhbnNhY3Rpb24uQ29tbWl0
+        UmV0YWluaW5nDQoAAAAACAAAAFRJZkJsb2NrEgAAAAQAAABJZl8xAAAAAAEKAAAAOAAAANgAAABo
+        AgAAAAAAAAAAAAAAAwAAADE9MRUAAAAMAAAAVFRheFZhckJsb2NrEgAAAAsAAABDb21wYW55TmFt
+        ZQAAAAABCgAAABwAAACvAAAAFwAAAAAAAAAAAAAAABQAAABbU0YuQ3VyckNvbXBhbnlOYW1lXQAA
+        AAAADAAAAFRUYXhWYXJCbG9jaxIAAAAOAAAAUmVzcG9uc2libGVGSU8AAAAAAQoAAAA4AAAAsgAA
+        ABcAAAAAAAAAAAAAAAAdAAAAW1NGLkN1ckNvbXBhbnlSZXNwb25zaWJsZUZJT10AAAAAAAwAAABU
+        VGF4VmFyQmxvY2sSAAAAEgAAAENoaWVmQWNjb3VudGFudEZJTwAAAAABCgAAAFQAAADJAAAAFwAA
+        AAAAAAAAAAAAAB8AAABbU0YuQ3VyckNvbXBhbnlDaGllZkFjY291bnRhbnRdAAAAAAAMAAAAVFRh
+        eFZhckJsb2NrEgAAAAsAAABEaXJlY3RvckZJTwAAAAABCgAAAHAAAACfAAAAFwAAAAAAAAAAAAAA
+        ABsAAABbU0YuQ3VyckNvbXBhbnlEaXJlY3RvckZJT10AAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAA
+        AwAAAFVOTgAAAAABCgAAAIwAAAB8AAAAFwAAAAAAAAAAAAAAABMAAABbU0YuQ3VyckNvbXBhbnlV
+        Tk5dAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAMAAABURUwAAAAAAQoAAACoAAAAeAAAABcAAAAA
+        AAAAAAAAAAAZAAAAW1NGLkN1cnJDb21wYW55VGVsZXBob25lXQAAAAAADAAAAFRUYXhWYXJCbG9j
+        axIAAAAHAAAAQWRkcmVzcwAAAAABCgAAAMQAAACOAAAAFwAAAAAAAAAAAAAAABcAAABbU0YuQ3Vy
+        ckNvbXBhbnlBZGRyZXNzXQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAGAAAAUk1vbnRoAAAAAAEK
+        AAAA4AAAAIwAAAAXAAAAAAAAAAAAAAAAGQAAAE1vbnRoTmFtZShNb250aChFbmREYXRlKSkAAAAA
+        AAwAAABUVGF4VmFyQmxvY2sSAAAABQAAAFJZZWFyAAAAAAEKAAAA/AAAAIQAAAAXAAAAAAAAAAAA
+        AAAADQAAAFllYXIoRW5kRGF0ZSkAAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAABAAAAFBvczEAAAAA
+        AQoAAAAYAQAAfgAAABcAAAAAAAAAAAAAAAAUAAAAW1NGLkN1cnJDb21wYW55TmFtZV0AAAAAAAwA
+        AABUVGF4VmFyQmxvY2sSAAAABwAAAFBvczJvbGQAAAAAAQoAAAA0AQAAjAAAABcAAAAAAAAAAAAA
+        AAC3AAAAKChbR1MuU0soIjQyLjEuMSIsIEJlZ2luRGF0ZSAtIDEsIEVtcHR5KV0gLSBbR1MuU0Qo
+        IjQyLjEuMSIsIEJlZ2luRGF0ZSAtIDEsIEVtcHR5KV0gKSAvIDEpICsgKChbR1MuU0soIjQyLjEu
+        MiIsIEJlZ2luRGF0ZSAtIDEsIEVtcHR5KV0gLSBbR1MuU0QoIjQyLjEuMiIsIEJlZ2luRGF0ZSAt
+        IDEsIEVtcHR5KV0gKSAvIDEpAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAQAAABQb3MyAAAAAAEK
+        AAAAUAEAAH4AAAAXAAAAAAAAAAAAAAAAVgAAACgoW0dTLlNLKCI0Mi4xIiwgQmVnaW5EYXRlIC0g
+        MSwgRW1wdHkpXSAtIFtHUy5TRCgiNDIuMSIsIEJlZ2luRGF0ZSAtIDEsIEVtcHR5KV0gKSAvIDEp
+        AAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAQAAABQb3MzAAAAAAEKAAAAbAEAAH4AAAAXAAAAAAAA
+        AAAAAAAAvQAAAChbR1MuT0soIjQyLjEuMSIsIEJlZ2luRGF0ZSwgRW5kRGF0ZSwgRW1wdHkpXSAt
+        IFtHUy5PRCgiNDIuMS4xIiwgQmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0eSldKSArIChbR1MuT0so
+        IjQyLjEuMiIsIEJlZ2luRGF0ZSwgRW5kRGF0ZSwgRW1wdHkpXSAtIFtHUy5PRCgiNDIuMS4yIiwg
+        QmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0eSldKQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAEAAAA
+        UG9zNAAAAAABCgAAAIgBAAB+AAAAFwAAAAAAAAAAAAAAAAsAAABQb3MyICsgUG9zMwAAAAAADAAA
+        AFRUYXhWYXJCbG9jaxIAAAAEAAAAUG9zNQAAAAABCgAAAKQBAAB+AAAAFwAAAAAAAAAAAAAAADQA
+        AAAoKFtHUy5PSygiOTAuMDEiLCBCZWdpbkRhdGUsIEVuZERhdGUsIEVtcHR5KV0gKSAvIDEpAAAA
+        AAAMAAAAVFRheFZhckJsb2NrEgAAAAQAAABQb3M2AAAAAAEKAAAAwAEAAH4AAAAXAAAAAAAAAAAA
+        AAAAlQAAACgoW0dTLlNEKCI0MS4wMiIsIEVuZERhdGUsIEVtcHR5KV0gICsgW0dTLlNEKCI0MS4w
+        NCIsIEVuZERhdGUsIEVtcHR5KV0pIC8gMSkgKyAgW0dTLlNEKCIyMC4zIiwgRW5kRGF0ZSwgRW1w
+        dHkpXSAgICsgW0dTLlNEKCIyMC4zLTEiLCBFbmREYXRlLCBFbXB0eSldAAAAAAAMAAAAVFRheFZh
+        ckJsb2NrEgAAAAQAAABQb3M3AAAAAAEKAAAA3AEAAH4AAAAXAAAAAAAAAAAAAAAACwAAAFBvczUg
+        KyBQb3M2AAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAQAAABQb3M4AAAAAAEKAAAA+AEAAH4AAAAX
+        AAAAAAAAAAAAAAAAFAAAAChQb3M0ICogMTAwIC8gUG9zNykgAAAAAAAMAAAAVFRheFZhckJsb2Nr
+        EgAAAAQAAABQb3M5AAAAAAEKAAAAFAIAAH4AAAAXAAAAAAAAAAAAAAAAEwAAAChQb3M2ICogUG9z
+        OCAvIDEwMCkAAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAABQAAAFBvczEwAAAAAAEKAAAAMAIAAIQA
+        AAAXAAAAAAAAAAAAAAAADQAAAChQb3M0IC0gUG9zOSkAAAAAAAsAAABURW50cnlCbG9jaxIAAAAH
+        AAAARW50cnlfMQAAAAABCgAAAEwCAABuAAAAFwAAAAAAAAAAAAAAABMAAAAxNDcwNDg4MzJfMzM4
+        OTE1ODQ0CQAAADM0NDIwMV8xNwAAAAAAAAAABwAAAC1Qb3MxMCAAAAAACQAAAEJlZ2luRGF0ZQcA
+        AABFbmREYXRlCQAAAEVudHJ5RGF0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 158365851_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365847_336895043
+    Fields: 
+      PARENT: "1020002_17 Бухгалтерский отчет"
+      NAME: "Расчет % и суммы реализованной наценки (01.01.2005)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "158365851_580195777"
+      EDITIONDATE: 2023-01-16T15:13:57+03:00
+  - 
+    Properties: 
+      Class: "TgdcTaxActual"
+      RUID: 158365847_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACTUALDATE: 2005-01-01
+      DESCRIPTION: ~
+      REPORTDAY: 20
+      REPORTGROUPKEY: "158365851_336895043 Бухгалтерский отчет\\Расчет % и суммы реализованной наценки (01.01.2005)"
+      TAXNAME: "Расчет % и суммы реализованной наценки"
+      TAXNAMEKEY: "158365846_336895043 Расчет % и суммы реализованной наценки"
+      TRRECORDKEY: "158365849_336895043 Расчет % и суммы реализованной наценки ('01.01.2005')"
+      TYPEKEY: "350001_17"
+      TYPENAME: "За месяц"
+      EDITIONDATE: 2023-05-04T14:43:32+03:00
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 158365807_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365788_336895043
+    Fields: 
+      NAME: "НДС по расчетной ставке"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR"
+      EDITIONDATE: 2007-12-12T15:59:48+03:00
+      TEMPLATEDATA: !!binary > 
+        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
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 158365788_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "НДС"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147007510_69059608 rp_Main_TaxResult"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "158365754_336895043 Бухгалтерский отчет\\002. Расчет ставки и суммы НДС (01.01.2022)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "158365807_336895043 НДС по расчетной ставке"
+      EDITIONDATE: 2007-12-12T15:59:48+03:00
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 158365918_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 158365899_336895043
+    Fields: 
+      NAME: "Реализованная надбавка"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR"
+      EDITIONDATE: 2005-03-14T13:11:55+03:00
+      TEMPLATEDATA: !!binary > 
+        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
+        AAAAAAAAAAAAWACwCNexE5LiQOMwSaMxw+JA
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 158365899_336895043
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Реализованная надбавка"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "147007510_69059608 rp_Main_TaxResult"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "158365851_336895043 Бухгалтерский отчет\\Расчет % и суммы реализованной наценки (01.01.2005)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "158365918_336895043 Реализованная надбавка"
+      EDITIONDATE: 2005-03-14T13:13:42+03:00
