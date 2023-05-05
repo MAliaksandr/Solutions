@@ -1,0 +1,218 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147061804_2089375573
+  Name: "CN.Confiscat.Переоценка. Процедуры"
+  Caption: "CN.Confiscat.Переоценка. Процедуры"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: E429337B3BE8C8ED5FED56CF3CC6B5FC
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147061769_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$CN_P_SALDOGOOD"
+      EDITIONDATE: 2023-05-05T18:09:02+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$CN_P_SALDOGOOD (
+            GOODKEY INTEGER,
+            DEPKEY INTEGER,
+            ACTVALUATION INTEGER,
+            COMPANYKEY INTEGER,
+            DB DATE,
+            DE DATE)
+        RETURNS ( 
+            ID INTEGER,
+            BEGINSALDO NUMERIC(15, 4),
+            DEBIT NUMERIC(15, 4),
+            CREDIT NUMERIC(15, 4),
+            ENDSALDO NUMERIC(15, 4))
+         AS
+        DECLARE VARIABLE LB INTEGER;
+        DECLARE VARIABLE RB INTEGER;
+        BEGIN
+        
+          SELECT LB, RB FROM GD_CONTACT WHERE ID = :DEPKEY
+          INTO :LB, :RB;
+        
+        SELECT DISTINCT
+          g.ID as ID,
+          SUM(rem.BeginSaldo) AS BeginSaldo,
+          SUM(rem.EndSaldo) AS EndSaldo,
+          SUM(rem.Debit) AS Debit,
+          SUM(rem.Credit) AS Credit
+        FROM
+           (SELECT
+            m.CARDKEY,
+            m.CONTACTKEY,
+            m.GOODKEY,
+            m.BALANCE AS BeginSaldo,
+            m.BALANCE AS EndSaldo,
+            0.0000 AS Debit,
+            0.0000 AS Credit
+           FROM GD_CONTACT con
+           JOIN INV_BALANCE m ON m.CONTACTKEY  =  con.ID
+           WHERE  con.LB >= :LB AND con.RB <= :RB
+                  AND M.BALANCE  <>  0
+           UNION ALL
+          /*движения с даты начала по сегодня*/
+          SELECT
+            m.CARDKEY,
+            m.CONTACTKEY,
+            m.GOODKEY,
+            SUM ( m.CREDIT - m.DEBIT ) AS BeginSaldo,
+            SUM ( IIF(m.MOVEMENTDATE > :DE, m.CREDIT - m.DEBIT, 0.0000 )) AS EndSaldo,
+            SUM ( IIF(m.MOVEMENTDATE <= :DE, m.DEBIT, 0.0000 )) AS Debit,
+            SUM ( IIF(m.MOVEMENTDATE <= :DE, m.CREDIT, 0.0000 )) AS Credit
+         FROM GD_CONTACT con
+           JOIN INV_MOVEMENT m ON m.CONTACTKEY  =  con.ID
+         WHERE  con.LB >= :LB AND con.RB <= :RB
+             AND m.DISABLED  =  0
+             AND m.MOVEMENTDATE  >  :DB
+         GROUP BY 1,2,3) rem
+         JOIN GD_GOOD g ON g.ID  =  rem.GOODKEY
+         LEFT JOIN GD_GOODGROUP gg ON g.GROUPKEY  =  gg.ID
+         LEFT JOIN INV_CARD c ON c.ID = rem.CARDKEY
+         WHERE c.COMPANYKEY + 0 = :COMPANYKEY
+         AND G.ID = :GOODKEY
+         GROUP BY 1
+         HAVING SUM(rem.Debit ) <> 0.0000
+             OR SUM(rem.Credit ) <> 0.0000
+             OR SUM(rem.BeginSaldo ) <> 0.0000
+             OR SUM(rem.EndSaldo ) <> 0.0000
+         INTO :ID , :BeginSaldo, :EndSaldo, :Debit, :Credit;
+        
+          SUSPEND;
+        END
+      RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147061236_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$CN_P_CONFISCATNEWCOST"
+      EDITIONDATE: 2023-05-05T18:09:02+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$CN_P_CONFISCATNEWCOST (
+            ADATE DATE,
+            ACOMPANYKEY INTEGER,
+            ACARDKEY INTEGER)
+        RETURNS ( 
+            CARDKEY INTEGER,
+            GOODKEY INTEGER,
+            CONTACTKEY INTEGER,
+            QUANTITY NUMERIC(15, 4),
+            COSTPROVIDER NUMERIC(15, 4),
+            COSTRETAIL NUMERIC(15, 4),
+            ACTVALUATION INTEGER,
+            ACTVALUATIONST VARCHAR(250),
+            DATERECEIVE DATE,
+            QDAY SMALLINT,
+            LASTDATERECOST DATE,
+            QDAYBETWEENRECOST SMALLINT,
+            COSTPERC NUMERIC(15, 4),
+            NEWCOST NUMERIC(15, 4),
+            DELTASUM NUMERIC(15, 4),
+            QSELLDAYCONST SMALLINT)
+         AS
+        DECLARE VARIABLE Y INTEGER;
+        DECLARE VARIABLE tMonth INTEGER;
+        DECLARE VARIABLE M INTEGER;
+        DECLARE VARIABLE D INTEGER;
+        DECLARE VARIABLE CLB INTEGER;
+        DECLARE VARIABLE CRB INTEGER;
+        DECLARE VARIABLE TEMPDATE DATE;
+        DECLARE VARIABLE ROUNDING NUMERIC(15,4);
+        DECLARE VARIABLE ADDING SMALLINT;
+        DECLARE VARIABLE CONFISCAT_GROUP INTEGER;
+        
+        DECLARE VARIABLE beginsaldo NUMERIC(15,4);
+        DECLARE VARIABLE debit NUMERIC(15,4);
+        DECLARE VARIABLE credit NUMERIC(15,4);
+        DECLARE VARIABLE Endsaldo NUMERIC(15,4);
+        
+        BEGIN
+          NEWCOST = 0;
+          DELTASUM = 0;
+          ACTVALUATIONST = '';
+          QSELLDAYCONST = 0;
+          
+          SELECT FIRST(1) USR$ROUNDING, USR$NEWCOSTPERC, USR$QDAYSELL FROM USR$CN_OPTIONS
+          INTO :rounding, :COSTPERC, QSELLDAYCONST;
+        
+          SELECT LB, RB FROM gd_contact WHERE ID = :ACompanyKey
+          INTO :CLB, CRB;
+        
+          if (ROUNDING is NULL) then
+            ROUNDING = 0.01;
+        
+          EXECUTE PROCEDURE GD_P_GETID(147047409, 2082756242) RETURNING_VALUES :CONFISCAT_GROUP;
+        
+          FOR
+             SELECT
+             SUM(M.debit - M.Credit),
+             MAX(c.id),
+             c.goodkey,
+             m.contactkey,
+             c.USR$INV_COSTPROVIDER,
+             c.USR$INV_DATERECEIVE,
+             c.USR$INV_COSTRETAILNCU,
+             c.USR$CN_ACTVALUATION,
+             COALESCE(c.USR$LASTDATERECOST,c.USR$INV_DATERECEIVE)
+             FROM
+             INV_CARD c
+             LEFT JOIN gd_good g ON g.id = c.goodkey
+             LEFT JOIN GD_GOODGROUP GG ON GG.ID = G.GROUPKEY
+             LEFT JOIN GD_GOODGROUP GCON ON GCON.LB<=GG.LB AND GCON.RB>=GG.RB
+             LEFT JOIN INV_MOVEMENT m ON c.ID = m.CARDKEY
+             LEFT JOIN GD_CONTACT CON ON  M.CONTACTKEY = CON.ID
+             WHERE
+              m.movementdate < :adate
+              AND (CON.lb >= :CLB AND CON.RB <= :CRB)
+              AND GCON.ID = :CONFISCAT_GROUP
+              AND G.ID NOT IN (
+                SELECT
+                  Gi.ID
+                FROM GD_GOOD Gi
+                JOIN USR$CN_EXCEPTGOOD Eg ON EG.USR$GOODKEY = Gi.ID
+                UNION ALL
+                SELECT
+                  Gi.ID
+                FROM GD_GOOD Gi
+                JOIN USR$CN_EXCEPTGOOD EGG ON EGG.USR$GOODGROUPKEY = Gi.GROUPKEY) /* */
+        
+            GROUP BY c.goodkey, m.contactkey, 5,6,7,8, 9
+            HAVING
+            SUM(M.DEBIT-M.CREDIT) > 0
+            INTO :QUANTITY, :CARDKEY, :GOODKEY, :CONTACTKEY,  :COSTPROVIDER,  :DATERECEIVE, :COSTRETAIL, :ACTVALUATION, :LASTDATERECOST
+          DO
+          BEGIN
+            SELECT DATEDIFF(DAY, :DATERECEIVE, :ADATE) + 1 FROM RDB$DATABASE
+            INTO :qDay;
+        
+            SELECT DATEDIFF(DAY, :LASTDATERECOST, :ADATE) + 1 FROM RDB$DATABASE
+            INTO :qDAYBETWEENRECOST;
+            
+            SELECT USR$DOCNUMBER || ' от ' || CAST(USR$DOCNUMBER AS VARCHAR(10)) FROM USR$CN_ACTVALUATION WHERE ID  = :ACTVALUATION
+            INTO :ACTVALUATIONST;
+            
+            SELECT * FROM USR$CN_P_SALDOGOOD(:GOODKEY, :CONTACTKEY, :ACTVALUATION, :ACompanyKey, :LASTDATERECOST, :adate)
+            INTO :goodkey, :BeginSaldo, :debit,:credit, :endsaldo;
+        
+            DELTASUM  =  ROUND(:COSTPROVIDER * :COSTPERC/100, 2);
+            NEWCOST = :COSTPROVIDER - :DELTASUM;
+            SUSPEND;
+          END
+        END
+        
+      RDB$DESCRIPTION: ~
