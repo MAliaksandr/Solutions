@@ -5,10 +5,10 @@ Properties:
   RUID: 147061808_2089375573
   Name: "CN.Confiscat. Переоценка конфиската"
   Caption: "CN.Confiscat. Переоценка конфиската"
-  Version: "1.0.0.1"
+  Version: "1.0.0.2"
   Optional: False
   Internal: True
-  MD5: 5ADEBBFBEEAA3105F7E90A27BAB285CA
+  MD5: 2E059C8F72D5CEF090450C9A7DB9F924
 Uses: 
   - "147978808_215642201 Мат_склад - evt_object"
   - "148509668_396646306 Торговля - исследователь"
@@ -52,8 +52,92 @@ Objects:
       IMGINDEX: 88
       ORDR: ~
       SUBTYPE: "147061100_2089375573"
-      EDITIONDATE: 2023-05-05T18:07:28+03:00
+      EDITIONDATE: 2023-05-11T14:27:31+03:00
       DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147063078_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$CN_NEWCOSTPERC"
+      FIELDNAME: "USR$CN_NEWCOSTPERC"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "% уценки (конфискат)"
+      LSHORTNAME: "% уценки (конфискат)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147012892_486813904 Переоценка(позиция), USR$INV_NEWCOSTLINE"
+      RELATIONNAME: "USR$INV_NEWCOSTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-05-11T14:49:55+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147063079_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$CN_DELTASUM"
+      FIELDNAME: "USR$CN_DELTASUM"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Размер уценки"
+      LSHORTNAME: "Размер уценки"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147012892_486813904 Переоценка(позиция), USR$INV_NEWCOSTLINE"
+      RELATIONNAME: "USR$INV_NEWCOSTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-05-11T14:50:11+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
   - 
     Properties: 
       Class: "TgdcTableField"
@@ -165,7 +249,7 @@ Objects:
       MASK: "\"NUMBER\""
       REPORTGROUPKEY: "147061101_2089375573 Складской учет\\ 02. Переоценка конфиската"
       RUID: "147061100_2089375573"
-      EDITIONDATE: 2023-05-05T18:07:28+03:00
+      EDITIONDATE: 2023-05-11T14:27:31+03:00
       DISABLED: 0
       HEADERFUNCTIONTEMPLATE: ~
       LINEFUNCTIONTEMPLATE: ~
@@ -245,7 +329,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-05T15:55:06+03:00
+      EDITIONDATE: 2023-05-10T18:56:27+03:00
       BLOB_DATA: !!binary > 
         VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
         bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
@@ -255,91 +339,93 @@ Objects:
         bmVDb3VudAICB09wdGlvbnMLDGNlb011bHRpbGluZQAAAQxEaXNwbGF5RmllbGQGGElOVkRPQ19V
         U1IkUFJJQ0VLRVlfTkFNRQlMaW5lQ291bnQCAgdPcHRpb25zCwxjZW9NdWx0aWxpbmUAAAAICA4A
         CA4BCEV4cGFuZGVkCAlGaWVsZE5hbWUGBk5VTUJFUghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYF
-        ze7s5fAFV2lkdGgCOwdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDERPQ1VNRU5UREFU
+        ze7s5fAFV2lkdGgCfgdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDERPQ1VNRU5UREFU
         RQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYExODy4AVXaWR0aAJBB1Zpc2libGUJAAEIRXhwYW5k
         ZWQICUZpZWxkTmFtZQYXSU5WRE9DX1VTUiRERVBUS0VZX05BTUUIUmVhZE9ubHkIDVRpdGxlLkNh
         cHRpb24GDc/u5PDg5+Tl6+Xt6OUFV2lkdGgDbAEHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGRO
         YW1lBgtVU1IkREVQVEtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYNz+7k8ODn5OXr5e3o5QVX
-        aWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGG0lOVkRPQ19VU1IkQUNDT1VO
-        VEtFWV9BTElBUwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYE0ffl8gVXaWR0aAL/B1Zpc2libGUI
-        AAEIRXhwYW5kZWQICUZpZWxkTmFtZQYYSU5WRE9DX1VTUiRQUklDRUtFWV9OQU1FCFJlYWRPbmx5
-        CA1UaXRsZS5DYXB0aW9uBgvP8OXp8erz8ODt8gVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
-        CUZpZWxkTmFtZQYPVVNSJERFU0NSSVBUSU9OCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgjO7+jx
-        4O3o5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYMVVNSJFBSSUNFS0VZ
-        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgvP8OXp8erz8ODt8gVXaWR0aAL/B1Zpc2libGUIAAEI
-        RXhwYW5kZWQICUZpZWxkTmFtZQYLRE9DVU1FTlRLRVkNVGl0bGUuQ2FwdGlvbgYNIkRPQ1VNRU5U
-        S0VZIgVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYIUkVTRVJWRUQIUmVh
-        ZE9ubHkIDVRpdGxlLkNhcHRpb24GCiJSRVNFUlZFRCIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFu
-        ZGVkCAlGaWVsZE5hbWUGAklECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgQiSUQiBVdpZHRoAv8H
-        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgZQQVJFTlQIUmVhZE9ubHkIDVRpdGxlLkNh
-        cHRpb24GCCJQQVJFTlQiBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg9E
-        T0NVTUVOVFRZUEVLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GESJET0NVTUVOVFRZUEVLRVki
-        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBglUUlRZUEVLRVkIUmVhZE9u
-        bHkIDVRpdGxlLkNhcHRpb24GCyJUUlRZUEVLRVkiBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
-        ZAgJRmllbGROYW1lBg5UUkFOU0FDVElPTktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYQIlRS
-        QU5TQUNUSU9OS0VZIgVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYLREVT
-        Q1JJUFRJT04IUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDSJERVNDUklQVElPTiIFV2lkdGgC/wdW
-        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBlNVTU5DVQhSZWFkT25seQgNVGl0bGUuQ2Fw
-        dGlvbgYIIlNVTU5DVSIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB1NV
-        TUNVUlIIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCSJTVU1DVVJSIgVXaWR0aAL/B1Zpc2libGUI
-        AAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHREVMQVlFRAhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYJ
-        IkRFTEFZRUQiBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgdDVVJSS0VZ
-        CFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgkiQ1VSUktFWSIFV2lkdGgC/wdWaXNpYmxlCAABCEV4
-        cGFuZGVkCAlGaWVsZE5hbWUGCkNPTVBBTllLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDCJD
-        T01QQU5ZS0VZIgVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYKQ1JFQVRP
-        UktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYMIkNSRUFUT1JLRVkiBVdpZHRoAv8HVmlzaWJs
-        ZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxDUkVBVElPTkRBVEUIUmVhZE9ubHkIDVRpdGxlLkNh
-        cHRpb24GDiJDUkVBVElPTkRBVEUiBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
-        YW1lBglFRElUT1JLRVkIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCyJFRElUT1JLRVkiBVdpZHRo
-        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtFRElUSU9OREFURQhSZWFkT25seQgN
-        VGl0bGUuQ2FwdGlvbgYNIkVESVRJT05EQVRFIgVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
-        CUZpZWxkTmFtZQYJUFJJTlREQVRFCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgsiUFJJTlREQVRF
-        IgVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYIRElTQUJMRUQIUmVhZE9u
-        bHkIDVRpdGxlLkNhcHRpb24GCiJESVNBQkxFRCIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVk
-        CAlGaWVsZE5hbWUGCVJFU0VSVkVEMQ1UaXRsZS5DYXB0aW9uBgsiUkVTRVJWRUQxIgVXaWR0aAL/
-        B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYOVVNSJEFDQ09VTlRLRVkIUmVhZE9ubHkI
-        DVRpdGxlLkNhcHRpb24GBNH35fIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
-        bWUGClVTUiRFUVJBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GC8rz8PEg/eriLfLgBVdpZHRo
-        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5VU1IkU09SVE5VTUJFUghSZWFkT25s
-        eQgNVGl0bGUuQ2FwdGlvbgYUze7s5fAg5Ov/IPHu8PLo8O7i6ugFV2lkdGgC/wdWaXNpYmxlCAAB
-        CEV4cGFuZGVkCAlGaWVsZE5hbWUGBVNVTUVRCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhPR8+zs
-        4CDiIP3q4uji4Ovl7fLlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5V
-        U1IkQ09OVEFDVEtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYJ0e7y8PPk7ejqBVdpZHRoAv8H
-        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxVU1IkQ1VTVE9NRVIIUmVhZE9ubHkIDVRp
-        dGxlLkNhcHRpb24GBsrr6OXt8gVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFt
-        ZQYaSU5WRE9DX1VTUiRBQ0NPVU5US0VZX05BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GEdDg
-        8fjo9PDu4urgIPH35fLgBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhhJ
-        TlZET0NfVVNSJENVU1RPTUVSX05BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g6Ozl7e7i
-        4O3o5QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYaSU5WRE9DX1VTUiRD
-        T05UQUNUS0VZX05BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDM3g6Ozl7e7i4O3o5QVXaWR0
-        aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYaSU5WRE9DX1VTUiRERVBUS0VZX0FE
-        RFJFU1MIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBcDk8OXxBVdpZHRoAv8HVmlzaWJsZQgAAQhF
-        eHBhbmRlZAgJRmllbGROYW1lBhtJTlZET0NfVVNSJENVU1RPTUVSX0FERFJFU1MIUmVhZE9ubHkI
-        DVRpdGxlLkNhcHRpb24GBcDk8OXxBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGRO
-        YW1lBh1JTlZET0NfVVNSJENPTlRBQ1RLRVlfQUREUkVTUwhSZWFkT25seQgNVGl0bGUuQ2FwdGlv
-        bgYFwOTw5fEFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGD1VTUiRDT05U
-        UkFDVEtFWQ1UaXRsZS5DYXB0aW9uBgfE7uPu4u7wBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRl
-        ZAgJRmllbGROYW1lBhNVU1IkTUFJTkRPQ1VNRU5US0VZDVRpdGxlLkNhcHRpb24GGs3g6uvg5O3g
-        /yDt4CDv7uvz9+Xt6OUg0szWBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1l
-        BhFVU1IkUEZEX0RFTElWRVJFRA1UaXRsZS5DYXB0aW9uBhHP5fDl5ODtIO3gIPHl8OLl8AVXaWR0
-        aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYNQklMTERFTElWRVJFRA1UaXRsZS5D
-        YXB0aW9uBjHP5fDl5ODtIO3gIPHl8OLl8CAozeDq6+Dk7eD/IO3gIO/u6/P35e3o5SDy7uLg8OAp
-        BVdpZHRoAv8HVmlzaWJsZQgAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlG
-        aWVsZE5hbWUGDEFMTERFTElWRVJFRA1UaXRsZS5DYXB0aW9uBgxBTExERUxJVkVSRUQFV2lkdGgC
-        /wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGH0lOVkRPQ19VU1IkTUFJTkRPQ1VNRTE3
-        Nzg1NjM4NTQNVGl0bGUuQ2FwdGlvbgYRze7s5fAgKMTu6vPs5e3y+ykFV2lkdGgC/wdWaXNpYmxl
-        CAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGH0lOVkRPQ19VU1IkTUFJTkRPQ1VNRTEyODMwMTI3ODEN
-        VGl0bGUuQ2FwdGlvbgYQxODy4CAoxO7q8+zl7fL7KQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5k
-        ZWQICUZpZWxkTmFtZQYdSU5WRE9DX1VTUiRDT05UUkFDVEtFWV9OVU1CRVINVGl0bGUuQ2FwdGlv
-        bgYRze7s5fAgKMTu6vPs5e3y+ykFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
-        bWUGH0lOVkRPQ19VU1IkQ09OVFJBQ1RLRTI2Njg4NDkxNTQNVGl0bGUuQ2FwdGlvbgYQxODy4CAo
-        xO7q8+zl7fL7KQVXaWR0aAL/B1Zpc2libGUIAAEJQWxpZ25tZW50Bw50YVJpZ2h0SnVzdGlmeQhF
-        eHBhbmRlZAgJRmllbGROYW1lBgVBRlVMTA1UaXRsZS5DYXB0aW9uBg3P7uvt++kg5O7x8vPvBVdp
-        ZHRoAv8HVmlzaWJsZQgAAQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVs
-        ZE5hbWUGBUFDSEFHDVRpdGxlLkNhcHRpb24GGc/w7vHs7vLwIOgg8OXk4Ory6PDu4uDt6OUFV2lk
-        dGgC/wdWaXNpYmxlCAABCUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxk
-        TmFtZQYFQVZJRVcNVGl0bGUuQ2FwdGlvbgYP0u7r/OruIO/w7vHs7vLwBVdpZHRoAv8HVmlzaWJs
-        ZQgAAAgItB4JCA==
+        aWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYbSU5WRE9DX1VTUiRBQ0NPVU5U
+        S0VZX0FMSUFTCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgTR9+XyBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBhhJTlZET0NfVVNSJFBSSUNFS0VZX05BTUUIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GC8/w5enx6vPw4O3yBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBg9VU1IkREVTQ1JJUFRJT04IUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCM7v6PHg
+        7ejlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgxVU1IkUFJJQ0VLRVkI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GC8/w5enx6vPw4O3yBVdpZHRoAv8HVmlzaWJsZQgAAQhF
+        eHBhbmRlZAgJRmllbGROYW1lBgtET0NVTUVOVEtFWQ1UaXRsZS5DYXB0aW9uBg0iRE9DVU1FTlRL
+        RVkiBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghSRVNFUlZFRAhSZWFk
+        T25seQgNVGl0bGUuQ2FwdGlvbgYKIlJFU0VSVkVEIgVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5k
+        ZWQICUZpZWxkTmFtZQYCSUQIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GBCJJRCIFV2lkdGgC/wdW
+        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGBlBBUkVOVAhSZWFkT25seQgNVGl0bGUuQ2Fw
+        dGlvbgYIIlBBUkVOVCIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGD0RP
+        Q1VNRU5UVFlQRUtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYRIkRPQ1VNRU5UVFlQRUtFWSIF
+        V2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCVRSVFlQRUtFWQhSZWFkT25s
+        eQgNVGl0bGUuQ2FwdGlvbgYLIlRSVFlQRUtFWSIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVk
+        CAlGaWVsZE5hbWUGDlRSQU5TQUNUSU9OS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBhAiVFJB
+        TlNBQ1RJT05LRVkiBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgtERVND
+        UklQVElPTghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYNIkRFU0NSSVBUSU9OIgVXaWR0aAL/B1Zp
+        c2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYGU1VNTkNVCFJlYWRPbmx5CA1UaXRsZS5DYXB0
+        aW9uBggiU1VNTkNVIgVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYHU1VN
+        Q1VSUghSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYJIlNVTUNVUlIiBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBgdERUxBWUVECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgki
+        REVMQVlFRCIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGB0NVUlJLRVkI
+        UmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCSJDVVJSS0VZIgVXaWR0aAL/B1Zpc2libGUIAAEIRXhw
+        YW5kZWQICUZpZWxkTmFtZQYKQ09NUEFOWUtFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYMIkNP
+        TVBBTllLRVkiBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBgpDUkVBVE9S
+        S0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgwiQ1JFQVRPUktFWSIFV2lkdGgC/wdWaXNpYmxl
+        CAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDENSRUFUSU9OREFURQhSZWFkT25seQgNVGl0bGUuQ2Fw
+        dGlvbgYOIkNSRUFUSU9OREFURSIFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGCUVESVRPUktFWQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYLIkVESVRPUktFWSIFV2lkdGgC
+        /wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGC0VESVRJT05EQVRFCFJlYWRPbmx5CA1U
+        aXRsZS5DYXB0aW9uBg0iRURJVElPTkRBVEUiBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJ
+        RmllbGROYW1lBglQUklOVERBVEUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GCyJQUklOVERBVEUi
+        BVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBghESVNBQkxFRAhSZWFkT25s
+        eQgNVGl0bGUuQ2FwdGlvbgYKIkRJU0FCTEVEIgVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQI
+        CUZpZWxkTmFtZQYJUkVTRVJWRUQxDVRpdGxlLkNhcHRpb24GCyJSRVNFUlZFRDEiBVdpZHRoAv8H
+        VmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBg5VU1IkQUNDT1VOVEtFWQhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYE0ffl8gVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFt
+        ZQYKVVNSJEVRUkFURQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYLyvPw8SD96uIt8uAFV2lkdGgC
+        /wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlVTUiRTT1JUTlVNQkVSCFJlYWRPbmx5
+        CA1UaXRsZS5DYXB0aW9uBhTN7uzl8CDk6/8g8e7w8ujw7uLq6AVXaWR0aAL/B1Zpc2libGUIAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYFU1VNRVEIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GE9Hz7Ozg
+        IOIg/eri6OLg6+Xt8uUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlVT
+        UiRDT05UQUNUS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgnR7vLw8+Tt6OoFV2lkdGgC/wdW
+        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDFVTUiRDVVNUT01FUghSZWFkT25seQgNVGl0
+        bGUuQ2FwdGlvbgYGyuvo5e3yBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        BhpJTlZET0NfVVNSJEFDQ09VTlRLRVlfTkFNRQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYR0ODx
+        +Oj08O7i6uAg8ffl8uAFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGGElO
+        VkRPQ19VU1IkQ1VTVE9NRVJfTkFNRQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYMzeDo7OXt7uLg
+        7ejlBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhpJTlZET0NfVVNSJENP
+        TlRBQ1RLRVlfTkFNRQhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYMzeDo7OXt7uLg7ejlBVdpZHRo
+        Av8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmllbGROYW1lBhpJTlZET0NfVVNSJERFUFRLRVlfQURE
+        UkVTUwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYFwOTw5fEFV2lkdGgC/wdWaXNpYmxlCAABCEV4
+        cGFuZGVkCAlGaWVsZE5hbWUGG0lOVkRPQ19VU1IkQ1VTVE9NRVJfQUREUkVTUwhSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYFwOTw5fEFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5h
+        bWUGHUlOVkRPQ19VU1IkQ09OVEFDVEtFWV9BRERSRVNTCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9u
+        BgXA5PDl8QVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZpZWxkTmFtZQYPVVNSJENPTlRS
+        QUNUS0VZCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgfE7uPu4u7wBVdpZHRoAv8HVmlzaWJsZQgA
+        AQhFeHBhbmRlZAgJRmllbGROYW1lBhNVU1IkTUFJTkRPQ1VNRU5US0VZCFJlYWRPbmx5CA1UaXRs
+        ZS5DYXB0aW9uBhrN4Orr4OTt4P8g7eAg7+7r8/fl7ejlINLM1gVXaWR0aAL/B1Zpc2libGUIAAEI
+        RXhwYW5kZWQICUZpZWxkTmFtZQYRVVNSJFBGRF9ERUxJVkVSRUQIUmVhZE9ubHkIDVRpdGxlLkNh
+        cHRpb24GEc/l8OXk4O0g7eAg8eXw4uXwBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBhbmRlZAgJRmll
+        bGROYW1lBg1CSUxMREVMSVZFUkVECFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBjHP5fDl5ODtIO3g
+        IPHl8OLl8CAozeDq6+Dk7eD/IO3gIO/u6/P35e3o5SDy7uLg8OApBVdpZHRoAv8HVmlzaWJsZQgA
+        AQlBbGlnbm1lbnQHDnRhUmlnaHRKdXN0aWZ5CEV4cGFuZGVkCAlGaWVsZE5hbWUGDEFMTERFTElW
+        RVJFRA1UaXRsZS5DYXB0aW9uBgxBTExERUxJVkVSRUQFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGH0lOVkRPQ19VU1IkTUFJTkRPQ1VNRTE3Nzg1NjM4NTQIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GEc3u7OXwICjE7urz7OXt8vspBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBh9JTlZET0NfVVNSJE1BSU5ET0NVTUUxMjgzMDEyNzgxCFJlYWRPbmx5
+        CA1UaXRsZS5DYXB0aW9uBhDE4PLgICjE7urz7OXt8vspBVdpZHRoAv8HVmlzaWJsZQgAAQhFeHBh
+        bmRlZAgJRmllbGROYW1lBh1JTlZET0NfVVNSJENPTlRSQUNUS0VZX05VTUJFUghSZWFkT25seQgN
+        VGl0bGUuQ2FwdGlvbgYRze7s5fAgKMTu6vPs5e3y+ykFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFu
+        ZGVkCAlGaWVsZE5hbWUGH0lOVkRPQ19VU1IkQ09OVFJBQ1RLRTI2Njg4NDkxNTQIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GEMTg8uAgKMTu6vPs5e3y+ykFV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdu
+        bWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUZVTEwIUmVhZE9ubHkI
+        DVRpdGxlLkNhcHRpb24GDc/u6+376SDk7vHy8+8FV2lkdGgC/wdWaXNpYmxlCAABCUFsaWdubWVu
+        dAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQUNIQUcIUmVhZE9ubHkIDVRp
+        dGxlLkNhcHRpb24GGc/w7vHs7vLwIOgg8OXk4Ory6PDu4uDt6OUFV2lkdGgC/wdWaXNpYmxlCAAB
+        CUFsaWdubWVudAcOdGFSaWdodEp1c3RpZnkIRXhwYW5kZWQICUZpZWxkTmFtZQYFQVZJRVcIUmVh
+        ZE9ubHkIDVRpdGxlLkNhcHRpb24GD9Lu6/zq7iDv8O7x7O7y8AVXaWR0aAL/B1Zpc2libGUIAAAI
+        CLQeCQg=
   - 
     Properties: 
       Class: "TgdcStorageFolder"
@@ -374,13 +460,13 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-05T15:26:09+03:00
+      EDITIONDATE: 2023-05-11T14:37:16+03:00
       BLOB_DATA: !!binary > 
         VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
         bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
         aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
         RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBghHT09ETkFNRQhSZWFkT25seQgNVGl0
-        bGUuQ2FwdGlvbgYQzeDo7OXt7uLg7ejlINLM1gVXaWR0aAOfAAdWaXNpYmxlCQABCEV4cGFuZGVk
+        bGUuQ2FwdGlvbgYQzeDo7OXt7uLg7ejlINLM1gVXaWR0aAPVAAdWaXNpYmxlCQABCEV4cGFuZGVk
         CAlGaWVsZE5hbWUGBE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GB8XkLujn7C4FV2lkdGgC
         OAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGHUNBUkRfVVNSJElOVl9BQ0NPVU5US0VZ
         X0FMSUFTCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgrR9+XyIPP35fLgBVdpZHRoA4MAB1Zpc2li
@@ -689,7 +775,11 @@ Objects:
         6Oog0szWKQVXaWR0aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGD1VTUiRNQVhE
         SVNDUEVSQwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYTzODq8ejs4Ov87eD/IPHq6OTq4AVXaWR0
         aAOCAAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGCFVTUiRDT0RFCFJlYWRPbmx5CA1U
-        aXRsZS5DYXB0aW9uBgPK7uQFV2lkdGgDggAHVmlzaWJsZQkAAAgItB4JCA==
+        aXRsZS5DYXB0aW9uBgPK7uQFV2lkdGgDggAHVmlzaWJsZQkAAQhFeHBhbmRlZAgJRmllbGROYW1l
+        Bg9VU1IkQ05fREVMVEFTVU0IUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDdDg5+zl8CDz9uXt6ugF
+        V2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGElVTUiRDTl9ORVdDT1NUUEVS
+        QwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYUJSDz9uXt6uggKOru7fTo8erg8ikFV2lkdGgC/wdW
+        aXNpYmxlCAAACAi0HgkI
   - 
     Properties: 
       Class: "TgdcStorageValue"
@@ -706,7 +796,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-05T12:10:46+03:00
+      EDITIONDATE: 2023-05-10T13:18:07+03:00
       BLOB_DATA: | 
         object dlgInvDocument147061100_2089375573: TdlgInvDocument
           Tag = 0
@@ -845,7 +935,7 @@ Objects:
             object sptMain: TSplitter
               Tag = 0
               Left = 2
-              Top = 229
+              Top = 231
               Width = 1268
               Height = 2
               Cursor = crVSplit
@@ -867,7 +957,7 @@ Objects:
               Left = 2
               Top = 2
               Width = 1268
-              Height = 227
+              Height = 229
               Cursor = crDefault
               Hint = ''
               HelpContext = 0
@@ -907,7 +997,7 @@ Objects:
                 Left = 0
                 Top = 0
                 Width = 1268
-                Height = 227
+                Height = 229
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
@@ -947,7 +1037,7 @@ Objects:
                   Left = 0
                   Top = 0
                   Width = 1268
-                  Height = 227
+                  Height = 229
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
@@ -999,6 +1089,34 @@ Objects:
                     ParentShowHint = True
                     PopupMenu = nil
                     TabVisible = True
+                    object usrg_147061100_2089375573_SpeedButton1: TSpeedButton
+                      Tag = 0
+                      Left = 104
+                      Top = 54
+                      Width = 373
+                      Height = 22
+                      Cursor = crDefault
+                      Action = usrg_CN_goodNewCost
+                      AllowAllUp = False
+                      Anchors = [akLeft, akTop]
+                      Constraints.MaxHeight = 0
+                      Constraints.MaxWidth = 0
+                      Constraints.MinHeight = 0
+                      Constraints.MinWidth = 0
+                      GroupIndex = 0
+                      Down = False
+                      Flat = False
+                      Font.Style = [fsBold]
+                      Layout = blGlyphLeft
+                      Margin = -1
+                      NumGlyphs = 1
+                      ParentFont = False
+                      ParentShowHint = True
+                      ParentBiDiMode = True
+                      PopupMenu = nil
+                      Spacing = 4
+                      Transparent = True
+                    end
                     object usrat_DBEdit_NUMBER_Label: TLabel
                       Tag = 0
                       Left = 4
@@ -1066,7 +1184,7 @@ Objects:
                     object usrat_DBEdit_USR_DESCRIPTION_Label: TLabel
                       Tag = 0
                       Left = 4
-                      Top = 132
+                      Top = 87
                       Width = 49
                       Height = 13
                       Cursor = crDefault
@@ -1127,46 +1245,9 @@ Objects:
                       Visible = True
                       WordWrap = False
                     end
-                    object usrat_gsIBLookupComboBox_USR_PRICEKEY_Label: TLabel
-                      Left = 4
-                      Top = 108
-                    end
                     object usrat_DBEdit_USR_EQRATE_Label: TLabel
                       Left = 293
                       Top = 10
-                    end
-                    object usrat_gsIBLookupComboBox_USR_ACCOUNTKEY_Label: TLabel
-                      Left = 4
-                      Top = 83
-                      Width = 79
-                      Caption = 'Счет расчетов:'
-                    end
-                    object usrg_147061100_2089375573_SpeedButton1: TSpeedButton
-                      Tag = 0
-                      Left = 536
-                      Top = 102
-                      Width = 119
-                      Height = 22
-                      Cursor = crDefault
-                      Action = usrg_CN_goodNewCost
-                      AllowAllUp = False
-                      Anchors = [akLeft, akTop]
-                      Constraints.MaxHeight = 0
-                      Constraints.MaxWidth = 0
-                      Constraints.MinHeight = 0
-                      Constraints.MinWidth = 0
-                      GroupIndex = 0
-                      Down = False
-                      Flat = False
-                      Layout = blGlyphLeft
-                      Margin = -1
-                      NumGlyphs = 1
-                      ParentFont = True
-                      ParentShowHint = True
-                      ParentBiDiMode = True
-                      PopupMenu = nil
-                      Spacing = 4
-                      Transparent = True
                     end
                     object usrat_DBEdit_NUMBER: TDBEdit
                       Tag = 0
@@ -1253,7 +1334,7 @@ Objects:
                     object usrat_DBEdit_USR_DESCRIPTION: TDBEdit
                       Tag = 0
                       Left = 105
-                      Top = 129
+                      Top = 84
                       Width = 374
                       Height = 21
                       Cursor = crDefault
@@ -1335,33 +1416,12 @@ Objects:
                       TabOrder = 2
                       Visible = True
                     end
-                    object usrat_gsIBLookupComboBox_USR_PRICEKEY: TgsIBLookupComboBox
-                      Left = 105
-                      Top = 104
-                      Width = 374
-                      Fields = 'RELEVANCEDATE'
-                      ListTable = 
-                        'INV_PRICE LEFT JOIN GD_DOCUMENT DOC ON INV_PRICE.DOCUMENTKEY = D' +
-                        'OC.ID LEFT JOIN GD_DOCUMENTTYPE DT ON DOC.DOCUMENTTYPEKEY = DT.I' +
-                        'D'
-                      ListField = 'name'
-                      Condition = 'DT.RUID = '#39'147014836_63934951'#39
-                      TabOrder = 4
-                    end
                     object usrat_DBEdit_USR_EQRATE: TxDBCalculatorEdit
                       Left = 403
                       Top = 6
                       Width = 76
-                      Cursor = crIBeam
-                      TabOrder = 5
-                    end
-                    object usrat_gsIBLookupComboBox_USR_ACCOUNTKEY: TgsIBLookupComboBox
-                      Left = 105
-                      Top = 79
-                      Width = 374
-                      ListField = 'FULLNAME'
-                      SortOrder = soAsc
-                      TabOrder = 6
+                      Cursor = crArrow
+                      TabOrder = 4
                     end
                   end
                   object usrg_TabSheet3: TTabSheet
@@ -1388,7 +1448,7 @@ Objects:
                       Left = 0
                       Top = 0
                       Width = 1260
-                      Height = 199
+                      Height = 201
                       Cursor = crDefault
                       Hint = ''
                       HelpContext = 0
@@ -1438,9 +1498,19 @@ Objects:
                       ParentShowHint = True
                       TabOrder = 0
                       Visible = True
+                      object usrat_gsIBLookupComboBox_USR_ACCOUNTKEY_Label: TLabel
+                        Left = 396
+                        Top = 27
+                        Width = 79
+                        Caption = 'Счет расчетов:'
+                      end
                       object usrat_gsIBLookupComboBox_USR_CUSTOMER_Label: TLabel
                       end
                       object usrat_gsIBLookupComboBox_USR_MAINDOCUMENTKEY_Label: TLabel
+                      end
+                      object usrat_gsIBLookupComboBox_USR_PRICEKEY_Label: TLabel
+                        Left = 396
+                        Top = 52
                       end
                       object usrat_gsIBLookupComboBox_USR_CONTACTKEY_Label: TLabel
                       end
@@ -1450,11 +1520,32 @@ Objects:
                         Top = 20
                         Visible = False
                       end
+                      object usrat_gsIBLookupComboBox_USR_ACCOUNTKEY: TgsIBLookupComboBox
+                        Left = 497
+                        Top = 23
+                        Width = 374
+                        ListField = 'FULLNAME'
+                        SortOrder = soAsc
+                        TabOrder = 5
+                      end
                       object usrat_gsIBLookupComboBox_USR_CUSTOMER: TgsIBLookupComboBox
                       end
                       object usrat_gsIBLookupComboBox_USR_MAINDOCUMENTKEY: TgsIBLookupComboBox
                       end
                       object usrat_DBCheckBox_USR_PFD_DELIVERED: TDBCheckBox
+                      end
+                      object usrat_gsIBLookupComboBox_USR_PRICEKEY: TgsIBLookupComboBox
+                        Left = 497
+                        Top = 48
+                        Width = 374
+                        Fields = 'RELEVANCEDATE'
+                        ListTable = 
+                          'INV_PRICE LEFT JOIN GD_DOCUMENT DOC ON INV_PRICE.DOCUMENTKEY = D' +
+                          'OC.ID LEFT JOIN GD_DOCUMENTTYPE DT ON DOC.DOCUMENTTYPEKEY = DT.I' +
+                          'D'
+                        ListField = 'name'
+                        Condition = 'DT.RUID = '#39'147014836_63934951'#39
+                        TabOrder = 7
                       end
                       object usrat_gsIBLookupComboBox_USR_CONTACTKEY: TgsIBLookupComboBox
                       end
@@ -1494,9 +1585,9 @@ Objects:
             object pnlCommon: TPanel
               Tag = 0
               Left = 2
-              Top = 231
+              Top = 233
               Width = 1268
-              Height = 691
+              Height = 689
               Cursor = crDefault
               Hint = ''
               HelpContext = 0
@@ -1536,7 +1627,7 @@ Objects:
                 Left = 0
                 Top = 26
                 Width = 1268
-                Height = 665
+                Height = 663
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
@@ -1572,7 +1663,7 @@ Objects:
                 TabStop = False
                 Visible = True
                 object ibgrdTop: TgsIBGrid
-                  Height = 665
+                  Height = 663
                   Expands = <>
                   Conditions = <>
                   ColumnEditors = <
@@ -1670,6 +1761,20 @@ Objects:
                       EditorStyle = cesCalculator
                       FieldName = 'USR$SUMRETAILNCU'
                       DisplayField = 'USR$SUMRETAILNCU'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.Distinct = False
+                      EditorStyle = cesCalculator
+                      FieldName = 'USR$SUMROUNDNEW'
+                      DisplayField = 'USR$SUMROUNDNEW'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.Distinct = False
+                      EditorStyle = cesCalculator
+                      FieldName = 'USR$SUMROUNDOLD'
+                      DisplayField = 'USR$SUMROUNDOLD'
                       DropDownCount = 8
                     end
                     item
@@ -1869,6 +1974,13 @@ Objects:
                       EditorStyle = cesCalculator
                       FieldName = 'TO_USR$INV_TRADEPERC'
                       DisplayField = 'TO_USR$INV_TRADEPERC'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.Distinct = False
+                      EditorStyle = cesDate
+                      FieldName = 'USR$LASTDATERECOST'
+                      DisplayField = 'USR$LASTDATERECOST'
                       DropDownCount = 8
                     end
                     item
@@ -2173,14 +2285,14 @@ Objects:
                       Expanded = False
                       FieldName = 'GOODNAME'
                       Title.Caption = 'Наименование ТМЦ'
-                      Width = 65
+                      Width = 362
                       Visible = True
                     end
                     item
                       Expanded = False
                       FieldName = 'NAME'
                       Title.Caption = 'Ед.изм.'
-                      Width = 260
+                      Width = 63
                       Visible = True
                     end
                     item
@@ -2188,14 +2300,14 @@ Objects:
                       FieldName = 'CARD_USR$INV_ACCOUNTKEY_ALIAS'
                       ReadOnly = True
                       Title.Caption = 'Счет учета'
-                      Width = 39
+                      Width = 72
                       Visible = True
                     end
                     item
                       Expanded = False
                       FieldName = 'QUANTITY'
                       Title.Caption = 'Количество'
-                      Width = 104
+                      Width = 73
                       Visible = True
                       TotalType = ttSum
                     end
@@ -2203,7 +2315,7 @@ Objects:
                       Expanded = False
                       FieldName = 'USR$SUMNCU'
                       Title.Caption = 'Сумма переоценки, руб.'
-                      Width = 130
+                      Width = 142
                       Visible = True
                       DisplayFormat = '#,##0.##'
                       TotalType = ttSum
@@ -3408,6 +3520,51 @@ Objects:
                       Title.Caption = 'Международный код'
                       Width = 130
                       Visible = True
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'CARD_USR$CN_ACTVALUAT2261763319'
+                      ReadOnly = True
+                      Title.Caption = 'Текст (20)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$CN_ACTVALUATION'
+                      ReadOnly = True
+                      Title.Caption = 'Акт описи и оценки'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$LASTDATERECOST'
+                      ReadOnly = True
+                      Title.Caption = 'Дата последней перео'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$LASTDATERECOST'
+                      Title.Caption = 'Дата последней перео'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SUMROUNDOLD'
+                      Title.Caption = 'Сумма'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SUMROUNDNEW'
+                      Title.Caption = 'Сумма'
+                      Width = -1
+                      Visible = False
                     end>
                 end
               end
@@ -3416,7 +3573,7 @@ Objects:
                 Left = 0
                 Top = 26
                 Width = 0
-                Height = 665
+                Height = 663
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
@@ -3436,7 +3593,7 @@ Objects:
                 Left = 1268
                 Top = 26
                 Width = 0
-                Height = 665
+                Height = 663
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
@@ -3454,7 +3611,7 @@ Objects:
               object TBDockBottom: TTBDock
                 Tag = 0
                 Left = 0
-                Top = 691
+                Top = 689
                 Width = 1268
                 Height = 0
                 Cursor = crDefault
@@ -4024,7 +4181,7 @@ Objects:
               Category = 'MainCommands'
               Caption = 'Новый'
               Checked = False
-              Enabled = True
+              Enabled = False
               HelpContext = 0
               Hint = ''
               ShortCut = 0
@@ -4231,7 +4388,7 @@ Objects:
           end
           object ibtrCommon: TIBTransaction
             Tag = 0
-            Active = True
+            Active = False
             DefaultDatabase = dmDatabase.ibdbGAdmin
             IdleTimer = 0
             DefaultAction = TACommit
@@ -4556,7 +4713,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-05-05T15:54:46+03:00
+      EDITIONDATE: 2023-05-11T14:46:41+03:00
       DISPLAYSCRIPT: | 
         USRG_CN_GOODNEWCOSTONEXECUTE
         USRG_CN_GOODNEWCOSTONEXECUTE_EXCEPT
@@ -4577,6 +4734,15 @@ Objects:
           D.DisableControls
         
           except usrg_CN_goodNewCostOnExecute_Except(D)
+          
+          if not d.EOF Then
+            if Application.MessageBox("По документу уже есть переоценка. Чтобы продолжить, необходимо очистить данные. Продолжить?", "", vbSystemModal+vbQuestion+vbYesNo) = vbYes Then
+              d.First
+              while not d.eof
+                d.delete
+              wend
+            end if
+          end if
           
           dim Creator
           
@@ -4629,6 +4795,10 @@ Objects:
         
               D.FieldByName("TO_USR$LASTDATERECOST").AsDateTime = Sender.OwnerForm.gdcObject.FieldByName("documentdate").AsDateTime
               D.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = SQl.FieldByName("NEWCOST").AsCurrency
+        
+              ' доп поля переоценки
+              D.FieldByName("USR$CN_NEWCOSTPERC").AsCurrency  = SQl.FieldByName("COSTPERC").AsCurrency
+              D.FieldByName("USR$CN_DELTASUM").AsCurrency  = SQl.FieldByName("DELTASUM").AsCurrency
               on error resume next
               D.Post
         
@@ -4703,7 +4873,7 @@ Objects:
       OBJECTKEY: "147061228_2089375573 dlgInvDocument147061100_2089375573\\usrg_CN_goodNewCost"
       OBJECTNAME: "usrg_CN_goodNewCost"
       PARENTNAME: "dlgInvDocument147061100_2089375573"
-      EDITIONDATE: 2023-05-05T15:54:46+03:00
+      EDITIONDATE: 2023-05-11T14:46:41+03:00
   - 
     Properties: 
       Class: "TgdcTableField"
