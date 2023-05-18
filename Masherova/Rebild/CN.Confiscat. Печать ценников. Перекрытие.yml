@@ -5,10 +5,10 @@ Properties:
   RUID: 147060338_2089375573
   Name: "CN.Confiscat. Печать ценников. Перекрытие"
   Caption: "CN.Confiscat. Печать ценников. Перекрытие"
-  Version: "1.0.0.1"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: EA2F287A2DE39BE6217B1041B380C2D4
+  MD5: 9965E2A92E3E97DABE0FD342CBC2C825
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-05-02T13:32:02+03:00
+      EDITIONDATE: 2023-05-16T11:16:20+02:00
       DISPLAYSCRIPT: | 
         RETAILINV_REPORTLABELS
         
@@ -98,7 +98,9 @@ Objects:
                 " JOIN INV_CARD card ON card.ID  =  l.TOCARDKEY "
               quant = "   l.QUANTITY as QUANTITY, "
             ' переоценка товаров
-            case inv_DocNewCostBill_RUID
+            ' переоценка конфиската
+            case inv_DocNewCostBill_RUID, _
+                 "147061100_2089375573"
               TableName = _
                 " JOIN USR$INV_NEWCOSTLINE l  ON  doc.ID  =  l.DOCUMENTKEY " & _
                 " JOIN INV_CARD card ON card.ID  =  l.TOCARDKEY " & _
@@ -114,7 +116,9 @@ Objects:
           end select
           
           dim PriceStr
-          if RUID = inv_DocNewCostBill_RUID then
+          ' в т.ч. переоценка конфиската
+          if RUID = inv_DocNewCostBill_RUID or _
+             RUID = "147061100_2089375573" then
             PriceStr = _
               " card1.USR$INV_COSTRETAILNCU AS OldPrice, "
           elseif RUID = inv_DocAddwOptBill_RUID then
@@ -166,6 +170,7 @@ Objects:
             "   prov.FULLNAME AS Provider, " & _
             "   PLACE.NAME AS PLACENAME, " & _
             "   card.USR$INV_DATERECEIVE AS OnDate, " & _
+            "   " & _
             PriceStr & _
             "   card.USR$INV_COSTRETAILNCU AS Price, " & _
             "   iif((coalesce(g.USR$INV_WEIGHT, coalesce(g.USR$MN_MEASURE,0)) <> 0 and coalesce(g.USR$INV_WEIGHT, coalesce(g.USR$MN_MEASURE,0)) <> 1), round(card.USR$INV_COSTRETAILNCU / coalesce(g.USR$INV_WEIGHT, g.USR$MN_MEASURE), 2), 0) as priceone " & _

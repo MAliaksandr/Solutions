@@ -5,12 +5,13 @@ Properties:
   RUID: 147061808_2089375573
   Name: "CN.Confiscat. Переоценка конфиската"
   Caption: "CN.Confiscat. Переоценка конфиската"
-  Version: "1.0.0.2"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 2E059C8F72D5CEF090450C9A7DB9F924
+  MD5: D98626C72A1F0B5FB38D6BF73ADA8F6C
 Uses: 
   - "147978808_215642201 Мат_склад - evt_object"
+  - "147031769_208155297 GS.PositiveCash.Склад.Обмен с кассовым сервером.Функции"
   - "148509668_396646306 Торговля - исследователь"
   - "147059933_2089375573 CN.Confiscat. Таблицы, поля, домены и справочники"
   - "151964491_623967871 GS.Торговля.Документы.Переоценка товаров"
@@ -33,7 +34,7 @@ Objects:
       NAME: " 02. Переоценка конфиската"
       DESCRIPTION: " 02. Переоценка конфиската"
       USERGROUPNAME: "147061101_2089375573"
-      EDITIONDATE: 2023-05-04T18:35:48+03:00
+      EDITIONDATE: 2023-05-04T17:35:48+02:00
   - 
     Properties: 
       Class: "TgdcExplorer"
@@ -52,7 +53,7 @@ Objects:
       IMGINDEX: 88
       ORDR: ~
       SUBTYPE: "147061100_2089375573"
-      EDITIONDATE: 2023-05-11T14:27:31+03:00
+      EDITIONDATE: 2023-05-16T10:55:29+02:00
       DISABLED: 0
   - 
     Properties: 
@@ -92,7 +93,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2023-05-11T14:49:55+03:00
+      EDITIONDATE: 2023-05-11T13:49:55+02:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -134,7 +135,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2023-05-11T14:50:11+03:00
+      EDITIONDATE: 2023-05-11T13:50:11+02:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -177,7 +178,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2023-05-05T14:11:09+03:00
+      EDITIONDATE: 2023-05-05T13:11:09+02:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -220,7 +221,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2023-05-05T14:09:33+03:00
+      EDITIONDATE: 2023-05-05T13:09:33+02:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -249,34 +250,137 @@ Objects:
       MASK: "\"NUMBER\""
       REPORTGROUPKEY: "147061101_2089375573 Складской учет\\ 02. Переоценка конфиската"
       RUID: "147061100_2089375573"
-      EDITIONDATE: 2023-05-11T14:27:31+03:00
+      EDITIONDATE: 2023-05-16T10:55:29+02:00
       DISABLED: 0
       HEADERFUNCTIONTEMPLATE: ~
       LINEFUNCTIONTEMPLATE: ~
       OPTIONS: !!binary > 
-        BgZJRFYzLjAGD1VTUiRJTlZfTkVXQ09TVAYTVVNSJElOVl9ORVdDT1NUTElORQRt+cMIBg9VU1Ik
-        SU5WX05FV0NPU1QGC1VTUiRERVBUS0VZBgAGAAEBAAEABg9VU1IkSU5WX05FV0NPU1QGC1VTUiRE
-        RVBUS0VZBgAGAAEBAAEAAQYSVVNSJElOVl9BQ0NPVU5US0VZBhFVU1IkSU5WX0JVWU5EU05DVQYS
-        VVNSJElOVl9DT1NUQUNDTkNVBhFVU1IkSU5WX0NPU1RCVVlFUQYSVVNSJElOVl9DT1NUQlVZTkNV
-        BhRVU1IkSU5WX0NPU1RQUk9WSURFUgYYVVNSJElOVl9PUklHSU5DT1VOVFJZS0VZBhRVU1IkSU5W
-        X1BFUkNQUk9WSURFUgYQVVNSJElOVl9QUk9WSURFUgYPVVNSJElOVl9TRUxMTkRTBhNVU1IkSU5W
+        BgZJRFYzLjAGD1VTUiRJTlZfTkVXQ09TVAYTVVNSJElOVl9ORVdDT1NUTElORQRt+cMIBhNVU1Ik
+        SU5WX05FV0NPU1RMSU5FBg5VU1IkQ09OVEFDVEtFWQYPVVNSJElOVl9ORVdDT1NUBgtVU1IkREVQ
+        VEtFWQQBAAEABhNVU1IkSU5WX05FV0NPU1RMSU5FBg5VU1IkQ09OVEFDVEtFWQYPVVNSJElOVl9O
+        RVdDT1NUBgtVU1IkREVQVEtFWQQBAAEAAQYSVVNSJElOVl9BQ0NPVU5US0VZBhFVU1IkSU5WX0JV
+        WU5EU05DVQYSVVNSJElOVl9DT1NUQUNDTkNVBhFVU1IkSU5WX0NPU1RCVVlFUQYSVVNSJElOVl9D
+        T1NUQlVZTkNVBhRVU1IkSU5WX0NPU1RQUk9WSURFUgYYVVNSJElOVl9PUklHSU5DT1VOVFJZS0VZ
+        BhRVU1IkSU5WX1BFUkNQUk9WSURFUgYQVVNSJElOVl9QUk9WSURFUgYPVVNSJElOVl9TRUxMTkRT
+        BhNVU1IkSU5WX0lTRklYRURDT1NUBhJVU1IkSU5WX1NFTENPU1ROQ1UGElVTUiRJTlZfQ09TVE9Q
+        VE5DVQYPVVNSJElOVl9PUFRQRVJDBhRVU1IkSU5WX0NPU1RHTEFTU05DVQYUVVNSJElOVl9DT1NU
+        VFJBREVOQ1UGFVVTUiRJTlZfQ09TVFRSV0lUSE5EUwYRVVNSJElOVl9UUkFERVBFUkMGFVVTUiRJ
+        TlZfQ09TVFJFVEFJTE5DVQYPVVNSJE1OX0hVTUlESVRZBg9VU1IkSU5WX1RBWFNBTEUGElVTUiRJ
+        TlZfVEFYU0VSVklDRQYSVVNSJElOVl9DT1NUT0lMVEFYBhZVU1IkSU5WX0VYVFRBWFNBTEVDT1NU
+        Bg1VU1IkSU5WX0VYVFJBBhFVU1IkSU5WX0VYVFJBQ09TVAYQVVNSJElOVl9FWFRSQU5EUwYYVVNS
+        JElOVl9FWFRSQVNFUlZJQ0VDT1NUBhNVU1IkQ05fQUNUVkFMVUFUSU9OBhJVU1IkTEFTVERBVEVS
+        RUNPU1QAAQYSVVNSJElOVl9DT1NUQUNDTkNVBhFVU1IkSU5WX0NPU1RCVVlFUQYSVVNSJElOVl9D
+        T1NUQlVZTkNVBhRVU1IkSU5WX1BFUkNQUk9WSURFUgYPVVNSJElOVl9TRUxMTkRTBhNVU1IkSU5W
         X0lTRklYRURDT1NUBhJVU1IkSU5WX1NFTENPU1ROQ1UGElVTUiRJTlZfQ09TVE9QVE5DVQYPVVNS
-        JElOVl9PUFRQRVJDBhRVU1IkSU5WX0NPU1RHTEFTU05DVQYUVVNSJElOVl9DT1NUVFJBREVOQ1UG
-        FVVTUiRJTlZfQ09TVFRSV0lUSE5EUwYRVVNSJElOVl9UUkFERVBFUkMGFVVTUiRJTlZfQ09TVFJF
-        VEFJTE5DVQYPVVNSJE1OX0hVTUlESVRZBg9VU1IkSU5WX1RBWFNBTEUGElVTUiRJTlZfVEFYU0VS
-        VklDRQYSVVNSJElOVl9DT1NUT0lMVEFYBhZVU1IkSU5WX0VYVFRBWFNBTEVDT1NUBg1VU1IkSU5W
-        X0VYVFJBBhFVU1IkSU5WX0VYVFJBQ09TVAYQVVNSJElOVl9FWFRSQU5EUwYYVVNSJElOVl9FWFRS
-        QVNFUlZJQ0VDT1NUBhNVU1IkQ05fQUNUVkFMVUFUSU9OBhJVU1IkTEFTVERBVEVSRUNPU1QAAQYS
-        VVNSJElOVl9DT1NUQUNDTkNVBhFVU1IkSU5WX0NPU1RCVVlFUQYSVVNSJElOVl9DT1NUQlVZTkNV
-        BhRVU1IkSU5WX1BFUkNQUk9WSURFUgYPVVNSJElOVl9TRUxMTkRTBhNVU1IkSU5WX0lTRklYRURD
-        T1NUBhJVU1IkSU5WX1NFTENPU1ROQ1UGElVTUiRJTlZfQ09TVE9QVE5DVQYPVVNSJElOVl9PUFRQ
-        RVJDBhFVU1IkSU5WX0NPU1RPUFRFUQYUVVNSJElOVl9DT1NUR0xBU1NOQ1UGFFVTUiRJTlZfQ09T
-        VFJFVEFJTEVRBhRVU1IkSU5WX0NPU1RUUkFERU5DVQYVVVNSJElOVl9DT1NUVFJXSVRITkRTBhFV
-        U1IkSU5WX1RSQURFUEVSQwYVVVNSJElOVl9DT1NUUkVUQUlMTkNVBg9VU1IkTU5fSFVNSURJVFkG
-        D1VTUiRJTlZfVEFYU0FMRQYSVVNSJElOVl9UQVhTRVJWSUNFBhZVU1IkSU5WX0VYVFRBWFNBTEVD
-        T1NUBg1VU1IkSU5WX0VYVFJBBhFVU1IkSU5WX0VYVFJBQ09TVAYQVVNSJElOVl9FWFRSQU5EUwYY
-        VVNSJElOVl9FWFRSQVNFUlZJQ0VDT1NUBhJVU1IkTEFTVERBVEVSRUNPU1QAAgAJCAgICAEACAgJ
-        CAgI
+        JElOVl9PUFRQRVJDBhFVU1IkSU5WX0NPU1RPUFRFUQYUVVNSJElOVl9DT1NUR0xBU1NOQ1UGFFVT
+        UiRJTlZfQ09TVFJFVEFJTEVRBhRVU1IkSU5WX0NPU1RUUkFERU5DVQYVVVNSJElOVl9DT1NUVFJX
+        SVRITkRTBhFVU1IkSU5WX1RSQURFUEVSQwYVVVNSJElOVl9DT1NUUkVUQUlMTkNVBg9VU1IkTU5f
+        SFVNSURJVFkGD1VTUiRJTlZfVEFYU0FMRQYSVVNSJElOVl9UQVhTRVJWSUNFBhZVU1IkSU5WX0VY
+        VFRBWFNBTEVDT1NUBg1VU1IkSU5WX0VYVFJBBhFVU1IkSU5WX0VYVFJBQ09TVAYQVVNSJElOVl9F
+        WFRSQU5EUwYYVVNSJElOVl9FWFRSQVNFUlZJQ0VDT1NUBhJVU1IkTEFTVERBVEVSRUNPU1QAAgAJ
+        CAgICAEACAgJCAgI
+  - 
+    Properties: 
+      Class: "TgdcInvDocumentTypeOptions"
+      RUID: 147063628_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147061100_2089375573
+    Fields: 
+      BOOL_VALUE: ~
+      CONTACTKEY: ~
+      CURRKEY: ~
+      DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
+      OPTION_NAME: "DM.SF"
+      RELATIONFIELDKEY: "147063598_2089375573 Контакт, USR$INV_NEWCOSTLINE.USR$CONTACTKEY"
+      EDITIONDATE: 2023-05-16T10:47:08+02:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcInvDocumentTypeOptions"
+      RUID: 147063629_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147061100_2089375573
+    Fields: 
+      BOOL_VALUE: ~
+      CONTACTKEY: ~
+      CURRKEY: ~
+      DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
+      OPTION_NAME: "CM.SF"
+      RELATIONFIELDKEY: "147063598_2089375573 Контакт, USR$INV_NEWCOSTLINE.USR$CONTACTKEY"
+      EDITIONDATE: 2023-05-16T10:47:08+02:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcInvDocumentTypeOptions"
+      RUID: 147063474_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147061100_2089375573
+    Fields: 
+      BOOL_VALUE: ~
+      CONTACTKEY: ~
+      CURRKEY: ~
+      DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
+      OPTION_NAME: "DM.SSF"
+      RELATIONFIELDKEY: "147004863_31587988 Подразделение, USR$INV_NEWCOST.USR$DEPTKEY"
+      EDITIONDATE: 2023-05-16T10:30:42+02:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcInvDocumentTypeOptions"
+      RUID: 147063475_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147061100_2089375573
+    Fields: 
+      BOOL_VALUE: ~
+      CONTACTKEY: ~
+      CURRKEY: ~
+      DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
+      OPTION_NAME: "CM.SSF"
+      RELATIONFIELDKEY: "147004863_31587988 Подразделение, USR$INV_NEWCOST.USR$DEPTKEY"
+      EDITIONDATE: 2023-05-16T10:30:42+02:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcInvDocumentTypeOptions"
+      RUID: 147063412_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147061100_2089375573
+    Fields: 
+      BOOL_VALUE: 1
+      CONTACTKEY: ~
+      CURRKEY: ~
+      DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
+      OPTION_NAME: "DM.CT.imctCompanyDepartment"
+      RELATIONFIELDKEY: ~
+      EDITIONDATE: 2023-05-16T10:21:59+02:00
+      DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcInvDocumentTypeOptions"
+      RUID: 147063414_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147061100_2089375573
+    Fields: 
+      BOOL_VALUE: 1
+      CONTACTKEY: ~
+      CURRKEY: ~
+      DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
+      OPTION_NAME: "CM.CT.imctCompanyDepartment"
+      RELATIONFIELDKEY: ~
+      EDITIONDATE: 2023-05-16T10:21:59+02:00
+      DISABLED: 0
   - 
     Properties: 
       Class: "TgdcStorageFolder"
@@ -293,7 +397,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-04T18:45:39+03:00
+      EDITIONDATE: 2023-05-04T17:45:39+02:00
       BLOB_DATA: ~
   - 
     Properties: 
@@ -311,7 +415,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-05T15:55:06+03:00
+      EDITIONDATE: 2023-05-05T14:55:06+02:00
       BLOB_DATA: ~
   - 
     Properties: 
@@ -329,7 +433,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-10T18:56:27+03:00
+      EDITIONDATE: 2023-05-10T17:56:27+02:00
       BLOB_DATA: !!binary > 
         VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
         bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
@@ -442,7 +546,7 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-05T15:00:24+03:00
+      EDITIONDATE: 2023-05-05T14:00:24+02:00
       BLOB_DATA: ~
   - 
     Properties: 
@@ -460,13 +564,13 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-11T14:37:16+03:00
+      EDITIONDATE: 2023-05-16T17:12:12+02:00
       BLOB_DATA: !!binary > 
         VFBGMAYNR1JJRF9TVFJFQU1fNAEGBlRhaG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABghjbFdp
         bmRvdwEGBlRhaG9tYQYPY2xIaWdobGlnaHRUZXh0AvUAAggAAgEABgtjbEhpZ2hsaWdodAEGBlRh
         aG9tYQYMY2xXaW5kb3dUZXh0AvUAAggAAgEABgljbEJ0bkZhY2UJBgkkMDBFN0YzRjcGCSQwMEQ2
         RTdFNw4ACAgOAAgOAQhFeHBhbmRlZAgJRmllbGROYW1lBghHT09ETkFNRQhSZWFkT25seQgNVGl0
-        bGUuQ2FwdGlvbgYQzeDo7OXt7uLg7ejlINLM1gVXaWR0aAPVAAdWaXNpYmxlCQABCEV4cGFuZGVk
+        bGUuQ2FwdGlvbgYQzeDo7OXt7uLg7ejlINLM1gVXaWR0aAMgAQdWaXNpYmxlCQABCEV4cGFuZGVk
         CAlGaWVsZE5hbWUGBE5BTUUIUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GB8XkLujn7C4FV2lkdGgC
         OAdWaXNpYmxlCQABCEV4cGFuZGVkCAlGaWVsZE5hbWUGHUNBUkRfVVNSJElOVl9BQ0NPVU5US0VZ
         X0FMSUFTCFJlYWRPbmx5CA1UaXRsZS5DYXB0aW9uBgrR9+XyIPP35fLgBVdpZHRoA4MAB1Zpc2li
@@ -779,7 +883,12 @@ Objects:
         Bg9VU1IkQ05fREVMVEFTVU0IUmVhZE9ubHkIDVRpdGxlLkNhcHRpb24GDdDg5+zl8CDz9uXt6ugF
         V2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGElVTUiRDTl9ORVdDT1NUUEVS
         QwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYUJSDz9uXt6uggKOru7fTo8erg8ikFV2lkdGgC/wdW
-        aXNpYmxlCAAACAi0HgkI
+        aXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUGDlVTUiRDT05UQUNUS0VZCFJlYWRPbmx5CA1U
+        aXRsZS5DYXB0aW9uBgvK7u3y4OryIChtKQVXaWR0aAL/B1Zpc2libGUIAAEIRXhwYW5kZWQICUZp
+        ZWxkTmFtZQYbSU5WTElORV9VU1IkQ09OVEFDVEtFWV9OQU1FCFJlYWRPbmx5CA1UaXRsZS5DYXB0
+        aW9uBgzN4Ojs5e3u4uDt6OUFV2lkdGgC/wdWaXNpYmxlCAABCEV4cGFuZGVkCAlGaWVsZE5hbWUG
+        HklOVkxJTkVfVVNSJENPTlRBQ1RLRVlfQUREUkVTUwhSZWFkT25seQgNVGl0bGUuQ2FwdGlvbgYF
+        wOTw5fEFV2lkdGgC/wdWaXNpYmxlCAAACAi0HgkI
   - 
     Properties: 
       Class: "TgdcStorageValue"
@@ -796,13 +905,13 @@ Objects:
       DATETIME_DATA: ~
       INT_DATA: ~
       STR_DATA: ~
-      EDITIONDATE: 2023-05-10T13:18:07+03:00
+      EDITIONDATE: 2023-05-16T10:54:09+02:00
       BLOB_DATA: | 
         object dlgInvDocument147061100_2089375573: TdlgInvDocument
           Tag = 0
           Left = 316
           Top = 38
-          Width = 1288
+          Width = 1287
           Height = 1004
           Cursor = crDefault
           Hint = ''
@@ -878,7 +987,7 @@ Objects:
             Tag = 0
             Left = 0
             Top = 922
-            Width = 1272
+            Width = 1271
             Height = 2
             Cursor = crDefault
             Hint = ''
@@ -896,7 +1005,7 @@ Objects:
             Tag = 0
             Left = 0
             Top = 0
-            Width = 1272
+            Width = 1271
             Height = 924
             Cursor = crDefault
             Hint = ''
@@ -935,8 +1044,8 @@ Objects:
             object sptMain: TSplitter
               Tag = 0
               Left = 2
-              Top = 231
-              Width = 1268
+              Top = 234
+              Width = 1267
               Height = 2
               Cursor = crVSplit
               Hint = ''
@@ -956,8 +1065,8 @@ Objects:
               Tag = 0
               Left = 2
               Top = 2
-              Width = 1268
-              Height = 229
+              Width = 1267
+              Height = 232
               Cursor = crDefault
               Hint = ''
               HelpContext = 0
@@ -996,8 +1105,8 @@ Objects:
                 Tag = 0
                 Left = 0
                 Top = 0
-                Width = 1268
-                Height = 229
+                Width = 1267
+                Height = 232
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
@@ -1036,8 +1145,8 @@ Objects:
                   Tag = 0
                   Left = 0
                   Top = 0
-                  Width = 1268
-                  Height = 229
+                  Width = 1267
+                  Height = 232
                   Cursor = crDefault
                   Hint = ''
                   HelpContext = 0
@@ -1387,6 +1496,7 @@ Objects:
                       KeyField = 'ID'
                       SortOrder = soAsc
                       CheckUserRights = True
+                      Condition = ''
                       gdClassName = 'TgdcBaseContact'
                       SubType = ''
                       ReadOnly = False
@@ -1402,7 +1512,7 @@ Objects:
                       DragKind = dkDrag
                       DragMode = dmManual
                       DropDownCount = 16
-                      Enabled = True
+                      Enabled = False
                       ImeMode = imDontCare
                       ImeName = ''
                       ItemHeight = 13
@@ -1447,8 +1557,8 @@ Objects:
                       Tag = 0
                       Left = 0
                       Top = 0
-                      Width = 1260
-                      Height = 201
+                      Width = 1259
+                      Height = 204
                       Cursor = crDefault
                       Hint = ''
                       HelpContext = 0
@@ -1526,7 +1636,7 @@ Objects:
                         Width = 374
                         ListField = 'FULLNAME'
                         SortOrder = soAsc
-                        TabOrder = 5
+                        TabOrder = 4
                       end
                       object usrat_gsIBLookupComboBox_USR_CUSTOMER: TgsIBLookupComboBox
                       end
@@ -1585,9 +1695,9 @@ Objects:
             object pnlCommon: TPanel
               Tag = 0
               Left = 2
-              Top = 233
-              Width = 1268
-              Height = 689
+              Top = 236
+              Width = 1267
+              Height = 686
               Cursor = crDefault
               Hint = ''
               HelpContext = 0
@@ -1626,8 +1736,8 @@ Objects:
                 Tag = 0
                 Left = 0
                 Top = 26
-                Width = 1268
-                Height = 663
+                Width = 1267
+                Height = 660
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
@@ -1663,7 +1773,7 @@ Objects:
                 TabStop = False
                 Visible = True
                 object ibgrdTop: TgsIBGrid
-                  Height = 663
+                  Height = 660
                   Expands = <>
                   Conditions = <>
                   ColumnEditors = <
@@ -1699,6 +1809,36 @@ Objects:
                       EditorStyle = cesLookup
                       FieldName = 'GOODKEY'
                       DisplayField = 'GOODALIAS'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.Distinct = False
+                      EditorStyle = cesCalculator
+                      FieldName = 'USR$CN_DELTASUM'
+                      DisplayField = 'USR$CN_DELTASUM'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.Distinct = False
+                      EditorStyle = cesCalculator
+                      FieldName = 'USR$CN_NEWCOSTPERC'
+                      DisplayField = 'USR$CN_NEWCOSTPERC'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.LookupListField = 'NAME'
+                      Lookup.LookupKeyField = 'ID'
+                      Lookup.LookupTable = 
+                        'gd_contact c JOIN gd_contact cp ON cp.lb <= c.lb AND cp.rb >= c.' +
+                        'rb'
+                      Lookup.Condition = 'c.contacttype = 4 AND cp.id = :ck'
+                      Lookup.gdClassName = 'TgdcDepartment'
+                      Lookup.Database = dmDatabase.ibdbGAdmin
+                      Lookup.Transaction = ibtrCommon
+                      Lookup.Distinct = False
+                      EditorStyle = cesLookup
+                      FieldName = 'USR$CONTACTKEY'
+                      DisplayField = 'INVLINE_USR$CONTACTKEY_NAME'
                       DropDownCount = 8
                     end
                     item
@@ -2029,6 +2169,19 @@ Objects:
                       DropDownCount = 8
                     end
                     item
+                      Lookup.LookupListField = 'NAME'
+                      Lookup.LookupKeyField = 'ID'
+                      Lookup.LookupTable = 'GD_VALUE'
+                      Lookup.gdClassName = 'TgdcValue'
+                      Lookup.Database = dmDatabase.ibdbGAdmin
+                      Lookup.Transaction = ibtrCommon
+                      Lookup.Distinct = False
+                      EditorStyle = cesLookup
+                      FieldName = 'USR$OUTVALUEKEY'
+                      DisplayField = 'INVLINE_USR$OUTVALUEKEY_NAME'
+                      DropDownCount = 8
+                    end
+                    item
                       Lookup.Distinct = False
                       EditorStyle = cesCalculator
                       FieldName = 'USR$MN_ASHES'
@@ -2207,6 +2360,19 @@ Objects:
                       DropDownCount = 8
                     end
                     item
+                      Lookup.LookupListField = 'NAME'
+                      Lookup.LookupKeyField = 'ID'
+                      Lookup.LookupTable = 'GD_GOOD'
+                      Lookup.gdClassName = 'TgdcGood'
+                      Lookup.Database = dmDatabase.ibdbGAdmin
+                      Lookup.Transaction = ibtrCommon
+                      Lookup.Distinct = False
+                      EditorStyle = cesLookup
+                      FieldName = 'USR$MN_MAINGOODKEY'
+                      DisplayField = 'INVLINE_USR$MN_MAINGOODKEY_NAME'
+                      DropDownCount = 8
+                    end
+                    item
                       Lookup.Distinct = False
                       EditorStyle = cesCalculator
                       FieldName = 'USR$MN_SUGAR'
@@ -2235,6 +2401,32 @@ Objects:
                       DropDownCount = 8
                     end
                     item
+                      Lookup.LookupListField = 'USR$NAME'
+                      Lookup.LookupKeyField = 'ID'
+                      Lookup.LookupTable = 'USR$INV_NORMLOSSGROUP'
+                      Lookup.gdClassName = 'TgdcAttrUserDefined'
+                      Lookup.Database = dmDatabase.ibdbGAdmin
+                      Lookup.Transaction = ibtrCommon
+                      Lookup.Distinct = False
+                      EditorStyle = cesLookup
+                      FieldName = 'USR$NATURALLOSSGROUP'
+                      DisplayField = 'INVLINE_USR$NATURALLO2639970324'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.LookupListField = 'NAME'
+                      Lookup.LookupKeyField = 'ID'
+                      Lookup.LookupTable = 'GD_PLACE'
+                      Lookup.gdClassName = 'TgdcPlace'
+                      Lookup.Database = dmDatabase.ibdbGAdmin
+                      Lookup.Transaction = ibtrCommon
+                      Lookup.Distinct = False
+                      EditorStyle = cesLookup
+                      FieldName = 'USR$COUNTRYKEY'
+                      DisplayField = 'INVLINE_USR$COUNTRYKEY_NAME'
+                      DropDownCount = 8
+                    end
+                    item
                       Lookup.Distinct = False
                       EditorStyle = cesValueList
                       FieldName = 'USR$PF_ISFRAC'
@@ -2249,6 +2441,34 @@ Objects:
                       EditorStyle = cesCalculator
                       FieldName = 'USR$INV_OPTPERC'
                       DisplayField = 'USR$INV_OPTPERC'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.LookupListField = 'USR$NAME'
+                      Lookup.LookupKeyField = 'ID'
+                      Lookup.LookupTable = 'USR$INV_GROUPPERC'
+                      Lookup.gdClassName = 'TgdcAttrUserDefined'
+                      Lookup.SubType = 'USR$INV_GROUPPERC'
+                      Lookup.Database = dmDatabase.ibdbGAdmin
+                      Lookup.Transaction = ibtrCommon
+                      Lookup.Distinct = False
+                      EditorStyle = cesLookup
+                      FieldName = 'USR$INV_PERCKEY'
+                      DisplayField = 'INVLINE_USR$INV_PERCK1399685388'
+                      DropDownCount = 8
+                    end
+                    item
+                      Lookup.LookupListField = 'USR$NAMEGOODGROUP'
+                      Lookup.LookupKeyField = 'ID'
+                      Lookup.LookupTable = 'USR$INV_REFFORMTORG'
+                      Lookup.gdClassName = 'TgdcAttrUserDefinedLBRBTree'
+                      Lookup.SubType = 'USR$INV_REFFORMTORG'
+                      Lookup.Database = dmDatabase.ibdbGAdmin
+                      Lookup.Transaction = ibtrCommon
+                      Lookup.Distinct = False
+                      EditorStyle = cesLookup
+                      FieldName = 'USR$INV_REFFORMTORGKEY'
+                      DisplayField = 'INVLINE_USR$INV_REFFOR883258944'
                       DropDownCount = 8
                     end
                     item
@@ -2292,7 +2512,7 @@ Objects:
                       Expanded = False
                       FieldName = 'NAME'
                       Title.Caption = 'Ед.изм.'
-                      Width = 63
+                      Width = 51
                       Visible = True
                     end
                     item
@@ -2307,87 +2527,44 @@ Objects:
                       Expanded = False
                       FieldName = 'QUANTITY'
                       Title.Caption = 'Количество'
+                      Title.Color = 8454143
                       Width = 73
                       Visible = True
                       TotalType = ttSum
                     end
                     item
                       Expanded = False
-                      FieldName = 'USR$SUMNCU'
-                      Title.Caption = 'Сумма переоценки, руб.'
-                      Width = 142
+                      FieldName = 'INVLINE_USR$CONTACTKEY_NAME'
+                      Title.Caption = 'Подразделение'
+                      Title.Color = 16777088
+                      Width = 170
                       Visible = True
-                      DisplayFormat = '#,##0.##'
-                      TotalType = ttSum
                     end
                     item
                       Expanded = False
-                      FieldName = 'FROM_USR$INV_COSTACCNCU'
-                      ReadOnly = True
-                      Title.Caption = 'Прежняя цена учета, руб.'
-                      Width = 130
+                      FieldName = 'USR$CN_NEWCOSTPERC'
+                      Title.Caption = '% уценки (конфискат)'
+                      Title.Color = 8454016
+                      Title.Font.Charset = DEFAULT_CHARSET
+                      Title.Font.Color = clWindowText
+                      Title.Font.Height = -11
+                      Title.Font.Name = 'MS Sans Serif'
+                      Title.Font.Style = [fsBold]
+                      Width = 158
                       Visible = True
-                      DisplayFormat = '#,##0.##'
                     end
                     item
                       Expanded = False
-                      FieldName = 'TO_USR$INV_COSTACCNCU'
-                      Title.Caption = 'Новая цена учета, руб.'
-                      Width = 130
+                      FieldName = 'USR$CN_DELTASUM'
+                      Title.Caption = 'Размер уценки'
+                      Title.Color = 8454016
+                      Title.Font.Charset = DEFAULT_CHARSET
+                      Title.Font.Color = clWindowText
+                      Title.Font.Height = -11
+                      Title.Font.Name = 'MS Sans Serif'
+                      Title.Font.Style = [fsBold]
+                      Width = 111
                       Visible = True
-                      DisplayFormat = '#,##0.##'
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$SUMOPTNCU'
-                      Title.Caption = 'Сумма переоценки опт, руб.'
-                      Width = 130
-                      Visible = True
-                      DisplayFormat = '#,##0.##'
-                      TotalType = ttSum
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_COSTOPTNCU'
-                      ReadOnly = True
-                      Title.Caption = 'Прежняя оптовая цена, руб.'
-                      Width = 130
-                      Visible = True
-                      DisplayFormat = '#,##0.##'
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_OPTPERC'
-                      ReadOnly = True
-                      Title.Caption = 'Прежняя оптовая наценка'
-                      Width = 130
-                      Visible = True
-                      DisplayFormat = '#,##0.##'
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_COSTOPTNCU'
-                      Title.Caption = 'Новая оптовая цена, руб.'
-                      Width = 130
-                      Visible = True
-                      DisplayFormat = '#,##0.##'
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_OPTPERC'
-                      Title.Caption = 'Новая оптовая наценка'
-                      Width = 130
-                      Visible = True
-                      DisplayFormat = '#,##0.##'
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$SUMRETAILNCU'
-                      Title.Caption = 'Сумма переоценки роз, руб.'
-                      Width = 130
-                      Visible = True
-                      DisplayFormat = '#,##0.##'
-                      TotalType = ttSum
                     end
                     item
                       Expanded = False
@@ -2401,139 +2578,626 @@ Objects:
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_COSTRETAILNCU'
+                      Font.Charset = RUSSIAN_CHARSET
+                      Font.Color = clWindowText
+                      Font.Height = -11
+                      Font.Name = 'Tahoma'
+                      Font.Style = [fsBold]
                       Title.Caption = 'Новая розничная цена, руб.'
-                      Width = 130
+                      Title.Color = clYellow
+                      Width = 147
                       Visible = True
                       DisplayFormat = '#,##0.##'
                     end
                     item
                       Expanded = False
-                      FieldName = 'FROM_USR$INV_ACCOUNTKEY'
+                      FieldName = 'USR$SUMNCU'
+                      Title.Caption = 'Сумма переоценки, руб.'
+                      Width = 142
+                      Visible = True
+                      DisplayFormat = '#,##0.##'
+                      TotalType = ttSum
+                    end
+                    item
+                      Color = 8454143
+                      Expanded = False
+                      FieldName = 'USR$SUMRETAILNCU'
+                      Font.Charset = RUSSIAN_CHARSET
+                      Font.Color = clWindowText
+                      Font.Height = -11
+                      Font.Name = 'Tahoma'
+                      Font.Style = [fsBold]
+                      Title.Caption = 'Сумма переоценки роз, руб.'
+                      Title.Color = 8454143
+                      Width = 139
+                      Visible = True
+                      DisplayFormat = '#,##0.##'
+                      TotalType = ttSum
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_COSTBUYNCU'
                       ReadOnly = True
-                      Title.Caption = 'Счет'
+                      Title.Caption = 'Цена покуп.'
                       Width = 130
                       Visible = True
                     end
                     item
                       Expanded = False
-                      FieldName = 'TO_USR$INV_TRADEPERC'
-                      Title.Caption = 'Торг.надб.'
+                      FieldName = 'FROM_USR$INV_COSTPROVIDER'
+                      ReadOnly = True
+                      Title.Caption = 'Цена поставщ.'
                       Width = 130
                       Visible = True
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_COSTBUYNCU'
+                      Title.Caption = 'Цена покуп.'
+                      Width = 130
+                      Visible = True
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$KOEFF'
+                      Title.Caption = 'Коэффициент'
+                      Width = 130
+                      Visible = True
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_COSTACCNCU'
+                      ReadOnly = True
+                      Title.Caption = 'Прежняя цена учета, руб.'
+                      Width = -1
+                      Visible = False
+                      DisplayFormat = '#,##0.##'
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_COSTACCNCU'
+                      Title.Caption = 'Новая цена учета, руб.'
+                      Width = -1
+                      Visible = False
+                      DisplayFormat = '#,##0.##'
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SUMOPTNCU'
+                      Title.Caption = 'Сумма переоценки опт, руб.'
+                      Width = -1
+                      Visible = False
+                      DisplayFormat = '#,##0.##'
+                      TotalType = ttSum
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_COSTOPTNCU'
+                      ReadOnly = True
+                      Title.Caption = 'Прежняя оптовая цена, руб.'
+                      Width = -1
+                      Visible = False
+                      DisplayFormat = '#,##0.##'
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_OPTPERC'
+                      ReadOnly = True
+                      Title.Caption = 'Прежняя оптовая наценка'
+                      Width = -1
+                      Visible = False
+                      DisplayFormat = '#,##0.##'
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_COSTOPTNCU'
+                      Title.Caption = 'Новая оптовая цена, руб.'
+                      Width = -1
+                      Visible = False
+                      DisplayFormat = '#,##0.##'
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_OPTPERC'
+                      Title.Caption = 'Новая оптовая наценка'
+                      Width = -1
+                      Visible = False
+                      DisplayFormat = '#,##0.##'
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_TRADEPERC'
+                      Title.Caption = 'Торг.надб.'
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTTRADENCU'
                       ReadOnly = True
                       Title.Caption = 'Прежняя цена с наценкой'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_COSTTRADENCU'
                       Title.Caption = 'Новая цена с наценкой'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTTRWITHNDS'
                       ReadOnly = True
                       Title.Caption = 'Прежняя Цена с НДС и т.нац'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_COSTTRWITHNDS'
                       Title.Caption = 'Новая Цена с НДС и т.нац'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_TRADEPERC'
+                      ReadOnly = True
+                      Title.Caption = 'Торг.надб.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SORTNUMBER'
+                      ReadOnly = False
+                      Title.Caption = 'Номер для сортировки'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$CLITICALDAYS'
+                      Title.Caption = 'Кол-во крит. дней'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'CARD_USR$INV_ORIGINCO2222723292'
+                      ReadOnly = True
+                      Title.Caption = 'Адм.-терр. единица'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_ORIGINCOUNTRYKEY'
+                      ReadOnly = True
+                      Title.Caption = 'Страна происх.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_COSTOILTAX'
+                      ReadOnly = True
+                      Title.Caption = 'Цена нал.на топл вх'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_PROVIDER'
+                      ReadOnly = True
+                      Title.Caption = 'Поставщик'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$INV_COEFF'
+                      Title.Caption = 'Коэфициент к отчету'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$INV_REFFORMTORGKEY'
+                      Title.Caption = 'Группа по форме №3-т'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$INV_REFFORMTORG3788720399'
+                      Title.Caption = 'Наименование'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$OUTVALUEKEY'
+                      Title.Caption = 'Ед. изм. отпуска'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$OUTVALUEKEY_NAME'
+                      Title.Caption = 'Ед. изм.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$PICTURE'
+                      Title.Caption = 'Изображение'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_COSTBUYEQ'
+                      ReadOnly = True
+                      Title.Caption = 'Цена покуп.(экв.)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$EQRATE'
+                      Title.Caption = 'Курс экв.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_BUYNDSNCU'
+                      ReadOnly = True
+                      Title.Caption = 'НДС прих. руб.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_PERCPROVIDER'
+                      ReadOnly = True
+                      Title.Caption = '%поставщ.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_PERCPROVIDER'
+                      Title.Caption = '%поставщ.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'CHECKREMAINS'
+                      Title.Caption = 'Контроль остатков'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$ISEXPORT'
+                      Title.Caption = 'Экспортировано'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$ISSPEND'
+                      Title.Caption = 'Экспортировать'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$NDS'
+                      Title.Caption = 'Ставка НДС'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$NDSSUM'
+                      Title.Caption = 'Сумма НДС'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SUMSELLNDS'
+                      Title.Caption = 'Сумма розничного НДС'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SUMSELLNDSOLD'
+                      Title.Caption = 'Сумма розн. НДС from'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SUMTRADE'
+                      Title.Caption = 'Сумма торговой надбавки'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SUMTRADEOLD'
+                      Title.Caption = 'Сумма торг. надбавки from'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$SUMWITHNDSNCU'
+                      Title.Caption = 'Сумма c НДС руб'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_ISFIXEDCOST'
+                      ReadOnly = True
+                      Title.Caption = 'Фиксированная цена'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_ISFIXEDCOST'
+                      Title.Caption = 'Фиксированная цена (Карточки по товару)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$CONTENT'
+                      Title.Caption = 'Состав'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$FULLNAME'
+                      Title.Caption = 'Полное наименование'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$PF_ISWEIGHT'
+                      Title.Caption = 'Весовой товар'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$PF_WEIGHTCODE'
+                      Title.Caption = 'Код весового товара'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_ONLY'
+                      Title.Caption = 'Штучный'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_MAINGOODKEY'
+                      Title.Caption = 'Базовый товар'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$MN_MAINGOODKEY_NAME'
+                      Title.Caption = 'Наименование (Справочник ТМЦ)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_SUGAR'
+                      Title.Caption = 'Сахар'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_LOSSKOEFF'
+                      Title.Caption = 'Коэф. отхода'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$INV_LOSS'
+                      Title.Caption = 'Ест. убыль'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$INV_PERCROPE'
+                      Title.Caption = 'Процент веревок'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$FOREIGNNAME'
+                      Title.Caption = 'Наименование (англ.)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$NATURALLOSSGROUP'
+                      Title.Caption = 'Группа товара для убыли'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$NATURALLOSSGROUP_USR$NAME'
+                      Title.Caption = 'Наименование (Группы товара для норм естественной убыли)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$COUNTRYKEY'
+                      Title.Caption = 'Страна'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$COUNTRYKEY_NAME'
+                      Title.Caption = 'Наименование (Административно-территориальные единицы)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$PF_ISFRAC'
+                      Title.Caption = 'Дробное количество'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$INV_REFFORMVALUE'
+                      Title.Caption = 'Значение в ед.статистики'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$PF_PRICE'
+                      Title.Caption = 'Розничная цена (Справочник ТМЦ)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MAXDISCPERC'
+                      Title.Caption = 'Максимальная скидка'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$CODE'
+                      Title.Caption = 'Код'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$ETTN_CODE'
+                      Title.Caption = 'Международный код'
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_EXTRA'
                       ReadOnly = True
                       Title.Caption = '% наценки'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_EXTRACOST'
                       ReadOnly = True
                       Title.Caption = 'Цена с наценкой'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_EXTRANDS'
                       ReadOnly = True
                       Title.Caption = 'НДС в наценке'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_EXTTAXSALECOST'
                       ReadOnly = True
                       Title.Caption = 'Цена с нац. и НСП'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_SELCOSTNCU'
                       ReadOnly = True
                       Title.Caption = 'Цена продажи'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_EXTRA'
                       Title.Caption = '% наценки'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_EXTRACOST'
                       Title.Caption = 'Цена с наценкой'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_EXTRANDS'
                       Title.Caption = 'НДС в наценке'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_SELCOSTNCU'
                       Title.Caption = 'Цена продажи'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_COSTGLASSNCU'
                       ReadOnly = True
                       Title.Caption = 'Прежняя цена стеклопосуды'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                       DisplayFormat = '#,##0.00'
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_COSTGLASSNCU'
                       Title.Caption = 'Новая цена стеклопосуды'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                       DisplayFormat = '#,##0.00'
                     end
                     item
@@ -2541,37 +3205,359 @@ Objects:
                       FieldName = 'FROM_USR$INV_EXTRASERVICECOST'
                       ReadOnly = True
                       Title.Caption = 'Цена с нац, НСП и НУ'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'FROM_USR$INV_TAXSERVICE'
                       ReadOnly = True
                       Title.Caption = 'Ставка налога услуг'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_EXTRASERVICECOST'
                       Title.Caption = 'Цена с нац, НСП и НУ'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_EXTTAXSALECOST'
                       Title.Caption = 'Цена с нац. и НСП'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
                       FieldName = 'TO_USR$INV_TAXSERVICE'
                       Title.Caption = 'Ставка налога услуг'
-                      Width = 130
-                      Visible = True
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'DISABLED'
+                      Title.Caption = '"DISABLED"'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'REMAINS'
+                      ReadOnly = False
+                      Title.Caption = '"REMAINS"'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'DOCUMENTDATE'
+                      Title.Caption = '"DOCUMENTDATE"'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'DESCRIPTION'
+                      Title.Caption = '"DESCRIPTION"'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'SUMNCU'
+                      Title.Caption = '"SUMNCU"'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'DISABLED1'
+                      ReadOnly = True
+                      Title.Caption = '"DISABLED1"'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$INV_WEIGHT'
+                      Title.Caption = 'Вес товара'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$INV_PERCKEY'
+                      Title.Caption = 'Наценочная группа'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'G_USR$INV_PERCKEY_USR$NAME'
+                      Title.Caption = 'Наименование'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_SELLNDS'
+                      ReadOnly = True
+                      Title.Caption = '%НДС отп.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_TAXSALE'
+                      ReadOnly = True
+                      Title.Caption = '%нал. с продаж'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_SELLNDS'
+                      Title.Caption = '%НДС отп.'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_TAXSALE'
+                      Title.Caption = '%нал. с продаж'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'LINEDISABLED'
+                      ReadOnly = True
+                      Title.Caption = 'Отменен'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_COSTBUYEQ'
+                      Title.Caption = 'Цена покуп.(экв.)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_COSTOPTEQ'
+                      Title.Caption = 'Опт.цена(экв.)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$INV_COSTRETAILEQ'
+                      Title.Caption = 'Розн.цена(экв.)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$INV_OPTPERC'
+                      Title.Caption = 'Оптовая надбавка'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_ASHES'
+                      Title.Caption = 'Зола'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_CALCIUM'
+                      Title.Caption = 'Кальций'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_CALORIE'
+                      Title.Caption = 'Калорийность'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_CAROTIN'
+                      Title.Caption = 'Каротин'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_CELLULOSE'
+                      Title.Caption = 'Целлюлоза'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_EMPTY'
+                      Title.Caption = 'Вес пустой'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_FAT'
+                      Title.Caption = 'Жир'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_FULL'
+                      Title.Caption = 'Вес полный'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_IRON'
+                      Title.Caption = 'Железо'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_MAGNESIUM'
+                      Title.Caption = 'Магний'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_MEASURE'
+                      Title.Caption = 'Мера'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_NATRIUM'
+                      Title.Caption = 'Натрий'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_PHOSPHORUS'
+                      Title.Caption = 'Фосфор'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_PORTIONS'
+                      Title.Caption = 'Кол-во порций'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_POTASSIUM'
+                      Title.Caption = 'Калий'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_PROTEIN'
+                      Title.Caption = 'Белок'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_STARCH'
+                      Title.Caption = 'Крахмал'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_UGLEVOD'
+                      Title.Caption = 'Углеводы'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_VITAMIN_C'
+                      Title.Caption = 'Витамин C'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_VITAMIN_PP'
+                      Title.Caption = 'Витамин PP'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_VITAMIN_A'
+                      Title.Caption = 'Витамин А'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_VITAMIN_B1'
+                      Title.Caption = 'Витамин B1'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_VITAMIN_B2'
+                      Title.Caption = 'Витамин B2'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$MN_WATER'
+                      Title.Caption = 'Вода'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$MN_HUMIDITY'
+                      ReadOnly = True
+                      Title.Caption = 'Влажность'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'TO_USR$MN_HUMIDITY'
+                      Title.Caption = 'Влажность'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'FROM_USR$INV_ACCOUNTKEY'
+                      ReadOnly = True
+                      Title.Caption = 'Счет'
+                      Width = -1
+                      Visible = False
                     end
                     item
                       Expanded = False
@@ -2596,13 +3582,6 @@ Objects:
                     end
                     item
                       Expanded = False
-                      FieldName = 'DISABLED'
-                      Title.Caption = '"DISABLED"'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
                       FieldName = 'DOCUMENTKEY'
                       ReadOnly = True
                       Title.Caption = '"DOCUMENTKEY"'
@@ -2624,14 +3603,6 @@ Objects:
                       Title.Caption = '"MASTERKEY"'
                       Width = -1
                       Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'REMAINS'
-                      ReadOnly = False
-                      Title.Caption = '"REMAINS"'
-                      Width = 104
-                      Visible = True
                     end
                     item
                       Expanded = False
@@ -2689,27 +3660,6 @@ Objects:
                       Title.Caption = '"NUMBER"'
                       Width = -1
                       Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'DOCUMENTDATE'
-                      Title.Caption = '"DOCUMENTDATE"'
-                      Width = 65
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'DESCRIPTION'
-                      Title.Caption = '"DESCRIPTION"'
-                      Width = 390
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'SUMNCU'
-                      Title.Caption = '"SUMNCU"'
-                      Width = 52
-                      Visible = True
                     end
                     item
                       Expanded = False
@@ -2776,14 +3726,6 @@ Objects:
                     end
                     item
                       Expanded = False
-                      FieldName = 'DISABLED1'
-                      ReadOnly = True
-                      Title.Caption = '"DISABLED1"'
-                      Width = 104
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
                       FieldName = 'RESERVED1'
                       ReadOnly = True
                       Title.Caption = '"RESERVED1"'
@@ -2792,167 +3734,10 @@ Objects:
                     end
                     item
                       Expanded = False
-                      FieldName = 'USR$INV_WEIGHT'
-                      Title.Caption = 'Вес товара'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_COSTBUYNCU'
-                      ReadOnly = True
-                      Title.Caption = 'Цена покуп.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_COSTPROVIDER'
-                      ReadOnly = True
-                      Title.Caption = 'Цена поставщ.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_COSTBUYNCU'
-                      Title.Caption = 'Цена покуп.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$INV_PERCKEY'
-                      Title.Caption = 'Наценочная группа'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'G_USR$INV_PERCKEY_USR$NAME'
-                      Title.Caption = 'Наименование'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_SELLNDS'
-                      ReadOnly = True
-                      Title.Caption = '%НДС отп.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_TAXSALE'
-                      ReadOnly = True
-                      Title.Caption = '%нал. с продаж'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_TRADEPERC'
-                      ReadOnly = True
-                      Title.Caption = 'Торг.надб.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_SELLNDS'
-                      Title.Caption = '%НДС отп.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_TAXSALE'
-                      Title.Caption = '%нал. с продаж'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'LINEDISABLED'
-                      ReadOnly = True
-                      Title.Caption = 'Отменен'
-                      Width = 104
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_COSTBUYEQ'
-                      Title.Caption = 'Цена покуп.(экв.)'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_COSTOPTEQ'
-                      Title.Caption = 'Опт.цена(экв.)'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_COSTRETAILEQ'
-                      Title.Caption = 'Розн.цена(экв.)'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$SORTNUMBER'
-                      ReadOnly = False
-                      Title.Caption = 'Номер для сортировки'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$CLITICALDAYS'
-                      Title.Caption = 'Кол-во крит. дней'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
                       FieldName = 'GROUPKEY'
                       Title.Caption = 'Группа'
                       Width = -1
                       Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'CARD_USR$INV_ORIGINCO2222723292'
-                      ReadOnly = True
-                      Title.Caption = 'Адм.-терр. единица'
-                      Width = 260
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_ORIGINCOUNTRYKEY'
-                      ReadOnly = True
-                      Title.Caption = 'Страна происх.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_COSTOILTAX'
-                      ReadOnly = True
-                      Title.Caption = 'Цена нал.на топл вх'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$KOEFF'
-                      Title.Caption = 'Коэффициент'
-                      Width = 130
-                      Visible = True
                     end
                     item
                       Expanded = False
@@ -2964,443 +3749,10 @@ Objects:
                     end
                     item
                       Expanded = False
-                      FieldName = 'FROM_USR$INV_PROVIDER'
-                      ReadOnly = True
-                      Title.Caption = 'Поставщик'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$INV_COEFF'
-                      Title.Caption = 'Коэфициент к отчету'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$INV_REFFORMTORGKEY'
-                      Title.Caption = 'Группа по форме №3-т'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'G_USR$INV_REFFORMTORG3788720399'
-                      Title.Caption = 'Наименование'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$OUTVALUEKEY'
-                      Title.Caption = 'Ед. изм. отпуска'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'G_USR$OUTVALUEKEY_NAME'
-                      Title.Caption = 'Ед. изм.'
-                      Width = 260
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$PICTURE'
-                      Title.Caption = 'Изображение'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_COSTBUYEQ'
-                      ReadOnly = True
-                      Title.Caption = 'Цена покуп.(экв.)'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$EQRATE'
-                      Title.Caption = 'Курс экв.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_BUYNDSNCU'
-                      ReadOnly = True
-                      Title.Caption = 'НДС прих. руб.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_PERCPROVIDER'
-                      ReadOnly = True
-                      Title.Caption = '%поставщ.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_PERCPROVIDER'
-                      Title.Caption = '%поставщ.'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
                       FieldName = 'SUMEQ'
                       Title.Caption = 'Сумма в эквиваленте'
                       Width = -1
                       Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$INV_OPTPERC'
-                      Title.Caption = 'Оптовая надбавка'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_ASHES'
-                      Title.Caption = 'Зола'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_CALCIUM'
-                      Title.Caption = 'Кальций'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_CALORIE'
-                      Title.Caption = 'Калорийность'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_CAROTIN'
-                      Title.Caption = 'Каротин'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_CELLULOSE'
-                      Title.Caption = 'Целлюлоза'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_EMPTY'
-                      Title.Caption = 'Вес пустой'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_FAT'
-                      Title.Caption = 'Жир'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_FULL'
-                      Title.Caption = 'Вес полный'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_IRON'
-                      Title.Caption = 'Железо'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_MAGNESIUM'
-                      Title.Caption = 'Магний'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_MEASURE'
-                      Title.Caption = 'Мера'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_NATRIUM'
-                      Title.Caption = 'Натрий'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_PHOSPHORUS'
-                      Title.Caption = 'Фосфор'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_PORTIONS'
-                      Title.Caption = 'Кол-во порций'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_POTASSIUM'
-                      Title.Caption = 'Калий'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_PROTEIN'
-                      Title.Caption = 'Белок'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_STARCH'
-                      Title.Caption = 'Крахмал'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_UGLEVOD'
-                      Title.Caption = 'Углеводы'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_VITAMIN_C'
-                      Title.Caption = 'Витамин C'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_VITAMIN_PP'
-                      Title.Caption = 'Витамин PP'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_VITAMIN_A'
-                      Title.Caption = 'Витамин А'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_VITAMIN_B1'
-                      Title.Caption = 'Витамин B1'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_VITAMIN_B2'
-                      Title.Caption = 'Витамин B2'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_WATER'
-                      Title.Caption = 'Вода'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$MN_HUMIDITY'
-                      ReadOnly = True
-                      Title.Caption = 'Влажность'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$MN_HUMIDITY'
-                      Title.Caption = 'Влажность'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'AFULL'
-                      Title.Caption = 'Полный доступ'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'ACHAG'
-                      Title.Caption = 'Просмотр и редактирование'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'AVIEW'
-                      Title.Caption = 'Только просмотр'
-                      Width = -1
-                      Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'CHECKREMAINS'
-                      Title.Caption = 'Контроль остатков'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$ISEXPORT'
-                      Title.Caption = 'Экспортировано'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$ISSPEND'
-                      Title.Caption = 'Экспортировать'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$NDS'
-                      Title.Caption = 'Ставка НДС'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$NDSSUM'
-                      Title.Caption = 'Сумма НДС'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$SUMSELLNDS'
-                      Title.Caption = 'Сумма розничного НДС'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$SUMSELLNDSOLD'
-                      Title.Caption = 'Сумма розн. НДС from'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$SUMTRADE'
-                      Title.Caption = 'Сумма торговой надбавки'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$SUMTRADEOLD'
-                      Title.Caption = 'Сумма торг. надбавки from'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$SUMWITHNDSNCU'
-                      Title.Caption = 'Сумма c НДС руб'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'FROM_USR$INV_ISFIXEDCOST'
-                      ReadOnly = True
-                      Title.Caption = 'Фиксированная цена'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'TO_USR$INV_ISFIXEDCOST'
-                      Title.Caption = 'Фиксированная цена (Карточки по товару)'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$CONTENT'
-                      Title.Caption = 'Состав'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$FULLNAME'
-                      Title.Caption = 'Полное наименование'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$PF_ISWEIGHT'
-                      Title.Caption = 'Весовой товар'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$PF_WEIGHTCODE'
-                      Title.Caption = 'Код весового товара'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_ONLY'
-                      Title.Caption = 'Штучный'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_MAINGOODKEY'
-                      Title.Caption = 'Базовый товар'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'G_USR$MN_MAINGOODKEY_NAME'
-                      Title.Caption = 'Наименование (Справочник ТМЦ)'
-                      Width = 65
-                      Visible = True
                     end
                     item
                       Expanded = False
@@ -3415,111 +3767,6 @@ Objects:
                       Title.Caption = 'Штрих код'
                       Width = -1
                       Visible = False
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_SUGAR'
-                      Title.Caption = 'Сахар'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MN_LOSSKOEFF'
-                      Title.Caption = 'Коэф. отхода'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$INV_LOSS'
-                      Title.Caption = 'Ест. убыль'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$INV_PERCROPE'
-                      Title.Caption = 'Процент веревок'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$FOREIGNNAME'
-                      Title.Caption = 'Наименование (англ.)'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$NATURALLOSSGROUP'
-                      Title.Caption = 'Группа товара для убыли'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'G_USR$NATURALLOSSGROUP_USR$NAME'
-                      Title.Caption = 'Наименование (Группы товара для норм естественной убыли)'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$COUNTRYKEY'
-                      Title.Caption = 'Страна'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'G_USR$COUNTRYKEY_NAME'
-                      Title.Caption = 'Наименование (Административно-территориальные единицы)'
-                      Width = 260
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$PF_ISFRAC'
-                      Title.Caption = 'Дробное количество'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$INV_REFFORMVALUE'
-                      Title.Caption = 'Значение в ед.статистики'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$PF_PRICE'
-                      Title.Caption = 'Розничная цена (Справочник ТМЦ)'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$MAXDISCPERC'
-                      Title.Caption = 'Максимальная скидка'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$CODE'
-                      Title.Caption = 'Код'
-                      Width = 130
-                      Visible = True
-                    end
-                    item
-                      Expanded = False
-                      FieldName = 'USR$ETTN_CODE'
-                      Title.Caption = 'Международный код'
-                      Width = 130
-                      Visible = True
                     end
                     item
                       Expanded = False
@@ -3565,6 +3812,44 @@ Objects:
                       Title.Caption = 'Сумма'
                       Width = -1
                       Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'USR$CONTACTKEY'
+                      Title.Caption = 'Контакт (m)'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Expanded = False
+                      FieldName = 'INVLINE_USR$CONTACTKEY_ADDRESS'
+                      Title.Caption = 'Адрес'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'AFULL'
+                      Title.Caption = 'Полный доступ'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'ACHAG'
+                      Title.Caption = 'Просмотр и редактирование'
+                      Width = -1
+                      Visible = False
+                    end
+                    item
+                      Alignment = taRightJustify
+                      Expanded = False
+                      FieldName = 'AVIEW'
+                      Title.Caption = 'Только просмотр'
+                      Width = -1
+                      Visible = False
                     end>
                 end
               end
@@ -3573,7 +3858,7 @@ Objects:
                 Left = 0
                 Top = 26
                 Width = 0
-                Height = 663
+                Height = 660
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
@@ -3590,10 +3875,10 @@ Objects:
               end
               object TBDockRight: TTBDock
                 Tag = 0
-                Left = 1268
+                Left = 1267
                 Top = 26
                 Width = 0
-                Height = 663
+                Height = 660
                 Cursor = crDefault
                 Hint = ''
                 HelpContext = 0
@@ -3611,8 +3896,8 @@ Objects:
               object TBDockBottom: TTBDock
                 Tag = 0
                 Left = 0
-                Top = 689
-                Width = 1268
+                Top = 686
+                Width = 1267
                 Height = 0
                 Cursor = crDefault
                 Hint = ''
@@ -3632,7 +3917,7 @@ Objects:
                 Tag = 0
                 Left = 0
                 Top = 0
-                Width = 1268
+                Width = 1267
                 Height = 26
                 Cursor = crDefault
                 Hint = ''
@@ -3915,7 +4200,7 @@ Objects:
             Tag = 0
             Left = 0
             Top = 924
-            Width = 1272
+            Width = 1271
             Height = 41
             Cursor = crDefault
             Hint = ''
@@ -4079,7 +4364,7 @@ Objects:
             end
             object usrg_Panel3: TPanel
               Tag = 0
-              Left = 1087
+              Left = 1086
               Top = 0
               Width = 185
               Height = 41
@@ -4247,7 +4532,7 @@ Objects:
               Category = ''
               Caption = 'Пред'
               Checked = False
-              Enabled = False
+              Enabled = True
               HelpContext = 0
               Hint = ''
               ShortCut = 16464
@@ -4269,7 +4554,7 @@ Objects:
               Category = ''
               Caption = 'Первая'
               Checked = False
-              Enabled = False
+              Enabled = True
               HelpContext = 0
               Hint = ''
               ShortCut = 0
@@ -4304,6 +4589,8 @@ Objects:
             object actDistributeUserSettings: TAction
             end
             object actHistory: TAction
+            end
+            object actCopyIDToClipboard: TAction
             end
             object usrg_CN_goodNewCost: TgsAction
               Tag = 0
@@ -4340,6 +4627,8 @@ Objects:
             Left = 152
             Top = 216
             object actSecurity1: TMenuItem
+            end
+            object nCopyIDToClipboard: TMenuItem
             end
             object actHistory1: TMenuItem
             end
@@ -4383,6 +4672,8 @@ Objects:
             end
             object actCopySettings1: TMenuItem
             end
+            object miDistributeUserSettings: TMenuItem
+            end
             object nAddToSetting1: TMenuItem
             end
           end
@@ -4420,7 +4711,7 @@ Objects:
               Category = 'Detail'
               Caption = 'Изменить ...'
               Checked = False
-              Enabled = False
+              Enabled = True
               HelpContext = 0
               Hint = 'Изменить'
               ShortCut = 49231
@@ -4431,7 +4722,7 @@ Objects:
               Category = 'Detail'
               Caption = 'Удалить'
               Checked = False
-              Enabled = False
+              Enabled = True
               HelpContext = 0
               Hint = 'Удалить'
               ShortCut = 16430
@@ -4466,7 +4757,7 @@ Objects:
               Category = 'References'
               Caption = 'Остатки по позиции'
               Checked = False
-              Enabled = False
+              Enabled = True
               HelpContext = 0
               Hint = 'Выбрать остатки'
               ShortCut = 120
@@ -4599,7 +4890,7 @@ Objects:
       NAME: "Отчеты(dlgInvDocument147061100_2089375573)"
       DESCRIPTION: ~
       USERGROUPNAME: "147061222_2089375573"
-      EDITIONDATE: 2023-05-05T12:09:53+03:00
+      EDITIONDATE: 2023-05-05T11:09:53+02:00
   - 
     Properties: 
       Class: "TgdcMacrosGroup"
@@ -4616,7 +4907,7 @@ Objects:
       OBJECTNAME: "dlgInvDocument147061100_2089375573"
       OBJECTPARENT: ~
       SUBTYPE: ""
-      EDITIONDATE: 2023-05-05T12:09:53+03:00
+      EDITIONDATE: 2023-05-05T11:09:53+02:00
       DESCRIPTION: ~
   - 
     Properties: 
@@ -4636,7 +4927,7 @@ Objects:
       OBJECTTYPE: 0
       REPORTGROUPKEY: "147061222_2089375573 Отчеты(dlgInvDocument147061100_2089375573)"
       SUBTYPE: ""
-      EDITIONDATE: 2023-05-05T12:09:53+03:00
+      EDITIONDATE: 2023-05-05T11:09:53+02:00
   - 
     Properties: 
       Class: "TgdcReportGroup"
@@ -4650,7 +4941,7 @@ Objects:
       NAME: "Отчеты(gdc_frmInvDocument147061100_2089375573)"
       DESCRIPTION: ~
       USERGROUPNAME: "147061224_2089375573"
-      EDITIONDATE: 2023-05-05T12:09:53+03:00
+      EDITIONDATE: 2023-05-05T11:09:53+02:00
   - 
     Properties: 
       Class: "TgdcMacrosGroup"
@@ -4667,7 +4958,7 @@ Objects:
       OBJECTNAME: "gdc_frmInvDocument147061100_2089375573"
       OBJECTPARENT: ~
       SUBTYPE: ""
-      EDITIONDATE: 2023-05-05T12:09:53+03:00
+      EDITIONDATE: 2023-05-05T11:09:53+02:00
       DESCRIPTION: ~
   - 
     Properties: 
@@ -4687,7 +4978,7 @@ Objects:
       OBJECTTYPE: 0
       REPORTGROUPKEY: "147061224_2089375573 Отчеты(gdc_frmInvDocument147061100_2089375573)"
       SUBTYPE: ""
-      EDITIONDATE: 2023-05-05T12:09:53+03:00
+      EDITIONDATE: 2023-05-05T11:09:53+02:00
   - 
     Properties: 
       Class: "TgdcFunction"
@@ -4713,7 +5004,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-05-11T14:46:41+03:00
+      EDITIONDATE: 2023-05-16T17:38:26+02:00
       DISPLAYSCRIPT: | 
         USRG_CN_GOODNEWCOSTONEXECUTE
         USRG_CN_GOODNEWCOSTONEXECUTE_EXCEPT
@@ -4741,6 +5032,7 @@ Objects:
               while not d.eof
                 d.delete
               wend
+               ''d.CloseOpen
             end if
           end if
           
@@ -4772,11 +5064,11 @@ Objects:
           set Remains = Creator.GetObject(nil, "TgdcInvGoodRemains", "")
           Remains.ExtraConditions.Add( " C.USR$CN_ACTVALUATION = :ACTVALUATION " )
         
-          Dim vPerc, vRound
+          Dim vPerc, vRound, newCost, costPerc, deltS
         
           while not SQL.Eof
             ' ДОБАВЛЕМ если товар был в реализации больше заданного в параметрах cn_options количества дней
-            if SQL.FieldByName("qDAYBETWEENRECOST").AsCurrency > SQL.FieldByName("QSELLDAYCONST").AsCurrency then
+            if SQL.FieldByName("qDAYBETWEENRECOST").AsCurrency > SQL.FieldByName("QSELLDAYCONST").AsCurrency  then
         
                Remains.Close
                Remains.gdcDocumentLine = D
@@ -4787,6 +5079,7 @@ Objects:
               D.Insert
               D.FieldByName("GOODKEY").AsInteger = SQL.FieldByName("goodkey").AsInteger
               D.FieldByName("FROM_USR$INV_COSTPROVIDER").AsCurrency = SQL.FieldByName("COSTPROVIDER").AsCurrency
+              D.FieldByName("USR$CONTACTKEY").AsInteger = SQL.FieldByName("CONTACTKEY").AsInteger
               D.FieldByName("QUANTITY").AsCurrency = SQl.FieldByName("quantity").AsCurrency
               D.FieldByName("FromCardKey").AsInteger = Remains.FieldByName("ID").AsInteger
         
@@ -4794,11 +5087,23 @@ Objects:
         
         
               D.FieldByName("TO_USR$LASTDATERECOST").AsDateTime = Sender.OwnerForm.gdcObject.FieldByName("documentdate").AsDateTime
-              D.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = SQl.FieldByName("NEWCOST").AsCurrency
         
+              newCost = SQl.FieldByName("NEWCOST").AsCurrency
+              costPerc = SQl.FieldByName("COSTPERC").AsCurrency
+              deltS = SQl.FieldByName("DELTASUM").AsCurrency
+              
+              ' для товара, чей % реализации выше разрешенной цену не меняем, только даты
+              if SQl.FieldByName("REALSELLPERC").AsCurrency > SQl.FieldByName("CONSTSELLPERC").AsCurrency Then
+                newCost = SQl.FieldByName("COSTRETAIL").AsCurrency
+                costPerc = 0
+                deltS = 0
+              end if
+        
+        
+              D.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = newCost
               ' доп поля переоценки
-              D.FieldByName("USR$CN_NEWCOSTPERC").AsCurrency  = SQl.FieldByName("COSTPERC").AsCurrency
-              D.FieldByName("USR$CN_DELTASUM").AsCurrency  = SQl.FieldByName("DELTASUM").AsCurrency
+              D.FieldByName("USR$CN_NEWCOSTPERC").AsCurrency  = costPerc
+              D.FieldByName("USR$CN_DELTASUM").AsCurrency  = deltS
               on error resume next
               D.Post
         
@@ -4823,7 +5128,8 @@ Objects:
           wend
         
           D.EnableControls
-        
+          call Application.MessageBox("Переоценка завершена!", "Внимание", vbOkOnly+vbInformation+vbSystemMOdal)
+          D.closeOpen
           'if ErrorList.RecordCount > 0 then
         '    dim Frm
         '    set Frm = Creator.GetObject(null, "usrf_FA_ErrorList", "")
@@ -4857,7 +5163,7 @@ Objects:
       OBJECTTYPE: 0
       REPORTGROUPKEY: ~
       SUBTYPE: ""
-      EDITIONDATE: 2023-05-05T12:09:58+03:00
+      EDITIONDATE: 2023-05-05T11:09:58+02:00
   - 
     Properties: 
       Class: "TgdcEvent"
@@ -4873,7 +5179,7 @@ Objects:
       OBJECTKEY: "147061228_2089375573 dlgInvDocument147061100_2089375573\\usrg_CN_goodNewCost"
       OBJECTNAME: "usrg_CN_goodNewCost"
       PARENTNAME: "dlgInvDocument147061100_2089375573"
-      EDITIONDATE: 2023-05-11T14:46:41+03:00
+      EDITIONDATE: 2023-05-16T17:38:26+02:00
   - 
     Properties: 
       Class: "TgdcTableField"
@@ -4913,7 +5219,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2023-05-05T13:48:27+03:00
+      EDITIONDATE: 2023-05-05T12:48:27+02:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -4932,7 +5238,7 @@ Objects:
       DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
       OPTION_NAME: "DF"
       RELATIONFIELDKEY: "147061381_2089375573 Дата последней переоценки, INV_CARD.USR$LASTDATERECOST"
-      EDITIONDATE: 2023-05-05T14:05:04+03:00
+      EDITIONDATE: 2023-05-05T13:05:04+02:00
       DISABLED: 0
   - 
     Properties: 
@@ -4949,7 +5255,7 @@ Objects:
       DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
       OPTION_NAME: "SF"
       RELATIONFIELDKEY: "147061381_2089375573 Дата последней переоценки, INV_CARD.USR$LASTDATERECOST"
-      EDITIONDATE: 2023-05-05T14:05:04+03:00
+      EDITIONDATE: 2023-05-05T13:05:04+02:00
       DISABLED: 0
   - 
     Properties: 
@@ -4966,5 +5272,123 @@ Objects:
       DTKEY: "147061100_2089375573 Складские документы\\Оптово-розничный склад\\09. Переоценка товаров\\ 02. Переоценка конфиската"
       OPTION_NAME: "SF"
       RELATIONFIELDKEY: "147042099_2076867174 Акт описи и оценки им-ва, INV_CARD.USR$CN_ACTVALUATION"
-      EDITIONDATE: 2023-05-05T14:05:04+03:00
+      EDITIONDATE: 2023-05-05T13:05:04+02:00
       DISABLED: 0
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 147063546_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147063547_2089375573
+    Fields: 
+      PARENT: "158712919_1685928677 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocument\\TgdcInvDocument147013048_109092844"
+      NAME: "TgdcInvDocument147061100_2089375573"
+      CLASSNAME: "TgdcInvDocument"
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: ""
+      OBJECTTYPE: 1
+      REPORTGROUPKEY: ~
+      SUBTYPE: "147061100_2089375573"
+      EDITIONDATE: 2023-05-16T10:39:46+02:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147063549_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147063547_2089375573
+    Fields: 
+      NAME: "TgdcInvDocument147061100_2089375573_DoOnNewRecord"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147063546_2089375573 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocument\\TgdcInvDocument147013048_109092844\\TgdcInvDocument147061100_2089375573"
+      OBJECTNAME: "TgdcInvDocument147061100_2089375573"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-05-16T10:39:46+02:00
+      DISPLAYSCRIPT: | 
+        TGDCINVDOCUMENT147061100_2089375573_DOONNEWRECORD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Sub TgdcInvDocument147061100_2089375573_DoOnNewRecord(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          Call Inherited(Self, "_DoOnNewRecord", Array(Self))
+        '***               Конец кода поддержки gdc-класса.                  ***
+        
+          Self.FieldByName("USR$DEPTKEY").asInteger = gdcBaseManager.GETIDByRUIDString("650010_17")
+        End Sub
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 147063547_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "_DOONNEWRECORD"
+      FUNCTIONKEY: "147063549_2089375573 TgdcInvDocument147061100_2089375573_DoOnNewRecord"
+      OBJECTKEY: "147063546_2089375573 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocument\\TgdcInvDocument147013048_109092844\\TgdcInvDocument147061100_2089375573"
+      OBJECTNAME: "TgdcInvDocument147061100_2089375573"
+      PARENTNAME: "TgdcInvDocument147013048_109092844"
+      EDITIONDATE: 2023-05-16T10:39:46+02:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147063598_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$CONTACTKEY"
+      FIELDNAME: "USR$CONTACTKEY"
+      FIELDSOURCE: "USR$INV_DCONT"
+      FIELDSOURCEKEY: "147012439_486813904 Контакт, USR$INV_DCONT"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Контакт"
+      LSHORTNAME: "Контакт (m)"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "NAME"
+      REFRELATIONNAME: "GD_CONTACT"
+      RELATIONKEY: "147012892_486813904 Переоценка(позиция), USR$INV_NEWCOSTLINE"
+      RELATIONNAME: "USR$INV_NEWCOSTLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-05-16T10:55:24+02:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
