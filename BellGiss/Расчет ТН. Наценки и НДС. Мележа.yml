@@ -1,0 +1,1299 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 165871764_2098155268
+  Name: "Расчет ТН. Наценки и НДС. Мележа"
+  Caption: "Расчет ТН. Наценки и НДС. Мележа"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: D17D6D1AAAC9462C06E20D24BB74C8E9
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTaxName"
+      RUID: 165870439_2098155268
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "00.Расчет реализованной ТН, НАЦЕНКИ и НДС"
+      ACCOUNTKEY: "300001_17 План счетов"
+      TRANSACTIONKEY: "807002_17 Налоги"
+      EDITIONDATE: 2023-05-17T16:09:57+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147084499_66720196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "tax_AddTaxResult"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2007-02-01T16:18:07+03:00
+      DISPLAYSCRIPT: | 
+        TAX_ADDTAXRESULT
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QMAAAAR0RDVEFYUkVTVUxUDAAAAEdEQ1RBWFJFU1VMVAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNUUFJTVBAAAABUQVhERVNJR05EQVRFS0VZEAAAAFRBWERFU0lHTkRBVEVLRVkA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QEAAAATkFNRQQAAABOQU1FAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNUDAAAAERPQ1VNRU5UREFURQwAAABET0NVTUVOVERBVEUA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBSU1QGAAAAUkVTVUxUBgAAAFJFU1VMVAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAABGTlNUUFJTVAsAAABERVNDUklQVElPTgsAAABERVNDUklQVElP
+        TgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        sub tax_AddTaxResult(gdcTaxResult, TaxDesignDateKey, Name, DocumentDate, _
+          Result, Description)
+          if Assigned(gdcTaxResult) then
+            if (gdcTaxResult.State = 1) then
+              If IsNull(Result) then Result = ""
+              gdcTaxResult.Append
+              gdcTaxResult.FieldByName("name").AsString = Name
+              gdcTaxResult.FieldByName("documentdate").AsDateTime = DocumentDate
+              gdcTaxResult.FieldByName("result").AsString = Result
+              gdcTaxResult.FieldByName("Description").AsString = Description
+              gdcTaxResult.FieldByName("taxdesigndatekey").AsInteger = TaxDesignDateKey
+              gdcTaxResult.FieldByName("parent").AsInteger = TaxDesignDateKey
+              gdcTaxResult.FieldByName("number").AsString = Name + CStr(DocumentDate)
+              gdcTaxResult.Post
+            else
+              call Exception.Raise("EAbort", "gdcTaxResult must be in dsBrowse mode")
+            end if
+          end if
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147029222_69059608
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "CurCompanyResponsibleFIO"
+      COMMENT: "Возвращает имя ответственного лица"
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2004-02-20T17:05:38+03:00
+      DISPLAYSCRIPT: | 
+        CURCOMPANYRESPONSIBLEFIO
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        function CurCompanyResponsibleFIO
+          set Creator = new TCreator
+          set gdcConst = Creator.GetObject(null, "TgdcConst", "")
+          CurCompanyResponsibleFIO = gdcConst.QGetValueByIDAndDate(gdcBaseManager.GetIdByRUIDString(cst_gs_ResponsibleFIO), aDate)
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147029221_69059608
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "CurrCompanyChiefAccountant"
+      COMMENT: "Возвращает имя главного бухгалтера организации"
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2004-02-20T16:49:42+03:00
+      DISPLAYSCRIPT: | 
+        CURRCOMPANYCHIEFACCOUNTANT
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        function CurrCompanyChiefAccountant
+        '  if FioResponsible = "" then
+        '    set Creator = new TCreator
+        '    set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
+        '    ibsql.Transaction = gdcBaseManager.ReadTransaction
+        '    ibsql.SQL.Text = "SELECT con.Name FROM gd_company c LEFT JOIN " +_
+        '      " gd_contact con ON c.chiefaccountantkey = con.id WHERE c.contactkey = " & IBLogin.CompanyKey
+        '    ibsql.ExecQuery
+        '    if ibsql.RecordCount > 0 then
+        '      FioResponsible = ibsql.FieldByName("name").AsString
+        '    end if
+        '    ibsql.Close
+        '  end if
+          CurrCompanyChiefAccountant = CurrCompanyInfo.ChiefAccountant
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147009862_69059608
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "CurrCompanyName"
+      COMMENT: "Название текущей компании"
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2003-02-13T19:33:43+03:00
+      DISPLAYSCRIPT: | 
+        CURRCOMPANYNAME
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        functiOn CurrCOmpanyName
+          CurrCOmpanyName = CurrCOmpanyInfO.COMPNAME
+        end functiOn
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147009922_69059608
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "CurrCompanyAddress"
+      COMMENT: "Адрес текущей компании"
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2004-02-20T12:44:45+03:00
+      DISPLAYSCRIPT: | 
+        CURRCOMPANYADDRESS
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        functiOn CurrCompanyAddress
+        
+          CurrCOmpanyAddress = CurrCOmpanyInfO.ADDRESS
+        
+        end functiOn
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147009945_69059608
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "CurrCompanyUNN"
+      COMMENT: "УНН текущей компании"
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2004-02-20T17:14:29+03:00
+      DISPLAYSCRIPT: | 
+        CURRCOMPANYUNN
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        functiOn CurrCOmpanyUNN
+          CurrCOmpanyUNN = CurrCompanyInfo.UNN
+        end functiOn
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147009966_69059608
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "CurrCompanyDirectorFIO"
+      COMMENT: "Возвращает имя директора организации"
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2004-02-20T13:18:32+03:00
+      DISPLAYSCRIPT: | 
+        CURRCOMPANYDIRECTORFIO
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        function CurrCompanyDirectorFIO
+        '  if Chief = "" then
+        '    set Creator = new TCreator
+        '    set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
+        '    ibsql.Transaction = gdcBaseManager.ReadTransaction
+        '    ibsql.SQL.Text = "SELECT con.Name FROM gd_company c LEFT JOIN " +_
+        '      " gd_contact con ON c.directorkey = con.id WHERE c.contactkey = " & IBLogin.CompanyKey
+        '    ibsql.ExecQuery
+        '    if ibsql.RecordCount > 0 then
+        '      Chief = ibsql.FieldByName("name").AsString
+        '    end if
+        '    ibsql.Close
+        '  end if
+          CurrCompanyDirectorFIO = CurrCompanyInfo.DirectorFio
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147009960_69059608
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "CurrCompanyTelephone"
+      COMMENT: "Телефон текущей компании"
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2003-02-14T10:40:11+03:00
+      DISPLAYSCRIPT: | 
+        CURRCOMPANYTELEPHONE
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        functiOn CurrCOmpanyTelephOne
+          CurrCOmpanyTelephOne = CurrCOmpanyInfO.PhOne
+        end functiOn
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 165870446_2098155268
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      NAME: "AutoEntryScript165870446_2098155268"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "ENTRY"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-05-17T17:04:51+03:00
+      DISPLAYSCRIPT: | 
+        AUTOENTRYSCRIPT165870446_2098155268
+        EXCEPTAUTOENTRYSCRIPT165870446_2098155268
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAQmVnaW5EYXRlEwAAAMTg8uAg7eD34OvgIO/l8Oju5OAAAAAAAAAAAAAAAAAC
+        AAAAAAAAAAATAAAAxODy4CDt4Pfg6+Ag7+Xw6O7k4EZOU1RQUlNUBwAAAEVuZERhdGUWAAAAxODy
+        4CDu6u7t9+Dt6P8g7+Xw6O7k4AAAAAAAAAAAAAAAAAIAAAAAAAAAABYAAADE4PLgIO7q7u334O3o
+        /yDv5fDo7uTgRk5TVEZMUFI=
+      SCRIPT: | 
+        'Данная скрипт-функция создана конструктором функций.
+        'Все изменения, произведённые вручную, будут потеряны
+        'при следующей генерации скрипт-функции.
+        Sub AutoEntryScript165870446_2098155268(BeginDate, EndDate)
+          EntryDate = EndDate
+          Result = False
+          Set Creator = new TCreator
+          Set Transaction = Creator.GetObject(null, "TIBTransaction", "")
+          Transaction.DefaultDataBase = gdcBaseManager.DataBase
+          Transaction.StartTransaction
+          GS.Transaction = Transaction
+        
+          TrRecordKey = gdcBaseManager.GetIDByRUIDString("165870445_2098155268")
+          TransactionKey = gdcBaseManager.GetIDByRUIDString("807002_17")
+          Except ExceptAutoEntryScript165870446_2098155268(Transaction)
+          'Удаляем предыдущие проводки
+          Set SQL = Creator.GetObject(null, "TIBSQL", "")
+          SQL.Transaction = Transaction
+          SQL.SQL.Text = "execute block (begindate DATE = :begindate, enddate DATE = :enddate, trrecordkey INTEGER = :trrecordkey)" & vbCrLf & _
+            "as " & vbCrLf & _
+            "  declare id integer;" & vbCrLf & _
+            "begin" & vbCrLf & _
+            "  for" & vbCrLf & _
+            "    SELECT e.documentkey FROM ac_autoentry ae JOIN ac_entry e ON e.id = ae.entrykey" & vbCrLf & _
+            "    WHERE ae.trrecordkey = :trrecordkey AND" & vbCrLf & _
+            "     ae.begindate >= :begindate AND ae.enddate <= :enddate AND" & vbCrLf & _
+            "      e.companykey IN (" & IbLogin.HoldingList & ")" & vbCrLf & _
+            "    into :id" & vbCrLf & _
+            "  do" & vbCrLf & _
+            "   DELETE FROM gd_document  WHERE id = :id;" & vbCrLf & _
+            "end" 
+          SQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+          SQL.ParamByName("begindate").AsDateTime = BeginDate
+          SQL.ParamByName("enddate").AsDateTime = EndDate
+          SQL.ExecQuery
+          Creator.DestroyObject(SQL)
+          Set SimpleRecordSQL = Creator.GetObject(nil, "TIBSQL", "")
+          SimpleRecordSQL.Transaction = Transaction
+          SimpleRecordSQL.SQL.Text = "INSERT INTO AC_AUTOENTRY (entrykey, trrecordkey, begindate, " & _
+            "enddate, debitaccount, creditaccount) VALUES(:entrykey, " & _
+            ":trrecordkey, :begindate, :enddate, :debit, :credit)"
+        
+          Set gdcSimpleRecord = Creator.GetObject(nil, "TgdcAcctSimpleRecord", "")
+          gdcSimpleRecord.Transaction = Transaction
+          gdcSimpleRecord.ReadTransaction = Transaction
+          gdcSimpleRecord.Open
+        
+          Set gdcTaxDesignDate = Creator.GetObject(null, "TgdcTaxDesignDate", "")
+          gdcTaxDesignDate.Transaction = Transaction
+          gdcTaxDesignDate.ReadTransaction = Transaction
+          gdcTaxDesignDate.SubSet = "ByTaxActual,ByDocumentDate"
+          gdcTaxDesignDate.ParamByName("taxactualkey").AsInteger = gdcBaseManager.GetIdByRUIDString("165870443_2098155268")
+          gdcTaxDesignDate.ParamByName("documentdate").AsDateTime = EndDate
+          gdcTaxDesignDate.Open
+          If gdcTaxDesignDate.Eof Then
+            gdcTaxDesignDate.Insert
+            gdcTaxDesignDate.FieldByName("taxactualkey").AsInteger = gdcBaseManager.GetIdByRUIDString("165870443_2098155268")
+            gdcTaxDesignDate.FieldByName("taxnamekey").AsInteger = gdcBaseManager.GetIdByRUIDString("165870439_2098155268")
+            gdcTaxDesignDate.FieldByName("documentdate").AsDateTime = EndDate
+            gdcTaxDesignDate.Post
+          End If
+          Transaction.CommitRetaining
+          If 1=1 Then
+            CompanyName = CurrCompanyName
+            ResponsibleFIO = CurCompanyResponsibleFIO
+            ChiefAccountantFIO = CurrCompanyChiefAccountant
+            DirectorFIO = CurrCompanyDirectorFIO
+            UNN = CurrCompanyUNN
+            TEL = CurrCompanyTelephone
+            Address = CurrCompanyAddress
+            RMonth = MonthName(Month(EndDate))
+            RYear = Year(EndDate)
+            Pos1 = CurrCompanyName
+            TN_SB = ((GS.SK("42.1.1", BeginDate - 1, Empty) - GS.SD("42.1.1", BeginDate - 1, Empty) ) / 1)
+            TN_OK = (GS.OK("42.1.1", BeginDate, EndDate, Empty) - GS.OD("42.1.1", BeginDate, EndDate, Empty))
+            TN_PSD = TN_SB + TN_OK
+            GoodSell = ((GS.OK("20.2", BeginDate, EndDate, Empty) ) / 1)
+            GoodRem = ((GS.SD("41.02", EndDate, Empty)  + GS.SD("41.04", EndDate, Empty)) / 1) +  GS.SD("20.2", EndDate, Empty)
+            GoodResult = GoodSell + GoodRem
+            TNperc = ROUND((TN_PSD * 100 / GoodResult),4)
+            TNonReamis = ROUND((GoodRem*TNperc/100),2)
+            SellTN = (TN_PSD-TNonReamis)
+            'Вычисляем сумму проводки
+            Sum = -SellTN
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147048832_338915844")
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147062979_581974608")
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = gdcBaseManager.GetIdByRUIDString("147048832_338915844")
+              SimpleRecordSQL.ParamByName("credit").AsInteger = gdcBaseManager.GetIdByRUIDString("147062979_581974608")
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+            NC_OK = (GS.OK("42.1.2", BeginDate, EndDate, Empty) - GS.OD("42.1.2", BeginDate, EndDate, Empty))
+            NC_SB = ((GS.SK("42.1.2", BeginDate - 1, Empty) - GS.SD("42.1.2", BeginDate - 1, Empty) ) / 1)
+            NC_PSD = NC_SB+NC_OK
+            NC_perc = ROUND((NC_PSD * 100 / GoodResult),4)
+            NC_onReamis = ROUND((GoodRem*NC_perc/100),2)
+            Sell_NC = (NC_PSD-NC_onReamis)
+            'Вычисляем сумму проводки
+            Sum = -Sell_NC
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum1 <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147048832_338915844")
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147062981_581974608")
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = gdcBaseManager.GetIdByRUIDString("147048832_338915844")
+              SimpleRecordSQL.ParamByName("credit").AsInteger = gdcBaseManager.GetIdByRUIDString("147062981_581974608")
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+            VAT_SB = GS.SK(gdcBaseManager.GetIdByRUIDString("344203_17"), BeginDate, Empty) - GS.SK(gdcBaseManager.GetIdByRUIDString("147062982_581974608"), BeginDate, Empty) - GS.SK(gdcBaseManager.GetIdByRUIDString("155836446_243506600"), BeginDate, Empty)
+            VAT_OK_42_3_1 = GS.OK(gdcBaseManager.GetIdByRUIDString("147062982_581974608"), BeginDate, EndDate, Empty) - GS.OD(gdcBaseManager.GetIdByRUIDString("147062982_581974608"), BeginDate, EndDate, Empty)
+            VAT_OK_42_3_2 = GS.OK(gdcBaseManager.GetIdByRUIDString("155836446_243506600"), BeginDate, EndDate, Empty)-GS.OD(gdcBaseManager.GetIdByRUIDString("155836446_243506600"), BeginDate, EndDate, Empty)
+            VAT_OK_42 = VAT_OK_42_3_1+VAT_OK_42_3_2
+            VAT_PSD = ROUND(VAT_SB + VAT_OK_42, 2)
+            VAT_perc = ROUND(VAT_PSD*100/GoodResult,4)
+            VAT_onRemains = ROUND(GoodRem*VAT_perc/100,2)
+            VAT_Sell = VAT_PSD-VAT_onRemains
+            'Вычисляем сумму проводки
+            Sum = VAT_OK_42_3_1
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum2 <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147062982_581974608")
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = 344203
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = gdcBaseManager.GetIdByRUIDString("147062982_581974608")
+              SimpleRecordSQL.ParamByName("credit").AsInteger = 344203
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+            'Вычисляем сумму проводки
+            Sum = VAT_OK_42_3_2
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum3 <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("155836446_243506600")
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = 344203
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = gdcBaseManager.GetIdByRUIDString("155836446_243506600")
+              SimpleRecordSQL.ParamByName("credit").AsInteger = 344203
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+            'Вычисляем сумму проводки
+            Sum = -VAT_Sell
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum4 <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = 344602
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = 344203
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = 344602
+              SimpleRecordSQL.ParamByName("credit").AsInteger = 344203
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+            'Вычисляем сумму проводки
+            Sum = VAT_Sell
+            If (Sum <> 0) Or (CurrSum <> 0) Or (EQSum5 <> 0) Then
+              gdcSimpleRecord.Insert
+        
+              gdcSimpleRecord.FieldByName("recorddate").AsDateTime = EntryDate
+              gdcSimpleRecord.FieldByName("delayed").AsInteger = 1
+              gdcSimpleRecord.FieldByName("transactionkey").AsInteger = TransactionKey
+              gdcSimpleRecord.FieldByName("trrecordkey").AsInteger = TrRecordKey
+              If Assigned(gdcTaxDesignDate) Then
+                gdcSimpleRecord.FieldByName("documentkey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+                gdcSimpleRecord.FieldByName("masterdockey").AsInteger = gdcTaxDesignDate.FieldByName("id").AsInteger
+              End If
+              gdcSimpleRecord.DebitEntryLine.Edit
+              gdcSimpleRecord.DebitEntryLine.FieldByName("accountkey").AsInteger = 344602
+              gdcSimpleRecord.CreditEntryLine.Edit
+              gdcSimpleRecord.CreditEntryLine.FieldByName("accountkey").AsInteger = gdcBaseManager.GetIdByRUIDString("147013580_119553761")
+              gdcSimpleRecord.FieldByName("debitncu").AsCurrency = Sum
+              gdcSimpleRecord.Post
+              
+              'Заносим информацию во вспомогательную таблицу
+        
+              SimpleRecordSQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+              SimpleRecordSQL.ParamByName("begindate").AsDateTime = BeginDate
+              SimpleRecordSQL.ParamByName("enddate").AsDateTime = EndDate
+        
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.DebitEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ParamByName("debit").AsInteger = 344602
+              SimpleRecordSQL.ParamByName("credit").AsInteger = gdcBaseManager.GetIdByRUIDString("147013580_119553761")
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+              SimpleRecordSQL.ParamByName("entrykey").AsInteger = gdcSimpleRecord.CreditEntryLine.FieldByName("id").AsInteger
+              SimpleRecordSQL.ExecQuery
+              SimpleRecordSQL.Close
+            End If
+          End If
+          'Скрипт финализации процедуры
+          Result = True
+        '#include tax_AddTaxResult
+        'Сохраняем налоги
+          If Result Then
+            Set gdcTaxResult = Creator.GetObject(null, "TgdcTaxResult", "")
+            gdcTaxResult.Transaction = Transaction
+            gdcTaxResult.ReadTransaction = Transaction
+            gdcTaxResult.SubSet = "ByDesignDate"
+            gdcTaxResult.ParamByName("taxdesigndatekey").AsInteger = gdcTaxDesignDate.Id
+            gdcTaxResult.Open
+            While Not gdcTaxResult.Eof 
+              gdcTaxResult.Delete
+            WEnd
+        
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "CompanyName", EndDate, CompanyName, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "ResponsibleFIO", EndDate, ResponsibleFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "ChiefAccountantFIO", EndDate, ChiefAccountantFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "DirectorFIO", EndDate, DirectorFIO, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "UNN", EndDate, UNN, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "TEL", EndDate, TEL, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Address", EndDate, Address, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "RMonth", EndDate, RMonth, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "RYear", EndDate, RYear, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Pos1", EndDate, Pos1, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "TN_SB", EndDate, TN_SB, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "TN_OK", EndDate, TN_OK, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "TN_PSD", EndDate, TN_PSD, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "GoodSell", EndDate, GoodSell, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "GoodRem", EndDate, GoodRem, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "GoodResult", EndDate, GoodResult, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "TNperc", EndDate, TNperc, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "TNonReamis", EndDate, TNonReamis, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "SellTN", EndDate, SellTN, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "NC_OK", EndDate, NC_OK, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "NC_SB", EndDate, NC_SB, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "NC_PSD", EndDate, NC_PSD, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "NC_perc", EndDate, NC_perc, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "NC_onReamis", EndDate, NC_onReamis, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "Sell_NC", EndDate, Sell_NC, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "VAT_SB", EndDate, VAT_SB, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "VAT_OK_42_3_1", EndDate, VAT_OK_42_3_1, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "VAT_OK_42_3_2", EndDate, VAT_OK_42_3_2, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "VAT_OK_42", EndDate, VAT_OK_42, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "VAT_PSD", EndDate, VAT_PSD, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "VAT_perc", EndDate, VAT_perc, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "VAT_onRemains", EndDate, VAT_onRemains, "")
+            Call tax_AddTaxResult(gdcTaxResult, gdcTaxDesignDate.id, _
+              "VAT_Sell", EndDate, VAT_Sell, "")
+          End If
+          If Result Then
+            Set SQL = Creator.GetObject(null, "TIBSQL", "")
+            SQL.Transaction = Transaction
+            SQL.SQL.Text = "execute block (trrecordkey INTEGER = :trrecordkey, begindate DATE = :begindate, enddate DATE = :enddate)" & _
+              "as " & _
+              "  declare id integer; " & _
+              "begin " & _
+              "  for " & _
+              "    SELECT e.recordkey FROM ac_autoentry ae JOIN ac_entry e ON e.id = ae.entrykey " & _
+              "    JOIN ac_record r ON r.id = e.recordkey WHERE ae.trrecordkey = :trrecordkey AND " & _
+              "    ae.begindate = :begindate AND ae.enddate = :enddate AND r.delayed = 1 AND " & _
+              "    r.companykey IN (" & IbLogin.HoldingList & ")" & _
+              "    into :id " & _
+              "  do " & _
+              "    UPDATE ac_record SET delayed = 0 WHERE id = :id; " & _
+              "end " 
+            SQL.ParamByName("trrecordkey").AsInteger = TrRecordKey
+            SQL.ParamByName("begindate").AsDateTime = BeginDate
+            SQL.ParamByName("enddate").AsDateTime = EndDate
+            SQL.ExecQuery
+            Creator.DestroyObject(SQL)
+          End If
+          GS.Transaction = nothing
+          If Result Then
+            Transaction.Commit
+          Else
+            Transaction.Rollback
+          End If
+        End Sub
+        'Функция обработки исключения
+        Sub ExceptAutoEntryScript165870446_2098155268 (Transaction)
+          Transaction.Rollback
+          GS.Transaction = Nothing
+        End Sub
+        
+        
+        '#include CurrCompanyName
+        '#include CurCompanyResponsibleFIO
+        '#include CurrCompanyChiefAccountant
+        '#include CurrCompanyDirectorFIO
+        '#include CurrCompanyUNN
+        '#include CurrCompanyTelephone
+        '#include CurrCompanyAddress
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "147084499_66720196 tax_AddTaxResult"
+          - 
+            ADDFUNCTIONKEY: "147009862_69059608 CurrCompanyName"
+          - 
+            ADDFUNCTIONKEY: "147029222_69059608 CurCompanyResponsibleFIO"
+          - 
+            ADDFUNCTIONKEY: "147029221_69059608 CurrCompanyChiefAccountant"
+          - 
+            ADDFUNCTIONKEY: "147009966_69059608 CurrCompanyDirectorFIO"
+          - 
+            ADDFUNCTIONKEY: "147009945_69059608 CurrCompanyUNN"
+          - 
+            ADDFUNCTIONKEY: "147009960_69059608 CurrCompanyTelephone"
+          - 
+            ADDFUNCTIONKEY: "147009922_69059608 CurrCompanyAddress"
+  - 
+    Properties: 
+      Class: "TgdcAutoTrRecord"
+      RUID: 165870445_2098155268
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACCOUNTNAME: "План счетов"
+      DBEGIN: ~
+      DEND: ~
+      DESCRIPTION: "00.Расчет реализованной ТН, НАЦЕНКИ и НДС ('01.01.2023')"
+      DOCUMENTNAME: ~
+      DOCUMENTPART: ~
+      DOCUMENTTYPEKEY: ~
+      FOLDERKEY: ~
+      FUNCTIONKEY: "165870446_2098155268 AutoEntryScript165870446_2098155268"
+      FUNCTIONNAME: "AutoEntryScript165870446_2098155268"
+      IMAGEINDEX: ~
+      ISSAVENULL: 0
+      SHOWINEXPLORER: 0
+      TRANSACTIONKEY: "807002_17 Налоги"
+      TRANSACTIONNAME: "Налоги"
+      USR$GS_CONTRACT: ~
+      USR$GS_CUSTOMER: ~
+      USR$GS_DEPARTMENT: ~
+      USR$GS_DOCUMENT: ~
+      USR$GS_ECONOMICACTIVITY: ~
+      USR$GS_EMPLOYEE: ~
+      USR$GS_EXPENSES: ~
+      USR$GS_GOOD: ~
+      USR$GS_SALETAXRATE: ~
+      USR$GS_SERVICE: ~
+      USR$VATTYPE_KEY: ~
+      EDITIONDATE: 2023-05-17T17:04:51+03:00
+      DISABLED: 0
+      FUNCTIONTEMPLATE: !!binary > 
+        RldpegEAAAAMAAAAVFNjcmlwdEJsb2NrEgAAAAAAAAAAAAAAAAAAAAAAAAAAPgEAAIgDAAABAAAA
+        AAAAAAABAAAAEQAAAFRUYXhGdW5jdGlvbkJsb2NrEgAAACMAAABBdXRvRW50cnlTY3JpcHQxNjU4
+        NzA0NDZfMjA5ODE1NTI2OAAAAAABCgAAANT+//8lAQAAtAQAAAEAAAAAAAAAAABTTFBSUFJTVAkA
+        AABCZWdpbkRhdGUTAAAAxODy4CDt4Pfg6+Ag7+Xw6O7k4AAAAAAAAAAAAAAAAAIAAAAAAAAAABMA
+        AADE4PLgIO3g9+Dr4CDv5fDo7uTgRk5TVAAAAABQUlNUBwAAAEVuZERhdGUWAAAAxODy4CDu6u7t
+        9+Dt6P8g7+Xw6O7k4AAAAAAAAAAAAAAAAAIAAAAAAAAAABYAAADE4PLgIO7q7u334O3o/yDv5fDo
+        7uTgRk5TVAAAAABGTFBSAAAAAA0AAABSZXN1bHQgPSBUcnVlCQAAADgwNzAwMl8xNxQAAAAxNjU4
+        NzA0NDVfMjA5ODE1NTI2OAAUAAAAMTY1ODcwNDQzXzIwOTgxNTUyNjgUAAAAMTY1ODcwNDM5XzIw
+        OTgxNTUyNjgCAAAACgAAAFRVc2VyQmxvY2sSAAAABQAAAFVzcl8xAAAAAAEKAAAAHAAAAKwAAAAX
+        AAAAAAAAAAAAAAAAHQAAAFRyYW5zYWN0aW9uLkNvbW1pdFJldGFpbmluZw0KAAAAAAgAAABUSWZC
+        bG9jaxIAAAAEAAAASWZfMQAAAAABCgAAADgAAADYAAAAYAQAAAAAAAAAAAAAAAMAAAAxPTEnAAAA
+        DAAAAFRUYXhWYXJCbG9jaxIAAAALAAAAQ29tcGFueU5hbWUAAAAAAQoAAAAcAAAArwAAABcAAAAA
+        AAAAAAAAAAAUAAAAW1NGLkN1cnJDb21wYW55TmFtZV0AAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAA
+        DgAAAFJlc3BvbnNpYmxlRklPAAAAAAEKAAAAOAAAALIAAAAXAAAAAAAAAAAAAAAAHQAAAFtTRi5D
+        dXJDb21wYW55UmVzcG9uc2libGVGSU9dAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAABIAAABDaGll
+        ZkFjY291bnRhbnRGSU8AAAAAAQoAAABUAAAAyQAAABcAAAAAAAAAAAAAAAAfAAAAW1NGLkN1cnJD
+        b21wYW55Q2hpZWZBY2NvdW50YW50XQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAALAAAARGlyZWN0
+        b3JGSU8AAAAAAQoAAABwAAAAnwAAABcAAAAAAAAAAAAAAAAbAAAAW1NGLkN1cnJDb21wYW55RGly
+        ZWN0b3JGSU9dAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAMAAABVTk4AAAAAAQoAAACMAAAAfAAA
+        ABcAAAAAAAAAAAAAAAATAAAAW1NGLkN1cnJDb21wYW55VU5OXQAAAAAADAAAAFRUYXhWYXJCbG9j
+        axIAAAADAAAAVEVMAAAAAAEKAAAAqAAAAHgAAAAXAAAAAAAAAAAAAAAAGQAAAFtTRi5DdXJyQ29t
+        cGFueVRlbGVwaG9uZV0AAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAABwAAAEFkZHJlc3MAAAAAAQoA
+        AADEAAAAjgAAABcAAAAAAAAAAAAAAAAXAAAAW1NGLkN1cnJDb21wYW55QWRkcmVzc10AAAAAAAwA
+        AABUVGF4VmFyQmxvY2sSAAAABgAAAFJNb250aAAAAAABCgAAAOAAAACMAAAAFwAAAAAAAAAAAAAA
+        ABkAAABNb250aE5hbWUoTW9udGgoRW5kRGF0ZSkpAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAUA
+        AABSWWVhcgAAAAABCgAAAPwAAACEAAAAFwAAAAAAAAAAAAAAAA0AAABZZWFyKEVuZERhdGUpAAAA
+        AAAMAAAAVFRheFZhckJsb2NrEgAAAAQAAABQb3MxAAAAAAEKAAAAGAEAAH4AAAAXAAAAAAAAAAAA
+        AAAAFAAAAFtTRi5DdXJyQ29tcGFueU5hbWVdAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAUAAABU
+        Tl9TQgAAAAABCgAAADQBAACGAAAAFwAAAAAAAAAAAAAAAFoAAAAoKFtHUy5TSygiNDIuMS4xIiwg
+        QmVnaW5EYXRlIC0gMSwgRW1wdHkpXSAtIFtHUy5TRCgiNDIuMS4xIiwgQmVnaW5EYXRlIC0gMSwg
+        RW1wdHkpXSApIC8gMSkAAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAABQAAAFROX09LAAAAAAEKAAAA
+        UAEAAIgAAAAXAAAAAAAAAAAAAAAAXQAAAChbR1MuT0soIjQyLjEuMSIsIEJlZ2luRGF0ZSwgRW5k
+        RGF0ZSwgRW1wdHkpXSAtIFtHUy5PRCgiNDIuMS4xIiwgQmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0
+        eSldKQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAGAAAAVE5fUFNEAAAAAAEKAAAAbAEAAI0AAAAX
+        AAAAAAAAAAAAAAAADQAAAFROX1NCICsgVE5fT0sAAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAACAAA
+        AEdvb2RTZWxsAAAAAAEKAAAAiAEAAJAAAAAXAAAAAAAAAAAAAAAAMwAAACgoW0dTLk9LKCIyMC4y
+        IiwgQmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0eSldICkgLyAxKQAAAAAADAAAAFRUYXhWYXJCbG9j
+        axIAAAAHAAAAR29vZFJlbQAAAAABCgAAAKQBAACVAAAAFwAAAAAAAAAAAAAAAG8AAAAoKFtHUy5T
+        RCgiNDEuMDIiLCBFbmREYXRlLCBFbXB0eSldICArIFtHUy5TRCgiNDEuMDQiLCBFbmREYXRlLCBF
+        bXB0eSldKSAvIDEpICsgIFtHUy5TRCgiMjAuMiIsIEVuZERhdGUsIEVtcHR5KV0AAAAAAAwAAABU
+        VGF4VmFyQmxvY2sSAAAACgAAAEdvb2RSZXN1bHQAAAAAAQoAAADAAQAAngAAABcAAAAAAAAAAAAA
+        AAASAAAAR29vZFNlbGwgKyBHb29kUmVtAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAYAAABUTnBl
+        cmMAAAAAAQoAAADcAQAAiQAAABcAAAAAAAAAAAAAAAAkAAAAUk9VTkQoKFROX1BTRCAqIDEwMCAv
+        IEdvb2RSZXN1bHQpLDQpAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAoAAABUTm9uUmVhbWlzAAAA
+        AAEKAAAA+AEAAKIAAAAXAAAAAAAAAAAAAAAAHQAAAFJPVU5EKChHb29kUmVtKlROcGVyYy8xMDAp
+        LDIpAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAAYAAABTZWxsVE4AAAAAAQoAAAAUAgAAhAAAABcA
+        AAAAAAAAAAAAAAATAAAAKFROX1BTRC1UTm9uUmVhbWlzKQAAAAAACwAAAFRFbnRyeUJsb2NrEgAA
+        AAcAAABFbnRyeV8xAAAAAAEKAAAAMAIAAG4AAAAXAAAAAAAAAAAAAAAAEwAAADE0NzA0ODgzMl8z
+        Mzg5MTU4NDQTAAAAMTQ3MDYyOTc5XzU4MTk3NDYwOAAAAAAAAAAABwAAAC1TZWxsVE4AAAAACQAA
+        AEJlZ2luRGF0ZQcAAABFbmREYXRlCQAAAEVudHJ5RGF0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAFAAAATkNfT0sAAAAAAQoAAABMAgAAiQAAABcAAAAA
+        AAAAAAAAAABdAAAAKFtHUy5PSygiNDIuMS4yIiwgQmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0eSld
+        IC0gW0dTLk9EKCI0Mi4xLjIiLCBCZWdpbkRhdGUsIEVuZERhdGUsIEVtcHR5KV0pAAAAAAAMAAAA
+        VFRheFZhckJsb2NrEgAAAAUAAABOQ19TQgAAAAABCgAAAGgCAACHAAAAFwAAAAAAAAAAAAAAAFoA
+        AAAoKFtHUy5TSygiNDIuMS4yIiwgQmVnaW5EYXRlIC0gMSwgRW1wdHkpXSAtIFtHUy5TRCgiNDIu
+        MS4yIiwgQmVnaW5EYXRlIC0gMSwgRW1wdHkpXSApIC8gMSkAAAAAAAwAAABUVGF4VmFyQmxvY2sS
+        AAAABgAAAE5DX1BTRAAAAAABCgAAAIQCAACOAAAAFwAAAAAAAAAAAAAAAAsAAABOQ19TQitOQ19P
+        SwAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAHAAAATkNfcGVyYwAAAAABCgAAAKACAACQAAAAFwAA
+        AAAAAAAAAAAAACQAAABST1VORCgoTkNfUFNEICogMTAwIC8gR29vZFJlc3VsdCksNCkAAAAAAAwA
+        AABUVGF4VmFyQmxvY2sSAAAACwAAAE5DX29uUmVhbWlzAAAAAAEKAAAAvAIAAKkAAAAXAAAAAAAA
+        AAAAAAAAHgAAAFJPVU5EKChHb29kUmVtKk5DX3BlcmMvMTAwKSwyKQAAAAAADAAAAFRUYXhWYXJC
+        bG9jaxIAAAAHAAAAU2VsbF9OQwAAAAABCgAAANgCAACLAAAAFwAAAAAAAAAAAAAAABQAAAAoTkNf
+        UFNELU5DX29uUmVhbWlzKQAAAAAACwAAAFRFbnRyeUJsb2NrEgAAAAcAAABFbnRyeV8yAAAAAAEK
+        AAAA9AIAAG4AAAAXAAAAAAAAAAAAAAAAEwAAADE0NzA0ODgzMl8zMzg5MTU4NDQTAAAAMTQ3MDYy
+        OTgxXzU4MTk3NDYwOAAAAAAAAAAACAAAAC1TZWxsX05DAAAAAAkAAABCZWdpbkRhdGUHAAAARW5k
+        RGF0ZQkAAABFbnRyeURhdGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAABUVGF4VmFy
+        QmxvY2sSAAAABgAAAFZBVF9TQgAAAAABCgAAABADAACMAAAAFwAAAAAAAAAAAAAAAAgBAABbR1Mu
+        U0soZ2RjQmFzZU1hbmFnZXIuR2V0SWRCeVJVSURTdHJpbmcoIjM0NDIwM18xNyIpezQyLjN9LCBC
+        ZWdpbkRhdGUsIEVtcHR5KV0gLSBbR1MuU0soZ2RjQmFzZU1hbmFnZXIuR2V0SWRCeVJVSURTdHJp
+        bmcoIjE0NzA2Mjk4Ml81ODE5NzQ2MDgiKXs0Mi4zLjF9LCBCZWdpbkRhdGUsIEVtcHR5KV0gLSBb
+        R1MuU0soZ2RjQmFzZU1hbmFnZXIuR2V0SWRCeVJVSURTdHJpbmcoIjE1NTgzNjQ0Nl8yNDM1MDY2
+        MDAiKXs0Mi4zLjJ9LCBCZWdpbkRhdGUsIEVtcHR5KV0AAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAA
+        DQAAAFZBVF9PS180Ml8zXzEAAAAAAQoAAAAsAwAAuAAAABcAAAAAAAAAAAAAAADJAAAAW0dTLk9L
+        KGdkY0Jhc2VNYW5hZ2VyLkdldElkQnlSVUlEU3RyaW5nKCIxNDcwNjI5ODJfNTgxOTc0NjA4Iil7
+        NDIuMy4xfSwgQmVnaW5EYXRlLCBFbmREYXRlLCBFbXB0eSldIC0gW0dTLk9EKGdkY0Jhc2VNYW5h
+        Z2VyLkdldElkQnlSVUlEU3RyaW5nKCIxNDcwNjI5ODJfNTgxOTc0NjA4Iil7NDIuMy4xfSwgQmVn
+        aW5EYXRlLCBFbmREYXRlLCBFbXB0eSldAAAAAAAMAAAAVFRheFZhckJsb2NrEgAAAA0AAABWQVRf
+        T0tfNDJfM18yAAAAAAEKAAAASAMAALgAAAAXAAAAAAAAAAAAAAAAxwAAAFtHUy5PSyhnZGNCYXNl
+        TWFuYWdlci5HZXRJZEJ5UlVJRFN0cmluZygiMTU1ODM2NDQ2XzI0MzUwNjYwMCIpezQyLjMuMn0s
+        IEJlZ2luRGF0ZSwgRW5kRGF0ZSwgRW1wdHkpXS1bR1MuT0QoZ2RjQmFzZU1hbmFnZXIuR2V0SWRC
+        eVJVSURTdHJpbmcoIjE1NTgzNjQ0Nl8yNDM1MDY2MDAiKXs0Mi4zLjJ9LCBCZWdpbkRhdGUsIEVu
+        ZERhdGUsIEVtcHR5KV0AAAAAAAwAAABUVGF4VmFyQmxvY2sSAAAACQAAAFZBVF9PS180MgAAAAAB
+        CgAAAGQDAACgAAAAFwAAAAAAAAAAAAAAABsAAABWQVRfT0tfNDJfM18xK1ZBVF9PS180Ml8zXzIA
+        AAAAAAwAAABUVGF4VmFyQmxvY2sSAAAABwAAAFZBVF9QU0QAAAAAAQoAAACAAwAAkwAAABcAAAAA
+        AAAAAAAAAAAcAAAAUk9VTkQoVkFUX1NCICsgVkFUX09LXzQyLCAyKQAAAAAADAAAAFRUYXhWYXJC
+        bG9jaxIAAAAIAAAAVkFUX3BlcmMAAAAAAQoAAACcAwAAlQAAABcAAAAAAAAAAAAAAAAfAAAAUk9V
+        TkQoVkFUX1BTRCoxMDAvR29vZFJlc3VsdCw0KQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAANAAAA
+        VkFUX29uUmVtYWlucwAAAAABCgAAALgDAAC0AAAAFwAAAAAAAAAAAAAAAB0AAABST1VORChHb29k
+        UmVtKlZBVF9wZXJjLzEwMCwyKQAAAAAADAAAAFRUYXhWYXJCbG9jaxIAAAAIAAAAVkFUX1NlbGwA
+        AAAAAQoAAADUAwAAkAAAABcAAAAAAAAAAAAAAAAVAAAAVkFUX1BTRC1WQVRfb25SZW1haW5zAAAA
+        AAALAAAAVEVudHJ5QmxvY2sSAAAABwAAAEVudHJ5XzUAAAAAAQoAAADwAwAAbgAAABcAAAAAAAAA
+        AAAAAAATAAAAMTQ3MDYyOTgyXzU4MTk3NDYwOAkAAAAzNDQyMDNfMTcAAAAAAAAAAA0AAABWQVRf
+        T0tfNDJfM18xAAAAAAkAAABCZWdpbkRhdGUHAAAARW5kRGF0ZQkAAABFbnRyeURhdGUAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAABURW50cnlCbG9jaxIAAAAHAAAARW50cnlfNgAAAAAB
+        CgAAAAwEAABuAAAAFwAAAAAAAAAAAAAAABMAAAAxNTU4MzY0NDZfMjQzNTA2NjAwCQAAADM0NDIw
+        M18xNwAAAAAAAAAADQAAAFZBVF9PS180Ml8zXzIAAAAACQAAAEJlZ2luRGF0ZQcAAABFbmREYXRl
+        CQAAAEVudHJ5RGF0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAFRFbnRyeUJsb2Nr
+        EgAAAAcAAABFbnRyeV8zAAAAAAEKAAAAKAQAAG4AAAAXAAAAAAAAAAAAAAAACQAAADM0NDYwMl8x
+        NwkAAAAzNDQyMDNfMTcAAAAAAAAAAAkAAAAtVkFUX1NlbGwAAAAACQAAAEJlZ2luRGF0ZQcAAABF
+        bmREYXRlCQAAAEVudHJ5RGF0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAFRFbnRy
+        eUJsb2NrEgAAAAcAAABFbnRyeV80AAAAAAEKAAAARAQAAG4AAAAXAAAAAAAAAAAAAAAACQAAADM0
+        NDYwMl8xNxMAAAAxNDcwMTM1ODBfMTE5NTUzNzYxAAAAAAAAAAAIAAAAVkFUX1NlbGwAAAAACQAA
+        AEJlZ2luRGF0ZQcAAABFbmREYXRlCQAAAEVudHJ5RGF0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA
+  - 
+    Properties: 
+      Class: "TgdcReportGroup"
+      RUID: 165870447_2098155268
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870443_2098155268
+    Fields: 
+      PARENT: "1020002_17 Бухгалтерский отчет"
+      NAME: "00.Расчет реализованной ТН и НАЦЕНКИ (01.01.2023)"
+      DESCRIPTION: ~
+      USERGROUPNAME: "165870447"
+      EDITIONDATE: 2023-05-17T13:25:32+03:00
+  - 
+    Properties: 
+      Class: "TgdcTaxActual"
+      RUID: 165870443_2098155268
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ACCOUNTKEY: "300001_17 План счетов"
+      ACTUALDATE: 2023-01-01
+      DESCRIPTION: ~
+      REPORTDAY: 20
+      REPORTGROUPKEY: "165870447_2098155268 Бухгалтерский отчет\\00.Расчет реализованной ТН и НАЦЕНКИ (01.01.2023)"
+      TAXNAME: "00.Расчет реализованной ТН, НАЦЕНКИ и НДС"
+      TAXNAMEKEY: "165870439_2098155268 00.Расчет реализованной ТН, НАЦЕНКИ и НДС"
+      TRRECORDKEY: "165870445_2098155268 00.Расчет реализованной ТН, НАЦЕНКИ и НДС ('01.01.2023')"
+      TYPEKEY: "350001_17"
+      TYPENAME: "За месяц"
+      EDITIONDATE: 2023-05-17T17:04:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcTemplate"
+      RUID: 165870753_2098155268
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870654_2098155268
+    Fields: 
+      NAME: "Реализваонная ТН и наценка. 2023"
+      DESCRIPTION: ~
+      TEMPLATETYPE: "FR4"
+      EDITIONDATE: 2023-05-17T17:21:04+03:00
+      TEMPLATEDATA: | 
+        <?xml version="1.0" encoding="utf-8"?>
+        <Tgs_fr4SingleReport Version="4.15.13" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="45063,6078851389" ReportOptions.Description.Text="" ReportOptions.LastChange="45063,6078851389" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="08446174617365747301010C2200000020446174615365743D22434F4D312220446174615365744E616D653D22434F4D312200010C2200000020446174615365743D22434F4D322220446174615365744E616D653D22434F4D322200010C2200000020446174615365743D22434F4D332220446174615365744E616D653D22434F4D332200010C1C00000020446174615365743D22542220446174615365744E616D653D22542200010C2C00000020446174615365743D22544158524553554C542220446174615365744E616D653D22544158524553554C54220000095661726961626C65730100055374796C650100">
+          <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+          <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="297" PaperHeight="210" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" LargeDesignHeight="True" HGuides.Text="" VGuides.Text="">
+            <TfrxReportTitle Name="ReportTitle1" Height="71,5906" Left="0" Top="18,89765" Width="1046,92981">
+              <TfrxMemoView Name="Memo1" Left="0" Top="3,55906" Width="1050,70934" Height="68,03154" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="Р РђРЎР§Р•Рў&#13;&#10;Р·Р° [TAXRESULT.&#34;RMonth_R&#34;] [TAXRESULT.&#34;RYear_R&#34;]&#13;&#10;&#13;&#10;[TAXRESULT.&#34;CompanyName_R&#34;]"/>
+            </TfrxReportTitle>
+            <TfrxHeader Name="Header1" Height="147,40167" Left="0" Top="151,1812" Width="1046,92981">
+              <TfrxMemoView Name="Memo2" Left="0" Top="49,13389" Width="22,67718" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="в„– Рї/Рї"/>
+              <TfrxMemoView Name="Memo3" Left="22,67718" Top="49,13389" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎР°Р»СЊРґРѕ РїРѕ СЃС‡РµС‚Сѓ 42.1.2 (РЅР°С†РµРЅРєР°)"/>
+              <TfrxMemoView Name="Memo4" Left="136,06308" Top="49,13389" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РќР°С†РµРЅРєР° РїРѕ РїРѕСЃС‚СѓРїРёРІС€РёРј С‚РѕРІР°СЂР°Рј (РѕР±РѕСЂРѕС‚ РїРѕ РєСЂРµРґРёС‚Сѓ СЃС‡РµС‚Р° 42.1.2(РЅР°С†РµРЅРєР°))"/>
+              <TfrxMemoView Name="Memo5" Left="249,44898" Top="49,13389" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРµ СЃР°Р»СЊРґРѕ РїРѕ РЅР°С†РµРЅРєРµ РЅР° РєРѕРЅРµС† РјРµСЃСЏС†Р° (РіСЂ.2 + РіСЂ.3)"/>
+              <TfrxMemoView Name="Memo6" Left="362,83488" Top="68,03154" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р РµР°Р»РёР·РѕРІР°РЅРѕ Р·Р° РјРµСЃСЏС† (РєСЂРµРґРёС‚ СЃС‡РµС‚Р° 90)"/>
+              <TfrxMemoView Name="Memo7" Left="457,32313" Top="68,03154" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РћСЃС‚Р°С‚РѕРє С‚РѕРІР°СЂР° РЅР° РєРѕРЅРµС† РјРµСЃСЏС†Р°"/>
+              <TfrxMemoView Name="Memo8" Left="551,81138" Top="68,03154" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РС‚РѕРіРѕ &#13;&#10;(РіСЂ.5 + РіСЂ.6)"/>
+              <TfrxMemoView Name="Memo9" Left="362,83488" Top="49,13389" Width="283,46475" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎС‚РѕРёРјРѕСЃС‚СЊ С‚РѕРІР°СЂРѕРІ"/>
+              <TfrxMemoView Name="Memo10" Left="646,29963" Top="49,13389" Width="75,5906" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎСЂРµРґРЅРёР№ РїСЂРѕС†РµРЅС‚ РЅР°С†РµРЅРєРё &#13;&#10;(РіСЂ.4 С… 100/РіСЂ.7)"/>
+              <TfrxMemoView Name="Memo11" Left="721,89023" Top="49,13389" Width="94,48825" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РќР°С†РµРЅРєР° РЅР° РѕСЃС‚Р°С‚РѕРє С‚РѕРІР°СЂРѕРІ&#13;&#10;(РіСЂ.6 С… РіСЂ.8/100)"/>
+              <TfrxMemoView Name="Memo12" Left="816,37848" Top="49,13389" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р РµР°Р»РёР·РѕРІР°РЅРЅР°СЏ РЅР°С†РµРЅРєР°&#13;&#10;(РіСЂ.4 - РіСЂ.9)"/>
+              <TfrxMemoView Name="Memo13" Left="0" Top="132,28355" Width="22,67718" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="1"/>
+              <TfrxMemoView Name="Memo14" Left="22,67718" Top="132,28355" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="2"/>
+              <TfrxMemoView Name="Memo15" Left="136,06308" Top="132,28355" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="3"/>
+              <TfrxMemoView Name="Memo16" Left="249,44898" Top="132,28355" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="4"/>
+              <TfrxMemoView Name="Memo17" Left="362,83488" Top="132,28355" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="5"/>
+              <TfrxMemoView Name="Memo18" Left="457,32313" Top="132,28355" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="6"/>
+              <TfrxMemoView Name="Memo19" Left="551,81138" Top="132,28355" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="7"/>
+              <TfrxMemoView Name="Memo20" Left="646,29963" Top="132,28355" Width="75,5906" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="8"/>
+              <TfrxMemoView Name="Memo21" Left="721,89023" Top="132,28355" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="9"/>
+              <TfrxMemoView Name="Memo22" Left="816,37848" Top="132,28355" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="10"/>
+              <TfrxMemoView Name="Memo23" Left="0" Top="24,67718" Width="1046,92981" Height="22,67718" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="СЂРµР°Р»РёР·РѕРІР°РЅРЅРѕР№ РЅР°С†РµРЅРєРё"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData1" Height="15,11812" Left="0" Top="321,26005" Width="1046,92981" ColumnWidth="0" ColumnGap="0" DataSetName="TAXRESULT" RowCount="0">
+              <TfrxMemoView Name="Memo24" Left="0" Top="0" Width="22,67718" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[Line#]"/>
+              <TfrxMemoView Name="Memo25" Left="22,67718" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DataField="TN_SB_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;TN_SB_R&#34;]"/>
+              <TfrxMemoView Name="Memo26" Left="136,06308" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DataField="TN_OK_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;TN_OK_R&#34;]"/>
+              <TfrxMemoView Name="Memo27" Left="249,44898" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DataField="TN_PSD_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;TN_PSD_R&#34;]"/>
+              <TfrxMemoView Name="Memo28" Left="362,83488" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodSell_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodSell_R&#34;]"/>
+              <TfrxMemoView Name="Memo29" Left="457,32313" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodRem_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodRem_R&#34;]"/>
+              <TfrxMemoView Name="Memo30" Left="551,81138" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodResult_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodResult_R&#34;]"/>
+              <TfrxMemoView Name="Memo31" Left="646,29963" Top="0" Width="75,5906" Height="15,11812" ShowHint="False" DataField="TNperc_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.42n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;TNperc_R&#34;]"/>
+              <TfrxMemoView Name="Memo32" Left="721,89023" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" DataField="TNonReamis_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;TNonReamis_R&#34;]"/>
+              <TfrxMemoView Name="Memo33" Left="816,37848" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DataField="SellTN_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;SellTN_R&#34;]"/>
+            </TfrxMasterData>
+            <TfrxFooter Name="Footer1" Height="3,77953" Left="0" Top="359,05535" Width="1046,92981"/>
+            <TfrxHeader Name="Header2" Height="136,06308" Left="0" Top="385,51206" Width="1046,92981">
+              <TfrxMemoView Name="Memo34" Left="0" Top="37,7953" Width="22,67718" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="в„– Рї/Рї"/>
+              <TfrxMemoView Name="Memo35" Left="22,67718" Top="37,7953" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎР°Р»СЊРґРѕ РїРѕ СЃС‡РµС‚Сѓ 42.1.1 (РЅР°РґР±Р°РІРєР°)"/>
+              <TfrxMemoView Name="Memo36" Left="136,06308" Top="37,7953" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РќР°С†РµРЅРєР° РїРѕ РїРѕСЃС‚СѓРїРёРІС€РёРј С‚РѕРІР°СЂР°Рј (РѕР±РѕСЂРѕС‚ РїРѕ РєСЂРµРґРёС‚Сѓ СЃС‡РµС‚Р° 42.1.1(РЅР°РґР±Р°РІРєР°))"/>
+              <TfrxMemoView Name="Memo37" Left="249,44898" Top="37,7953" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРµ СЃР°Р»СЊРґРѕ РїРѕ РЅР°С†РµРЅРєРµ РЅР° РєРѕРЅРµС† РјРµСЃСЏС†Р° (РіСЂ.2 + РіСЂ.3)"/>
+              <TfrxMemoView Name="Memo38" Left="362,83488" Top="56,69295" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р РµР°Р»РёР·РѕРІР°РЅРѕ Р·Р° РјРµСЃСЏС† (РєСЂРµРґРёС‚ СЃС‡РµС‚Р° 90)"/>
+              <TfrxMemoView Name="Memo39" Left="457,32313" Top="56,69295" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РћСЃС‚Р°С‚РѕРє С‚РѕРІР°СЂР° РЅР° РєРѕРЅРµС† РјРµСЃСЏС†Р°"/>
+              <TfrxMemoView Name="Memo40" Left="551,81138" Top="56,69295" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РС‚РѕРіРѕ &#13;&#10;(РіСЂ.5 + РіСЂ.6)"/>
+              <TfrxMemoView Name="Memo41" Left="362,83488" Top="37,7953" Width="283,46475" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎС‚РѕРёРјРѕСЃС‚СЊ С‚РѕРІР°СЂРѕРІ"/>
+              <TfrxMemoView Name="Memo42" Left="646,29963" Top="37,7953" Width="75,5906" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎСЂРµРґРЅРёР№ РїСЂРѕС†РµРЅС‚ РЅР°С†РµРЅРєРё &#13;&#10;(РіСЂ.4 С… 100/РіСЂ.7)"/>
+              <TfrxMemoView Name="Memo43" Left="721,89023" Top="37,7953" Width="94,48825" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РќР°С†РµРЅРєР° РЅР° РѕСЃС‚Р°С‚РѕРє С‚РѕРІР°СЂРѕРІ&#13;&#10;(РіСЂ.6 С… РіСЂ.8/100)"/>
+              <TfrxMemoView Name="Memo44" Left="816,37848" Top="37,7953" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р РµР°Р»РёР·РѕРІР°РЅРЅР°СЏ РЅР°С†РµРЅРєР°&#13;&#10;(РіСЂ.4 - РіСЂ.9)"/>
+              <TfrxMemoView Name="Memo45" Left="0" Top="120,94496" Width="22,67718" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="1"/>
+              <TfrxMemoView Name="Memo46" Left="22,67718" Top="120,94496" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="2"/>
+              <TfrxMemoView Name="Memo47" Left="136,06308" Top="120,94496" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="3"/>
+              <TfrxMemoView Name="Memo48" Left="249,44898" Top="120,94496" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="4"/>
+              <TfrxMemoView Name="Memo49" Left="362,83488" Top="120,94496" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="5"/>
+              <TfrxMemoView Name="Memo50" Left="457,32313" Top="120,94496" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="6"/>
+              <TfrxMemoView Name="Memo51" Left="551,81138" Top="120,94496" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="7"/>
+              <TfrxMemoView Name="Memo52" Left="646,29963" Top="120,94496" Width="75,5906" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="8"/>
+              <TfrxMemoView Name="Memo53" Left="721,89023" Top="120,94496" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="9"/>
+              <TfrxMemoView Name="Memo54" Left="816,37848" Top="120,94496" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="10"/>
+              <TfrxMemoView Name="Memo55" Left="0" Top="16,11812" Width="1046,92981" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="СЂРµР°Р»РёР·РѕРІР°РЅРЅРѕР№ С‚РѕСЂРіРѕРІРѕР№ РЅР°РґР±Р°РІРєРё"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData2" Height="15,11812" Left="0" Top="544,25232" Width="1046,92981" ColumnWidth="0" ColumnGap="0" DataSetName="TAXRESULT" RowCount="0">
+              <TfrxMemoView Name="Memo56" Left="0" Top="0" Width="22,67718" Height="15,11812" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[Line#]"/>
+              <TfrxMemoView Name="Memo57" Left="22,67718" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;NC_SB_R&#34;]"/>
+              <TfrxMemoView Name="Memo58" Left="136,06308" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;NC_OK_R&#34;]"/>
+              <TfrxMemoView Name="Memo59" Left="249,44898" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;NC_PSD_R&#34;]"/>
+              <TfrxMemoView Name="Memo60" Left="362,83488" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodSell_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodSell_R&#34;]"/>
+              <TfrxMemoView Name="Memo61" Left="457,32313" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodRem_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodRem_R&#34;]"/>
+              <TfrxMemoView Name="Memo62" Left="551,81138" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodResult_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodResult_R&#34;]"/>
+              <TfrxMemoView Name="Memo63" Left="646,29963" Top="0" Width="75,5906" Height="15,11812" ShowHint="False" DisplayFormat.FormatStr="%2.4n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;NC_perc_R&#34;]"/>
+              <TfrxMemoView Name="Memo64" Left="721,89023" Top="0" Width="94,48825" Height="15,11812" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;NC_onReamis_R&#34;]"/>
+              <TfrxMemoView Name="Memo65" Left="816,37848" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;Sell_NC_R&#34;]"/>
+            </TfrxMasterData>
+            <TfrxHeader Name="Header3" Height="151,1812" Left="0" Top="582,04762" Width="1046,92981">
+              <TfrxMemoView Name="Memo66" Left="0" Top="52,91342" Width="22,67718" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="в„– Рї/Рї"/>
+              <TfrxMemoView Name="Memo67" Left="22,67718" Top="52,91342" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎР°Р»СЊРґРѕ РїРѕ СЃС‡РµС‚Сѓ 42.1.1 (РЅР°РґР±Р°РІРєР°)"/>
+              <TfrxMemoView Name="Memo68" Left="136,06308" Top="52,91342" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РќР°С†РµРЅРєР° РїРѕ РїРѕСЃС‚СѓРїРёРІС€РёРј С‚РѕРІР°СЂР°Рј (РѕР±РѕСЂРѕС‚ РїРѕ РєСЂРµРґРёС‚Сѓ СЃС‡РµС‚Р° 42.1.1(РЅР°РґР±Р°РІРєР°))"/>
+              <TfrxMemoView Name="Memo69" Left="249,44898" Top="52,91342" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРµ СЃР°Р»СЊРґРѕ РїРѕ РЅР°С†РµРЅРєРµ РЅР° РєРѕРЅРµС† РјРµСЃСЏС†Р° (РіСЂ.2 + РіСЂ.3)"/>
+              <TfrxMemoView Name="Memo70" Left="362,83488" Top="71,81107" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р РµР°Р»РёР·РѕРІР°РЅРѕ Р·Р° РјРµСЃСЏС† (РєСЂРµРґРёС‚ СЃС‡РµС‚Р° 90)"/>
+              <TfrxMemoView Name="Memo71" Left="457,32313" Top="71,81107" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РћСЃС‚Р°С‚РѕРє С‚РѕРІР°СЂР° РЅР° РєРѕРЅРµС† РјРµСЃСЏС†Р°"/>
+              <TfrxMemoView Name="Memo72" Left="551,81138" Top="71,81107" Width="94,48825" Height="64,25201" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РС‚РѕРіРѕ &#13;&#10;(РіСЂ.5 + РіСЂ.6)"/>
+              <TfrxMemoView Name="Memo73" Left="362,83488" Top="52,91342" Width="283,46475" Height="18,89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎС‚РѕРёРјРѕСЃС‚СЊ С‚РѕРІР°СЂРѕРІ"/>
+              <TfrxMemoView Name="Memo74" Left="646,29963" Top="52,91342" Width="75,5906" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РЎСЂРµРґРЅРёР№ РїСЂРѕС†РµРЅС‚ РЅР°С†РµРЅРєРё &#13;&#10;(РіСЂ.4 С… 100/РіСЂ.7)"/>
+              <TfrxMemoView Name="Memo75" Left="721,89023" Top="52,91342" Width="94,48825" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="РќР°С†РµРЅРєР° РЅР° РѕСЃС‚Р°С‚РѕРє С‚РѕРІР°СЂРѕРІ&#13;&#10;(РіСЂ.6 С… РіСЂ.8/100)"/>
+              <TfrxMemoView Name="Memo76" Left="816,37848" Top="52,91342" Width="113,3859" Height="83,14966" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="Р РµР°Р»РёР·РѕРІР°РЅРЅР°СЏ РЅР°С†РµРЅРєР°&#13;&#10;(РіСЂ.4 - РіСЂ.9)"/>
+              <TfrxMemoView Name="Memo77" Left="0" Top="136,06308" Width="22,67718" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="1"/>
+              <TfrxMemoView Name="Memo78" Left="22,67718" Top="136,06308" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="2"/>
+              <TfrxMemoView Name="Memo79" Left="136,06308" Top="136,06308" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="3"/>
+              <TfrxMemoView Name="Memo80" Left="249,44898" Top="136,06308" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="4"/>
+              <TfrxMemoView Name="Memo81" Left="362,83488" Top="136,06308" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="5"/>
+              <TfrxMemoView Name="Memo82" Left="457,32313" Top="136,06308" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="6"/>
+              <TfrxMemoView Name="Memo83" Left="551,81138" Top="136,06308" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="7"/>
+              <TfrxMemoView Name="Memo84" Left="646,29963" Top="136,06308" Width="75,5906" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="8"/>
+              <TfrxMemoView Name="Memo85" Left="721,89023" Top="136,06308" Width="94,48825" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="9"/>
+              <TfrxMemoView Name="Memo86" Left="816,37848" Top="136,06308" Width="113,3859" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="10"/>
+              <TfrxMemoView Name="Memo87" Left="0" Top="14,33859" Width="1046,92981" Height="37,7953" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="СЃСѓРјРјС‹ РЅР°Р»РѕРіР° РЅР° РґРѕР±Р°РІР»РµРЅРЅСѓСЋ СЃС‚РѕРёРјРѕСЃС‚СЊ, &#13;&#10;РїРѕРґР»РµР¶Р°С‰РµР№ СѓРїР»Р°С‚Рµ РїРѕ СЂРµР°Р»РёР·С†РёРё С‚РѕРІР°СЂРѕРІ РїРѕ СЂРѕР·РЅРёС‡РЅС‹Рј С†РµРЅР°Рј"/>
+            </TfrxHeader>
+            <TfrxMasterData Name="MasterData3" Height="15,11812" Left="0" Top="755,906" Width="1046,92981" ColumnWidth="0" ColumnGap="0" DataSetName="TAXRESULT" RowCount="0">
+              <TfrxMemoView Name="Memo88" Left="0" Top="3,81361608958741E-14" Width="22,67718" Height="15,11812" ShowHint="False" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[Line#]"/>
+              <TfrxMemoView Name="Memo89" Left="22,67718" Top="0" Width="113,3859" Height="15,11812" ShowHint="False" DataField="VAT_SB_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;VAT_SB_R&#34;]"/>
+              <TfrxMemoView Name="Memo90" Left="136,06308" Top="3,81361608958741E-14" Width="113,3859" Height="15,11812" ShowHint="False" DataField="VAT_OK_42_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;VAT_OK_42_R&#34;]"/>
+              <TfrxMemoView Name="Memo91" Left="249,44898" Top="3,81361608958741E-14" Width="113,3859" Height="15,11812" ShowHint="False" DataField="VAT_PSD_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;VAT_PSD_R&#34;]"/>
+              <TfrxMemoView Name="Memo92" Left="362,83488" Top="3,81361608958741E-14" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodSell_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodSell_R&#34;]"/>
+              <TfrxMemoView Name="Memo93" Left="457,32313" Top="3,81361608958741E-14" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodRem_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodRem_R&#34;]"/>
+              <TfrxMemoView Name="Memo94" Left="551,81138" Top="3,81361608958741E-14" Width="94,48825" Height="15,11812" ShowHint="False" DataField="GoodResult_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;GoodResult_R&#34;]"/>
+              <TfrxMemoView Name="Memo95" Left="646,29963" Top="3,81361608958741E-14" Width="75,5906" Height="15,11812" ShowHint="False" DataField="VAT_perc_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.4n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;VAT_perc_R&#34;]"/>
+              <TfrxMemoView Name="Memo96" Left="721,89023" Top="3,81361608958741E-14" Width="94,48825" Height="15,11812" ShowHint="False" DataField="VAT_onRemains_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;VAT_onRemains_R&#34;]"/>
+              <TfrxMemoView Name="Memo97" Left="816,37848" Top="3,81361608958741E-14" Width="113,3859" Height="15,11812" ShowHint="False" DataField="VAT_Sell_R" DataSetName="TAXRESULT" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" Frame.Typ="15" HAlign="haCenter" ParentFont="False" Text="[TAXRESULT.&#34;VAT_Sell_R&#34;]"/>
+            </TfrxMasterData>
+            <TfrxReportSummary Name="ReportSummary1" Height="94,48825" Left="0" Top="831,4966" Width="1046,92981">
+              <TfrxMemoView Name="Memo98" Left="79,37013" Top="21,67718" Width="147,40167" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="[COM1.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo99" Left="234,33086" Top="21,67718" Width="71,81107" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo100" Left="313,70099" Top="21,67718" Width="177,63791" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" VAlign="vaCenter" Text="[COM1.&#34;NICKNAME&#34;]"/>
+              <TfrxMemoView Name="Memo101" Left="79,37013" Top="41,57483" Width="147,40167" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="[COM2.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo102" Left="234,33086" Top="41,57483" Width="71,81107" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo103" Left="313,70099" Top="41,57483" Width="177,63791" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" VAlign="vaCenter" Text="[COM2.&#34;NICKNAME&#34;]"/>
+              <TfrxMemoView Name="Memo104" Left="79,37013" Top="60,47248" Width="147,40167" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="[COM3.&#34;RANK&#34;]"/>
+              <TfrxMemoView Name="Memo105" Left="234,33086" Top="60,47248" Width="71,81107" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" Text=""/>
+              <TfrxMemoView Name="Memo106" Left="313,70099" Top="60,47248" Width="177,63791" Height="15,11812" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Frame.Typ="8" ParentFont="False" VAlign="vaCenter" Text="[COM3.&#34;NICKNAME&#34;]"/>
+              <TfrxMemoView Name="Memo107" Left="233,33086" Top="35,7953" Width="71,81107" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="(РїРѕРґРїРёСЃСЊ)"/>
+              <TfrxMemoView Name="Memo108" Left="234,33086" Top="53,91342" Width="71,81107" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="(РїРѕРґРїРёСЃСЊ)"/>
+              <TfrxMemoView Name="Memo109" Left="234,11039" Top="73,5906" Width="71,81107" Height="11,33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-8" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="(РїРѕРґРїРёСЃСЊ)"/>
+            </TfrxReportSummary>
+          </TfrxReportPage>
+        </Tgs_fr4SingleReport>
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 165870655_2098155268
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 165870654_2098155268
+    Fields: 
+      NAME: "rp_Main_TaxResult165870508_2098155268165870655_2098155268"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "REPORTMAIN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-05-17T17:21:06+03:00
+      DISPLAYSCRIPT: | 
+        RP_MAIN_TAXRESULT165870508_2098155268165870655_2098155268
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAUAAABDT05UMQcAAADP7uTv6PH8DgAAAEdEX0NPTlRBQ1QgZ2cxBAAAAE5BTUUC
+        AAAASUQHmQAAACJnZzEuY29udGFjdHR5cGUgPSAyIGFuZCBFWElTVFMgKFNFTEVDVCBjb24uaWQg
+        RlJPTSBnZF9jb250YWN0IGNvbiB3aGVyZSBjb24ubGIgPD0gZ2cxLmxiIGFuZCBjb24ucmIgPj1n
+        ZzEucmIgYW5kIGNvbi5pZCA9ICIrQ1N0cihJQkxvZ2luLkNvbXBhbnlLZXkpKyIpIggAAABWQlNj
+        cmlwdAIAAABeQUZOU1RQUlNUBQAAAENPTlQyBwAAAM/u5O/o8fwOAAAAR0RfQ09OVEFDVCBnZzEE
+        AAAATkFNRQIAAABJRAeZAAAAImdnMS5jb250YWN0dHlwZSA9IDIgYW5kIEVYSVNUUyAoU0VMRUNU
+        IGNvbi5pZCBGUk9NIGdkX2NvbnRhY3QgY29uIHdoZXJlIGNvbi5sYiA8PSBnZzEubGIgYW5kIGNv
+        bi5yYiA+PWdnMS5yYiBhbmQgY29uLmlkID0gIitDU3RyKElCTG9naW4uQ29tcGFueUtleSkrIiki
+        CAAAAFZCU2NyaXB0AgAAAF5BRk5TVFBSU1QFAAAAQ09OVDMHAAAAz+7k7+jx/A4AAABHRF9DT05U
+        QUNUIGdnMQQAAABOQU1FAgAAAElEB5kAAAAiZ2cxLmNvbnRhY3R0eXBlID0gMiBhbmQgRVhJU1RT
+        IChTRUxFQ1QgY29uLmlkIEZST00gZ2RfY29udGFjdCBjb24gd2hlcmUgY29uLmxiIDw9IGdnMS5s
+        YiBhbmQgY29uLnJiID49Z2cxLnJiIGFuZCBjb24uaWQgPSAiK0NTdHIoSUJMb2dpbi5Db21wYW55
+        S2V5KSsiKSIIAAAAVkJTY3JpcHQCAAAAXkFGTlNURkxQUg==
+      SCRIPT: | 
+        function rp_Main_TaxResult165870508_2098155268165870655_2098155268(OwnerForm, cont1, cont2, cont3)
+          set rp_Main_TaxResult165870508_2098155268165870655_2098155268 = BaseQueryList
+          BaseQueryList.Clear
+        
+          set gdcTaxResult = OwnerForm.FindComponent("gdcTaxResult")
+          B = gdcTaxResult.GetBookMark
+          gdcTaxResult.DisableControls
+          gdcTaxResult.Close
+          gdcTaxResult.Open
+          gdcTaxResult.First
+          call BaseQueryList.Add("TaxResult", 1)
+          set tr = BaseQueryList.Query(0)
+          CountRecort = 0
+          While not gdcTaxResult.Eof
+            FunctionName = gdcTaxResult.FieldByName("name").AsString + "_R"
+            call TR.AddField(FunctionName, "ftString", 60, 0)
+        
+            CountRecord = CountRecord + 1
+            gdcTaxResult.Next
+          Wend
+          gdcTaxResult.First
+          TR.Open
+          TR.Append
+          for I = 0 to CountRecord - 1
+            TR.Fields(I).AsString = gdcTaxResult.FieldByName("result").AsString
+            gdcTaxResult.Next
+          next
+          TR.Post
+          gdcTaxResult.EnableControls
+          gdcTaxResult.GotoBookMark(B)
+          dim Title
+          set Title = BaseQueryList.Query(BaseQueryList.Add("T", 1))
+          call Title.AddField("Name", "ftString", 60, 0)
+          Title.Open
+          Title.Append
+          Title.FieldByName("name").AsString = "sdfsdfdsfsdfsd"
+          Title.Post
+          
+          set Com1 = BaseQueryList.Query(BaseQueryList.Add("Com1",0))
+          Com1.SQL =   _
+            "select con.name, ps.NAME as rank, p.NICKNAME " & _
+            "from gd_contact con JOIN gd_people p on p.contactkey = con.id " & _
+            "left join WG_POSITION ps on ps.ID = p.WPOSITIONKEY where con.id = :id "
+          Com1.ParamBYName("ID").ASInteger = cont1(0)
+          Com1.Open
+          set Com2 = BaseQueryList.Query(BaseQueryList.Add("Com2",0))
+          Com2.SQL =   _
+            "select con.name, ps.NAME as rank, p.NICKNAME " & _
+            "from gd_contact con JOIN gd_people p on p.contactkey = con.id " & _
+            "left join WG_POSITION ps on ps.ID = p.WPOSITIONKEY where con.id = :id "
+          Com2.ParamBYName("ID").ASInteger = cont2(0)
+          Com2.Open
+          set Com3 = BaseQueryList.Query(BaseQueryList.Add("Com3",0))
+          Com3.SQL = _
+             "select con.name, ps.NAME as rank, p.NICKNAME " & _
+             "from gd_contact con JOIN gd_people p on p.contactkey = con.id " & _
+             "left join WG_POSITION ps on ps.ID = p.WPOSITIONKEY where con.id = :id "
+          Com3.ParamBYName("ID").ASInteger = cont3(0)
+          Com3.Open
+          
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcReport"
+      RUID: 165870654_2098155268
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Реализованная ТН, наценка и НДС"
+      DESCRIPTION: ~
+      DISPLAYINMENU: 1
+      EVENTFORMULAKEY: ~
+      FOLDERKEY: ~
+      FRQREFRESH: 1
+      GLOBALREPORTKEY: ~
+      ISLOCALEXECUTE: 1
+      ISREBUILD: 1
+      MAINFORMULAKEY: "165870655_2098155268 rp_Main_TaxResult165870508_2098155268165870655_2098155268"
+      MODALPREVIEW: 0
+      PARAMFORMULAKEY: ~
+      PREVIEW: 1
+      REPORTGROUPKEY: "165870447_2098155268 Бухгалтерский отчет\\00.Расчет реализованной ТН и НАЦЕНКИ (01.01.2023)"
+      SERVERKEY: ~
+      TEMPLATEKEY: "165870753_2098155268 Реализваонная ТН и наценка. 2023"
+      EDITIONDATE: 2023-05-17T17:21:06+03:00
