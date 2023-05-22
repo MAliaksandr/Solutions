@@ -5,10 +5,10 @@ Properties:
   RUID: 147061804_2089375573
   Name: "CN.Confiscat.Переоценка. Процедуры"
   Caption: "CN.Confiscat.Переоценка. Процедуры"
-  Version: "1.0.0.5"
+  Version: "1.0.0.7"
   Optional: False
   Internal: True
-  MD5: 94B56DE04C9F1843DCFB0301B0BC0433
+  MD5: 7324AFC4DF6D483C438FE596CFFDFCA9
 Objects: 
   - 
     Properties: 
@@ -19,7 +19,7 @@ Objects:
       IncludeSiblings: False
     Fields: 
       PROCEDURENAME: "USR$CN_P_SALDOGOOD"
-      EDITIONDATE: 2023-05-10T18:07:49+03:00
+      EDITIONDATE: 2023-05-22T12:33:07+03:00
       PROCEDURESOURCE: | 
         CREATE OR ALTER PROCEDURE USR$CN_P_SALDOGOOD (
             GOODKEY INTEGER,
@@ -81,6 +81,7 @@ Objects:
          LEFT JOIN GD_GOODGROUP gg ON g.GROUPKEY  =  gg.ID
          LEFT JOIN INV_CARD c ON c.ID = rem.CARDKEY
          WHERE c.COMPANYKEY + 0 = :COMPANYKEY
+         and C.USR$CN_ACTVALUATION = :ACTVALUATION
          AND G.ID = :GOODKEY
          GROUP BY 1
          HAVING SUM(rem.Debit ) <> 0.0000

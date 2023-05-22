@@ -5,12 +5,13 @@ Properties:
   RUID: 147059933_2089375573
   Name: "CN.Confiscat. Таблицы, поля, домены и справочники"
   Caption: "CN.Confiscat. Таблицы, поля, домены и справочники"
-  Version: "1.0.0.7"
+  Version: "1.0.0.8"
   Optional: False
   Internal: True
-  MD5: 624F509FFFAA68552ADADA527F4160C5
+  MD5: 948C870120921BD312AEFBD08300853C
 Uses: 
   - "151966014_623967871 GS.Торговля.Документы.Накладная на получение товара"
+  - "147753062_69526485 GS.Общие.Хранилище"
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
   - "147761688_84733194 GS.Общие.Метаданные.Домены-Ссылки"
@@ -9935,3 +9936,293 @@ Objects:
       OBJECTNAME: "TgdcInvDocumentLine147047539_2082756242"
       PARENTNAME: "TgdcInvDocumentLine147010993_109092844"
       EDITIONDATE: 2023-05-19T16:24:53+03:00
+  - 
+    Properties: 
+      Class: "TgdcPrimeTable"
+      RUID: 147064825_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      BRANCHKEY: ~
+      DESCRIPTION: "USR$CN_BASIS"
+      EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
+      LISTFIELD: ~
+      LNAME: "Основания "
+      LSHORTNAME: "USR$CN_BASIS"
+      REFERENCEKEY: ~
+      RELATIONNAME: "USR$CN_BASIS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      EDITIONDATE: 2023-05-22T11:51:16+03:00
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147064826_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 147064825_2089375573
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$NAME"
+      FIELDNAME: "USR$NAME"
+      FIELDSOURCE: "DTEXT254"
+      FIELDSOURCEKEY: "147000117_31587988 Текст (254), DTEXT254"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Основание"
+      LSHORTNAME: "Основание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147064825_2089375573 Основания , USR$CN_BASIS"
+      RELATIONNAME: "USR$CN_BASIS"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 254
+      VISIBLE: 1
+      EDITIONDATE: 2023-05-22T11:59:35+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcField"
+      RUID: 147064839_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      CHARSET: ~
+      COLLATION: ~
+      COLWIDTH: 20
+      DESCRIPTION: "USR$CN_BASIS"
+      FCHARLENGTH: ~
+      FFIELDTYPE: 8
+      FIELDNAME: "USR$CN_BASIS"
+      FLAG: ~
+      FLENGTH: 4
+      FORMAT: ~
+      FPRECISION: 0
+      FSCALE: 0
+      FSUBTYPE: 0
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Основание"
+      READONLY: 0
+      REFCONDITION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFLISTLNAME: "Основание"
+      REFLNAME: "Основания "
+      REFTABLE: "USR$CN_BASIS"
+      SEGLENGTH: ~
+      SETCONDITION: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SETLISTLNAME: ~
+      SETTABLE: ~
+      SETTABLEKEY: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-05-22T12:02:55+03:00
+      DISABLED: 0
+      CHECKSOURCE: ~
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      NUMERATION: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147064838_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: "RESTRICT"
+      DESCRIPTION: "USR$CN_BASIS"
+      FIELDNAME: "USR$CN_BASIS"
+      FIELDSOURCE: "USR$CN_BASIS"
+      FIELDSOURCEKEY: "147064839_2089375573 Основание, USR$CN_BASIS"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Основание"
+      LSHORTNAME: "Основание"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: "USR$NAME"
+      REFRELATIONNAME: "USR$CN_BASIS"
+      RELATIONKEY: "147012885_486813904 Переоценка, USR$INV_NEWCOST"
+      RELATIONNAME: "USR$INV_NEWCOST"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-05-22T12:03:57+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcStorageValue"
+      RUID: 147064847_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "154996723_1440956890 GLOBAL\\DFM\\Tgdc_dlgAttrUserDefined"
+      NAME: "USR$CN_BASIS"
+      CURR_DATA: ~
+      DATA_TYPE: "B"
+      DATETIME_DATA: ~
+      INT_DATA: ~
+      STR_DATA: ~
+      EDITIONDATE: 2023-05-22T12:06:52+03:00
+      BLOB_DATA: | 
+        object gdc_dlgAttrUserDefinedUSR_CN_BASIS: Tgdc_dlgAttrUserDefined
+          VertScrollBar.Range = 0
+          ActiveControl = nil
+          BorderStyle = bsSingle
+          ClientHeight = 83
+          ClientWidth = 475
+          PixelsPerInch = 96
+          TextHeight = 13
+          object btnAccess: TButton
+            Top = 59
+            Visible = False
+          end
+          object btnNew: TButton
+            Top = 59
+            Visible = False
+          end
+          object btnHelp: TButton
+            Top = 59
+            Visible = False
+          end
+          object btnOK: TButton
+            Top = 59
+          end
+          object btnCancel: TButton
+            Top = 59
+          end
+          object pnlMain: TPanel
+            Height = 50
+            object atAttributes: TatContainer
+              Height = 50
+              object usrat_DBEdit_USR_NAME_Label: TLabel
+              end
+              object usrat_DBEdit_USR_NAME: TDBEdit
+                Width = 388
+              end
+            end
+          end
+          object alBase: TActionList
+            Left = 46
+            Top = 15
+            object actNew: TAction
+            end
+            object actHelp: TAction
+            end
+            object actSecurity: TAction
+            end
+            object actOk: TAction
+            end
+            object actCancel: TAction
+            end
+            object actNextRecord: TAction
+            end
+            object actPrevRecord: TAction
+            end
+            object actApply: TAction
+            end
+            object actFirstRecord: TAction
+            end
+            object actLastRecord: TAction
+            end
+            object actProperty: TAction
+            end
+            object actCopySettingsFromUser: TAction
+            end
+            object actAddToSetting: TAction
+            end
+            object actDocumentType: TAction
+            end
+            object actDistributeUserSettings: TAction
+            end
+            object actHistory: TAction
+            end
+            object actCopyIDToClipboard: TAction
+            end
+          end
+          object dsgdcBase: TDataSource
+            Left = 16
+            Top = 15
+          end
+          object pm_dlgG: TPopupMenu
+            Left = 152
+            Top = 216
+            object actSecurity1: TMenuItem
+            end
+            object nCopyIDToClipboard: TMenuItem
+            end
+            object actHistory1: TMenuItem
+            end
+            object N1: TMenuItem
+            end
+            object sepFirst: TMenuItem
+            end
+            object actNextRecord1: TMenuItem
+            end
+            object actPrevRecord1: TMenuItem
+            end
+            object actFirstRecord1: TMenuItem
+            end
+            object actLastRecord1: TMenuItem
+            end
+            object sepSecond: TMenuItem
+            end
+            object actApply1: TMenuItem
+            end
+            object sepThird: TMenuItem
+            end
+            object actProperty1: TMenuItem
+            end
+            object actCopySettings1: TMenuItem
+            end
+            object nAddToSetting1: TMenuItem
+            end
+          end
+          object ibtrCommon: TIBTransaction
+            Params.Strings = (
+              'read_committed'
+              'rec_version'
+              'nowait')
+            Left = 392
+            Top = 24
+          end
+        end
+        

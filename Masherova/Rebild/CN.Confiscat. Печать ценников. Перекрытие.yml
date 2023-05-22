@@ -5,10 +5,10 @@ Properties:
   RUID: 147060338_2089375573
   Name: "CN.Confiscat. Печать ценников. Перекрытие"
   Caption: "CN.Confiscat. Печать ценников. Перекрытие"
-  Version: "1.0.0.4"
+  Version: "1.0.0.5"
   Optional: False
   Internal: True
-  MD5: 815BCE8A3FAAFC8ACAB97FA40A258924
+  MD5: 3E065408286248CEDF9A924BC1D5CF7A
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-05-16T12:16:20+03:00
+      EDITIONDATE: 2023-05-22T18:26:14+03:00
       DISPLAYSCRIPT: | 
         RETAILINV_REPORTLABELS
         
@@ -113,6 +113,13 @@ Objects:
                 " JOIN INV_CARD card ON card.ID  =  l.FROMCARDKEY "
             quant = "   l.INQUANTITY as QUANTITY, "
             andwhere = " and l.INQUANTITY > 0 "
+             ' перемещение товаров
+            case "147013026_109092844"
+               TableName = _
+                " JOIN USR$INV_INVMOVELINE l  ON  doc.ID  =  l.DOCUMENTKEY " & _
+                " JOIN INV_CARD card ON card.ID  =  l.FROMCARDKEY "
+               quant = "   l.QUANTITY, "
+               barcode = " card. USR$PFD_BARCODE as BARCODE, "
           end select
           
           dim PriceStr
