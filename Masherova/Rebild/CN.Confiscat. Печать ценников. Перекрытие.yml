@@ -5,10 +5,10 @@ Properties:
   RUID: 147060338_2089375573
   Name: "CN.Confiscat. Печать ценников. Перекрытие"
   Caption: "CN.Confiscat. Печать ценников. Перекрытие"
-  Version: "1.0.0.5"
+  Version: "1.0.0.7"
   Optional: False
   Internal: True
-  MD5: 3E065408286248CEDF9A924BC1D5CF7A
+  MD5: 2B92EBFD57F55B717164C1E88D41D451
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-05-22T18:26:14+03:00
+      EDITIONDATE: 2023-05-25T11:41:38+02:00
       DISPLAYSCRIPT: | 
         RETAILINV_REPORTLABELS
         
@@ -106,6 +106,9 @@ Objects:
                 " JOIN INV_CARD card ON card.ID  =  l.TOCARDKEY " & _
                 " LEFT JOIN INV_CARD card1 ON card1.ID  =  l.FROMCARDKEY "
               quant = "   l.QUANTITY as QUANTITY, "
+              barcode = " card. USR$PFD_BARCODE as BARCODE, "
+              actnum = " av.USR$DOCNUMBER || ' от ' || CAST(av.USR$DOCDATE as VARCHAR(10)) as actnumber, "
+              acttable =  " LEFT JOIN USR$CN_ACTVALUATION AV on AV.ID = card.USR$CN_ACTVALUATION "
             ' комплектация товаров
             case "149299696_623967871"
               TableName = _
@@ -120,6 +123,8 @@ Objects:
                 " JOIN INV_CARD card ON card.ID  =  l.FROMCARDKEY "
                quant = "   l.QUANTITY, "
                barcode = " card. USR$PFD_BARCODE as BARCODE, "
+               actnum = " av.USR$DOCNUMBER || ' от ' || CAST(av.USR$DOCDATE as VARCHAR(10)) as actnumber, "
+               acttable =  " LEFT JOIN USR$CN_ACTVALUATION AV on AV.ID = card.USR$CN_ACTVALUATION "
           end select
           
           dim PriceStr
