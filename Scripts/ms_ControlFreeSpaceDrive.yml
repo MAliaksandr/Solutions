@@ -1,0 +1,67 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147065276_2089375573
+  Name: "ms_ControlFreeSpaceDrive"
+  Caption: "ms_ControlFreeSpaceDrive"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  Comment: "мониторит свободное место на диске с БД"
+  MD5: F22D2ED6AFF3CE8C952BEC8215C2B791
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147065273_2089375573
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "ms_ControlFreeSpaceDrive"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-05-30T11:29:16+03:00
+      DISPLAYSCRIPT: | 
+        MS_CONTROLFREESPACEDRIVE
+        
+      ENTEREDPARAMS: ~
+      SCRIPT: | 
+        Option Explicit
+        sub ms_ControlFreeSpaceDrive
+         ' функция мониторит свободное место на диске, где располоджена база
+         ' запускать можно через любой интервал через автозадачу или планировщик
+         
+         dim fso, BaseName, DDrive
+         set fso = CreateObject("Scripting.FileSystemObject")
+        
+         BaseName = fso.GetDriveName(gdcBaseManager.Database.databasename)
+         set DDrive = FSO.Drives.Item(CSTR(BaseName))
+        
+         dim SpB : SpB = DDrive.FreeSpace ' в байтах
+         dim SpKb : SpKb = ROUND(DDrive.FreeSpace/1024) ' кілобайтах
+         dim SpMb : SpMb = ROUND(SpKb/1024) ' мегабайтах
+        
+         if  SpMb<3000 Then
+           call Application.MessageBox("На диске " & CSTR(drName) & " осталось " & CSTR(SpMb) & "Мб свободного места. " & vbCr & vbCr & _
+              "Игнорирование данного сообщения может привести к ошибкам!! " & vbCr & vbCr & _
+              "Освободите место на диске!!! ", "Внимание!", vbOkOnly+vbCritical+vbSystemModal)
+         end if
+        
+         set fso = nothing
+        End sub
+        
