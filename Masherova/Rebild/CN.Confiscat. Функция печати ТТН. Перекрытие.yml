@@ -1,0 +1,1386 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147313997_2105083175
+  Name: "CN.Confiscat. Функция печати ТТН. Перекрытие"
+  Caption: "CN.Confiscat. Функция печати ТТН. Перекрытие"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: CE12033A176CE7D2AF44E10097F2DEE4
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147043810_1217788885
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "OptInv_TTN"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: ~
+      EDITIONDATE: 2023-06-19T11:51:27+02:00
+      DISPLAYSCRIPT: | 
+        OPTINV_TTN
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNUUFJTVAQAAABSVUlEBAAAAFJVSUQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVEZM
+        UFI=
+      SCRIPT: | 
+        ' функция построения ТН и ТТН
+        option explicit
+        function OptInv_TTN(OwnerForm, RUID)
+        ' OwnerForm - форма, из которой строится ТН\ТТН
+        ' RUID - РУИД документа
+        ' Bol - использовать или нет параметры склада для сортировки данных в позиции
+        
+        
+        '-------------------------------------------------------------------------------
+        
+          ' округление расчетных величин: до копеек либо до 100 руб
+          dim RoundingString
+          if OwnerForm.gdcObject.FieldByName("DOCUMENTDATE").AsDateTime >= DateSerial (2016, 7, 1) then
+            RoundingString = ", 2)"
+          else
+            RoundingString = " / 100) * 100"
+          end if
+        '-------------------------------------------------------------------------------
+        ' Документ, по которому строится отчет
+          BaseQueryList.Clear
+          dim id
+          id = "(" & OwnerForm.gdcObject.ID & ")"
+          if id = "()" then
+            call Exception.Raise("Exception", "Пустой набор данных")
+            set OptInv_TTN = BaseQueryList
+            exit function
+          end if
+        
+        '-------------------------------------------------------------------------------
+          ' Проверка на наличие модуля ЭТТН и ЭТТН по документу для печати номера
+          Dim isETTN, qIsETTN, qETTN, DocNumber, ETTNNumber
+          DocNumber = ""
+          ETTNNumber = ""
+          dim Creator
+          set Creator = new TCreator
+          set qIsETTN = Creator.GetObject(nil, "TIBSQL", "")
+          qIsETTN.Transaction = gdcBaseManager.ReadTransaction
+          qIsETTN.SQL.Text = _
+            "SELECT Z.ID " & _
+            " FROM AT_RELATIONS Z " & _
+            "WHERE Z.RELATIONNAME = 'USR$ETTN_TTN_DOC' " & _
+            " AND Z.RELATIONTYPE = 'T' "
+          qIsETTN.ExecQuery
+          
+          if not qIsETTN.eof then
+            set qETTN = Creator.GetObject(nil, "TIBSQL", "")
+            qETTN.Transaction = gdcBaseManager.ReadTransaction
+            qETTN.SQL.Text = _
+              "SELECT Z.ID, " & _
+              "  DOC.NUMBER AS NUMBER, " & _
+              "  DOC.DOCUMENTDATE AS DOCUMENTDATE, " & _
+              "  Z.USR$ETTN_NUMBER, " & _
+              "  Z.USR$FULLNUMBER " & _
+              "FROM USR$ETTN_TTN_DOC Z " & _
+              "JOIN GD_DOCUMENT DOC ON DOC.ID  =  Z.USR$DOCUMENTKEY " & _
+              "WHERE COALESCE (Z.USR$ISOUT, 0) = 1 " & _
+              " AND Z.USR$CANCEL <> 1 " & _
+              " AND Z.USR$DOCUMENTKEY in " & id
+            qETTN.ExecQuery
+        
+            if qETTN.FieldByName("ID").AsInteger > 0 then
+              DocNumber = qETTN.FieldByName("NUMBER").AsString
+              ETTNNumber = qETTN.FieldByName("USR$FULLNUMBER").AsString
+            end if
+          end if
+        '-------------------------------------------------------------------------------
+          ' ОС. Отпуск на сторону
+          ' ОС. Внутреннее перемещение
+          ' не используем константу, чтоб не ставить зависимость от ос
+          dim FA_stSellBillRuid
+          FA_stSellBillRuid = "147460483_50219829"
+          dim FA_stInvMoveRuid
+          FA_stInvMoveRuid = "147460472_50219829"
+        
+          ' Возврат импортного товара
+          dim inv_DocRetImportProvBill_RUID
+          inv_DocRetImportProvBill_RUID =  "147117582_341726109"
+          
+          ' 1. Ввод спецодежды в эксплуатацию
+          ' 2. Ввод остатков спецодежды в эксплуатацию
+          ' не используем константу, чтоб не ставить зависимость от спецодежды
+          dim WC_STARTUP_NEW_RUID : WC_STARTUP_NEW_RUID = "147028029_136597689"
+          dim WC_STARTUP_OLD_RUID : WC_STARTUP_OLD_RUID = "147037668_136597689"
+          
+          ' выдача в торговое подразделение, возврат с торговых подразделений:
+          ' можно в параметрах выбрать цену,
+          ' от которой все считается
+          dim inv_DocToTradeBill_RUID_CostTrade, inv_DocToTradeBill_RUID_CostRetail
+          inv_DocToTradeBill_RUID_CostTrade = inv_DocToTradeBill_RUID & "_1"
+          inv_DocToTradeBill_RUID_CostRetail = inv_DocToTradeBill_RUID & "_2"
+          
+          dim inv_DocFromTradeBill_RUID_CostTrade, inv_DocFromTradeBill_RUID_CostRetail
+          inv_DocFromTradeBill_RUID_CostTrade = inv_DocFromTradeBill_RUID & "_1"
+          inv_DocFromTradeBill_RUID_CostRetail = inv_DocFromTradeBill_RUID & "_2"
+        
+          ' Накладная на импортный приход, печаается по нескольким док-там, с одной шапкой
+          dim inv_DocAddwBill_RUID_ListIDs
+          inv_DocAddwBill_RUID_ListIDs = "147037882_26077578_ListIDs"
+          ' валютная торговля
+          ' Возврат импортного товара
+          ' 03. Отпуск товара на экспорт (оптовая торговля)
+          
+        '-------------------------------------------------------------------------------
+          ' Накладная на получение импортного товара -
+          ' это фиктивное перемещение с нашей компании на нашу компанию, цены в рублях, IsForeign = false
+          dim IsForeign
+          IsForeign = _
+            ((Ruid = inv_DocRetImportProvBill_RUID) or _
+             (Ruid = inv_DocExportSellBill_RUID) )
+        
+        '-------------------------------------------------------------------------------
+          ' печатается по нескольким док-там, с общей шапкой
+          dim ManyIDs, FirstClause, MasterIDClause, DetailIDClause
+          ManyIDs = (Ruid = inv_DocAddwBill_RUID_ListIDs)
+          
+          if ManyIDs then
+            dim FrmDoc
+            FrmDoc = OwnerForm.SelectedKey
+            id = "(" + Join(FrmDoc(0), ",") + ")"
+            FirstClause = "  FIRST 1 "
+            MasterIDClause = " 1 AS DOCUMENTKEY,  "
+            DetailIDClause = " 1 AS MASTERKEY,"
+          else
+            FirstClause = ""
+            MasterIDClause = " b.DOCUMENTKEY, "
+            DetailIDClause = " l.MASTERKEY, "
+          end if
+        '-------------------------------------------------------------------------------
+          ' Сумма = Сумма с НДС, но сумма НДС <> 0
+          dim NoNDSinResult
+          ' в Сумма с НДС != Сумма + Сумма НДС
+          NoNDSinResult = ( RUID = inv_DocRetailBill_RUID )
+          
+        '-------------------------------------------------------------------------------
+        ' Класс нужен для задания сортировки позиций, если Bol - истина
+          dim InvOption
+          set InvOption = new TVBInv_Options
+        '-------------------------------------------------------------------------------
+        '---------ШАПКА-----------------------------------------------------------------
+        '-------------------------------------------------------------------------------
+        ' ГРУЗООТПРАВИТЕЛЬ и ГРУЗОПОЛУЧАТЕЛЬ
+          dim DepInfoSelectClause, DepInfoFromClause
+          if (RUID = inv_DocToTradeBill_RUID)   or _
+             (RUID = inv_DocToTradeBill_RUID_CostTrade)   or _
+             (RUID = inv_DocToTradeBill_RUID_CostRetail)   or _
+             (RUID = inv_DocFromTradeBill_RUID) or _
+             (RUID = inv_DocFromTradeBill_RUID_CostTrade) or _
+             (RUID = inv_DocFromTradeBill_RUID_CostRetail) or _
+             (RUID = inv_DocInvMoveBill_RUID)   or _
+             (RUID = inv_DocInwBill_RUID)       or _
+             (RUID = FA_stInvMoveRuid) then
+           '06. Выдача в торговые подразделения
+           '06а. Возврат с торговых подразделений
+           '02. Внутреннее перемещение товаров
+           '02. Внутренние перемещения материалов, МБП
+           'ОС. Внутреннее перемещение
+            DepInfoSelectClause = _
+                ", FromDep.USR$INV_TYPEDEPART    AS FromConType,     " & VBCR & _
+                "  ToDep.USR$INV_TYPEDEPART      AS ToConType,       " & VBCR & _
+                "  FromDep.NAME AS FromCon, FromDep.USR$ETTN_GLN AS FromConGLN, " & VBCR & _
+                "  ToDep.NAME AS ToCon, ToDep.USR$ETTN_GLN AS ToConGLN "
+        
+            if (RUID = inv_DocToTradeBill_RUID) or _
+               (RUID = inv_DocToTradeBill_RUID_CostTrade) or _
+               (RUID = inv_DocToTradeBill_RUID_CostRetail)  then
+              '06. Выдача в торговые подразделения
+               DepInfoFromClause = _
+                   " LEFT JOIN GD_CONTACT FromDep ON FromDep.ID = b.USR$MAINDEPOTKEY  " & VBCR & _
+                   " LEFT JOIN GD_CONTACT ToDep   ON ToDep.ID   = b.USR$CONTACTKEY    "
+             elseif (RUID = WC_STARTUP_OLD_RUID) or _
+                    (RUID = WC_STARTUP_NEW_RUID) then
+              ' Ввод спецодежды в эксплуатацию
+               DepInfoFromClause = _
+                   " LEFT JOIN GD_CONTACT FromDep ON FromDep.ID = b.USR$FROMCONTACT  " & VBCR & _
+                   " LEFT JOIN GD_CONTACT ToDep   ON ToDep.ID   = b.USR$TOCONATACT   "
+             elseif (RUID = inv_DocFromTradeBill_RUID) or _
+                    (RUID = inv_DocFromTradeBill_RUID_CostTrade) or _
+                    (RUID = inv_DocFromTradeBill_RUID_CostRetail) then
+              '06а. Возврат с торговых подразделений
+               DepInfoFromClause = _
+                   " LEFT JOIN GD_CONTACT FromDep ON FromDep.ID = b.USR$CONTACTKEY  " & VBCR & _
+                   " LEFT JOIN GD_CONTACT ToDep   ON ToDep.ID   = b.USR$MAINDEPOTKEY   "
+            else
+           '02. Внутреннее перемещение товаров
+           '02. Внутренние перемещения материалов, МБП
+               DepInfoFromClause = _
+                   " LEFT JOIN GD_CONTACT FromDep ON FromDep.ID = b.USR$FROMCONTACTKEY " & VBCR & _
+                   " LEFT JOIN GD_CONTACT ToDep   ON ToDep.ID   = b.USR$TOCONTACTKEY   "
+            end if
+          else
+            DepInfoSelectClause = _
+                ", CAST(0 AS DFOREIGNKEY) AS FromConType, " & VBCR & _
+                "  CAST(0 AS DFOREIGNKEY) AS ToConType, " & VBCR & _
+                "  CAST(NULL AS VARCHAR(1)) AS FromCon,   " & VBCR & _
+                "  CAST(NULL AS VARCHAR(1)) AS ToCon      "
+            DepInfoFromClause = ""
+          end if
+        '-------------------------------------------------------------------------------
+          dim TableName                 'Таблица шапки
+          dim DocumentsSelectClause     'С грузом следуют документы
+          dim MainDocumentsSelectClause 'С грузом следуют документы (шапка)
+        
+          dim SumNDSNCUSelectClause     'Сумма НДС
+          dim SumWithNDSNCUSelectClause 'Сумма с НДС
+          dim PercentSelectClause       'Процент наценки
+          dim DocType                   'Для поля - цена импортера
+          
+          DocType = 0
+          ' для совместимости с меню
+          MainDocumentsSelectClause = ", CAST('' AS VARCHAR(1) )AS Documents "
+        
+          select case RUID
+            case inv_DocInvMoveBill_RUID, _
+                 inv_DocInwBill_RUID, _
+                 FA_stInvMoveRuid
+             '02. Внутренние перемещения материалов, МБП
+             '02. Внутреннее перемещение товаров
+             'ОС. Внутреннее перемещение
+              TableName = "USR$INV_INVMOVE"
+              DocumentsSelectClause = ", CAST('' AS VARCHAR(1)) AS Documents "
+             '02. Внутренние перемещения материалов, МБП
+             '02. Внутреннее перемещение товаров
+              if RUID <> FA_stInvMoveRuid then
+                PercentSelectClause = _
+                 " IIF(COALESCE(c.USR$INV_COSTPROVIDER, 0.0000) = 0, 0, COALESCE(ROUND(c.USR$INV_TRADEPERC, 2), 0.0000)) AS Percent, "
+              'ОС. Внутреннее перемещение
+              else
+                PercentSelectClause = "  0 AS Percent,"
+              end if
+            case inv_DocToTradeBill_RUID, _
+                 inv_DocToTradeBill_RUID_CostTrade, _
+                 inv_DocToTradeBill_RUID_CostRetail, _
+                 inv_DocFromTradeBill_RUID, _
+                 inv_DocFromTradeBill_RUID_CostTrade, _
+                 inv_DocFromTradeBill_RUID_CostRetail
+             '06. Выдача в торговые подразделения
+             '06а. Возврат с торговых подразделений
+              TableName = "USR$INV_TOTRADE"
+              DocumentsSelectClause = ", COALESCE(l.USR$DOCUMENTS, '') AS Documents "
+              DocType = 1
+              'SumWithNDSNCUSelectClause = " l.USR$SUMWITHSALETAX AS SumWithNDSNCU, "
+              PercentSelectClause = " 0 AS Percent, "
+            case inv_DocRetProviderBill_RUID, _
+                 inv_DocRetProvBill_RUID, _
+                 inv_DocRetImportProvBill_RUID
+            '06. Возврат материалов поставщику
+            '07. Возврат товаров поставщику
+              TableName = "USR$INV_RETPROV"
+              DocumentsSelectClause = ", COALESCE(l.USR$DOCUMENTS, '') AS Documents "
+              'SumWithNDSNCUSelectClause = " l.USR$SUMWITHNDSNCU AS SumWithNDSNCU, "
+              PercentSelectClause = " COALESCE(ROUND(c.USR$INV_PERCPROVIDER, 2), 0.0000) AS Percent, "
+        
+            case inv_DocWholesaleSellBill_RUID, _
+                 inv_DocSellBill_RUID, _
+                 inv_DocRetailSellBill_RUID, _
+                 inv_DocMatSellProcessBill_RUID, _
+                 FA_stSellBillRuid, _
+                 inv_DocExportSellBill_RUID
+            '04. Отпуск материалов покупателям
+            '10. Отпуск  на доработку (переработку)
+            '03. Отпуск товара на сторону (оптовая торговля)
+            '03. Отпуск товара на сторону (розничная торговля)
+            'ОС. Отпуск на сторону
+            '03. Отпуск товара на экспорт (оптовая торговля)
+              TableName = "USR$INV_SELLBILL"
+              DocumentsSelectClause = ", COALESCE(l.USR$DOCUMENTS, '') AS Documents "
+              if Ruid <> inv_DocExportSellBill_RUID then
+                PercentSelectClause = _
+                   " IIF(COALESCE(c.USR$INV_COSTPROVIDER, 0.0000) = 0, 0, COALESCE(ROUND(c.USR$INV_PERCSELL, 2), 0.0000)) AS Percent, "
+              else '03. Отпуск товара на экспорт (оптовая торговля)
+                PercentSelectClause = _
+                   " COALESCE(ROUND(c.USR$INV_PERCSELL, 2), 0.0000) AS Percent, "
+              end if
+            case inv_DocMatRetProcessBill_RUID
+            '11. Возврат с доработки (переработки)
+              TableName = "USR$INV_PROCESSING"
+              DocumentsSelectClause = ", COALESCE(l.USR$DOCUMENTS, '') AS Documents "
+              'SumWithNDSNCUSelectClause = " l.USR$SUMWITHNDSNCU AS SumWithNDSNCU, "
+              PercentSelectClause = _
+                 " IIF(COALESCE(c.USR$INV_COSTPROVIDER, 0.0000) = 0, 0, COALESCE(ROUND(c.USR$INV_TRADEPERC, 2), 0.0000)) AS Percent, "
+            case inv_DocRetailBill_RUID
+            '11. Реализация товаров в розницу
+              TableName = "USR$INV_RETAIL"
+              DocumentsSelectClause = ", COALESCE(l.USR$DOCUMENTS, '') AS Documents "
+              'SumWithNDSNCUSelectClause = " l.USR$SUMWITHNDSNCU AS SumWithNDSNCU, "
+              PercentSelectClause = _
+                 " IIF(COALESCE(c.USR$INV_COSTPROVIDER, 0.0000) = 0, 0, COALESCE(ROUND(c.USR$INV_PERCSELL, 2), 0.0000)) AS Percent, "
+            case WC_STARTUP_NEW_RUID, _
+                 WC_STARTUP_OLD_RUID
+              ' Ввод спецодежды в эксплуатацию
+              TableName = "USR$WC_STARTUP"
+              DocumentsSelectClause = ", CAST('' AS VARCHAR(1)) AS Documents "
+              PercentSelectClause = "  0 AS Percent,"
+              
+            case inv_DocAddwBill_RUID_ListIDs
+            ' накладная на приход импортного товара (по нескольким шапкам)
+              TableName = "USR$INV_ADDWBILL"
+              DocumentsSelectClause = ", CAST('' AS VARCHAR(1)) AS Documents "
+              PercentSelectClause = "  0 AS Percent,"
+          end select
+          
+          ' Условие, по которому присоединяются реквизиты Клиента
+          dim CompanyFromClause
+          if (RUID <> inv_DocInvMoveBill_RUID) and  _
+             (RUID <> inv_DocInwBill_RUID)     and _
+             (RUID <> FA_stInvMoveRuid) and _
+             (RUID <> WC_STARTUP_NEW_RUID) and _
+             (RUID <> WC_STARTUP_OLD_RUID) and _
+             (RUID <> inv_DocAddwBill_RUID_ListIDs) then
+            CompanyFromClause = " LEFT JOIN GD_V_COMPANY cf ON b.USR$CONTACTKEY = cf.ID " & _
+                                " LEFT JOIN GD_CONTACT comp on comp.id = b.USR$CONTACTKEY "
+          else
+            '02. Внутренние перемещения материалов, МБП
+            '02. Внутреннее перемещение товаров
+            'ОС. Внутреннее перемещение
+            ' Ввод спецодежды в эксплуатацию
+            ' Накладная на получение импортного товара  (по нескольким шапкам)
+            CompanyFromClause = " LEFT JOIN GD_V_COMPANY cf ON doc.COMPANYKEY = cf.ID " & _
+                                " LEFT JOIN GD_CONTACT comp on comp.id = doc.COMPANYKEY "
+          end if
+        '-------------------------------------------------------------------------------
+          dim CurrSelectClause, CurrFromClause
+          if IsForeign then
+            CurrFromClause = " LEFT JOIN GD_CURR curr ON curr.ID = COALESCE(b.USR$CURRKEY, <NCU/>) "
+            CurrSelectClause = _
+              " IIF(curr.ID <> <NCU/>, curr.CODE, CAST('руб, коп' AS VARCHAR(10))) AS CurName, " & VBCR & _
+              " curr.ID AS CurrKey, "
+          else
+            CurrFromClause = ""
+            CurrSelectClause = _
+              " CAST('руб, коп' AS VARCHAR(10)) AS CurName, " & VBCR & _
+              " <NCU/> AS CurrKey, "
+          end if
+        
+        '-------------------------------------------------------------------------------
+        ' ЗАПРОС ШАПКИ
+          dim Bill
+          set Bill = BaseQueryList.Query(BaseQueryList.Add("Bill", 0))
+          Bill.SQL = _
+              " SELECT                  " & VBCR & _
+              FirstClause & "           " & VBCR & _
+              " doc.NUMBER,             " & VBCR & _
+              " doc.DOCUMENTDATE,       " & VBCR & _
+              MasterIdClause & "        " & VBCR & _
+              " doc.COMPANYKEY,         " & VBCR & _
+              CurrSelectClause & "      " & VBCR & _
+              " cf.ID AS CFKey,         " & VBCR & _
+              " cf.COMPNAME,            " & VBCR & _
+              " cf.COMPFULLNAME,        " & VBCR & _
+              " cf.ADDRESS,             " & VBCR & _
+              " comp.USR$ETTN_GLN as GLN, " & VBCR & _
+              " cf.CITY,                " & VBCR & _
+              " cf.COUNTRY,             " & VBCR & _
+              " cf.PHONE,               " & VBCR & _
+              " cf.FAX,                 " & VBCR & _
+              " cf.ACCOUNT,             " & VBCR & _
+              " cf.BANKCODE,            " & VBCR & _
+              " cf.BANKMFO,             " & VBCR & _
+              " cf.BANKNAME,            " & VBCR & _
+              " cf.BANKADDRESS,         " & VBCR & _
+              " cf.BANKCITY,            " & VBCR & _
+              " cf.BANKCOUNTRY,         " & VBCR & _
+              " cf.TAXID,               " & VBCR & _
+              " cf.OKPO,                " & VBCR & _
+              " cf.LICENCE,             " & VBCR & _
+              " cf.OKNH,                " & VBCR & _
+              " cf.SOATO,               " & VBCR & _
+              " cf.SOOU,                " & VBCR & _
+              " cl.USR$WAYSHEETNUMBER,  " & VBCR & _
+              " cl.USR$CUSTOMERKEY,     " & VBCR & _
+              " cl.USR$RECEIVERKEY,     " & VBCR & _
+              " cl.USR$GARAGE,          " & VBCR & _
+              " cl.USR$HOOKED,          " & VBCR & _
+              " cl.USR$READDRESSING,    " & VBCR & _
+              " cl.USR$ROUTE,           " & VBCR & _
+              " cl.USR$UNLOADINGPOINT,  " & VBCR & _
+              " cl.USR$LOADINGPOINT,    " & VBCR & _
+              " cl.USR$CAROWNERKEY,     " & VBCR & _
+              " cl.USR$DRIVERKEY,       " & VBCR & _
+              " cl.USR$TRANSSUM,        " & VBCR & _
+              " cl.USR$CARKEY,          " & VBCR & _
+              " cl.USR$TYPETRANSKEY,    " & VBCR & _
+              " cl.USR$ATTORNEYKEY,     " & VBCR & _
+              " cl.USR$RECIPIENTKEY,    " & VBCR & _
+              " cl.USR$PERMITKEY,       " & VBCR & _
+              " cl.USR$PURPOSEKEY,      " & VBCR & _
+              " cl.USR$BASE,            " & VBCR & _
+              " cl.USR$HAULQUANTITY,    " & VBCR & _
+              " cl.CUSTOMERNAME,        " & VBCR & _
+              " cl.CUSTOMERCOUNTRY,     " & VBCR & _
+              " cl.CUSTOMERCITY,        " & VBCR & _
+              " cl.CUSTOMERADDRESS,     " & VBCR & _
+              " 'GLN ' || cl.CUSTOMERGLN as CUSTOMERGLN, " & VBCR & _
+              " cl.CUSTOMERACCOUNT,     " & VBCR & _
+              " cl.CUSTOMERBANKNAME,    " & VBCR & _
+              " cl.CUSTOMERBANKCODE,    " & VBCR & _
+              " cl.CUSTOMERBANKCITY,    " & VBCR & _
+              " cl.CUSTOMERBANKADDRESS, " & VBCR & _
+              " cl.CUSTOMERBANKCOUNTRY, " & VBCR & _
+              " cl.CUSTOMERBANKMFO,     " & VBCR & _
+              " cl.CUSTOMERTAXID,       " & VBCR & _
+              " cl.CUSTOMEROKPO,        " & VBCR & _
+              " cl.CUSTOMERLICENCE,     " & VBCR & _
+              " cl.RECEIVERNAME,        " & VBCR & _
+              " cl.RECEIVERCOUNTRY,     " & VBCR & _
+              " cl.RECEIVERCITY,        " & VBCR & _
+              " cl.RECEIVERADDRESS,     " & VBCR & _
+              " cl.RECEIVERGLN,     " & VBCR & _
+              " cl.RECEIVERACCOUNT,     " & VBCR & _
+              " cl.RECEIVERBANKNAME,    " & VBCR & _
+              " cl.RECEIVERBANKCODE,    " & VBCR & _
+              " cl.RECEIVERBANKCITY,    " & VBCR & _
+              " cl.RECEIVERBANKADDRESS, " & VBCR & _
+              " cl.RECEIVERBANKCOUNTRY, " & VBCR & _
+              " cl.RECEIVERBANKMFO,     " & VBCR & _
+              " cl.RECEIVERTAXID,       " & VBCR & _
+              " cl.RECEIVEROKPO,        " & VBCR & _
+              " cl.RECEIVERLICENCE,     " & VBCR & _
+              " cl.CAROWNERNAME,        " & VBCR & _
+              " cl.CAROWNERCOUNTRY,     " & VBCR & _
+              " cl.CAROWNERCITY,        " & VBCR & _
+              " cl.CAROWNERADDRESS,     " & VBCR & _
+              " cl.CAROWNERACCOUNT,     " & VBCR & _
+              " cl.CAROWNERBANKNAME,    " & VBCR & _
+              " cl.CAROWNERBANKCODE,    " & VBCR & _
+              " cl.CAROWNERBANKCITY,    " & VBCR & _
+              " cl.CAROWNERBANKADDRESS, " & VBCR & _
+              " cl.CAROWNERBANKCOUNTRY, " & VBCR & _
+              " cl.CAROWNERBANKMFO,     " & VBCR & _
+              " cl.CAROWNERTAXID,       " & VBCR & _
+              " cl.CAROWNEROKPO,        " & VBCR & _
+              " cl.CAROWNERLICENCE,     " & VBCR & _
+              " cl.DRIVERNAME,          " & VBCR & _
+              " cl.CARFULLNAME,         " & VBCR & _
+              " cl.TYPETRANSPORTNAME,   " & VBCR & _
+              " cl.ATTORNEYNUMBER,      " & VBCR & _
+              " cl.ATTORNEYDATE,        " & VBCR & _
+              " IIF(cl.ATTORNEYCONNAME IS NULL, IIF(cl.DRIVERRANK IS NULL, cl.DRIVERNAME, cl.DRIVERRANK || ' '|| cl.DRIVERNAME), IIF(cl.ATTORNEYCONRANK IS NULL, cl.ATTORNEYCONNAME, cl.ATTORNEYCONRANK || ' '|| cl.ATTORNEYCONNAME)) AS ATTORNEYCONNAME, " & VBCR & _
+              " IIF(cl.ATTORNEYCONNAME IS NULL, '', cl.ATTORNEYCONRANK) AS ATTORNEYCONRANK, " & VBCR & _
+              " REC.SURNAME || ' ' || LEFT(REC.FIRSTNAME, 1) ||'. ' || LEFT(REC.MIDDLENAME, 1) || '. ' as RECIPIENTNAME,       " & VBCR & _
+              " cl.RECIPIENTRANK,       " & VBCR & _
+              " SEN.SURNAME || ' ' || LEFT(SEN.FIRSTNAME, 1) ||'. ' || LEFT(SEN.MIDDLENAME, 1) || '. ' as SENDERNAME,          " & VBCR & _
+              " cl.SENDERRANK,          " & VBCR & _
+              " PER.SURNAME || ' ' || LEFT(PER.FIRSTNAME, 1) ||'. ' || LEFT(PER.MIDDLENAME, 1) || '. ' as PERMITNAME,          " & VBCR & _
+              " cl.PERMITRANK,          " & VBCR & _
+              " cl.PURPOSENAME,         " & VBCR & _
+              " cl.LOADERNAME,          " & VBCR & _
+              " cl.UNLOADERNAME,        " & VBCR & _
+              " cl.LOADMETHOD,          " & VBCR & _
+              " cl.LOADCODE,            " & VBCR & _
+              " cl.LOADIN,              " & VBCR & _
+              " cl.LOADOUT,             " & VBCR & _
+              " cl.LOADDOWNTIME,        " & VBCR & _
+              " cl.CONTRACTDATE,        " & VBCR & _
+              " cl.CONTRACTNUMBER       " & VBCR & _
+              DepInfoSelectClause         & VBCR & _
+              MainDocumentsSelectClause   & VBCR & _
+              " FROM                    " & VBCR & _
+              TableName & " b           " & VBCR & _
+              " LEFT JOIN GD_DOCUMENT doc ON doc.ID = b.DOCUMENTKEY  " & VBCR & _
+              CompanyFromClause  & VBCR & _
+              " LEFT JOIN USR$INV_ADDFULLINFO cl ON b.DOCUMENTKEY = cl.ID    " & VBCR & _
+              DepInfoFromClause  & VBCR & _
+              CurrFromClause & VBCR & _
+              "LEFT JOIN usr$inv_addinfo inf on inf.ID = cl.ID " & VBCR & _
+              "LEFT JOIN GD_PEOPLE PER ON PER.CONTACTKEY = cl.USR$PERMITKEY " & VBCR & _
+              "LEFT JOIN GD_PEOPLE REC ON REC.CONTACTKEY = cl.USR$RECIPIENTKEY " & VBCR & _
+              "LEFT JOIN GD_PEOPLE SEN ON SEN.CONTACTKEY = inf.USR$SENDERKEY " & VBCR & _
+              " WHERE b.DOCUMENTKEY IN " & id
+        
+          Bill.Open
+        '-------------------------------------------------------------------------------
+        '----------ПОЗИЦИЯ--------------------------------------------------------------
+        '-------------------------------------------------------------------------------
+        ' КАРТОЧКА
+          dim CardFromClause
+          if (RUID <> inv_DocRetProvBill_RUID) and _
+             (RUID <> inv_DocMatSellProcessBill_RUID) and _
+             (RUID <> inv_DocRetProviderBill_RUID) and _
+             (RUID <> inv_DocRetImportProvBill_RUID) and _
+             (RUID <> inv_DocInvMoveBill_RUID)and _
+             (RUID <> inv_DocToTradeBill_RUID)and _
+             (RUID <> inv_DocToTradeBill_RUID_CostTrade)and _
+             (RUID <> inv_DocToTradeBill_RUID_CostRetail)and _
+             (RUID <> inv_DocFromTradeBill_RUID)and _
+             (RUID <> inv_DocFromTradeBill_RUID_CostTrade)and _
+             (RUID <> inv_DocFromTradeBill_RUID_CostRetail)and _
+             (RUID <> inv_DocMatRetProcessBill_RUID) and _
+             (RUID <> inv_DocAddwBill_RUID_ListIDs) then
+             
+            CardFromClause = " LEFT JOIN INV_CARD c ON l.TOCARDKEY = c.ID   "
+          else
+            '06. Возврат материалов поставщику
+            '10. Отпуск  на доработку (переработку)
+            '06а. Возврат с торговых подразделений
+            '07. Возврат товаров поставщику
+            '02. Внутреннее перемещение товаров
+            '11.Возврат с доработки (переработки)
+            ' накладная на получение импортного товара (несколько шапок)
+            CardFromClause = " LEFT JOIN INV_CARD c ON l.FROMCARDKEY = c.ID "
+          end if
+        
+          ' СОРТИРОВКА
+          dim NoSort
+          ' не сортировать в Возврате с доработки,
+          ' чтобы сохранить оригинальный порядок позиций
+          NoSort = ((RUID = inv_DocMatRetProcessBill_RUID) and _
+                    invOptions.NoSort)
+                    
+          dim BillPosWhereClause, BillPosOrderClause
+          if (RUID = inv_DocMatRetProcessBill_RUID) then
+            BillPosWhereClause = " WHERE l.OUTQUANTITY > 0 AND " & VBCR & _
+                                       " l.MASTERKEY IN " + ID
+          else
+            BillPosWhereClause = " WHERE l.MASTERKEY IN " + ID
+          end if
+          
+          if NoSort then
+            BillPosOrderClause = " ORDER BY  l.MASTERKEY, l.DOCUMENTKEY ASC, g.NAME "
+          else
+            if InvOption.SortByNameAlias = 0 then
+              BillPosOrderClause = " ORDER BY g.NAME, gr.NAME ASC, l.MASTERKEY, l.DOCUMENTKEY ASC "
+            elseif InvOption.SortByNameAlias = 1 then
+              BillPosOrderClause = " ORDER BY g.ALIAS, gr.NAME ASC, l.MASTERKEY, l.DOCUMENTKEY ASC, g.NAME "
+            elseif InvOption.SortByNameAlias = 2 then
+              BillPosOrderClause = " ORDER BY  l.MASTERKEY, l.DOCUMENTKEY ASC, g.NAME "
+            end if
+          end if
+        
+          'для внутрннего перемещения товаров на конфискат сортировка по номеру добавляемой позции
+          dim numorder : numorder = "CAST('' as VRACHAR(1)) as USR$NUMORDER, "
+           if RUID = inv_DocInvMoveBill_RUID then
+             numorder = " COALESCE(l.USR$NUMORDER, '') as USR$NUMORDER, "
+             BillPosOrderClause = " ORDER BY l.usr$numorder, g.NAME, gr.NAME ASC, l.MASTERKEY, l.DOCUMENTKEY ASC "
+          end if
+            
+          
+        '-------------------
+          ' доп инфо к ТМЦ
+          dim PrintGoodInfoStr, PrintActGood : PrintActGood = ""
+          select case InvOption.PrintGoodInfo
+            case 0
+              PrintGoodInfoStr = ""
+            case 1
+              PrintGoodInfoStr = "COALESCE(g.ALIAS, '') || ' ' ||"
+            case 2
+              PrintGoodInfoStr = "COALESCE(g.BARCODE, '') || ' ' ||"
+          end select
+          
+          if RUID = inv_DocInvMoveBill_RUID then
+             PrintActGood = " || ' AOO:' || COALESCE(act.usr$docnumber, '') "
+          end if
+        
+        '-------------------
+          dim CostNCUSelectClause
+          
+          dim TradeDep
+          TradeDep = gdcBaseManager.GetIDByRUIDString("147108729_126758767")  'тип подразделения - подразделение рознчной торговли
+        
+          select case RUID
+            '02. Внутренние перемещения материалов, МБП
+            '02. Внутреннее перемещение товаров
+            'Ввод спецодежды в эксплуатацию
+            case inv_DocInvMoveBill_RUID, _
+                 inv_DocInwBill_RUID, _
+                 WC_STARTUP_NEW_RUID, _
+                 WC_STARTUP_OLD_RUID
+               CostNCUSelectClause = "c.USR$INV_COSTACCNCU"
+            'ОС. Внутреннее перемещение
+            case FA_stInvMoveRuid
+              CostNCUSelectClause = "c.USR$FA_PRICENCU"
+              
+            '10. Отпуск  на доработку (переработку)
+            '11. Возврат с доработки (переработки)
+            case inv_DocMatSellProcessBill_RUID, _
+                 inv_DocMatRetProcessBill_RUID
+              CostNCUSelectClause = "IIF(COALESCE(c.USR$INV_COSTACCNCU, 0.0000) <> 0, c.USR$INV_COSTACCNCU,  c.USR$INV_COSTBUYNCU)"
+               
+            '04. Отпуск материалов покупателям
+            '11. Реализация товаров в розницу
+            '03. Отпуск товара на сторону (розничная торговля)
+            '03. Отпуск товара на сторону (оптовая торговля)
+            'ОС. Отпуск на сторону
+            case inv_DocSellBill_RUID, _
+                 inv_DocRetailBill_RUID, _
+                 inv_DocWholesaleSellBill_RUID, _
+                 inv_DocRetailSellBill_RUID, _
+                 FA_stSellBillRuid
+               CostNCUSelectClause = "c.USR$INV_COSTNCU"
+               if RUID = inv_DocRetailBill_RUID then
+                 NoNDSinResult = false
+               end if
+            '06. Выдача в торговые подразделения
+            '06а. Возврат с торговых подразделений
+            ' (оставлено для совместимости)
+            case inv_DocToTradeBill_RUID, _
+                 inv_DocFromTradeBill_RUID
+              'зависит от типов подразделений
+              '1) с нерозничного на розничное, с розничного на нерозничное
+              '   (FROM_)TO_USR$INV_COSTBUYNCU (покупная цена)
+              '2) с розничного на розничное
+              '   (FROM_)TO_USR$INV_COSTRETAILNCU (розничная цена)
+        
+              if (Bill.FieldByName("FromConType").AsInteger = TradeDep) and _
+                 (Bill.FieldByName("ToConType").AsInteger = TradeDep) then
+                NoNDSinResult = true
+                CostNCUSelectClause = " c.USR$INV_COSTRETAILNCU"
+              else
+                CostNCUSelectClause = " c.USR$INV_COSTTRADENCU"
+              end if
+              
+            case  inv_DocToTradeBill_RUID_CostTrade , _
+                  inv_DocFromTradeBill_RUID_CostTrade
+            ' 06. Выдача в торговые подразделения (по цене с надбавкой)
+             '06а. Возврат с торговых подразделений  (по цене с надбавкой)
+        
+              if (Bill.FieldByName("FromConType").AsInteger = TradeDep) then
+                NoNDSinResult = true
+                CostNCUSelectClause = "c.USR$INV_COSTTRADENCU"
+              else
+                CostNCUSelectClause = "c.USR$INV_COSTACCNCU"
+              end if
+              
+            case  inv_DocToTradeBill_RUID_CostRetail, _
+                  inv_DocFromTradeBill_RUID_CostRetail
+            ' 06. Выдача в торговые подразделения (по цене розничной)
+             '06а. Возврат с торговых подразделений (по цене розничной)
+             
+              if (Bill.FieldByName("FromConType").AsInteger = TradeDep) then
+                NoNDSinResult = true
+                CostNCUSelectClause = "c.USR$INV_COSTRETAILNCU"
+              else
+                CostNCUSelectClause = "c.USR$INV_COSTACCNCU"
+              end if
+              
+            '06. Возврат материалов поставщику
+            '07. Возврат товаров поставщику
+            case inv_DocRetProvBill_RUID, _
+                 inv_DocRetProviderBill_RUID
+              CostNCUSelectClause = "c.USR$INV_COSTBUYNCU"
+        
+            '07. Возврат товаров импортному поставщику
+            case inv_DocRetImportProvBill_RUID
+              CostNCUSelectClause = "c.USR$INV_CONTPRICECUR"
+            '03. Отпуск товара на экспорт (оптовая торговля)
+            case inv_DocExportSellBill_RUID
+              CostNCUSelectClause = "c.USR$INV_COSTCUR"
+            '  накладная на получение импортного товара (несколько шапок)
+            case inv_DocAddwBill_RUID_ListIDs
+              CostNCUSelectClause = "c.USR$INV_COSTRETAILNCU"
+          end select
+        
+        
+        '----------------------------------------------------
+          ' Количество
+          dim QuantitySelectClause
+          if RUID = inv_DocMatRetProcessBill_RUID then
+            '11. Возврат с доработки (переработки)
+            QuantitySelectClause = " l.OUTQUANTITY "
+          else
+            QuantitySelectClause = " l.QUANTITY "
+          end if
+        '-------------------------------
+          dim NoNDS
+          dim PercNDSSelectClause
+          ' Сумма либо сумма НДС рассчитаны, а не берутся из док-та
+          dim CalculatedValue
+          CalculatedValue = false
+          ' НДС
+          '02. Внутренние перемещения материалов, МБП
+          '10. Отпуск  на доработку (переработку)
+          '11. Возврат с доработки (переработки)
+          '02. Внутреннее перемещение товаров
+          'ОС. Внутреннее перемещение
+          'Ввод спецодежды в эксплуатацию
+          'Накладная на получение импортного товара (по нескольким шапкам)
+        
+          if (Ruid = inv_DocInwBill_RUID) or _
+             (Ruid = inv_DocMatSellProcessBill_RUID) or _
+             (Ruid = inv_DocMatRetProcessBill_RUID) or _
+             (Ruid = inv_DocInvMoveBill_RUID) or _
+             (Ruid = WC_STARTUP_NEW_RUID) or _
+             (Ruid = WC_STARTUP_OLD_RUID) or _
+             (Ruid = FA_stInvMoveRuid) or _
+             (Ruid = inv_DocAddwBill_RUID_ListIDs ) then
+            SumNDSNCUSelectClause = " CAST(0.0000 AS NUMERIC(15,4))"
+            NoNDS = true
+            PercNDSSelectClause = " CAST(0.0000 AS NUMERIC(15,4)) AS PercNDSNCU, "
+          '03. Отпуск товара на экспорт (оптовая торговля)
+          elseif Ruid = inv_DocExportSellBill_RUID then
+            SumNDSNCUSelectClause = " l.USR$SUMNDSCUR"
+            PercNDSSelectClause = " c.USR$INV_SELLNDS AS PercNDSNCU, "
+            
+           '03. Отпуск товара на сторону (розничная  торговля)
+          elseif Ruid = inv_DocRetailSellBill_RUID then
+            NoNDS = False
+        '    dim Creator, gdcConst, CalcNDS
+        '    set Creator = New TCreator
+        '    set gdcConst = Creator.GetObject(null, "TgdcConst", "")
+        '    'расчетная ставка НДС
+        '    CalcNDS = Replace(gdcConst.QGetValueByIDAndDate(gdcBaseManager.GetIdByRUIDString("147353604_257569877"), OwnerForm.gdcObject.FieldByName("Documentdate").AsDateTime), ",", "." )
+        '
+        '    if CalcNDS = "" then
+              PercNDSSelectClause = " c.USR$INV_SELLNDS AS PercNDSNCU, "
+              SumNDSNCUSelectClause = " l.USR$SUMNDSNCU"
+        '    else
+        '      PercNDSSelectClause = " CAST(" & CalcNDS & " AS NUMERIC(15,4)) AS PercNDSNCU, "
+        '      SumNDSNCUSelectClause = " round(l.USR$SUMWITHSALETAX * CAST(" & CalcNDS & " AS NUMERIC(15,4)) /100, 2) "
+        '    end if
+            
+          '06. Выдача в торговые подразделения
+          '06а. Возврат с торговых подразделений
+          elseif (Ruid = inv_DocToTradeBill_RUID )or _
+                 (Ruid = inv_DocToTradeBill_RUID_CostTrade) or _
+                 (Ruid = inv_DocToTradeBill_RUID_CostRetail )or _
+                 (Ruid = inv_DocFromTradeBill_RUID) or _
+                 (Ruid = inv_DocFromTradeBill_RUID_CostTrade) or _
+                 (Ruid = inv_DocFromTradeBill_RUID_CostRetail) then
+                 
+              if (Bill.FieldByName("FromConType").AsInteger = TradeDep) then
+                PercNDSSelectClause = " c.USR$INV_SELLNDS AS PercNDSNCU, "
+        
+                SumNDSNCUSelectClause =  _
+                   " COALESCE(CAST(" & QuantitySelectClause & " AS NUMERIC(15, 4)) * " & _
+                    CostNCUSelectClause & _
+                    " * c.USR$INV_SELLNDS / 100, 0.0000)"
+                CalculatedValue = true
+              else
+                PercNDSSelectClause = " CAST(0.0000 AS NUMERIC(15,4)) AS PercNDSNCU, "
+                NoNDS = true
+                SumNDSNCUSelectClause =  _
+                   " CAST(0.0000 AS NUMERIC(15,4)) "
+                CalculatedValue = true
+              end if
+        
+          else
+            SumNDSNCUSelectClause = " l.USR$SUMNDSNCU"
+            NoNDS = false
+            if (RUID = inv_DocRetProvBill_RUID) or _
+               (RUID = inv_DocRetProviderBill_RUID)  or _
+               (RUID = inv_DocRetImportProvBill_RUID) then
+              '06. Возврат материалов поставщику
+              '07. Возврат товаров поставщику
+              PercNDSSelectClause = " c.USR$INV_ADDNDS AS PercNDSNCU, "
+            else
+              PercNDSSelectClause = " c.USR$INV_SELLNDS AS PercNDSNCU, "
+            end if
+          end if
+          
+          ' Если сумма рассчиталась, то ее надо округлять либо до копеек, либо до 100 р
+          if CalculatedValue then
+             SumNDSNCUSelectClause = "ROUND(" & SumNDSNCUSelectClause & RoundingString
+          end if
+          SumNDSNCUSelectClause = " " & SumNDSNCUSelectClause & "  AS SumNDSNCU,"
+        '---------------------------------------
+          CalculatedValue = false
+          ' Стоимость
+          dim SumNCUSelectCLause
+        
+          '06. Выдача в торговые подразделения
+          '06а. Возврат с торговых подразделений
+          ' ОС. Внутреннее перемещение
+          ' Ввод спецодежды в эксплуатацию
+          if (Ruid = inv_DocToTradeBill_RUID )or _
+                 (Ruid = inv_DocToTradeBill_RUID_CostTrade) or _
+                 (Ruid = inv_DocToTradeBill_RUID_CostRetail )or _
+                 (Ruid = inv_DocFromTradeBill_RUID) or _
+                 (Ruid = inv_DocFromTradeBill_RUID_CostTrade) or _
+                 (Ruid = inv_DocFromTradeBill_RUID_CostRetail) or _
+                 (Ruid = WC_STARTUP_NEW_RUID) or _
+                 (Ruid = WC_STARTUP_OLD_RUID) or _
+                 (Ruid = FA_stInvMoveRuid) then
+            SumNCUSelectCLause = _
+               " COALESCE(CAST(" & QuantitySelectClause & " AS NUMERIC(15, 4)) * " & _
+                CostNCUSelectClause & ", 0.0000)"
+            CalculatedValue = true
+          '03. Отпуск товара на экспорт (оптовая торговля)
+          elseif Ruid = inv_DocExportSellBill_RUID then
+            SumNCUSelectCLause = "l.USR$SUMCUR"
+          ' 07. Возврат поставщику импорт
+          elseif (Ruid = inv_DocRetImportProvBill_RUID) then
+            SumNCUSelectCLause = "l.USR$SUMCONTRCURR"
+          ' накладная на получение импортного товара - несколько шапок
+          elseif (Ruid = inv_DocAddwBill_RUID_ListIDs) then
+            SumNCUSelectCLause = "l.USR$SUMRETAILNCU"
+          else
+            SumNCUSelectCLause = "l.USR$SUMNCU"
+          end if
+          
+          ' Если сумма рассчиталась, то ее надо округлять либо до копеек, либо до 100 р
+          if CalculatedValue then
+             SumNCUSelectCLause = "ROUND(" & SumNCUSelectCLause & RoundingString
+          end if
+          SumNCUSelectCLause = " " & SumNCUSelectCLause & "  AS SumNCU,"
+          
+        '------------------------------------------------
+          
+          CostNCUSelectClause = " " & CostNCUSelectClause & " AS CostNCU,"
+        
+        '------------------------------------------------
+          ' налог с продаж
+          dim PercSaleTaxSelectClause   'Налог с продаж
+          dim SumSaleTaxSelectClause    'Сумма налога с продаж
+        
+          PercSaleTaxSelectClause = " CAST(0.0000 AS NUMERIC(15,4)) AS PercSaleTax, "
+          SumSaleTaxSelectClause =  " CAST(0.0000 AS NUMERIC(15,4)) AS SumSaleTax, "
+        
+        '--------------------------------------------------
+        
+          ' в меню в примечании могут использоваться и другие цены:
+          ' PercDiscount     % скидки
+          ' SumDiscount      сумма скидки
+          ' ProducerPrice    цена производителя
+          ' CostNcuFrom      предыдущая цена
+          ' SumNcuFrom       сумма по предыдущей цене
+        '--------------------------------------------------
+          dim OtherPricesSelectClause
+        
+          OtherPricesSelectClause = _
+            " c.USR$INV_BUYNDSNCU AS BuyNDSNCU, " & VBCR & _
+            " c.USR$INV_COSTRETAILNCU AS CostRetail, " & VBCR & _
+            " c.USR$INV_COSTTRADENCU, " & VBCR & _
+            " c.USR$INV_COSTPROVIDER, " & VBCR & _
+            " c.USR$INV_COSTNCU, " & VBCR & _
+            " c.USR$INV_BUYNDSNCU, "
+        
+        '--------------------------------------------------
+          Dim QuantPackStr : QuantPackStr = ""
+          If (Ruid <> WC_STARTUP_NEW_RUID) and _
+             (Ruid <> WC_STARTUP_OLD_RUID) then
+            QuantPackStr = " l.USR$GRASSWEIGHT AS GrassWeight, " & VBCR & _
+            " iif(l.USR$QUANTPACK > 0, l.USR$QUANTPACK, " & QuantitySelectClause & ") AS QuantPack, "  & VBCR & _
+            " COALESCE(l.USR$CARGOCODE, '-')  AS CargoCode, " & VBCR & _
+            " COALESCE(l.USR$CARGOCLASS, '-') AS CargoClass, "
+          Else
+            QuantPackStr = " 0 AS GrassWeight, " & VBCR & _
+            " 0 AS QuantPack, " & VBCR & _
+            " cast('-' as varchar(1)) AS CargoCode, " & VBCR & _
+            " cast('-' as varchar(1)) AS CargoClass, "
+          End If
+          Dim BillPos
+          set BillPos = BaseQueryList.Query(BaseQueryList.Add("BillPos", 0))
+          BillPos.SQL = _
+            " SELECT  " & VBCR & _
+            DetailIDClause & VBCR & _
+            numorder & VBCR & _
+            " g.ID AS GoodKey, " & VBCR & _
+            " gr.NAME AS GroupName, " & VBCR & _
+            " l.DOCUMENTKEY, " & VBCR & _
+            PrintGoodInfoStr & " COALESCE(g.USR$FULLNAME, g.NAME)" & PrintActGood & " AS GoodName," & VBCR & _
+            " g.GROUPKEY, " & VBCR & _
+            " g.ALIAS, " & VBCR & _
+            " c.USR$INV_SELLNDS AS SellNDS, " & VBCR & _
+            QuantitySelectClause & " AS QUANTITY, "& VBCR & _
+            SumNCUSelectCLause & VBCR & _
+            SumNDSNCUSelectClause & VBCR & _
+            SumWithNDSNCUSelectClause & VBCR & _
+            PercentSelectClause & VBCR & _
+            PercSaleTaxSelectClause & VBCR & _
+            PercNDSSelectClause & VBCR & _
+            SumSaleTaxSelectClause & VBCR & _
+            QuantPackStr & VBCR & _
+            " c.USR$INV_QUANTINPACK AS QuantInPack, " & VBCR & _
+            " CAST(NULL AS VARCHAR(60)) AS BasisForCost, " & VBCR & _
+            " /* c.USR$INV_COSTPROVIDER AS CostProvider, */ " & VBCR & _
+            CostNCUSelectClause & VBCR & _
+            " c.USR$INV_PERCPROVIDER AS PercProvider, " & VBCR & _
+            " c.USR$INV_PERCPROVIDER, " & VBCR & _
+            " c.USR$INV_PRICELIST AS PRICELIST_STR , " & VBCR & _
+            " c.USR$INV_PERCSELL AS PercSell, " & VBCR & _
+            OtherPricesSelectClause & VBCR & _
+            " c.USR$INV_BILLLINEKEY, " & VBCR & _
+            " v.NAME AS MesName, " & VBCR & _
+            " p.NAME AS PackName, " & VBCR & _
+            " prod.NAME AS ProducerName, " & VBCR & _
+            " place.NAME AS Country " & VBCR & _
+            DocumentsSelectClause & VBCR & _
+            " FROM " & VBCR & _
+            TableName & "LINE l " & VBCR & _
+            " LEFT JOIN GD_DOCUMENT doc ON l.DOCUMENTKEY = doc.ID " & VBCR & _
+            CardFromClause & VBCR & _
+            " LEFT JOIN GD_GOOD g ON c.GOODKEY = g.ID " & VBCR & _
+            " LEFT JOIN GD_GOODGROUP gr ON g.GROUPKEY = gr.ID " & VBCR & _
+            " LEFT JOIN GD_VALUE v ON g.VALUEKEY = v.ID " & VBCR & _
+            " LEFT JOIN GD_VALUE p ON c.USR$INV_PACKKEY = p.ID " & VBCR & _
+            " LEFT JOIN GD_CONTACT prod ON c.USR$INV_PRODUCERKEY = prod.ID  " & VBCR & _
+            " LEFT JOIN GD_PLACE place ON c.USR$INV_ORIGINCOUNTRYKEY = place.ID " & VBCR & _
+            " LEFT JOIN USR$CN_ACTVALUATION act ON c.USR$CN_ACTVALUATION = act.ID " & VBCR & _
+            BillPosWhereClause & VBCR & _
+            BillPosOrderClause
+            BillPos.Open
+        
+        
+            
+        '''''''''''''''''''''''''  MesPOS  '''''''''''''''''''''''''''''''''''''''''''''
+           Dim MesPos
+           set MesPos = BaseQueryList.Query(BaseQueryList.Add("MesPos", 0))
+           MesPos.SQL = _
+             " SELECT  COUNT(v.ID) AS MesName " & VBCR & _
+             " FROM " & VBCR & _
+              TableName & "LINE l " & VBCR & _
+              CardFromClause & VBCR & _
+             " LEFT JOIN GD_GOOD g ON c.GOODKEY = g.ID " & VBCR & _
+             " LEFT JOIN GD_VALUE v ON g.VALUEKEY = v.ID " & VBCR & _
+           BillPosWhereClause & VBCR
+           MesPos.Open
+        
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        
+          if NoSort then
+            BaseQueryList.AddMasterDetail "Bill", "documentkey", "BillPos", "masterkey;documentkey"
+          elseif RUID = inv_DocInvMoveBill_RUID then
+             BaseQueryList.AddMasterDetail "Bill", "documentkey", "BillPos", "masterkey;usr$numorder;goodname;groupname"
+          else
+            if InvOption.SortByNameAlias = 0 then
+              BaseQueryList.AddMasterDetail "Bill", "documentkey", "BillPos", "masterkey;goodname;groupname"
+            elseif InvOption.SortByNameAlias = 1 then
+              BaseQueryList.AddMasterDetail "Bill", "documentkey", "BillPos", "masterkey;alias;groupname;goodname"
+            elseif InvOption.SortByNameAlias = 2 then
+              BaseQueryList.AddMasterDetail "Bill", "documentkey", "BillPos", "masterkey;documentkey"
+            end if
+          end if
+        
+        
+          dim MainFirm, S
+          set MainFirm = BaseQueryList.Query(BaseQueryList.Add("MainFirm", 0))
+          S = _
+            " SELECT " & VBCR & _
+            " cf.ID,                  " & VBCR & _
+            " cf.COMPNAME,            " & VBCR & _
+            " cf.COMPFULLNAME,        " & VBCR & _
+            " con.ZIP,                " & VBCR & _
+            " cf.ADDRESS,             " & VBCR & _
+            " con.USR$ETTN_GLN as GLN, " & VBCR & _
+            " cf.CITY,                " & VBCR & _
+            " cf.COUNTRY,             " & VBCR & _
+            " cf.PHONE,               " & VBCR & _
+            " cf.FAX,                 " & VBCR & _
+            " cf.ACCOUNT,             " & VBCR & _
+            " cf.BANKCODE,            " & VBCR & _
+            " cf.BANKMFO,             " & VBCR & _
+            " cf.BANKNAME,            " & VBCR & _
+            " cf.BANKADDRESS,         " & VBCR & _
+            " cf.BANKCITY,            " & VBCR & _
+            " cf.BANKCOUNTRY,         " & VBCR & _
+            " cf.TAXID,               " & VBCR & _
+            " cf.OKPO,                " & VBCR & _
+            " cf.LICENCE,             " & VBCR & _
+            " cf.OKNH,                " & VBCR & _
+            " cf.SOATO,               " & VBCR & _
+            " cf.SOOU,                " & VBCR
+          if (ruid = inv_DocRetProvBill_RUID) or _
+             (ruid = inv_DocRetProviderBill_RUID) or _
+             (ruid = inv_DocRetImportProvBill_RUID) then
+            S = S + " 0 AS USR$INV_NDSDODGER " & VBCR
+          else
+            S = S + " COALESCE(com.USR$INV_NDSDODGER, 0) AS USR$INV_NDSDODGER " & VBCR
+          end if
+          S = S + _
+            " FROM GD_V_COMPANY cf    " & VBCR & _
+            " JOIN GD_COMPANY com ON cf.ID = com.CONTACTKEY " & VBCR & _
+            " LEFT JOIN GD_CONTACT con ON cf.ID = con.ID " & VBCR & _
+            " WHERE cf.ID = " + CStr(System.Company.ID)
+          MainFirm.SQL = S
+          MainFirm.Open
+          
+          
+          
+        ''''''''''''''''''  Description в позициях  ''''''''''''''''''''''''''''''''''''
+        ' выносим примечание в отдельный набор данных,
+        ' т.к. вычисления в шаблоне грозят стать слишком сложными
+           dim qDescription, DescrStr, TempCostProvider
+           set qDescription = BaseQueryList.Query(BaseQueryList.Add("qDescription", 1))
+           call qDescription.AddField("MasterKey", "ftInteger", 0, False)
+           call qDescription.AddField("PosDescr", "ftString", 1000, False)
+           qDescription.Open
+        
+           while not BillPos.EoF
+             DescrStr = ""
+             TempCostProvider = 0
+             ' для валютной торговли примечание не нужно
+             if not IsForeign then
+             '1) надбавка
+               if BillPos.FieldByName("Percent").AsCurrency <> 0 then
+                 DescrStr = "%наценки/надбавки: " & BillPos.FieldByName("Percent").AsString
+               end if
+               '2) цена поставщика
+               '06. Выдача в торговые подразделения
+               '06а. Возврат с торговых подразделений
+               if DocType = 1 then
+                 TempCostProvider = BillPos.FieldByName("CostRetail").AsCurrency
+               else
+                 TempCostProvider = BillPos.FieldByName("USR$INV_COSTPROVIDER").AsCurrency
+                 if TempCostProvider = 0 then
+                   TempCostProvider =  BillPos.FieldByName("USR$INV_COSTNCU").AsCurrency
+                 end if
+                 if      MainFirm.FieldByName("USR$INV_NDSDODGER").AsInteger = 1 _
+                     and BillPos.FieldByName("USR$INV_PERCPROVIDER").AsCurrency <> 0 _
+                     and BillPos.FieldByName("USR$INV_COSTPROVIDER").AsCurrency then
+                   TempCostProvider = TempCostProvider + BillPos.FieldByName("USR$INV_BUYNDSNCU").AsCurrency
+                 end if
+               end if
+               if TempCostProvider <> 0 and TempCostProvider <> BillPos.FieldByName("CostNCU").AsCurrency then
+                 if DescrStr <> "" then DescrStr = DescrStr & VBCRLF
+                 DescrStr = DescrStr & "цена поставщика: " & TempCostProvider
+               end if
+             end if
+             if DescrStr <> "" then
+               qDescription.Append
+               qDescription.FieldByName("MasterKey").AsInteger = BillPos.FieldByName("DOCUMENTKEY").AsInteger
+               qDescription.FieldByName("PosDescr").AsString = DescrStr
+               qDescription.Post
+             end if
+             BillPos.Next
+           wend
+           BillPos.First
+           call BaseQueryList.AddMasterDetail("BillPos", "DOCUMENTKEY", "qDescription", "MasterKey")
+          
+        '-------------------------------------------------------------------------------
+        ' ГРУЗООТПРАВИТЕЛЬ и ГРУЗОПОЛУЧАТЕЛЬ
+          dim Addresses, addrFrom, addrTo, taxidFrom, taxidTo
+          set Addresses = BaseQueryList.Query(BaseQueryList.Add("Addresses", 1))
+          call Addresses.AddField("FromAddress", "ftString", 640, False)
+          call Addresses.AddField("ToAddress", "ftString", 640, False)
+          call Addresses.AddField("FromTaxid", "ftString", 20, False)
+          call Addresses.AddField("ToTaxid", "ftString", 20, False)
+          Addresses.Open
+        
+          Dim ReseiverAttr, MainFirmAttr, BillAttr
+        
+          ' Реквизиты Нашей Компании
+          if IsForeign and MainFirm.FieldByName("COUNTRY").AsString <> "" then
+            MainFirmAttr = MainFirm.FieldByName("COUNTRY").AsString
+          else
+            MainFirmAttr = ""
+          end if
+          if MainFirm.FieldByName("ZIP").AsString <> "" then
+            if MainFirmAttr <> "" then MainFirmAttr = MainFirmAttr & ", "
+            MainFirmAttr = MainFirmAttr & MainFirm.FieldByName("ZIP").AsString
+          end if
+          if MainFirm.FieldByName("CITY").AsString <> "" then
+            if MainFirmAttr <> "" then MainFirmAttr = MainFirmAttr & ", "
+            MainFirmAttr = MainFirmAttr & MainFirm.FieldByName("CITY").AsString
+          end if
+          if MainFirm.FieldByName("ADDRESS").AsString <> "" then
+            if MainFirmAttr <> "" then MainFirmAttr = MainFirmAttr & ", "
+            MainFirmAttr = MainFirmAttr & MainFirm.FieldByName("ADDRESS").AsString
+          end if
+        '  if MainFirm.FieldByName("GLN").AsString <> "" then
+        '    if MainFirmAttr <> "" then MainFirmAttr = MainFirmAttr & ", "
+        '    MainFirmAttr = MainFirmAttr & "GLN " & MainFirm.FieldByName("GLN").AsString
+        '  end if
+        
+          ' Реквизиты Клиента
+          if IsForeign and Bill.FieldByName("COUNTRY").AsString <> "" then
+            BillAttr = Bill.FieldByName("COUNTRY").AsString
+          else
+            BillAttr = ""
+          end if
+          if Bill.FieldByName("CITY").AsString <> "" then
+            if BillAttr <> "" then BillAttr = BillAttr & ", "
+            BillAttr = BillAttr & Bill.FieldByName("CITY").AsString
+          end if
+          if Bill.FieldByName("ADDRESS").AsString <> "" then
+            if BillAttr <> "" then BillAttr = BillAttr & ", "
+            BillAttr = BillAttr & Bill.FieldByName("ADDRESS").AsString
+          end if
+        '  if Bill.FieldByName("GLN").AsString <> "" then
+        '    if BillAttr <> "" then BillAttr = BillAttr & ", "
+        '    BillAttr = BillAttr & "GLN " & Bill.FieldByName("GLN").AsString
+        '  end if
+          
+          ' Реквизиты Грузополучателя
+          if IsForeign and Bill.FieldByName("RECEIVERCOUNTRY").AsString <> "" then
+            ReseiverAttr = Bill.FieldByName("RECEIVERCOUNTRY").AsString
+          else
+            ReseiverAttr = ""
+          end if
+          if Bill.FieldByName("RECEIVERCITY").AsString <> "" then
+            if ReseiverAttr <> "" then ReseiverAttr = ReseiverAttr & ", "
+            ReseiverAttr = ReseiverAttr &  Bill.FieldByName("RECEIVERCITY").AsString
+          end if
+          if Bill.FieldByName("RECEIVERADDRESS").AsString <> "" then
+            if ReseiverAttr <> "" then ReseiverAttr = ReseiverAttr & ", "
+            ReseiverAttr = ReseiverAttr &  Bill.FieldByName("RECEIVERADDRESS").AsString
+          end if
+        '  if Bill.FieldByName("RECEIVERGLN").AsString <> "" then
+        '    if ReseiverAttr <> "" then ReseiverAttr = ReseiverAttr & ", "
+        '    ReseiverAttr = ReseiverAttr & "GLN " & Bill.FieldByName("RECEIVERGLN").AsString
+        '  end if
+        
+          ' Правило: Если Грузополучатель не заполнен, выбираем его по смыслу документа (Наша Компания или Клиент);
+          ' иначе подставляем реквизиты Грузополучателя
+        
+          select case RUID
+        
+            case inv_DocRetailBill_RUID
+              '11. Реализация товаров в розницу
+              ' отправителем является Наша Компания
+                addrFrom = MainFirm.FieldByName("COMPFULLNAME").AsString
+                if MainFirmAttr <> "" then addrFrom = addrFrom & ", " & MainFirmAttr
+                if MainFirm.FieldByName("GLN").AsString <> "" then
+                  addrFrom = addrFrom & " GLN " & MainFirm.FieldByName("GLN").AsString
+                end if
+               ' получатель - всегда сторонняя организация
+                addrTo =   Bill.FieldByName("RECEIVERNAME").AsString
+                if ReseiverAttr <> "" then addrTo = addrTo & ", " & ReseiverAttr
+                if Bill.FieldByName("RECEIVERGLN").AsString <> "" then
+                  addrTo = addrTo & " GLN " & Bill.FieldByName("RECEIVERGLN").AsString
+                end if
+                taxidFrom = MainFirm.FieldByName("TAXID").AsString
+                taxidTo = Bill.FieldByName("RECEIVERTAXID").AsString
+        
+            case inv_DocInvMoveBill_RUID, _
+                 inv_DocInwBill_RUID, _
+                 inv_DocToTradeBill_RUID, _
+                 inv_DocToTradeBill_RUID_CostTrade, _
+                 inv_DocToTradeBill_RUID_CostRetail, _
+                 inv_DocFromTradeBill_RUID, _
+                 inv_DocFromTradeBill_RUID_CostTrade, _
+                 inv_DocFromTradeBill_RUID_CostRetail, _
+                 FA_stInvMoveRuid, _
+                 WC_STARTUP_NEW_RUID, _
+                 WC_STARTUP_OLD_RUID
+               '02. Внутренние перемещения материалов, МБП
+               '02. Внутреннее перемещение товаров
+               '06. Выдача в торговые подразделения
+               '06а. Возврат с торговых подразделений
+               'ОС. Внутреннее перемещение
+               ' Ввод спецодежды в эксплуатацию
+        
+               
+               ' Эти документы фиксируют перемещение ТМЦ между подразделениями Нашей Компании,
+               ' поэтому реквизитами Грузоотправителя и Грузополучателя будут реквизиты Нашей Компании;
+               ' однако имеет смысл после полного наименования организации указывать наименования подразделений
+        
+               ' Отправитель - Наша Компания и подразделение,
+               ' с которого уходят ТМЦ
+                addrFrom = MainFirm.FieldByName("COMPFULLNAME").AsString &  ", "  & _
+                           Bill.FieldByName("FROMCON").AsString
+                if MainFirmAttr <> "" then addrFrom = addrFrom & ", " & MainFirmAttr
+                if Bill.FieldByName("FROMCONGLN").AsString <> "" then
+                  addrFrom = addrFrom & " GLN " & Bill.FieldByName("FROMCONGLN").AsString
+                end if
+                taxidFrom = MainFirm.FieldByName("TAXID").AsString
+        
+               ' если Получатель (Реквизиты ТТН) не указан, подставляем Нашу Компанию и подразделение,
+               ' на которое приходят ТМЦ, иначе - Получателя
+               if (Bill.FieldByName("USR$RECEIVERKEY").IsNull) or _
+                  (Bill.FieldByName("USR$RECEIVERKEY").AsInteger = MainFirm.FieldByName("ID").AsInteger)then
+                  addrTo = MainFirm.FieldByName("COMPFULLNAME").AsString &  ", "  & _
+                           Bill.FieldByName("TOCON").AsString
+                  if MainFirmAttr <> "" then addrTo = addrTo & ", " & MainFirmAttr
+                  if Bill.FieldByName("TOCONGLN").AsString <> "" then
+                    addrTo = addrTo & " GLN " & Bill.FieldByName("TOCONGLN").AsString
+                  end if
+                  taxidTo = MainFirm.FieldByName("TAXID").AsString
+                else
+                  addrTo = Bill.FieldByName("RECEIVERNAME").AsString
+                  if ReseiverAttr <> "" then addrTo = addrTo & ", " & ReseiverAttr
+                  if Bill.FieldByName("RECEIVERGLN").AsString <> "" then
+                    addrTo = addrTo & " GLN " & Bill.FieldByName("RECEIVERGLN").AsString
+                  end if
+                  taxidTo = Bill.FieldByName("RECEIVERTAXID").AsString
+                end if
+            case inv_DocAddwBill_RUID_ListIDs
+              ' накладная на получение импортного товара (печать нескольких документов)
+              
+               ' это фиктивное перемещение с нашей компании на нашу компанию
+               ' Отправитель и Получатель - Наша Компания
+                addrFrom = MainFirm.FieldByName("COMPFULLNAME").AsString
+                if MainFirmAttr <> "" then addrFrom = addrFrom & ", " & MainFirmAttr
+        
+                taxidFrom = MainFirm.FieldByName("TAXID").AsString
+                addrTo = addrFrom
+                taxidTo = taxidFrom
+            case inv_DocRetProviderBill_RUID, _
+                 inv_DocRetProvBill_RUID, _
+                 inv_DocRetImportProvBill_RUID, _
+                 inv_DocWholesaleSellBill_RUID, _
+                 inv_DocSellBill_RUID, _
+                 inv_DocRetailSellBill_RUID, _
+                 inv_DocMatSellProcessBill_RUID, _
+                 FA_stSellBillRuid, _
+                 inv_DocExportSellBill_RUID
+               '06. Возврат материалов поставщику
+               '07. Возврат товаров поставщику
+        
+               '04. Отпуск материалов покупателям
+               '10. Отпуск  на доработку (переработку)
+               '03. Отпуск товара на сторону (оптовая торговля)
+               '03. Отпуск товара на сторону (розничная торговля)
+               'ОС. Отпуск на сторону
+               '03. Отпуск товара на экспорт (оптовая торговля)
+        
+               ' Отправитель - Наша Компания
+               addrFrom = MainFirm.FieldByName("COMPFULLNAME").AsString &  ", "  & _
+                          MainFirmAttr
+                if MainFirm.FieldByName("GLN").AsString <> "" then
+                  addrFrom = addrFrom & " GLN " & MainFirm.FieldByName("GLN").AsString
+                end if
+               taxidFrom = MainFirm.FieldByName("TAXID").AsString
+        
+               ' если Получатель (Реквизиты ТТН) не указан, подставляем Поставщика/ Покупателя
+               if (Bill.FieldByName("USR$RECEIVERKEY").IsNull) then
+                 addrTo = Bill.FieldByName("COMPFULLNAME").AsString
+                 if BillAttr <> "" then addrTo = addrTo & ", " & BillAttr
+                if Bill.FieldByName("GLN").AsString <> "" then
+                  addrTo = addrTo & " GLN " & Bill.FieldByName("GLN").AsString
+                end if
+                 taxidTo = Bill.FieldByName("TAXID").AsString
+               else
+                 addrTo = Bill.FieldByName("RECEIVERNAME").AsString
+                 if ReseiverAttr <> "" then addrTo = addrTo & ", " & ReseiverAttr
+                  if Bill.FieldByName("RECEIVERGLN").AsString <> "" then
+                    addrTo = addrTo & " GLN " & Bill.FieldByName("RECEIVERGLN").AsString
+                  end if
+                 taxidTo = Bill.FieldByName("RECEIVERTAXID").AsString
+               end if
+        
+             case inv_DocMatRetProcessBill_RUID
+               '11. Возврат с доработки (переработки)
+               ' Отправитель - Доработчик (сторонняя организация)
+               addrFrom = Bill.FieldByName("COMPFULLNAME").AsString
+               if BillAttr <> "" then addrFrom = addrFrom & ", " & BillAttr
+               
+               taxidFrom = Bill.FieldByName("TAXID").AsString
+               ' если Получатель (Реквизиты ТТН) не указан, подставляем Нашу Компанию
+               if (Bill.FieldByName("USR$RECEIVERKEY").IsNull) then
+                 addrTo = MainFirm.FieldByName("COMPFULLNAME").AsString
+                 if MainFirmAttr <> "" then addrTo = addrTo & ", " & MainFirmAttr
+        
+                 taxidTo = MainFirm.FieldByName("TAXID").AsString
+               else
+                 addrTo = Bill.FieldByName("RECEIVERNAME").AsString
+                 if ReseiverAttr <> "" then addrTo = addrTo & ", " & ReseiverAttr
+                 
+                 taxidTo = Bill.FieldByName("RECEIVERTAXID").AsString
+               end if
+          end select
+        
+        
+          Addresses.Insert
+          Addresses.FieldByName("FromAddress").AsString = addrFrom
+          Addresses.FieldByName("ToAddress").AsString = addrTo
+          Addresses.FieldByName("FromTaxid").AsString = taxidFrom
+          Addresses.FieldByName("ToTaxid").AsString = taxidTo
+          Addresses.Post
+        
+        
+          dim TagSet
+          set TagSet = BaseQueryList.Query(BaseQueryList.Add("Tag", 1))
+          call TagSet.AddField("NoNDS", "ftInteger", 0, False)
+          call TagSet.AddField("NoSaleTax", "ftInteger", 0, False)
+          call TagSet.AddField("WeightType", "ftInteger", 0, False )
+          call TagSet.AddField("NoNDSinResult", "ftBoolean", 0, False )
+          call TagSet.AddField("DocType", "ftInteger", 0, False )     '--------
+          call TagSet.AddField("PrintUNP", "ftBoolean", 0, False )
+          call TagSet.AddField("MesCount","ftInteger", 0, False )     ' MesCount
+          call TagSet.AddField("DocNumber", "ftString", 80, False)
+          call TagSet.AddField("ETTNNumber", "ftString", 80, False)
+          
+          TagSet.Open
+          TagSet.Insert
+          TagSet.FieldByName("DocType").AsInteger = DocType    '----------
+          TagSet.FieldByName("NoNDS").AsInteger = Abs(Cint(NoNDS))
+          TagSet.FieldByName("NoSaleTax").AsInteger = 1
+          TagSet.FieldByName("WeightType").AsInteger = InvOptions.PrintWeight * 1000 ' 1 - кг, 0 - т
+          TagSet.FieldByName("PrintUNP").AsBoolean = InvOptions.PrintUNP
+          TagSet.FieldByName("DocNumber").AsString = DocNumber
+          if ETTNNumber <> "" then
+            TagSet.FieldByName("ETTNNumber").AsString = "Серия " & ETTNNumber
+          end if
+          if TagSet.FieldByName("WeightType").AsInteger = 0 then TagSet.FieldByName("WeightType").AsInteger = 1
+        
+          TagSet.FieldByName("NoNDSinResult").AsBoolean =  NoNDSinResult
+        
+          MesPos.Last
+          TagSet.FieldByName("MesCount").AsInteger = MesPos.FieldByName("MesName").AsInteger
+          MesPos.Close
+        
+          TagSet.Post
+        
+        
+         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+          ' данные по акцизам (табак и алкоголь) для печати в конце ТТН
+          dim BillInfo
+          set BillInfo = BaseQueryList.Query(BaseQueryList.Add("BillInfo", 0))
+          BillInfo.SQL = _
+            "SELECT " & VBCR & _
+            DetailIDClause & VBCR & _
+            "  l.DOCUMENTKEY, " & VBCR & _
+            "  c.GOODKEY, " & VBCR & _
+            "  g.NAME, " & VBCR & _
+            "  stam.USR$NUMBER AS AkcizNumber, " & VBCR & _
+            "  gtr.USR$NUMBER AS GtrNumber, " & VBCR & _
+            "  gtr.USR$DATE AS GtrBeginDate, " & VBCR & _
+            "  gtr.USR$ENDDATE AS GtrEndDate, " & VBCR & _
+            "  cert.USR$NUMBER AS CertNumber, " & VBCR & _
+            "  cert.USR$TODATE AS CertEndDate, " & VBCR & _
+            "  cert.USR$FROMDATE AS CertBeginDate, " & VBCR & _
+            "  cert.USR$ORGAN AS SertOrgan, " & VBCR & _
+            "  declar.USR$NUMBER AS DeclarNumber, " & VBCR & _
+            "  declar.USR$DATE AS DeclarDate, " & VBCR & _
+            "  permit.USR$NUMBER AS PermitNumber, " & VBCR & _
+            "  permit.USR$DATE AS PermitDate, " & VBCR & _
+            "  quality.USR$NUMBER AS QualNumber, " & VBCR & _
+            "  quality.USR$DATE AS QualDate, " & VBCR & _
+            "  quality.USR$DATETO AS QualDateTo, " & VBCR & _
+            "  c.USR$INV_DATEMAKING " & VBCR & _
+            " FROM " & VBCR & VBCR & _
+            TableName & "LINE l " & VBCR & VBCR & _
+            CardFromClause & VBCR & VBCR & _
+            " LEFT JOIN GD_GOOD g ON g.ID = c.GOODKEY " & VBCR & _
+            " LEFT JOIN USR$INV_STAMPS stam ON stam.ID = c.USR$INV_STAMPKEY " & VBCR & _
+            " LEFT JOIN USR$INV_GTRCERT gtr ON gtr.ID = c.USR$INV_GTRCERTKEY " & VBCR & _
+            " LEFT JOIN USR$INV_CERTNEW cert ON cert.ID = c.USR$INV_CERTNEWKEY " & VBCR & _
+            " LEFT JOIN USR$INV_STATDECLAR declar ON declar.ID = c.USR$INV_STATDECLARKEY " & VBCR & _
+            " LEFT JOIN USR$INV_CUSTPERMIT permit ON permit.ID = c.USR$INV_CUSTPERMITKEY " & VBCR & _
+            " LEFT JOIN USR$INV_QUALITYCERT quality ON quality.ID = c.USR$INV_QUALITYCERTKEY " & VBCR & _
+            " WHERE  l.MASTERKEY IN " & ID & VBCR & _
+            "   AND  NOT (  stam.USR$NUMBER IS NULL " & VBCR & _
+            "           AND  cert.USR$NUMBER IS NULL " & VBCR & _
+            "           AND  declar.USR$NUMBER IS NULL " & VBCR & _
+            "           AND  permit.USR$NUMBER IS NULL " & VBCR & _
+            "           AND  gtr.USR$NUMBER IS NULL " & VBCR & _
+            "           AND  quality.USR$NUMBER IS NULL " & VBCR & _
+            "           AND  c.USR$INV_DATEMAKING IS NULL ) " & VBCR & _
+            " ORDER BY g.NAME "
+          BillInfo.Open
+          
+          dim BillPosInfo
+          set BillPosInfo = BaseQueryList.Query(BaseQueryList.Add("BillPosInfo", 0))
+          BillPosInfo.SQL = BillInfo.SQL
+          BillPosInfo.Open
+          BaseQueryList.AddMasterDetail "BillPos", "documentkey", "BillPosInfo", "documentkey"
+        
+          set OptInv_TTN = BaseQueryList
+        end function
+        
+        

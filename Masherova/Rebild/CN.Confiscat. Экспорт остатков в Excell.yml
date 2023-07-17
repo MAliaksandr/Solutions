@@ -1,0 +1,282 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147135549_2119873798
+  Name: "CN.Confiscat. Экспорт остатков в Excell"
+  Caption: "CN.Confiscat. Экспорт остатков в Excell"
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: 0934B010CB1CA2F4E9A0EF3423BFF3FF
+Uses: 
+  - "148509668_396646306 Торговля - исследователь"
+  - "147059933_2089375573 CN.Confiscat. Таблицы, поля, домены и справочники"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147135526_2119873798
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "CN_ExportRemainsIntoExcell"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-07-04T17:18:35+02:00
+      DISPLAYSCRIPT: | 
+        CN_EXPORTREMAINSINTOEXCELL
+        CORRECT_SYMBOL
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAT05EQVRFBgAAAE9OREFURQAAAAAAAAAAAAAAAAIAAAAAAAAAAAIAAABeUkZO
+        U1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        SUB CN_ExportRemainsIntoExcell(onDate)
+          Dim Creator
+          Set Creator = new TCreator
+          Dim q, LB, RB, SUBLB, SUBRB
+          Set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.Transaction = gdcBaseManager.ReadTransaction
+          q.SQL.Text = _
+          " SELECT LB, RB FROM GD_GOODGROUP WHERE ID = <RUID XID=""147047409"" DBID=""2082756242""/>"
+          q.ExecQuery
+          LB = q.FieldByName("LB").asInteger
+          RB = q.FieldByName("RB").asInteger
+          
+          q.Close
+          q.SQL.Text = _
+          " SELECT LB, RB FROM GD_CONTACT WHERE ID = <companykey/>"
+          q.ExecQuery
+          SUBLB = q.FieldByName("LB").asInteger
+          SUBRB = q.FieldByName("RB").asInteger
+        
+          q.Close
+          q.SQL.Text = _
+            "SELECT " & vbCrLf & _
+            "  MIN ( M.CARDKEY ) AS ID, " & vbCrLf & _
+            "  G.ID AS GOODKEY, " & vbCrLf & _
+            "  G.NAME AS NAMEGOOD, " & vbCrLf & _
+            "  G.ALIAS AS GOODALIAS, " & vbCrLf & _
+            "  V.NAME AS VALUENAME, " & vbCrLf & _
+            "  SUM ( M.BALANCE ) AS REMAINS, " & vbCrLf & _
+            "  C.USR$CN_ACTVALUATION, " & vbCrLf & _
+            "  C_USR$CN_ACTVALUATION.USR$DOCDATE as ACTDATE, " & vbCrLf & _
+            "  C_USR$CN_ACTVALUATION.USR$DOCNUMBER AS ACTNUMBER, " & vbCrLf & _
+            "  C.USR$INV_DATERECEIVE, " & vbCrLf & _
+            "  C.USR$INV_PROVIDER, " & vbCrLf & _
+            "  C_USR$INV_PROVIDER.NAME AS C_USR$INV_PROVIDER_NAME, " & vbCrLf & _
+            "  C.USR$INV_COSTRETAILNCU, " & vbCrLf & _
+            "  C.USR$INV_COSTPROVIDER, " & vbCrLf & _
+            "  C.USR$PFD_BARCODE, " & vbCrLf & _
+            "  G.USR$FULLNAME, " & vbCrLf & _
+            "  SUM ( M.BALANCE * CAST ( C.USR$INV_COSTRETAILNCU AS DOUBLE PRECISION ) ) AS S_USR$INV_COSTRETAILNCU, " & vbCrLf & _
+            "  SUM ( M.BALANCE * CAST ( C.USR$INV_COSTPROVIDER AS DOUBLE PRECISION ) ) AS S_USR$INV_COSTPROVIDER, " & vbCrLf & _
+            "  V.USR$CODE, " & vbCrLf & _
+            "  V.USR$ETTN_CODE " & vbCrLf & _
+            " " & vbCrLf & _
+            "FROM " & vbCrLf & _
+            "  ( SELECT " & vbCrLf & _
+            "    M.CARDKEY, " & vbCrLf & _
+            "    M.CONTACTKEY, " & vbCrLf & _
+            "    M.BALANCE " & vbCrLf & _
+            "  FROM " & vbCrLf & _
+            "    INV_BALANCE M " & vbCrLf & _
+            "    JOIN GD_CONTACT CON ON " & vbCrLf & _
+            "        M.CONTACTKEY = CON.ID AND CON.LB >= :SubLB AND CON.RB <= :SubRB " & vbCrLf & _
+            "      JOIN GD_GOOD G ON ( G.ID  =  M.GOODKEY ) " & vbCrLf & _
+            "      LEFT JOIN GD_GOODGROUP GG ON (G.GROUPKEY  =  GG.ID ) " & vbCrLf & _
+            "  WHERE " & vbCrLf & _
+            "    M.BALANCE  <>  0 " & vbCrLf & _
+            "    AND (GG.LB >= :LB AND GG.RB <= :RB) " & vbCrLf & _
+            "UNION ALL " & vbCrLf & _
+            "SELECT " & vbCrLf & _
+            "    M.CARDKEY, " & vbCrLf & _
+            "    M.CONTACTKEY, " & vbCrLf & _
+            "    SUM ( M.CREDIT - M.DEBIT ) AS BALANCE " & vbCrLf & _
+            "  FROM " & vbCrLf & _
+            "    INV_MOVEMENT M " & vbCrLf & _
+            "    JOIN GD_CONTACT CON ON M.CONTACTKEY  =  CON.ID AND CON.LB >= :SubLB AND CON.RB <= :SubRB " & vbCrLf & _
+            "    JOIN GD_GOOD G ON ( G.ID  =  M.GOODKEY ) " & vbCrLf & _
+            "    LEFT JOIN GD_GOODGROUP GG ON ( G.GROUPKEY  =  GG.ID ) " & vbCrLf & _
+            "  WHERE " & vbCrLf & _
+            "    M.DISABLED  =  0 " & vbCrLf & _
+            "    AND M.MOVEMENTDATE  >  :REMAINSDATE " & vbCrLf & _
+            "    AND (GG.LB >=:LB AND GG.RB <=:RB ) " & vbCrLf & _
+            "GROUP BY " & vbCrLf & _
+            "  1, " & vbCrLf & _
+            "  2 ) M " & vbCrLf & _
+            "    LEFT JOIN INV_CARD C ON C.ID  =  M.CARDKEY " & vbCrLf & _
+            "    LEFT JOIN GD_GOOD G ON ( G.ID  =  C.GOODKEY ) " & vbCrLf & _
+            "    JOIN GD_CONTACT CON ON M.CONTACTKEY = CON.ID AND CON.LB >= :SubLB AND CON.RB <= :SubRB " & vbCrLf & _
+            "    LEFT JOIN GD_GOODGROUP GG ON ( G.GROUPKEY  =  GG.ID ) " & vbCrLf & _
+            "    LEFT JOIN GD_VALUE V ON G.VALUEKEY  =  V.ID " & vbCrLf & _
+            "    LEFT JOIN USR$CN_ACTVALUATION C_USR$CN_ACTVALUATION ON C.USR$CN_ACTVALUATION  =  C_USR$CN_ACTVALUATION.ID " & vbCrLf & _
+            "    LEFT JOIN GD_CONTACT C_USR$INV_PROVIDER ON C.USR$INV_PROVIDER  =  C_USR$INV_PROVIDER.ID " & vbCrLf & _
+            " " & vbCrLf & _
+            "WHERE " & vbCrLf & _
+            "  M.BALANCE  <>  0 " & vbCrLf & _
+            "  AND ( GG.LB  >=  :LB AND   GG.RB  <=  :RB ) " & vbCrLf & _
+            " " & vbCrLf & _
+            "GROUP BY " & vbCrLf & _
+            "  G.NAME, " & vbCrLf & _
+            "  G.ID, " & vbCrLf & _
+            "  V.NAME, " & vbCrLf & _
+            "  G.ALIAS, " & vbCrLf & _
+            "  C.USR$CN_ACTVALUATION, " & vbCrLf & _
+            "  C_USR$CN_ACTVALUATION.USR$DOCDATE, "  & vbCrLf & _
+            "  C_USR$CN_ACTVALUATION.USR$DOCNUMBER, " & vbCrLf & _
+            "  C.USR$INV_DATERECEIVE, " & vbCrLf & _
+            "  C.USR$INV_PROVIDER, " & vbCrLf & _
+            "  C_USR$INV_PROVIDER.NAME, " & vbCrLf & _
+            "  C.USR$INV_COSTRETAILNCU, " & vbCrLf & _
+            "  C.USR$INV_COSTPROVIDER, " & vbCrLf & _
+            "  C.USR$PFD_BARCODE, " & vbCrLf & _
+            "  G.USR$FULLNAME, " & vbCrLf & _
+            "  V.USR$CODE, " & vbCrLf & _
+            "  V.USR$ETTN_CODE " & vbCrLf & _
+            "HAVING " & vbCrLf & _
+            "  SUM ( M.BALANCE )  >  0 "
+          q.ParamByName("LB").asInteger = LB
+          q.ParamByName("RB").asInteger = RB
+          q.ParamByName("SUBLB").asInteger = SUBLB
+          q.ParamByName("SUBRB").asInteger = SUBRB
+          q.ParamByName("REMAINSDATE").asDateTime = onDate
+          q.ExecQuery
+          
+          if q.EOF Then
+            call Application.MessageBox("Нет остатков! Операция прервана", "Внимание!", vbOkOnly+vbSystemModal+vbInformation)
+            exit sub
+          end if
+          
+          Dim FSO , Path, FileName , i : i = 0
+          Set FSO = CreateObject("Scripting.FileSystemObject")
+          'Path = FSO.GetParentFolderName(IBLogin.DatabaseName) & "\"
+          Path = "D:\"
+          FileName = Path & "PLU" & Year(Now) & Right("0" & Month(Now), 2)& Right("0" & Day(Now), 2) & ".xls"
+        
+          If FSO.FileExists(FileName) Then
+            Call FSO.DeleteFile(FileName)
+          End if
+        
+          Dim ConnectionString
+          ConnectionString = _
+                   "Driver={Microsoft Excel Driver (*.xls)};" & _
+                   "Dbq=" & FileName & ";" & _
+                   "ReadOnly=False;"
+        
+          Dim objConPLU
+          Set objConPLU = CreateObject("ADODB.Connection")
+          objConPLU.ConnectionString = ConnectionString
+          objConPLU.Open
+        
+          Dim objCmdPLU, strInsert
+          Set objCmdPLU = CreateObject("ADODB.Command")
+          objCmdPLU.ActiveConnection = objConPLU
+          objCmdPLU.CommandText = _
+           "CREATE TABLE " & _
+            " PLU( " & _
+            "[Номенклатура] VARCHAR(250), " & _
+            "[НоменклатураНомер поз АООИ] INTEGER, " & _
+            "[№ АООИ] VARCHAR(12), " & _
+            "[ДатаАООИ] VARCHAR(12), " & _
+            "[АктПередачи] VARCHAR(12), " & _
+            "[АктПередачиДата] VARCHAR(12), " & _
+            "[НоменклатураНомер поз акт] VARCHAR(12), " & _
+            "[Склад(Торговый объект)] VARCHAR(120), " & _
+            "[ДокументПоступления №] VARCHAR(12), " & _
+            "[ДокументПоступленияДата] VARCHAR(12), " & _
+            "[Количество] VARCHAR(12), " & _
+            "[ПерваяЦена] VARCHAR(12), " & _
+            "[ФактическаяЦена] VARCHAR(120), " & _
+            "[Номенклатура код] VARCHAR(120)) "
+          objCmdPLU.Execute
+          dim ordNumb
+          While  Not q.EoF
+            ordNumb = Split(q.FieldByName("USR$FULLNAME").AsString,".")
+            
+            strInsert = _
+              "INSERT INTO PLU(" & _
+              "[Номенклатура]," & _
+              "[НоменклатураНомер поз АООИ]," & _
+              "[№ АООИ]," & _
+              "[ДатаАООИ]," & _
+              "[АктПередачи]," & _
+              "[АктПередачиДата]," & _
+              "[НоменклатураНомер поз акт]," & _
+              "[Склад(Торговый объект)]," & _
+              "[ДокументПоступления №]," & _
+              "[ДокументПоступленияДата]," & _
+              "[Количество]," & _
+              "[ПерваяЦена]," & _
+              "[ФактическаяЦена]," & _
+              "[Номенклатура код]) " & _
+              "VALUES(" & _
+              "'" & correct_symbol(q.FieldByName("USR$FULLNAME").AsString) & "'" & _
+              "," & ordNumb(0) & _
+              ",'" & q.FieldByName("ACTNUMBER").AsString & "'" & _
+              ",'" & FORMATDATETIME(q.FieldByName("ACTDATE").AsDateTime, vbShortDate) & "'" & _
+              ",''" & _
+              ",''" & _
+              ",''" & _
+              ",''" & _
+              ",''" & _
+              ",''" & _
+              ",'" & REPLACE(q.FieldByName("REMAINS").AsCurrency,",",".") & "'" & _
+              ",'" & REPLACE(q.FieldByName("USR$INV_COSTPROVIDER").AsCurrency,",",".") & "'" & _
+              ",'" & REPLACE(q.FieldByName("USR$INV_COSTRETAILNCU").AsCurrency,",",".") & "'" & _
+              ",'')"
+            objCmdPLU.CommandText = strInsert
+            objCmdPLU.Execute
+        
+            i = i + 1
+            q.Next
+          wend
+        
+          call Application.MessageBox("Операция завершена!" & vbCr & _
+          "Файл с остатками расположен: " & vbCr & _
+          Path, "Внимание!", vbOkOnly+vbSystemModal+vbInformation)
+          
+        End SUB
+        function correct_symbol(val)
+          correct_symbol = val
+          val = Replace(val, ",", "")
+          val = Replace(val, "'", "")
+          correct_symbol = val
+        end function
+          
+        
+  - 
+    Properties: 
+      Class: "TgdcExplorer"
+      RUID: 147135547_2119873798
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PARENT: "147047538_2082756242 Исследователь\\Торговля\\00.Конфискат"
+      NAME: "Экспорт остатков в Excell"
+      CLASSNAME: ~
+      CMD: "147135526_2119873798"
+      CMDTYPE: 1
+      HOTKEY: ~
+      IMGINDEX: 238
+      ORDR: ~
+      SUBTYPE: ~
+      EDITIONDATE: 2023-07-04T14:32:51+02:00
+      DISABLED: 0
