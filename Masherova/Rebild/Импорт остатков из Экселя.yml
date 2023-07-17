@@ -1,0 +1,380 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147277653_2105083175
+  Name: "Импорт остатков из Экселя"
+  Caption: "Импорт остатков из Экселя"
+  Version: "1.0.0.5"
+  Optional: False
+  Internal: True
+  MD5: 4778C529CE789DEE99A82CFB108AF32A
+Uses: 
+  - "193064343_1720517880 Функция логирования в файл"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147197894_2105083175
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "add_Bill_from_excell"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-06-07T13:54:41+02:00
+      DISPLAYSCRIPT: | 
+        ADD_BILL_FROM_EXCELL
+        ANDRECORDS2
+        ADD_BILL_FROM_EXCELL_EXC
+        ADDLINE
+        IMPEXC_FINDGOOD
+        GETDOCBASE2
+        GETCONTACTBYTAXID2
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QNAAAAQ1VSUkVOVERFUEtFWQ0AAABDVVJSRU5UREVQS0VZCwAAAGdkX2NvbnRhY3Qg
+        BAAAAG5hbWUCAAAAaWQHDwAAAGNvbnRhY3R0eXBlID0gNAAAAAAAAAAARk5TVEZMUFI=
+      SCRIPT: | 
+        '#include GSADDTEXTLOGINFO
+        Function add_Bill_from_excell(CurrentDepKey)
+        
+          Dim Creator, OpenDialog, FileName
+          Set Creator = New TCreator
+          set OpenDialog = Creator.GetObject(nil, "TOpenDialog", "")
+         ' Dim gdcObject, gdcDetailObject, DS
+        
+          Dim startTime : startTime = now
+          call gsAddTextLogInfo(startTime, "", 1, "")
+          OpenDialog.Filter = "*.xls|*.xls*"
+          OpenDialog.DefaultExt = "xls"
+        
+          if OpenDialog.Execute then
+            FileName = OpenDialog.FileName
+          else
+            Exit function
+          end if
+        
+          Dim OurTransaction
+          Set OurTransaction = Creator.GetObject(nil, "TIBTransaction", "")
+          OurTransaction.Params.Add("nowait")
+          OurTransaction.DefaultDatabase = gdcBaseManager.Database
+          OurTransaction.StartTransaction
+          
+          Except add_Bill_from_excell_Exc(OurTransaction)
+          
+           ' 1. Накладная на полученіе
+          dim gdcObject, gdcObjectLine, dsMasterSale
+          Set gdcObject = Creator.GetObject(nil, "TgdcInvDocument", "")
+          gdcObject.SubType = "147047539_2082756242"
+          gdcObject.Transaction = OurTransaction
+        
+          Set gdcObjectLine = Creator.GetObject(nil, "TgdcInvDocumentLine", "")
+          gdcObjectLine.SubType = "147047539_2082756242"
+          gdcObjectLine.Transaction = gdcObject.Transaction
+        
+          Set dsMasterSale = Creator.GetObject(nil, "TDataSource", "")
+          dsMasterSale.DataSet = gdcObject
+        
+          gdcObjectLine.MasterSource = dsMasterSale
+          gdcObjectLine.MasterField = "ID"
+          gdcObjectLine.DetailField = "PARENT"
+          gdcObjectLine.SubSet = "ByParent"
+          gdcObject.Open
+          gdcObjectLine.Open
+          
+          gdcObject.Insert
+          gdcObject.FieldByName("USR$CONTACTKEY").AsInteger = _
+              gdcBaseManager.GetIDByRUIDString("147063732_2091642366")
+          gdcObject.FieldByName("USR$DEPTKEY").AsInteger = CurrentDepKey(0)
+          gdcObject.FieldByName("USR$FROMACCOUNTKEY").AsInteger = gdcBaseManager.GetIDByRUIDString("300003_17")  ' 00 remains
+          gdcObject.FieldByName("USR$CN_ACTVALUATION").AsInteger = gdcBaseManager.GetIDByRUIDString("147059675_2089375573")
+          gdcObject.FieldByName("DOCUMENTDATE").AsDateTime = FormatDateTime(now, vbShortDate)
+          gdcObject.FieldByName("NUMBER").AsVariant = "остатки"
+          gdcObject.Post
+          
+          dim ibSQL
+          set ibSQL = Creator.GetObject(nil, "TIBSQL", "")
+          ibSQL.Transaction = OurTransaction
+          
+          dim gdcGood
+          set gdcGood = Creator.GetObject(nil, "TgdcGood", "")
+          gdcGood.Transaction = OurTransaction
+          gdcGood.Open
+        
+          dim doc
+          set doc = Creator.GetObject(null, "TgdcAttrUserDefined", "")
+          doc.Transaction = OurTransaction
+          doc.SubType = "USR$CN_ACTVALUATION"
+          doc.SubSet = "ByID"
+          doc.Open
+        
+          dim cmp
+          set cmp = Creator.GetObject(nil, "TgdcCompany", "")
+          cmp.Transaction = OurTransaction
+          cmp.SubSet = "ByID"
+          cmp.Open
+          
+           Dim Exc, Sh, Sh1
+            Set Exc = CreateObject("Excel.Application")
+            if not Assigned(Exc) then Exit function
+            except Imff_Excell_Rollback(Exc)
+        
+            call Exc.Workbooks.Open(FileName)
+        
+            dim i, c
+            c = 0
+            ' проверка на непустые лісты в кніге
+            for  i =1 to  Exc.Worksheets.count
+              set Sh1 = Exc.Worksheets(i)
+                'if pWorkSh<>0 Then
+        '          c = pWorkSh
+        '          exit for
+        '        end if
+              c = i
+            next
+            if (c <> 0 ) then
+              set  Sh = Exc.Worksheets(c)
+        
+              dim pStartLine : pStartLine = 6
+              dim r : r = pStartLine
+        
+             WHILE NOT andRecords2(Sh, pStartLine)
+        
+                call addLine(ibSQL, Creator, OurTransaction, gdcObjectLine, Sh, pStartLine, gdcGood, doc, cmp)
+        
+                pStartLine = pStartLine + 1
+                if pStartLine mod 1000 = 0 Then
+                  OurTransaction.CommitRetaining
+                end if
+             WEND
+        
+             if OurTransaction.Active then
+               OurTransaction.Commit
+              end if
+              call gsAddTextLogInfo(startTime, "!!!", 9, "")
+              call Application.MessageBox("Завершено!", "Внимание", VbOkOnly+vbSystemModal+vbInformation)
+            end if
+          
+          
+          
+        End Function
+        
+        function andRecords2(Sh, r)
+          dim pQfreeLine, pAndRecL, i, res
+          pQfreeLine = 2
+          pAndRecL = 2
+          andRecords2 = false
+             res = 0
+             For i = r to pQfreeLine + r
+               if Sh.Cells(i, pAndRecL).Value = "" Then
+                 res = res + 1
+               end if
+             next
+        
+             if res = pQfreeLine and r = pAndRecL then
+                call Application.MessageBox("Неожиданный конец файла. " & vbCrLf & "Выполнение будет остановлено! " & vbCrLf & _
+                   "Текущее значение параметра проверки столбца: " & CSTR(pAndRecL) & vbCrLf & _
+                   "Измените параметры в шаблоне и повторите попытку!", "Внимание", vbOkOnly + vbExclamation + vbSystemModal)
+                   andRecords2 = true
+             elseif res = pQfreeLine + 1  and r > pAndRecL Then
+                call Application.MessageBox("Достигнут конец файла с данными. " & vbCrLf & _
+                   "Операция успешно завершена", "Внимание", vbOkOnly + vbExclamation + vbSystemModal)
+                   andRecords2 = true
+             end if
+        end function
+        
+        
+        sub add_Bill_from_excell_Exc(OurTransaction)
+          if OurTransaction.inTransaction then OurTransaction.RollBack
+        end sub
+        
+        ' функция вставки позиций
+        sub addLine(ibSQL, Creator, tr, gdcDetailobject, Sh, pStartLine, gdcGood, doc, cmp)
+          pGNAME = 2
+          pCostByNCU = 10
+          goodname = Trim(Sh.Cells(pStartLine, pGNAME).Value)
+          quantity = cstr(Sh.Cells(pStartLine, 8).Value)
+          price =  Replace(Sh.Cells(pStartLine, pCostByNCU).Value, "'", "")
+          Alias =  Trim(Sh.Cells(pStartLine, 3).Value)
+          valuekey = gdcBaseManager.GetIDByRUIDString("3000001_17")
+          
+          ' нулі ігноріруем
+          
+          if quantity<=0 Then
+            call gsAddTextLogInfo("", " Товар:" & goodname & "; кол-во = " & CSTR(quantity) & " не добавлен." , 3, "")
+            exit sub
+          end if
+        
+        
+          contactkey = GetContactByTaxid2(Trim(Sh.Cells(pStartLine, 5).Value), Sh, ibSQL, Tr, pStartLine, cmp)
+        
+          dim BookMark , goodkey, garr
+          goodkey = ImpExc_findgood(ibSQL, Sh, pStartLine)
+          ' калі не знайшлі, патрэбна стварыць
+          if goodkey < 0 then
+        
+            gdcGood.Insert
+            gdcGood.FieldByName("alias").AsString = Alias
+            gdcGood.FieldByName("name").AsString = LEFT(goodname, 60)
+            gdcGood.FieldByName("BARCODE").AsString = ""
+            gdcGood.FieldByName("groupkey").AsString =  gdcBaseManager.getidByRuidString("147047409_2082756242")  ''''''''''
+            gdcGood.FieldByName("valuekey").AsString = valuekey    '''''''''''
+            gdcGood.FieldByName("USR$FULLNAME").AsString = goodname
+            gdcGood.Post
+            gdcDetailObject.Transaction.CommitRetaining
+            goodkey = gdcGood.Id
+          end if
+        
+          dim DocBase, lastDate
+        
+           'dim LineNumb
+        '   ibSQL.Close
+        '   ibSQL.SQL.Text = _
+        '   "SELECT max(USR$NUMORDER) as NUM FROM USR$INV_ADDWBILLLINE WHERE MASTERKEY = :MASTERKEY "
+        '   ibSQL.ParamBYName("MASTERKEY").asInteger = gdcDetailObject.MasterSource.DataSet.FieldByName("ID").AsInteger
+        '   ibSQL.ExecQuery
+        '   LineNumb = ibSQL.FieldByName("NUM").asInteger + 1
+        
+          gdcDetailObject.DisableControls
+          BookMark = gdcDetailObject.GetBookMark
+          gdcDetailobject.Append
+          gdcDetailObject.FieldbyName("goodkey").AsInteger = goodkey
+          gdcDetailObject.FieldbyName("USR$NUMORDER").AsInteger = 1 ' LineNumb
+          gdcDetailObject.FieldbyName("quantity").asCurrency = quantity
+          gdcDetailObject.FieldbyName("TO_USR$INV_COSTPROVIDER").asCurrency  = Sh.Cells(pStartLine, 10).Value
+          gdcDetailObject.FieldbyName("TO_USR$INV_COSTBUYNCU").asCurrency  = Sh.Cells(pStartLine, 10).Value
+          gdcDetailObject.FieldbyName("TO_USR$CN_ADDLNUMBER").AsInteger  = Sh.Cells(pStartLine, 1).Value
+        '  Vat = null
+        '  gdcDetailObject.FieldbyName("TO_USR$INV_ADDNDS").asVariant  = Vat
+        '    ' краіна паходжання
+        '  gdcDetailObject.FieldbyName("TO_USR$INV_ORIGINCOUNTRYKEY").asVariant = null
+        '  gdcDetailObject.FieldbyName("TO_USR$INV_SELLNDS").asVariant  = Vat
+          'поставщик
+          gdcDetailObject.FieldbyName("TO_USR$INV_PROVIDER").asVariant  = contactkey
+        
+          ' дата поступления
+          gdcDetailObject.FieldbyName("TO_USR$INV_DATERECEIVE").asVariant  = Sh.Cells(pStartLine, 7).Value
+          ' дата последней переоценкі
+          if not isDate(Sh.Cells(pStartLine, 12).Value) then
+            lastDate = null
+          else
+            lastDate = Sh.Cells(pStartLine, 12).Value
+          end if
+          gdcDetailObject.FieldbyName("TO_USR$LASTDATERECOST").asVariant  = lastDate
+          ' основание
+          gdcDetailObject.FieldbyName("TO_USR$CN_ACTVALUATION").asInteger  = GetDocBase2(Sh, ibSQL, Tr, contactkey, pStartLine, doc)
+          gdcDetailObject.FieldbyName("TO_USR$INV_COSTRETAILNCU").asCurrency  = Sh.Cells(pStartLine, 11).Value
+        
+          gdcDetailObject.Post
+          gdcDetailObject.GotoBookMark(BookMark)
+          gdcDetailObject.EnableControls
+          'gdcDetailObject.cLOSEoPEN
+        end sub
+        
+        'ф-я шукае ТМЦ у БД па розным крытэрыям.
+        'паслядоўнасть пошуку будзе абазначана пазней
+        'яна(ф-я) павінна венуць GOODKEY альбо знойдзенага альбо зноў устаўленнага
+        
+        Function ImpExc_findgood(ibSQL, Sh, pStartLine)
+          ImpExc_findgood = -1
+        
+          ibsql.SQL.Text = _
+          "select g.id from gd_good g " & _
+          "WHERE g.alias = :alias "
+          ibsql.Close
+          ibsql.ParamByName("alias").AsString = TRIM(Sh.Cells(pStartLine, 3).Value)
+          ibsql.ExecQuery
+          if not ibsql.eof then
+             ImpExc_findgood = ibsql.FieldByName("ID").AsInteger
+             Exit Function
+          end If
+        
+          ibsql.SQL.Text = _
+          "select g.id from gd_good g " & _
+          "WHERE g.USR$FULLNAME = :gname "
+          ibsql.Close
+          ibsql.ParamByName("gname").AsString = Sh.Cells(pStartLine, 2).Value
+          ibsql.ExecQuery
+        
+          if not ibsql.eof then
+             ImpExc_findgood = ibsql.FieldByName("ID").AsInteger
+             Exit Function
+          end If
+        
+        
+        END FUNCTION
+        
+        ' документ - основание
+        Function GetDocBase2(Sh, ibSQL, Tr, conact, pStartLine, doc)
+          ibsql.SQL.Text = _
+          "select ID " & vbCrLf & _
+          "from USR$CN_ACTVALUATION " & vbCrLf & _
+          "where USR$CONTACT = :conact " & vbCrLf & _
+          "and USR$DOCNUMBER =:number "
+          ibsql.Close
+          ibsql.ParamByName("conact").AsString = conact
+          ibsql.ParamByName("number").AsString = Sh.Cells(pStartLine, 6).Value
+          ibsql.ExecQuery
+        
+          if not ibsql.EOF Then
+            GetDocBase2 = ibsql.FieldByName("ID").asInteger
+            exit function
+          end if
+        
+          doc.Insert
+          doc.FieldByName("USR$DOCDATE").asVariant = Sh.Cells(pStartLine, 7).Value
+          doc.FieldByName("USR$DOCNUMBER").asVariant = Sh.Cells(pStartLine, 6).Value
+          doc.FieldByName("USR$CONTACT").asVariant = conact
+          doc.Post
+          Tr.CommitRetaining
+          GetDocBase2 = doc.ID
+        
+        end function
+        
+        Function GetContactByTaxid2(Taxid, Sh, ibSQL, Tr, pStartLine, cmp)
+        
+          ibsql.SQL.Text = _
+          "select c.ID from gd_contact c " & vbCrLf & _
+          "join gd_companycode cd on cd.COMPANYKEY = c.ID " & vbCrLf & _
+          "where cd.TAXID = :taxid "
+          ibsql.Close
+          ibsql.ParamByName("taxid").AsString = Taxid
+          ibsql.ExecQuery
+        
+          if not ibsql.EOF Then
+            GetContactByTaxid2 = ibsql.FieldByName("ID").asInteger
+            exit function
+          end if
+        
+        
+          cmp.Insert
+          cmp.FieldByName("NAME").asVariant = Sh.Cells(pStartLine, 4).Value
+          cmp.FieldByName("PARENT").asVariant = gdcBaseManager.GETIDBYRUIDString("147002208_31587988")
+          cmp.FieldByName("TAXID").asVariant = TAXID
+          cmp.Post
+          Tr.CommitRetaining
+          GetContactByTaxid2 = cmp.ID
+        
+        end function
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "193054384_1720517880 gsAddTextLogInfo"
