@@ -1,0 +1,150 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 147916110_2125665049
+  Name: "DETLA_BETWEN_BUH_AND_REMAINS"
+  Caption: "DETLA_BETWEN_BUH_AND_REMAINS"
+  Version: "1.0.0.1"
+  Optional: False
+  Internal: True
+  MD5: B9F2D19E530A385200058D99C83D8D75
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147916096_2125665049
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_GETREMAINS_ONDATE"
+      EDITIONDATE: 2023-07-07T18:19:40+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_GETREMAINS_ONDATE (
+            DEPKEY INTEGER,
+            GROUPKEY INTEGER,
+            REMAINSDATE DATE)
+        RETURNS ( 
+            ACCOUNTKEY INTEGER,
+            ALLSUM NUMERIC(15, 4))
+         AS
+        DECLARE VARIABLE LB INTEGER;
+        DECLARE VARIABLE RB INTEGER;
+        DECLARE VARIABLE SUBLB INTEGER;
+        DECLARE VARIABLE SUBRB INTEGER;
+        
+        BEGIN
+        ACCOUNTKEY = NULL;
+        ALLSUM = 0;
+        
+        SELECT LB, RB FROM GD_CONTACT WHERE ID = :DEPKEY
+        INTO :SUBLB, :SUBRB;
+        
+        SELECT LB, RB FROM GD_GOODGROUP WHERE ID = :GROUPKEY
+        INTO  :LB, :RB;
+        
+        FOR
+        SELECT
+          C.USR$INV_ACCOUNTKEY,
+          SUM ( M.BALANCE * CAST ( C.USR$INV_COSTRETAILNCU AS DOUBLE PRECISION ) )
+        FROM
+          ( SELECT
+            M.CARDKEY,
+            M.CONTACTKEY,
+            M.BALANCE
+          FROM INV_BALANCE M
+          JOIN GD_CONTACT CON ON M.CONTACTKEY  =  CON.ID AND         CON.LB  >=  :SubLB AND         CON.RB  <=  :SubRB
+          JOIN GD_GOOD G ON ( G.ID  =  M.GOODKEY )
+          LEFT JOIN GD_GOODGROUP GG ON ( G.GROUPKEY  =  GG.ID )
+          WHERE
+            M.BALANCE  <>  0
+            AND ( GG.LB  >=  :LB AND     GG.RB  <=  :RB )
+        UNION ALL
+        SELECT
+            M.CARDKEY,
+            M.CONTACTKEY,
+            SUM ( M.CREDIT - M.DEBIT ) AS BALANCE
+          FROM
+            INV_MOVEMENT M
+            JOIN GD_CONTACT CON ON M.CONTACTKEY  =  CON.ID AND         CON.LB  >=  :SubLB AND         CON.RB  <=  :SubRB
+            JOIN GD_GOOD G ON ( G.ID  =  M.GOODKEY )
+              LEFT JOIN GD_GOODGROUP GG ON G.GROUPKEY  =  GG.ID
+          WHERE
+            M.DISABLED  =  0
+            AND M.MOVEMENTDATE  >  :REMAINSDATE
+            AND (GG.LB  >=  :LB AND     GG.RB  <=  :RB )
+        GROUP BY
+          1, 2 ) M
+            LEFT JOIN INV_CARD C ON C.ID  =  M.CARDKEY
+            LEFT JOIN GD_GOOD G ON ( G.ID  =  C.GOODKEY )
+            JOIN GD_CONTACT CON ON M.CONTACTKEY  =  CON.ID AND       CON.LB  >=  :SubLB AND       CON.RB  <=  :SubRB
+            LEFT JOIN GD_GOODGROUP GG ON ( G.GROUPKEY  =  GG.ID )
+            LEFT JOIN GD_VALUE V ON G.VALUEKEY  =  V.ID
+        WHERE
+          M.BALANCE  <>  0
+          AND (GG.LB  >=  :LB AND GG.RB <= :RB)
+        
+        GROUP BY
+          C.USR$INV_ACCOUNTKEY
+          HAVING
+          SUM ( M.BALANCE )  >  0
+        
+          INTO :ACCOUNTKEY, :ALLSUM
+        
+         DO SUSPEND;
+        END
+      RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147916108_2125665049
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_DELTASUM_BUH_AND_REMAINS"
+      EDITIONDATE: 2023-07-07T18:19:40+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_DELTASUM_BUH_AND_REMAINS (
+            DEPKEY INTEGER,
+            GROUPKEY INTEGER,
+            REMAINSDATE DATE)
+        RETURNS ( 
+            ACC INTEGER,
+            SSUM NUMERIC(15, 4),
+            BUHSUM NUMERIC(15, 4),
+            DELTASUM NUMERIC(15, 4))
+         AS
+        BEGIN
+          SSUM =  0;
+          ACC = NULL;
+          DELTASUM = 0;
+         FOR
+           SELECT
+             ACCOUNTKEY,
+             ALLSUM
+           FROM USR$P_GETREMAINS_ONDATE(:DEPKEY,:GROUPKEY, :REMAINSDATE)
+           INTO :ACC, :SSUM
+         DO
+         BEGIN
+           FOR
+           select
+             sum(E.DEBITNCU - E.CREDITNCU)
+           from
+              AC_ENTRY E
+           where
+             E.USR$GS_DEPARTMENT = :DEPKEY
+             and E.ACCOUNTKEY = :ACC
+             and E.ENTRYDATE <= :REMAINSDATE
+           INTO :BUHSUM
+        
+          DO
+          BEGIN
+            DELTASUM = round(SSUM,2) - BUHSUM;
+            SUSPEND;
+          END
+         END
+        
+        END
+      RDB$DESCRIPTION: ~

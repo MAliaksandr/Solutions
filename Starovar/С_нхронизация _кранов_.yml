@@ -1,0 +1,1039 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 151303901_2128701727
+  Name: "Синхронизация \"кранов\""
+  Caption: "Синхронизация \"кранов\""
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: B8E4C1F18B913694D9D5D5F5AB52B98D
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "147753353_73094925 GS.Общие.Метаданные.Таблицы"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 151303899_2128701727
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$FORSYNCH"
+      FIELDNAME: "USR$FORSYNCH"
+      FIELDSOURCE: "DBOOLEAN"
+      FIELDSOURCEKEY: "147000135_486813904 Логическое, DBOOLEAN"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Для синхронизации"
+      LSHORTNAME: "Для синхронизации"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147000531_31587988 Справочник ТМЦ, GD_GOOD"
+      RELATIONNAME: "GD_GOOD"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-07-04T17:15:13+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: | 
+        DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTrigger"
+      RUID: 151303904_2128701727
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      RDB$FLAGS: 1
+      RDB$TRIGGER_INACTIVE: 0
+      RDB$TRIGGER_NAME: "USR$GD_BIU_GOOD                "
+      RDB$TRIGGER_SEQUENCE: 1
+      RDB$TRIGGER_TYPE: 17
+      RELATIONKEY: "147000531_31587988 Справочник ТМЦ, GD_GOOD"
+      RELATIONNAME: "GD_GOOD"
+      TRIGGERNAME: "USR$GD_BIU_GOOD"
+      TRIGGER_INACTIVE: 0
+      EDITIONDATE: 2023-07-04T17:15:22+03:00
+      RDB$DESCRIPTION: ~
+      RDB$TRIGGER_SOURCE: | 
+        AS
+        BEGIN
+         IF (new.alias <> old.Alias) THEN
+           new.usr$forsynch = 1;
+        END
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 147216798_244600472
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "pf_SynchronizeGood"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-07-04T17:32:04+03:00
+      DISPLAYSCRIPT: | 
+        PF_SYNCHRONIZEGOOD
+        FINDORADDGOOD
+        DEL_ADDRUIDGOOD
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QIAAAASVNXRUlHSFQUAAAA0u7r/OruIOLl8e7i7ukg8u7i4PAAAAAAAAAAAAAAAAAO
+        AAAAAAAAAAA8AAAAXlYi0u7r/OruIOLl8e7i7ukg8u7i4PA9MSIsItLu6/zq7iDq7uT7ID0yIiwi
+        wvHlIPLu4uDw+z0wIl5SRk5TVEZMUFI=
+      SCRIPT: | 
+        Option Explicit
+        Function pf_SynchronizeGood(isWeight)
+          Dim Creator
+          Set Creator = New TCreator
+        
+          Dim Transaction
+          Set Transaction = Creator.GetObject(nil, "TIBTransaction", "")
+          Transaction.Params.Add("nowait")
+        
+          Dim OurTransaction
+          Set OurTransaction = Creator.GetObject(null, "TIBTransaction", "")
+          OurTransaction.Params.Add("nowait")
+          OurTransaction.DefaultDatabase = gdcBaseManager.Database
+          OurTransaction.StartTransaction
+        
+          Dim DataBase
+          Set Database = Creator.GetObject(nil, "TIBDatabase", "")
+        
+          Dim qServer
+          Set qServer = Creator.getObject(nil, "TIBSQL", "")
+          qServer.Transaction = gdcBaseManager.ReadTransaction
+          qServer.SQl.Text = _
+            "SELECT " & _
+            "  z.USR$PATH, " & _
+            "  z.USR$DEPOTKEY, " & _
+            "  dname.NAME " & _
+            "FROM USR$SERVERDEP z " & _
+            "LEFT JOIN GD_CONTACT dname ON dname.ID  =  z.USR$DEPOTKEY " & _
+            "WHERE COALESCE(z.USR$DISABLED, 0) = 0 "
+        
+          Dim qObjects
+          Set qObjects = Creator.getObject(nil, "TIBSQL", "")
+          qObjects.Transaction = gdcBaseManager.ReadTransaction
+          qObjects.SQl.Text = _
+            "SELECT ID FROM GD_GOOD "
+        
+          SELECT CASE isWeight
+            CASE 1 :
+               qObjects.SQl.Text =  _
+               qObjects.SQl.Text + " WHERE COALESCE(USR$PF_ISWEIGHT,0)>0 "
+            CASE 2
+               qObjects.SQl.Text =  _
+               qObjects.SQl.Text + " WHERE COALESCE(USR$FORSYNCH,0)>0 "
+          END SELECT
+        
+        '  IF isWeight then
+        '   qObjects.SQl.Text =  _
+        '   qObjects.SQl.Text + " WHERE COALESCE(USR$PF_ISWEIGHT,0)>0 "
+        '  end if
+        
+          Dim PrCount, ObjCount, ServCount
+          ObjCount = 0
+          ServCount = 0
+          qObjects.ExecQuery
+          While Not qObjects.Eof
+            ObjCount = ObjCount + 1
+            qObjects.Next
+          Wend
+          qObjects.Close
+        
+          qServer.ExecQuery
+          While Not qServer.Eof
+            ServCount = ServCount + 1
+            qServer.Next
+          Wend
+          qServer.Close
+          qServer.ExecQuery
+        
+          PrCount = ObjCount * ServCount
+        
+          Dim pf_ProgressBar
+          Set pf_ProgressBar = New Tvb_pf_ProgressBar
+          pf_ProgressBar.Caption = "Синхронзация ТМЦ"
+          pf_ProgressBar.Max = PrCount
+          pf_ProgressBar.Show
+        
+          Dim ExitWhile
+        
+          Dim ErrLog, ErrCount
+          ErrCount = 0
+          Set ErrLog = Creator.GetObject(nil, "TIBSQL", "")
+          ErrLog.Transaction = OurTransaction
+          ErrLog.SQL.Text = _
+            "INSERT INTO USR$EXPSERV_ERRLOG (USR$TABLETYPE, USR$ERR_ID, USR$DESCRIPTION, USR$CREATORNAME, USR$ERRLOGTYPE) " & _
+            "VALUES(:TABLETYPE, :ERR_ID, :DESCRIPTION, :CREATORNAME, :ERRLOGTYPE) "
+        
+          While Not qServer.Eof
+            ExitWhile = false
+            pf_ProgressBar.Note = "Подразделение: " & qServer.FieldByName("NAME").AsString
+        
+            Database.Close
+            Database.DatabaseName = qServer.FieldByName("USR$PATH").AsString
+            Database.DefaultTransaction = Transaction
+            Database.Params.Clear
+            Database.Params.Add("user_name=SYSDBA")
+            Database.Params.Add("password=masterkey")
+            Database.Params.Add("lc_ctype=win1251")
+            Database.LoginPrompt = False
+        
+            ON ERROR RESUME NEXT
+              Database.Open
+              If Err.Number <> 0 Then
+                ExitWhile = true
+                ErrLog.Close
+                ErrLog.ParamByName("TABLETYPE").AsInteger = 0
+                ErrLog.ParamByName("CREATORNAME").AsString = IBLogin.UserName
+                ErrLog.ParamByName("ERR_ID").AsInteger = qServer.FieldByName("USR$DEPOTKEY").AsInteger
+                ErrLog.ParamByName("DESCRIPTION").AsString = "Соединение с " &qServer.FieldByName("NAME").AsString& " недоступно."
+                ErrLog.ParamByName("ERRLOGTYPE").AsInteger = 3
+                ErrLog.ExecQuery
+        
+                ErrCount = ErrCount + 1
+              End If
+            ON ERROR GOTO 0
+        
+            If Not ExitWhile Then
+              If Not Transaction.InTransaction Then Transaction.StartTransaction
+              Transaction.DefaultDataBase = DataBase
+        
+              qObjects.Close
+              qObjects.ExecQuery
+        
+              While Not qObjects.Eof
+                ON ERROR RESUME NEXT
+        
+                Call FindOrAddGood(qObjects.FieldByName("ID").AsInteger, Transaction, false)
+        
+                If err.Number <> 0 Then
+                  ErrLog.Close
+                  ErrLog.ParamByName("TABLETYPE").AsInteger = 0
+                  ErrLog.ParamByName("CREATORNAME").AsString = IBLogin.UserName
+                  ErrLog.ParamByName("ERR_ID").AsInteger = qObjects.FieldByName("ID").AsInteger
+                  ErrLog.ParamByName("DESCRIPTION").AsString = err.Description
+                  ErrLog.ParamByName("ERRLOGTYPE").AsInteger = 3
+                  ErrLog.ExecQuery
+        
+                  ErrCount = ErrCount + 1
+                End If
+                ON ERROR GOTO 0
+        
+                pf_ProgressBar.StepIt
+                If pf_ProgressBar.Canceled Then
+                  Transaction.Rollback
+                  Exit Function
+                End If
+        
+                qObjects.Next
+              Wend
+            End If
+        
+            If Transaction.InTransaction Then Transaction.Commit
+            qServer.Next
+          Wend
+        
+          If OurTransaction.InTransaction Then OurTransaction.CommitRetaining
+          
+          ErrLog.Close
+          ErrLog.SQL.Text = _
+          "UPDATE GD_GOOD SET USR$FORSYNCH = 0 WHERE COALESCE(USR$FORSYNCH,0)>0 "
+          ErrLog.ExecQuery
+          
+          If OurTransaction.InTransaction Then OurTransaction.Commit
+        
+          Call Application.MessageBox("Синхронизация ТМЦ завершена!" & vbCR & "Количество ошибок: " & ErrCount, "Внимание!", vbOkOnly + vbInformation + vbSystemModal)
+        End Function
+        
+        
+        Function FindOrAddGood(LocalGoodKey, T, DontAdd)
+          FindOrAddGood = -1
+        
+          err.Clear
+         ' on error resume next
+          Dim GoodKey
+          GoodKey = -1
+        
+          ' ищем на базе склада РУИД ТМЦ
+          Dim XID, DBID
+          XID = -1
+          DBID = -1
+        
+          Dim Creator, q, qLocal, LT, MaxDiscPercServer, MaxDiscPercLocal
+          Set Creator = new TCreator
+        
+          Set LT = Creator.GetObject(nil, "TIBTransaction", "")
+          LT.DefaultDataBase = gdcBaseManager.DataBase
+          Call LT.Params.Add("nowait")
+          Call LT.Params.Add("read_committed")
+          Call LT.Params.Add("rec_version")
+          LT.StartTransaction
+        
+          Set qLocal = Creator.GetObject(nil, "TIBSQL", "")
+          qLocal.Transaction = LT
+          qLocal.SQL.Text = _
+            "SELECT r.XID, r.DBID, COALESCE(g.USR$MAXDISCPERC, 0) AS USR$MAXDISCPERC " & _
+            "FROM GD_GOOD g " & _
+            "LEFT JOIN USR$PFD_GET_RUID(g.ID) r ON 1 = 1 " & _
+            "WHERE g.ID = :LocalGoodKey"
+          qLocal.ParamByName("LocalGoodKey").AsInteger = LocalGoodKey
+          qLocal.ExecQuery
+          XID = qLocal.FieldByName("XID").AsInteger
+          DBID = qLocal.FieldByName("DBID").AsInteger
+          MaxDiscPercLocal = qLocal.FieldByName("USR$MAXDISCPERC").AsCurrency
+        
+          If (XID <= 0) or (DBID <= 0) Then Exit Function
+        
+          ' ищем на базе кассового сервера этот товар по РУИДу
+        
+          Set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.Transaction = T
+          q.SQL.Text = _
+            "SELECT FIRST 1 g.ID, COALESCE(g.USR$MAXDISCPERC, 0) AS USR$MAXDISCPERC " & _
+            "FROM GD_RUID r " & _
+            "JOIN GD_GOOD g ON g.ID = r.ID " & _
+            "WHERE r.XID = :XID AND r.DBID = :DBID "
+          q.ParamByName("XID").AsInteger = XID
+          q.ParamByName("DBID").AsInteger = DBID
+          q.ExecQuery
+          MaxDiscPercServer = 0
+          If Not q.EoF Then
+            GoodKey = q.FieldByName("ID").AsInteger
+            MaxDiscPercServer = q.FieldByName("USR$MAXDISCPERC").AsInteger
+          End If
+          q.Close
+        
+          Dim qInsRuid
+          Set qInsRuid = Creator.GetObject(nil, "TIBSQL", "")
+          qInsRuid.Transaction = T
+          qInsRuid.SQL.Text = _
+            "INSERT INTO GD_RUID(ID, XID, DBID, MODIFIED) " & _
+            " VALUES(:ObjectKey, :XID, :DBID, current_timestamp)"
+        
+          Dim qGenID
+          Set qGenID = Creator.GetObject(nil, "TIBSQL", "")
+          qGenID.Transaction = T
+          qGenID.SQL.Text = _
+            "SELECT " & _
+            "GEN_ID(gd_g_unique, 1) + GEN_ID(gd_g_offset, 0) AS NewID " & _
+            "FROM RDB$DATABASE "
+        
+        '  Dim qLog
+        '  Set qLog = Creator.GetObject(nil, "TIBSQL", "")
+        '  qLog.Transaction = T
+        '  qLog.SQL.Text = _
+        '    "INSERT INTO USR$PF_LOGSYNCHR(ID, USR$SUBTYPE, USR$OBJECTRUID, USR$OBJECTKEY, USR$OPERATION, USR$OBJSYNCHRKEY) " & _
+        '    " VALUES(:ID, :USR$SUBTYPE, :USR$OBJECTRUID, :USR$OBJECTKEY, 0, :USR$OBJSYNCHRKEY)"
+        
+        '  Dim qFindLog
+        '  Set qFindLog = Creator.GetObject(nil, "TIBSQL", "")
+        '  qFindLog.Transaction = T
+        '  qFindLog.SQL.Text = _
+        '    " SELECT FIRST 1 ID  " & _
+        '    " FROM USR$PF_OBJECTSYNCHR  " & _
+        '    " WHERE USR$CLASSNAME = :CN AND COALESCE(USR$DISABLED, 0) = 0  " & _
+        '    " ORDER BY USR$SORTNUMBER  "
+        
+        '  Dim qCash
+        '  Set qCash = Creator.GetObject(nil, "TIBSQL", "")
+        '  qCash.Transaction = T
+        '  qCash.SQL.Text = _
+        '    "INSERT INTO USR$PF_CASHLOG(USR$LOGKEY, USR$CASHKEY) " & _
+        '    " VALUES(:USR$LOGKEY, :USR$CASHKEY)"
+        
+        '  Dim qFindCash
+        '  Set qFindCash = Creator.GetObject(nil, "TIBSQL", "")
+        '  qFindCash.Transaction = T
+        '  qFindCash.SQL.Text = _
+        '    " SELECT ID  " & _
+        '    " FROM USR$PF_CASH  " & _
+        '    " WHERE COALESCE(USR$SYNCHR, 0) <> 0  "
+        
+          ' Нашли - выходим
+          If GoodKey > - 1 Then
+            FindOrAddGood = GoodKey
+        
+        '*************************************************************************************************
+        
+            qLocal.Close
+            qLocal.SQL.Text = _
+              "SELECT " & _
+              "  ID, " & _
+              "  r.XID AS GRXID, r.DBID AS GRDBID, " & _
+              "  r1.XID AS VXID, r1.DBID AS VDBID, " & _
+              "  NAME, " & _
+              "  ALIAS, " & _
+              "  BARCODE, " & _
+              "  USR$PF_ISFRAC, " & _
+              "  USR$PF_ISWEIGHT, " & _
+              "  USR$PF_WEIGHTCODE, " & _
+              "  SHORTNAME, " & _
+              "  USR$MAXDISCPERC, " & _
+              "  USR$CONTENT AS DESCRIPTION " & _
+              "FROM GD_GOOD g " & _
+              "LEFT JOIN USR$PFD_GET_RUID(g.GROUPKEY) r ON 1 = 1 " & _
+              "LEFT JOIN USR$PFD_GET_RUID(g.VALUEKEY) r1 ON 1 = 1 " & _
+              "WHERE g.ID = :ID "
+            qLocal.ParamByName("ID").AsInteger = LocalGoodKey
+            qLocal.ExecQuery
+        
+            'ед. изм.
+            Dim OurObj
+            Set OurObj = Creator.GetObject(null, "TIBSQL", "")
+            OurObj.Transaction = LT
+            OurObj.SQL.Text = _
+              "SELECT " & _
+              "  v.NAME, v.ISPACK, v.DESCRIPTION " & _
+              "FROM GD_VALUE v " & _
+              "LEFT JOIN USR$PFD_GET_RUID(v.ID) r ON 1 = 1 " & _
+              "WHERE r.XID = :XID AND r.DBID = :DBID "
+            OurObj.ParamByName("XID").AsInteger = qLocal.FieldByName("VXID").AsInteger
+            OurObj.ParamByName("DBID").AsInteger = qLocal.FieldByName("VDBID").AsInteger
+            OurObj.ExecQuery
+        
+            q.Close
+            q.SQL.Text = _
+              "SELECT v.ID " & _
+              "FROM GD_VALUE v " & _
+              "LEFT JOIN  USR$PFD_GET_RUID(v.ID) r ON 1 = 1 " & _
+              "WHERE r.XID = :XID AND r.DBID = :DBID "
+            q.ParamByName("XID").AsInteger = qLocal.FieldByName("VXID").AsInteger
+            q.ParamByName("DBID").AsInteger = qLocal.FieldByName("VDBID").AsInteger
+            q.ExecQuery
+        
+            Dim vKey, GrKey, ParKey
+            If q.Eof Then
+              qGenID.Close
+              qGenID.ExecQuery
+              vKey = qGenID.FieldByName("NewID").AsInteger
+            Else
+              vKey = q.FieldByName("ID").AsInteger
+            End If
+        
+            q.Close
+            q.SQL.Text = _
+              "EXECUTE BLOCK ( " & _
+              "    VALUEKEY INTEGER = :ID, " & _
+              "    NAME VARCHAR(60) = :VALUENAME, " & _
+              "    ISPACK CHAR(1) = :ISPACK, " & _
+              "    DESCRIPTION VARCHAR(120) = :DESCRIPTION) " & _
+              " AS " & _
+              "DECLARE VARIABLE TEMPID INTEGER; " & _
+              "BEGIN " & _
+              "  SELECT ID FROM GD_VALUE WHERE ID = :VALUEKEY " & _
+              "  INTO TEMPID; " & _
+              " " & _
+              "  IF (TEMPID IS NULL) THEN " & _
+              "    INSERT INTO GD_VALUE(ID, NAME, ISPACK, DESCRIPTION) " & _
+              "    VALUES(:VALUEKEY, :NAME, :ISPACK, :DESCRIPTION); " & _
+              "  ELSE " & _
+              "    UPDATE GD_VALUE " & _
+              "    SET " & _
+              "      NAME = :NAME, " & _
+              "      ISPACK = :ISPACK, " & _
+              "      DESCRIPTION = :DESCRIPTION " & _
+              "    WHERE ID = :VALUEKEY; " & _
+              "END "
+            q.ParamByName("ID").AsInteger = vKey
+            q.ParamByName("VALUENAME").AsString = OurObj.FieldByName("NAME").AsString
+            q.ParamByName("ISPACK").AsVariant = OurObj.FieldByName("ISPACK").AsVariant
+            q.ParamByName("DESCRIPTION").AsString = OurObj.FieldByName("DESCRIPTION").AsString
+            q.ExecQuery
+        
+            Call Del_AddRuidGood(vKey, qLocal.FieldByName("VXID").AsInteger, qLocal.FieldByName("VDBID").AsInteger, T)
+        
+            'группа тмц
+            OurObj.Close
+            OurObj.SQL.Text = _
+              "SELECT " & _
+              "  grP.LB, grP.ID, grP.NAME, grP.ALIAS, r.XID, r.DBID,  rP.XID AS PXID, rP.DBID AS PDBID " & _
+              "FROM GD_GOOD g " & _
+              "JOIN GD_GOODGROUP gr ON gr.ID = g.GROUPKEY " & _
+              "JOIN GD_GOODGROUP grP ON grP.LB <= gr.LB AND grP.RB >= gr.RB " & _
+              "LEFT JOIN USR$PFD_GET_RUID(grP.ID) r ON 1=1 " & _
+              "LEFT JOIN USR$PFD_GET_RUID(grP.PARENT) rP ON 1=1 " & _
+              "WHERE g.ID = :GoodKey " & _
+              "ORDER BY grP.LB ASC "
+            OurObj.ParamByName("GoodKey").AsInteger = LocalGoodKey
+            OurObj.ExecQuery
+        
+            q.Close
+            q.SQL.Text = _
+              "SELECT gr.ID " & _
+              "FROM GD_GOODGROUP gr " & _
+              "LEFT JOIN  USR$PFD_GET_RUID(gr.ID) r ON 1 = 1 " & _
+              "WHERE r.XID = :XID AND r.DBID = :DBID "
+        
+        
+            Dim qChangeGroup
+            Set qChangeGroup = Creator.GetObject(null, "TIBSQL", "")
+            qChangeGroup.Transaction = q.Transaction
+            qChangeGroup.SQL.Text = _
+              "EXECUTE BLOCK ( " & _
+              "    GROUPKEY INTEGER = :ID, " & _
+              "    PARENT INTEGER = :PARENT, " & _
+              "    NAME VARCHAR(60) = :NAME, " & _
+              "    ALIAS VARCHAR(16) = :ALIAS) " & _
+              " AS " & _
+              " DECLARE VARIABLE TEMPID INTEGER; " & _
+              "BEGIN " & _
+              "  SELECT ID FROM GD_GOODGROUP WHERE ID = :GROUPKEY " & _
+              "  INTO TEMPID; " & _
+              " " & _
+              "  IF (TEMPID IS NULL) THEN " & _
+              "    INSERT INTO GD_GOODGROUP(ID, PARENT, NAME, ALIAS) " & _
+              "    VALUES(:GROUPKEY, :PARENT, :NAME, :ALIAS); " & _
+              "  ELSE " & _
+              "    UPDATE GD_GOODGROUP " & _
+              "    SET " & _
+              "    NAME = :NAME, " & _
+              "    PARENT = :PARENT, " & _
+              "    ALIAS = :ALIAS " & _
+              "    WHERE ID = :GROUPKEY; " & _
+              "END "
+        
+            While Not OurObj.Eof
+              q.Close
+              q.ParamByName("XID").AsInteger = OurObj.FieldByName("XID").AsInteger
+              q.ParamByName("DBID").AsInteger = OurObj.FieldByName("DBID").AsInteger
+              q.ExecQuery
+        
+              If q.Eof Then
+                qGenID.Close
+                qGenID.ExecQuery
+                GrKey = qGenID.FieldByName("NewID").AsInteger
+              Else
+                GrKey = q.FieldByName("ID").AsInteger
+              End If
+        
+              q.Close
+              q.ParamByName("XID").AsInteger = OurObj.FieldByName("PXID").AsInteger
+              q.ParamByName("DBID").AsInteger = OurObj.FieldByName("PDBID").AsInteger
+              q.ExecQuery
+        
+              If q.Eof Then
+                ParKey = NULL
+              Else
+                ParKey = q.FieldByName("ID").AsInteger
+              End If
+        
+              qChangeGroup.Close
+              qChangeGroup.ParamByName("ID").AsInteger = GrKey
+              qChangeGroup.ParamByName("PARENT").AsVariant = ParKey
+              qChangeGroup.ParamByName("NAME").AsString = OurObj.FieldByName("NAME").AsString
+              qChangeGroup.ParamByName("ALIAS").AsString = OurObj.FieldByName("ALIAS").AsString
+              qChangeGroup.ExecQuery
+        
+              Call Del_AddRuidGood(GrKey, OurObj.FieldByName("XID").AsInteger, OurObj.FieldByName("DBID").AsInteger, T)
+              OurObj.Next
+            Wend
+        
+            'товар
+            q.Close
+            q.SQL.Text = _
+              "EXECUTE BLOCK ( " & _
+              "    GOODKEY INTEGER = :ID, " & _
+              "    GROUPKEY INTEGER = :GROUPKEY, " & _
+              "    VALUEKEY INTEGER = :VALUEKEY, " & _
+              "    NAME VARCHAR(60) = :NAME, " & _
+              "    ALIAS TYPE OF COLUMN GD_GOOD.ALIAS = :ALIAS, " & _
+              "    BARCODE VARCHAR(24) = :BARCODE, " & _
+              "    USR$PF_ISFRAC INTEGER = :PF_ISFRAC, " & _
+              "    USR$PF_ISWEIGHT INTEGER = :PF_ISWEIGHT, " & _
+              "    USR$PF_WEIGHTCODE VARCHAR(20) = :PF_WEIGHTCODE, " & _
+              "    SHORTNAME VARCHAR(60) = :SHORTNAME, " & _
+              "    USR$MAXDISCPERC NUMERIC(7, 4) = :MAXDISCPERC, " & _
+              "    DESCRIPTION TYPE OF COLUMN GD_GOOD.USR$CONTENT = :DESCRIPTION) " & _
+              " AS " & _
+              "DECLARE VARIABLE TEMPID INTEGER; " & _
+              "BEGIN " & _
+              "  SELECT ID FROM GD_GOOD WHERE ID = :GOODKEY " & _
+              "  INTO TEMPID; " & _
+              " " & _
+              "  /*IF (TEMPID IS NULL) THEN " & _
+              "    INSERT INTO GD_GOOD(ID, GROUPKEY, VALUEKEY, NAME, ALIAS, BARCODE, USR$PF_ISFRAC, USR$PF_ISWEIGHT, USR$PF_WEIGHTCODE, SHORTNAME, USR$MAXDISCPERC, USR$CONTENT) " & _
+              "    VALUES(:GOODKEY, :GROUPKEY, :VALUEKEY, :NAME, :ALIAS, :BARCODE, :USR$PF_ISFRAC, :USR$PF_ISWEIGHT, :USR$PF_WEIGHTCODE, :SHORTNAME, :USR$MAXDISCPERC, :DESCRIPTION); " & _
+              "  ELSE */" & _
+              "    UPDATE GD_GOOD " & _
+              "    SET " & _
+              "      GROUPKEY  = :GROUPKEY, " & _
+              "      VALUEKEY = :VALUEKEY, " & _
+              "      NAME = :NAME, " & _
+              "      ALIAS = :ALIAS, " & _
+              "      BARCODE = :BARCODE, " & _
+              "      USR$PF_ISFRAC = :USR$PF_ISFRAC, " & _
+              "      USR$PF_ISWEIGHT = :USR$PF_ISWEIGHT, " & _
+              "      USR$PF_WEIGHTCODE = :USR$PF_WEIGHTCODE, " & _
+              "      SHORTNAME = :SHORTNAME, " & _
+              "      USR$MAXDISCPERC = :USR$MAXDISCPERC, " & _
+              "      USR$CONTENT = :DESCRIPTION " & _
+              "    WHERE ID = :GOODKEY; " & _
+              "END "
+            q.Close
+            q.ParamByName("ID").AsInteger = GoodKey
+            q.ParamByName("GROUPKEY").AsInteger = GrKey
+            q.ParamByName("VALUEKEY").AsInteger = vKey
+            q.ParamByName("NAME").AsString = qLocal.FieldByName("NAME").AsString
+            q.ParamByName("ALIAS").AsString = qLocal.FieldByName("ALIAS").AsString
+            q.ParamByName("BARCODE").AsString = qLocal.FieldByName("BARCODE").AsString
+            q.ParamByName("PF_ISFRAC").AsInteger = qLocal.FieldByName("USR$PF_ISFRAC").AsInteger
+            q.ParamByName("PF_ISWEIGHT").AsInteger = qLocal.FieldByName("USR$PF_ISWEIGHT").AsInteger
+            q.ParamByName("PF_WEIGHTCODE").AsString = qLocal.FieldByName("USR$PF_WEIGHTCODE").AsString
+            q.ParamByName("SHORTNAME").AsString = qLocal.FieldByName("SHORTNAME").AsString
+            q.ParamByName("MAXDISCPERC").AsCurrency = qLocal.FieldByName("USR$MAXDISCPERC").AsCurrency
+            q.ParamByName("DESCRIPTION").AsString = qLocal.FieldByName("DESCRIPTION").AsString
+            q.ExecQuery
+        
+            qLocal.Close
+        
+        '*************************************************************************************Edit by Yura
+            If MaxDiscPercServer <> MaxDiscPercLocal Then
+              q.Close
+              q.SQL.Text = "UPDATE GD_GOOD SET USR$MAXDISCPERC = :perc WHERE ID = :goodkey "
+              q.ParamByName("goodkey").AsInteger = GoodKey
+              q.ParamByName("perc").AsCurrency = MaxDiscPercLocal
+              q.ExecQuery
+            End If
+            'Exit Function
+          Else
+            ' если товар не найден, добавляем его
+            If Not DontAdd Then
+              Dim qID
+              Set qID = Creator.GetObject(nil, "TIBSQL", "")
+              qID.Transaction = T
+              qID.SQL.Text = _
+                "SELECT " & _
+                "GEN_ID(gd_g_unique, 1) + GEN_ID(gd_g_offset, 0) AS NewID " & _
+                "FROM RDB$DATABASE "
+        
+              ' 1) Ед.Изм
+              ' ищем РУИД ед.изм. на складе
+              Dim LocalValueKey, ValueName, ValueDescription, ValueIsPack , ValueKey
+              qLocal.Close
+              qLocal.SQL.Text = _
+                "SELECT g.VALUEKEY, v.NAME, v.DESCRIPTION, v.ISPACK , r.XID, r.DBID, " & _
+                "  r2.XID AS GXID, r2.DBID AS GDBID, gv.VALUEKEY AS GValuekey, " & _
+                "  v2.NAME AS GNAME, v2.DESCRIPTION as GDESCRIPTION, v2.ISPACK AS GISPACK " &_
+                "FROM GD_GOOD g " & _
+                "JOIN GD_VALUE v ON v.ID = g.VALUEKEY " & _
+                "   LEFT JOIN GD_GOODVALUE gv ON g.ID = gv.GOODKEY " & _
+                "LEFT JOIN GD_VALUE v2 ON v2.ID = gv.VALUEKEY " & _
+                "LEFT JOIN USR$PFD_GET_RUID(v.ID) r ON 1 = 1 " & _
+                "LEFT JOIN USR$PFD_GET_RUID(v2.ID) r2 ON 1 = 1 " & _
+                "WHERE g.ID = :LocalGoodKey "
+              qLocal.ParamByName("LocalGoodKey").AsInteger = LocalGoodKey
+              qLocal.ExecQuery
+        
+              LocalValueKey = qLocal.FieldByName("VALUEKEY").AsInteger
+              ValueName = qLocal.FieldByName("NAME").AsString
+              ValueDescription = qLocal.FieldByName("DESCRIPTION").AsVariant
+              ValueIsPack = qLocal.FieldByName("ISPACK").AsVariant
+        
+              XID = qLocal.FieldByName("XID").AsInteger
+              DBID = qLocal.FieldByName("DBID").AsInteger
+        
+              If (XID <= 0) or (DBID <= 0) Then
+                Exit Function
+              End If
+        
+              ' нестандартная ед. изм
+              If DBID <> 17 Then
+                ' ищем ее РУИД на базе кассового сервера
+                q.Close
+                q.SQL.Text = _
+                  "SELECT FIRST 1 v.ID " & _
+                  "FROM GD_RUID r " & _
+                  "JOIN GD_VALUE v ON v.ID = r.ID " & _
+                  "WHERE r.XID = :XID AND r.DBID = :DBID "
+                q.ParamByName("XID").AsInteger = XID
+                q.ParamByName("DBID").AsInteger = DBID
+                q.ExecQuery
+        
+                If Not q.EoF Then
+                  ValueKey = q.FieldByName("ID").AsInteger
+                Else
+                  ' получаем ИД
+                  qID.Close
+                  qID.ExecQuery
+                  ValueKey = qId.FieldByName("NewID").AsInteger
+        
+                  ' не нашли - вставляем ед. изм
+                  q.Close
+                  q.SQL.Text = "INSERT INTO GD_VALUE(ID, NAME, DESCRIPTION, ISPACK) VALUES (:ID, :NAME, :DESCRIPTION, :ISPACK) "
+                  q.ParamByName("ID").AsInteger = ValueKey
+                  q.ParamByName("NAME").AsString = ValueName
+                  q.ParamByName("DESCRIPTION").AsVariant = ValueDescription
+                  q.ParamByName("ISPACK").AsVariant = ValueIsPack
+                  q.ExecQuery
+        
+                  ' вставляем ее РУИД
+                  Call Del_AddRuidGood( _
+                         ValueKey, _
+                         XID, _
+                         DBID, _
+                         T)
+        '          qInsRuid.Close
+        '          qInsRuid.ParamByName("ObjectKey").AsInteger = ValueKey
+        '          qInsRuid.ParamByName("XID").AsInteger = XID
+        '          qInsRuid.ParamByName("DBID").AsInteger = DBID
+        '          qInsRuid.ExecQuery
+                 End If
+        
+              Else
+                ValueKey = XID
+              End If
+        
+              Dim GLocalValueKey, GValueName, GValueDescription, GValueIsPack, GValueKey
+              GLocalValueKey = qLocal.FieldByName("GVALUEKEY").AsInteger
+              GValueName = qLocal.FieldByName("GNAME").AsString
+              GValueDescription = qLocal.FieldByName("GDESCRIPTION").AsVariant
+              GValueIsPack = qLocal.FieldByName("GISPACK").AsVariant
+        
+              XID = qLocal.FieldByName("GXID").AsInteger
+              DBID = qLocal.FieldByName("GDBID").AsInteger
+        
+              If (XID > 0) and (DBID > 0) Then
+        '        Exit Function
+        
+        
+              ' нестандартная ед. изм
+              If DBID <> 17  Then
+                ' ищем ее РУИД на базе кассового сервера
+                q.Close
+                q.SQL.Text = _
+                  "SELECT FIRST 1 v.ID " & _
+                  "FROM GD_RUID r " & _
+                  "JOIN GD_VALUE v ON v.ID = r.ID " & _
+                  "WHERE r.XID = :XID AND r.DBID = :DBID "
+                q.ParamByName("XID").AsInteger = XID
+                q.ParamByName("DBID").AsInteger = DBID
+                q.ExecQuery
+        
+                If Not q.EoF Then
+                  GValueKey = q.FieldByName("ID").AsInteger
+                Else
+                  ' получаем ИД
+                  qID.Close
+                  qID.ExecQuery
+                  GValueKey = qId.FieldByName("NewID").AsInteger
+        
+                  ' не нашли - вставляем ед. изм
+                  q.Close
+                  q.SQL.Text = "INSERT INTO GD_VALUE(ID, NAME, DESCRIPTION, ISPACK) VALUES (:ID, :NAME, :DESCRIPTION, :ISPACK) "
+                  q.ParamByName("ID").AsInteger = GValueKey
+                  q.ParamByName("NAME").AsString = GValueName
+                  q.ParamByName("DESCRIPTION").AsVariant = GValueDescription
+                  q.ParamByName("ISPACK").AsVariant = GValueIsPack
+                  q.ExecQuery
+        
+                  ' вставляем ее РУИД
+                  Call Del_AddRuidGood( _
+                         GValueKey, _
+                         XID, _
+                         DBID, _
+                         T)
+        '          qInsRuid.Close
+        '          qInsRuid.ParamByName("ObjectKey").AsInteger = GValueKey
+        '          qInsRuid.ParamByName("XID").AsInteger = XID
+        '          qInsRuid.ParamByName("DBID").AsInteger = DBID
+        '          qInsRuid.ExecQuery
+        
+                End If
+              Else
+                GValueKey = XID
+              End If
+              End If
+        
+              '2) группа ТМЦ
+              Dim qG
+              Set qG = Creator.GetObject(nil, "TIBSQL", "")
+              qG.Transaction = T
+              qG.SQL.Text = "INSERT INTO GD_GOODGROUP(ID, PARENT, NAME, ALIAS) VALUES (:ID, :PARENT, :NAME, :ALIAS) "
+        
+              ' все группы товара, начиная от родительской
+              qLocal.Close
+              qLocal.SQL.Text = _
+                "SELECT " & _
+                "  grP.LB, grP.ID, grP.NAME, grP.ALIAS, r.XID, r.DBID,  rP.XID AS PXID, rP.DBID AS PDBID " & _
+                "FROM GD_GOOD g " & _
+                "JOIN GD_GOODGROUP gr ON gr.ID = g.GROUPKEY " & _
+                "JOIN GD_GOODGROUP grP ON grP.LB <= gr.LB AND grP.RB >= gr.RB " & _
+                "LEFT JOIN USR$PFD_GET_RUID(grP.ID) r ON 1=1 " & _
+                "LEFT JOIN USR$PFD_GET_RUID(grP.PARENT) rP ON 1=1 " & _
+                "WHERE g.ID = :GoodKey " & _
+                "ORDER BY grP.LB ASC "
+        
+              qLocal.ParamByName("GoodKey").AsInteger = LocalGoodKey
+              qLocal.ExecQuery
+        
+              Dim ToExit, GroupKey, TempGroupKey, TempXID, TempDBID, Parent
+              ToExit = false
+              TempGroupKey = -1
+              TempXID = -1
+              TempDBID = -1
+              Parent = NULL
+              ' ищем первую из родительских групп, которая есть на удаленной базе
+              q.Close
+              q.SQL.Text = _
+                  "SELECT FIRST 1 g.ID " & _
+                  "FROM GD_RUID r " & _
+                  "JOIN GD_GOODGROUP g ON g.ID = r.ID " & _
+                  "WHERE r.XID = :XID AND r.DBID = :DBID "
+              While (Not qLocal.EoF)
+                XID = qLocal.FieldByName("XID").AsInteger
+                DBID = qLocal.FieldByName("DBID").AsInteger
+                If (XID <= 0) or (DBID <= 0) Then Exit Function
+        
+                q.Close
+                q.ParamByName("XID").AsInteger = XID
+                q.ParamByName("DBID").AsInteger = DBID
+                q.ExecQuery
+        
+                If q.EoF Then
+        
+                  'генерировать ИД для группы
+                  qID.Close
+                  qID.ExecQuery
+                  GroupKey = qId.FieldByName("NewID").AsInteger
+        
+                  qG.Close
+                  qG.ParamByName("ID").AsInteger = GroupKey
+                  qG.ParamByName("PARENT").AsVariant = Parent
+                  qG.ParamByName("NAME").AsString = qLocal.FieldByName("NAME").AsString
+                  qG.ParamByName("ALIAS").AsVariant = qLocal.FieldByName("ALIAS").AsVariant
+                  qG.ExecQuery
+        
+                  ' РУИД для группы
+                  Call Del_AddRuidGood( _
+                         GroupKey, _
+                         XID, _
+                         DBID, _
+                         T)
+        '          qInsRuid.Close
+        '          qInsRuid.ParamByName("ObjectKey").AsInteger = GroupKey
+        '          qInsRuid.ParamByName("XID").AsInteger = XID
+        '          qInsRuid.ParamByName("DBID").AsInteger = DBID
+        '          qInsRuid.ExecQuery
+        
+                  Parent = GroupKey
+        
+                Else
+                  GroupKey = q.FieldByName("ID").AsInteger
+                  Parent = q.FieldByName("ID").AsInteger
+                End If
+                qLocal.Next
+              Wend
+        
+              qLocal.Close
+              qLocal.SQL.Text = _
+                "SELECT g.ALIAS, g.BARCODE, g.SHORTNAME, g.NAME, g.USR$PF_ISWEIGHT, " & _
+                "  g.USR$PF_WEIGHTCODE, g.USR$PF_ISFRAC, r.XID, r.DBID, g.USR$MAXDISCPERC, USR$CONTENT AS DESCRIPTION " & _
+                "FROM GD_GOOD g " & _
+                "LEFT JOIN USR$PFD_GET_RUID(g.ID) r ON 1 = 1 " & _
+                "WHERE g.ID = :GoodKey "
+              qLocal.ParamByName("GoodKey").AsInteger = LocalGoodKey
+              qLocal.ExecQuery
+        
+              XID = qLocal.FieldByName("XID").AsInteger
+              DBID = qLocal.FieldByName("DBID").AsInteger
+        
+              'генерировать ИД для ТМЦ
+              qID.Close
+              qID.ExecQuery
+              GoodKey = qId.FieldByName("NewID").AsInteger
+        
+              q.Close
+              q.SQL.Text = _
+                "INSERT INTO GD_GOOD(ID, NAME, BARCODE, ALIAS, " & _
+                "   USR$PF_ISWEIGHT, USR$PF_WEIGHTCODE, USR$PF_ISFRAC, GROUPKEY, VALUEKEY, SHORTNAME, USR$MAXDISCPERC, USR$CONTENT)" & _
+                "VALUES (:ID, :NAME, :BARCODE, :ALIAS, " & _
+                "   :USR$PF_ISWEIGHT, :USR$PF_WEIGHTCODE, :USR$PF_ISFRAC, :GROUPKEY, :VALUEKEY, :SHORTNAME, :USR$MAXDISCPERC, :DESCRIPTION)"
+              q.ParamByName("ID").AsInteger = GoodKey
+              q.ParamByName("GROUPKEY").AsInteger = GroupKey
+              q.ParamByName("VALUEKEY").AsInteger = ValueKey
+              q.ParamByName("NAME").AsString = qLocal.FieldByName("NAME").AsString
+              q.ParamByName("ALIAS").AsVariant = qLocal.FieldByName("ALIAS").AsVariant
+              q.ParamByName("BARCODE").AsVariant = qLocal.FieldByName("BARCODE").AsVariant
+              q.ParamByName("USR$PF_ISWEIGHT").AsVariant = qLocal.FieldByName("USR$PF_ISWEIGHT").AsVariant
+              q.ParamByName("USR$PF_WEIGHTCODE").AsVariant = qLocal.FieldByName("USR$PF_WEIGHTCODE").AsVariant
+              q.ParamByName("USR$PF_ISFRAC").AsVariant = qLocal.FieldByName("USR$PF_ISFRAC").AsVariant
+              q.ParamByName("SHORTNAME").AsString = qLocal.FieldByName("SHORTNAME").AsString
+              q.ParamByName("USR$MAXDISCPERC").AsCurrency = qLocal.FieldByName("USR$MAXDISCPERC").AsCurrency
+              q.ParamByName("DESCRIPTION").AsString = qLocal.FieldByName("DESCRIPTION").AsString
+              q.ExecQuery
+        
+              ' РУИД для ТМЦ
+              Call Del_AddRuidGood( _
+                     GoodKey, _
+                     XID, _
+                     DBID, _
+                     T)
+        '      qInsRuid.Close
+        '      qInsRuid.ParamByName("ObjectKey").AsInteger = GoodKey
+        '      qInsRuid.ParamByName("XID").AsInteger = XID
+        '      qInsRuid.ParamByName("DBID").AsInteger = DBID
+        '      qInsRuid.ExecQuery
+        
+            End If
+          End If
+        
+          If GoodKey > 0 Then
+            ' штрихкоды
+            Dim qBarCode
+            Set qBarCode = Creator.GetObject(nil, "TIBSQL", "")
+            qBarCode.Transaction = LT
+            qBarCode.SQL.Text = _
+              " SELECT BARCODE, USR$PF_TOCASH  " & _
+              " FROM GD_GOODBARCODE  " & _
+              " WHERE GOODKEY = :GoodKey  "
+            qBarCode.ParamByName("GoodKey").AsInteger = LocalGoodKey
+            qBarCode.ExecQuery
+        
+            Dim qBarCodeIns
+            Set qBarCodeIns = Creator.GetObject(nil, "TIBSQL", "")
+            qBarCodeIns.Transaction = T
+            qBarCodeIns.SQL.Text = _
+              " INSERT INTO  GD_GOODBARCODE(GOODKEY, BARCODE, USR$PF_TOCASH) " & _
+              " VALUES(:GOODKEY, :BARCODE, :USR$PF_TOCASH)  "
+        
+            q.Close
+            q.SQL.Text = _
+              " SELECT ID  " & _
+              " FROM GD_GOODBARCODE  " & _
+              " WHERE GOODKEY = :GoodKey AND BARCODE = :Barcode "
+        
+            While Not qBarCode.EoF
+              q.Close
+              q.ParamByName("GOODKEY").AsInteger = Goodkey
+              q.ParamByName("BARCODE").AsString = qBarCode.FieldByName("BARCODE").AsString
+              q.ExecQuery
+              If q.EoF Then
+                qBarCodeIns.Close
+                qBarCodeIns.ParamByName("GOODKEY").AsInteger = Goodkey
+                qBarCodeIns.ParamByName("BARCODE").AsString = qBarCode.FieldByName("BARCODE").AsString
+                qBarCodeIns.ParamByName("USR$PF_TOCASH").AsInteger = qBarCode.FieldByName("USR$PF_TOCASH").AsInteger
+                qBarCodeIns.ExecQuery
+              End If
+              qBarCode.Next
+            Wend
+        
+            If GValuekey > 0 Then
+              ' ед.измерения ()
+              Dim qGoodValue
+              Set qGoodValue = Creator.GetObject(nil, "TIBSQL", "")
+              qGoodValue.Transaction = LT
+              qGoodValue.SQL.Text = _
+                " SELECT VALUEKEY, SCALE, USR$BARCODE  " & _
+                " FROM GD_GOODVALUE  " & _
+                " WHERE GOODKEY = :GoodKey  "
+              qGoodValue.ParamByName("GoodKey").AsInteger = LocalGoodKey
+              qGoodValue.ExecQuery
+        
+              Dim qGValueIns
+              Set qGValueIns = Creator.GetObject(nil, "TIBSQL", "")
+              qGValueIns.Transaction = T
+              qGValueIns.SQL.Text = _
+                " INSERT INTO GD_GOODVALUE(GOODKEY, VALUEKEY, USR$BARCODE, SCALE) " & _
+                " VALUES(:GOODKEY, :VALUEKEY, :BARCODE, :SCALE)  "
+        
+              q.Close
+              q.SQL.Text = _
+                " SELECT GOODKEY  " & _
+                " FROM GD_GOODVALUE "  & _
+                " WHERE GOODKEY = :GoodKey AND VALUEKEY = :ValueKey "
+        
+              While Not qGoodValue.EoF
+                q.Close
+                q.ParamByName("GOODKEY").AsInteger = Goodkey
+                q.ParamByName("VALUEKEY").AsString = qGoodValue.FieldByName("VALUEKEY").AsInteger
+                q.ExecQuery
+                If q.EoF Then
+                  qGValueIns.Close
+                  qGValueIns.ParamByName("GOODKEY").AsInteger = Goodkey
+                  qGValueIns.ParamByName("VALUEKEY").AsInteger = GValuekey
+                  qGValueIns.ParamByName("BARCODE").AsString = qGoodValue.FieldByName("USR$BARCODE").AsString
+                  qGValueIns.ParamByName("SCALE").AsCurrency = qGoodValue.FieldByName("SCALE").AsCurrency
+                  qGValueIns.ExecQuery
+                End If
+                qGoodValue.Next
+              Wend
+            End If
+        
+        
+        
+          End If
+        
+          If LT.InTransaction Then LT.Commit
+        
+          If err.Number = 0 Then
+            FindOrAddGood = GoodKey
+          End If
+        
+         ' on error goto 0
+        End Function
+        
+        Function Del_AddRuidGood(id, xID, dbId, Transaction)
+          Dim ibsqlInsRUID, ibsqlDelRUID
+          Set ibsqlInsRUID = Designer.CreateObject(nil, "TIBSQL", "")
+          ibsqlInsRUID.Transaction = Transaction
+          ibsqlInsRUID.SQL.Text = _
+            "INSERT INTO gd_ruid(id, xid, dbid, modified, editorkey) VALUES (:ID, :XID, :DBID, 'now', 650002) "
+        
+          Set ibsqlDelRUID = Designer.CreateObject(nil, "TIBSQL", "")
+          ibsqlDelRUID.Transaction = Transaction
+          ibsqlDelRUID.SQL.Text = _
+            "DELETE FROM gd_ruid r where (xid = :xid and dbid = :dbid) or id = :id"
+        
+          ibsqlDelRUID.Close
+          ibsqlDelRUID.ParamByName("id").AsInteger = id
+          ibsqlDelRUID.ParamByName("xID").AsInteger = xid
+          ibsqlDelRUID.ParamByName("dbID").AsInteger = dbid
+          ibsqlDelRUID.ExecQuery
+        
+          ibsqlInsRUID.Close
+          ibsqlInsRUID.ParamByName("id").AsInteger = id
+          ibsqlInsRUID.ParamByName("xid").AsInteger = xid
+          ibsqlInsRUID.ParamByName("dbid").AsInteger = dbid
+          ibsqlInsRUID.ExecQuery
+        
+          Designer.DestroyObject(ibsqlDelRUID)
+          Designer.DestroyObject(ibsqlInsRUID)
+        End Function
+        

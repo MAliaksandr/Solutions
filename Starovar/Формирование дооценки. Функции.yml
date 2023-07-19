@@ -1,0 +1,240 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 151308860_1959566044
+  Name: "Формирование дооценки. Функции"
+  Caption: "Формирование дооценки. Функции"
+  Version: "1.0.0.2"
+  Optional: False
+  Internal: True
+  MD5: 91F4C089F1D1174117DE8237610235A3
+Uses: 
+  - "147978914_215642201 Торговля - evt_object"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 151296311_1959566044
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros151291400_1959566044151296311_1959566044"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014551_23783130 gdc_frmInvDocument147006557_63934951"
+      OBJECTNAME: "gdc_frmInvDocument147006557_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-07-10T11:15:15+03:00
+      DISPLAYSCRIPT: | 
+        MACROS151291400_1959566044151296311_1959566044
+        MACROS151291400_1959566044151296311_1959566044_EX
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros151291400_1959566044151296311_1959566044(OwnerForm)
+          dim Obj, Creator, ibSQL, q, tr
+          
+          set Creator = new TCreator
+          set Obj = OwnerForm.gdcObject
+          
+          set tr = Creator.GetObject(nil, "TIBTRAnsaction", "")
+          tr.DefaultDataBase = gdcBaseManager.Database
+          tr.StartTransaction
+          
+          Except Macros151291400_1959566044151296311_1959566044_Ex(Tr)
+          
+          if Application.MessageBox("По документу будет создан документ дооценки. Продолжить?", "Внимание", vbYEsNo + vbSystemModal+ vbInformation)=vbNo Then
+             call Application.MessageBox("Операция прервана!", "Внимание", vbOkOnly + vbSystemModal+ vbInformation)
+             exit sub
+          end if
+        
+          set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.Transaction = tr
+          q.SQL.Text = _
+          "SELECT " & _
+          "  ACC, " & _
+          "  SSUM, " & _
+          "  BUHSUM," & _
+          "  DELTASUM " & _
+          " FROM USR$P_DELTASUM_BUH_AND_REMAINS(:DEPKEY, :GROUPKEY, :REMAINSDATE) L " & _
+          " where acc = " & gdcBaseManager.GetIdByRUIDSTring("344102_17")
+        
+          dim todocsales
+          set todocsales = Creator.GetObject(nil, "TgdcUserDocument", "")
+          todocsales.SubType = "151281524_1959566044"
+          todocsales.open
+        
+          dim Dsum : Dsum =0
+          q.Close
+          q.ParamByname("DEPKEY").AsInteger = Obj.FieldByName("USR$CONTACTKEY").AsInteger
+          q.ParamByname("GROUPKEY").AsInteger = gdcBaseManager.GetIdByRUIDSTring("147005904_63934951")
+          q.ParamByname("REMAINSDATE").AsDateTime = Obj.FieldByName("DOCUMENTDATE").asDateTime
+          q.ExecQuery
+        
+        
+             if not Obj.EOF Then
+                 Dsum = q.FieldByName("DELTASUM").asCurrency
+               if Dsum <> 0 Then
+                 if Application.MessageBox("Сумма корректировки на " & CSTR(Obj.FieldByName("DOCUMENTDATE").asDateTime) & vbCr & _
+                  "составляет " & cstr(Dsum) & vbCr & _
+                  "Создать документ дооценки?", "Внимание!", vbYesNo+vbSystemModal+vbInformation)=vbYes then
+                     if not todocsales.Locate("documentdate", Array(Obj.FieldByName("DOCUMENTDATE").asDateTime), false) then
+                       todocsales.Insert
+                       todocsales.FieldByname("documentdate").AsDateTime = Obj.FieldByName("DOCUMENTDATE").asDateTime
+                       todocsales.FieldByname("USR$CASHKEY").AsVariant = null
+                       todocsales.FieldByname("USR$DOCKEY").AsInteger = Obj.ID
+                       todocsales.FieldByname("USR$DEPOTKEY").AsInteger = Obj.FieldByName("USR$CONTACTKEY").AsInteger
+                       todocsales.FieldByname("USR$SUMM").AsCurrency = -1*Dsum
+                       todocsales.Post
+                       todocsales.CreateEntry
+                     else
+                       q.Close
+                       q.SQL.Text = _
+                       "update USR$MHP_DISCOUNTS set USR$SUMM = :summ " & _
+                       "where documentdate = :documentdate "
+                       q.ParamByName("summ").asCurrency = -1*Dsum
+                       q.ParamByName("documentdate").asDateTime = Obj.FieldByName("DOCUMENTDATE").asDateTime
+                       q.ExecQuery
+        
+                     end if
+                  else
+                    call Application.MessageBox("Операция прервана!", "Внимание", vbOkOnly + vbSystemModal+ vbInformation)
+                    exit sub
+                  end if
+               end if
+             end if
+             
+          if Tr.InTransaction then Tr.Commit
+          call Application.MessageBox("Завершено!", "Внимание!", vbOkOnly+vbSystemModal+vbInformation)
+        End Sub
+        
+        sub Macros151291400_1959566044151296311_1959566044_Ex(Tr)
+          if Tr.InTransaction then Tr.RollBack
+        end sub
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 151291400_1959566044
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "Macros151291400_1959566044"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "MACROS"
+      MODULECODE: "147014551_23783130 gdc_frmInvDocument147006557_63934951"
+      OBJECTNAME: "gdc_frmInvDocument147006557_63934951"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-07-07T18:45:11+03:00
+      DISPLAYSCRIPT: | 
+        MACROS151291400_1959566044
+        MACROS151291400_1959566044_EX
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QJAAAAT1dORVJGT1JNCQAAAE9XTkVSRk9STQAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA
+        AABGTlNURkxQUg==
+      SCRIPT: | 
+        Option Explicit
+        Sub Macros151291400_1959566044(OwnerForm)
+          dim Obj, Creator, ibSQL, q
+          set Creator = new TCreator
+          set Obj = OwnerForm.gdcObject
+          dim tr
+          set tr = Creator.GetObject(nil, "TIBTRAnsaction", "")
+          tr.DefaultDataBase = gdcBaseManager.Database
+          tr.StartTransaction
+          
+          Except Macros151291400_1959566044_Ex(Tr)
+          
+          if Application.MessageBox("По списку документов будет созданы документы дооценки. Продолжить?", "Внимание", vbYEsNo + vbSystemModal+ vbInformation)=vbNo Then
+             call Application.MessageBox("Операция прервана!", "Внимание", vbOkOnly + vbSystemModal+ vbInformation)
+             exit sub
+          end if
+          Obj.First
+          
+          set q = Creator.GetObject(nil, "TIBSQL", "")
+          q.Transaction = Tr
+        
+        
+          
+          dim todocsales
+          set todocsales = Creator.GetObject(nil, "TgdcUserDocument", "")
+          todocsales.SubType = "151281524_1959566044"
+          todocsales.open
+          dim Dsum
+           While not Obj.EOF
+            if Obj.FieldByName("DOCUMENTDATE").asDateTime<DateSerial(2023,07,01) Then
+              call Application.MessageBox("Операция прервана!", "Внимание", vbOkOnly + vbSystemModal+ vbInformation)
+              exit sub
+            end if
+            q.Close
+            q.SQL.Text = _
+            "SELECT " & _
+            "SUM(L.USR$SUMROUND) as SUMROUND " & _
+            "FROM USR$INV_RETAILLINE L " & _
+            "where l.MASTERKEY = :dockey "
+            q.ParamByname("dockey").AsInteger = Obj.ID
+            q.ExecQuery
+             
+            Dsum =0
+             
+             if not Obj.EOF Then
+               Dsum = q.FieldByName("SUMROUND").asCurrency
+               if Dsum <> 0 Then
+                  if not todocsales.Locate("USR$DOCKEY", Array(Obj.ID), false) then
+                    todocsales.Insert
+                    todocsales.FieldByname("documentdate").AsDateTime = Obj.FieldByName("DOCUMENTDATE").asDateTime
+                    todocsales.FieldByname("USR$CASHKEY").AsVariant = null
+                    todocsales.FieldByname("USR$DOCKEY").AsInteger = Obj.ID
+                    todocsales.FieldByname("USR$DEPOTKEY").AsInteger = Obj.FieldByName("USR$CONTACTKEY").AsInteger
+                    todocsales.FieldByname("USR$SUMM").AsCurrency = -1*q.FieldByName("SUMROUND").asCurrency
+                    todocsales.Post
+                    todocsales.CreateEntry
+                  else
+                   q.Close
+                   q.SQL.Text = _
+                   "update USR$MHP_DISCOUNTS set USR$SUMM = :summ " & _
+                   "where USR$DOCKEY = :dockey "
+                   q.ParamByName("summ").asCurrency = -1*Dsum
+                   q.ParamByName("dockey").asInteger = Obj.ID
+                   q.ExecQuery
+                  end if
+               end if
+             end if
+             Obj.next
+          wend
+          
+           if Tr.InTransaction  then Tr.Commit
+           call Application.MessageBox("Завершено!", "Внимание!", vbOkOnly+vbSystemModal+vbInformation)
+        
+        End Sub
+        sub Macros151291400_1959566044_Ex(Tr)
+          if Tr.InTransaction  then Tr.RollBack
+        end sub
+        
