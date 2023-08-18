@@ -5,10 +5,10 @@ Properties:
   RUID: 154577947_1631104572
   Name: "Импорт из Excell по шаблону. Функции"
   Caption: "Импорт из Excell по шаблону. Функции"
-  Version: "1.0.0.22"
+  Version: "1.0.0.23"
   Optional: False
   Internal: True
-  MD5: E4F90048FFCD55D973C53802C937723C
+  MD5: 4159488BFEF94E34B495E384BF53D52C
 Uses: 
   - "154577854_1631104572 Импорт из Excell по шаблону. Таблицы"
 Objects: 
@@ -357,12 +357,6 @@ Objects:
         End Function
         
         
-    Set: 
-      - 
-        Table: "RP_ADDITIONALFUNCTION"
-        Items: 
-          - 
-            ADDFUNCTIONKEY: "235086826_1833050115 Imff_GetBareCode"
   - 
     Properties: 
       Class: "TgdcFunction"
@@ -387,7 +381,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-03-16T13:34:04+03:00
+      EDITIONDATE: 2023-07-13T13:06:31+03:00
       DISPLAYSCRIPT: | 
         IMFF_EXCELL
         EXTRACLOSE
@@ -846,6 +840,7 @@ Objects:
            gdcGood.FieldByName("BARCODE").AsString = stBarcode
            gdcGood.FieldByName("groupkey").AsString =  pGroupKey  ''''''''''
            gdcGood.FieldByName("valuekey").AsString = valuekey    '''''''''''
+           gdcGood.FieldByName("usr$fullname").AsString = goodname
           ' gdcGood.FieldByName("description").AsString = stDescr
            gdcGood.Post
            gdcDetailObject.Transaction.CommitRetaining
