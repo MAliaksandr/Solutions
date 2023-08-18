@@ -5,11 +5,159 @@ Properties:
   RUID: 147061804_2089375573
   Name: "CN.Confiscat.Переоценка. Процедуры"
   Caption: "CN.Confiscat.Переоценка. Процедуры"
-  Version: "1.0.0.9"
+  Version: "1.0.0.16"
   Optional: False
   Internal: True
-  MD5: 34DC4C6F994DE3C255926528DEFCAFFF
+  MD5: F9AFF85827D19F588828A936894F8776
 Objects: 
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147313040_2105083175
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$CN_P_REMAINSONDATE"
+      EDITIONDATE: 2023-06-07T13:32:58+02:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$CN_P_REMAINSONDATE (
+            GOODKEY INTEGER,
+            REMAINSDATE DATE,
+            ACTVALIATION INTEGER,
+            COMPANYKEY INTEGER)
+        RETURNS ( 
+            REMAINS NUMERIC(15, 4))
+         AS
+        DECLARE VARIABLE CARDKEY INTEGER;
+        DECLARE VARIABLE LB INTEGER;
+        DECLARE VARIABLE RB INTEGER;
+        BEGIN
+         REMAINS = 0;
+         SELECT LB, RB FROM gd_contact WHERE ID = :CompanyKey
+         INTO :LB, RB;
+        
+            SELECT
+              MIN ( M.CARDKEY ) AS ID,
+              SUM ( M.BALANCE ) AS REMAINS
+            FROM
+              ( SELECT
+                M.CARDKEY,
+                M.CONTACTKEY,
+                M.BALANCE
+              FROM
+                INV_BALANCE M
+                JOIN GD_CONTACT CON ON M.CONTACTKEY  =  CON.ID AND  CON.LB >= :LB AND CON.RB <= :RB
+              WHERE
+                M.BALANCE  <>  0
+            UNION ALL
+            SELECT
+                M.CARDKEY,
+                M.CONTACTKEY,
+                SUM ( M.CREDIT - M.DEBIT ) AS BALANCE
+              FROM
+                INV_MOVEMENT M
+                JOIN GD_CONTACT CON ON M.CONTACTKEY = CON.ID AND CON.LB >= :LB AND CON.RB <= :RB
+              WHERE
+                M.DISABLED  =  0
+                AND M.MOVEMENTDATE  >  :REMAINSDATE
+                AND M.GOODKEY = :GOODKEY
+            GROUP BY
+              1, 2 ) M
+                LEFT JOIN INV_CARD C ON C.ID  =  M.CARDKEY
+        
+            WHERE
+              M.BALANCE  <>  0
+              AND c.GOODKEY = :GOODKEY
+              AND C.USR$CN_ACTVALUATION = :ACTVALIATION
+            HAVING
+              SUM ( M.BALANCE )  >  0
+            INTO :CARDKEY, :REMAINS;
+        
+            SUSPEND;
+        END
+      RDB$DESCRIPTION: | 
+        Показывыает остаток по товару на дату по всей компании.
+        вх. пар-ры:
+        GOODKEY INTEGER,
+        REMAINSDATE DATE,
+        ACTVALIATION INTEGER,
+        COMPANYKEY INTEGER
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 147313005_2105083175
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$CN_P_MOVEGOODBYCOMPANY"
+      EDITIONDATE: 2023-06-07T13:32:58+02:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$CN_P_MOVEGOODBYCOMPANY (
+            GOODKEY INTEGER,
+            ACTVALUATION INTEGER,
+            ACOMPANYKEY INTEGER,
+            DATEBEGIN DATE,
+            DATEEND DATE)
+        RETURNS ( 
+            DEBIT NUMERIC(15, 4),
+            CREDIT NUMERIC(15, 4))
+         AS
+        DECLARE VARIABLE LB INTEGER;
+        DECLARE VARIABLE RB INTEGER;
+        BEGIN
+          SELECT LB, RB FROM gd_contact WHERE ID = :ACompanyKey
+          INTO :LB, RB;
+        
+            select
+            SUM(debit),
+            SUM(credit)
+            FROM
+            (select
+              m.goodkey,
+              SUM(m.credit) as debit,
+              0 as credit
+              from inv_movement m
+                left join inv_movement m1 ON m.movementkey = m1.movementkey and m.documentkey = m1.documentkey and m.id <> m1.id
+                left join gd_contact com ON m.CONTACTKEY = com.id
+                left join gd_contact dep ON m1.contactkey = dep.id
+                left join inv_card c ON m1.cardkey = c.id
+            where
+              m.credit > 0 and (com.LB > :lb and com.RB > :rb) and
+              dep.LB >= :lb and dep.rb <= :rb
+              AND  (m.MOVEMENTDATE >= :DATEBEGIN AND m.MOVEMENTDATE <= :DATEEND)
+              AND c.GOODKEY =:GOODKEY
+              AND c.USR$CN_ACTVALUATION = :ACTVALUATION
+              group by 1, 3
+            union all
+              select
+              m.goodkey,
+              0 as debit,
+              SUM(m.debit) as credit
+              from inv_movement m
+                left join inv_movement m1 ON m.movementkey = m1.movementkey and m.documentkey = m1.documentkey and m.id <> m1.id
+                left join gd_contact com ON m.CONTACTKEY = com.id
+                left join gd_contact dep ON m1.contactkey = dep.id
+                left join inv_card c ON m.CARDKEY = c.id
+            where
+              m.debit > 0 and (com.LB > :lb and com.RB > :rb) and
+              dep.LB >= :lb and dep.rb <= :rb
+              AND (m.MOVEMENTDATE >= :DATEBEGIN AND m.MOVEMENTDATE <= :DATEEND)
+              AND c.GOODKEY =:GOODKEY
+              AND c.USR$CN_ACTVALUATION = :ACTVALUATION
+              group by 1,2)
+            INTO :DEBIT, :CREDIT;
+           SUSPEND;
+        END
+      RDB$DESCRIPTION: | 
+        Показывает оборот по товару за указанный період по организации
+        вх. парк-ры: 
+            GOODKEY INTEGER,
+            ACTVALUATION INTEGER,
+            ACOMPANYKEY INTEGER,
+            DATEBEGIN DATE,
+            DATEEND DATE
   - 
     Properties: 
       Class: "TgdcStoredProc"
@@ -19,7 +167,7 @@ Objects:
       IncludeSiblings: False
     Fields: 
       PROCEDURENAME: "USR$CN_P_SALDOGOOD"
-      EDITIONDATE: 2023-05-22T11:33:07+02:00
+      EDITIONDATE: 2023-06-07T13:32:58+02:00
       PROCEDURESOURCE: | 
         CREATE OR ALTER PROCEDURE USR$CN_P_SALDOGOOD (
             GOODKEY INTEGER,
@@ -41,54 +189,12 @@ Objects:
         
           SELECT LB, RB FROM GD_CONTACT WHERE ID = :DEPKEY
           INTO :LB, :RB;
+          ID = :GOODKEY;
+          EXECUTE PROCEDURE USR$CN_P_REMAINSONDATE(:GOODKEY, :DB, :ACTVALUATION, :COMPANYKEY) RETURNING_VALUES :BEGINSALDO;
         
-        SELECT DISTINCT
-          g.ID as ID,
-          SUM(rem.BeginSaldo) AS BeginSaldo,
-          SUM(rem.EndSaldo) AS EndSaldo,
-          SUM(rem.Debit) AS Debit,
-          SUM(rem.Credit) AS Credit
-        FROM
-           (SELECT
-            m.CARDKEY,
-            m.CONTACTKEY,
-            m.GOODKEY,
-            m.BALANCE AS BeginSaldo,
-            m.BALANCE AS EndSaldo,
-            0.0000 AS Debit,
-            0.0000 AS Credit
-           FROM GD_CONTACT con
-           JOIN INV_BALANCE m ON m.CONTACTKEY  =  con.ID
-           WHERE  con.LB >= :LB AND con.RB <= :RB
-                  AND M.BALANCE  <>  0
-           UNION ALL
-          /*движения с даты начала по сегодня*/
-          SELECT
-            m.CARDKEY,
-            m.CONTACTKEY,
-            m.GOODKEY,
-            SUM ( m.CREDIT - m.DEBIT ) AS BeginSaldo,
-            SUM ( IIF(m.MOVEMENTDATE > :DE, m.CREDIT - m.DEBIT, 0.0000 )) AS EndSaldo,
-            SUM ( IIF(m.MOVEMENTDATE <= :DE, m.DEBIT, 0.0000 )) AS Debit,
-            SUM ( IIF(m.MOVEMENTDATE <= :DE, m.CREDIT, 0.0000 )) AS Credit
-         FROM GD_CONTACT con
-           JOIN INV_MOVEMENT m ON m.CONTACTKEY  =  con.ID
-         WHERE  con.LB >= :LB AND con.RB <= :RB
-             AND m.DISABLED  =  0
-             AND m.MOVEMENTDATE  >  :DB  - 1
-         GROUP BY 1,2,3) rem
-         JOIN GD_GOOD g ON g.ID  =  rem.GOODKEY
-         LEFT JOIN GD_GOODGROUP gg ON g.GROUPKEY  =  gg.ID
-         LEFT JOIN INV_CARD c ON c.ID = rem.CARDKEY
-         WHERE c.COMPANYKEY + 0 = :COMPANYKEY
-         and C.USR$CN_ACTVALUATION = :ACTVALUATION
-         AND G.ID = :GOODKEY
-         GROUP BY 1
-         HAVING SUM(rem.Debit ) <> 0.0000
-             OR SUM(rem.Credit ) <> 0.0000
-             OR SUM(rem.BeginSaldo ) <> 0.0000
-             OR SUM(rem.EndSaldo ) <> 0.0000
-         INTO :ID , :BeginSaldo, :EndSaldo, :Debit, :Credit;
+          EXECUTE PROCEDURE USR$CN_P_MOVEGOODBYCOMPANY(:GOODKEY,:ACTVALUATION,:COMPANYKEY,:DB,:DE) RETURNING_VALUES (:DEBIT, :CREDIT);
+        
+          EXECUTE PROCEDURE USR$CN_P_REMAINSONDATE(:GOODKEY, :DE, :ACTVALUATION, :COMPANYKEY) RETURNING_VALUES :ENDSALDO;
         
           SUSPEND;
         END
@@ -102,12 +208,12 @@ Objects:
       IncludeSiblings: False
     Fields: 
       PROCEDURENAME: "USR$CN_P_CONFISCATNEWCOST"
-      EDITIONDATE: 2023-05-10T17:07:49+02:00
+      EDITIONDATE: 2023-06-12T08:24:46+02:00
       PROCEDURESOURCE: | 
         CREATE OR ALTER PROCEDURE USR$CN_P_CONFISCATNEWCOST (
             ADATE DATE,
             ACOMPANYKEY INTEGER,
-            ACARDKEY INTEGER)
+            ACARDKEY VARCHAR(1500))
         RETURNS ( 
             CARDKEY INTEGER,
             GOODKEY INTEGER,
@@ -146,11 +252,18 @@ Objects:
         DECLARE VARIABLE tBSaldo NUMERIC(15,4);
         DECLARE VARIABLE tESaldo NUMERIC(15,4);
         
+        DECLARE VARIABLE CKEYSTR VARCHAR(1500);
+        
         BEGIN
           NEWCOST = 0;
           DELTASUM = 0;
           ACTVALUATIONST = '';
-          QSELLDAYCONST = 0; REALSELLPERC = 0;
+          QSELLDAYCONST = 0;
+          REALSELLPERC = 0;
+          CKEYSTR = '';
+          
+          IF (ACARDKEY<>'') Then
+            CKEYSTR = 'HAVING MIN(M.CARDKEY) IN (' || :ACARDKEY || ')';
         
           /* константы из USR$CN_OPTIONS */
           
@@ -167,27 +280,38 @@ Objects:
           EXECUTE PROCEDURE GD_P_GETID(147047409, 2082756242) RETURNING_VALUES :CONFISCAT_GROUP;
         
           FOR
-             SELECT
-             SUM(M.debit - M.Credit),
-             MAX(c.id),
-             c.goodkey,
-             m.contactkey,
+             EXECUTE STATEMENT
+             'SELECT
+             MIN(M.CARDKEY),
+             G.ID,
+             SUM ( M.BALANCE ),
              c.USR$INV_COSTPROVIDER,
              c.USR$INV_DATERECEIVE,
              c.USR$INV_COSTRETAILNCU,
              c.USR$CN_ACTVALUATION,
+             CON.ID AS CONTACTKEY,
              COALESCE(c.USR$LASTDATERECOST,c.USR$INV_DATERECEIVE)
              FROM
-             INV_CARD c
-             LEFT JOIN gd_good g ON g.id = c.goodkey
-             LEFT JOIN GD_GOODGROUP GG ON GG.ID = G.GROUPKEY
-             LEFT JOIN GD_GOODGROUP GCON ON GCON.LB<=GG.LB AND GCON.RB>=GG.RB
-             LEFT JOIN INV_MOVEMENT m ON c.ID = m.CARDKEY
-             LEFT JOIN GD_CONTACT CON ON  M.CONTACTKEY = CON.ID
+              ( SELECT
+                  M.CARDKEY,
+                  M.CONTACTKEY,
+                  M.BALANCE
+                FROM INV_BALANCE M
+                JOIN GD_CONTACT CON ON M.CONTACTKEY  =  CON.ID AND CON.LB >=' ||  :CLB || 'AND CON.RB <= ' || :CRB ||
+             '  JOIN GD_GOOD G ON ( G.ID  =  M.GOODKEY )
+                LEFT JOIN GD_GOODGROUP GG ON ( G.GROUPKEY  =  GG.ID )
+                LEFT JOIN GD_GOODGROUP GCON ON GCON.LB<=GG.LB AND GCON.RB>=GG.RB
+                WHERE
+                M.BALANCE  <>  0
+                AND GCON.ID =' || :CONFISCAT_GROUP || ') M
+              LEFT JOIN INV_CARD C ON C.ID  =  M.CARDKEY
+              LEFT JOIN GD_GOOD G ON G.ID  =  C.GOODKEY
+              JOIN GD_CONTACT CON ON M.CONTACTKEY  =  CON.ID AND  CON.LB  >=' || :CLB  || ' AND CON.RB  <=' || :CRB ||
+           '  LEFT JOIN GD_GOODGROUP GG ON( G.GROUPKEY  =  GG.ID )
+              LEFT JOIN GD_GOODGROUP GCON ON GCON.LB<=GG.LB AND GCON.RB>=GG.RB
              WHERE
-              m.movementdate < :adate
-              AND (CON.lb >= :CLB AND CON.RB <= :CRB)
-              AND GCON.ID = :CONFISCAT_GROUP
+                M.BALANCE  <>  0
+                AND GCON.ID =' || :CONFISCAT_GROUP || '
               AND G.ID NOT IN (
                 SELECT
                   Gi.ID
@@ -197,12 +321,17 @@ Objects:
                 SELECT
                   Gi.ID
                 FROM GD_GOOD Gi
-                JOIN USR$CN_EXCEPTGOOD EGG ON EGG.USR$GOODGROUPKEY = Gi.GROUPKEY) /* исключаем из выборки товары икслючения, в том числе и по группе. группы в справочнике исключений перечисляем */
-        
-            GROUP BY c.goodkey, m.contactkey, 5,6,7,8, 9
-            HAVING
-            SUM(M.DEBIT-M.CREDIT) > 0
-            INTO :QUANTITY, :CARDKEY, :GOODKEY, :CONTACTKEY,  :COSTPROVIDER,  :DATERECEIVE, :COSTRETAIL, :ACTVALUATION, :LASTDATERECOST
+                JOIN USR$CN_EXCEPTGOOD EGG ON EGG.USR$GOODGROUPKEY = Gi.GROUPKEY)  /* исключаем из выборки товары икслючения, в том числе и по группе. группы в справочнике исключений перечисляем */
+            GROUP BY
+             G.ID,
+             c.USR$INV_COSTPROVIDER,
+             c.USR$INV_DATERECEIVE,
+             c.USR$INV_COSTRETAILNCU,
+             c.USR$CN_ACTVALUATION,
+             CON.ID,
+             9 '
+             ||  :CKEYSTR
+            INTO :CARDKEY, :GOODKEY, :QUANTITY,  :COSTPROVIDER,  :DATERECEIVE, :COSTRETAIL, :ACTVALUATION, :CONTACTKEY,  :LASTDATERECOST
           DO
           BEGIN
             /* КОЛИЧЕСТВО ДНЕЙ МЕЖДУ ПОСТУПЛЕНИЕМ И ДАТОЙ ПЕРЕОЦЕНКИ */

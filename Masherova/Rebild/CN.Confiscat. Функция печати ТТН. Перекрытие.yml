@@ -5,10 +5,10 @@ Properties:
   RUID: 147313997_2105083175
   Name: "CN.Confiscat. Функция печати ТТН. Перекрытие"
   Caption: "CN.Confiscat. Функция печати ТТН. Перекрытие"
-  Version: "1.0.0.3"
+  Version: "1.0.0.4"
   Optional: False
   Internal: True
-  MD5: CE12033A176CE7D2AF44E10097F2DEE4
+  MD5: DA0643862B0A7D49F428F4624CC0E258
 Objects: 
   - 
     Properties: 
@@ -34,7 +34,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: ~
-      EDITIONDATE: 2023-06-19T11:51:27+02:00
+      EDITIONDATE: 2023-06-29T14:42:18+03:00
       DISPLAYSCRIPT: | 
         OPTINV_TTN
         
@@ -610,7 +610,8 @@ Objects:
                  inv_DocInwBill_RUID, _
                  WC_STARTUP_NEW_RUID, _
                  WC_STARTUP_OLD_RUID
-               CostNCUSelectClause = "c.USR$INV_COSTACCNCU"
+              ' CostNCUSelectClause = "c.USR$INV_COSTACCNCU"
+              CostNCUSelectClause = "c.USR$INV_COSTRETAILNCU"
             'ОС. Внутреннее перемещение
             case FA_stInvMoveRuid
               CostNCUSelectClause = "c.USR$FA_PRICENCU"
@@ -828,6 +829,9 @@ Objects:
           ' накладная на получение импортного товара - несколько шапок
           elseif (Ruid = inv_DocAddwBill_RUID_ListIDs) then
             SumNCUSelectCLause = "l.USR$SUMRETAILNCU"
+          ' внутреннее перемещение товара идет тоже по розничным(с учетом переоценки)
+          elseif (ruid =inv_DocInvMoveBill_RUID) then
+            SumNCUSelectCLause = "ROUND(" & QuantitySelectClause & "*" &  CostNCUSelectClause &  ",2) "
           else
             SumNCUSelectCLause = "l.USR$SUMNCU"
           end if
