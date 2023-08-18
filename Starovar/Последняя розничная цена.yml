@@ -1,0 +1,331 @@
+%YAML 1.1
+--- 
+StructureVersion: "1.0"
+Properties: 
+  RUID: 151370002_2136810042
+  Name: "Последняя розничная цена "
+  Caption: "Последняя розничная цена "
+  Version: "1.0.0.3"
+  Optional: False
+  Internal: True
+  MD5: 2F23072E74A0D5D10464D637ED3E5BA5
+Uses: 
+  - "147753351_73094925 GS.Общие.Метаданные.Домены"
+  - "148505833_396646306 Базовый склад.Приход.Таблица и поля"
+  - "147725669_43451302 Торговля - макросы"
+Objects: 
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 151369999_2136810042
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$REMAINS"
+      FIELDNAME: "USR$REMAINS"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Остаток До прихода"
+      LSHORTNAME: "Сумма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147012418_486813904 Накладная на получение товара(позиция), USR$INV_ADDWBILLLINE"
+      RELATIONNAME: "USR$INV_ADDWBILLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-07-20T16:03:20+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 151369998_2136810042
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "USR$LASTRETAILCOST"
+      FIELDNAME: "USR$LASTRETAILCOST"
+      FIELDSOURCE: "DCURRENCY"
+      FIELDSOURCEKEY: "147000131_486813904 Сумма, DCURRENCY"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Последняя розн. цена"
+      LSHORTNAME: "Сумма"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147012418_486813904 Накладная на получение товара(позиция), USR$INV_ADDWBILLLINE"
+      RELATIONNAME: "USR$INV_ADDWBILLLINE"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: ~
+      VISIBLE: 1
+      EDITIONDATE: 2023-07-20T16:03:31+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 151369846_2136810042
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "star_LastCost_and_Remains"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-07-20T16:15:28+03:00
+      DISPLAYSCRIPT: | 
+        STAR_LASTCOST_AND_REMAINS
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QHAAAAR09PREtFWQcAAABHT09ES0VZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZO
+        U1RQUlNUBgAAAERFUEtFWQYAAABERVBLRVkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARk5TVFBS
+        U1QPAAAATElORURPQ1VNRU5US0VZDwAAAExJTkVET0NVTUVOVEtFWQAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAABGTlNURkxQUg==
+      SCRIPT: | 
+        ' функция поиска остатков по товару
+        ' вернет массив: количество, посл.розничная цена, дата поступления
+        Function star_LastCost_and_Remains(goodkey, depkey, Linedocumentkey)
+        
+              dim Arr(2), Creator, ibsql
+              Arr(0) = 0
+              Arr(1) = 0
+              Arr(2) = null
+        
+              Set Creator = New TCreator
+              set ibsql = Creator.GetObject(nil, "TIBSQL", "evr_ibsql_FindCost")
+              ibsql.Transaction = gdcBaseManager.ReadTransaction
+              ibsql.SQL.Text ="SELECT " & _
+                " c.FIRSTDATE, " & _
+                " c.usr$inv_costretailncu as costretailncu, " & _
+                " SUM(m.debit - m.credit) as Quantity " & _
+                "FROM " & _
+                " inv_card c " & _
+                " JOIN inv_movement m ON m.cardkey = c.id " & _
+                " join gd_contact con ON m.contactkey = con.id " & _
+                " WHERE c.goodkey = :goodkey " & _
+                " and m.documentkey <> :Linedocumentkey " & _
+                " and con.ID = :depkey " & _
+                "GROUP BY 1 ,2 " & _
+                " HAVING SUM(m.debit - m.credit) > 0 " & _
+                "order by 1 desc "
+        
+              ibsql.ParamByName("goodkey").AsInteger = goodkey
+              ibsql.ParamByName("depkey").AsInteger = depkey
+              ibsql.ParamByName("Linedocumentkey").AsInteger = Linedocumentkey
+              ibsql.ExecQuery
+              if ibsql.RecordCount > 0 then
+                Arr(0) = ibsql.FieldByName("quantity").AsCurrency
+                Arr(1) = ibsql.FieldByName("costretailncu").AsCurrency
+                Arr(2) = ibsql.FieldByName("FIRSTDATE").AsDateTime
+              end if
+              star_LastCost_and_Remains = Arr
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcStoredProc"
+      RUID: 151386148_1959566044
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      PROCEDURENAME: "USR$P_GETLASTCOST"
+      EDITIONDATE: 2023-07-25T12:52:13+03:00
+      PROCEDURESOURCE: | 
+        CREATE OR ALTER PROCEDURE USR$P_GETLASTCOST (
+            GOODKEY INTEGER,
+            DEPKEY INTEGER,
+            LINEDOCUMENTKEY INTEGER)
+        RETURNS ( 
+            FIRSTDATE DATE,
+            COSTPROVIDER NUMERIC(15, 4),
+            COSTBUYNCU NUMERIC(15, 4),
+            COSTRETAILNCU NUMERIC(15, 4),
+            QUANTITY NUMERIC(15, 4))
+         AS
+        BEGIN
+        SELECT first(1)
+         c.FIRSTDATE,
+         c.USR$INV_COSTPROVIDER,
+         c.USR$INV_COSTBUYNCU,
+         c.usr$inv_costretailncu,
+         SUM(m.debit - m.credit)
+        FROM
+         inv_card c
+         JOIN inv_movement m ON m.cardkey = c.id
+         join gd_contact con ON m.contactkey = con.id
+         WHERE c.goodkey = :goodkey
+         and m.documentkey <> :Linedocumentkey
+         and con.ID = :depkey
+        GROUP BY 1, 2, 3, 4
+         HAVING SUM(m.debit - m.credit) > 0
+        order by 1 desc
+         INTO :FIRSTDATE, :COSTPROVIDER, :COSTBUYNCU, :COSTRETAILNCU, :QUANTITY;
+         SUSPEND;
+        END
+        
+      RDB$DESCRIPTION: ~
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 152876418_1674184290
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 152876416_1674184290
+    Fields: 
+      NAME: "TgdcInvDocumentLine147010993_109092844GetSelectClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147011009_109092844 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147010993_109092844"
+      OBJECTNAME: "TgdcInvDocumentLine147010993_109092844"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-07-25T12:38:15+03:00
+      DISPLAYSCRIPT: | 
+        TGDCINVDOCUMENTLINE147010993_109092844GETSELECTCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        option explicit
+        function TgdcInvDocumentLine147010993_109092844GetSelectClause(Self)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcInvDocumentLine147010993_109092844GetSelectClause = _
+            Inherited(Self, "GetSelectClause", Array(Self)) & ", g.BARCODE, lc.* "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        end function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 152876416_1674184290
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETSELECTCLAUSE"
+      FUNCTIONKEY: "152876418_1674184290 TgdcInvDocumentLine147010993_109092844GetSelectClause"
+      OBJECTKEY: "147011009_109092844 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147010993_109092844"
+      OBJECTNAME: "TgdcInvDocumentLine147010993_109092844"
+      PARENTNAME: "TgdcInvDocumentLine"
+      EDITIONDATE: 2023-07-25T12:38:15+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 151386151_1959566044
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 151386149_1959566044
+    Fields: 
+      NAME: "TgdcInvDocumentLine147010993_109092844GetFromClause"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "METHOD"
+      MODULECODE: "147011009_109092844 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147010993_109092844"
+      OBJECTNAME: "TgdcInvDocumentLine147010993_109092844"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-07-25T12:32:23+03:00
+      DISPLAYSCRIPT: | 
+        TGDCINVDOCUMENTLINE147010993_109092844GETFROMCLAUSE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RQUlNU
+        CAAAAEFSRUZSRVNICAAAAEFSRUZSRVNIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Option Explicit
+        Function TgdcInvDocumentLine147010993_109092844GetFromClause(Self, ARefresh)
+        '*** Данный код необходим для вызова кода определенного в gdc-классе.***
+        '*** При его удаления  возможно нарушение  правильной работы системы.***
+          TgdcInvDocumentLine147010993_109092844GetFromClause = _
+            Inherited(Self, "GetFromClause", Array(Self, ARefresh)) & _
+            " LEFT JOIN USR$P_GETLASTCOST(CARD.GOODKEY," & Self.MasterSource.DataSet.FieldByName("USR$DEPTKEY").asInteger & " ,INVLINE.DOCUMENTKEY) LC ON 1=1 "
+        '***               Конец кода поддержки gdc-класса.                  ***
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 151386149_1959566044
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "GETFROMCLAUSE"
+      FUNCTIONKEY: "151386151_1959566044 TgdcInvDocumentLine147010993_109092844GetFromClause"
+      OBJECTKEY: "147011009_109092844 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147010993_109092844"
+      OBJECTNAME: "TgdcInvDocumentLine147010993_109092844"
+      PARENTNAME: "TgdcInvDocumentLine"
+      EDITIONDATE: 2023-07-25T12:32:23+03:00
