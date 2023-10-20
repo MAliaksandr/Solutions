@@ -5,10 +5,10 @@ Properties:
   RUID: 147294138_2075105124
   Name: "Комплектация товара. 2023"
   Caption: "Комплектация товара. 2023"
-  Version: "1.0.0.1"
+  Version: "1.0.0.3"
   Optional: False
   Internal: True
-  MD5: 71A6B8785B416256EFEC39CDB62117FF
+  MD5: 6F5230CD5365CEDEEDF7942570A51B08
 Uses: 
   - "147755479_69526485 GS.Общие.EVT_OBJECT"
   - "147696827_43451302 Мат_склад - макросы"
@@ -81,7 +81,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-04-04T13:11:55+03:00
+      EDITIONDATE: 2023-10-19T16:20:04+03:00
       DISPLAYSCRIPT: | 
         MAKECOMPLECT_BEFOREPOST
         
@@ -102,7 +102,7 @@ Objects:
              "  max(fc.usr$inv_sellnds) as usr$inv_sellnds, " & _
              "  max(fc.usr$inv_tradeperc) as usr$inv_tradeperc, " & _
              "  sum(fc.usr$inv_costbuyncu * wl.OUTQUANTITY) as SumBuy, " & _
-             "    sum(fc.usr$inv_costaccncu * wl.OUTQUANTITY) as SumAccNcu, " & _
+             "  sum(fc.usr$inv_costaccncu * wl.OUTQUANTITY) as SumAccNcu, " & _
              "  sum(fc.usr$inv_costprovider * wl.OUTQUANTITY) as SumProvider, " & _
              "  sum(fc.usr$inv_costtradencu * wl.OUTQUANTITY)as SumTrade, " & _
              "  sum(fc.usr$inv_costtrwithnds * wl.OUTQUANTITY) as sumTRWithNDS, " & _
@@ -115,29 +115,16 @@ Objects:
             ibsql.ParamByName("mk").AsInteger = Self.MasterSource.DataSet.Id
             ibsql.ExecQuery
         
-            if Assigned(Self.FindField("to_usr$inv_accountkey")) then
-              Self.FieldByName("to_usr$inv_accountkey").AsVariant = _
-                ibsql.FieldByName("usr$inv_accountkey").AsVariant
-            end if
-        
-            if Assigned(Self.FindField("to_usr$inv_costbuyncu")) then
-              Self.FieldByName("to_usr$inv_costbuyncu").AsCurrency = _
-                 ibsql.FieldByName("SUMBUY").ASCurrency / _
-                 Self.FieldByName("INQUANTITY").AsCurrency
+            Dim RazComplect : RazComplect = False
+            
+            ' установлен параметр разкомплект
+            if Self.MasterSource.DataSet.FieldByName("USR$ACTTYPE").asInteger = 1 Then
+              RazComplect = True
             end if
             
-            if Assigned(Self.FindField("to_usr$inv_costprovider")) then
-              Self.FieldByName("to_usr$inv_costprovider").AsCurrency = _
-                 ibsql.FieldByName("SUMPROVIDER").ASCurrency / _
-                 Self.FieldByName("INQUANTITY").AsCurrency
-            end if
-        
-            if Assigned(Self.FindField("TO_USR$INV_COSTTRADENCU")) then
-              Self.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency = _
-                 ibsql.FieldByName("SUMTRADE").ASCurrency / _
-                 Self.FieldByName("INQUANTITY").AsCurrency
-            end if
-        
+            
+            ' общие поля для обоих типов переработки
+            ' ======================================
             if Assigned(Self.FindField("TO_USR$INV_ADDNDS")) then
               Self.FieldByName("TO_USR$INV_ADDNDS").AsCurrency = _
                 ibsql.FieldByName("USR$INV_ADDNDS").AsCurrency
@@ -147,45 +134,15 @@ Objects:
               Self.FieldByName("TO_USR$INV_SELLNDS").AsCurrency = _
                 ibsql.FieldByName("USR$INV_SELLNDS").AsCurrency
             end if
-        
-            if Assigned(Self.FindField("TO_USR$INV_TRADEPERC")) then
-              Self.FieldByName("TO_USR$INV_TRADEPERC").AsCurrency = _
-                ibsql.FieldByName("USR$INV_TRADEPERC").AsCurrency
+            
+            if Assigned(Self.FindField("to_usr$inv_accountkey")) then
+              Self.FieldByName("to_usr$inv_accountkey").AsVariant = _
+                ibsql.FieldByName("usr$inv_accountkey").AsVariant
             end if
             
-            if Assigned(Self.FindField("TO_USR$INV_COSTTRWITHNDS")) then
-              Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency = _
-                 ibsql.FieldByName("SUMTRWITHNDS").ASCurrency / _
-                 Self.FieldByName("INQUANTITY").AsCurrency
-            end if
-            
-            if Assigned(Self.FindField("TO_USR$INV_COSTRETAILNCU")) then
-              Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = _
-                Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency
-            end if
-            
-            if Assigned(Self.FindField("TO_usr$inv_selcostncu")) then
-              Self.FieldByName("TO_usr$inv_selcostncu").AsCurrency = _
-                 ibsql.FieldByName("SUMselcost").ASCurrency / _
-                 Self.FieldByName("INQUANTITY").AsCurrency
-            end if
-        
-            if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
-              Self.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
-                gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency, _
-                Self.FieldByName("INQUANTITY").AsCurrency, 1, 1, 2)
-            end if
-            
-            if Assigned(Self.FindField("USR$SUMSELNCU")) then
-              Self.FieldByName("USR$SUMSELNCU").AsCurrency = _
-                mn_options.RoundCalcCardCost(Self.FieldByName("TO_USR$INV_SELCOSTNCU").AsCurrency * _
-                Self.FieldByName("INQUANTITY").AsCurrency)
-            end if
-            
-            if Assigned(Self.FindField("USR$SUMNCU")) then
-              Self.FieldByName("USR$SUMNCU").AsCurrency = _
-                gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTBUYNCU").AsCurrency, _
-                Self.FieldByName("INQUANTITY").AsCurrency, 1,1,2)
+            if Assigned(Self.FindField("to_USR$INV_ORIGINCOUNTRYKEY")) then
+              Self.FieldByName("to_USR$INV_ORIGINCOUNTRYKEY").AsVariant = _
+                ibsql.FieldByName("COUNTRY").AsVariant
             end if
             
             if Assigned(Self.FindField("TO_USR$INV_DATERECEIVE")) then
@@ -193,18 +150,157 @@ Objects:
                 Self.FieldByName("DOCUMENTDATE").AsDateTime
             end if
             
-            ibsql.Close
+            'отличия комплекта и разкомплекта
+            '================================
+            if not RazComplect Then
+                if Assigned(Self.FindField("to_usr$inv_costbuyncu")) then
+                  Self.FieldByName("to_usr$inv_costbuyncu").AsCurrency = _
+                     ibsql.FieldByName("SUMBUY").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
         
-            if Assigned(Self.FindField("TO_USR$INV_COSTACCNCU")) then
-                Self.FieldByName("TO_USR$INV_COSTACCNCU").Value = _
-                   ibsql.FieldByName("SumAccNcu").ASCurrency / _
-                   Self.FieldByName("INQUANTITY").AsCurrency
+                if Assigned(Self.FindField("to_usr$inv_costprovider")) then
+                  Self.FieldByName("to_usr$inv_costprovider").AsCurrency = _
+                     ibsql.FieldByName("SUMPROVIDER").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTTRADENCU")) then
+                  Self.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency = _
+                     ibsql.FieldByName("SUMTRADE").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_TRADEPERC")) then
+                  Self.FieldByName("TO_USR$INV_TRADEPERC").AsCurrency = _
+                    ibsql.FieldByName("USR$INV_TRADEPERC").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTTRWITHNDS")) then
+                  Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency = _
+                     ibsql.FieldByName("SUMTRWITHNDS").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTRETAILNCU")) then
+                  Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = _
+                    Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_usr$inv_selcostncu")) then
+                  Self.FieldByName("TO_usr$inv_selcostncu").AsCurrency = _
+                     ibsql.FieldByName("SUMselcost").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
+                  Self.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+                    gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency, _
+                    Self.FieldByName("INQUANTITY").AsCurrency, 1, 1, 2)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMSELNCU")) then
+                  Self.FieldByName("USR$SUMSELNCU").AsCurrency = _
+                    mn_options.RoundCalcCardCost(Self.FieldByName("TO_USR$INV_SELCOSTNCU").AsCurrency * _
+                    Self.FieldByName("INQUANTITY").AsCurrency)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMNCU")) then
+                  Self.FieldByName("USR$SUMNCU").AsCurrency = _
+                    gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTBUYNCU").AsCurrency, _
+                    Self.FieldByName("INQUANTITY").AsCurrency, 1,1,2)
+                end if
+                ibsql.Close
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTACCNCU")) then
+                    Self.FieldByName("TO_USR$INV_COSTACCNCU").Value = _
+                       ibsql.FieldByName("SumAccNcu").ASCurrency / _
+                       Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+            else
+             dim sql
+             set sql = Creator.GetObject(NULL, "TIBSQL", "")
+             sql.Transaction = Self.Transaction
+             sql.SQl.Text = _
+             "select " & _
+             "  sum(iif(wl.INQUANTITY=0,1,wl.INQUANTITY)) as Inquantity " & _
+             "from USR$INV_ACTWORKLINE wl " & _
+             "LEFT JOIN INV_CARD fc ON fc.ID  =  wl.FROMCARDKEY " & _
+             "where wl.MASTERKEY = :mk " & _
+             "and wl.INQUANTITY>0 "
+            sql.ParamByName("mk").AsInteger = Self.MasterSource.DataSet.Id
+            sql.ExecQuery
+        
+            if sql.FieldByName("INQUANTITY").AsCurrency = 0 then exit Function
+             ' для разкомплекта считаем, наверное, пропорционально
+               if Assigned(Self.FindField("to_usr$inv_costbuyncu")) then
+                  Self.FieldByName("to_usr$inv_costbuyncu").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMBUY").ASCurrency, _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("to_usr$inv_costprovider")) then
+                  Self.FieldByName("to_usr$inv_costprovider").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMPROVIDER").ASCurrency , _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTTRADENCU")) then
+                  Self.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMTRADE").ASCurrency, _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_TRADEPERC")) then
+                  Self.FieldByName("TO_USR$INV_TRADEPERC").AsCurrency = _
+                    ibSQL.FieldByName("USR$INV_TRADEPERC").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTTRWITHNDS")) then
+                  Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMTRWITHNDS").ASCurrency, _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTRETAILNCU")) then
+                  Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = _
+                    Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_usr$inv_selcostncu")) then
+                  Self.FieldByName("TO_usr$inv_selcostncu").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMselcost").ASCurrency, _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
+                  Self.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+                    gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency, _
+                    Self.FieldByName("INQUANTITY").AsCurrency, 1, 1, 2)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMSELNCU")) then
+                  Self.FieldByName("USR$SUMSELNCU").AsCurrency = _
+                    mn_options.RoundCalcCardCost(Self.FieldByName("TO_USR$INV_SELCOSTNCU").AsCurrency * _
+                    Self.FieldByName("INQUANTITY").AsCurrency)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMNCU")) then
+                  Self.FieldByName("USR$SUMNCU").AsCurrency = _
+                    gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTBUYNCU").AsCurrency, _
+                    Self.FieldByName("INQUANTITY").AsCurrency, 1,1,2)
+                end if
+                ibsql.Close
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTACCNCU")) then
+                    Self.FieldByName("TO_USR$INV_COSTACCNCU").Value = _
+                       gs.MulDiv(1, ibsql.FieldByName("SumAccNcu").ASCurrency, _
+                       sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+             
             end if
         
-            if Assigned(Self.FindField("to_USR$INV_ORIGINCOUNTRYKEY")) then
-              Self.FieldByName("to_USR$INV_ORIGINCOUNTRYKEY").AsVariant = _
-                ibsql.FieldByName("COUNTRY").AsVariant
-            end if
         
           elseif Assigned(Self.FindField("OutQuantity")) then
             if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
@@ -252,7 +348,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-04-04T12:15:41+03:00
+      EDITIONDATE: 2023-10-20T14:05:01+03:00
       DISPLAYSCRIPT: | 
         TGDCINVDOCUMENTLINE149299696_623967871DOBEFOREPOST
         
@@ -312,7 +408,16 @@ Objects:
         '
         '  end if
         
-          call MakeComplect_BeforePost(Self)
+        
+        '  if Application.MessageBox("Пересчитать позиции?", "Внимание", vbYesNo+vbInformation+vbSystemModal)=vbYes Then
+        '    dim gdcInvDocumentline
+        '    set gdcInvDocumentline = Self
+        '    gdcInvDocumentline.First
+        '    While not gdcInvDocumentline.EOF
+        '      call MakeComplect_BeforePost(Self)
+        '      gdcInvDocumentline.Next
+        '    wend
+        '  end if
           call inv_RecalcAlgorithms.InvAddCostAccOnDoBeforePost(Self)
         End Sub
         
@@ -336,7 +441,7 @@ Objects:
       OBJECTKEY: "149299912_623967871 TgdcBase\\TgdcTree\\TgdcDocument\\TgdcInvBaseDocument\\TgdcInvDocumentLine\\TgdcInvDocumentLine147872775_59073233\\TgdcInvDocumentLine149299696_623967871"
       OBJECTNAME: "TgdcInvDocumentLine149299696_623967871"
       PARENTNAME: "TgdcInvDocumentLine147872775_59073233"
-      EDITIONDATE: 2023-04-04T12:15:41+03:00
+      EDITIONDATE: 2023-10-20T14:05:01+03:00
   - 
     Properties: 
       Class: "TgdcFunction"
@@ -451,7 +556,7 @@ Objects:
       REPORTGROUPKEY: "147020797_23783130 Отчеты(gdc_frmInvDocument147872775_59073233)"
       SERVERKEY: ~
       TEMPLATEKEY: "147120232_356340120 Акт переработки (стандрат)"
-      EDITIONDATE: 2023-04-04T14:45:10+03:00
+      EDITIONDATE: 2023-04-05T11:46:31+03:00
   - 
     Properties: 
       Class: "TgdcReport"
@@ -476,7 +581,7 @@ Objects:
       REPORTGROUPKEY: "147020797_23783130 Отчеты(gdc_frmInvDocument147872775_59073233)"
       SERVERKEY: ~
       TEMPLATEKEY: "147120183_356340120 Акт переработки"
-      EDITIONDATE: 2023-04-04T14:46:49+03:00
+      EDITIONDATE: 2023-04-05T11:43:28+03:00
   - 
     Properties: 
       Class: "TgdcReport"
@@ -502,3 +607,364 @@ Objects:
       SERVERKEY: ~
       TEMPLATEKEY: "147120296_356340120 Реестр актов переработки"
       EDITIONDATE: 2023-04-04T14:50:06+03:00
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 148752416_43189489
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      NAME: "MakeComplect_OnExecute"
+      COMMENT: ~
+      EVENT: ~
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "UNKNOWN"
+      MODULECODE: "1010001_17 APPLICATION"
+      OBJECTNAME: "APPLICATION"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-10-20T14:15:03+03:00
+      DISPLAYSCRIPT: | 
+        MAKECOMPLECT_ONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QEAAAAU0VMRgQAAABTRUxGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZOU1RGTFBS
+      SCRIPT: | 
+        Function MakeComplect_OnExecute(Self)
+          if Self.State <>2 and Self.State<>3 Then Self.Edit
+          if Assigned(Self.FindField("InQuantity")) then
+            set Creator = new TCreator
+            set ibsql = Creator.GetObject(NULL, "TIBSQL", "")
+            ibsql.Transaction = Self.Transaction
+            ibsql.SQl.Text = _
+             "select " & _
+             "  max(fc.USR$INV_ORIGINCOUNTRYKEY) as country, " & _
+             "  max(fc.usr$inv_accountkey) as usr$inv_accountkey, " & _
+             "  max(fc.usr$inv_addnds) as usr$inv_addnds, " & _
+             "  max(fc.usr$inv_sellnds) as usr$inv_sellnds, " & _
+             "  max(fc.usr$inv_tradeperc) as usr$inv_tradeperc, " & _
+             "  sum(fc.usr$inv_costbuyncu * wl.OUTQUANTITY) as SumBuy, " & _
+             "  sum(fc.usr$inv_costaccncu * wl.OUTQUANTITY) as SumAccNcu, " & _
+             "  sum(fc.usr$inv_costprovider * wl.OUTQUANTITY) as SumProvider, " & _
+             "  sum(fc.usr$inv_costtradencu * wl.OUTQUANTITY)as SumTrade, " & _
+             "  sum(fc.usr$inv_costtrwithnds * wl.OUTQUANTITY) as sumTRWithNDS, " & _
+             "  sum(fc.usr$inv_selcostncu * wl.OUTQUANTITY) as sumselcost, " & _
+             "  sum(fc.USR$INV_COSTRETAILNCU * wl.OUTQUANTITY) as sumretail " & _
+             "from USR$INV_ACTWORKLINE wl " & _
+             "LEFT JOIN INV_CARD fc ON fc.ID  =  wl.FROMCARDKEY " & _
+             "where wl.MASTERKEY = :mk " & _
+             "and wl.OUTQUANTITY>0 "
+            ibsql.ParamByName("mk").AsInteger = Self.MasterSource.DataSet.Id
+            ibsql.ExecQuery
+        
+            Dim RazComplect : RazComplect = False
+            
+            ' установлен параметр разкомплект
+            if Self.MasterSource.DataSet.FieldByName("USR$ACTTYPE").asInteger = 1 Then
+              RazComplect = True
+            end if
+            
+            
+            ' общие поля для обоих типов переработки
+            ' ======================================
+            if Assigned(Self.FindField("TO_USR$INV_ADDNDS")) then
+              Self.FieldByName("TO_USR$INV_ADDNDS").AsCurrency = _
+                ibsql.FieldByName("USR$INV_ADDNDS").AsCurrency
+            end if
+        
+            if Assigned(Self.FindField("TO_USR$INV_SELLNDS")) then
+              Self.FieldByName("TO_USR$INV_SELLNDS").AsCurrency = _
+                ibsql.FieldByName("USR$INV_SELLNDS").AsCurrency
+            end if
+            
+            if Assigned(Self.FindField("to_usr$inv_accountkey")) then
+              Self.FieldByName("to_usr$inv_accountkey").AsVariant = _
+                ibsql.FieldByName("usr$inv_accountkey").AsVariant
+            end if
+            
+            if Assigned(Self.FindField("to_USR$INV_ORIGINCOUNTRYKEY")) then
+              Self.FieldByName("to_USR$INV_ORIGINCOUNTRYKEY").AsVariant = _
+                ibsql.FieldByName("COUNTRY").AsVariant
+            end if
+            
+            if Assigned(Self.FindField("TO_USR$INV_DATERECEIVE")) then
+              Self.FieldByName("TO_USR$INV_DATERECEIVE").AsDateTime = _
+                Self.FieldByName("DOCUMENTDATE").AsDateTime
+            end if
+            
+            'отличия комплекта и разкомплекта
+            '================================
+            if not RazComplect Then
+                if Assigned(Self.FindField("to_usr$inv_costbuyncu")) then
+                  Self.FieldByName("to_usr$inv_costbuyncu").AsCurrency = _
+                     ibsql.FieldByName("SUMBUY").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("to_usr$inv_costprovider")) then
+                  Self.FieldByName("to_usr$inv_costprovider").AsCurrency = _
+                     ibsql.FieldByName("SUMPROVIDER").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTTRADENCU")) then
+                  Self.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency = _
+                     ibsql.FieldByName("SUMTRADE").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_TRADEPERC")) then
+                  Self.FieldByName("TO_USR$INV_TRADEPERC").AsCurrency = _
+                    ibsql.FieldByName("USR$INV_TRADEPERC").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTTRWITHNDS")) then
+                  Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency = _
+                     ibsql.FieldByName("SUMTRWITHNDS").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTRETAILNCU")) then
+                  Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = _
+                    Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_usr$inv_selcostncu")) then
+                  Self.FieldByName("TO_usr$inv_selcostncu").AsCurrency = _
+                     ibsql.FieldByName("SUMselcost").ASCurrency / _
+                     Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
+                  Self.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+                    gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency, _
+                    Self.FieldByName("INQUANTITY").AsCurrency, 1, 1, 2)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMSELNCU")) then
+                  Self.FieldByName("USR$SUMSELNCU").AsCurrency = _
+                    mn_options.RoundCalcCardCost(Self.FieldByName("TO_USR$INV_SELCOSTNCU").AsCurrency * _
+                    Self.FieldByName("INQUANTITY").AsCurrency)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMNCU")) then
+                  Self.FieldByName("USR$SUMNCU").AsCurrency = _
+                    gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTBUYNCU").AsCurrency, _
+                    Self.FieldByName("INQUANTITY").AsCurrency, 1,1,2)
+                end if
+                ibsql.Close
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTACCNCU")) then
+                    Self.FieldByName("TO_USR$INV_COSTACCNCU").Value = _
+                       ibsql.FieldByName("SumAccNcu").ASCurrency / _
+                       Self.FieldByName("INQUANTITY").AsCurrency
+                end if
+            else
+             dim sql
+             set sql = Creator.GetObject(NULL, "TIBSQL", "")
+             sql.Transaction = Self.Transaction
+             sql.SQl.Text = _
+             "select " & _
+             "  sum(iif(wl.INQUANTITY=0,1,wl.INQUANTITY)) as Inquantity " & _
+             "from USR$INV_ACTWORKLINE wl " & _
+             "LEFT JOIN INV_CARD fc ON fc.ID  =  wl.FROMCARDKEY " & _
+             "where wl.MASTERKEY = :mk " & _
+             "and wl.INQUANTITY>0 "
+            sql.ParamByName("mk").AsInteger = Self.MasterSource.DataSet.Id
+            sql.ExecQuery
+        
+            if sql.FieldByName("INQUANTITY").AsCurrency = 0 then exit Function
+             ' для разкомплекта считаем, наверное, пропорционально
+               if Assigned(Self.FindField("to_usr$inv_costbuyncu")) then
+                  Self.FieldByName("to_usr$inv_costbuyncu").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMBUY").ASCurrency, _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("to_usr$inv_costprovider")) then
+                  Self.FieldByName("to_usr$inv_costprovider").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMPROVIDER").ASCurrency , _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTTRADENCU")) then
+                  Self.FieldByName("TO_USR$INV_COSTTRADENCU").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMTRADE").ASCurrency, _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_TRADEPERC")) then
+                  Self.FieldByName("TO_USR$INV_TRADEPERC").AsCurrency = _
+                    ibSQL.FieldByName("USR$INV_TRADEPERC").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTTRWITHNDS")) then
+                  Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMTRWITHNDS").ASCurrency, _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTRETAILNCU")) then
+                  Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency = _
+                    Self.FieldByName("TO_USR$INV_COSTTRWITHNDS").AsCurrency
+                end if
+        
+                if Assigned(Self.FindField("TO_usr$inv_selcostncu")) then
+                  Self.FieldByName("TO_usr$inv_selcostncu").AsCurrency = _
+                     gs.MulDiv(1, ibsql.FieldByName("SUMselcost").ASCurrency, _
+                     sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
+                  Self.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+                    gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTRETAILNCU").AsCurrency, _
+                    Self.FieldByName("INQUANTITY").AsCurrency, 1, 1, 2)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMSELNCU")) then
+                  Self.FieldByName("USR$SUMSELNCU").AsCurrency = _
+                    mn_options.RoundCalcCardCost(Self.FieldByName("TO_USR$INV_SELCOSTNCU").AsCurrency * _
+                    Self.FieldByName("INQUANTITY").AsCurrency)
+                end if
+        
+                if Assigned(Self.FindField("USR$SUMNCU")) then
+                  Self.FieldByName("USR$SUMNCU").AsCurrency = _
+                    gs.MulDiv(Self.FieldByName("TO_USR$INV_COSTBUYNCU").AsCurrency, _
+                    Self.FieldByName("INQUANTITY").AsCurrency, 1,1,2)
+                end if
+                ibsql.Close
+        
+                if Assigned(Self.FindField("TO_USR$INV_COSTACCNCU")) then
+                    Self.FieldByName("TO_USR$INV_COSTACCNCU").Value = _
+                       gs.MulDiv(1, ibsql.FieldByName("SumAccNcu").ASCurrency, _
+                       sql.FieldByName("INQUANTITY").AsCurrency, 1,2)
+                end if
+        
+             
+            end if
+        
+        
+          elseif Assigned(Self.FindField("OutQuantity")) then
+            if Assigned(Self.FindField("USR$SUMRETAILNCU")) then
+              Self.FieldByName("USR$SUMRETAILNCU").AsCurrency = _
+                gs.MulDiv(Self.FieldByName("FROM_USR$INV_COSTRETAILNCU").AsCurrency, _
+               Self.FieldByName("OUTQUANTITY").AsCurrency, 1, 1, 2)
+            end if
+        
+            if Assigned(Self.FindField("USR$SUMSELNCU")) then
+              Self.FieldByName("USR$SUMSELNCU").AsCurrency = _
+                gs.MulDiv(Self.FieldByName("FROM_USR$INV_SELCOSTNCU").AsCurrency, _
+                Self.FieldByName("OUTQUANTITY").AsCurrency,1,1,2)
+            end if
+            
+            if Assigned(Self.FindField("USR$SUMNCU")) then
+              Self.FieldByName("USR$SUMNCU").AsCurrency = _
+                gs.MulDiv(Self.FieldByName("FROM_USR$INV_COSTBUYNCU").AsCurrency, _
+                Self.FieldByName("OUTQUANTITY").AsCurrency, 1, 1, 2)
+            end if
+          end if
+          Self.Post
+        End Function
+        
+  - 
+    Properties: 
+      Class: "TgdcFunction"
+      RUID: 148752415_43189489
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 148752413_43189489
+    Fields: 
+      NAME: "usrg_recalcPositionsOnExecute"
+      COMMENT: ~
+      EVENT: "ONEXECUTE"
+      FUNCTIONTYPE: ~
+      GROUPNAME: ~
+      INHERITEDRULE: 0
+      LANGUAGE: "VBScript"
+      LOCALNAME: ~
+      MODIFYDATE: ~
+      MODULE: "EVENTS"
+      MODULECODE: "149299702_623967871 dlgInvDocument149299696_623967871"
+      OBJECTNAME: "dlgInvDocument149299696_623967871"
+      OWNERNAME: ~
+      PUBLICFUNCTION: 1
+      SHORTCUT: ~
+      USEDEBUGINFO: 0
+      EDITIONDATE: 2023-10-20T14:15:29+03:00
+      DISPLAYSCRIPT: | 
+        USRG_RECALCPOSITIONSONEXECUTE
+        
+      ENTEREDPARAMS: !!binary > 
+        U0xQUlBSU1QGAAAAU0VOREVSBgAAAFNFTkRFUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGTlNU
+        RkxQUg==
+      SCRIPT: | 
+        '#include MAKECOMPLECT_ONEXECUTE
+        Option Explicit
+        Sub usrg_recalcPositionsOnExecute(ByVal Sender)
+        '*** Данный код необходим для вызова встроенного обработчика ***
+        '*** В случае его удаления возможно нарушение работы системы ***
+          Call   Inherited(Sender, "OnExecute", Array(Sender))
+        '*** конец кода поддержки встроенного обработчика            ***
+        
+         dim Object, DetailObject
+         set Object = Sender.OwnerForm.gdcObject
+         set DetailObject = Sender.OwnerForm.Owner.gdcDetailObject
+         
+         if Application.MessageBox("Пересчитать позиции?", "Внимание", vbYesNo+vbInformation+vbSystemModal)=vbYes Then
+            DetailObject.First
+            While not DetailObject.EOF
+              call MakeComplect_OnExecute(DetailObject)
+              DetailObject.Next
+            wend
+          end if
+        End Sub
+        
+    Set: 
+      - 
+        Table: "RP_ADDITIONALFUNCTION"
+        Items: 
+          - 
+            ADDFUNCTIONKEY: "148752416_43189489 MakeComplect_OnExecute"
+  - 
+    Properties: 
+      Class: "TgdcDelphiObject"
+      RUID: 148752412_43189489
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+      HeadObject: 148752413_43189489
+    Fields: 
+      PARENT: "149299702_623967871 dlgInvDocument149299696_623967871"
+      NAME: "usrg_recalcPositions"
+      CLASSNAME: ""
+      DESCRIPTION: ~
+      MACROSGROUPKEY: ~
+      OBJECTNAME: "usrg_recalcPositions"
+      OBJECTTYPE: 0
+      REPORTGROUPKEY: ~
+      SUBTYPE: ""
+      EDITIONDATE: 2023-10-20T14:08:51+03:00
+  - 
+    Properties: 
+      Class: "TgdcEvent"
+      RUID: 148752413_43189489
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      DISABLE: 0
+      EVENTNAME: "ONEXECUTE"
+      FUNCTIONKEY: "148752415_43189489 usrg_recalcPositionsOnExecute"
+      OBJECTKEY: "148752412_43189489 dlgInvDocument149299696_623967871\\usrg_recalcPositions"
+      OBJECTNAME: "usrg_recalcPositions"
+      PARENTNAME: "dlgInvDocument149299696_623967871"
+      EDITIONDATE: 2023-10-20T14:15:29+03:00
