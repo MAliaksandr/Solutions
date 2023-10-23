@@ -5,10 +5,10 @@ Properties:
   RUID: 147384406_789097196
   Name: "VESTA.К Счету-Фактуре"
   Caption: "VESTA.К Счету-Фактуре"
-  Version: "1.0.0.30"
+  Version: "1.0.0.31"
   Optional: False
   Internal: True
-  MD5: A51D2CD24F7F67A0953C4040C711D3D5
+  MD5: 18E96CF275990350D7580B98DEE4169F
 Uses: 
   - "147753351_73094925 GS.Общие.Метаданные.Домены"
   - "147866390_143913310 GS.Общие.Исследователь.Справочники и прочие документы склада"
@@ -376,7 +376,7 @@ Objects:
       PUBLICFUNCTION: 1
       SHORTCUT: ~
       USEDEBUGINFO: 0
-      EDITIONDATE: 2023-10-18T11:16:47+03:00
+      EDITIONDATE: 2023-10-20T13:09:25+03:00
       DISPLAYSCRIPT: | 
         SAN_INVOICE_REP
         
@@ -567,7 +567,7 @@ Objects:
            "ORDER BY 1 DESC, 2 DESC "
         
           q2_q.ParamByName("dockey").AsInteger = documentkey
-          q2_q.ParamByName("nerez").AsInteger = gdcBaseManager.GetIDByRUIDString("147140069_779589892")
+          q2_q.ParamByName("nerez").AsInteger = gdcBaseManager.GetIDByRUIDString("147477654_2101601729")
          ' q2_q.FetchBlob = true
           q2_q.ExecQuery
         

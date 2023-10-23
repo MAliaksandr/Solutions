@@ -5,10 +5,10 @@ Properties:
   RUID: 147773121_84733194
   Name: "GS.Банк и Касса.Доверенность"
   Caption: "GS.Банк и Касса.Доверенность"
-  Version: "1.0.0.14"
+  Version: "1.0.0.16"
   Optional: False
   Internal: True
-  MD5: 93EC66C12AD66C0E59B55FFE8F5EF7B7
+  MD5: E485FAC4E57345EA7E9F59D5115E0AB5
 Uses: 
   - "147728891_43451302 Общие данные"
   - "147773290_84733194 GS.Банк и Касса.Бланки.Исследователь"
@@ -91,6 +91,7 @@ Objects:
       BRANCHKEY: ~
       DESCRIPTION: "Доверенность"
       EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
       LISTFIELD: ~
       LNAME: "Доверенность"
       LSHORTNAME: "Доверенность"
@@ -137,7 +138,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2016-01-18T12:12:49+03:00
+      EDITIONDATE: 2016-05-03T16:25:23+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -179,7 +180,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2016-01-18T12:12:49+03:00
+      EDITIONDATE: 2016-05-03T16:25:23+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -221,7 +222,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2016-01-18T12:12:49+03:00
+      EDITIONDATE: 2016-05-03T16:25:23+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -263,7 +264,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2016-01-18T12:12:49+03:00
+      EDITIONDATE: 2016-05-03T16:25:23+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -305,7 +306,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: 80
       VISIBLE: 1
-      EDITIONDATE: 2016-01-18T12:12:49+03:00
+      EDITIONDATE: 2016-05-03T16:25:23+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -362,6 +363,7 @@ Objects:
       BRANCHKEY: ~
       DESCRIPTION: "Доверенность(позиция)"
       EXTENDEDFIELDS: ~
+      GENERATORNAME: ~
       LISTFIELD: ~
       LNAME: "Доверенность(позиция)"
       LSHORTNAME: "Доверенность(позиция)"
@@ -408,7 +410,7 @@ Objects:
       SOURCENULLFLAG: ~
       STRINGLENGTH: ~
       VISIBLE: 1
-      EDITIONDATE: 2016-01-18T12:12:49+03:00
+      EDITIONDATE: 2016-05-03T16:25:23+03:00
       COMPUTED_VALUE: ~
       DEFSOURCE: ~
       OBJECTS: ~
@@ -3795,4 +3797,46 @@ Objects:
       COMPUTED_VALUE: ~
       DEFSOURCE: | 
         DEFAULT 0
+      OBJECTS: ~
+  - 
+    Properties: 
+      Class: "TgdcTableField"
+      RUID: 147368999_789097196
+      AlwaysOverwrite: False
+      DontRemove: False
+      IncludeSiblings: False
+    Fields: 
+      ALIGNMENT: "L"
+      COLWIDTH: 20
+      CROSSFIELD: ~
+      CROSSFIELDKEY: ~
+      CROSSTABLE: ~
+      CROSSTABLEKEY: ~
+      DELETERULE: ~
+      DESCRIPTION: "Основание подписания договора"
+      FIELDNAME: "USR$REASON"
+      FIELDSOURCE: "DTEXT255"
+      FIELDSOURCEKEY: "147000118_31587988 Текст (255), DTEXT255"
+      FORMAT: ~
+      GDCLASSNAME: ~
+      GDSUBTYPE: ~
+      LNAME: "Основание подписания договора"
+      LSHORTNAME: "Основание подписаниz"
+      NULLFLAG: ~
+      READONLY: 0
+      REFCROSSRELATION: ~
+      REFLISTFIELD: ~
+      REFRELATIONNAME: ~
+      RELATIONKEY: "147007789_20381277 Доверенность, USR$INV_ATTORNEY"
+      RELATIONNAME: "USR$INV_ATTORNEY"
+      RELATIONTYPE: "T"
+      SEMCATEGORY: ~
+      SETLISTFIELD: ~
+      SETLISTFIELDKEY: ~
+      SOURCENULLFLAG: ~
+      STRINGLENGTH: 255
+      VISIBLE: 1
+      EDITIONDATE: 2017-04-20T11:13:43+03:00
+      COMPUTED_VALUE: ~
+      DEFSOURCE: ~
       OBJECTS: ~
